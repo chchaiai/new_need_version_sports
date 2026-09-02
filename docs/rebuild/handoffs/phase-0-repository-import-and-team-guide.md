@@ -4,7 +4,7 @@
 >
 > 当前任务：新一轮需求收集的文档准备，以及当前分支文件导入目标仓库。
 >
-> 文档与仓库导入任务状态：DONE；PR 已创建，等待人工 Review。CI 遗留故障单独记录如下。
+> 文档与仓库导入任务状态：DONE；PR 已创建，等待人工 Review。当前仓库不设置 CI 任务。
 >
 > 需求收集状态：PARTIAL，老师会议的实际需求资料尚未提供。
 
@@ -14,7 +14,9 @@
 
 用户补充要求：后续阶段使用从 0 开始的数字编号；当前进度按各部分的具体情况表述，不使用原阶段标识。
 
-本次修改范围为根 README、当前状态和本目录交接记录。业务文档、架构文档、根 AGENTS.md、Contract、客户端、Backend、数据库和 CI 均只读。原状态正文存档，保留原编号，仅修正归档后的相对链接。
+用户进一步明确当前仓库不是 Backend 实现仓库，不需要 CI 操作；据此删除导入分支中自动触发的遗留 Backend workflow。
+
+本次修改范围为根 README、当前状态、本目录交接记录，以及删除 `.github/workflows/backend-ci.yml`。业务文档、架构文档、根 AGENTS.md、Contract、客户端、Backend 和数据库只读。原状态正文存档，保留原编号，仅修正归档后的相对链接。
 
 ## 起点与发布方式
 
@@ -31,7 +33,7 @@
 | 导入方式 | 将当前完整 Git 文件树作为目标 main 上的新快照提交，通过独立 PR 分支导入；本地原分支和既有提交历史保留 |
 | 完整性标准 | PR 分支的 Git tree 必须与文档定稿后的本地源分支 Git tree 完全一致 |
 
-“全部内容”指当前分支的全部 Git 跟踪文件和本次文档成果。不把 `.git`、忽略的缓存、依赖目录和本机配置当作项目内容；目标仓库得到完整文件快照，本地旧提交历史不额外导入。
+“全部内容”指当前分支的全部 Git 跟踪文件和本次文档成果，并按用户补充要求移除不适用的自动 CI workflow。不把 `.git`、忽略的缓存、依赖目录和本机配置当作项目内容；目标仓库得到完整文件快照，本地旧提交历史不额外导入。
 
 本次授权包含文档提交、push 和创建 PR；不包含合并到 main 或部署。
 
@@ -43,6 +45,7 @@
 | [STATUS.md](../STATUS.md) | 改为组成部分视角的当前状态，说明具体成果、遗留项和推进条件 |
 | [状态存档](baseline-status-2026-09-02.md) | 保存重启前的完整状态正文；只调整相对链接 |
 | 本文件 | 记录授权、源与目标基线、导入方式、验证和遗留问题 |
+| `.github/workflows/backend-ci.yml` | 按用户要求删除自动触发的遗留 Backend CI |
 
 ## 核实的现状
 
@@ -50,7 +53,7 @@
 - `CR-20260901-005` 仍为 `PROPOSED / BLOCKING`，未修改或关闭。标准结构检查不能证明 discriminator 的跨生成器兼容。
 - Android 正式 `contract.properties` 仍为 `3.0.0-contract`；Portal 正式 `contract.json` 仍为 `3.0.0-web-snapshot`。
 - Backend、infra、E2E 目录的 Git 跟踪文件均为说明文件，不存在当前 Backend 的运行验收。
-- Backend CI workflow 引用 `backend/`、旧工具及依赖路径，而这些路径不在当前分支；本次按全部内容要求保留该文件，记录为后续独立修复事项。
+- 当前仓库用于项目材料与代码基线汇总；按用户要求删除遗留 Backend CI workflow，不保留“修复 CI”的后续任务。
 - 根 AGENTS.md 规则未修改。README 模板是供人复用的说明，不自动替换生效规则。
 
 ## 本次验证
@@ -59,14 +62,14 @@
 |---|---|
 | `python -B contracts/scripts/verify_contract.py` | PASS：109 paths、121 unique operations、193 schemas、66 errors |
 | `python -B contracts/scripts/check_rc_readiness.py` | PASS：metadata 状态和 decisions 目录检查通过；该脚本不检查 PROPOSED CR，不能据此关闭 CR-005 |
-| 临时只读 Python 文档检查 | PASS：4 份文档严格 UTF-8、代码围栏闭合、119 个本地链接及锚点有效；未新增持久化测试文件 |
+| 临时只读 Python 文档检查 | PASS：4 份文档严格 UTF-8、代码围栏闭合、本地链接及锚点有效；未新增持久化测试文件 |
 | 当前进度与路线编号 | PASS：README 当前进度与 STATUS 可见文字不含阶段标识；后续路线一级阶段准确为 0–12 |
 | 原状态存档比较 | PASS：与起始 HEAD 中的 STATUS 全文逐字比较，除相对链接位置调整外内容完整保留 |
 | Contract Version / Status / 实际 SHA | PASS：与原基线完全一致 |
-| 写入范围 / `git diff --check` | PASS：仅本次 4 份文档；业务、架构、AGENTS、Contract、产品代码及 CI 无修改；空白检查通过 |
+| 写入范围 / `git diff --check` | PASS：4 份文档及用户要求的 workflow 删除；业务、架构、AGENTS、Contract、产品代码无修改；空白检查通过 |
 | 当前 Git 树发布前检查 | 未发现 submodule、超过 GitHub 单文件限制的文件、被跟踪的私钥 / 本机凭据文件或所扫描的高确定性凭据模式；这不是完整安全审计 |
-| 源与 PR 文件树、远端 PR 状态 | PASS：GitHub API 返回的 Git tree 与本地源分支一致，471 个文件、目录树未截断；PR #1 为 OPEN，base 为 main |
-| GitHub Backend CI | FAIL：push 与 pull_request 运行均在 Install all locked monorepo dependencies 步骤失败，工作目录 `backend/` 不存在；应用测试与构建未执行 |
+| 源与 PR 文件树、远端 PR 状态 | 完整性以源与 PR 的 Git tree 一致为准；删除 workflow 后为 470 个文件，PR #1 为 OPEN，base 为 main；最终 commit / tree 见 PR 正文 |
+| 自动 CI 配置 | 已删除当前分支唯一的 workflow；后续不执行或重跑 CI |
 
 未计划重跑 Android / Web 全量构建、单测、浏览器或真机测试：本轮不改产品代码；README 中已有数字明确标为历史记录。Backend / 数据库 / COS / Docker E2E / Staging / Production 未执行，当前无对应实现与本轮授权。
 
@@ -76,8 +79,7 @@
 - 远端分支：`codex/import-current-branch-20260902`，目标分支：`main`，状态：`OPEN`；未合并、未部署。
 - 完整文件快照已推送并经 GitHub API 验证；发布后的文档回填继续保持源分支与 PR 文件树一致，最终源 commit / tree 记录在 PR 正文中。
 - 本地仍使用 `API-contract-Making`；没有切换工作区、创建额外 Worktree、覆盖现有 remote 或推送目标 main。
-- CI 失败证据：[push 运行](https://github.com/chchaiai/new_need_version_sports/actions/runs/33628771353)、[PR 运行](https://github.com/chchaiai/new_need_version_sports/actions/runs/33628814644)。日志为 `working directory .../backend: No such file or directory`，与静态目录检查一致。
-- CI 修复超出本次 README / 交接写入范围，留给独立基础设施任务。
+- 首次导入曾被遗留 workflow 自动触发，日志为 `working directory .../backend: No such file or directory`。用户明确不需要 CI 后已删除该配置；先前运行属于历史记录，不作为本次交付门禁，也不安排修复或重跑。
 
 ## 未完成项与下一步
 
