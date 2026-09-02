@@ -22,7 +22,7 @@
 | Web | 已有学生端与 Portal；[已有验证记录](handoffs/phase-5g-b-web-affected-contract-revalidation.md) 包含 affected 13/13、Portal 125/125、Student smoke 79/79、类型检查、构建和浏览器检查 | Portal 正式快照仍为 `3.0.0-web-snapshot`；验证绑定未替换正式旧 API / DTO，演示数据与 BACKEND_REQUIRED 边界仍存在 |
 | Backend 实现 | [实现目录](../../BNBU-Sports-Backend/README.md) 的 Git 跟踪内容只有 README | 无可启动服务、真实认证、Use Case、PostgreSQL 持久化或 COS 接入 |
 | 联调与部署 | [infra](../../infra/README.md) 与 [E2E](../../tests/e2e/README.md) 入口均为说明文件 | 没有当前基线的真实服务闭环、Docker 联调、Staging、Production 或稳定观察验收 |
-| CI | [现有 workflow](../../.github/workflows/backend-ci.yml) 保留在当前分支 | 仍引用不存在的 `backend/`、`tools/repository/`、`tools/backend-contracts/` 等路径；不能作为当前目录的有效构建门禁，需独立任务修复 |
+| CI | [现有 workflow](../../.github/workflows/backend-ci.yml) 已在目标仓库触发执行 | [实际运行失败](https://github.com/chchaiai/new_need_version_sports/actions/runs/33628771353)：安装依赖步骤使用的 `backend/` 工作目录不存在；另有旧工具路径待修复，后续构建与应用测试未执行 |
 
 Android / Web 测试数字是历史验证记录，不是本次重新执行的结果。当前状态依据文件、元数据与交接证据核对；文档、静态检查、Mock 和真实运行验收必须分别记录。
 
@@ -51,6 +51,7 @@ CR 须经独立评审；接受后发布新的 Version / SHA，重新生成 Andro
 ## 交接与证据边界
 
 - 本次文档整理与仓库导入记录：[任务 Handoff](handoffs/phase-0-repository-import-and-team-guide.md)。
+- [导入 PR #1](https://github.com/chchaiai/new_need_version_sports/pull/1) 已创建，包含完整当前文件快照，等待人工 Review；尚未合并或部署。
 - 历史状态记录保存在 [状态存档](handoffs/baseline-status-2026-09-02.md)，用于追溯；本页作为当前情况入口。
 - 本次不修改业务规则、Contract、Android、Web、Backend、数据库或 CI 实现。
 - 当前仍有旧 API、Mock / 演示路径与占位目录；本次文档整理不代表这些项目已完成迁移。

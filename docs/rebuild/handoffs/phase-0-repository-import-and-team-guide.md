@@ -4,7 +4,7 @@
 >
 > 当前任务：新一轮需求收集的文档准备，以及当前分支文件导入目标仓库。
 >
-> 文档任务状态：DONE；仓库导入等待 PR 创建结果回填。
+> 文档与仓库导入任务状态：DONE；PR 已创建，等待人工 Review。CI 遗留故障单独记录如下。
 >
 > 需求收集状态：PARTIAL，老师会议的实际需求资料尚未提供。
 
@@ -65,13 +65,19 @@
 | Contract Version / Status / 实际 SHA | PASS：与原基线完全一致 |
 | 写入范围 / `git diff --check` | PASS：仅本次 4 份文档；业务、架构、AGENTS、Contract、产品代码及 CI 无修改；空白检查通过 |
 | 当前 Git 树发布前检查 | 未发现 submodule、超过 GitHub 单文件限制的文件、被跟踪的私钥 / 本机凭据文件或所扫描的高确定性凭据模式；这不是完整安全审计 |
-| 源与 PR 文件树、远端 PR 状态 | 待 push 与创建 PR 后核实 |
+| 源与 PR 文件树、远端 PR 状态 | PASS：GitHub API 返回的 Git tree 与本地源分支一致，471 个文件、目录树未截断；PR #1 为 OPEN，base 为 main |
+| GitHub Backend CI | FAIL：push 与 pull_request 运行均在 Install all locked monorepo dependencies 步骤失败，工作目录 `backend/` 不存在；应用测试与构建未执行 |
 
 未计划重跑 Android / Web 全量构建、单测、浏览器或真机测试：本轮不改产品代码；README 中已有数字明确标为历史记录。Backend / 数据库 / COS / Docker E2E / Staging / Production 未执行，当前无对应实现与本轮授权。
 
 ## 交付结果
 
-PR 尚未创建；完成后在此填写链接和验证状态。
+- [PR #1：导入完整项目基线，完善团队 README 与 0–12 开发路线](https://github.com/chchaiai/new_need_version_sports/pull/1)。
+- 远端分支：`codex/import-current-branch-20260902`，目标分支：`main`，状态：`OPEN`；未合并、未部署。
+- 完整文件快照已推送并经 GitHub API 验证；发布后的文档回填继续保持源分支与 PR 文件树一致，最终源 commit / tree 记录在 PR 正文中。
+- 本地仍使用 `API-contract-Making`；没有切换工作区、创建额外 Worktree、覆盖现有 remote 或推送目标 main。
+- CI 失败证据：[push 运行](https://github.com/chchaiai/new_need_version_sports/actions/runs/33628771353)、[PR 运行](https://github.com/chchaiai/new_need_version_sports/actions/runs/33628814644)。日志为 `working directory .../backend: No such file or directory`，与静态目录检查一致。
+- CI 修复超出本次 README / 交接写入范围，留给独立基础设施任务。
 
 ## 未完成项与下一步
 

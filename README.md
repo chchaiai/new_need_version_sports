@@ -26,7 +26,7 @@
 | Web | 已有学生端和教师 / 管理员 Portal；已有 Contract / Mock、类型检查、构建和浏览器验证记录；历史记录包含 affected 13/13、Portal 125/125、Student smoke 79/79 | Portal 正式快照仍为 `3.0.0-web-snapshot`，新 Contract 验证与正式业务链路分离；仍有旧 API / DTO、演示数据和 `BACKEND_REQUIRED` 边界，需要按模块迁移 |
 | Backend 实现 | `BNBU-Sports-Backend/` 的 Git 跟踪内容只有说明文件 | 尚无可启动服务、真实认证、业务 Use Case、数据库持久化或 COS 接入 |
 | 联调 / 部署 | `infra/` 和 `tests/e2e/` 已预留文档入口 | 当前目录均只有说明文件；本次基线没有真实 Backend + PostgreSQL + 文件存储的 E2E、Staging 或 Production 验收证据 |
-| CI | 仓库保留了一份 Backend CI workflow | workflow 仍引用不存在的 `backend/`、旧工具目录和依赖文件，与当前目录结构不匹配；需要独立任务修复，不能作为当前系统可构建的证明 |
+| CI | 仓库保留了一份 Backend CI workflow | [GitHub 实际运行失败](https://github.com/chchaiai/new_need_version_sports/actions/runs/33628771353)：安装依赖步骤无法进入不存在的 `backend/` 工作目录；另有旧工具与依赖路径待修复，需要独立任务恢复有效 CI |
 
 上表测试数字来自仓库中已经提交的验证记录，本次 README 整理没有重跑 Android / Web 全量测试。历史结果、静态检查、Mock、真实服务联调和部署验收应分别记录。新需求可能使受影响的既有验证结果需要重跑。
 
