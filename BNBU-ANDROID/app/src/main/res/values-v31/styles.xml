@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.BNBUStudent.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/bnbu_splash_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_main_system_generated</item>
+        <item name="android:windowSplashScreenBrandingImage">@drawable/verity_ai_generated_system</item>
+        <item name="postSplashScreenTheme">@style/Theme.BNBUStudent</item>
+    </style>
+</resources>

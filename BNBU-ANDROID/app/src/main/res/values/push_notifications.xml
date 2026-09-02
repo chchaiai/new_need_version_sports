@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="push_channel_name">校园体育通知</string>
+    <string name="push_channel_description">课程、审核和截止日期等校园体育事项提醒</string>
+    <string name="push_generic_title">BNBU 校园体育</string>
+    <string name="push_generic_body">你有一条新的校园体育通知</string>
+</resources>

@@ -1,0 +1,9 @@
+{
+  "contractVersion": "1.2.0-contract",
+  "contractStatus": "RC",
+  "publicBasePath": "/api/v1",
+  "openapiSha256": "667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a",
+  "pathCount": 109,
+  "operationCount": 121,
+  "errorCodeCount": 66
+}

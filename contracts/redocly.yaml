@@ -1,0 +1,7 @@
+extends:
+  - recommended
+
+rules:
+  # Repository licensing is not an API behavior and no repository license is currently declared.
+  # Keep that governance decision outside the Contract instead of inventing a license value here.
+  info-license: off

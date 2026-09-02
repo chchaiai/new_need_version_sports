@@ -1,0 +1,2 @@
+app/openapi/*.yaml text eol=lf
+app/openapi/*.properties text eol=lf

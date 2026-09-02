@@ -1,0 +1,166 @@
+name: Backend CI
+
+on:
+  push:
+    paths:
+      - "backend/**"
+      - "docs/backend-contracts/**"
+      - "docs/client-handoff/**"
+      - "tools/backend-contracts/**"
+      - "tools/repository/**"
+      - "BNBU-Sports-Android-master/app/openapi/**"
+      - "BNBU-Sports-Web-new/portal-teacher-admin/app/openapi.generated.ts"
+      - "BNBU-Sports-Web-new/portal-teacher-admin/openapi/**"
+      - "BNBU-Sports-Web-new/portal-teacher-admin/package.json"
+      - "BNBU-Sports-Web-new/portal-teacher-admin/package-lock.json"
+      - "AGENTS.md"
+      - "README.md"
+      - "package.json"
+      - ".github/workflows/backend-ci.yml"
+  pull_request:
+    paths:
+      - "backend/**"
+      - "docs/backend-contracts/**"
+      - "docs/client-handoff/**"
+      - "tools/backend-contracts/**"
+      - "tools/repository/**"
+      - "BNBU-Sports-Android-master/app/openapi/**"
+      - "BNBU-Sports-Web-new/portal-teacher-admin/app/openapi.generated.ts"
+      - "BNBU-Sports-Web-new/portal-teacher-admin/openapi/**"
+      - "BNBU-Sports-Web-new/portal-teacher-admin/package.json"
+      - "BNBU-Sports-Web-new/portal-teacher-admin/package-lock.json"
+      - "AGENTS.md"
+      - "README.md"
+      - "package.json"
+      - ".github/workflows/backend-ci.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: backend-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  foundation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    services:
+      postgres:
+        image: postgres:18.4-alpine3.24
+        env:
+          POSTGRES_DB: bnbu_sports_test
+          POSTGRES_USER: bnbu_test
+          POSTGRES_PASSWORD: synthetic-ci-password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U bnbu_test -d bnbu_sports_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    defaults:
+      run:
+        working-directory: backend
+    env:
+      CI: "true"
+      APP_ENV: test
+      APP_VERSION: ci
+      PORT: "3000"
+      LOG_LEVEL: silent
+      DATABASE_URL: postgresql://bnbu_test:synthetic-ci-password@127.0.0.1:5432/bnbu_sports_test?schema=public
+      TEST_DATABASE_URL: postgresql://bnbu_test:synthetic-ci-password@127.0.0.1:5432/bnbu_sports_test?schema=public
+      TEST_DATABASE_RESET_CONFIRMATION: BNBU_SPORTS_EPHEMERAL_TEST_DATABASE_V1
+      MIGRATION_DATABASE_URL: postgresql://bnbu_test:synthetic-ci-password@127.0.0.1:5432/bnbu_sports_test?schema=public
+      TOKEN_ISSUER: bnbu-sports-test
+      TOKEN_AUDIENCE: bnbu-sports-test-clients
+      ACCESS_TOKEN_TTL: "60"
+      REFRESH_TOKEN_ABSOLUTE_TTL: "3600"
+      REFRESH_TOKEN_IDLE_TTL: "600"
+      IDEMPOTENCY_RETENTION: "3600"
+      IDEMPOTENCY_LEASE: "30"
+      IDEMPOTENCY_ENCRYPTION_KEY: BwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwc=
+      SECURITY_HASH_KEY: synthetic-ci-hmac-key-never-use-in-production
+      AUTH_RATE_LIMIT_WINDOW_SECONDS: "60"
+      AUTH_RATE_LIMIT_MAX_ATTEMPTS: "100"
+      CORS_ALLOWLIST: http://allowed.test
+      TRUST_PROXY: "false"
+      SYSTEM_MODE_SOURCE: database
+      REQUEST_BODY_LIMIT_BYTES: "2048"
+      REQUEST_TIMEOUT_MS: "5000"
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.18.0
+          cache: npm
+          cache-dependency-path: |
+            backend/package-lock.json
+            tools/backend-contracts/package-lock.json
+            BNBU-Sports-Web-new/portal-teacher-admin/package-lock.json
+
+      - name: Install all locked monorepo dependencies
+        run: node ../tools/repository/install-workspace-dependencies.mjs
+
+      - name: Generate ephemeral CI-only Ed25519 keys
+        run: node ./scripts/emit-ci-test-keys.mjs >> "$GITHUB_ENV"
+
+      - name: Format, lint, type, contract, and generation checks
+        run: |
+          npm --prefix .. run test:tools
+          npm run format:check
+          npm run lint
+          npm run typecheck
+          npm run contract:check
+          npm run contract:parity:check
+          npm run runtime-coverage:check
+          npm run production-closure:inventory:check
+          npm run generate:check
+          npm --prefix ../BNBU-Sports-Web-new/portal-teacher-admin run contract:check
+
+      - name: Validate and statically inspect the migration
+        run: |
+          npm run db:validate
+          npm run db:migration:check
+
+      - name: Deploy the Greenfield migration twice
+        run: |
+          npm run db:migrate:deploy
+          npm run db:migrate:deploy
+
+      - name: Check live schema drift
+        run: npm run db:schema:drift:check
+
+      - name: Run unit, integration, E2E, contract, and security tests
+        run: |
+          npm run test
+          npm run test:integration
+          npm run test:e2e
+          npm run runtime-conformance:check
+          npm run test:contract
+          npm run test:security
+          npm run test:tencent-cloud-config
+
+      - name: Build production application
+        run: npm run build
+
+      - name: Audit locked dependencies
+        run: |
+          npm audit --audit-level=high
+          npm audit --omit=dev --audit-level=high
+
+      - name: Build the non-root runtime and migrator images
+        run: |
+          docker build --no-cache --target runtime --file backend/Dockerfile --tag bnbu-backend:ci-runtime .
+          docker build --no-cache --target migrator --file backend/Dockerfile .
+          npm --prefix backend run test:docker-runtime-smoke -- bnbu-backend:ci-runtime
+        working-directory: .
+
+      - name: Reject whitespace errors
+        run: git diff --check
+        working-directory: .

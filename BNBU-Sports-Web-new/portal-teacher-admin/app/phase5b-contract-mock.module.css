@@ -1,0 +1,537 @@
+.page {
+  min-height: 100vh;
+  padding: 40px clamp(20px, 5vw, 72px) 56px;
+  color: #172033;
+  background:
+    radial-gradient(circle at 8% 0%, rgba(40, 99, 235, 0.12), transparent 31rem),
+    linear-gradient(180deg, #f8faff 0%, #eef3fa 100%);
+}
+
+.hero {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 32px;
+  max-width: 1280px;
+  margin: 0 auto 24px;
+}
+
+.hero h1 {
+  margin: 5px 0 10px;
+  font-size: clamp(30px, 4vw, 48px);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+
+.hero > div:first-child > p:last-child {
+  max-width: 760px;
+  margin: 0;
+  color: #58647b;
+  line-height: 1.7;
+}
+
+.kicker,
+.eyebrow {
+  margin: 0;
+  color: #3765d7;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.contractMeta {
+  display: grid;
+  min-width: 270px;
+  padding: 18px;
+  border: 1px solid rgba(107, 124, 158, 0.22);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 14px 36px rgba(56, 72, 107, 0.1);
+}
+
+.contractMeta strong {
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+.contractMeta code,
+.contractMeta span {
+  margin-top: 5px;
+  color: #68738a;
+  font-size: 12px;
+}
+
+.controls,
+.statusLine,
+.cardStack,
+.footer {
+  max-width: 1280px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 24px;
+  padding: 15px;
+  border: 1px solid #dce3f1;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.controls > div {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.controls span {
+  margin: 0 4px;
+  color: #7a8599;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.controls a {
+  padding: 8px 12px;
+  border: 1px solid #d8dfec;
+  border-radius: 999px;
+  color: #445068;
+  background: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.controls a:hover,
+.controls .activeControl {
+  border-color: #2e61df;
+  color: #fff;
+  background: #2e61df;
+}
+
+.statusLine {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 4px;
+}
+
+.statusLine span:last-child {
+  color: #758096;
+  font-size: 13px;
+}
+
+.cardStack {
+  display: grid;
+  gap: 20px;
+}
+
+.card {
+  overflow: hidden;
+  border: 1px solid #dbe2ee;
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 16px 42px rgba(55, 72, 105, 0.08);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e7ebf3;
+  background: linear-gradient(90deg, #fbfcff, #f4f7fc);
+}
+
+.cardHeader h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.cardHeader code {
+  display: block;
+  margin-top: 5px;
+  color: #34415b;
+  font-size: 12px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+
+.blue { color: #2758c9; background: #e9efff; }
+.green { color: #167350; background: #e7f8f0; }
+.amber { color: #8a5b00; background: #fff3d5; }
+.red { color: #b02f3d; background: #ffe9ec; }
+.gray { color: #5f697d; background: #eef1f5; }
+
+.loginGrid,
+.reviewGrid,
+.metricGrid,
+.categoryGrid,
+.healthGrid,
+.summaryStrip {
+  display: grid;
+  gap: 14px;
+  padding: 24px;
+}
+
+.loginGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.loginGrid > div,
+.reviewGrid > div,
+.metricGrid > div,
+.categoryGrid > div,
+.healthGrid > div,
+.summaryStrip > div {
+  display: grid;
+  gap: 5px;
+  padding: 16px;
+  border: 1px solid #e3e8f1;
+  border-radius: 14px;
+  background: #f9fbfe;
+}
+
+.loginGrid span,
+.metricGrid span,
+.categoryGrid span,
+.healthGrid span,
+.summaryStrip span {
+  color: #778197;
+  font-size: 12px;
+}
+
+.loginGrid small,
+.reviewGrid small,
+.categoryGrid small,
+.healthGrid small {
+  color: #68748a;
+}
+
+.loginGrid > p {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: #667287;
+  font-size: 13px;
+}
+
+.coursePanel {
+  padding: 24px;
+}
+
+.courseCard {
+  padding: 22px;
+  border: 1px solid #e0e6f0;
+  border-radius: 16px;
+}
+
+.courseCard > div:first-child {
+  display: flex;
+  gap: 8px;
+}
+
+.courseCard h3 {
+  margin: 14px 0 7px;
+  font-size: 24px;
+}
+
+.courseCard > p {
+  margin: 0 0 20px;
+  color: #667287;
+}
+
+.definitionGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0;
+}
+
+.definitionGrid div,
+.detailPanel dl div {
+  display: grid;
+  gap: 4px;
+}
+
+.definitionGrid dt,
+.detailPanel dt {
+  color: #7b869a;
+  font-size: 12px;
+}
+
+.definitionGrid dd,
+.detailPanel dd {
+  margin: 0;
+  font-weight: 700;
+}
+
+.recordLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr);
+  gap: 18px;
+  padding: 0 24px 24px;
+}
+
+.tableWrap {
+  overflow-x: auto;
+  padding: 24px;
+}
+
+.recordLayout .tableWrap {
+  padding: 0;
+}
+
+.tableWrap table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tableWrap th,
+.tableWrap td {
+  padding: 13px 12px;
+  border-bottom: 1px solid #e7ebf3;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.tableWrap th {
+  color: #707b90;
+  background: #f8fafd;
+  font-size: 12px;
+}
+
+.tableWrap td {
+  font-size: 13px;
+}
+
+.tableWrap td small {
+  display: block;
+  margin-top: 3px;
+  color: #7a8497;
+}
+
+.detailPanel {
+  padding: 18px;
+  border: 1px solid #dfe6f2;
+  border-radius: 16px;
+  background: #f8faff;
+}
+
+.detailPanel h3 {
+  margin: 7px 0;
+}
+
+.detailPanel > p:not(.eyebrow) {
+  color: #5f6c82;
+  line-height: 1.6;
+}
+
+.detailPanel dl {
+  display: grid;
+  gap: 12px;
+  margin: 18px 0 0;
+}
+
+.boundaryNote {
+  margin: 0;
+  padding: 14px 24px;
+  color: #5d6980;
+  background: #f7f9fd;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.reviewGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.reviewGrid strong {
+  margin-top: 6px;
+  font-size: 20px;
+}
+
+.reviewGrid p:not(.eyebrow) {
+  margin: 4px 0;
+  color: #5e6a81;
+  line-height: 1.6;
+}
+
+.progressPanel {
+  padding: 24px;
+}
+
+.progressHeading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.progressHeading div {
+  display: grid;
+  gap: 4px;
+}
+
+.progressHeading span {
+  color: #768197;
+  font-size: 12px;
+}
+
+.progressHeading b {
+  color: #2e61df;
+  font-size: 28px;
+}
+
+.progressTrack {
+  height: 10px;
+  margin: 16px 0;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e7ebf3;
+}
+
+.progressTrack span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #3167e5, #59a6ff);
+}
+
+.categoryGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding: 0;
+}
+
+.progressPanel .boundaryNote {
+  margin: 16px -24px -24px;
+}
+
+.metricGrid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.metricGrid strong,
+.summaryStrip strong {
+  font-size: 22px;
+}
+
+.healthGrid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  padding-top: 0;
+}
+
+.summaryStrip {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.errorState,
+.emptyState {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin: 24px;
+  padding: 22px;
+  border-radius: 16px;
+}
+
+.errorState {
+  border: 1px solid #f2cbd1;
+  background: #fff7f8;
+}
+
+.errorState p,
+.emptyState p {
+  margin: 5px 0;
+  color: #657188;
+}
+
+.errorState small {
+  color: #9a5660;
+}
+
+.emptyState {
+  align-items: center;
+  border: 1px dashed #cfd8e8;
+  background: #f9fbfe;
+}
+
+.emptyState > span {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  color: #6f7b90;
+  background: #e9eef6;
+}
+
+.footer {
+  margin-top: 22px;
+  padding: 20px 22px;
+  border: 1px solid #dbe2ee;
+  border-radius: 18px;
+  color: #4d5b73;
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.footer p {
+  margin: 7px 0 0;
+  line-height: 1.65;
+}
+
+@media (max-width: 900px) {
+  .hero,
+  .cardHeader {
+    flex-direction: column;
+  }
+
+  .contractMeta {
+    width: 100%;
+  }
+
+  .recordLayout,
+  .definitionGrid,
+  .metricGrid,
+  .healthGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .cardHeader h2 {
+    order: -1;
+  }
+}
+
+@media (max-width: 620px) {
+  .page {
+    padding: 24px 14px 40px;
+  }
+
+  .loginGrid,
+  .reviewGrid,
+  .recordLayout,
+  .definitionGrid,
+  .metricGrid,
+  .categoryGrid,
+  .healthGrid,
+  .summaryStrip {
+    grid-template-columns: 1fr;
+  }
+
+  .statusLine {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
