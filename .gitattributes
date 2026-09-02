@@ -1,0 +1,13 @@
+.gitattributes text eol=lf
+*.sh text eol=lf
+scripts/operations/*.sh text eol=lf
+backend/prisma/migrations/**/*.sql text eol=lf
+backend/src/generated/prisma/** text eol=lf whitespace=-trailing-space
+backend/** text eol=lf
+docs/backend-contracts/** text eol=lf
+docs/client-handoff/** text eol=lf
+tools/backend-contracts/** text eol=lf
+.github/workflows/backend-*.yml text eol=lf
+BNBU-Sports-Web-new/portal-teacher-admin/openapi/** text eol=lf
+BNBU-Sports-Web-new/portal-teacher-admin/app/openapi.generated.ts text eol=lf
+BNBU-Sports-iOS/openapi/** text eol=lf

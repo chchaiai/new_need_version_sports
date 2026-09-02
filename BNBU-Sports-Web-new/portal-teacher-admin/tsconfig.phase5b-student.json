@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "allowJs": false,
+    "incremental": false,
+    "plugins": []
+  },
+  "include": [
+    "../frontend/student/phase5b-contract.generated.ts",
+    "../frontend/student/phase5b-contract-fixtures.ts"
+  ],
+  "exclude": ["node_modules"]
+}

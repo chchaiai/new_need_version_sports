@@ -1,0 +1,30 @@
+*.iml
+.gradle
+.kotlin
+/local.properties
+/gradle/gradle-daemon-jvm.properties
+/.idea
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+/keystore.properties
+/app/build
+/app/release
+*.apk
+*.aab
+*.jks
+*.keystore
+
+# This repository tracks the Android client only. Keep sibling products,
+# generated binaries, and delivery artifacts out of Android commits.
+/BNBU-web/
+/backend/
+/classes*.dex
+/deliverables/
+/docs/
+/lib/
+/scripts/
+/agent.md

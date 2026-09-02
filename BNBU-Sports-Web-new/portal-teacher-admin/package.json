@@ -1,0 +1,59 @@
+{
+  "name": "bnbu-pe-management-portal",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "dev": "vinext dev --hostname 0.0.0.0",
+    "build": "vinext build",
+    "contract:generate": "openapi-typescript ./openapi/openapi.snapshot.yaml --output ./app/openapi.generated.ts --immutable --alphabetize",
+    "contract:verify": "node scripts/verify-contract.mjs",
+    "contract:check": "npm run contract:verify && npm run contract:generate -- --check",
+    "phase5b:contract:generate": "openapi-typescript ../../contracts/openapi.yaml --output ./app/phase5b-contract.generated.ts --immutable --alphabetize",
+    "phase5b:student-contract:generate": "openapi-typescript ../../contracts/openapi.yaml --output ../frontend/student/phase5b-contract.generated.ts --immutable --alphabetize",
+    "phase5gb:contract:check": "node scripts/verify-phase5b-contract.mjs && npm run phase5b:contract:generate -- --check && npm run phase5b:student-contract:generate -- --check",
+    "phase5b:contract:check": "npm run phase5gb:contract:check",
+    "typecheck": "npm run contract:check && npm run phase5gb:contract:check && tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.worker.json && tsc --noEmit -p tsconfig.phase5b-student.json",
+    "start": "vinext start",
+    "test:phase5gb": "node --import tsx --test tests/phase5gb-contract-revalidation.test.mjs",
+    "test": "npm run build && node --import tsx --test tests/rendered-html.test.mjs tests/contract-binding.test.mjs tests/api-client.test.mjs tests/form-field.test.mjs tests/input-ui-coverage.test.mjs tests/checkin-audit.test.mjs tests/admin-domain.test.mjs tests/i18n-resources.test.mjs tests/roster-reconciliation.test.mjs tests/roster-reconciliation-mock.test.mjs tests/semester-presentation.test.mjs tests/phase5b-contract-mock.test.mjs tests/phase5b-contract-revalidation.test.mjs tests/phase5gb-contract-revalidation.test.mjs",
+    "lint": "eslint . --ignore-pattern dist --ignore-pattern .next"
+  },
+  "dependencies": {
+    "@types/qrcode": "^1.5.6",
+    "lucide-react": "^1.28.0",
+    "next": "16.3.0",
+    "qrcode": "^1.5.4",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+  },
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "1.51.3",
+    "@cloudflare/workers-types": "^5.20260804.1",
+    "@tailwindcss/postcss": "4.2.1",
+    "@types/node": "22.19.19",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "6.0.2",
+    "@vitejs/plugin-rsc": "0.5.26",
+    "eslint": "9.39.4",
+    "eslint-config-next": "16.3.0",
+    "openapi-typescript": "7.13.0",
+    "react-server-dom-webpack": "19.2.8",
+    "tailwindcss": "4.2.1",
+    "tsx": "4.22.1",
+    "typescript": "5.9.3",
+    "vinext": "0.0.45",
+    "vite": "8.2.1",
+    "wrangler": "4.121.0"
+  },
+  "overrides": {
+    "@esbuild-kit/core-utils": {
+      "esbuild": "0.25.12"
+    }
+  },
+  "type": "module"
+}

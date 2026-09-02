@@ -1,0 +1,61 @@
+ARG NODE_IMAGE=node:24.18.0-bookworm-slim
+
+FROM ${NODE_IMAGE} AS build
+WORKDIR /workspace
+
+COPY package.json package-lock.json ./
+RUN --mount=type=cache,target=/root/.npm,sharing=locked \
+    npm ci --no-audit --no-fund
+
+COPY . ./
+RUN npm run build
+
+FROM ${NODE_IMAGE} AS runtime
+
+ARG OCI_VERSION
+ARG OCI_REVISION
+ARG OCI_CREATED
+ARG BNBU_CONTRACT_VERSION
+ARG BNBU_WORKTREE_FINGERPRINT
+ARG BNBU_TEST_BATCH
+
+RUN test -n "$OCI_VERSION" \
+    && test -n "$OCI_REVISION" \
+    && test -n "$OCI_CREATED" \
+    && test -n "$BNBU_CONTRACT_VERSION" \
+    && test -n "$BNBU_WORKTREE_FINGERPRINT" \
+    && test -n "$BNBU_TEST_BATCH"
+
+LABEL org.opencontainers.image.title="BNBU Sports Teacher/Admin Portal" \
+      org.opencontainers.image.version="$OCI_VERSION" \
+      org.opencontainers.image.revision="$OCI_REVISION" \
+      org.opencontainers.image.created="$OCI_CREATED" \
+      org.opencontainers.image.source="BNBU-Sports monorepo" \
+      bnbu.contract.version="$BNBU_CONTRACT_VERSION" \
+      bnbu.worktree.fingerprint="$BNBU_WORKTREE_FINGERPRINT" \
+      bnbu.test.batch="$BNBU_TEST_BATCH" \
+      bnbu.environment="staging" \
+      bnbu.environment.candidate="staging"
+
+ENV NODE_ENV=production \
+    PORT=3100 \
+    HOSTNAME=0.0.0.0
+
+WORKDIR /app
+RUN groupadd --system --gid 10001 bnbu \
+    && useradd --system --uid 10001 --gid bnbu --home-dir /app --shell /usr/sbin/nologin bnbu
+
+# vinext 0.0.45 serves dist/ through its production server. The CLI is a
+# devDependency today, so the immutable runtime stage deliberately retains the
+# lockfile-resolved node_modules tree until a verified standalone output exists.
+COPY --from=build --chown=bnbu:bnbu /workspace/package.json /workspace/package-lock.json ./
+COPY --from=build --chown=bnbu:bnbu /workspace/node_modules ./node_modules
+COPY --from=build --chown=bnbu:bnbu /workspace/dist ./dist
+
+USER 10001:10001
+EXPOSE 3100
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
+  CMD ["node", "-e", "fetch('http://127.0.0.1:3100/').then((response) => { if (!response.ok) process.exit(1); }).catch(() => process.exit(1));"]
+
+CMD ["npm", "run", "start", "--", "--hostname", "0.0.0.0", "--port", "3100"]

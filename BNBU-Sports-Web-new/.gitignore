@@ -1,0 +1,20 @@
+node_modules/
+backend/node_modules/
+.env
+.env.*
+!.env.example
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+dist/
+coverage/
+.cache/
+.local/
+.worktrees/
+
+# Local demo student credentials (never commit)

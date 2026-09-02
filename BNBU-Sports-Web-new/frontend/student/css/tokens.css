@@ -1,0 +1,155 @@
+/* ═══════════════════════════════════════════════════════════════
+   BNBU Sports — design tokens replicated 1:1 from the Android app
+   Source: core/designsystem/Theme.kt, Type.kt, Shape.kt, Layout.kt, Motion.kt
+   dp/sp map to CSS px.
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Light color scheme (Theme.kt BNBULightColorScheme) ── */
+  --color-primary: #007AFF;
+  --color-on-primary: #FFFFFF;
+  --color-primary-container: #E8F2FF;
+  --color-on-primary-container: #003E7D;
+  --color-secondary: #FF9500;
+  --color-on-secondary: #FFFFFF;
+  --color-secondary-container: #FFF1D6;
+  --color-on-secondary-container: #5A3500;
+  --color-tertiary: #248A3D;
+  --color-on-tertiary: #FFFFFF;
+  --color-tertiary-container: #E6F6E9;
+  --color-on-tertiary-container: #0E4B1D;
+  --color-error: #FF3B30;
+  --color-on-error: #FFFFFF;
+  --color-error-container: #FFE9E7;
+  --color-on-error-container: #7A1712;
+  --color-background: #F2F2F7;
+  --color-on-background: #1C1C1E;
+  --color-surface: #FFFFFF;
+  --color-on-surface: #1C1C1E;
+  --color-surface-variant: #EFEFF4;
+  --color-on-surface-variant: #636366;
+  --color-outline: #8E8E93;
+  --color-outline-variant: #C6C6C8;
+  --color-surface-container-lowest: #FFFFFF;
+  --color-surface-container-low: #F8F8FA;
+  --color-surface-container: #EFEFF4;
+  --color-surface-container-high: #E9E9EE;
+  --color-surface-container-highest: #E3E3E8;
+  --color-inverse-surface: #2C2C2E;
+  --color-inverse-on-surface: #F2F2F7;
+  --color-inverse-primary: #64B5FF;
+  /* Official BNBU identity blue; never theme dependent (colors.xml). */
+  --color-bnbu-official: #0166A4;
+  --color-bnbu-icon-background: #F5F9FC;
+  --overlay-black-45: rgba(0, 0, 0, 0.45);
+  --overlay-black-62: rgba(0, 0, 0, 0.62);
+  /* Scan error strip = error at 8% alpha */
+  --color-error-08: rgba(255, 59, 48, 0.08);
+
+  /* ── Typography (Type.kt) — sizes are px = sp ── */
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+
+  /* ── Spacing (Layout.kt) ── */
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --screen-horizontal: 20px;
+  --card-padding: 18px;
+  --touch-target: 48px;
+  --primary-control-height: 52px;
+
+  /* ── Shapes (Shape.kt) ── */
+  --shape-extra-small: 8px;
+  --shape-small: 10px;
+  --shape-medium: 14px;
+  --shape-large: 18px;
+  --shape-extra-large: 24px;
+
+  /* ── Motion (Motion.kt) ── */
+  --motion-quick: 120ms;
+  --motion-state: 180ms;
+  --motion-standard: 220ms;
+  --motion-emphasized: 320ms;
+  --motion-progress: 360ms;
+  --ease-fast-out-slow-in: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+:root[data-theme="dark"] {
+  /* ── Dark color scheme (Theme.kt BNBUDarkColorScheme) ── */
+  --color-primary: #0A84FF;
+  --color-on-primary: #FFFFFF;
+  --color-primary-container: #16395F;
+  --color-on-primary-container: #D6E9FF;
+  --color-secondary: #FF9F0A;
+  --color-on-secondary: #2C1A00;
+  --color-secondary-container: #503500;
+  --color-on-secondary-container: #FFE2A8;
+  --color-tertiary: #30D158;
+  --color-on-tertiary: #002C0D;
+  --color-tertiary-container: #164B24;
+  --color-on-tertiary-container: #C7F5D0;
+  --color-error: #FF453A;
+  --color-on-error: #FFFFFF;
+  --color-error-container: #5C201D;
+  --color-on-error-container: #FFD2CE;
+  --color-background: #000000;
+  --color-on-background: #F2F2F7;
+  --color-surface: #1C1C1E;
+  --color-on-surface: #F2F2F7;
+  --color-surface-variant: #2C2C2E;
+  --color-on-surface-variant: #AEAEB2;
+  --color-outline: #8E8E93;
+  --color-outline-variant: #3A3A3C;
+  --color-surface-container-lowest: #000000;
+  --color-surface-container-low: #141416;
+  --color-surface-container: #1C1C1E;
+  --color-surface-container-high: #242426;
+  --color-surface-container-highest: #2C2C2E;
+  --color-inverse-surface: #F2F2F7;
+  --color-inverse-on-surface: #1C1C1E;
+  --color-inverse-primary: #0066CC;
+  --color-error-08: rgba(255, 69, 58, 0.08);
+}
+
+/* ── Base reset ── */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  font-family: var(--font-family);
+  background: var(--color-background);
+  color: var(--color-on-background);
+  -webkit-font-smoothing: antialiased;
+  text-size-adjust: 100%;
+}
+button, input, textarea, select { font: inherit; color: inherit; }
+button { background: none; border: none; cursor: pointer; }
+a { color: var(--color-primary); text-decoration: none; }
+
+/* ── Type scale (Type.kt) ── */
+.display-large  { font-size: 40px; line-height: 46px; font-weight: 600; letter-spacing: -0.6px; }
+.display-medium { font-size: 36px; line-height: 42px; font-weight: 600; letter-spacing: -0.5px; }
+.display-small  { font-size: 32px; line-height: 38px; font-weight: 600; letter-spacing: -0.4px; }
+.headline-large  { font-size: 30px; line-height: 36px; font-weight: 700; letter-spacing: -0.35px; }
+.headline-medium { font-size: 26px; line-height: 32px; font-weight: 600; letter-spacing: -0.25px; }
+.headline-small  { font-size: 22px; line-height: 28px; font-weight: 600; letter-spacing: -0.15px; }
+.title-large  { font-size: 20px; line-height: 25px; font-weight: 600; letter-spacing: -0.1px; }
+.title-medium { font-size: 17px; line-height: 22px; font-weight: 600; letter-spacing: 0; }
+.title-small  { font-size: 15px; line-height: 20px; font-weight: 600; letter-spacing: 0; }
+.body-large  { font-size: 17px; line-height: 24px; font-weight: 400; }
+.body-medium { font-size: 15px; line-height: 21px; font-weight: 400; }
+.body-small  { font-size: 13px; line-height: 18px; font-weight: 400; }
+.label-large  { font-size: 17px; line-height: 22px; font-weight: 600; }
+.label-medium { font-size: 13px; line-height: 18px; font-weight: 500; }
+.label-small  { font-size: 11px; line-height: 14px; font-weight: 500; letter-spacing: 0.1px; }
+
+/* ── Common color helpers ── */
+.text-on-surface { color: var(--color-on-surface); }
+.text-muted { color: var(--color-on-surface-variant); }
+.text-primary { color: var(--color-primary); }
+.text-error { color: var(--color-error); }
+.text-success { color: var(--color-tertiary); }

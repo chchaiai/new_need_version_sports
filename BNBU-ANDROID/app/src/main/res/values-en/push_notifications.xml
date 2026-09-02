@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="push_channel_name">Campus sports notifications</string>
+    <string name="push_channel_description">Campus-sports reminders for courses, reviews, and deadlines</string>
+    <string name="push_generic_title">BNBU Campus Sports</string>
+    <string name="push_generic_body">You have a new campus sports notification</string>
+</resources>

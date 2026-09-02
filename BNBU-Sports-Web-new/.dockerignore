@@ -1,0 +1,11 @@
+**/node_modules/
+**/dist/
+**/.next/
+**/.vinext/
+**/.wrangler/
+**/coverage/
+**/.git/
+frontend/.demo-student.json
+frontend/*.log
+portal-teacher-admin/.env
+portal-teacher-admin/.env.*

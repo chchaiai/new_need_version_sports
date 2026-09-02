@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="title desc">
+  <title id="title">校园运动打卡凭证示例</title>
+  <desc id="desc">展示校园跑步路径、运动时间和完成状态的脱敏凭证示例。</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#cfeaff"/>
+      <stop offset="1" stop-color="#7eb6e3"/>
+    </linearGradient>
+    <linearGradient id="track" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#e55e52"/>
+      <stop offset="1" stop-color="#b9363f"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="640" fill="url(#sky)"/>
+  <rect y="315" width="960" height="325" fill="#6fa66c"/>
+  <path d="M0 363C160 300 278 385 434 342S744 266 960 326V640H0Z" fill="#4c8d55" opacity=".58"/>
+  <ellipse cx="485" cy="454" rx="315" ry="133" fill="url(#track)"/>
+  <ellipse cx="485" cy="454" rx="242" ry="83" fill="#77b86c"/>
+  <ellipse cx="485" cy="454" rx="171" ry="45" fill="#65a962"/>
+  <g fill="none" stroke="#fff" stroke-width="4" opacity=".58">
+    <ellipse cx="485" cy="454" rx="286" ry="115"/>
+    <ellipse cx="485" cy="454" rx="259" ry="99"/>
+  </g>
+  <g fill="#f6df78">
+    <circle cx="150" cy="283" r="42"/><circle cx="245" cy="258" r="30"/><circle cx="808" cy="268" r="38"/><circle cx="888" cy="300" r="33"/>
+  </g>
+  <g fill="#7f6344">
+    <rect x="145" y="283" width="10" height="81"/><rect x="240" y="258" width="9" height="74"/><rect x="803" y="268" width="9" height="81"/><rect x="883" y="300" width="9" height="58"/>
+  </g>
+  <g transform="translate(604 74)">
+    <rect width="282" height="164" rx="18" fill="#112033" fill-opacity=".92"/>
+    <text x="25" y="40" fill="#cdd9e8" font-family="Arial, sans-serif" font-size="18">运动已完成</text>
+    <text x="25" y="91" fill="white" font-family="Arial, sans-serif" font-size="43" font-weight="700">02:01:00</text>
+    <text x="25" y="126" fill="#9ec6f6" font-family="Arial, sans-serif" font-size="18">校园跑 · 2026-07-27</text>
+  </g>
+  <g transform="translate(82 74)">
+    <rect width="200" height="92" rx="14" fill="white" fill-opacity=".9"/>
+    <text x="22" y="35" fill="#24557e" font-family="Arial, sans-serif" font-size="17">运动区域</text>
+    <text x="22" y="65" fill="#112033" font-family="Arial, sans-serif" font-size="22" font-weight="700">校内田径场附近</text>
+  </g>
+  <circle cx="708" cy="420" r="16" fill="#1576d1" stroke="white" stroke-width="7"/>
+  <path d="M708 438c-18 32-18 32 0 55 18-23 18-23 0-55Z" fill="#1576d1"/>
+</svg>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.BNBUStudent" parent="android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/bnbu_background</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor">@color/bnbu_background</item>
+        <item name="android:navigationBarColor">@color/bnbu_background</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="Theme.BNBUStudent.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/bnbu_splash_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_main_system_generated</item>
+        <item name="postSplashScreenTheme">@style/Theme.BNBUStudent</item>
+    </style>
+</resources>

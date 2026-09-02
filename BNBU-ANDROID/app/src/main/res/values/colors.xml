@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bnbu_background">#F2F2F7</color>
+    <color name="bnbu_splash_background">#F2F5FC</color>
+    <!-- Official BNBU identity blue; kept separate from the app theme palette. -->
+    <color name="bnbu_brand_official">#0166A4</color>
+    <color name="bnbu_icon_background">#F5F9FC</color>
+</resources>
