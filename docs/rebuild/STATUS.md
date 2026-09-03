@@ -1,10 +1,10 @@
 # 当前进度状态
 
-> 更新时间：2026-09-02
+> 更新时间：2026-09-04
 >
-> 当前工作：收集与整理老师会议提出的新需求。
+> 当前工作：教师辅助优先方案的业务规则与流程更新至 v8.0。
 >
-> 完成状态：PARTIAL。团队路线和交接文档已整理，具体会议需求尚待提供；新需求的业务确认、设计、实现和验收尚未开始。
+> 完成状态：本轮业务文档 DONE；系统开发整体仍 PARTIAL。四份权威正文、入口与更新报告已完成；UI、领域/数据库、Contract、Backend 与客户端尚未迁移或验收。
 
 本页按各部分的具体情况记录当前进度。后续工作的数字编号和事项见 [项目 README](../../README.md#后续开发路线)。
 
@@ -12,8 +12,8 @@
 
 | 部分 | 现有成果与证据 | 未完成事项 |
 |---|---|---|
-| 新需求 | 已确定收集、业务确认、设计、影响分析、Contract、实现和验收的推进顺序 | 老师会议原始材料与正式需求清单尚未收到；不能把路线示例登记为真实需求 |
-| 业务规则 | [总流程](../business/00-overview.md)、[学生](../business/10-student-flow.md)、[教师](../business/20-teacher-flow.md)、[管理员](../business/30-admin-flow.md) 四份权威文档已有确认规则，明确角色责任、课程邀请、运动记录、审核、认证、成绩及管理边界 | 新需求尚未完成 ACCEPTED / PENDING / REJECTED 决策，不得直接进入下游实现 |
+| 新需求 | 用户对话中的实际诉求已整理为 10 组 ACCEPTED 决策，见[总览](../business/00-overview.md)与[交接报告](handoffs/2026-09-04-teacher-first-business-update.md) | 不补造独立会议原文；新增需求另行登记 |
+| 业务规则 | [总流程](../business/00-overview.md)、[学生](../business/10-student-flow.md)、[教师](../business/20-teacher-flow.md)、[管理员](../business/30-admin-flow.md) 已更新至 v8.0 | 下一步完成新流程对应的设计与 Contract；文档不能证明已运行 |
 | UI / 用户流程 | Android 学生端、Web 学生端、教师 / 管理员 Portal 已有页面和交互代码 | 本轮新增需求对应的入口、页面、Loading / Empty / Error 与权限反馈尚未设计 |
 | Domain / 数据库 | [领域与数据库设计](../architecture/phase-3-domain-and-database-design.md) 已覆盖状态、不变量、关系、唯一约束、事务、索引、审计和历史保留 | 当前只有设计，没有本仓库新 Backend 的 migration、真实数据库执行或运行验证；后续仅按新需求增量修改 |
 | Backend 架构 | [架构职责](../architecture/backend-architecture.md)、[模块边界](../architecture/backend-module-boundaries.md)、[依赖规则](../architecture/backend-dependency-rules.md) 已明确 | 最小 Composition Root、模块实现和可执行架构测试尚未建立 |
@@ -40,18 +40,18 @@ CR 须经独立评审；接受后发布新的 Version / SHA，重新生成 Andro
 
 ## 目前可推进的工作
 
-1. 收集老师会议纪要、原话、截图和补充材料，为实际诉求建立 `REQ-001` 等稳定编号。
-2. 整理来源、涉及角色、问题、希望的结果和待确认点，不补造业务规则。
-3. 指定每个任务的人类 Owner、Reviewer、分支 / Worktree、明确写入范围、测试标准和 Handoff。
-4. 资料完整后由业务负责人逐条确认范围，再按 README 中的顺序推进。
+1. 按 v8.0 设计教师异常队列、名单/OCR、管理员模板和服务治理、学生数据与补证页面，覆盖状态与权限。
+2. 设计材料版本、AI 任务、一次补证期限、最优计入组合、结算版本和有限授权的领域/数据库变化与迁移。
+3. 据新业务提出 Contract 变更，连同既有 discriminator 阻塞统一评审；发布新 Version / SHA 后让下游重新验证。
+4. 之后按模块实现真实服务与客户端接入，并执行交接报告中的验收场景。
 
-具体会议材料是需求收集完成的前置条件。核心 PENDING 未关闭、设计未评审或 Contract 仍阻塞时，不将受影响能力推进到实现。
+当前没有在本轮规则范围内保留核心 PENDING。模型效果、学校外部反馈渠道、责任教师失效后的非记录教学阻塞仍须在运行落地时有真实责任与证据，不能通过虚构能力或越权写入解决。
 
 ## 交接与证据边界
 
-- 本次文档整理与仓库导入记录：[任务 Handoff](handoffs/phase-0-repository-import-and-team-guide.md)。
-- [导入 PR #1](https://github.com/chchaiai/new_need_version_sports/pull/1) 已创建，包含完整当前文件快照，等待人工 Review；尚未合并或部署。
-- 历史状态记录保存在 [状态存档](handoffs/baseline-status-2026-09-02.md)，用于追溯；本页作为当前情况入口。
-- 本次不修改业务规则、Contract、Android、Web、Backend 或数据库实现。
-- 按用户要求删除不适用于当前资料与项目汇总仓库的 Backend CI workflow，当前不设置 CI 任务。
-- 当前仍有旧 API、Mock / 演示路径与占位目录；本次文档整理不代表这些项目已完成迁移。
+- 本轮：[业务更新、前后对照和验收清单](handoffs/2026-09-04-teacher-first-business-update.md)。
+- 本轮基线为 `71655cc18d0c29b159eebc4ba293a25a27bcfe7e`，提交已包含导入 PR #1 的合并；不继续使用“尚未合并”的旧导入状态。用户已授权将业务文档分支提交至原仓库并创建 PR，当前进入提交评审流程；尚未合并或部署本轮更新。
+- 历史导入记录见[Phase 0 交接](handoffs/phase-0-repository-import-and-team-guide.md)；[历史状态](handoffs/baseline-status-2026-09-02.md)只供追溯。
+- 本轮修改业务规则、README/状态与交接报告；没有修改 Contract、Android、Web、Backend、数据库设计或实现。
+- 当前仍有旧 API、Mock/演示路径与占位目录，历史客户端测试数字未重跑；本轮仅执行文档与变更范围检查，结果见交接报告。
+- 原有 Backend CI 删除状态保留，本轮未新增 CI 或部署任务。
