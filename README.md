@@ -2,7 +2,7 @@
 
 面向学生、教师和管理员的校园体育系统。本仓库汇集 Android、Web、业务规则、数据库与架构设计、共享 API Contract，以及新一轮需求变更的团队协作入口。
 
-**当前工作：教师辅助优先方案的业务规则与流程已更新至 v8.0。** 本轮依据用户在对话中提出并确认的需求，完成四份权威文档和变更报告；页面、数据库、Contract 与 Backend 实现仍待后续设计和开发。
+**当前工作：教师辅助优先方案的业务规则与流程已更新至 V8.1。** 本轮依据用户在对话中提出并确认的需求，完成四份权威文档和变更报告；页面、数据库、Contract 与 Backend 实现仍待后续设计和开发。
 
 - [当前进度](#当前进度)：各部分已经有什么、还缺什么。
 - [目录与阅读入口](#目录与阅读入口)：加入团队后先读哪些材料。
@@ -17,7 +17,7 @@
 | 部分 | 目前已经具备 | 尚未完成 / 下一步 |
 |---|---|---|
 | 新需求 | 用户提供的诉求已整理为 10 组 ACCEPTED 决策，见总览与[前后对照报告](docs/rebuild/handoffs/2026-09-04-teacher-first-business-update.md) | 本轮来源为用户对话，不补造会议纪要或新增人员意见；后续新增诉求另行登记 |
-| 业务规则 | 四份权威文档 v8.0 已同步 AI 初审、一次补证、实际分钟、名单/OCR、学生数据展示、收尾结算及管理边界 | 业务文档完成不代表软件实现；旧设计和旧 Contract 不能直接覆盖新流程 |
+| 业务规则 | 四份权威文档 V8.1 已同步 AI 初审、一次补证、实际分钟、名单/OCR、学生数据展示、收尾结算及管理边界 | 业务文档完成不代表软件实现；旧设计和旧 Contract 不能直接覆盖新流程 |
 | UI / 用户流程 | 有 Android 学生端、Web 学生端，以及教师 / 管理员 Portal 的页面和交互代码 | 新需求对应的页面、入口、状态和权限反馈尚未设计；已有页面不能代替业务确认 |
 | Domain / 数据库 | 已有领域模型、状态机、PostgreSQL 表与约束、事务、索引、审计和历史保留设计 | 这些是设计文档；当前 Backend 目录没有数据库实现或 migration，新需求影响的部分仍需增量设计 |
 | Backend 架构 | 已有模块化单体、分层职责、模块 Owner、Repository Port、Mapper、事务和依赖规则 | 尚未落地服务骨架、Composition Root 或可执行的架构测试 |
@@ -37,7 +37,7 @@
 
 详细证据：[Android 验证记录](docs/rebuild/handoffs/phase-5g-a-android-affected-contract-revalidation.md)、[Web 验证记录](docs/rebuild/handoffs/phase-5g-b-web-affected-contract-revalidation.md)、[Android 迁移清单](docs/rebuild/handoffs/android/legacy-migration-findings.md)、[Web 迁移清单](docs/rebuild/handoffs/web/phase-5db-legacy-migration-findings.md)、[阻塞 CR](contracts/change-requests/CR-20260901-005-explicit-discriminator-mappings.md)。
 
-当前可推进的是基于 v8.0 的页面流程与全系统影响设计。进入实现前，需完成领域/数据库增量设计、处理既有及新增 Contract 缺口，并让下游加载同一有效版本；[本轮交接报告](docs/rebuild/handoffs/2026-09-04-teacher-first-business-update.md) 给出具体影响和验收场景。
+当前可推进的是基于 V8.1 的页面流程与全系统影响设计。进入实现前，需完成领域/数据库增量设计、处理既有及新增 Contract 缺口，并让下游加载同一有效版本；[本轮交接报告](docs/rebuild/handoffs/2026-09-04-teacher-first-business-update.md) 给出具体影响和验收场景。
 
 ## 目录与阅读入口
 

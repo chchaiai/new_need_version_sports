@@ -2,13 +2,21 @@
 
 > 更新时间：2026-09-04
 >
-> 当前工作：将已确认的最新业务文档发布为 [PR #3](https://github.com/chchaiai/new_need_version_sports/pull/3)，目标为 `chchaiai/new_need_version_sports:main`；PR 已打开，未合并、未部署。
+> 当前工作：按用户要求将本次业务文档版本更正为 V8.1，并更新现有 [PR #3](https://github.com/chchaiai/new_need_version_sports/pull/3)；目标仍为 `chchaiai/new_need_version_sports:main`，未合并、未部署。
 >
-> 完成状态：业务文档提交、分支推送与 PR 创建 DONE；全流程未决边界及系统开发整体仍 PARTIAL。当前学生端仅开发 Android / Web，教师与管理员继续使用 Web；未实施页面、Contract、Backend 或数据库迁移。
+> 完成状态：业务版本标记更正与文档检查 DONE；全流程未决边界及系统开发整体仍 PARTIAL。当前学生端仅开发 Android / Web，教师与管理员继续使用 Web；未实施页面、Contract、Backend 或数据库迁移。
 
 本页按各部分的具体情况记录当前进度。后续工作的数字编号和事项见 [项目 README](../../README.md#后续开发路线)。
 
-## 本轮业务文档 PR 发布
+## 本轮业务版本更正
+
+- 用户明确本次最新业务逻辑应为 V8.1，原 v8.0 当前版本标记有误。本轮只更正版本及发布说明，不新增业务决定，六类公开原因、BD-20260904-01/02 和四项 PENDING 原样保留。
+- 开始分支 `codex/latest-main-20260904`，HEAD 为 `5fb596baafeefb91f426f6bfadd6cde609e9dff7`；工作区和暂存区干净。远端 PR #3 仍 OPEN，head 与本地一致；沿用同一分支追加提交，不新开 PR、不合并、不部署。
+- 更正四份业务权威、业务目录 README 和项目 README 的当前版本标记；同步本页并新增[版本更正交接](handoffs/2026-09-04-business-version-v8.1.md)，共八份文档。项目 README 仅替换三处当前版本，历史方案和既有交接中的 v8.0 保留。
+- Contract 仍为 `1.2.0-contract / RC`，不改变版本、SHA 或生成物；客户端、Backend、数据库和业务参数均未改。既有旧 API、Mock/演示和占位目录未迁移或清理。
+- 本轮精确版本替换与业务条款/PENDING 保持检查通过；82 处本地链接、12 处锚点、280 行表格及格式检查通过，81 个受保护文件哈希不变，Git 范围和空白检查通过；具体结果见版本更正交接。未运行产品构建、单测或 E2E：本轮仅修改文档版本标记和交付说明。
+
+## 前次业务文档 PR 发布（历史记录）
 
 - 用户授权将最新业务逻辑提交到目标仓库 PR。本轮发布既有已确认文档，不把上一轮针对四项 PENDING 的建议视为接受，不新增业务决定。
 - 开始基线：`codex/latest-main-20260904` / `49d992a1333294ea561923cfea0b7d25864a4d91`；六份已跟踪文档修改、三份新增交接，暂存区为空。已核对 `project` 对应目标仓库，`origin` 为不同的 Backend 仓库；未向其他远程推送。
@@ -52,7 +60,7 @@
 | 部分 | 现有成果与证据 | 未完成事项 |
 |---|---|---|
 | 新需求 | 原 ACCEPTED 决策中无冲突部分继续生效；现含 `BD-20260904-01/02`，旧接管及教师维护改密例外已被本轮替代，见[总览](../business/00-overview.md)与[本轮交接](handoffs/2026-09-04-business-review-followup.md) | 不补造独立会议原文；后续新增需求另行登记 |
-| 业务规则 | [总流程](../business/00-overview.md)、[学生](../business/10-student-flow.md)、[教师](../business/20-teacher-flow.md)、[管理员](../business/30-admin-flow.md) 为 v8.0；当前开发范围 Android / Web，已同步用户本轮确认的补证、维护、SLA、关闭与职责/备注边界 | 尚有总览第 0.4 节 PENDING，相关分支须先确认；再做页面、状态与 Contract 设计，文档不能证明已运行 |
+| 业务规则 | [总流程](../business/00-overview.md)、[学生](../business/10-student-flow.md)、[教师](../business/20-teacher-flow.md)、[管理员](../business/30-admin-flow.md) 为 V8.1；当前开发范围 Android / Web，已同步用户本轮确认的补证、维护、SLA、关闭与职责/备注边界 | 尚有总览第 0.4 节 PENDING，相关分支须先确认；再做页面、状态与 Contract 设计，文档不能证明已运行 |
 | UI / 用户流程 | Android 学生端、Web 学生端、教师 / 管理员 Portal 已有页面和交互代码 | 本轮新增需求对应的入口、页面、Loading / Empty / Error 与权限反馈尚未设计 |
 | Domain / 数据库 | [领域与数据库设计](../architecture/phase-3-domain-and-database-design.md) 已覆盖状态、不变量、关系、唯一约束、事务、索引、审计和历史保留 | 当前只有设计，没有本仓库新 Backend 的 migration、真实数据库执行或运行验证；后续仅按新需求增量修改 |
 | Backend 架构 | [架构职责](../architecture/backend-architecture.md)、[模块边界](../architecture/backend-module-boundaries.md)、[依赖规则](../architecture/backend-dependency-rules.md) 已明确 | 最小 Composition Root、模块实现和可执行架构测试尚未建立 |
@@ -79,7 +87,7 @@ CR 须经独立评审；接受后发布新的 Version / SHA，重新生成 Andro
 
 ## 目前可推进的工作
 
-1. 先确认[总览第 0.4 节](../business/00-overview.md#04-待决边界)的 PENDING，再按 v8.0 与 `BD-20260904-01/02` 设计教师逐轮待办、学生补证终结、维护暂停/恢复和课程关闭后的旧业务入口；未确认分支不进入实现。
+1. 先确认[总览第 0.4 节](../business/00-overview.md#04-待决边界)的 PENDING，再按 V8.1 与 `BD-20260904-01/02` 设计教师逐轮待办、学生补证终结、维护暂停/恢复和课程关闭后的旧业务入口；未确认分支不进入实现。
 2. 设计材料版本、AI 任务、逐轮 SLA 与补证计时、最优计入组合、结算版本的领域/数据库变化；不继续实现已取消的删除后接管与最终成绩备注能力。
 3. 据新业务提出 Contract 变更，连同既有 discriminator 阻塞统一评审；发布新 Version / SHA 后让下游重新验证。
 4. 之后按模块实现真实服务与客户端接入，并执行交接报告中的验收场景。
@@ -88,9 +96,9 @@ CR 须经独立评审；接受后发布新的 Version / SHA，重新生成 Andro
 
 ## 交接与证据边界
 
-- 本轮：[业务文档 PR 发布](handoffs/2026-09-04-business-pr-publication.md)。前次为[业务复核决定同步](handoffs/2026-09-04-business-review-followup.md)、[审核公开原因与补证终结](handoffs/2026-09-04-review-public-reasons.md)和[客户端开发范围调整](handoffs/2026-09-04-business-platform-scope.md)。v8.0 原方案见[历史更新报告](handoffs/2026-09-04-teacher-first-business-update.md)；历史说明与现行正文冲突处不再适用。
-- 前次 v8.0 业务更新以 `71655cc18d0c29b159eebc4ba293a25a27bcfe7e` 为修改前基线；其报告中的分支、提交评审和 PR 状态是历史上下文。本轮从 `49d992a1333294ea561923cfea0b7d25864a4d91` 开始，已提交文档并向指定目标仓库推送业务分支、创建 PR #3，未合并或部署。
+- 本轮：[V8.1 版本更正](handoffs/2026-09-04-business-version-v8.1.md)。前次为[业务文档 PR 发布](handoffs/2026-09-04-business-pr-publication.md)、[业务复核决定同步](handoffs/2026-09-04-business-review-followup.md)、[审核公开原因与补证终结](handoffs/2026-09-04-review-public-reasons.md)和[客户端开发范围调整](handoffs/2026-09-04-business-platform-scope.md)。v8.0 原方案见[历史更新报告](handoffs/2026-09-04-teacher-first-business-update.md)；历史说明与现行正文冲突处不再适用。
+- 前次 v8.0 业务更新以 `71655cc18d0c29b159eebc4ba293a25a27bcfe7e` 为修改前基线；其报告中的分支、提交评审和 PR 状态是历史上下文。前次发布从 `49d992a1333294ea561923cfea0b7d25864a4d91` 开始，已提交文档并向指定目标仓库推送业务分支、创建 PR #3，未合并或部署。
 - 历史导入记录见[Phase 0 交接](handoffs/phase-0-repository-import-and-team-guide.md)；[历史状态](handoffs/baseline-status-2026-09-02.md)只供追溯。
-- 本轮原样发布前次业务改动，只为记录 PR 更新 STATUS 并新增发布交接；没有修改项目 README、Contract、Android、Web、Backend、数据库设计、实现或既有交接。四项 PENDING 及既有 Contract 门禁保持。
+- 前次发布原样提交业务改动，仅为记录 PR 更新 STATUS 并新增发布交接；没有修改项目 README、Contract、Android、Web、Backend、数据库设计、实现或既有交接。四项 PENDING 及既有 Contract 门禁保持。
 - 当前仍有旧 API、Mock/演示路径与占位目录，历史客户端测试数字未重跑；本轮仅执行文档与变更范围检查，结果见交接报告。
 - 原有 Backend CI 删除状态保留，本轮未新增 CI 或部署任务。
