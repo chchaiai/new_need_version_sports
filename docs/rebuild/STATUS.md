@@ -2,13 +2,25 @@
 
 > 更新时间：2026-09-04
 >
-> 当前工作：同步用户对业务复核问题的明确决定：补证终结、责任教师职责、维护计时、课程关闭、逐轮教师 SLA 与备注范围。
+> 当前工作：将已确认的最新业务文档发布为 [PR #3](https://github.com/chchaiai/new_need_version_sports/pull/3)，目标为 `chchaiai/new_need_version_sports:main`；PR 已打开，未合并、未部署。
 >
-> 完成状态：本轮已明确决定的业务文档同步与静态检查 DONE；全流程未决边界及系统开发整体仍 PARTIAL。当前学生端仅开发 Android / Web，教师与管理员继续使用 Web；未实施页面、Contract、Backend 或数据库迁移。
+> 完成状态：业务文档提交、分支推送与 PR 创建 DONE；全流程未决边界及系统开发整体仍 PARTIAL。当前学生端仅开发 Android / Web，教师与管理员继续使用 Web；未实施页面、Contract、Backend 或数据库迁移。
 
 本页按各部分的具体情况记录当前进度。后续工作的数字编号和事项见 [项目 README](../../README.md#后续开发路线)。
 
-## 本轮复核决定同步
+## 本轮业务文档 PR 发布
+
+- 用户授权将最新业务逻辑提交到目标仓库 PR。本轮发布既有已确认文档，不把上一轮针对四项 PENDING 的建议视为接受，不新增业务决定。
+- 开始基线：`codex/latest-main-20260904` / `49d992a1333294ea561923cfea0b7d25864a4d91`；六份已跟踪文档修改、三份新增交接，暂存区为空。已核对 `project` 对应目标仓库，`origin` 为不同的 Backend 仓库；未向其他远程推送。
+- 业务内容提交：`c173c6aaedf9c7f8bfdd6c66b360320ae8cb5839`，精确包含开始时的九份文档。推送 `project` 的 `codex/latest-main-20260904`，创建 [PR #3](https://github.com/chchaiai/new_need_version_sports/pull/3) 指向 `main`；本页及[发布交接](handoffs/2026-09-04-business-pr-publication.md)随同一 PR 分支回填。
+- PR 创建后核验为 OPEN、非草稿、MERGEABLE / CLEAN；当时 head 与内容提交一致，base 为 `49d992a1333294ea561923cfea0b7d25864a4d91`，远端九个文件与本地范围一致。状态查询没有返回 CI 检查项，不代表 CI 通过；最终发布范围与证据见交接。
+- 提交前九份文档 UTF-8、围栏、空白、302 行表格、57 处本地链接及 8 处锚点检查通过；共享规则与上一轮已验证版本一致。根 AGENTS 与全部 Contract 跟踪文件共 39 个受保护文件哈希不变，暂存范围与文件内容检查通过。发布交接回填后，十份文档的 323 行表格、68 处本地链接、8 处锚点及格式检查通过；前述 39 个文件与八份原样发布文档共 47 个文件哈希不变。
+- 发布总范围为四份业务权威、业务目录 README、STATUS、三份既有交接及一份新发布交接，共十份文档；本轮只新增发布交接、更新 STATUS，其他八份待发布文档原样提交。未切换分支、重写提交、合并、直接推送 main 或部署。
+- 未运行产品构建、单元测试、Backend/数据库、真实上传/计时/通知/权限或 E2E；本轮没有对应实现改动，不把文档检查、可合并状态或 PR 创建当作产品验收。
+
+以下三节保留前次修改的执行记录；其中“本轮”“未提交”等描述属于各次历史时间点，相关文档现已随 PR #3 提交。
+
+## 前次复核决定同步（历史记录，已随 PR 提交）
 
 - 开始基线：`codex/latest-main-20260904` / `49d992a1333294ea561923cfea0b7d25864a4d91`；开始时四份业务正文和 STATUS 已修改，两个前次交接未跟踪，暂存区为空。本轮保留这些改动，不提交、推送、切分支、合并或部署。
 - `BD-20260904-02 / ACCEPTED`：补证后经教师判无效直接终结，不再补证；六类公开原因不增项，不将仍有疑虑等同已证实违规。
@@ -28,7 +40,7 @@
 - “补证逾期”是系统公开原因，不是教师选项。按最终截止和服务器受理事实判断；逾期无效的原记录不能再次补证。按时受理后等待复核、已确认故障顺延及有权限的历史纠错边界保留，纠错不重开补证。
 - 本轮仅修改四份业务正文、本页并新增[审核公开原因交接](handoffs/2026-09-04-review-public-reasons.md)；保留 v8.0 基线版本，不修改 Contract、代码、架构、数据库或前次交接。四份正文精确差异、三份共享分类/期限/展示块、39 处本地链接、8 处锚点、251 行表格、Git 范围和空白检查通过；未执行产品测试，不以文档完成代替产品验证。
 
-## 前次开发范围调整（已完成，改动尚未提交）
+## 前次开发范围调整（历史记录，已随 PR 提交）
 
 - 开始基线：`codex/latest-main-20260904` / `49d992a1333294ea561923cfea0b7d25864a4d91`，工作区干净、暂存区为空。
 - 用户确认当前不开发 iOS。已删除业务目录内 5 处显式引用，并将“其他学生端”的泛指收紧为 Android / Web；总流程明确 Android 学生端、Web 学生端和教师/管理员 Web 端的开发范围。
@@ -76,9 +88,9 @@ CR 须经独立评审；接受后发布新的 Version / SHA，重新生成 Andro
 
 ## 交接与证据边界
 
-- 本轮：[业务复核决定同步](handoffs/2026-09-04-business-review-followup.md)；前次为[审核公开原因与补证终结](handoffs/2026-09-04-review-public-reasons.md)和[客户端开发范围调整](handoffs/2026-09-04-business-platform-scope.md)。v8.0 原方案见[历史更新报告](handoffs/2026-09-04-teacher-first-business-update.md)；历史说明与本轮冲突处不再适用。
-- 前次 v8.0 业务更新以 `71655cc18d0c29b159eebc4ba293a25a27bcfe7e` 为修改前基线；其报告中的分支、提交评审和 PR 状态是历史上下文，不代表本轮状态。本轮从 `49d992a1333294ea561923cfea0b7d25864a4d91` 开始，仅修改当前工作区文档，不提交、推送、合并或部署。
+- 本轮：[业务文档 PR 发布](handoffs/2026-09-04-business-pr-publication.md)。前次为[业务复核决定同步](handoffs/2026-09-04-business-review-followup.md)、[审核公开原因与补证终结](handoffs/2026-09-04-review-public-reasons.md)和[客户端开发范围调整](handoffs/2026-09-04-business-platform-scope.md)。v8.0 原方案见[历史更新报告](handoffs/2026-09-04-teacher-first-business-update.md)；历史说明与现行正文冲突处不再适用。
+- 前次 v8.0 业务更新以 `71655cc18d0c29b159eebc4ba293a25a27bcfe7e` 为修改前基线；其报告中的分支、提交评审和 PR 状态是历史上下文。本轮从 `49d992a1333294ea561923cfea0b7d25864a4d91` 开始，已提交文档并向指定目标仓库推送业务分支、创建 PR #3，未合并或部署。
 - 历史导入记录见[Phase 0 交接](handoffs/phase-0-repository-import-and-team-guide.md)；[历史状态](handoffs/baseline-status-2026-09-02.md)只供追溯。
-- 本轮仅修改四份业务正文、业务目录 README 的一行能力介绍、STATUS 和指定新交接；保留前次未提交改动，没有修改项目 README、Contract、Android、Web、Backend、数据库设计、实现或历史交接。
+- 本轮原样发布前次业务改动，只为记录 PR 更新 STATUS 并新增发布交接；没有修改项目 README、Contract、Android、Web、Backend、数据库设计、实现或既有交接。四项 PENDING 及既有 Contract 门禁保持。
 - 当前仍有旧 API、Mock/演示路径与占位目录，历史客户端测试数字未重跑；本轮仅执行文档与变更范围检查，结果见交接报告。
 - 原有 Backend CI 删除状态保留，本轮未新增 CI 或部署任务。
