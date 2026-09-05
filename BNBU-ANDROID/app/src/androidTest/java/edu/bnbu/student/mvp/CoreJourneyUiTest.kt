@@ -8,6 +8,7 @@ import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.assertCountEquals
+import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.semantics.Role
@@ -20,10 +21,12 @@ import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
+import androidx.compose.ui.test.performScrollToNode
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import edu.bnbu.student.mvp.core.designsystem.BNBUStudentTheme
 import edu.bnbu.student.mvp.core.local.AndroidAppLocalStore
+import edu.bnbu.student.mvp.core.model.AppLanguage
 import edu.bnbu.student.mvp.core.model.SystemMode
 import edu.bnbu.student.mvp.core.model.SystemModeStatus
 import edu.bnbu.student.mvp.core.state.StudentAppState
@@ -37,6 +40,7 @@ import edu.bnbu.student.mvp.feature.courses.CourseJoinInfo
 import edu.bnbu.student.mvp.feature.exemption.ExemptionScreen
 import edu.bnbu.student.mvp.feature.shell.MaintenanceSupplementTimingUiModel
 import edu.bnbu.student.mvp.feature.shell.StartupGateScreen
+import edu.bnbu.student.mvp.feature.notifications.NotificationSheet
 import java.io.File
 import java.time.Instant
 import org.junit.After
@@ -81,6 +85,8 @@ class CoreJourneyUiTest {
 
         composeRule.onNodeWithTag("startup.loading").assertIsDisplayed()
         composeRule.onNodeWithTag("startup.loadingIndicator").assertIsDisplayed()
+        composeRule.onNodeWithTag("startup.originalBrand").assertIsDisplayed()
+        composeRule.onNodeWithTag("startup.originalPartnerBrand").assertIsDisplayed()
     }
 
     @Test
@@ -105,6 +111,36 @@ class CoreJourneyUiTest {
         assertTrue(localReviewCount == 1)
     }
 
+    @Test
+    fun notificationSheetUsesSelectedEnglishInterfaceCopy() {
+        composeRule.runOnUiThread {
+            assertTrue(localStore.saveAppLanguage(AppLanguage.English))
+        }
+        try {
+            composeRule.setContent {
+                BNBUStudentTheme {
+                    NotificationSheet(
+                        notices = emptyList(),
+                        unreadCount = 0,
+                        onDismiss = {},
+                        onMarkRead = {},
+                        onMarkAllRead = {},
+                        onOpenExemption = {}
+                    )
+                }
+            }
+
+            composeRule.onNodeWithText("Notifications").assertIsDisplayed()
+            composeRule.onNodeWithText("No unread notifications").assertIsDisplayed()
+            composeRule.onNodeWithText("Mark all as read").assertIsDisplayed()
+            composeRule.onNodeWithText("No notifications").assertIsDisplayed()
+        } finally {
+            composeRule.runOnUiThread {
+                assertTrue(localStore.saveAppLanguage(AppLanguage.Chinese))
+            }
+        }
+    }
+
     @Before
     fun setUp() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
@@ -122,7 +158,10 @@ class CoreJourneyUiTest {
 
     private fun setAppRootContent(
         maintenanceSupplementTiming: MaintenanceSupplementTimingUiModel =
-            MaintenanceSupplementTimingUiModel.Unavailable
+            MaintenanceSupplementTimingUiModel.Unavailable,
+        systemModeConnectionState: SystemModeConnectionState =
+            SystemModeConnectionState.CONFIRMED,
+        onRetrySystemMode: () -> Unit = {}
     ) {
         composeRule.setContent {
             BNBUStudentTheme {
@@ -130,7 +169,9 @@ class CoreJourneyUiTest {
                     appState = appState,
                     exerciseSessionController = exerciseController,
                     localStore = localStore,
-                    maintenanceSupplementTiming = maintenanceSupplementTiming
+                    maintenanceSupplementTiming = maintenanceSupplementTiming,
+                    systemModeConnectionState = systemModeConnectionState,
+                    onRetrySystemMode = onRetrySystemMode
                 )
             }
         }
@@ -207,6 +248,50 @@ class CoreJourneyUiTest {
 
         assertTrue(composeRule.onAllNodesWithTag("screen.maintenance").fetchSemanticsNodes().isEmpty())
         composeRule.onNodeWithTag("login.email").assertIsDisplayed()
+    }
+
+    @Test
+    fun normalModeRefreshFailureUsesANeutralBlockingSurfaceAndCanRetry() {
+        var retryCount = 0
+        setAppRootContent(
+            systemModeConnectionState = SystemModeConnectionState.REFRESH_UNAVAILABLE,
+            onRetrySystemMode = { retryCount += 1 }
+        )
+
+        composeRule.onNodeWithTag("systemMode.refreshUnavailable").assertIsDisplayed()
+        composeRule.onNodeWithTag("systemMode.refreshRetry")
+            .assertIsEnabled()
+            .performClick()
+        assertTrue(retryCount == 1)
+        assertTrue(composeRule.onAllNodesWithTag("screen.maintenance").fetchSemanticsNodes().isEmpty())
+        assertTrue(composeRule.onAllNodesWithTag("screen.checkIn").fetchSemanticsNodes().isEmpty())
+    }
+
+    @Test
+    fun confirmedMaintenanceRefreshFailureHidesPotentiallyStaleSupplementTiming() {
+        composeRule.runOnUiThread {
+            appState.updateSystemMode(
+                SystemModeStatus(
+                    mode = SystemMode.MAINTENANCE,
+                    message = "系统维护期间暂停普通业务访问。"
+                )
+            )
+        }
+        setAppRootContent(
+            maintenanceSupplementTiming = MaintenanceSupplementTimingUiModel.Paused(
+                serverConfirmedRemainingSeconds = 45 * 60L
+            ),
+            systemModeConnectionState = SystemModeConnectionState.REFRESH_UNAVAILABLE
+        )
+
+        composeRule.onNodeWithTag("screen.maintenance").assertIsDisplayed()
+        composeRule.onNodeWithTag("maintenance.refreshUnavailable").assertIsDisplayed()
+        composeRule.onNodeWithTag("maintenance.refreshRetry").assertIsEnabled()
+        assertTrue(
+            composeRule.onAllNodesWithTag("maintenance.supplementTiming")
+                .fetchSemanticsNodes()
+                .isEmpty()
+        )
     }
 
     @Test
@@ -342,14 +427,24 @@ class CoreJourneyUiTest {
         val tabRole = SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Tab)
         composeRule.onAllNodes(tabRole).assertCountEquals(5)
 
-        listOf("课程", "打卡", "记录与进度", "我的").forEach { label ->
+        listOf(
+            R.string.navigation_courses,
+            R.string.navigation_checkin,
+            R.string.navigation_grades,
+            R.string.navigation_profile
+        ).forEach { labelResource ->
+            val label = composeRule.activity.getString(labelResource)
             composeRule.onNode(hasText(label) and tabRole).performClick().assertIsSelected()
-            when (label) {
-                "打卡" -> composeRule.onNodeWithTag("screen.checkIn").assertIsDisplayed()
-                "记录与进度" -> composeRule.onNodeWithTag("screen.recordsProgress").assertIsDisplayed()
+            when (labelResource) {
+                R.string.navigation_checkin ->
+                    composeRule.onNodeWithTag("screen.checkIn").assertIsDisplayed()
+                R.string.navigation_grades ->
+                    composeRule.onNodeWithTag("screen.recordsProgress").assertIsDisplayed()
             }
             pressSystemBack()
-            composeRule.onNode(hasText("首页") and tabRole).assertIsSelected()
+            composeRule.onNode(
+                hasText(composeRule.activity.getString(R.string.navigation_dashboard)) and tabRole
+            ).assertIsSelected()
         }
     }
 
@@ -358,9 +453,13 @@ class CoreJourneyUiTest {
         enterSyntheticReviewWorkspace()
         setAppRootContent()
         val tabRole = SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Tab)
-        composeRule.onNode(hasText("记录与进度") and tabRole).performClick()
+        composeRule.onNode(
+            hasText(composeRule.activity.getString(R.string.navigation_grades)) and tabRole
+        ).performClick()
+        composeRule.onNodeWithTag("screen.recordsProgress")
+            .performScrollToNode(hasTestTag("recordsProgress.supplementReviewEntry"))
         composeRule.onNodeWithTag("recordsProgress.supplementReviewEntry")
-            .performScrollTo().performClick()
+            .performClick()
         composeRule.onNodeWithTag("screen.supplementTask").assertIsDisplayed()
         composeRule.onNodeWithTag("reviewReason.fixedCategory")
             .performScrollTo().assertTextEquals("必需材料缺失（含要求的前后照）")
@@ -369,7 +468,9 @@ class CoreJourneyUiTest {
         composeRule.onNodeWithTag("reviewReason.catalog").performScrollTo().assertIsDisplayed()
         composeRule.onNodeWithTag("reviewReason.systemOverdue")
             .performScrollTo().assertTextEquals("补证逾期")
-        composeRule.onNodeWithTag("supplement.submit").performScrollTo().assertIsNotEnabled()
+        composeRule.onNodeWithTag("screen.supplementTask")
+            .performScrollToNode(hasTestTag("supplement.submit"))
+        composeRule.onNodeWithTag("supplement.submit").assertIsNotEnabled()
         composeRule.onNodeWithText("查看“已接收”评审样例").performScrollTo().performClick()
         composeRule.onNodeWithTag("screen.supplementResult").assertIsDisplayed()
         composeRule.onNodeWithTag("reviewReason.fixedCategory")
@@ -387,9 +488,13 @@ class CoreJourneyUiTest {
         enterSyntheticReviewWorkspace()
         setAppRootContent()
         val tabRole = SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Tab)
-        composeRule.onNode(hasText("记录与进度") and tabRole).performClick()
+        composeRule.onNode(
+            hasText(composeRule.activity.getString(R.string.navigation_grades)) and tabRole
+        ).performClick()
 
-        composeRule.onNodeWithTag("reviewStage.catalog").performScrollTo().assertIsDisplayed()
+        composeRule.onNodeWithTag("screen.recordsProgress")
+            .performScrollToNode(hasTestTag("reviewStage.catalog"))
+        composeRule.onNodeWithTag("reviewStage.catalog").assertIsDisplayed()
         mapOf(
             "PendingAiCheck" to "待 AI 检查",
             "PendingTeacherReview" to "待教师复核",

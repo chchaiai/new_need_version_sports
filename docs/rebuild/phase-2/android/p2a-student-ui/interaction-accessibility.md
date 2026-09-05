@@ -97,16 +97,16 @@
 
 | 项目 | 记录 |
 |---|---|
-| Android Owner | `PENDING-P2A-OWNER-01` |
-| Android Reviewer | `PENDING-P2A-OWNER-01` |
-| Web 跨端 Reviewer | `PENDING-P2A-OWNER-01` |
+| Android Owner | `Exwind259` |
+| Android Reviewer | 当前已获 PR #4 审核权限的审核账号；最终结论 PENDING |
+| Web 跨端 Reviewer | 待负责人从学生 Web 负责人中正式指定 |
 | 分支 | `codex/phase2-android-student-ui` |
-| 实现 Commit | 待 Compose 实现完成后填写 |
+| 实现 Commit | 以 R2-06 Push 后的 PR #4 head 为准；具体 SHA 在 Reviewer 请求中提供 |
 | 设计版本 | `P2A-UI-2026.09.04-draft1` |
-| 设备/模拟器 | 待用户人工测试时填写 |
-| Android 版本、语言、主题、字体比例 | 待测试时填写 |
-| 页面清单核对 | 0/41（本阶段仅冻结清单，尚未实现验收） |
-| 七状态证据 | 待实现 |
+| 设备/模拟器 | 专用 AVD `BNBU_P2_UI_Review` / `emulator-5554`；用户自有真机指定回归（型号未登记） |
+| Android 版本、语言、主题、字体比例 | AVD API 37；真机覆盖中英文与当前用户配置，其他组合待补 |
+| 页面清单核对 | 有明确设备文字证据 9/41，深度不一；其余保持 NOT_RUN/BLOCKED |
+| 七状态证据 | PARTIAL；关键启动/连接/维护场景有 instrumentation，未逐页覆盖 |
 | TalkBack / 键盘 / 大字体 | 待人工验收 |
 | 与 Web 差异说明 | 待实现截图后确认 |
 | Reviewer 结论 | PENDING |

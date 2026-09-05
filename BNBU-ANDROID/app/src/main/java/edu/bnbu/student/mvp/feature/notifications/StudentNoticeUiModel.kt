@@ -39,13 +39,10 @@ private fun StudentNotice.toStudentNoticeUiModel(): StudentNoticeUiModel? {
     if (safeTitle.isBlank() || safeMessage.isBlank()) return null
     val searchable = "$safeTitle\n$safeMessage"
     val normalizedTarget = targetType.orEmpty().trim().lowercase()
-    val kind = when {
-        normalizedTarget.containsAny("maintenance", "system_mode") -> StudentNoticeKind.Maintenance
-        normalizedTarget.contains("feedback") -> StudentNoticeKind.Feedback
-        normalizedTarget.containsAny("membership", "enrollment", "course_invite", "invitation") ->
-            StudentNoticeKind.Membership
-        normalizedTarget.containsAny("exercise", "record", "supplement", "exemption", "certification", "application") ->
-            StudentNoticeKind.Review
+    val explicitTargetKind = StudentNoticeKindsByTargetType[normalizedTarget]
+    if (normalizedTarget.isNotEmpty() && explicitTargetKind == null) return null
+
+    val kind = explicitTargetKind ?: when {
         category == NoticeCategory.Deadline -> StudentNoticeKind.Deadline
         category == NoticeCategory.Review -> StudentNoticeKind.Review
         category == NoticeCategory.Organization -> StudentNoticeKind.Membership
@@ -59,7 +56,9 @@ private fun StudentNotice.toStudentNoticeUiModel(): StudentNoticeUiModel? {
     } ?: return null
 
     if (ForbiddenChineseResultTerms.containsMatchIn(searchable) ||
-        ExplicitForbiddenEnglishResultTerms.containsMatchIn(searchable)
+        ForbiddenEnglishScoreGradeOrRankingTerms.containsMatchIn(searchable) ||
+        ForbiddenEnglishLevelResultTerms.containsMatchIn(searchable) ||
+        ForbiddenEnglishNumericPointsTerms.containsMatchIn(searchable)
     ) {
         return null
     }
@@ -87,17 +86,51 @@ private fun StudentNotice.toStudentNoticeUiModel(): StudentNoticeUiModel? {
     )
 }
 
-private fun String.containsAny(vararg values: String): Boolean =
-    values.any { value -> contains(value) }
+/**
+ * Exact legacy/current route allowlist. FINAL_GRADE is intentionally absent: student
+ * notifications must not expose score, grade, level, or ranking results.
+ */
+private val StudentNoticeKindsByTargetType = mapOf(
+    "course" to StudentNoticeKind.Membership,
+    "membership" to StudentNoticeKind.Membership,
+    "enrollment" to StudentNoticeKind.Membership,
+    "course_invite" to StudentNoticeKind.Membership,
+    "invitation" to StudentNoticeKind.Membership,
+    "exercise" to StudentNoticeKind.Review,
+    "exercise_record" to StudentNoticeKind.Review,
+    "record" to StudentNoticeKind.Review,
+    "supplement" to StudentNoticeKind.Review,
+    "supplementary_evidence" to StudentNoticeKind.Review,
+    "exemption" to StudentNoticeKind.Review,
+    "physical_test_exemption" to StudentNoticeKind.Review,
+    "checkin_exemption" to StudentNoticeKind.Review,
+    "certification" to StudentNoticeKind.Review,
+    "application" to StudentNoticeKind.Review,
+    "endurance" to StudentNoticeKind.Progress,
+    "deadline" to StudentNoticeKind.Deadline,
+    "feedback" to StudentNoticeKind.Feedback,
+    "maintenance" to StudentNoticeKind.Maintenance,
+    "system_mode" to StudentNoticeKind.Maintenance
+)
 
 private val ForbiddenChineseResultTerms = Regex(
     "成绩|得分|分数|换算分|等级|排名|名次|绩点|及格|不及格|优秀|良好"
 )
 
-private val ExplicitForbiddenEnglishResultTerms = Regex(
-    "\\b(final\\s+(?:grade|score)|converted\\s+(?:endurance\\s+)?score|" +
-        "endurance\\s+(?:converted\\s+)?score|grade\\s+point\\s+average|gpa|" +
-        "(?:class|course|overall)\\s+rank(?:ing)?)\\b",
+private val ForbiddenEnglishScoreGradeOrRankingTerms = Regex(
+    "\\b(?:score|grade|rank|ranking|gpa)\\b",
+    RegexOption.IGNORE_CASE
+)
+
+private val ForbiddenEnglishLevelResultTerms = Regex(
+    "(?:\\b(?:final|course|endurance|fitness|performance|result)\\s+(?:level|tier)\\b|" +
+        "\\b(?:level|tier)\\s*(?::|is)?\\s*(?:[a-e]|[1-9]\\d*)\\b)",
+    RegexOption.IGNORE_CASE
+)
+
+private val ForbiddenEnglishNumericPointsTerms = Regex(
+    "(?:\\b\\d+(?:\\.\\d+)?\\s*(?:points?|pts?)\\b|" +
+        "\\b(?:points?|pts?)\\s*[:：]?\\s*\\d+(?:\\.\\d+)?\\b)",
     RegexOption.IGNORE_CASE
 )
 

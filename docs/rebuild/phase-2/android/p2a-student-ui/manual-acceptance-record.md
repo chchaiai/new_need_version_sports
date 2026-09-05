@@ -1,8 +1,8 @@
 # 第 14 步：人工验收记录
 
-状态：**COMPLETE WITH LIMITATIONS — R11 指定真机回归通过，未覆盖项逐项保留。** 这不等于 41 页七状态、接口或完整业务验收通过。
+状态：**COMPLETE WITH LIMITATIONS — R2-05 指定真机回归通过，未覆盖项逐项保留。** 这不等于 41 页七状态、接口或完整业务验收通过。
 
-R10 Debug APK 已由用户传至自有真机并全新安装。用户确认启动门禁、五个主页面、后台返回以及既有三项 UI 缺陷均通过本轮指定复测，暂未发现其他问题。首批截图和复测文字确认只作为当前设备配置下的可见结果；包含周边环境的录像截图不复制到仓库。
+R10 Debug APK 已由用户传至自有真机并全新安装。用户确认启动门禁、五个主页面、后台返回以及既有三项 UI 缺陷通过指定复测；随后发现英文通知固定文案未切换、英文视频预览底部说明被裁切，并明确要求继续使用原有系统启动页。第一版修复候选中，英文通知和原启动页已通过；视频安全区修复仍失败，因此当前候选改为中英文统一删除该非业务说明。2026-09-06，用户确认最终视频复测通过。截图和复测文字只作为当前设备配置下的可见结果；包含周边环境的录像截图不复制到仓库。
 
 关联 [操作指南](manual-acceptance-guide.md) 和 [第 11 步静态审计](../../../handoffs/phase-2-p2a-android-student-ui-integration-audit.md)。
 
@@ -16,9 +16,10 @@ R10 Debug APK 已由用户传至自有真机并全新安装。用户确认启动
 | 实际安装包 SHA-256 | 用户确认安装第 13 步候选包；候选包 `e5cf24ad6b6ef6c1bc4d43c25e68947c4104296f2d01f03133f4763a599cc7f1`，设备端未独立计算指纹 |
 | 当前三项 UI 修复后复测 APK | `app/build/outputs/apk/debug/app-debug.apk`；构建机 SHA-256 `edfd9b1c580aac1d66fc50443c676c68a3badac68534acdf78810da787688aa1`；25,824,014 bytes；用户确认已复测，设备端未独立计算指纹 |
 | R10 V8.1 复审候选 APK | `app/build/outputs/apk/debug/app-debug.apk`；27,459,431 bytes；SHA-256 `a2c6a49a5e54830cec3b123ee3ebe03a7ceb4ea28dc3b1291687f5f20c97ecdb`；用户已传至未连接电脑的自有真机并全新安装，设备端未独立计算指纹 |
+| R2-05 最终视频复测 APK | `app/build/outputs/apk/debug/app-debug.apk`；27,463,039 bytes；SHA-256 `c98e30158d687056292c790fe85bd30cb6606cb673ef92a74ed8aa7d9b51183f`；447/447 JVM、22/22 AVD instrumentation 通过；用户于 2026-09-06 确认真机复测通过，设备端未独立计算指纹 |
 | 基线 / 分支 | `49d992a1333294ea561923cfea0b7d25864a4d91` / `codex/phase2-android-student-ui`；UI 未提交 |
 | 设计版本 | `P2A-UI-2026.09.04-draft1` |
-| Android Owner / Reviewer / Web Reviewer | `PENDING-P2A-OWNER-01` |
+| Android Owner / Reviewer / Web Reviewer | Android Owner：`Exwind259`；Android Reviewer：当前已获 PR 审核权限的审核账号；Web Reviewer：待负责人正式指定 |
 
 结果值：`NOT_RUN` 未运行；`PARTIAL` 已观察页面的一部分但尚未完成该页全部检查；`PASS` 已观察且符合该项预期；`FAIL` 已观察到不符合；`BLOCKED` 因明确前提缺失无法运行。一个页面正常态 PASS 不代表七状态全部通过。
 
@@ -28,7 +29,7 @@ R10 Debug APK 已由用户传至自有真机并全新安装。用户确认启动
 
 | 页面 | 名称 | 入口条件 / 当前限制 | 结果 | 已测状态、证据与问题 |
 |---|---|---|---|---|
-| PAGE-STU-001 | 启动与中断恢复 | 真机冷启动；没有新 Backend | PASS | S14-DEVICE-01：R10 APK 真机全新安装后，Logo 及时消失；Loading、无服务 Error、Retry、本地 UI 评审入口以及首次相机/麦克风权限均由用户确认通过。真实服务成功路径未测 |
+| PAGE-STU-001 | 启动与中断恢复 | 真机冷启动；没有新 Backend | PASS | S14-DEVICE-01 的 Loading/Error/Retry 路径已通过；R2-DEVICE-03 原有系统启动页及品牌连续性也已由用户真机确认。真实服务成功路径未测，不由本项关闭 |
 | PAGE-STU-002 | 系统维护 | local 模式缺维护切换入口 | NOT_RUN | S14-GAP-02 |
 | PAGE-STU-003 | 首次隐私同意 | 首次安装；政策最终内容有阻塞 | NOT_RUN | 待填 |
 | PAGE-STU-004 | 登录前引导 | 首次未完成引导 | NOT_RUN | 待填 |
@@ -43,7 +44,7 @@ R10 Debug APK 已由用户传至自有真机并全新安装。用户确认启动
 | PAGE-STU-022 | 打卡准备 | 底部打卡→自主运动 | PARTIAL | S14-DEVICE-06：用户确认运动类型/图标可辨、页面进入、滚动和返回在本轮指定检查中通过；后续会话/异常状态不由此关闭 |
 | PAGE-STU-023 | 记录与进度 | 底部记录与进度 | PARTIAL | S14-DEVICE-06：用户确认时长语义、页面进入、滚动和返回通过；停留此页切后台约 10 秒后返回，无空白且页面保持；真实中断恢复待后续阶段 |
 | PAGE-STU-024 | 我的 | 底部我的 | PARTIAL | S14-DEVICE-06：用户确认页面进入、滚动、返回和可达入口/未接入提示在本轮指定检查中通过；异常状态待测 |
-| PAGE-STU-025 | 通知 | 首页通知入口；可能过滤为空 | NOT_RUN | 待填 |
+| PAGE-STU-025 | 通知 | 首页通知入口；可能过滤为空 | PARTIAL | R2-DEVICE-01：英文模式下 Android 自有通知面板固定文案切换已由用户真机确认；服务器通知正文不由客户端擅自翻译，其他通知状态未全部人工执行 |
 | PAGE-STU-030 | 登录前扫码 | 退出评审→扫码；拒绝相机与返回 | NOT_RUN | 待填 |
 | PAGE-STU-031 | 登录前邀请确认 | 缺邀请解析/预览事实 | NOT_RUN | S14-GAP-02 |
 | PAGE-STU-032 | 登录后扫码 | 仅无有效班成员可显示入口 | NOT_RUN | S14-GAP-02 |
@@ -51,7 +52,7 @@ R10 Debug APK 已由用户传至自有真机并全新安装。用户确认启动
 | PAGE-STU-034 | 入班确认 | 缺正式预览和可选评审态 | NOT_RUN | S14-GAP-02 |
 | PAGE-STU-035 | 入班结果 | 缺成功/拒绝等状态展示入口 | NOT_RUN | S14-GAP-02 |
 | PAGE-STU-040 | 运动会话 | 本地自主运动→开始；存在旧计时规则 | NOT_RUN | S14-GAP-01 |
-| PAGE-STU-041 | 证据采集 | 依赖旧 Finished，缺快速入口 | PARTIAL | S14-DEVICE-03、04 已在当前候选包复测通过；录像控制文案完整，已保留视频可直接看到首帧和控制器。其余证据采集状态仍受 S14-GAP-01 限制 |
+| PAGE-STU-041 | 证据采集 | 依赖旧 Finished，缺快速入口 | PARTIAL | S14-DEVICE-03、04 及 R2-DEVICE-02 最终方案均已真机复测通过；中英文视频预览统一不显示底部非业务说明，首帧、播放控制和删除操作正常。其余状态仍受 S14-GAP-01 限制 |
 | PAGE-STU-042 | 上传与恢复 | 材料页及真实锁定批次条件缺失 | NOT_RUN | S14-GAP-01、02 |
 | PAGE-STU-043 | 游泳延迟 | 依赖游泳 Finished；提交禁用 | NOT_RUN | S14-GAP-01 |
 | PAGE-STU-050 | 记录列表 | 记录与进度/打卡记录 | NOT_RUN | 待填 |
@@ -91,6 +92,13 @@ R10 Debug APK 已由用户传至自有真机并全新安装。用户确认启动
 | PAGE-STU-022 / NORMAL / 主页面回归 | 底部进入打卡并检查运动类型、图标、导航、滚动、返回及底栏遮挡 | 运动类型和图标清楚可辨，页面无空白、崩溃、截断或遮挡 | 用户确认本轮指定项目全部通过 | PASS | 用户 2026-09-05 文字确认；无新增仓库截图 |
 | PAGE-STU-023 / NORMAL、RESUME / 主页面回归 | 底部进入记录与进度；检查语义和布局；切后台约 10 秒后返回 | 时长口径可区分；返回前台保持页面且不出现空白 | 用户确认本轮指定项目全部通过 | PASS | 用户 2026-09-05 文字确认；无新增仓库截图 |
 | PAGE-STU-024 / NORMAL / 主页面回归 | 底部进入我的并检查入口、未接入提示、导航、滚动、返回及底栏遮挡 | 页面与入口可用，未接入能力不伪造成正式成功 | 用户确认本轮指定项目全部通过 | PASS | 用户 2026-09-05 文字确认；无新增仓库截图 |
+| PAGE-STU-025 / EMPTY / 英文通知面板 | 应用内切换英文后打开通知 | Android 自有标题、筛选、空态和操作文案跟随英文；服务器正文保持服务器语言 | 顶部评审模式已为英文，但通知标题、“暂无未读”“全部标为已读”和空态仍为中文 | FAIL | 用户 2026-09-05 截图附件；不复制进仓库 |
+| PAGE-STU-041 / NORMAL / 英文已保留视频底部安全区 | 英文模式打开已保留视频并观察底部说明 | 完整说明位于系统导航栏上方，不被裁切 | 说明位于屏幕最底部并被系统导航栏裁切，只能看到上半部分 | FAIL | 用户 2026-09-05 截图附件；包含现场画面，不复制进仓库 |
+| PAGE-STU-001 / 冷启动品牌连续性 | 冷启动观察系统 Splash 及后续 Loading | 继续使用既有 BNBU SPORT / VERITY AI 系统启动页；Loading 使用相同品牌资源且不延长不可交互 Splash | 用户明确要求原有系统启动页必须保留使用；当前系统 Splash 资源实际仍在，但后续 Loading 使用重绘组合，形成被替换的观感 | FAIL | 用户 2026-09-05 两张对比截图；不复制进仓库 |
+| PAGE-STU-025 / EMPTY / 英文通知面板复测 | 安装第一版三项修复候选，切换英文并打开通知 | Android 自有固定文案均显示英文 | 用户确认通过，未再报告中文固定文案 | PASS | 用户 2026-09-05 文字确认；无新增截图 |
+| PAGE-STU-001 / 冷启动品牌连续性复测 | 安装第一版三项修复候选后冷启动 | 使用原有系统启动页，并及时交给同品牌可见 Loading/Error | 用户确认通过 | PASS | 用户 2026-09-05 文字确认；无新增截图 |
+| PAGE-STU-041 / NORMAL / 英文视频安全区复测 | 安装第一版三项修复候选，打开已保留视频 | 底部说明完整且不被裁切 | 用户确认仍有显示不全；第一种安全区方案未关闭问题 | FAIL | 用户 2026-09-05 文字确认；无新增截图 |
+| PAGE-STU-041 / NORMAL / 视频说明移除最终复测 | 安装 SHA-256 `c98e30158d687056292c790fe85bd30cb6606cb673ef92a74ed8aa7d9b51183f` 候选；分别检查中英文已保留视频 | 中英文均不显示底部非业务说明；首帧、播放控制和删除按钮正常 | 用户确认全部符合 | PASS | 用户 2026-09-06 文字确认；无新增截图 |
 
 中文/英文、浅色/深色、大字体、横屏、键盘、TalkBack、返回、相机拒绝、后台恢复分别记录；不能使用“全部正常”替代可追溯结果。
 
@@ -105,12 +113,15 @@ R10 Debug APK 已由用户传至自有真机并全新安装。用户确认启动
 | S14-DEVICE-03 | 录像中底部“结束”按钮在用户当前真机/字体配置下只显示“结”。原布局让暂停/结束水平图标加单行文字共享窄宽，结束按钮权重还更小 | PAGE-STU-041 大字体与常见真机宽度 UI 失败；Android UI 范围内 | **CLOSED（当前设备配置）**：改为等宽、图标在上/文字在下、最多两行；用户确认当前候选包复测通过 |
 | S14-DEVICE-04 | 点击已确认保留的视频后初始全黑且播放器控制器隐藏；点屏幕、再点播放后视频和进度均正常，证明本地文件可读取和解码。原预览只设置 URI/控制器，没有首帧定位或主动显示控制器 | PAGE-STU-041 预览可发现性失败；Android UI/播放器呈现范围内，不是 Backend 问题 | **CLOSED（当前设备配置）**：准备后定位首个可见帧并主动显示控制器，保持暂停；用户确认当前候选包复测通过 |
 | S14-DEVICE-05 | 中英文切换后长时间无响应。原设置页显式调用 `Activity.recreate()`，重建会重新执行缺 Backend 的系统模式检查 | PAGE-STU-081 语言切换体验失败；Activity 重建是 Android 实现行为，额外等待复用了 S14-DEVICE-01 的启动门控 | **CLOSED（当前设备配置）**：改为 Compose 本地化上下文原地更新，不重建 Activity；用户确认当前候选包复测通过 |
+| R2-DEVICE-01 | 应用内切换为英文后，通知面板的 Android 固定标题、筛选、操作和空态仍读取宿主中文 Resources；这不是服务器通知正文语言问题 | PAGE-STU-025 应用内本地化 UI 失败；Android UI 范围内 | **CLOSED（当前设备配置）**：固定文案改从应用所选语言的本地化 Context 读取；JVM/AVD 通过，用户真机确认英文显示通过。服务器正文不擅自翻译 |
+| R2-DEVICE-02 | 英文已保留视频页底部说明落入系统导航栏区域并被裁切；增加导航栏安全区后的第一版候选仍在用户真机失败 | PAGE-STU-041 英文布局 UI 失败；该说明不是业务必需字段，中文界面也没有稳定可见表现 | **CLOSED（当前设备配置）**：按用户决定从中英文视频预览统一删除说明；保留首帧、播放器控制、删除能力和安全区；JVM 447/447、AVD 22/22 及用户真机最终复测通过 |
+| R2-DEVICE-03 | 用户要求原有 BNBU SPORT / VERITY AI 系统启动页必须保留使用。Manifest/Theme 实际仍引用既有 Splash，但紧随其后的可见 Loading 使用重绘品牌组合，造成启动页被替换的观感 | PAGE-STU-001 品牌连续性要求；Android UI 范围内。不能让系统 Splash 等待网络，否则会恢复长时间 Logo/黑白屏风险 | **CLOSED（当前设备配置）**：系统 Splash 配置未删除；可见 Loading 复用同一主品牌及合作方位图；用户真机确认通过 |
 | S14-GAP-01 | `ExerciseSessionState.kt` 最小门槛 60 分钟；`ExerciseSessionController.requestFinish()` 沿用旧清理行为；材料页依赖 Finished，UI 无快速样例入口 | 040—043 取证受限；旧核心属于后续业务阶段，可评审入口属于 UI 可评审性缺口 | 记录；不改核心，不等一小时/改时间来冒充完成 |
 | S14-GAP-02 | 邀请确认/结果、强制绑定、维护、业务无权限、真实上传恢复没有统一可选评审场景；local 系统模式固定正常 | 41 页七状态不能全部人工验收；不能仅归因无 Backend 而视为设计通过 | 待单独 UI 场景补充或后续服务接入；未实现、未批准新批次 |
 | S14-GAP-03 | 旧本地学生/课程/记录样例仍含旧日期与小时容器；一次补充备注由固定空值/空回调承载 | 可观察静态展示，不能据此证明全部时间逻辑或表单草稿恢复 | 标明虚构/受限样例；观察与旧核心规则分开记录 |
 | BLOCK-P2A-F-01 / 02 | FCM 行为与 v8 站内通知冲突；双语隐私文本需正式确认 | 发布/法律验收阻塞 | 保留第 8 步登记，未修改政策/Push |
 | PENDING-P2A-BE-01 | 无 Backend，旧 API 仍在 | 正式接口和功能不可验收 | Phase 2 只验 UI，不用样例关闭缺口 |
-| PENDING-P2A-OWNER-01 | Owner/Reviewer 未提供真实姓名 | 无正式签字 | 待用户或领导填写 |
+| PENDING-P2A-OWNER-01 | Android Owner 已确定为 `Exwind259`；Android Reviewer 为当前已获 PR 审核权限的账号；Web Reviewer及其他 Owner 尚未正式具名 | Android 作者不猜测或兼任；剩余正式签字仍待负责人安排 | 按领导确认更新；保留未具名部分 |
 | S13-RELEASE-01 | R8 已将补证、帮助、耐力运行时样例及 Compose Preview 移入 Debug source set；Staging/Release provider 不创建样例；尚未构建/检查 Release APK | 源码隔离门禁已关闭，但不能据此声称正式包体检查通过 | 继续只使用 Debug 做 UI 评审；正式产物由具备 HTTPS/Firebase/签名材料的发布环境复核 |
 
 ## S14-DEVICE-03 UI 修复本地验证
@@ -139,6 +150,16 @@ R10 Debug APK 已由用户传至自有真机并全新安装。用户确认启动
 - 结果：BUILD SUCCESSFUL；R9 聚焦 JVM 8/8，0 failures/errors/skipped；Debug 与 AndroidTest Kotlin 编译通过。新增 2 项启动 Compose instrumentation 场景只完成编译，**没有在设备运行**。
 - R11 当前真机已确认 Loading、Error、Retry、本地评审入口、首次权限申请和普通页面后台恢复通过；真实 Backend 成功路径、上传/会话中断恢复、升级安装及其他设备仍留待相应阶段验证。
 
+## R2-DEVICE-01 / 02 / 03 新增 UI 修复候选验证
+
+- 通知面板固定文案统一从应用所选语言的本地化 Context 读取；真实通知 title/message 仍视为服务器数据，不由 Android 擅自翻译。
+- 第一版已保留视频预览增加系统导航栏安全区后，用户真机确认说明仍显示不全；当前版从中英文视频预览统一删除该非业务说明，并以静态策略测试禁止恢复。
+- Manifest 和系统 Splash Theme 继续使用原有 `splash_main_system_generated`、V31 `verity_ai_generated_system`；后续可见 Loading 复用同一主品牌和合作方资源，但仍不让系统 Splash 等待网络。
+- 命令：`./gradlew.bat :app:testDebugUnitTest :app:lintDebug :app:assembleDebug :app:assembleDebugAndroidTest --no-daemon --offline` 及 `./gradlew.bat :app:connectedDebugAndroidTest --no-daemon --offline`。
+- 结果：BUILD SUCCESSFUL；JVM 447/447（78 suites）；Lint 0 Error、5 Warning；专用 AVD `BNBU_P2_UI_Review` / API 37 实际执行 22/22 instrumentation 通过，0 skipped/failed；`git diff --check` 为 0。
+- 最新 Debug APK：27,463,039 bytes；SHA-256 `c98e30158d687056292c790fe85bd30cb6606cb673ef92a74ed8aa7d9b51183f`。AndroidTest APK：1,000,761 bytes；SHA-256 `517828c30cf54e5d130f6715516f650a1def669537c62021aaab15d8fe7d365d`。
+- R2-DEVICE-01、03 已由用户在 2026-09-05 真机确认；R2-DEVICE-02 最终方案于 2026-09-06 获用户真机确认，三项均已关闭。未覆盖业务态、其他设备和完整无障碍组合不由此关闭。
+
 用户新问题模板：编号 / 页面 / 设备与配置 / 操作 / 预期 / 实际 / 截图 / 影响 / UI或后续阶段归属 / 处理状态。
 
 ## Reviewer 记录
@@ -147,9 +168,9 @@ R10 Debug APK 已由用户传至自有真机并全新安装。用户确认启动
 |---|---|
 | Android Reviewer | PENDING |
 | Web 跨端一致性核对 | PENDING；参考离线包，不宣称已有 Web PR |
-| 已执行页面/状态数量 | 有明确逐项设备文字证据的 8 页：PAGE-STU-001 启动门禁；PAGE-STU-020—024 五个主页面的 NORMAL 指定检查及 PAGE-STU-023 普通后台恢复；PAGE-STU-041 两项缺陷；PAGE-STU-081 语言切换。其余页面和七态没有逐项设备证据，不能记为 PASS |
-| 已收到截图 | 5；均为对话附件，不复制进仓库 |
+| 已执行页面/状态数量 | 有明确逐项设备文字证据的 9 页：PAGE-STU-001 启动门禁/品牌连续性；PAGE-STU-020—024 五个主页面的 NORMAL 指定检查及 PAGE-STU-023 普通后台恢复；PAGE-STU-025 英文 EMPTY；PAGE-STU-041 视频；PAGE-STU-081 语言切换。其余页面和七态没有逐项设备证据，不能记为 PASS |
+| 已收到截图 | 7；均为对话附件，不复制进仓库 |
 | 阻塞与豁免确认 | PENDING；缺测不自动豁免 |
-| 第 14 步结论 | COMPLETE WITH LIMITATIONS；R10 APK 的启动门禁、五个主页面指定检查、普通后台恢复及三项 Android UI 缺陷均已在当前真机配置下复测通过。不可达页面、未触发七态/无障碍组合、设备自动化和 Reviewer 签字继续保留，不算完整业务验收 |
+| 第 14 步结论 | COMPLETE WITH LIMITATIONS；既有启动门禁、五个主页面、普通后台恢复、三项旧 UI 缺陷及 R2-DEVICE-01—03 均已在当前真机配置下通过。不可达页面、未触发七态/无障碍组合和 Reviewer 签字继续保留，不算完整业务验收 |
 
-自动测试参考：[自动验证 handoff](../../../handoffs/phase-2-p2a-android-student-ui-automated-validation.md)。R10 最终为 JVM 437/437、78 suites、0 failures/errors/skipped；Lint 0 error/5 个既有 warning/0 informational；Debug 与 AndroidTest APK 均构建通过。CoreJourney 共 14 项（全部 instrumentation 源码合计 19 项），仍只编译、未连接设备执行。这些结果不得填入上面的人工 PASS 栏。
+自动测试参考：[自动验证 handoff](../../../handoffs/phase-2-p2a-android-student-ui-automated-validation.md)。当前候选为 JVM 447/447、78 suites、0 failures/errors/skipped；Lint 0 error/5 个既有 warning；Debug 与 AndroidTest APK 均构建通过；专用 AVD/API 37 实际执行 instrumentation 22/22 通过。自动结果不得填入上面的真机人工 PASS 栏，也不等于完整业务流程验收。

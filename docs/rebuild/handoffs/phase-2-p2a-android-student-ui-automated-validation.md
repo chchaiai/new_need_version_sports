@@ -1,8 +1,8 @@
 # 原计划第 13 步：自动测试和本地构建
 
-日期：2026-09-05。Phase 2 / Android 学生端 UI。
+日期：2026-09-06。Phase 2 / Android 学生端 UI。
 
-**R10 本地自动验证：COMPLETE。JVM、Lint、Debug 与 AndroidTest 构建均通过；R11 指定真机回归随后通过。整体交付仍有明确限制，因为设备 instrumentation、未触发页面/七态、Reviewer 签认和 Release APK 产物检查尚未完成。**
+**R2-06 最终提交验证：COMPLETE。JVM、Lint、Debug 与 AndroidTest 构建均通过；专用 AVD 实际执行 22/22 instrumentation 通过；指定真机回归通过。整体交付仍有明确限制，因为未触发页面/七态、Reviewer 签认、真实 Backend/Contract 和 Release APK 产物检查尚未完成。**
 
 这不是 Backend、接口或完整业务测试通过，也不是 41 页七态全部通过。第 12 步登记的 UI/业务缺口继续保留。
 
@@ -11,7 +11,7 @@
 - Git 根：`D:\DT\soprts\start3\worktrees\phase2-android-student-ui`。
 - Android 根：上述目录下 `BNBU-ANDROID`。
 - 分支：`codex/phase2-android-student-ui`。
-- 当前 HEAD：`f39c29dad2ddd3c2eb1d5924cff67d2ff825601d`；R3—R10 工作树改动均未提交。
+- R10 历史 HEAD：`f39c29dad2ddd3c2eb1d5924cff67d2ff825601d`；R2-06 最终本地 Commit SHA 由提交后的 Git 输出和 PR head 提供，本文不自引用所在 commit。
 - origin：`https://github.com/chchaiai/new_need_version_sports.git`。
 - 已读根 AGENTS.md、STATUS、第 12 步 handoff、实施范围和现有相关测试；Android/设计包未发现下级 AGENTS。
 - 本轮开始保存了 91 个已有差异文件的 SHA-256 快照，保护既有未提交内容。
@@ -99,7 +99,7 @@
 
 ## 6. 未完成验证与 Release 缺口
 
-### S13-DEVICE-01：设备 Compose 导航未执行
+### S13-DEVICE-01：设备 Compose 导航未执行（原第 13 步历史）
 
 本步没有启动 Android Studio、模拟器、真机，未运行 connectedDebugAndroidTest。14 项 instrumentation 仅编译，其中 9 项 CoreJourney 的实际结果均为 NOT_RUN。
 
@@ -163,7 +163,7 @@ R10 后续范围核查：Contract SHA-256 保持 `667ae751f3e623e3d603db4d68e6e9
 3. `docs/rebuild/phase-2/android/p2a-student-ui/manual-acceptance-record.md`
 4. `docs/rebuild/handoffs/phase-2-p2a-android-student-ui-manual-acceptance.md`
 
-## 8. R10 结束声明与下一步
+## 8. R10 结束声明与下一步（历史）
 
 - R10 只消除了 R9 新代码的一条 Lint information 并执行完整验证；R3—R9 的 UI 改动按各自 handoff 追溯。Contract、Backend、Web、业务正文、数据库和部署配置未改。
 - STATUS：按用户要求未改，仍由指定汇总人维护。
@@ -173,3 +173,37 @@ R10 后续范围核查：Contract SHA-256 保持 `667ae751f3e623e3d603db4d68e6e9
 - R10 当时停在本地验证结果汇报；用户随后明确开始 R11，并完成指定真机回归。
 
 R11 结果见更新后的人工验收记录；上述缺测与发布阻塞继续保留，不把构建成功、指定真机回归或本地评审样例等同于完整业务验收。Commit、Push 和 PR 更新仍由用户手动执行。
+
+## 9. PR #4 第二轮复审最终验证
+
+第二轮复审先以失败测试复现并修复两个 Android P1：
+
+1. 首次获得正常模式后，普通轮询失败不再把业务模式写成 `MAINTENANCE`；保留最后确认模式并显示独立的中性连接阻断。真实维护后断线隐藏可能过期的补证剩余时间。
+2. 学生通知采用精确目标类型允许列表，并拦截英文 `Score`、`Grade`、`Ranking` 和数字 `points` 结果；合法的上传失败、初检通过、level unavailable 等流程通知继续保留。
+
+最终本地命令：
+
+```powershell
+.\gradlew.bat :app:testDebugUnitTest :app:lintDebug :app:assembleDebug :app:assembleDebugAndroidTest --no-daemon --offline
+```
+
+最终设备命令：
+
+```powershell
+$env:ANDROID_SERIAL='emulator-5554'
+.\gradlew.bat :app:connectedDebugAndroidTest --no-daemon --offline
+```
+
+| 项目 | R2-06 最终结果 | 证据边界 |
+|---|---|---|
+| Debug JVM | 447 tests / 78 suites；0 failures、0 errors、0 skipped | 本地 JVM 与静态策略；不是 Backend E2E |
+| Lint Debug | 0 errors、5 个既有 warnings | `MutableCollectionMutableState`、`DiscouragedApi`、`TypographyDashes`、2 个 `VectorPath`；没有声称零 warning |
+| Debug APK | 27,463,039 bytes；SHA-256 `c98e30158d687056292c790fe85bd30cb6606cb673ef92a74ed8aa7d9b51183f` | Debug 评审包，不是 Release APK |
+| AndroidTest APK | 1,000,761 bytes；SHA-256 `517828c30cf54e5d130f6715516f650a1def669537c62021aaab15d8fe7d365d` | 测试安装包，不用于手工评审 |
+| instrumentation | 专用 AVD `BNBU_P2_UI_Review` / `emulator-5554` / Android API 37 / `sdk_gphone16k_x86_64`；22/22 passed，0 failed/error/skipped | 已实际设备运行；不等于 41 页七状态或真实服务流程 |
+| 真机指定回归 | 当前用户自有真机配置下通过启动门禁与原品牌页、五个主页面指定检查、普通后台返回、语言切换、录像/视频预览、英文通知固定文案和视频底部说明移除 | 设备型号/API/字体组合未完整登记，不能外推其他设备或完整无障碍 |
+| Git/范围 | `git diff --check` 退出码 0；相对 `origin/main` 共 117 个文件，禁止路径 0；OpenAPI SHA-256 不变 | 不含 Contract、Backend、Web、业务正文、infra、e2e 或根 STATUS |
+
+最终提交创建后，上述两条 Gradle 命令和 Git 检查在该同一 HEAD 上重新执行；Push 后用本地/远端分支 SHA 一致性确认将结果绑定到 Reviewer 收到的新 Commit。若最终执行结果或 APK SHA 与本节不一致，必须先更正文档并重新形成候选，不得沿用本表。
+
+本轮未执行且不声称通过：Release APK、真实登录/入班/上传/审核/通知/恢复、41 页 × 七态、完整 TalkBack/字体/横竖屏组合、真实 Backend/Contract 联调。FCM 清理和 GitHub CI 已由领导明确拆为独立任务。

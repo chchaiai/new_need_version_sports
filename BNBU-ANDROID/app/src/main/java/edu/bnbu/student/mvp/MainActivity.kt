@@ -68,6 +68,8 @@ class MainActivity : ComponentActivity() {
     private val appUpdateManager: AppUpdateManager by lazy { AppUpdateManagerFactory.create(this) }
     private var isInitialTargetReady = false
     private var startupServiceState by mutableStateOf(StartupServiceState.CHECKING)
+    private var systemModeConnectionState by
+        mutableStateOf(SystemModeConnectionState.CONFIRMED)
     private var systemModeRequestGeneration by mutableIntStateOf(0)
     private var isPlayUpdateReady by mutableStateOf(false)
     private val installStateUpdatedListener = InstallStateUpdatedListener { state ->
@@ -125,20 +127,25 @@ class MainActivity : ComponentActivity() {
                     return@LaunchedEffect
                 }
                 appState.updateSystemMode(requireNotNull(initialMode.getOrNull()))
+                systemModeConnectionState = SystemModeConnectionState.CONFIRMED
                 startupServiceState = StartupServiceState.READY
 
                 while (true) {
                     delay(SYSTEM_MODE_POLL_MILLIS)
                     val refreshedMode = requestSystemMode()
+                    val refreshResolution = resolveSystemModeRefresh(
+                        lastConfirmedStatus = appState.systemModeStatus,
+                        refreshedStatus = refreshedMode.getOrNull()
+                    )
+                    systemModeConnectionState = refreshResolution.connectionState
                     if (refreshedMode.isSuccess) {
-                        appState.updateSystemMode(requireNotNull(refreshedMode.getOrNull()))
+                        appState.updateSystemMode(refreshResolution.confirmedStatus)
                     } else {
-                        val fallback = fallbackSystemModeStatus(BuildConfig.BNBU_ENVIRONMENT)
                         Log.w(
                             SYSTEM_MODE_LOG_TAG,
-                            "Public system mode refresh unavailable; applying ${fallback.mode.name}"
+                            "Public system mode refresh unavailable; preserving last confirmed " +
+                                appState.systemMode.name
                         )
-                        appState.updateSystemMode(fallback)
                     }
                 }
             }
@@ -168,6 +175,8 @@ class MainActivity : ComponentActivity() {
                                     appState.updateSystemMode(
                                         SystemModeStatus(mode = SystemMode.NORMAL)
                                     )
+                                    systemModeConnectionState =
+                                        SystemModeConnectionState.CONFIRMED
                                     appState.enterLocalReview(factory())
                                     startupServiceState = StartupServiceState.READY
                                 }
@@ -188,7 +197,9 @@ class MainActivity : ComponentActivity() {
                                 onInitialTargetReady = { isInitialTargetReady = true },
                                 onRequestNotificationPermission =
                                     ::requestNotificationPermissionIfNeeded,
-                                localReviewWorkspaceFactory = localReviewWorkspaceFactory
+                                localReviewWorkspaceFactory = localReviewWorkspaceFactory,
+                                systemModeConnectionState = systemModeConnectionState,
+                                onRetrySystemMode = { systemModeRequestGeneration += 1 }
                             )
 
                             updateRequirement?.let { requirement ->
@@ -378,15 +389,6 @@ internal fun shouldKeepSystemSplash(
 
 private const val SYSTEM_MODE_POLL_MILLIS = 15_000L
 private const val SYSTEM_MODE_LOG_TAG = "BNBU-SystemMode"
-
-internal fun fallbackSystemModeStatus(environment: String): SystemModeStatus =
-    if (environment.trim().equals("local", ignoreCase = true)) {
-        // Local review remains available without a Backend and is visibly
-        // isolated from real data and writes.
-        SystemModeStatus(mode = SystemMode.NORMAL)
-    } else {
-        SystemModeStatus(mode = SystemMode.MAINTENANCE)
-    }
 
 /** Compares numeric dot-separated version components, ignoring build suffixes such as -debug. */
 internal fun compareVersions(currentVersion: String, minimumVersion: String): Int {

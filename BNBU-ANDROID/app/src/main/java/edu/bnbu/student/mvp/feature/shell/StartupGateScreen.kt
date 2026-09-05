@@ -1,5 +1,7 @@
 package edu.bnbu.student.mvp.feature.shell
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,6 +13,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -24,8 +27,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.liveRegion
@@ -39,7 +45,6 @@ import edu.bnbu.student.mvp.StartupSurfaceState
 import edu.bnbu.student.mvp.core.designsystem.AppleButton
 import edu.bnbu.student.mvp.core.designsystem.AppleOutlinedButton
 import edu.bnbu.student.mvp.core.designsystem.BNBULayout
-import edu.bnbu.student.mvp.core.designsystem.BnbuSportsBrandLockup
 
 /**
  * Visible startup envelope for work that can take longer than the Android system splash.
@@ -66,6 +71,7 @@ internal fun StartupGateScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
+            .background(colorResource(R.color.bnbu_splash_background))
             .safeDrawingPadding()
             .padding(horizontal = BNBULayout.ScreenHorizontal)
             .onGloballyPositioned { onInitialSurfaceReady() }
@@ -81,8 +87,15 @@ internal fun StartupGateScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            BnbuSportsBrandLockup()
-            Spacer(Modifier.height(BNBULayout.Space32))
+            Image(
+                painter = painterResource(R.drawable.splash_main_system_generated),
+                contentDescription = null,
+                contentScale = ContentScale.Fit,
+                modifier = Modifier
+                    .size(300.dp)
+                    .testTag("startup.originalBrand")
+            )
+            Spacer(Modifier.height(BNBULayout.Space12))
 
             Surface(
                 modifier = Modifier
@@ -174,6 +187,17 @@ internal fun StartupGateScreen(
                     }
                 }
             }
+
+            Spacer(Modifier.height(BNBULayout.Space24))
+            Image(
+                painter = painterResource(R.drawable.splash_partner_generated),
+                contentDescription = null,
+                contentScale = ContentScale.Fit,
+                modifier = Modifier
+                    .width(152.dp)
+                    .height(30.dp)
+                    .testTag("startup.originalPartnerBrand")
+            )
         }
     }
 }

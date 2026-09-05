@@ -208,7 +208,7 @@ fun EnterInviteCodeScreen(
             }
             Button(
                 onClick = ::resolveInviteCode,
-                enabled = !isResolving,
+                enabled = !isResolving && normalizedCode.isNotBlank(),
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(52.dp)

@@ -11,6 +11,12 @@
     <string name="startup_retry">Retry</string>
     <string name="startup_local_review">Enter local UI review</string>
     <string name="startup_local_review_hint">Debug only. Uses clearly labelled local synthetic data and does not represent Backend, API, or real business success.</string>
+    <string name="system_mode_refresh_error_title">Connection interrupted</string>
+    <string name="system_mode_refresh_error_message">The app cannot refresh the system status. This is not treated as maintenance and does not promise that supplementary-evidence timing is paused. Submissions are temporarily unavailable to prevent inconsistent state; the app will retry automatically.</string>
+    <string name="system_mode_refresh_error_icon">System status connection interrupted</string>
+    <string name="system_mode_refresh_retry">Retry now</string>
+    <string name="maintenance_refresh_error_title">Reconfirming maintenance status</string>
+    <string name="maintenance_refresh_error_message">The app cannot yet confirm whether maintenance has ended. This page retains the last server-confirmed maintenance state; remaining time must come from the server after reconnection.</string>
     <string name="login_title">Sign in to BNBU Sports</string>
     <string name="login_subtitle">View sports courses, activity records, and minute progress in one place.</string>
     <string name="login_choose_method">Choose a sign-in method</string>

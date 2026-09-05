@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -438,7 +439,11 @@ private fun RetainedPhotoPreviewDialog(
         properties = DialogProperties(usePlatformDefaultWidth = false)
     ) {
         Surface(modifier = Modifier.fillMaxSize(), color = Color.Black) {
-            Column(modifier = Modifier.fillMaxSize()) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .navigationBarsPadding()
+            ) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -501,7 +506,11 @@ private fun RetainedVideoPreviewDialog(
         properties = DialogProperties(usePlatformDefaultWidth = false)
     ) {
         Surface(modifier = Modifier.fillMaxSize(), color = Color.Black) {
-            Column(modifier = Modifier.fillMaxSize()) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .navigationBarsPadding()
+            ) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -559,22 +568,6 @@ private fun RetainedVideoPreviewDialog(
                         MediaPreviewUnavailable(ProofMediaType.Video)
                     }
                 }
-                Text(
-                    text = if (canDelete) {
-                        interfaceText(
-                            "正式上传开始前，如果觉得不合适，可以删除后重录。",
-                            "If this item is unsuitable, delete and record it again before formal upload starts."
-                        )
-                    } else {
-                        interfaceText(
-                            "这项视频已锁定或正在处理，不能删除或重录；上传恢复会继续使用同一文件。",
-                            "This video is locked or being processed and cannot be deleted or recorded again; upload recovery uses the same file."
-                        )
-                    },
-                    modifier = Modifier.padding(16.dp),
-                    color = Color.White.copy(alpha = 0.78f),
-                    style = MaterialTheme.typography.bodySmall
-                )
             }
         }
     }

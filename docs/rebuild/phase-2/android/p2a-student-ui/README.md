@@ -2,7 +2,7 @@
 
 > 设计版本：`P2A-UI-2026.09.04-draft1`
 >
-> 状态：R3—R9 已完成 V8.1 Compose UI 复审修正，R10 全量本地自动验证通过，R11 指定真机回归通过；当前等待用户提交/Push 更新 PR #4 及 Reviewer 签认。当前没有 Backend，本状态不代表接口、设备自动化、41 页七状态或完整业务验收通过。
+> 状态：`V8.1 Android UI foundation / PARTIAL — READY FOR FINAL REVIEW`。两个 Android P1 已修复，专用 AVD instrumentation 22/22 实际通过，指定真机 UI 回归通过；领导允许复审通过后按此边界合并。当前没有 Backend，本状态不代表接口、41 页七状态、Release 或完整业务验收通过。
 >
 > 本目录是实施与评审证据，不是新的业务规则来源。
 
@@ -47,8 +47,9 @@
 - [实施范围](implementation-scope.md)：下一阶段候选文件、批次、禁止目录和停止条件。
 - [交互与无障碍](interaction-accessibility.md)：Android 平台适配、TalkBack、权限、返回与评审证据。
 - [阶段交接](../../../handoffs/phase-2-p2a-android-student-ui-design-baseline.md)：本阶段结果、缺口和下一阶段条件。
-- [人工验收记录](manual-acceptance-record.md)：旧真机观察、R10/R11 启动与五主页面指定回归、三项 UI 缺陷复测及未覆盖项。
+- [人工验收记录](manual-acceptance-record.md)：启动与五主页面指定回归、历次真机 UI 缺陷、英文通知/原启动页/视频最终复测及未覆盖项。
 - [最终交接](../../../handoffs/phase-2-p2a-android-student-ui-final-handoff.md)：提交审核时的首要入口、范围、验证、风险和 Reviewer 清单。
+- [第二轮复审行动计划](../../../handoffs/phase-2-p2a-android-student-ui-review2-action-plan.md)：两个 Android P1 的关闭证据、22 项设备测试、外部阻塞和领导确认。
 - [PR 说明](pull-request-body.md)：可复制到 GitHub Pull Request 的说明正文。
 
 ## 4. 不变业务护栏
@@ -67,10 +68,13 @@
 
 | 编号 | 项目 | 当前处理 | 是否阻塞 Compose UI |
 |---|---|---|---|
-| `PENDING-P2A-OWNER-01` | Android Owner、Android Reviewer、Web 跨端 Reviewer 的真实姓名未提供 | 保留待填，不猜测 | 否；阻塞正式签字 |
+| `PENDING-P2A-OWNER-01` | Android Owner 已确定为 `Exwind259`；Android Reviewer 为当前有 PR 审核权限的账号；Web Reviewer 待负责人正式指定 | 只填写已确认身份，不猜测其他 Owner | 否；仍阻塞剩余 Reviewer 正式签字 |
 | V8.1 六类公开原因 | `BD-20260904-01/02` 已固定六类中英文原因、动作适用范围、公开补充说明和系统逾期原因 | 不再标记为待定；由 R5 更新 Android UI 展示模型，生产字段等待 Contract | 否；规则已明确，当前阻塞的是实现和接口 |
 | `PENDING-P2A-PATH-01` | Compose 写入范围 | 已按 `implementation-scope.md` 冻结并执行；提交前再次验证禁止目录无差异 | 已关闭实施前置；不表示 Reviewer 已签字 |
 | `PENDING-P2A-BE-01` | 新 Backend 和可用接口不存在 | 只设计状态与交互，不声称功能接入 | 否；阻塞接口/功能验收 |
+| `BLOCK-P2A-PUSH-01` | FCM/系统 Push 与 V8.1 仅站内通知冲突 | 领导已确认另建 Android 平台任务，不扩大 PR #4 | 否；正式 Release 前必须关闭 |
+| `PENDING-P2A-CI-01` | GitHub 没有 CI | 领导已确认另建仓库治理任务 | 否；下一次大型功能 PR 或 Release 前必须启用 |
+| `PENDING-P2A-STATUS-01` | 根 STATUS 未记录本任务 | 由主线汇总人采用最终 handoff 第 9 节文字更新；Android 不越界修改 | 否；当前 PR 保持禁止范围 |
 
 V8.1 当前业务正文按要求删除了原“待决边界”章节，但 STATUS 明确说明删除不等于问题已经获得业务答案。六类原因、维护暂停与审核阶段已经确定；六类均不适用时的终局标准、首次材料受理/期限边界、学校工作日日历与日内边界、非维护故障错误逾期补救仍只能登记并提交业务负责人确认，Android 不自行补造。
 
@@ -81,5 +85,5 @@ V8.1 当前业务正文按要求删除了原“待决边界”章节，但 STATU
 - Contract 已支持 V8.1 新增业务字段；
 - Backend 已实现；
 - 数据可持久化；
-- 接口、全量七态、设备自动化或完整业务流程已经验收；
-- Owner / Reviewer 已签字。
+- 接口、全量七态、完整设备/无障碍组合或完整业务流程已经验收；
+- Android Reviewer / Web Reviewer 已完成最终签字。

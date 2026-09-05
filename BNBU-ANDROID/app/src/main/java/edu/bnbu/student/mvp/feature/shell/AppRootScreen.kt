@@ -86,6 +86,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.IntOffset
 import edu.bnbu.student.mvp.BuildConfig
 import edu.bnbu.student.mvp.R
+import edu.bnbu.student.mvp.SystemModeConnectionState
 import edu.bnbu.student.mvp.core.designsystem.BNBULayout
 import edu.bnbu.student.mvp.core.designsystem.BNBUMotion
 import edu.bnbu.student.mvp.core.designsystem.interfaceText
@@ -226,7 +227,10 @@ internal fun AppRootScreen(
     onRequestNotificationPermission: () -> Unit = {},
     localReviewWorkspaceFactory: (() -> StudentWorkspace)? = null,
     maintenanceSupplementTiming: MaintenanceSupplementTimingUiModel =
-        MaintenanceSupplementTimingUiModel.Unavailable
+        MaintenanceSupplementTimingUiModel.Unavailable,
+    systemModeConnectionState: SystemModeConnectionState =
+        SystemModeConnectionState.CONFIRMED,
+    onRetrySystemMode: () -> Unit = {}
 ) {
     Box(
         modifier = Modifier
@@ -241,34 +245,41 @@ internal fun AppRootScreen(
                 message = appState.systemModeStatus.message,
                 estimatedRecoveryTime = appState.systemModeStatus.estimatedRecoveryTime,
                 appLanguage = appState.appLanguage,
-                supplementTiming = maintenanceSupplementTiming
+                supplementTiming = maintenanceSupplementTiming,
+                refreshUnavailable =
+                    systemModeConnectionState == SystemModeConnectionState.REFRESH_UNAVAILABLE,
+                onRetrySystemMode = onRetrySystemMode
             )
             SystemMode.NORMAL -> {
-                val plannedMaintenanceAt = appState.systemModeStatus.plannedMaintenanceAt
-                if (plannedMaintenanceAt == null) {
-                    AppRootContent(
-                        appState = appState,
-                        exerciseSessionController = exerciseSessionController,
-                        localStore = localStore,
-                        initialPrivacyConsentRequired = initialPrivacyConsentRequired,
-                        onPrivacyConsentAccepted = onPrivacyConsentAccepted,
-                        localReviewWorkspaceFactory = localReviewWorkspaceFactory
-                    )
+                if (systemModeConnectionState == SystemModeConnectionState.REFRESH_UNAVAILABLE) {
+                    SystemModeRefreshUnavailablePage(onRetry = onRetrySystemMode)
                 } else {
-                    Column(modifier = Modifier.fillMaxSize()) {
-                        PlannedMaintenanceBanner(
-                            plannedMaintenanceAt = plannedMaintenanceAt,
-                            message = appState.systemModeStatus.message
+                    val plannedMaintenanceAt = appState.systemModeStatus.plannedMaintenanceAt
+                    if (plannedMaintenanceAt == null) {
+                        AppRootContent(
+                            appState = appState,
+                            exerciseSessionController = exerciseSessionController,
+                            localStore = localStore,
+                            initialPrivacyConsentRequired = initialPrivacyConsentRequired,
+                            onPrivacyConsentAccepted = onPrivacyConsentAccepted,
+                            localReviewWorkspaceFactory = localReviewWorkspaceFactory
                         )
-                        Box(modifier = Modifier.weight(1f)) {
-                            AppRootContent(
-                                appState = appState,
-                                exerciseSessionController = exerciseSessionController,
-                                localStore = localStore,
-                                initialPrivacyConsentRequired = initialPrivacyConsentRequired,
-                                onPrivacyConsentAccepted = onPrivacyConsentAccepted,
-                                localReviewWorkspaceFactory = localReviewWorkspaceFactory
+                    } else {
+                        Column(modifier = Modifier.fillMaxSize()) {
+                            PlannedMaintenanceBanner(
+                                plannedMaintenanceAt = plannedMaintenanceAt,
+                                message = appState.systemModeStatus.message
                             )
+                            Box(modifier = Modifier.weight(1f)) {
+                                AppRootContent(
+                                    appState = appState,
+                                    exerciseSessionController = exerciseSessionController,
+                                    localStore = localStore,
+                                    initialPrivacyConsentRequired = initialPrivacyConsentRequired,
+                                    onPrivacyConsentAccepted = onPrivacyConsentAccepted,
+                                    localReviewWorkspaceFactory = localReviewWorkspaceFactory
+                                )
+                            }
                         }
                     }
                 }
@@ -619,11 +630,65 @@ private fun PlannedMaintenanceBanner(plannedMaintenanceAt: String, message: Stri
 }
 
 @Composable
+private fun SystemModeRefreshUnavailablePage(onRetry: () -> Unit) {
+    val colors = MaterialTheme.colorScheme
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(colors.background)
+            .padding(32.dp)
+            .testTag("systemMode.refreshUnavailable"),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .widthIn(max = 520.dp)
+                .verticalScroll(rememberScrollState())
+                .semantics { liveRegion = LiveRegionMode.Polite },
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Filled.CloudOff,
+                contentDescription = stringResource(R.string.system_mode_refresh_error_icon),
+                tint = colors.primary,
+                modifier = Modifier.size(56.dp)
+            )
+            Text(
+                text = stringResource(R.string.system_mode_refresh_error_title),
+                style = MaterialTheme.typography.headlineSmall,
+                textAlign = TextAlign.Center
+            )
+            Text(
+                text = stringResource(R.string.system_mode_refresh_error_message),
+                style = MaterialTheme.typography.bodyLarge,
+                color = colors.onSurfaceVariant,
+                textAlign = TextAlign.Center
+            )
+            Button(
+                onClick = onRetry,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(min = BNBULayout.TouchTarget)
+                    .testTag("systemMode.refreshRetry")
+            ) {
+                Icon(imageVector = Icons.Filled.Refresh, contentDescription = null)
+                Spacer(modifier = Modifier.size(8.dp))
+                Text(stringResource(R.string.system_mode_refresh_retry))
+            }
+        }
+    }
+}
+
+@Composable
 internal fun MaintenancePage(
     message: String,
     estimatedRecoveryTime: String?,
     appLanguage: AppLanguage,
-    supplementTiming: MaintenanceSupplementTimingUiModel
+    supplementTiming: MaintenanceSupplementTimingUiModel,
+    refreshUnavailable: Boolean = false,
+    onRetrySystemMode: () -> Unit = {}
 ) {
     val colors = MaterialTheme.colorScheme
     Box(
@@ -667,10 +732,52 @@ internal fun MaintenancePage(
                 style = MaterialTheme.typography.bodySmall,
                 color = colors.onSurfaceVariant
             )
-            MaintenanceSupplementTimingPanel(
-                model = supplementTiming,
-                appLanguage = appLanguage
+            if (refreshUnavailable) {
+                MaintenanceRefreshUnavailablePanel(onRetry = onRetrySystemMode)
+            } else {
+                MaintenanceSupplementTimingPanel(
+                    model = supplementTiming,
+                    appLanguage = appLanguage
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun MaintenanceRefreshUnavailablePanel(onRetry: () -> Unit) {
+    val colors = MaterialTheme.colorScheme
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .testTag("maintenance.refreshUnavailable"),
+        shape = RoundedCornerShape(20.dp),
+        color = colors.tertiaryContainer,
+        contentColor = colors.onTertiaryContainer
+    ) {
+        Column(
+            modifier = Modifier.padding(18.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Text(
+                text = stringResource(R.string.maintenance_refresh_error_title),
+                style = MaterialTheme.typography.titleMedium
             )
+            Text(
+                text = stringResource(R.string.maintenance_refresh_error_message),
+                style = MaterialTheme.typography.bodyMedium
+            )
+            Button(
+                onClick = onRetry,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(min = BNBULayout.TouchTarget)
+                    .testTag("maintenance.refreshRetry")
+            ) {
+                Icon(imageVector = Icons.Filled.Refresh, contentDescription = null)
+                Spacer(modifier = Modifier.size(8.dp))
+                Text(stringResource(R.string.system_mode_refresh_retry))
+            }
         }
     }
 }

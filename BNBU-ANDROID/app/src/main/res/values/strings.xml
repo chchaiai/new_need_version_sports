@@ -13,6 +13,12 @@
     <string name="startup_retry">重试</string>
     <string name="startup_local_review">进入本地 UI 评审</string>
     <string name="startup_local_review_hint">仅 Debug 可用；使用明确标识的本地合成数据，不代表 Backend、接口或真实业务成功。</string>
+    <string name="system_mode_refresh_error_title">连接暂时中断</string>
+    <string name="system_mode_refresh_error_message">无法刷新系统状态。当前未认定为维护，也不会据此显示补证计时暂停。为避免状态不一致，暂时停止提交操作；应用将自动重试。</string>
+    <string name="system_mode_refresh_error_icon">服务状态连接中断</string>
+    <string name="system_mode_refresh_retry">立即重试</string>
+    <string name="maintenance_refresh_error_title">正在重新确认维护状态</string>
+    <string name="maintenance_refresh_error_message">暂时无法确认维护是否已经结束。此页面保留上次服务器确认的维护状态；剩余时间以恢复连接后的服务器结果为准。</string>
     <string name="login_title">登录 BNBU 体育</string>
     <string name="login_subtitle">查看体育课程、运动记录与分钟进度，一处完成。</string>
     <string name="login_choose_method">选择登录方式</string>

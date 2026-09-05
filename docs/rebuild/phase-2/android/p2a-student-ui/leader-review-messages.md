@@ -1,11 +1,35 @@
 # 给领导的发送模板
 
-本模板只在 R3—R12 复审修正、重新测试和交接完成后发送。发送前把 `[PR 链接]`、`[复审最终 Commit]` 和测试结果替换为实际值，不能继续把初版实施 Commit 当成最终复审 Commit。
+Push 并更新 PR 标题/正文后使用。发送前把 `[FINAL_COMMIT_SHA]` 替换为 Push 输出的新远端 HEAD；PR 链接固定为 `https://github.com/chchaiai/new_need_version_sports/pull/4`。
 
 ## 消息一：请审核什么、具体交接文档在哪里
 
-领导您好，Phase 2 Android 学生端 UI 已按 V8.1 复审意见修正并更新 PR：`[PR 链接]`，复审最终 Commit：`[复审最终 Commit]`。审核请先看 `docs/rebuild/handoffs/phase-2-p2a-android-student-ui-final-handoff.md`，其中集中列出 V8.1 固定 Commit、页面范围、Web 对齐依据、复审意见处理、自动测试、真机证据、未完成项和 Reviewer 清单。请重点核对：维护期间补证计时暂停与剩余时间；六类中英公开原因、动作适用范围、原文公开说明和系统逾期原因；待 AI、待教师、待补证和技术处理中等审核阶段；合法英文失败通知不被误删；启动错误状态、七态、无障碍及演示数据边界。R10 本地验证为 JVM 437/437、Lint 0 error；AndroidTest APK 只编译未在设备运行。R11 在当前真机上确认启动无服务 UI、五个主页面指定正常态、普通后台返回及三项现场缺陷通过，但没有外推为 41 页七状态或完整业务验收。也请检查 Files changed 未由 Android 修改 Contract、Backend、业务正文或 STATUS，并安排 Android Reviewer 与学生 Web 负责人完成跨端一致性复核。
+```text
+领导您好，PR #4 已按第二轮复审要求更新，定位为 V8.1 Android UI foundation / PARTIAL：
+https://github.com/chchaiai/new_need_version_sports/pull/4
 
-## 消息二：本轮只改 UI，后端/业务问题和启动问题如何处理
+新的远端 HEAD Commit：`[FINAL_COMMIT_SHA]`
 
-领导您好，再说明本 PR 的验收边界：本轮只完成 Android Compose UI、UI 展示模型和对应测试，不修改 Contract/OpenAPI、Backend、数据库或部署。V8.1 的维护暂停、六类原因和审核阶段可在 UI 中表达，但真实剩余时间、原因代码、动作来源、生产状态、课程关闭后的既有业务续办、锁定批次续传和正式通知仍须 Contract/Backend 提供。当前没有 Backend，且 Debug 默认 `10.0.2.2:13000` 对未连接开发机的真机不可达；Android 已把启动等待改成明确的 Loading/Error/Retry，并由当前真机确认无服务 UI 路径正常，但真实系统模式、生产地址和服务成功路径仍待联调。FCM/系统通知与 V8.1 站内通知规则的冲突、Manifest/Gradle/core-push 清理、正式 Release 产物、隐私政策定稿和 CI 属于非 Compose UI 或治理任务，需另行授权/指定负责人；R8 已完成本地评审数据与 Preview 的 Debug source-set 隔离。最终只报告实际运行的本地测试与设备证据，不把编译、本地样例或少量真机页面外推为完整业务验收。
+请以该 Commit 开始最终复审，首要交接文档为：
+docs/rebuild/handoffs/phase-2-p2a-android-student-ui-final-handoff.md
+
+请重点核对两项 P1：
+1. 系统模式首次确认后，普通轮询失败保留最后确认模式并显示中性连接阻断，不再伪造 MAINTENANCE 或补证暂停承诺；只有服务器明确返回维护才进入维护语义。
+2. 英文通知拦截 Score、Grade、Ranking 和数字 points 等学生结果泄漏，同时保留 Evidence upload failed、Evidence passed initial checks、Evidence level unavailable 等合法流程通知。
+
+同一最终 Commit 的证据为：JVM 447/447（78 suites）；Lint 0 error、5 existing warnings；Debug 和 AndroidTest APK 构建通过；专用 AVD BNBU_P2_UI_Review / API 37 实际执行 instrumentation 22/22 通过；git diff --check 通过；Contract SHA-256 未变化。当前真机配置下，原系统启动页/无服务启动门禁、五个主页面指定检查、语言切换、录像/视频预览、英文通知固定文案和视频底部说明移除均已复测通过。
+
+PR Files changed 未由 Android 修改业务正文、Contract/OpenAPI、Backend、Web、infra、tests/e2e 或根 STATUS。请按 PARTIAL 边界审核，并由 Android Reviewer记录最终结论；学生 Web Reviewer 仍由负责人正式指定。
+```
+
+## 消息二：哪些仍不是当前 UI PR 能关闭的问题
+
+```text
+领导您好，再确认 PR #4 的边界：本轮完成 Android UI foundation、两个 Android 客户端 P1、对应 JVM/instrumentation 测试和指定真机 UI 回归，不代表学生端完整业务流程、Backend、Contract 或 Release 验收通过。
+
+当前没有可用于正式联调的新 Backend。维护剩余时间、正式原因代码、动作来源、细分审核阶段、正式补证、课程关闭后的既有业务续办、锁定批次续传，以及真实登录/入班/上传/审核/通知/恢复，仍需 Contract Owner、Backend Owner 和后续 Android 联调阶段提供生产事实；Android 未自行修改 Contract 或用本地样例冒充接口成功。
+
+按已确认分工：FCM/系统 Push 清理另建 Android 平台任务并作为 Release 阻塞；GitHub CI 另建仓库治理任务，在下一次大型功能 PR 或 Release 前启用；根 docs/rebuild/STATUS.md 由主线汇总人更新，最终 handoff 已提供可直接采用的准确文字。隐私定稿、Release APK、完整七态/无障碍和其他设备覆盖继续作为后续或发布门禁。
+
+因此本次请求的是 V8.1 Android UI foundation / PARTIAL 的代码复审与合并判断，不是完整产品上线验收。
+```

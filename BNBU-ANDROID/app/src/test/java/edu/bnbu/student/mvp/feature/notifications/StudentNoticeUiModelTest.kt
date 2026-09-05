@@ -58,10 +58,52 @@ class StudentNoticeUiModelTest {
                 message = "Open the app",
                 category = NoticeCategory.Review,
                 targetType = "exercise_record"
+            ),
+            notice(
+                id = "unsafe-direct-score",
+                title = "Score: 95",
+                message = "Your exercise result is available",
+                category = NoticeCategory.Review,
+                targetType = "exercise_record"
+            ),
+            notice(
+                id = "unsafe-direct-grade",
+                title = "Grade: A",
+                message = "Your course result is available",
+                category = NoticeCategory.Review,
+                targetType = "exercise_record"
+            ),
+            notice(
+                id = "unsafe-direct-ranking",
+                title = "Ranking: 1",
+                message = "Your course result is available",
+                category = NoticeCategory.Review,
+                targetType = "exercise_record"
+            ),
+            notice(
+                id = "unsafe-numeric-points",
+                title = "Review complete",
+                message = "You passed with 90 points",
+                category = NoticeCategory.Review,
+                targetType = "exercise_record"
+            ),
+            notice(
+                id = "unsafe-direct-level",
+                title = "Level: A",
+                message = "Your endurance result is available",
+                category = NoticeCategory.Review,
+                targetType = "exercise_record"
+            ),
+            notice(
+                id = "unsafe-result-tier",
+                title = "Endurance tier available",
+                message = "Open the app",
+                category = NoticeCategory.Review,
+                targetType = "exercise_record"
             )
         ).toStudentNoticeUiModels()
 
-        assertTrue(notices.isEmpty())
+        assertEquals(emptyList<String>(), notices.map { it.id })
     }
 
     @Test
@@ -94,6 +136,61 @@ class StudentNoticeUiModelTest {
             notices.map { it.id }
         )
         assertTrue(notices.all { it.kind == StudentNoticeKind.Review })
+    }
+
+    @Test
+    fun rejectsTargetTypesThatOnlyContainAnAllowedNameAsASubstring() {
+        val notices = listOf(
+            notice(
+                id = "unknown-target",
+                title = "Account archive available",
+                message = "No student workflow action is available",
+                category = NoticeCategory.System,
+                targetType = "exercise_record_backup"
+            )
+        ).toStudentNoticeUiModels()
+
+        assertEquals(emptyList<String>(), notices.map { it.id })
+    }
+
+    @Test
+    fun mapsExactSafeContractRoutesWithoutUsingMessageKeywords() {
+        val expectedKinds = linkedMapOf(
+            "course" to StudentNoticeKind.Membership,
+            "exercise_record" to StudentNoticeKind.Review,
+            "application" to StudentNoticeKind.Review,
+            "endurance" to StudentNoticeKind.Progress,
+            "feedback" to StudentNoticeKind.Feedback,
+            "system_mode" to StudentNoticeKind.Maintenance
+        )
+
+        val notices = expectedKinds.keys.map { target ->
+            notice(
+                id = target,
+                title = "Update available",
+                message = "Open this student workflow item",
+                category = NoticeCategory.System,
+                targetType = target.uppercase()
+            )
+        }.toStudentNoticeUiModels()
+
+        assertEquals(expectedKinds.keys.toList(), notices.map { it.id })
+        assertEquals(expectedKinds.values.toList(), notices.map { it.kind })
+    }
+
+    @Test
+    fun rejectsFinalGradeRouteEvenWhenItsCopyDoesNotContainAResult() {
+        val notices = listOf(
+            notice(
+                id = "final-grade-route",
+                title = "Update available",
+                message = "Open the app",
+                category = NoticeCategory.System,
+                targetType = "FINAL_GRADE"
+            )
+        ).toStudentNoticeUiModels()
+
+        assertEquals(emptyList<String>(), notices.map { it.id })
     }
 
     @Test

@@ -53,6 +53,23 @@ class StudentUiDisclosureBoundaryTest {
         assertFalse(sheet.contains("NoticeCategory"))
     }
 
+    @Test
+    fun notificationSheetChromeFollowsTheInPlaceApplicationLanguage() {
+        val sheet = source("notifications/NotificationSheet.kt")
+
+        listOf(
+            "R.string.notification_title",
+            "R.string.notification_none_unread",
+            "R.string.notification_mark_all",
+            "R.string.notification_empty"
+        ).forEach { expected ->
+            assertTrue("Notification chrome must resolve $expected", sheet.contains(expected))
+        }
+        assertTrue(sheet.contains("private fun appString("))
+        assertTrue(sheet.contains("AppLanguagePreferences.localizedContext(hostContext)"))
+        assertTrue(sheet.contains("appPlural(R.plurals.notification_unread_count"))
+    }
+
     private fun source(relativePath: String): String = File(
         projectRoot,
         "app/src/main/java/edu/bnbu/student/mvp/feature/$relativePath"

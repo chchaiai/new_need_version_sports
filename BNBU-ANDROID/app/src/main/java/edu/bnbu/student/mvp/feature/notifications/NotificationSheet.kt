@@ -1,5 +1,7 @@
 package edu.bnbu.student.mvp.feature.notifications
 
+import androidx.annotation.PluralsRes
+import androidx.annotation.StringRes
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.animateColorAsState
@@ -52,8 +54,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.pluralStringResource
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import edu.bnbu.student.mvp.core.designsystem.BNBUMotion
@@ -62,6 +63,7 @@ import edu.bnbu.student.mvp.core.designsystem.StatusBadge
 import edu.bnbu.student.mvp.core.designsystem.SwissPanel
 import edu.bnbu.student.mvp.core.designsystem.bnbuClickable
 import edu.bnbu.student.mvp.core.designsystem.pressScale
+import edu.bnbu.student.mvp.core.local.AppLanguagePreferences
 import edu.bnbu.student.mvp.R
 import kotlinx.coroutines.launch
 
@@ -70,6 +72,28 @@ private enum class NotificationFilter(val labelRes: Int) {
     Unread(R.string.notification_unread),
     Deadline(R.string.notification_deadline),
     Application(R.string.notification_application)
+}
+
+@Composable
+private fun appString(@StringRes resourceId: Int): String {
+    val hostContext = LocalContext.current
+    val appLanguage = AppLanguagePreferences.currentLanguage
+    return remember(hostContext, appLanguage, resourceId) {
+        AppLanguagePreferences.localizedContext(hostContext).getString(resourceId)
+    }
+}
+
+@Composable
+private fun appPlural(@PluralsRes resourceId: Int, quantity: Int): String {
+    val hostContext = LocalContext.current
+    val appLanguage = AppLanguagePreferences.currentLanguage
+    return remember(hostContext, appLanguage, resourceId, quantity) {
+        AppLanguagePreferences.localizedContext(hostContext).resources.getQuantityString(
+            resourceId,
+            quantity,
+            quantity
+        )
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -200,7 +224,10 @@ private fun NotificationSheetHeader(
         ) {
             if (showingDetail) {
                 IconButton(onClick = onBack) {
-                    Icon(Icons.AutoMirrored.Filled.KeyboardArrowLeft, contentDescription = stringResource(R.string.notification_back_list))
+                    Icon(
+                        Icons.AutoMirrored.Filled.KeyboardArrowLeft,
+                        contentDescription = appString(R.string.notification_back_list)
+                    )
                 }
             } else {
                 Icon(
@@ -212,14 +239,19 @@ private fun NotificationSheetHeader(
                 Spacer(Modifier.width(10.dp))
             }
             Text(
-                text = stringResource(if (showingDetail) R.string.notification_detail else R.string.notification_title),
+                text = appString(
+                    if (showingDetail) R.string.notification_detail else R.string.notification_title
+                ),
                 color = cs.onSurface,
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.SemiBold,
                 modifier = Modifier.weight(1f)
             )
             IconButton(onClick = onDismiss) {
-                Icon(Icons.Filled.Close, contentDescription = stringResource(R.string.notification_close))
+                Icon(
+                    Icons.Filled.Close,
+                    contentDescription = appString(R.string.notification_close)
+                )
             }
         }
         if (!showingDetail) {
@@ -229,18 +261,14 @@ private fun NotificationSheetHeader(
             ) {
                 StatusBadge(
                     text = if (unreadCount > 0) {
-                        pluralStringResource(
-                            R.plurals.notification_unread_count,
-                            unreadCount,
-                            unreadCount
-                        )
+                        appPlural(R.plurals.notification_unread_count, unreadCount)
                     } else {
-                        stringResource(R.string.notification_none_unread)
+                        appString(R.string.notification_none_unread)
                     }
                 )
                 Spacer(Modifier.weight(1f))
                 TextButton(onClick = onMarkAllRead, enabled = unreadCount > 0) {
-                    Text(stringResource(R.string.notification_mark_all))
+                    Text(appString(R.string.notification_mark_all))
                 }
             }
         }
@@ -281,7 +309,7 @@ private fun NotificationList(
                 interactionSource = interactionSource,
                 label = {
                     Text(
-                        text = stringResource(filter.labelRes),
+                        text = appString(filter.labelRes),
                         style = MaterialTheme.typography.labelMedium
                     )
                 },
@@ -302,8 +330,8 @@ private fun NotificationList(
 
     if (filtered.isEmpty()) {
         EmptyPlaceholder(
-            title = stringResource(R.string.notification_empty),
-            message = stringResource(R.string.notification_empty_hint)
+            title = appString(R.string.notification_empty),
+            message = appString(R.string.notification_empty_hint)
         )
     } else {
         LazyColumn(
@@ -399,7 +427,7 @@ private fun NotificationDetail(notice: StudentNoticeUiModel, onMarkRead: (String
                 TextButton(onClick = { onMarkRead(notice.id) }, modifier = Modifier.fillMaxWidth()) {
                     Icon(Icons.Filled.CheckCircle, contentDescription = null)
                     Spacer(Modifier.width(8.dp))
-                    Text(stringResource(R.string.notification_mark_read))
+                    Text(appString(R.string.notification_mark_read))
                 }
             }
         }

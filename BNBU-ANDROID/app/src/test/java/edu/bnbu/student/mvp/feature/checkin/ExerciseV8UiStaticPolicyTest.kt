@@ -96,10 +96,14 @@ class ExerciseV8UiStaticPolicyTest {
     @Test
     fun retainedVideoPreviewShowsAFrameAndControlsWithoutABlindTap() {
         val mediaManager = source("SessionMediaManager.kt")
+        val videoPreview = mediaManager.substringAfter("private fun RetainedVideoPreviewDialog(")
 
         assertTrue(mediaManager.contains("view.setOnPreparedListener"))
         assertTrue(mediaManager.contains("view.seekTo(1)"))
         assertTrue(mediaManager.contains("mediaController.show(0)"))
+        assertTrue(videoPreview.contains(".navigationBarsPadding()"))
+        assertFalse(videoPreview.contains("正式上传开始前，如果觉得不合适，可以删除后重录。"))
+        assertFalse(videoPreview.contains("If this item is unsuitable, delete and record it again before formal upload starts."))
     }
 
     private fun source(name: String): String = File(
