@@ -7,8 +7,9 @@
 ```text
 Repository: chchaiai/new_need_version_sports
 Base branch: main（只以固定 Commit 表示，不跟随“最新 main”）
-Base commit: 49d992a1333294ea561923cfea0b7d25864a4d91
-Android tree: a5071942e2371dc288e8b9e3630080f60e344761
+Business authority commit: 8c9826822f35876f8d01480f8baf184027711dfe (V8.1)
+Original Android implementation base: 49d992a1333294ea561923cfea0b7d25864a4d91
+Original Android tree: a5071942e2371dc288e8b9e3630080f60e344761
 Task branch: codex/phase2-android-student-ui
 Design version: P2A-UI-2026.09.04-draft1
 ```
@@ -231,9 +232,9 @@ D:\DT\soprts\start3\BNBU-week9-fix（如存在）
 
 ## 12. 必须停止并报告的情况
 
-- 页面需要新增 v8.0 正文没有定义的业务决定；
+- 页面需要新增 V8.1 正文没有定义的业务决定；
 - UI 无法表达所需状态而必须修改 Contract、DTO、Repository、Gateway 或核心领域模型；
-- 需要决定固定退回原因分类；
+- 需要在 V8.1 已固定六类公开原因及动作适用范围之外增加、删除或改变原因；
 - 需要真实 Backend 才能判断成功、权限、截止或计入结果；
 - 需要写入本文件禁止的路径；
 - 发现目标文件已有用户未提交修改或基线发生变化。

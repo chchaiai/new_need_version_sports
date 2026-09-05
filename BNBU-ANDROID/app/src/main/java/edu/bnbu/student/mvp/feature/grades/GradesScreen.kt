@@ -37,10 +37,14 @@ import edu.bnbu.student.mvp.core.designsystem.interfaceText
 import edu.bnbu.student.mvp.core.model.CheckInRecord
 import edu.bnbu.student.mvp.core.model.CreditType
 import edu.bnbu.student.mvp.core.state.StudentAppState
+import edu.bnbu.student.mvp.feature.checkin.ExerciseReviewStageCatalogReviewPanel
 import edu.bnbu.student.mvp.feature.checkin.SupplementTaskEntryCard
+import edu.bnbu.student.mvp.feature.checkin.displayText
 import edu.bnbu.student.mvp.feature.checkin.displaySportType
+import edu.bnbu.student.mvp.feature.checkin.toExerciseRecordReviewUiModel
 import edu.bnbu.student.mvp.feature.common.StudentProgressUiModel
 import edu.bnbu.student.mvp.feature.common.studentProgressUiModel
+import edu.bnbu.student.mvp.feature.review.LocalReviewUiFixtureProvider
 
 /**
  * Student-facing activity facts only. The legacy grade payload remains outside this screen until
@@ -70,13 +74,12 @@ fun GradesScreen(
         item { CategoryProgressCard(progress) }
         item {
             val rawEndurance = if (appState.isLocalReviewMode) {
-                rawEnduranceResultUiModel(
-                    gender = workspace.student.gender,
-                    status = edu.bnbu.student.mvp.core.model.EnduranceRunStatus.Recorded,
-                    durationSeconds = 287,
-                    testDate = "2026-08-29",
-                    isReviewSample = true
-                )
+                LocalReviewUiFixtureProvider.rawEnduranceResult
+                    ?: rawEnduranceResultUiModel(
+                        gender = workspace.student.gender,
+                        status = workspace.grades.enduranceRunStatus,
+                        durationSeconds = workspace.grades.enduranceRunTimeSeconds
+                    )
             } else {
                 rawEnduranceResultUiModel(
                     gender = workspace.student.gender,
@@ -88,6 +91,9 @@ fun GradesScreen(
         }
         if (appState.isLocalReviewMode && onOpenSupplement != null) {
             item { SupplementTaskEntryCard(onClick = onOpenSupplement) }
+        }
+        if (appState.isLocalReviewMode) {
+            item { ExerciseReviewStageCatalogReviewPanel() }
         }
         item {
             RecentRecordsCard(
@@ -320,12 +326,9 @@ private fun RecentRecordsCard(
 @Composable
 private fun RecordSummary(record: CheckInRecord, showReviewProjection: Boolean) {
     val colors = MaterialTheme.colorScheme
-    val actualMinutes = record.actualDurationSeconds?.coerceAtLeast(0L)?.div(60L)?.toInt()
-    val reviewStatus = when (record.reviewStatus?.trim()?.uppercase()) {
-        "VALID" -> interfaceText("审核有效", "Valid after review")
-        "INVALID" -> interfaceText("审核无效", "Invalid after review")
-        else -> interfaceText("处理中", "In review")
-    }
+    val review = record.toExerciseRecordReviewUiModel()
+    val actualMinutes = review.actualWholeMinutes
+    val reviewStatus = review.stage.displayText()
     val reviewEligibleMinutes = if (
         showReviewProjection && record.reviewStatus.equals("VALID", ignoreCase = true)
     ) {

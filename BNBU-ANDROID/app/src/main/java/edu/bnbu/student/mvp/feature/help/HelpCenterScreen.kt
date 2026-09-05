@@ -44,6 +44,7 @@ import edu.bnbu.student.mvp.core.designsystem.bnbuClickable
 import edu.bnbu.student.mvp.core.local.AppLanguagePreferences
 import edu.bnbu.student.mvp.core.model.HelpArticleContent
 import edu.bnbu.student.mvp.core.network.ApiHttpException
+import edu.bnbu.student.mvp.feature.review.LocalReviewUiFixtureProvider
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -82,7 +83,7 @@ fun HelpCenterScreen(
 
     suspend fun loadArticles() {
         if (isLocalReviewMode) {
-            articles = localReviewHelpArticles().toHelpArticles()
+            articles = LocalReviewUiFixtureProvider.helpArticles().toHelpArticles()
             isLoading = false
             loadError = null
             isShowingCachedArticles = false

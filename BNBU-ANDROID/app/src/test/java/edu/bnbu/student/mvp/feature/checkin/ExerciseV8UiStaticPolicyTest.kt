@@ -48,10 +48,32 @@ class ExerciseV8UiStaticPolicyTest {
     @Test
     fun recordsSeparateActualEligibleCreditedAndReviewStages() {
         val records = source("CheckInRecords.kt")
+        val stageModel = source("ExerciseReviewUiModel.kt")
+        val stageUi = source("ExerciseReviewStageUi.kt")
+        val progress = File(
+            projectRoot,
+            "app/src/main/java/edu/bnbu/student/mvp/feature/grades/GradesScreen.kt"
+        ).readText()
 
-        listOf("实际运动", "可计分钟", "实际计入", "待检查", "有效 · 未计入", "无效").forEach {
+        listOf("实际运动", "可计分钟", "实际计入").forEach {
             assertTrue("Record UI must include $it", records.contains(it))
         }
+        listOf(
+            "待 AI 检查",
+            "待教师复核",
+            "待补证",
+            "补证已接收 · 待教师复核",
+            "技术处理中",
+            "有效 · 已计入",
+            "有效 · 未计入",
+            "无效",
+            "审核阶段暂不可用"
+        ).forEach {
+            assertTrue("Review-stage UI must include $it", stageModel.contains(it))
+        }
+        assertTrue(stageUi.contains("技术问题不代表学生记录无效"))
+        assertTrue(progress.contains("record.toExerciseRecordReviewUiModel()"))
+        assertFalse(progress.contains("else -> interfaceText(\"处理中\""))
         assertTrue(records.contains("首版照片与视频（只读）"))
         assertFalse(records.contains("SubmissionChainPanel("))
         assertFalse(records.contains("onStartResubmission"))

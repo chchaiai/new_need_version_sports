@@ -32,9 +32,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import edu.bnbu.student.mvp.core.designsystem.AppleOutlinedButton
 import edu.bnbu.student.mvp.core.designsystem.BNBULayout
@@ -288,33 +285,5 @@ private fun joinResultCopy(kind: CourseJoinResultKind): JoinResultCopy = when (k
         message = interfaceText("客户端无法安全判断结果，因此不会显示成功。", "The client cannot safely determine the outcome, so it will not show success."),
         action = interfaceText("请重新查询课程事实；若仍无法确认，请联系支持并提供诊断编号。", "Query the course facts again. If still unclear, contact support with the diagnostic ID."),
         icon = Icons.Filled.WarningAmber
-    )
-}
-
-private class CourseJoinResultPreviewProvider : PreviewParameterProvider<CourseJoinResultKind> {
-    override val values: Sequence<CourseJoinResultKind> = CourseJoinResultKind.entries.asSequence()
-}
-
-@Preview(showBackground = true, widthDp = 390, heightDp = 844)
-@Composable
-private fun CourseJoinResultPreview(
-    @PreviewParameter(CourseJoinResultPreviewProvider::class) kind: CourseJoinResultKind
-) {
-    CourseJoinResultScreen(
-        result = CourseJoinResultUiModel(
-            kind = kind,
-            course = CourseJoinInfo(
-                id = "local-design-sample",
-                name = interfaceText("示例体育课程", "Sample PE course"),
-                teacher = interfaceText("示例教师", "Sample teacher"),
-                semester = interfaceText("示例学期", "Sample semester")
-            ),
-            diagnosticId = if (kind == CourseJoinResultKind.Success) null else "review-sample"
-        ),
-        onDone = {},
-        onRetrySubmission = {},
-        onUseAnotherInvitation = {},
-        canOpenCourse = true,
-        isDesignReview = true
     )
 }

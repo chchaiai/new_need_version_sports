@@ -3,6 +3,16 @@
     <string name="login_email_hint">使用学校邮箱</string>
     <string name="login_scan_hint">直接打开课程邀请</string>
     <string name="app_name">BNBU 体育</string>
+    <string name="startup_loading_title">正在检查服务状态</string>
+    <string name="startup_loading_message">正在恢复本地会话并确认系统是否可用，请稍候。</string>
+    <string name="startup_loading_state_description">正在加载</string>
+    <string name="startup_error_title">暂时无法连接服务</string>
+    <string name="startup_error_message">无法确认系统状态。为避免错误操作，应用不会自动进入正常模式。请检查网络后重试。</string>
+    <string name="startup_error_state_description">启动检查失败</string>
+    <string name="startup_error_icon">服务连接错误</string>
+    <string name="startup_retry">重试</string>
+    <string name="startup_local_review">进入本地 UI 评审</string>
+    <string name="startup_local_review_hint">仅 Debug 可用；使用明确标识的本地合成数据，不代表 Backend、接口或真实业务成功。</string>
     <string name="login_title">登录 BNBU 体育</string>
     <string name="login_subtitle">查看体育课程、运动记录与分钟进度，一处完成。</string>
     <string name="login_choose_method">选择登录方式</string>

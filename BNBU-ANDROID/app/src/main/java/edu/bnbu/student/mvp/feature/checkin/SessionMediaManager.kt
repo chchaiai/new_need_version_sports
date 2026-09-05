@@ -70,8 +70,6 @@ import edu.bnbu.student.mvp.feature.checkin.session.ExerciseSessionController
 import edu.bnbu.student.mvp.feature.checkin.session.SessionMediaDraft
 import java.io.File
 
-private val MediaManagerBlue = Color(0xFF007AFF)
-
 /**
  * The single visual manager for the session-media draft source. It intentionally
  * reads [ExerciseSessionController.drafts] directly, so thumbnails and final
@@ -257,7 +255,7 @@ private fun MediaEmptyState(submissionRequired: Boolean) {
             Icon(
                 imageVector = Icons.Filled.CameraAlt,
                 contentDescription = null,
-                tint = MediaManagerBlue,
+                tint = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.size(20.dp)
             )
             Spacer(Modifier.width(10.dp))

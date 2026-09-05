@@ -1,54 +1,60 @@
 package edu.bnbu.student.mvp
 
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class StartupReadinessTest {
     @Test
-    fun keepsSystemSplashUntilEveryRealStartupConditionIsReady() {
-        assertTrue(
-            shouldKeepSystemSplash(
-                sessionRestoreComplete = false,
-                privacyConsentChecked = true,
-                systemModeChecked = true,
-                initialTargetReady = true
+    fun systemSplashOnlyWaitsForTheFirstVisibleComposeSurface() {
+        assertTrue(shouldKeepSystemSplash(initialSurfaceReady = false))
+        assertFalse(shouldKeepSystemSplash(initialSurfaceReady = true))
+    }
+
+    @Test
+    fun startupSurfaceShowsLoadingUntilLocalAndServiceChecksAreReady() {
+        assertEquals(
+            StartupSurfaceState.LOADING,
+            resolveStartupSurfaceState(
+                localStartupReady = false,
+                serviceState = StartupServiceState.READY
             )
         )
-        assertTrue(
-            shouldKeepSystemSplash(
-                sessionRestoreComplete = true,
-                privacyConsentChecked = false,
-                systemModeChecked = true,
-                initialTargetReady = true
-            )
-        )
-        assertTrue(
-            shouldKeepSystemSplash(
-                sessionRestoreComplete = true,
-                privacyConsentChecked = true,
-                systemModeChecked = true,
-                initialTargetReady = false
-            )
-        )
-        assertTrue(
-            shouldKeepSystemSplash(
-                sessionRestoreComplete = true,
-                privacyConsentChecked = true,
-                systemModeChecked = false,
-                initialTargetReady = true
+        assertEquals(
+            StartupSurfaceState.LOADING,
+            resolveStartupSurfaceState(
+                localStartupReady = true,
+                serviceState = StartupServiceState.CHECKING
             )
         )
     }
 
     @Test
-    fun releasesSystemSplashImmediatelyWhenTheRealTargetIsReady() {
-        assertFalse(
-            shouldKeepSystemSplash(
-                sessionRestoreComplete = true,
-                privacyConsentChecked = true,
-                systemModeChecked = true,
-                initialTargetReady = true
+    fun startupSurfaceExposesFailureInsteadOfOpeningNormalMode() {
+        assertEquals(
+            StartupSurfaceState.ERROR,
+            resolveStartupSurfaceState(
+                localStartupReady = true,
+                serviceState = StartupServiceState.ERROR
+            )
+        )
+        assertEquals(
+            StartupSurfaceState.LOADING,
+            resolveStartupSurfaceState(
+                localStartupReady = false,
+                serviceState = StartupServiceState.ERROR
+            )
+        )
+    }
+
+    @Test
+    fun appOpensOnlyAfterEveryStartupGateIsReady() {
+        assertEquals(
+            StartupSurfaceState.APP,
+            resolveStartupSurfaceState(
+                localStartupReady = true,
+                serviceState = StartupServiceState.READY
             )
         )
     }

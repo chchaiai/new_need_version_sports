@@ -1,7 +1,7 @@
 # 原计划第 12 步：全局七态与无障碍源码核查
 
 日期：2026-09-05。Phase 2 / Android 学生端 UI。
-结论：**核查与本轮范围内的 UI 修正完成；七态覆盖仍为 PARTIAL，人工验收 NOT_RUN。**
+结论：**原第 12 步核查与当时范围内的 UI 修正已完成；领导复审后七态、维护补证计时和无障碍修正重新进入进行中，覆盖仍为 PARTIAL。**
 
 本报告不代表 41 页七态全部实现或测试通过。下列证据是源码分支、展示模型和布局声明，不是运行截图、服务端事实或 TalkBack 实测。现有 [状态矩阵](state-matrix.md) 是目标；本文件记录实际差距，不降低目标。
 
@@ -9,10 +9,11 @@
 
 - 工作目录：`D:\DT\soprts\start3\worktrees\phase2-android-student-ui`。
 - 分支：`codex/phase2-android-student-ui`。
-- HEAD：`49d992a1333294ea561923cfea0b7d25864a4d91`；本轮和前轮 UI 均未提交，HEAD 不包含这些修改。
+- 原核查基线：`49d992a1333294ea561923cfea0b7d25864a4d91`；这是 V8.0 初版历史起点，不是当前业务权威。
+- 当前业务权威：`main@8c9826822f35876f8d01480f8baf184027711dfe`（V8.1）；R1 已以普通 merge 同步到 Android 分支。
 - Web：只读 Mac 离线交付，分支 `codex/web-ui-local-preview`，HEAD `74b616653cbae36670c8c9b284c240be7438d480`；不是已上传 GitHub 的 Web 交付。
 - Contract：`1.2.0-contract` / RC。OpenAPI SHA-256：`667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a`。
-- 业务权威仍是固定基线的四份 v8.0 正文；没有 Backend，不依据旧实现补业务决定。
+- 业务权威是当前固定 Commit 下四份 V8.1 正文；没有 Backend，不依据旧实现补业务决定。
 - 本轮只写 Compose UI、P2A 设计包和对应 handoff；未改 STATUS、业务正文、Contract、Backend、网络/领域模型或上传协议。
 
 原 15 步顺序不变：**12 源码七态/无障碍核查 → 13 自动测试与构建 → 14 用户模拟器/真机评审 → 15 交接与 PR 准备**。此前误标为第 12 步的人工指南已更名为第 14 步准备材料；没有执行设备测试。
@@ -31,7 +32,7 @@
 | PAGE-ID | 页面 | 正常 | 加载 | 空数据 | 错误 | 无权限 | 维护 | 中断恢复 | 关键源码证据/限制 |
 |---|---|---|---|---|---|---|---|---|---|
 | PAGE-STU-001 | 启动/恢复 | 有 | 局 | 局 | 局 | 局 | 全 | 恢 | AppRoot/旧 StudentAppState 门控；认证与会话事实恢复未验收 |
-| PAGE-STU-002 | 维护 | 有 | 缺 | 局 | 缺 | 局 | 有 | 缺 | MaintenancePage；本地模式没有维护场景开关 |
+| PAGE-STU-002 | 维护 | 局 | 缺 | 局 | 缺 | 局 | 有 | 缺 | MaintenancePage 只有维护说明/预计恢复时间，尚缺未结束补证“计时已暂停”、剩余时间和恢复后重算截止；本地模式没有维护场景开关 |
 | PAGE-STU-003 | 隐私同意 | 有 | 静 | 静 | 静 | 局 | 全 | 恢 | PrivacyConsentScreen 门控；拒绝不能跳入业务页 |
 | PAGE-STU-004 | 登录前引导 | 有 | 静 | 静 | 静 | 局 | 全 | 恢 | PreLoginCourseGuideScreen；静态正文/分页 |
 | PAGE-STU-005 | 登录方式 | 有 | 静 | 静 | 局 | 局 | 全 | 恢 | LoginScreen 与 AppRoot 路由；本轮补邮箱页系统返回 |
@@ -102,7 +103,7 @@
 |---|---|---|
 | 系统返回 | 已补上述缺失处理；维护由根分支隔离；提交中不穿透到首页 | 手势/三键返回、弹窗关闭、扫码退出释放相机、嵌套详情返回 |
 | 状态栏/导航栏/IME | 根 safeDrawing/IME padding；子级 Insets 消费由 Compose 处理 | 横屏挖孔、三键导航、键盘弹出后末项可见；检查无双重留白 |
-| 深色模式 | 共用 MaterialTheme，仍存在模块固定强调色 | 深色下正文、禁用、警示和图标对比实测 |
+| 深色模式 | 共用 MaterialTheme；R7 已将打卡、证据、提交、补证、游泳说明及耐力结果的固定强调色迁移为语义色 | 深色下正文、禁用、警示和图标仍需真机实测 |
 | 横竖屏/常见宽度 | 多数页面 LazyColumn/滚动容器；维护可滚动；底栏自适应高度 | 320/360/412dp 或可用等效宽度、横屏；不要求更换/清理历史设备 |
 | 字体放大 | 分段不再强制单行；底栏不再固定高度 | 1.0/1.3/2.0 字体，检查按钮、时间/截止、英文长标签，无裁切重叠 |
 | TalkBack | 图标描述、selectableGroup/RadioButton/selected、共享表单错误语义与 liveRegion 已查 | 逐个可点击目标朗读、没有重复/无名控件、状态改变适度播报 |
@@ -120,32 +121,34 @@
 | S12-UI-01 | 首页/课程/进度多依赖父级同步横幅；通知缺独立加载/错误投影。状态矩阵目标不能仅凭组件存在关闭 | Phase 2 UI：补页面级展示模型、异常场景及评审入口；不要求先有真实 Backend |
 | S12-UI-02 | 本地模式固定 NORMAL，绑定、邀请结果、Finished/材料/延迟说明缺快速评审入口 | Phase 2 UI：经确认补明确标识且不调用服务的场景入口；第 14 步不可达项保持未测 |
 | S12-UI-03 | FeedbackScreen 的 description/tab 为 remember；部分静态页没有正文缺失态；补充入口只是固定只读样例 | Phase 2 UI：补安全草稿/静态正文状态，不能把声明的“保留草稿”当已有验收 |
+| S12-V81-01 | 维护页缺补证计时暂停/剩余时间，补证原因仍为自由字符串，审核状态过度压缩，英文通知关键词过滤会误删合法通知 | Phase 2 UI：R3—R9 按 V8.1 修正展示模型、页面和回归测试；生产数据来源仍由 Contract/Backend 提供 |
 | S12-SEC-01 | EmailLoginScreen / ContactBindingScreen 保存验证码或验证流程状态使用 rememberSaveable；与设计“不恢复验证码秘密”有差距 | Android 身份/安全负责人确认敏感字段生命周期；本轮未扩大到登录核心；不得打印实际值 |
 | S12-RESUME-01 | CourseJoinConfirmScreen 的 submitting/submitted 为可保存状态，进程结束后可能恢复 busy 而没有存活请求 | 接口/身份流程阶段明确未知结果查询与幂等；不能简单改成重新提交，也不能只加假成功 |
 | S12-DOMAIN-01 | 旧运动核心不足 60 分钟结束会清理，与新 UI 实际运动事实保留表述冲突；材料页还依赖 Finished | 后续领域/Backend 阶段修订；本轮不改会话核心，不要求改设备时钟或等待一小时验收 |
 | S12-CONTRACT-01 | 游泳前后照版本、受理后锁定同批次续传、24/72 小时截止与权限缺正式数据来源 | 后续 Contract/Backend 负责人提供，Android 不改 OpenAPI，不以本地时间或样例判定成功 |
 | S12-MEDIA-01 | 免测 UI 为 10MB，旧媒体核心仍有 8MB 约束；UI 文案不证明校验已一致 | 后续接口/媒体适配阶段；本轮保留已登记差异，不调整核心上限 |
-| S12-COLOR-01 | 共享主题的若干前景/背景色对不足普通正文 AA 阈值；模块也有固定强调色 | Phase 2 UI/设计 Reviewer 确认统一可访问配色与影响范围；不是 Backend 待办 |
+| S12-COLOR-01 | R7 已修正共享主题普通文字色对，并移除相关学生运动页面的固定蓝/绿/橙强调色；40 组语义色对及实际使用的半透明强调底组合均不低于 4.5:1 | **源码门禁已关闭；设备视觉签认未关闭。** Reviewer 仍需在浅/深色、字体放大和真实控件状态下复验；不是 Backend 待办 |
 | S12-EVIDENCE-01 | 大字体/横屏/焦点/TalkBack/实际点击区域缺运行证据；Owner/Reviewer 尚未具名 | 第 14 步由用户操作，Reviewer 签认；不能转给后续 Backend 作为已通过项 |
 
-配色源码算例（不含透明度、具体字号或实际状态，不能代表整个页面评估）：白色文字与浅色 primary `#007AFF` 约 4.017:1，深色 primary `#0A84FF` 约 3.647:1，浅色 secondary `#FF9500` 约 2.199:1，浅色 error `#FF3B30` 约 3.547:1。按 [WCAG 对比度说明](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html)，普通文字要求 4.5:1，大文字为 3:1；禁用/装饰内容有例外。需按实际控件区分，不把所有颜色一律判错。未擅自修改共享品牌 Theme.kt。
+R9 已补 PAGE-STU-001 的可见启动状态：系统 Splash 只等待首个 Compose 画面，后续等待使用 Loading；首次系统模式请求失败显示 Error + Retry，并以 polite live region 暴露状态。失败不会自动进入 NORMAL；仅 Debug 在 source-set provider 可用时显示本地合成 UI 评审入口，Staging/Release 不显示。R10 全量 JVM、Lint 和 APK 构建已通过；真实设备的 TalkBack、2.0 字体、横屏与重试仍待 R11 使用新候选复测。
+
+R7 配色修正：浅色 primary 改为 `#005FCC`（白字 5.985:1）、secondary 改为 `#995400`（白字 5.797:1）、tertiary 改为 `#1B6F32`（白字 6.238:1）、error 改为 `#B3261E`（白字 6.536:1）；深色 primary 改为 `#2997FF` 并使用深色前景（5.782:1），深色 error 保留明亮底色并改用深色前景（5.390:1）。自动测试覆盖全部容器、正文、反色、强调色/Surface 及当前 UI 使用的 8 组半透明强调底，共 40 组，最低实测不低于 4.5:1。按 [WCAG 对比度说明](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html)，普通文字要求 4.5:1；禁用态、图片背景和实际字号仍须按真实控件人工判断，不能由 token 计算外推为整页通过。
 
 业务与接口矛盾可交后续 Phase，但**纯 UI 状态缺口、配色、草稿体验和评审入口仍是 Phase 2 跟进项**，不能因无 Backend 直接关闭。
 
-## 6. 本轮验证与限制
+## 6. R7 最新验证与限制
 
-执行：`BNBU-ANDROID\gradlew.bat :app:compileDebugKotlin --no-daemon --offline`（使用现有 Android Studio JBR / 本机 SDK）。
+执行：`BNBU-ANDROID\gradlew.bat :app:testDebugUnitTest :app:lintDebug :app:assembleDebug :app:assembleDebugAndroidTest`（使用现有 Android Studio JBR / 本机 SDK）。
 
-- 最后一次源码编译检查：**BUILD SUCCESSFUL，34s，21 tasks（7 executed / 14 up-to-date）**。
-- 编译依赖执行了已有 Contract 绑定检查和 OpenAPI 生成；生成内容位于 build/generated，未编辑 Contract 源文件。
-- 工具仍提示已有 OpenAPI 生成/Gradle 弃用警告，不宣称零警告。
-- 本步没有运行完整 JVM 测试、Lint、assembleDebug 或设备 Compose 测试；此前 388 项单测是前步历史结果，不套用为本轮结果。
-- 没有启动/安装/控制模拟器或真机，没有接口或完整业务验收。
-- 第 11 步 APK 已落后于当前源码；第 13 步须重新构建，更新 SHA 后才进入第 14 步。
+- **BUILD SUCCESSFUL in 1m 59s**；429 项 JVM 测试通过，0 failure / error / skipped。
+- `StudentUiAccessibilityStaticPolicyTest` 新增两项门禁：40 组语义色对及实际半透明强调底组合经计算不低于普通文字 4.5:1；相关运动 UI 不再写死旧 `#007AFF`、`#34C759`、`#FF9500`，填充主按钮不再直接指定白字。
+- Lint：0 error / 5 warning，均为既存类型；Debug APK 与 AndroidTest APK 均构建成功。
+- AndroidTest APK 只是编译，**没有在设备或模拟器运行**；没有执行 TalkBack、Switch Access、大字体、横屏、真实点击区域或视觉回归。
+- 编译依赖执行了已有 Contract 绑定检查和 OpenAPI 生成；生成内容位于 build/generated，Contract `openapi.yaml` SHA-256 仍为 `667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a`。
+- 整体 41 页七态仍为 **PARTIAL**；R7 只关闭领导复审指出的配色源码门禁，不把 token 对比度、编译或 JVM 测试外推为整页/完整业务验收。
 
 本轮文档还更正了人工指南/记录/handoff 的步骤编号，并在第 11 步集成审计尾部恢复原 12—15 步顺序。详细变更与范围保护见本轮 handoff。
 
 ## 7. 下一步
 
-等待用户说“开始第 13 步”后执行原计划自动测试与本地构建，补充相关 UI 静态/状态测试；不假定本轮编译检查已替代第 13 步。纯 UI 未关闭项保留在评审阻塞台账，需要增加实施批次或写入范围时先确认。第 14 步仍由用户操作设备，第 15 步仍由用户手动提交、Push 和 PR。
-
+原 15 步已完成到 PR 提交，当前进入独立的复审修正 R 系列。R2 只同步 V8.1 现行文档与历史边界；R3 起修复通知、审核、补证、维护、启动错误状态和无障碍。完成后重新执行自动测试，由用户操作设备复测，并由用户手动 Push/更新 PR。

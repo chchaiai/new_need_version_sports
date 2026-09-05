@@ -2,7 +2,7 @@
 
 日期：2026-09-05。Phase 2 / Android 学生端 UI。
 
-**完成状态：PARTIAL。允许在本机、不启动设备的 JVM 测试、Lint、Debug 与 AndroidTest 构建已完成且通过；设备导航测试的实际执行，以及 Release 样例包体隔离尚未验收。**
+**R10 本地自动验证：COMPLETE。JVM、Lint、Debug 与 AndroidTest 构建均通过；R11 指定真机回归随后通过。整体交付仍有明确限制，因为设备 instrumentation、未触发页面/七态、Reviewer 签认和 Release APK 产物检查尚未完成。**
 
 这不是 Backend、接口或完整业务测试通过，也不是 41 页七态全部通过。第 12 步登记的 UI/业务缺口继续保留。
 
@@ -11,7 +11,7 @@
 - Git 根：`D:\DT\soprts\start3\worktrees\phase2-android-student-ui`。
 - Android 根：上述目录下 `BNBU-ANDROID`。
 - 分支：`codex/phase2-android-student-ui`。
-- HEAD：`49d992a1333294ea561923cfea0b7d25864a4d91`；前步和本步实现均未提交。
+- 当前 HEAD：`f39c29dad2ddd3c2eb1d5924cff67d2ff825601d`；R3—R10 工作树改动均未提交。
 - origin：`https://github.com/chchaiai/new_need_version_sports.git`。
 - 已读根 AGENTS.md、STATUS、第 12 步 handoff、实施范围和现有相关测试；Android/设计包未发现下级 AGENTS。
 - 本轮开始保存了 91 个已有差异文件的 SHA-256 快照，保护既有未提交内容。
@@ -19,7 +19,7 @@
 - Week 9 仍为 `9506a8a491d091ff9be4936995b92184c007fc11` / 35 个未提交状态项；没有清理、stash、reset、删除、回退或覆盖。
 - Contract 仍为 `1.2.0-contract` / RC。OpenAPI SHA-256：`667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a`，执行前后相同。
 
-## 2. 实际执行
+## 2. 原计划第 13 步实际执行（历史）
 
 目录：`BNBU-ANDROID`。使用已安装 Android Studio JBR 和本机 Android SDK，没有升级依赖或安装新工具。
 
@@ -48,7 +48,7 @@
 - XML：`BNBU-ANDROID/app/build/test-results/testDebugUnitTest/TEST-*.xml`
 - Lint XML：`BNBU-ANDROID/app/build/reports/lint-results-debug.xml`
 
-## 3. 本轮补充的自动覆盖
+## 3. 原计划第 13 步补充的自动覆盖（历史）
 
 新增 17 项 JVM 测试，累计从 388 项增至 405 项；另新增 3 项设备 Compose 测试源码。
 
@@ -72,7 +72,7 @@
 
 这些测试使用合成输入或隔离 Mock，不构成新 Backend 验收。无真实服务时未发送验证码、未执行真实入班、材料上传、审核或注销。
 
-## 4. Lint 与编译警告
+## 4. 原计划第 13 步 Lint 与编译警告（历史）
 
 本次 5 个 Lint warning 与此前类型一致，未新增 error：
 
@@ -82,20 +82,20 @@
 | DiscouragedApi | core/designsystem/InterfaceText.kt:38 | 资源名反射查找 |
 | VectorPath | res/drawable/bnbu_emblem.xml:10 | 过长矢量路径 |
 | VectorPath | res/drawable/ic_launcher_foreground.xml:15 | 过长矢量路径 |
-| TypographyDashes | res/values/strings.xml:124 | 短横线排版建议 |
+| TypographyDashes | res/values/strings.xml:134 | 短横线排版建议 |
 
 另有既存 Kotlin/Compose 弃用、旧网络类型兼容性、OpenAPI 生成器与 Gradle 弃用提示，以及部分 native 库无法 strip 的打包提示。不能将“0 Lint error”写成“全流程零警告”。本轮没有为消除这些提示修改生产源码、图标或依赖。
 
-## 5. 本次产物
+## 5. 原计划第 13 步产物（已失效）
 
 | 产物 | 字节数 | SHA-256 |
 |---|---:|---|
 | app/build/outputs/apk/debug/app-debug.apk | 25,795,039 | e5cf24ad6b6ef6c1bc4d43c25e68947c4104296f2d01f03133f4763a599cc7f1 |
 | app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk | 976,168 | d9a4550038b04114129ce04409e73aa87595cf2bf77363ea6a09da0fdb7d7d8e |
 
-Debug BuildConfig：environment=local，BNBU_TEST_TOOLS_ENABLED=false。手工评审使用主 Debug APK，不需安装 AndroidTest APK。候选指纹已经同步到 [第 14 步指南](../phase-2/android/p2a-student-ui/manual-acceptance-guide.md) 和 [记录](../phase-2/android/p2a-student-ui/manual-acceptance-record.md)。
+这些是原计划第 13 步历史指纹，不得用于 R11。当前 R10 指纹见后文，并已同步到 [人工复测指南](../phase-2/android/p2a-student-ui/manual-acceptance-guide.md) 和 [记录](../phase-2/android/p2a-student-ui/manual-acceptance-record.md)。
 
-第 11 步历史包 SHA `365f2ea62f41e1a427979abe4da286d708e860cc64827cd5b3278c63f63d0a12` 不再作为当前源码的验收依据。未安装过新包，人工实际安装指纹仍待确认。
+第 11 步历史包 SHA `365f2ea62f41e1a427979abe4da286d708e860cc64827cd5b3278c63f63d0a12` 不再作为当前源码的验收依据。R10 候选后来已由用户传至自有真机并全新安装；设备端未独立计算指纹，证据边界见人工验收记录。
 
 ## 6. 未完成验证与 Release 缺口
 
@@ -105,19 +105,37 @@ Debug BuildConfig：environment=local，BNBU_TEST_TOOLS_ENABLED=false。手工�
 
 CoreJourney 的既有 setup/teardown 会清空被测 App 本地状态。以后执行前必须确认使用可重置、没有历史数据/手工评审草稿的专用测试安装；不能直接在 Week 9 或留有评审证据的安装上执行。用户手工测试仍在原计划第 14 步，设备自动化另行确认时再由 Codex 运行。
 
-### S13-RELEASE-01：入口隔离不等于样例包体隔离
+### S13-RELEASE-01：R8 已关闭源码隔离，Release 产物检查仍阻塞
 
-已通过的 3 项构建变体静态测试只证明源码中的这些限制：
+R8 将运行时评审数据集中到 `app/src/debug/.../feature/review/LocalReviewUiFixtureProvider.kt`：一次补证任务、帮助文章和原始耐力样例只由 Debug provider 创建；Staging/Release 同名 provider 分别返回 `null` 或空列表。两处包含虚构课程、教师、日期和维护时间的 Compose Preview 也移入 Debug source set。通用页面、状态模型和“这是评审样例”的防误导文案仍保留在 main，它们不是学生记录或服务器结果。
 
-- debug 工作区工厂位于 debug 源集；
-- release 对应工厂为 null，测试工具 flag 为 false；
-- 正式登录入口不开放 local 评审操作。
+构建变体门禁现检查：main 不含上述运行时 payload 或 `@Preview`；Debug 含明确合成样例；Staging/Release provider 不构造 `HelpArticleContent`、补证任务或耐力结果。该门禁是源文件证据，不是 Release APK 反编译证明。
 
-但 `app/src/main/java/edu/bnbu/student/mvp/feature/checkin/SupplementUiModel.kt` 仍定义 `localReviewSupplementTask()` 和合成记录样例，并由主源集 UI 引用。故不能声称“所有演示样例均已物理移出 release 源集”，更不能猜测 R8 一定会删掉它。
+R8 没有构建/检查 Release APK。Release 构建仍要求真实 HTTPS 配置、Firebase 配置与外部签名材料；不读取或索取真实密钥，不绕过正式构建门禁，也不把 Debug 改成伪 Release 验证。故 `S13-RELEASE-01A`（源码隔离）关闭，`S13-RELEASE-01B`（正式产物检查）继续由发布环境负责人关闭。
 
-本轮没有构建/检查 Release APK。Release 构建还要求正式 HTTPS 配置、Firebase 配置与外部签名材料；不读取或索取真实密钥，不绕过正式构建门禁，也不把 Debug 改成伪 Release 验证。
+R8 增量验证命令：`gradlew.bat :app:testDebugUnitTest :app:lintDebug :app:assembleDebug :app:assembleDebugAndroidTest`。结果为 **BUILD SUCCESSFUL in 2m 28s**；431 项 JVM 测试全部通过，0 failure / error / skipped；Lint 0 error / 5 个既存 warning；Debug APK 和 AndroidTest APK 均编译成功。AndroidTest 没有在设备运行。源集扫描结果为 main 中 `@Preview` 文件 0、已迁移运行时 fixture 特征 0；Contract SHA-256 保持不变。Debug APK SHA-256 为 `0005e4a013a2053ebf97ba95b1445ce54b1139a2b21ed38765d9f1ac442710f0`，仅为 R8 中间构建，不替代 R10 最终候选。
 
-关闭条件：另行确认 UI 样例源集隔离方案和准确可写路径，完成对应调整，再在授权的发布构建环境检查实际 Release 产物。该项影响发布验收，不阻止当前 Debug UI 人工评审。
+### S14-DEVICE-01：R9 启动可见状态源码门禁
+
+R9 将 Android 系统 Splash 的条件缩小为“首个 Compose 画面已完成布局”。会话恢复、隐私检查和首次系统模式请求继续按原安全边界执行，但等待期间显示双语 Loading；首次系统模式请求失败显示双语 Error 和 Retry，失败分支不调用 fallback、也不自动进入 NORMAL。
+
+Debug 的 source-set provider 非空时，错误页还会显示“本地 UI 评审”入口并加载明确标识的合成学生；Staging/Release provider 为 `null`，不显示该入口。真实系统模式、服务地址、超时和 Contract 均未更改。
+
+R9 聚焦验证命令：`gradlew.bat :app:testDebugUnitTest --tests 'edu.bnbu.student.mvp.StartupReadinessTest' --tests 'edu.bnbu.student.mvp.feature.ui.StartupGateStaticPolicyTest' :app:compileDebugAndroidTestKotlin --no-daemon --offline`。最终结果为 **BUILD SUCCESSFUL in 40s**；聚焦 JVM 8/8，0 failure / error / skipped；Debug 与 AndroidTest Kotlin 编译通过。新增 Loading 和 Error/Retry Compose instrumentation 场景只完成编译，未在设备运行。
+
+### R10：V8.1 复审后完整本地自动验证
+
+最终命令：`gradlew.bat :app:testDebugUnitTest :app:lintDebug :app:assembleDebug :app:assembleDebugAndroidTest --no-daemon --offline`。首次运行发现 R9 新增整数 Compose state 的 1 条 `AutoboxingStateCreation` information；改用 `mutableIntStateOf` 后执行相同完整命令复跑，最终结果为 **BUILD SUCCESSFUL in 2m 13s**。
+
+| 项目 | R10 最终结果 | 边界 |
+|---|---|---|
+| Debug JVM | 437 tests / 78 suites；0 failures、0 errors、0 skipped | 全量本地 JVM；不是 Backend 或设备测试 |
+| Lint Debug | 0 errors、5 个既有 warnings、0 informational | 新增 information 已消除；5 个 warning 类型与此前一致 |
+| Debug APK | 27,459,431 bytes；SHA-256 `a2c6a49a5e54830cec3b123ee3ebe03a7ceb4ea28dc3b1291687f5f20c97ecdb` | R11 已由用户在自有真机全新安装并完成指定回归；设备端未独立计算指纹 |
+| AndroidTest APK | 997,437 bytes；SHA-256 `3aac4e39ce7666836f9e25c0e9638bae031b9b41d01209b0b26dbb9db52ef62c` | 19 项 instrumentation 源码已编译，未在设备运行 |
+| APK 签名/元数据 | v2 debug 签名验证通过；`edu.bnbu.student.mvp.debug` / `0.1.0-mvp-debug` / minSdk 26 / targetSdk 35 / debuggable | 不是生产签名或发布批准 |
+
+R10 后续范围核查：Contract SHA-256 保持 `667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a`；禁止路径为 0；`git diff --check` 通过。R11 由用户在自有真机安装主 Debug APK并完成指定手工回归，AndroidTest APK 未用于手工评审、也未在设备执行。
 
 ### 其他继续保留的缺口
 
@@ -126,9 +144,9 @@ CoreJourney 的既有 setup/teardown 会清空被测 App 本地状态。以后�
 - Owner / Android Reviewer / Web Reviewer 尚未具名；
 - 不把已通过 JVM 门禁当作 Reviewer 签认、全业务或跨端一致性通过。
 
-## 7. 本轮修改文件
+## 7. 原计划第 13 步的历史修改文件
 
-没有修改生产源码。
+以下清单只追溯原计划第 13 步，不代表 R3—R10 的完整差异。
 
 测试：
 
@@ -145,14 +163,13 @@ CoreJourney 的既有 setup/teardown 会清空被测 App 本地状态。以后�
 3. `docs/rebuild/phase-2/android/p2a-student-ui/manual-acceptance-record.md`
 4. `docs/rebuild/handoffs/phase-2-p2a-android-student-ui-manual-acceptance.md`
 
-## 8. 结束声明与下一步
+## 8. R10 结束声明与下一步
 
-- 业务规则、生产 UI、Contract、Backend、Web、数据库、部署配置：未改。
+- R10 只消除了 R9 新代码的一条 Lint information 并执行完整验证；R3—R9 的 UI 改动按各自 handoff 追溯。Contract、Backend、Web、业务正文、数据库和部署配置未改。
 - STATUS：按用户要求未改，仍由指定汇总人维护。
 - 旧 API：仍存在，本轮未新增或修改。
 - Mock/样例：已有客户端隔离测试和 debug 合成数据继续存在；新增测试只用虚构输入，没有新增生产 Mock、TODO 或空接口。
 - Git：没有 commit、push、PR、合并或外部操作。
-- 停在第 13 步本地验证结果汇报，不自动进入第 14 步。
+- R10 当时停在本地验证结果汇报；用户随后明确开始 R11，并完成指定真机回归。
 
-用户确认“开始第 14 步”后，可按更新的指南逐页评审当前 Debug UI；上述缺测与发布阻塞继续保留，不把进入人工评审等同于所有门禁已关闭。第 15 步仍是交接/PR 准备，提交、Push、PR 由用户手动执行。
-
+R11 结果见更新后的人工验收记录；上述缺测与发布阻塞继续保留，不把构建成功、指定真机回归或本地评审样例等同于完整业务验收。Commit、Push 和 PR 更新仍由用户手动执行。

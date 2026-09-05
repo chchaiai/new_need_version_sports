@@ -1,12 +1,12 @@
 # P2A Android 学生端 UI：一次补充、原始耐力与免测/认证
 
-交付日期：2026-09-05  
-原 15 步计划：第 7 步  
-分支：`codex/phase2-android-student-ui`  
-固定基线：`49d992a1333294ea561923cfea0b7d25864a4d91`  
-设计版本：`P2A-UI-2026.09.04-draft1`  
-业务版本：v8.0  
-Contract：`1.2.0-contract` / `RC`  
+- 交付日期：2026-09-05
+- 原 15 步计划：第 7 步
+- 分支：`codex/phase2-android-student-ui`
+- 固定基线：`49d992a1333294ea561923cfea0b7d25864a4d91`
+- 设计版本：`P2A-UI-2026.09.04-draft1`
+- 业务版本：v8.0（历史执行记录）
+- Contract：`1.2.0-contract` / `RC`
 OpenAPI SHA-256：`667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a`
 
 ## 1. 完成状态
@@ -94,8 +94,8 @@ docs/rebuild/handoffs/phase-2-p2a-android-student-ui-supplement-endurance-applic
 git diff --check         PASS
 ```
 
-APK：`BNBU-ANDROID/app/build/outputs/apk/debug/app-debug.apk`  
-大小：`26,719,092` bytes  
+- APK：`BNBU-ANDROID/app/build/outputs/apk/debug/app-debug.apk`
+- 大小：`26,719,092` bytes
 SHA-256：`abbfe7b9228434396fadc066882020a63eb8542cb88ace8f788148ce474e9e80`
 
 Lint 的 5 项是 1 项既有 `ExemptionScreen.kt` 可变集合状态警告、1 项设计系统资源反射警告、2 项既有矢量路径警告和 1 项字符串短横线警告；没有 error。Windows Git 同时报告既有 LF/CRLF 转换提醒，但 `git diff --check` 没有空白错误，未为此重写文件。

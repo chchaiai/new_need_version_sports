@@ -1,12 +1,12 @@
 # P2A Android 学生端 UI：九类运动图标资源
 
-交付日期：2026-09-05  
-原 15 步计划：第 9 步  
-分支：`codex/phase2-android-student-ui`  
-固定基线：`49d992a1333294ea561923cfea0b7d25864a4d91`  
-设计版本：`P2A-UI-2026.09.04-draft1`  
-业务版本：v8.0  
-Contract：`1.2.0-contract` / `RC`  
+- 交付日期：2026-09-05
+- 原 15 步计划：第 9 步
+- 分支：`codex/phase2-android-student-ui`
+- 固定基线：`49d992a1333294ea561923cfea0b7d25864a4d91`
+- 设计版本：`P2A-UI-2026.09.04-draft1`
+- 业务版本：v8.0（历史执行记录）
+- Contract：`1.2.0-contract` / `RC`
 OpenAPI SHA-256：`667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a`
 
 ## 1. 完成状态
@@ -70,8 +70,8 @@ git diff --check                   PASS
 
 Lint 的 5 项仍为此前已记录的 1 项豁免页面可变集合状态、1 项设计系统资源反射、2 项既有矢量路径与 1 项字符串短横线 warning；本步九类图标未新增 Lint issue。
 
-APK：`BNBU-ANDROID/app/build/outputs/apk/debug/app-debug.apk`  
-大小：`26,720,739` bytes  
+- APK：`BNBU-ANDROID/app/build/outputs/apk/debug/app-debug.apk`
+- 大小：`26,720,739` bytes
 SHA-256：`365f2ea62f41e1a427979abe4da286d708e860cc64827cd5b3278c63f63d0a12`
 
 ## 6. 人工验收待办

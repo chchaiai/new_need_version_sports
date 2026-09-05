@@ -1,12 +1,12 @@
 # P2A Android 学生端 UI：账户、帮助、反馈与隐私审计
 
-交付日期：2026-09-05  
-原 15 步计划：第 8 步  
-分支：`codex/phase2-android-student-ui`  
-固定基线：`49d992a1333294ea561923cfea0b7d25864a4d91`  
-设计版本：`P2A-UI-2026.09.04-draft1`  
-业务版本：v8.0  
-Contract：`1.2.0-contract` / `RC`  
+- 交付日期：2026-09-05
+- 原 15 步计划：第 8 步
+- 分支：`codex/phase2-android-student-ui`
+- 固定基线：`49d992a1333294ea561923cfea0b7d25864a4d91`
+- 设计版本：`P2A-UI-2026.09.04-draft1`
+- 业务版本：v8.0（历史执行记录）
+- Contract：`1.2.0-contract` / `RC`
 OpenAPI SHA-256：`667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a`
 
 ## 1. 完成状态
@@ -111,8 +111,8 @@ BNBU-ANDROID/app/src/main/java/edu/bnbu/student/mvp/feature/settings/ChangelogSc
 git diff --check         PASS
 ```
 
-APK：`BNBU-ANDROID/app/build/outputs/apk/debug/app-debug.apk`  
-大小：`26,719,212` bytes  
+- APK：`BNBU-ANDROID/app/build/outputs/apk/debug/app-debug.apk`
+- 大小：`26,719,212` bytes
 SHA-256：`74119d2daaded7557b62cb19c5df95342460436ef415d8bb96fcea06b257d7c0`
 
 编译另有 `FeedbackScreen.kt` 既有 `menuAnchor()` 与 `Icons.Filled.Send` 两项 Kotlin 弃用提醒，不影响本次构建结果。Lint 的 5 项仍是 1 项既有豁免页面可变集合状态、1 项设计系统资源反射、2 项矢量路径和 1 项字符串短横线 warning，没有 error。

@@ -26,13 +26,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import edu.bnbu.student.mvp.core.designsystem.interfaceText
-
-private val EvidenceBlue = Color(0xFF007AFF)
-private val EvidenceOrange = Color(0xFFFF9500)
 
 /** PAGE-STU-041: version-aware evidence presentation around the existing capture UI. */
 @Composable
@@ -57,7 +53,7 @@ internal fun ExerciseEvidenceScreen(
                     Icon(
                         imageVector = if (hasLockedMedia) Icons.Filled.Lock else Icons.Filled.CameraAlt,
                         contentDescription = null,
-                        tint = if (hasLockedMedia) EvidenceOrange else EvidenceBlue,
+                        tint = if (hasLockedMedia) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(22.dp)
                     )
                     Spacer(Modifier.width(9.dp))
@@ -157,7 +153,7 @@ private fun SwimmingEvidenceRequirements(
 ) {
     Surface(
         modifier = Modifier.fillMaxWidth(),
-        color = EvidenceBlue.copy(alpha = 0.08f),
+        color = MaterialTheme.colorScheme.primary.copy(alpha = 0.08f),
         shape = MaterialTheme.shapes.large
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
@@ -192,7 +188,7 @@ private fun SwimmingEvidenceRequirements(
                     "已拍摄 $photoCount 张。当前接口尚未提供前/后阶段标记，不能自动把普通照片归入槽位，也不能事后补造前照。",
                     "$photoCount photos captured. The current interface has no before/after marker, so photos cannot be assigned automatically and a missing before photo cannot be recreated later."
                 ),
-                color = EvidenceOrange,
+                color = MaterialTheme.colorScheme.secondary,
                 style = MaterialTheme.typography.bodySmall,
                 fontWeight = FontWeight.Medium
             )
@@ -252,7 +248,7 @@ private fun EvidenceFactRow(
         Icon(
             imageVector = icon,
             contentDescription = null,
-            tint = EvidenceBlue,
+            tint = MaterialTheme.colorScheme.primary,
             modifier = Modifier.size(18.dp)
         )
         Spacer(Modifier.width(9.dp))

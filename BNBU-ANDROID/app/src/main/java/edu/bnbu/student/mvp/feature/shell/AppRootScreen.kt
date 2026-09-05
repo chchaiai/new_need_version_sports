@@ -90,6 +90,7 @@ import edu.bnbu.student.mvp.core.designsystem.BNBULayout
 import edu.bnbu.student.mvp.core.designsystem.BNBUMotion
 import edu.bnbu.student.mvp.core.designsystem.interfaceText
 import edu.bnbu.student.mvp.core.local.AndroidAppLocalStore
+import edu.bnbu.student.mvp.core.model.AppLanguage
 import edu.bnbu.student.mvp.core.model.SystemMode
 import edu.bnbu.student.mvp.core.model.StudentWorkspace
 import edu.bnbu.student.mvp.core.model.safeStudentNumberOrNull
@@ -101,7 +102,6 @@ import edu.bnbu.student.mvp.core.state.StudentAppState
 import edu.bnbu.student.mvp.feature.checkin.CheckInScreen
 import edu.bnbu.student.mvp.feature.checkin.SupplementResultScreen
 import edu.bnbu.student.mvp.feature.checkin.SupplementTaskScreen
-import edu.bnbu.student.mvp.feature.checkin.localReviewSupplementTask
 import edu.bnbu.student.mvp.feature.checkin.session.ExerciseSessionController
 import edu.bnbu.student.mvp.feature.courses.CourseJoinConfirmScreen
 import edu.bnbu.student.mvp.feature.courses.CourseJoinCompletion
@@ -130,6 +130,7 @@ import edu.bnbu.student.mvp.feature.notifications.toStudentNoticeUiModels
 import edu.bnbu.student.mvp.feature.profile.AccountDetailsScreen
 import edu.bnbu.student.mvp.feature.profile.AccountDeletionScreen
 import edu.bnbu.student.mvp.feature.profile.ProfileSettingsScreen
+import edu.bnbu.student.mvp.feature.review.LocalReviewUiFixtureProvider
 import edu.bnbu.student.mvp.feature.profile.PrivacyPolicyScreen
 import edu.bnbu.student.mvp.feature.profile.ProfileScreen
 import edu.bnbu.student.mvp.feature.exemption.ExemptionScreen
@@ -223,7 +224,9 @@ internal fun AppRootScreen(
     onPrivacyConsentAccepted: () -> Unit = {},
     onInitialTargetReady: () -> Unit = {},
     onRequestNotificationPermission: () -> Unit = {},
-    localReviewWorkspaceFactory: (() -> StudentWorkspace)? = null
+    localReviewWorkspaceFactory: (() -> StudentWorkspace)? = null,
+    maintenanceSupplementTiming: MaintenanceSupplementTimingUiModel =
+        MaintenanceSupplementTimingUiModel.Unavailable
 ) {
     Box(
         modifier = Modifier
@@ -236,7 +239,9 @@ internal fun AppRootScreen(
         when (appState.systemMode) {
             SystemMode.MAINTENANCE -> MaintenancePage(
                 message = appState.systemModeStatus.message,
-                estimatedRecoveryTime = appState.systemModeStatus.estimatedRecoveryTime
+                estimatedRecoveryTime = appState.systemModeStatus.estimatedRecoveryTime,
+                appLanguage = appState.appLanguage,
+                supplementTiming = maintenanceSupplementTiming
             )
             SystemMode.NORMAL -> {
                 val plannedMaintenanceAt = appState.systemModeStatus.plannedMaintenanceAt
@@ -614,14 +619,20 @@ private fun PlannedMaintenanceBanner(plannedMaintenanceAt: String, message: Stri
 }
 
 @Composable
-private fun MaintenancePage(message: String, estimatedRecoveryTime: String?) {
+internal fun MaintenancePage(
+    message: String,
+    estimatedRecoveryTime: String?,
+    appLanguage: AppLanguage,
+    supplementTiming: MaintenanceSupplementTimingUiModel
+) {
     val colors = MaterialTheme.colorScheme
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(colors.background)
             .statusBarsPadding()
-            .padding(32.dp),
+            .padding(32.dp)
+            .testTag("screen.maintenance"),
         contentAlignment = Alignment.Center
     ) {
         Column(
@@ -647,6 +658,61 @@ private fun MaintenancePage(message: String, estimatedRecoveryTime: String?) {
                 text = estimatedRecoveryTime?.let { interfaceText("预计恢复时间：$it", "Estimated recovery time: $it") } ?: interfaceText("预计恢复时间：请留意后续通知", "Estimated recovery time: watch for further notices."),
                 style = MaterialTheme.typography.titleSmall,
                 color = colors.primary
+            )
+            Text(
+                text = interfaceText(
+                    "预计恢复时间仅供参考，不是实际恢复时间或补证截止时间。",
+                    "The estimated recovery time is informational; it is not the actual recovery time or a supplementary-evidence deadline."
+                ),
+                style = MaterialTheme.typography.bodySmall,
+                color = colors.onSurfaceVariant
+            )
+            MaintenanceSupplementTimingPanel(
+                model = supplementTiming,
+                appLanguage = appLanguage
+            )
+        }
+    }
+}
+
+@Composable
+private fun MaintenanceSupplementTimingPanel(
+    model: MaintenanceSupplementTimingUiModel,
+    appLanguage: AppLanguage
+) {
+    val presentation = model.toPresentation(appLanguage) ?: return
+    val colors = MaterialTheme.colorScheme
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .testTag("maintenance.supplementTiming"),
+        shape = RoundedCornerShape(20.dp),
+        color = colors.secondaryContainer,
+        contentColor = colors.onSecondaryContainer
+    ) {
+        Column(
+            modifier = Modifier.padding(18.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Text(
+                text = presentation.title,
+                style = MaterialTheme.typography.labelLarge
+            )
+            Text(
+                text = presentation.status,
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.testTag("maintenance.supplementTiming.status")
+            )
+            presentation.remainingTime?.let { remainingTime ->
+                Text(
+                    text = remainingTime,
+                    style = MaterialTheme.typography.titleSmall,
+                    modifier = Modifier.testTag("maintenance.supplementTiming.remaining")
+                )
+            }
+            Text(
+                text = presentation.detail,
+                style = MaterialTheme.typography.bodyMedium
             )
         }
     }
@@ -1100,7 +1166,9 @@ private fun SubScreenOverlay(
                 )
             }
             SubScreen.SupplementTask -> SupplementTaskScreen(
-                model = localReviewSupplementTask(),
+                model = requireNotNull(LocalReviewUiFixtureProvider.supplementTask) {
+                    "Local review supplement data is unavailable in this build."
+                },
                 note = "",
                 onNoteChanged = {},
                 photoCount = 0,
@@ -1113,7 +1181,9 @@ private fun SubScreenOverlay(
                 onPreviewAcceptedState = onOpenSupplementResult
             )
             SubScreen.SupplementResult -> SupplementResultScreen(
-                model = localReviewSupplementTask(),
+                model = requireNotNull(LocalReviewUiFixtureProvider.supplementTask) {
+                    "Local review supplement data is unavailable in this build."
+                },
                 onBack = onReturnToSupplementTask,
                 onViewRecords = onClose
             )

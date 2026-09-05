@@ -28,15 +28,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import edu.bnbu.student.mvp.core.designsystem.BNBUFormField
 import edu.bnbu.student.mvp.core.designsystem.bnbuClickable
 import edu.bnbu.student.mvp.core.designsystem.interfaceText
-
-private val SwimmingDelayBlue = Color(0xFF007AFF)
 
 /** PAGE-STU-043: local draft UI for a fully-offline swimming delay explanation. */
 @Composable
@@ -89,7 +86,7 @@ internal fun SwimmingDelayExplanationScreen(
         item {
             Surface(
                 modifier = Modifier.fillMaxWidth(),
-                color = SwimmingDelayBlue.copy(alpha = 0.08f),
+                color = MaterialTheme.colorScheme.primary.copy(alpha = 0.08f),
                 shape = MaterialTheme.shapes.large
             ) {
                 Column(
@@ -160,8 +157,8 @@ internal fun SwimmingDelayExplanationScreen(
                     .heightIn(min = 54.dp)
                     .testTag("checkIn.swimmingDelay.submit"),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = SwimmingDelayBlue,
-                    contentColor = Color.White
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.onPrimary
                 )
             ) {
                 if (isSubmitting) {
@@ -194,7 +191,7 @@ private fun DelayFact(
         Icon(
             imageVector = icon,
             contentDescription = null,
-            tint = SwimmingDelayBlue,
+            tint = MaterialTheme.colorScheme.primary,
             modifier = Modifier.size(20.dp)
         )
         Spacer(Modifier.width(9.dp))

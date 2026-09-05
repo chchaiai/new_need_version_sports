@@ -1,5 +1,6 @@
 package edu.bnbu.student.mvp.feature.help
 
+import edu.bnbu.student.mvp.feature.review.LocalReviewUiFixtureProvider
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -39,7 +40,7 @@ class HelpArticlePresentationTest {
 
     @Test
     fun localReviewUsesPublishedAdministratorProjectionOnly() {
-        val articles = localReviewHelpArticles()
+        val articles = LocalReviewUiFixtureProvider.helpArticles()
         assertEquals(listOf("HA-001", "HA-006", "HA-002", "HA-003"), articles.map { it.id })
         assertEquals(listOf("checkin", "enrollment", "login", "exemption"), articles.map { it.categoryCode })
         assertTrue(articles.all { it.title.isNotBlank() && it.bodyMarkdown.isNotBlank() })
@@ -47,7 +48,7 @@ class HelpArticlePresentationTest {
 
     @Test
     fun localReviewDoesNotInventVerificationCodeLockDurations() {
-        val copy = localReviewHelpArticles().joinToString("\n") { it.bodyMarkdown }
+        val copy = LocalReviewUiFixtureProvider.helpArticles().joinToString("\n") { it.bodyMarkdown }
 
         assertFalse(copy.contains("连续输错 5 次"))
         assertFalse(copy.contains("账号锁定 15 分钟"))

@@ -284,17 +284,25 @@ private fun RecordStageBadge(stage: ExerciseRecordReviewStage) {
     val cs = MaterialTheme.colorScheme
     val container = when (stage) {
         ExerciseRecordReviewStage.ValidCredited,
-        ExerciseRecordReviewStage.ValidNotCredited -> Color(0xFF34C759).copy(alpha = 0.14f)
+        ExerciseRecordReviewStage.ValidNotCredited -> cs.secondaryContainer
         ExerciseRecordReviewStage.Invalid -> cs.errorContainer
-        ExerciseRecordReviewStage.PendingChecks,
-        ExerciseRecordReviewStage.Unknown -> Color(0xFFFF9500).copy(alpha = 0.15f)
+        ExerciseRecordReviewStage.PendingAiCheck,
+        ExerciseRecordReviewStage.PendingTeacherReview,
+        ExerciseRecordReviewStage.SupplementReceivedPendingTeacherReview -> cs.primaryContainer
+        ExerciseRecordReviewStage.PendingStudentSupplement -> cs.tertiaryContainer
+        ExerciseRecordReviewStage.TechnicalProcessing,
+        ExerciseRecordReviewStage.StageUnavailable -> cs.surfaceVariant
     }
     val content = when (stage) {
         ExerciseRecordReviewStage.Invalid -> cs.onErrorContainer
         ExerciseRecordReviewStage.ValidCredited,
-        ExerciseRecordReviewStage.ValidNotCredited -> Color(0xFF1D7A36)
-        ExerciseRecordReviewStage.PendingChecks,
-        ExerciseRecordReviewStage.Unknown -> Color(0xFF8A5200)
+        ExerciseRecordReviewStage.ValidNotCredited -> cs.onSecondaryContainer
+        ExerciseRecordReviewStage.PendingAiCheck,
+        ExerciseRecordReviewStage.PendingTeacherReview,
+        ExerciseRecordReviewStage.SupplementReceivedPendingTeacherReview -> cs.onPrimaryContainer
+        ExerciseRecordReviewStage.PendingStudentSupplement -> cs.onTertiaryContainer
+        ExerciseRecordReviewStage.TechnicalProcessing,
+        ExerciseRecordReviewStage.StageUnavailable -> cs.onSurfaceVariant
     }
     Surface(
         color = container,
@@ -379,37 +387,6 @@ private fun CheckInRecord.proofSummaryText(): String {
 private fun Int?.minuteValueText(): String = this?.let {
     interfaceText("$it 分钟", "$it min")
 } ?: interfaceText("待提供", "Pending")
-
-private fun ExerciseRecordReviewStage.displayText(): String = when (this) {
-    ExerciseRecordReviewStage.PendingChecks -> interfaceText("待检查", "Pending checks")
-    ExerciseRecordReviewStage.ValidCredited -> interfaceText("有效 · 已计入", "Valid · Credited")
-    ExerciseRecordReviewStage.ValidNotCredited -> interfaceText("有效 · 未计入", "Valid · Not credited")
-    ExerciseRecordReviewStage.Invalid -> interfaceText("无效", "Invalid")
-    ExerciseRecordReviewStage.Unknown -> interfaceText("状态待确认", "Status pending")
-}
-
-private fun ExerciseRecordReviewUiModel.creditOutcomeText(): String = when (stage) {
-    ExerciseRecordReviewStage.ValidCredited -> interfaceText(
-        "实际计入 ${creditedWholeMinutes ?: 0} 分钟",
-        "${creditedWholeMinutes ?: 0} minutes credited"
-    )
-    ExerciseRecordReviewStage.ValidNotCredited -> interfaceText(
-        "记录有效，但本次未计入进度",
-        "The record is valid but not credited to progress"
-    )
-    ExerciseRecordReviewStage.Invalid -> interfaceText(
-        "记录无效；实际运动事实仍保留",
-        "The record is invalid; the actual exercise fact remains"
-    )
-    ExerciseRecordReviewStage.PendingChecks -> interfaceText(
-        "材料已受理，尚未确认有效或计入",
-        "Evidence accepted; validity and credit are not confirmed"
-    )
-    ExerciseRecordReviewStage.Unknown -> interfaceText(
-        "当前接口返回了尚未支持的状态",
-        "The current interface returned an unsupported state"
-    )
-}
 
 @Composable
 private fun RecordMediaGrid(
@@ -752,18 +729,11 @@ internal fun CheckInRecordDetail(
                 DetailSectionHeader(title = interfaceText("公开原因或说明", "Public reason or note"))
             }
             item {
-                Surface(
-                    modifier = Modifier.fillMaxWidth(),
-                    color = cs.surface,
-                    shape = MaterialTheme.shapes.large
-                ) {
-                    Text(
-                        text = record.teacherPublicFeedback,
-                        modifier = Modifier.padding(18.dp),
-                        color = cs.onSurface,
-                        style = MaterialTheme.typography.bodyMedium
+                ExerciseReviewPublicReasonCard(
+                    model = ExerciseReviewPublicReasonUiModel.FixedCategoryUnavailable(
+                        publicSupplementalNote = record.teacherPublicFeedback
                     )
-                }
+                )
             }
         }
         if (record.note.isNotBlank()) {
@@ -885,8 +855,12 @@ private fun RecordResultCard(record: CheckInRecord) {
         ExerciseRecordReviewStage.ValidCredited,
         ExerciseRecordReviewStage.ValidNotCredited -> Icons.Filled.CheckCircle
         ExerciseRecordReviewStage.Invalid -> Icons.Filled.Error
-        ExerciseRecordReviewStage.PendingChecks,
-        ExerciseRecordReviewStage.Unknown -> Icons.Filled.HourglassTop
+        ExerciseRecordReviewStage.PendingAiCheck,
+        ExerciseRecordReviewStage.PendingTeacherReview,
+        ExerciseRecordReviewStage.PendingStudentSupplement,
+        ExerciseRecordReviewStage.SupplementReceivedPendingTeacherReview,
+        ExerciseRecordReviewStage.TechnicalProcessing -> Icons.Filled.HourglassTop
+        ExerciseRecordReviewStage.StageUnavailable -> Icons.Filled.Info
     }
     Card(
         modifier = Modifier.fillMaxWidth(),

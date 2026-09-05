@@ -6,6 +6,7 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.assertIsSelected
+import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.SemanticsMatcher
@@ -23,6 +24,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import edu.bnbu.student.mvp.core.designsystem.BNBUStudentTheme
 import edu.bnbu.student.mvp.core.local.AndroidAppLocalStore
+import edu.bnbu.student.mvp.core.model.SystemMode
+import edu.bnbu.student.mvp.core.model.SystemModeStatus
 import edu.bnbu.student.mvp.core.state.StudentAppState
 import edu.bnbu.student.mvp.core.review.LocalReviewWorkspaceProvider
 import edu.bnbu.student.mvp.feature.checkin.session.ExerciseSessionController
@@ -32,6 +35,8 @@ import edu.bnbu.student.mvp.feature.login.ContactBindingScreen
 import edu.bnbu.student.mvp.feature.courses.CourseJoinConfirmScreen
 import edu.bnbu.student.mvp.feature.courses.CourseJoinInfo
 import edu.bnbu.student.mvp.feature.exemption.ExemptionScreen
+import edu.bnbu.student.mvp.feature.shell.MaintenanceSupplementTimingUiModel
+import edu.bnbu.student.mvp.feature.shell.StartupGateScreen
 import java.io.File
 import java.time.Instant
 import org.junit.After
@@ -61,6 +66,45 @@ class CoreJourneyUiTest {
     private lateinit var appState: StudentAppState
     private lateinit var exerciseController: ExerciseSessionController
 
+    @Test
+    fun startupLoadingIsVisibleWhileTheServiceModeIsBeingChecked() {
+        composeRule.setContent {
+            BNBUStudentTheme {
+                StartupGateScreen(
+                    state = StartupSurfaceState.LOADING,
+                    allowLocalReview = false,
+                    onRetry = {},
+                    onEnterLocalReview = {}
+                )
+            }
+        }
+
+        composeRule.onNodeWithTag("startup.loading").assertIsDisplayed()
+        composeRule.onNodeWithTag("startup.loadingIndicator").assertIsDisplayed()
+    }
+
+    @Test
+    fun startupErrorExposesRetryAndExplicitDebugReviewActions() {
+        var retryCount = 0
+        var localReviewCount = 0
+        composeRule.setContent {
+            BNBUStudentTheme {
+                StartupGateScreen(
+                    state = StartupSurfaceState.ERROR,
+                    allowLocalReview = true,
+                    onRetry = { retryCount += 1 },
+                    onEnterLocalReview = { localReviewCount += 1 }
+                )
+            }
+        }
+
+        composeRule.onNodeWithTag("startup.error").assertIsDisplayed()
+        composeRule.onNodeWithTag("startup.retry").assertIsDisplayed().performClick()
+        composeRule.onNodeWithTag("startup.localReview").assertIsDisplayed().performClick()
+        assertTrue(retryCount == 1)
+        assertTrue(localReviewCount == 1)
+    }
+
     @Before
     fun setUp() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
@@ -76,13 +120,17 @@ class CoreJourneyUiTest {
         )
     }
 
-    private fun setAppRootContent() {
+    private fun setAppRootContent(
+        maintenanceSupplementTiming: MaintenanceSupplementTimingUiModel =
+            MaintenanceSupplementTimingUiModel.Unavailable
+    ) {
         composeRule.setContent {
             BNBUStudentTheme {
                 AppRootScreen(
                     appState = appState,
                     exerciseSessionController = exerciseController,
-                    localStore = localStore
+                    localStore = localStore,
+                    maintenanceSupplementTiming = maintenanceSupplementTiming
                 )
             }
         }
@@ -107,6 +155,58 @@ class CoreJourneyUiTest {
         composeRule.onNodeWithTag("login.recoveryRequest").assertIsDisplayed()
         assertTrue(composeRule.onAllNodesWithTag("login.mockUser").fetchSemanticsNodes().isEmpty())
         assertTrue(composeRule.onAllNodesWithTag("screen.checkIn").fetchSemanticsNodes().isEmpty())
+    }
+
+    @Test
+    fun maintenance_showsServerConfirmedPausedSupplementTiming() {
+        composeRule.runOnUiThread {
+            appState.updateSystemMode(
+                SystemModeStatus(
+                    mode = SystemMode.MAINTENANCE,
+                    message = "系统维护期间暂停普通业务访问。",
+                    estimatedRecoveryTime = "2026-09-05 16:00（Asia/Shanghai）"
+                )
+            )
+        }
+        setAppRootContent(
+            maintenanceSupplementTiming = MaintenanceSupplementTimingUiModel.Paused(
+                serverConfirmedRemainingSeconds = 18 * 60 * 60L + 24 * 60L
+            )
+        )
+
+        composeRule.onNodeWithTag("screen.maintenance").assertIsDisplayed()
+        composeRule.onNodeWithTag("maintenance.supplementTiming").assertIsDisplayed()
+        composeRule.onNodeWithText("计时已暂停").assertIsDisplayed()
+        composeRule.onNodeWithText("剩余时间（服务器确认）：18小时24分钟").assertIsDisplayed()
+        assertTrue(composeRule.onAllNodesWithTag("screen.checkIn").fetchSemanticsNodes().isEmpty())
+    }
+
+    @Test
+    fun maintenance_remainsBlockingUntilTheServerConfirmsNormal() {
+        composeRule.runOnUiThread {
+            appState.updateSystemMode(
+                SystemModeStatus(
+                    mode = SystemMode.MAINTENANCE,
+                    estimatedRecoveryTime = "2026-09-05 00:00（Asia/Shanghai）"
+                )
+            )
+        }
+        setAppRootContent(
+            maintenanceSupplementTiming = MaintenanceSupplementTimingUiModel.Paused(
+                serverConfirmedRemainingSeconds = 45 * 60L
+            )
+        )
+
+        composeRule.onNodeWithTag("screen.maintenance").assertIsDisplayed()
+        composeRule.onNodeWithText("剩余时间（服务器确认）：45分钟").assertIsDisplayed()
+
+        composeRule.runOnUiThread {
+            appState.updateSystemMode(SystemModeStatus(mode = SystemMode.NORMAL))
+        }
+        composeRule.waitForIdle()
+
+        assertTrue(composeRule.onAllNodesWithTag("screen.maintenance").fetchSemanticsNodes().isEmpty())
+        composeRule.onNodeWithTag("login.email").assertIsDisplayed()
     }
 
     @Test
@@ -262,14 +362,49 @@ class CoreJourneyUiTest {
         composeRule.onNodeWithTag("recordsProgress.supplementReviewEntry")
             .performScrollTo().performClick()
         composeRule.onNodeWithTag("screen.supplementTask").assertIsDisplayed()
+        composeRule.onNodeWithTag("reviewReason.fixedCategory")
+            .performScrollTo().assertTextEquals("必需材料缺失（含要求的前后照）")
+        composeRule.onNodeWithTag("reviewReason.publicNote")
+            .assertTextEquals("请补充能够说明本次运动现场与时间连续性的材料。")
+        composeRule.onNodeWithTag("reviewReason.catalog").performScrollTo().assertIsDisplayed()
+        composeRule.onNodeWithTag("reviewReason.systemOverdue")
+            .performScrollTo().assertTextEquals("补证逾期")
         composeRule.onNodeWithTag("supplement.submit").performScrollTo().assertIsNotEnabled()
         composeRule.onNodeWithText("查看“已接收”评审样例").performScrollTo().performClick()
         composeRule.onNodeWithTag("screen.supplementResult").assertIsDisplayed()
+        composeRule.onNodeWithTag("reviewReason.fixedCategory")
+            .performScrollTo().assertTextEquals("必需材料缺失（含要求的前后照）")
 
         pressSystemBack()
         composeRule.onNodeWithTag("screen.supplementTask").assertIsDisplayed()
         pressSystemBack()
         composeRule.onNodeWithTag("screen.recordsProgress").assertIsDisplayed()
+        assertTrue(appState.apiRepository == null)
+    }
+
+    @Test
+    fun localReview_recordsExposeTheCompleteReviewStageMatrixWithoutCollapsingStates() {
+        enterSyntheticReviewWorkspace()
+        setAppRootContent()
+        val tabRole = SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Tab)
+        composeRule.onNode(hasText("记录与进度") and tabRole).performClick()
+
+        composeRule.onNodeWithTag("reviewStage.catalog").performScrollTo().assertIsDisplayed()
+        mapOf(
+            "PendingAiCheck" to "待 AI 检查",
+            "PendingTeacherReview" to "待教师复核",
+            "PendingStudentSupplement" to "待补证",
+            "SupplementReceivedPendingTeacherReview" to "补证已接收 · 待教师复核",
+            "TechnicalProcessing" to "技术处理中",
+            "ValidCredited" to "有效 · 已计入",
+            "ValidNotCredited" to "有效 · 未计入",
+            "Invalid" to "无效",
+            "StageUnavailable" to "审核阶段暂不可用"
+        ).forEach { (tagSuffix, expectedText) ->
+            composeRule.onNodeWithTag("reviewStage.catalog.$tagSuffix")
+                .performScrollTo()
+                .assertTextEquals(expectedText)
+        }
         assertTrue(appState.apiRepository == null)
     }
 

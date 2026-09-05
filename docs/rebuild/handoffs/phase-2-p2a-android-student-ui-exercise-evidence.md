@@ -1,12 +1,12 @@
 # P2A Android 学生端 UI：运动、证据、上传恢复与记录
 
-交付日期：2026-09-05  
-原 15 步计划：第 6 步  
-分支：`codex/phase2-android-student-ui`  
-固定基线：`49d992a1333294ea561923cfea0b7d25864a4d91`  
-设计版本：`P2A-UI-2026.09.04-draft1`  
-业务版本：v8.0  
-Contract：`1.2.0-contract` / `RC`  
+- 交付日期：2026-09-05
+- 原 15 步计划：第 6 步
+- 分支：`codex/phase2-android-student-ui`
+- 固定基线：`49d992a1333294ea561923cfea0b7d25864a4d91`
+- 设计版本：`P2A-UI-2026.09.04-draft1`
+- 业务版本：v8.0（历史执行记录）
+- Contract：`1.2.0-contract` / `RC`
 OpenAPI SHA-256：`667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a`
 
 ## 1. 完成状态
@@ -86,8 +86,8 @@ docs/rebuild/handoffs/phase-2-p2a-android-student-ui-exercise-evidence.md
 :app:assembleDebug       PASS
 ```
 
-APK：`BNBU-ANDROID/app/build/outputs/apk/debug/app-debug.apk`  
-大小：`26,719,092` bytes  
+- APK：`BNBU-ANDROID/app/build/outputs/apk/debug/app-debug.apk`
+- 大小：`26,719,092` bytes
 SHA-256：`d13db36604e73816132df1035fd999468251ad40f69c259bb71f0bd80fba25cd`
 
 Lint 的 5 项均位于既有豁免/设计系统/矢量与字符串文件，不在本步新增的运动 UI 文件中。

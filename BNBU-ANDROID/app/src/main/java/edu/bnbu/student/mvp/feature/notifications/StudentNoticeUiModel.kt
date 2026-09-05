@@ -3,7 +3,7 @@ package edu.bnbu.student.mvp.feature.notifications
 import edu.bnbu.student.mvp.core.model.NoticeCategory
 import edu.bnbu.student.mvp.core.model.StudentNotice
 
-/** Student-facing notification kinds allowed by the v8.0 business boundary. */
+/** Student-facing notification kinds allowed by the V8.1 business boundary. */
 internal enum class StudentNoticeKind {
     Membership,
     Review,
@@ -25,8 +25,10 @@ internal data class StudentNoticeUiModel(
 )
 
 /**
- * Applies a deny-first result-data guard followed by the student notification whitelist.
- * Unsafe content is omitted in full rather than partially redacted into a misleading message.
+ * Resolves the student workflow whitelist before applying the explicit result-data guard.
+ * Unsafe result disclosures are omitted in full rather than partially redacted into a misleading message.
+ * Standalone workflow wording such as "failed", "passed", "level", or "points" is not a result
+ * disclosure and must not make an otherwise valid notification disappear.
  */
 internal fun Iterable<StudentNotice>.toStudentNoticeUiModels(): List<StudentNoticeUiModel> =
     mapNotNull(StudentNotice::toStudentNoticeUiModel)
@@ -36,12 +38,6 @@ private fun StudentNotice.toStudentNoticeUiModel(): StudentNoticeUiModel? {
     val safeMessage = message.trim()
     if (safeTitle.isBlank() || safeMessage.isBlank()) return null
     val searchable = "$safeTitle\n$safeMessage"
-    if (ForbiddenChineseResultTerms.containsMatchIn(searchable) ||
-        ForbiddenEnglishResultTerms.containsMatchIn(searchable)
-    ) {
-        return null
-    }
-
     val normalizedTarget = targetType.orEmpty().trim().lowercase()
     val kind = when {
         normalizedTarget.containsAny("maintenance", "system_mode") -> StudentNoticeKind.Maintenance
@@ -61,6 +57,12 @@ private fun StudentNotice.toStudentNoticeUiModel(): StudentNoticeUiModel? {
         ProgressTerms.containsMatchIn(searchable) -> StudentNoticeKind.Progress
         else -> null
     } ?: return null
+
+    if (ForbiddenChineseResultTerms.containsMatchIn(searchable) ||
+        ExplicitForbiddenEnglishResultTerms.containsMatchIn(searchable)
+    ) {
+        return null
+    }
 
     val opensExemption = normalizedTarget in setOf(
         "exemption",
@@ -92,8 +94,10 @@ private val ForbiddenChineseResultTerms = Regex(
     "成绩|得分|分数|换算分|等级|排名|名次|绩点|及格|不及格|优秀|良好"
 )
 
-private val ForbiddenEnglishResultTerms = Regex(
-    "\\b(final\\s+grade|grades?|scores?|points?|rank(?:ing)?|levels?|gpa|passed?|failed?)\\b",
+private val ExplicitForbiddenEnglishResultTerms = Regex(
+    "\\b(final\\s+(?:grade|score)|converted\\s+(?:endurance\\s+)?score|" +
+        "endurance\\s+(?:converted\\s+)?score|grade\\s+point\\s+average|gpa|" +
+        "(?:class|course|overall)\\s+rank(?:ing)?)\\b",
     RegexOption.IGNORE_CASE
 )
 

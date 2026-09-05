@@ -1,10 +1,10 @@
 # P2A Android 学生端 UI：第 11 步累计集成与边界审计
 
-日期：2026-09-05  
-阶段：Phase 2 / P2A / Android 学生端 UI  
-分支：`codex/phase2-android-student-ui`  
-基线与当前 HEAD：`49d992a1333294ea561923cfea0b7d25864a4d91`（累计改动尚未提交）  
-Contract：`1.2.0-contract` / `RC`  
+- 日期：2026-09-05
+- 阶段：Phase 2 / P2A / Android 学生端 UI
+- 分支：`codex/phase2-android-student-ui`
+- 基线与当时 HEAD：`49d992a1333294ea561923cfea0b7d25864a4d91`（历史执行记录；当时累计改动尚未提交）
+- Contract：`1.2.0-contract` / `RC`
 OpenAPI SHA-256：`667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a`
 
 ## 1. 本步结论

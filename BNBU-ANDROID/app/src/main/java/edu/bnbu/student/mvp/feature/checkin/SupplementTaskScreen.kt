@@ -31,7 +31,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -40,9 +39,6 @@ import edu.bnbu.student.mvp.core.designsystem.BNBUFormField
 import edu.bnbu.student.mvp.core.designsystem.BNBULayout
 import edu.bnbu.student.mvp.core.designsystem.bnbuClickable
 import edu.bnbu.student.mvp.core.designsystem.interfaceText
-
-private val SupplementBlue = Color(0xFF007AFF)
-private val SupplementOrange = Color(0xFFFF9500)
 
 /** Review-mode entry; production only shows a task after a future server projection supplies it. */
 @Composable
@@ -56,13 +52,13 @@ internal fun SupplementTaskEntryCard(onClick: () -> Unit) {
                 onClick = onClick
             ),
         shape = MaterialTheme.shapes.large,
-        color = SupplementOrange.copy(alpha = 0.10f)
+        color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.10f)
     ) {
         Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
             Icon(
                 imageVector = Icons.Filled.AssignmentLate,
                 contentDescription = null,
-                tint = SupplementOrange,
+                tint = MaterialTheme.colorScheme.secondary,
                 modifier = Modifier.size(24.dp)
             )
             Spacer(Modifier.width(12.dp))
@@ -125,7 +121,7 @@ internal fun SupplementTaskScreen(
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
                     contentDescription = interfaceText("返回记录与进度", "Back to records and progress"),
-                    tint = SupplementBlue,
+                    tint = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.size(28.dp)
                 )
                 Spacer(Modifier.width(8.dp))
@@ -150,6 +146,9 @@ internal fun SupplementTaskScreen(
 
         item { SupplementDeadlinePanel(model) }
         item { OriginalRecordPanel(model) }
+        if (model.isReviewSample) {
+            item { ExerciseReviewReasonCatalogReviewPanel() }
+        }
 
         item {
             Surface(
@@ -165,7 +164,7 @@ internal fun SupplementTaskScreen(
                         Icon(
                             imageVector = Icons.Filled.Lock,
                             contentDescription = null,
-                            tint = SupplementBlue,
+                            tint = MaterialTheme.colorScheme.primary,
                             modifier = Modifier.size(21.dp)
                         )
                         Spacer(Modifier.width(9.dp))
@@ -240,14 +239,14 @@ internal fun SupplementTaskScreen(
         item {
             Surface(
                 modifier = Modifier.fillMaxWidth(),
-                color = SupplementBlue.copy(alpha = 0.08f),
+                color = MaterialTheme.colorScheme.primary.copy(alpha = 0.08f),
                 shape = MaterialTheme.shapes.medium
             ) {
                 Row(modifier = Modifier.padding(14.dp), verticalAlignment = Alignment.Top) {
                     Icon(
                         imageVector = Icons.Filled.Info,
                         contentDescription = null,
-                        tint = SupplementBlue,
+                        tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(19.dp)
                     )
                     Spacer(Modifier.width(9.dp))
@@ -285,8 +284,8 @@ internal fun SupplementTaskScreen(
                     .heightIn(min = 54.dp)
                     .testTag("supplement.submit"),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = SupplementBlue,
-                    contentColor = Color.White
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.onPrimary
                 )
             ) {
                 Text(interfaceText("提交唯一一次补充", "Submit the one supplement"))
@@ -310,14 +309,14 @@ private fun SupplementDeadlinePanel(model: SupplementTaskUiModel) {
     Surface(
         modifier = Modifier.fillMaxWidth(),
         shape = MaterialTheme.shapes.large,
-        color = SupplementOrange.copy(alpha = 0.10f)
+        color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.10f)
     ) {
         Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
                     imageVector = Icons.Filled.Schedule,
                     contentDescription = null,
-                    tint = SupplementOrange,
+                    tint = MaterialTheme.colorScheme.secondary,
                     modifier = Modifier.size(22.dp)
                 )
                 Spacer(Modifier.width(9.dp))
@@ -360,24 +359,7 @@ private fun OriginalRecordPanel(model: SupplementTaskUiModel) {
             SupplementFact(interfaceText("运动项目", "Exercise"), model.sportLabel)
             SupplementFact(interfaceText("原提交时间", "Original submission"), model.originalSubmittedAt)
             SupplementFact(interfaceText("记录标识", "Record ID"), model.recordId)
-            Surface(
-                modifier = Modifier.fillMaxWidth(),
-                color = MaterialTheme.colorScheme.surfaceVariant,
-                shape = MaterialTheme.shapes.medium
-            ) {
-                Column(modifier = Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                    Text(
-                        text = interfaceText("需要补充的公开原因", "Public reason for supplement"),
-                        style = MaterialTheme.typography.labelMedium,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                    Text(
-                        text = model.publicReason,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                }
-            }
+            ExerciseReviewPublicReasonCard(model = model.reviewReason)
             Text(
                 text = interfaceText("原材料（永久只读）", "Original evidence (permanently read-only)"),
                 style = MaterialTheme.typography.labelLarge,

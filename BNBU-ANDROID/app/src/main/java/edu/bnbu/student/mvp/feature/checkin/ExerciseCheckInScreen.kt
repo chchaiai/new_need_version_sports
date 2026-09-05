@@ -143,10 +143,6 @@ private data class ExerciseSportOption(
 
 internal const val ExerciseSportGridColumnCount = 3
 
-private val CheckInBlue = Color(0xFF007AFF)
-private val CheckInGreen = Color(0xFF34C759)
-private val CheckInOrange = Color(0xFFFF9500)
-
 /** The result of the checks that must pass before a new exercise session starts. */
 internal data class CheckInReadiness(
     val canStart: Boolean,
@@ -784,7 +780,7 @@ private fun ExerciseReadinessHeader(
                 }
                 StatusPill(
                     label = if (blockedReason == null) interfaceText("可打卡", "Available") else interfaceText("不可打卡", "Unavailable"),
-                    color = if (blockedReason == null) CheckInGreen else CheckInOrange
+                    color = if (blockedReason == null) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.secondary
                 )
             }
 
@@ -796,7 +792,7 @@ private fun ExerciseReadinessHeader(
                 Icon(
                     imageVector = Icons.Filled.Timer,
                     contentDescription = null,
-                    tint = CheckInBlue,
+                    tint = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.size(20.dp)
                 )
                 Spacer(Modifier.width(10.dp))
@@ -826,7 +822,7 @@ private fun ExerciseReadinessHeader(
                         modifier = Modifier
                             .size(20.dp)
                             .background(
-                                CheckInBlue.copy(alpha = 0.12f),
+                                MaterialTheme.colorScheme.primary.copy(alpha = 0.12f),
                                 MaterialTheme.shapes.extraSmall
                             ),
                         contentAlignment = Alignment.Center
@@ -834,7 +830,7 @@ private fun ExerciseReadinessHeader(
                         Box(
                             modifier = Modifier
                                 .size(6.dp)
-                                .background(CheckInBlue, MaterialTheme.shapes.extraSmall)
+                                .background(MaterialTheme.colorScheme.primary, MaterialTheme.shapes.extraSmall)
                         )
                     }
                     Spacer(Modifier.width(10.dp))
@@ -871,7 +867,7 @@ private fun ExerciseReadinessHeader(
                         "今日已有记录进入审核；你仍可继续真实运动，本次可能不计入考核进度。",
                         "A record is already under review today. You may keep exercising; this session may not be credited."
                     ),
-                    color = CheckInOrange,
+                    color = MaterialTheme.colorScheme.secondary,
                     style = MaterialTheme.typography.bodySmall,
                     fontWeight = FontWeight.Medium
                 )
@@ -1039,8 +1035,8 @@ private fun SportOptionButton(
     onClick: () -> Unit
 ) {
     val colors = MaterialTheme.colorScheme
-    val containerColor = if (selected) CheckInBlue.copy(alpha = 0.10f) else colors.surfaceVariant.copy(alpha = 0.6f)
-    val contentColor = if (selected) CheckInBlue else colors.onSurfaceVariant
+    val containerColor = if (selected) colors.primary.copy(alpha = 0.10f) else colors.surfaceVariant.copy(alpha = 0.6f)
+    val contentColor = if (selected) colors.primary else colors.onSurfaceVariant
     Surface(
         modifier = modifier
             .heightIn(min = 88.dp)
@@ -1063,7 +1059,7 @@ private fun SportOptionButton(
                 modifier = Modifier
                     .size(42.dp)
                     .background(
-                        color = if (selected) CheckInBlue.copy(alpha = 0.14f) else colors.surface,
+                        color = if (selected) colors.primary.copy(alpha = 0.14f) else colors.surface,
                         shape = CircleShape
                     ),
                 contentAlignment = Alignment.Center
@@ -1148,8 +1144,8 @@ private fun StartExerciseBar(
                     .testTag("checkIn.startExercise"),
                 shape = MaterialTheme.shapes.extraLarge,
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = CheckInBlue,
-                    contentColor = Color.White,
+                    containerColor = colors.primary,
+                    contentColor = colors.onPrimary,
                     disabledContainerColor = colors.surfaceVariant,
                     disabledContentColor = colors.onSurfaceVariant
                 )
@@ -1242,7 +1238,7 @@ private fun CategoryButton(
         modifier = modifier
             .heightIn(min = 52.dp)
             .selectable(selected = selected, role = Role.RadioButton, onClick = onClick),
-        color = if (selected) CheckInBlue.copy(alpha = 0.10f) else colors.surfaceVariant.copy(alpha = 0.6f),
+        color = if (selected) colors.primary.copy(alpha = 0.10f) else colors.surfaceVariant.copy(alpha = 0.6f),
         shape = MaterialTheme.shapes.small
     ) {
         Box(
@@ -1251,7 +1247,7 @@ private fun CategoryButton(
         ) {
             Text(
                 text = label,
-                color = if (selected) CheckInBlue else colors.onSurfaceVariant,
+                color = if (selected) colors.primary else colors.onSurfaceVariant,
                 style = MaterialTheme.typography.labelLarge,
                 fontWeight = if (selected) FontWeight.SemiBold else FontWeight.Normal,
                 maxLines = 2,
@@ -1368,7 +1364,7 @@ private fun ExerciseRunningContent(
                 }
                 StatusPill(
                     label = if (paused) interfaceText("已暂停", "Paused") else interfaceText("记录中", "Recording"),
-                    color = if (paused) CheckInOrange else CheckInGreen
+                    color = if (paused) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.tertiary
                 )
             }
 
@@ -1385,7 +1381,7 @@ private fun ExerciseRunningContent(
                     Icon(
                         imageVector = Icons.Filled.Timer,
                         contentDescription = null,
-                        tint = CheckInBlue,
+                        tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(24.dp)
                     )
                     Spacer(Modifier.height(12.dp))
@@ -1430,7 +1426,7 @@ private fun ExerciseRunningContent(
             Spacer(Modifier.height(14.dp))
             Surface(
                 modifier = Modifier.fillMaxWidth(),
-                color = CheckInBlue.copy(alpha = 0.08f),
+                color = MaterialTheme.colorScheme.primary.copy(alpha = 0.08f),
                 shape = MaterialTheme.shapes.large
             ) {
                 Column(
@@ -1514,8 +1510,8 @@ private fun ExerciseRunningContent(
                         .heightIn(min = 54.dp),
                     shape = MaterialTheme.shapes.extraLarge,
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = CheckInBlue,
-                        contentColor = Color.White
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        contentColor = MaterialTheme.colorScheme.onPrimary
                     )
                 ) {
                     Icon(Icons.Filled.PlayArrow, contentDescription = null)
@@ -1530,8 +1526,8 @@ private fun ExerciseRunningContent(
                         .heightIn(min = 54.dp),
                     shape = MaterialTheme.shapes.extraLarge,
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = CheckInBlue,
-                        contentColor = Color.White
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        contentColor = MaterialTheme.colorScheme.onPrimary
                     )
                 ) {
                     Icon(Icons.Filled.Pause, contentDescription = null)
@@ -2232,7 +2228,7 @@ private fun MediaCaptureActions(
                     "The ${ProofUploadRule.maxVideoCount}-video limit is reached; open the video to delete it before submission."
                 )
             },
-            color = CheckInOrange,
+            color = MaterialTheme.colorScheme.secondary,
             style = MaterialTheme.typography.bodySmall
         )
     }
@@ -2259,7 +2255,7 @@ private fun CaptureButton(
             else colors.outlineVariant.copy(alpha = 0.7f)
         ),
         colors = ButtonDefaults.outlinedButtonColors(
-            contentColor = if (lightContent) Color.White else CheckInBlue,
+            contentColor = if (lightContent) Color.White else colors.primary,
             disabledContentColor = if (lightContent) {
                 Color.White.copy(alpha = 0.4f)
             } else {

@@ -1,11 +1,11 @@
 # 给领导的发送模板
 
-发送前把 `[PR 链接]` 替换为 GitHub 上的实际值。Android UI 实施 Commit 已固定为 `17bde8b81419a7ed6bdbef7d3390cbf2463d0838`。
+本模板只在 R3—R12 复审修正、重新测试和交接完成后发送。发送前把 `[PR 链接]`、`[复审最终 Commit]` 和测试结果替换为实际值，不能继续把初版实施 Commit 当成最终复审 Commit。
 
 ## 消息一：请审核什么、具体交接文档在哪里
 
-领导您好，Phase 2 的 Android 学生端 UI 已完成并提交 PR：`[PR 链接]`，Android UI 实施 Commit：`17bde8b81419a7ed6bdbef7d3390cbf2463d0838`。本次审核请先看具体交接文档 `docs/rebuild/handoffs/phase-2-p2a-android-student-ui-final-handoff.md`，里面集中列出了固定基线、页面范围、Web 对齐依据、自动测试、真机复测、未完成项和 Reviewer 清单。审核时建议重点看：学生端是否彻底移除分数/等级/排名；1,200 分钟、三种时长、成员与审核状态、一次补充等业务语义是否符合 v8.0；入班、运动取证、记录/耐力、补充、免测/认证和账户页面是否与学生 Web 的信息分组及流程一致；三项真机问题是否修复；演示数据是否明确标识；Files changed 是否只包含 Android UI、对应测试和交接文档，且未修改 Contract、Backend、业务正文和 STATUS。页面清单、用户流程、状态矩阵和交互/无障碍说明都由该最终交接文档链接进入。请安排 Android Reviewer，并让学生 Web 负责人参与跨端一致性核对。
+领导您好，Phase 2 Android 学生端 UI 已按 V8.1 复审意见修正并更新 PR：`[PR 链接]`，复审最终 Commit：`[复审最终 Commit]`。审核请先看 `docs/rebuild/handoffs/phase-2-p2a-android-student-ui-final-handoff.md`，其中集中列出 V8.1 固定 Commit、页面范围、Web 对齐依据、复审意见处理、自动测试、真机证据、未完成项和 Reviewer 清单。请重点核对：维护期间补证计时暂停与剩余时间；六类中英公开原因、动作适用范围、原文公开说明和系统逾期原因；待 AI、待教师、待补证和技术处理中等审核阶段；合法英文失败通知不被误删；启动错误状态、七态、无障碍及演示数据边界。R10 本地验证为 JVM 437/437、Lint 0 error；AndroidTest APK 只编译未在设备运行。R11 在当前真机上确认启动无服务 UI、五个主页面指定正常态、普通后台返回及三项现场缺陷通过，但没有外推为 41 页七状态或完整业务验收。也请检查 Files changed 未由 Android 修改 Contract、Backend、业务正文或 STATUS，并安排 Android Reviewer 与学生 Web 负责人完成跨端一致性复核。
 
 ## 消息二：本轮只改 UI，后端/业务问题和启动问题如何处理
 
-领导您好，再说明一下本 PR 的验收边界：按当前安排，本轮只完成 Android 学生端 UI，不处理也不自行决定 Backend、接口、Contract 或领域业务逻辑。现在没有新 Backend，旧 API 与 v8.0 的入班、审核、补充、上传恢复、游泳时限、通知等差异均已在最终交接中登记并延期，不能把本地演示页面或编译通过视为接口/功能验收。真机冷启动时曾出现 Logo 停留较久或白/黑屏，当前证据是 Debug App 启动会检查 `10.0.2.2:13000` 的系统模式接口；该地址只适用于模拟器回环，真机不可达，而且目前没有 Backend，所以会等待超时。按本阶段范围我们没有修改这段启动逻辑，已交给后续 Backend/Android 联调阶段，在真实服务与正式地址确定后重新验证启动门控。另有 FCM 与“仅站内通知”、隐私政策定稿、Release 样例隔离、部分七态/无障碍证据等问题继续保留。当前能确认的是 UI 本地构建和单元/静态检查通过，且录像按钮、视频预览、语言切换三项真机 UI 问题已复测通过；这不等于完整业务测试通过。
+领导您好，再说明本 PR 的验收边界：本轮只完成 Android Compose UI、UI 展示模型和对应测试，不修改 Contract/OpenAPI、Backend、数据库或部署。V8.1 的维护暂停、六类原因和审核阶段可在 UI 中表达，但真实剩余时间、原因代码、动作来源、生产状态、课程关闭后的既有业务续办、锁定批次续传和正式通知仍须 Contract/Backend 提供。当前没有 Backend，且 Debug 默认 `10.0.2.2:13000` 对未连接开发机的真机不可达；Android 已把启动等待改成明确的 Loading/Error/Retry，并由当前真机确认无服务 UI 路径正常，但真实系统模式、生产地址和服务成功路径仍待联调。FCM/系统通知与 V8.1 站内通知规则的冲突、Manifest/Gradle/core-push 清理、正式 Release 产物、隐私政策定稿和 CI 属于非 Compose UI 或治理任务，需另行授权/指定负责人；R8 已完成本地评审数据与 Preview 的 Debug source-set 隔离。最终只报告实际运行的本地测试与设备证据，不把编译、本地样例或少量真机页面外推为完整业务验收。

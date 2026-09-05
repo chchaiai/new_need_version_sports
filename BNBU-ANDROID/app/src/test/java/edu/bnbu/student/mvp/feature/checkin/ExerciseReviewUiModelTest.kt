@@ -3,18 +3,20 @@ package edu.bnbu.student.mvp.feature.checkin
 import edu.bnbu.student.mvp.core.model.CheckInRecord
 import edu.bnbu.student.mvp.core.model.CreditType
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class ExerciseReviewUiModelTest {
     @Test
-    fun pendingRecordKeepsCreditFactsUnknown() {
+    fun missingStageDoesNotGetGuessedAsPendingAiAndKeepsCreditFactsUnknown() {
         val ui = record(reviewStatus = null, hours = 1.0).toExerciseRecordReviewUiModel()
 
         assertEquals(65, ui.actualWholeMinutes)
         assertNull(ui.eligibleWholeMinutes)
         assertNull(ui.creditedWholeMinutes)
-        assertEquals(ExerciseRecordReviewStage.PendingChecks, ui.stage)
+        assertEquals(ExerciseRecordReviewStage.StageUnavailable, ui.stage)
     }
 
     @Test
@@ -49,12 +51,15 @@ class ExerciseReviewUiModelTest {
     }
 
     @Test
-    fun anUnrecognizedReviewStateCannotInventCreditedOrEligibleMinutes() {
-        val ui = record(reviewStatus = "FUTURE_SERVER_STATE", hours = 1.0)
-            .toExerciseRecordReviewUiModel()
-        assertEquals(ExerciseRecordReviewStage.Unknown, ui.stage)
-        assertNull(ui.creditedWholeMinutes)
-        assertNull(ui.eligibleWholeMinutes)
+    fun legacyStringsCannotInventOneOfTheStructuredIntermediateStages() {
+        listOf(null, "", "PENDING_AI", "PENDING_TEACHER", "TECHNICAL", "FUTURE_SERVER_STATE")
+            .forEach { rawStatus ->
+                val ui = record(reviewStatus = rawStatus, hours = 1.0)
+                    .toExerciseRecordReviewUiModel()
+                assertEquals(rawStatus, ExerciseRecordReviewStage.StageUnavailable, ui.stage)
+                assertNull(ui.creditedWholeMinutes)
+                assertNull(ui.eligibleWholeMinutes)
+            }
     }
 
     @Test
@@ -80,6 +85,96 @@ class ExerciseReviewUiModelTest {
         assertEquals(15, ExerciseEvidenceUiPolicy.SwimmingInitialAcceptanceMinutes)
         assertEquals(30, ExerciseEvidenceUiPolicy.SwimmingLockedBatchResumeMinutes)
         assertEquals(24, ExerciseEvidenceUiPolicy.SwimmingDelayExplanationHours)
+    }
+
+    @Test
+    fun v81ReviewStageMatrixKeepsEveryProcessingAndFinalMeaningSeparate() {
+        val expectedLabels = listOf(
+            "待 AI 检查" to "Awaiting AI check",
+            "待教师复核" to "Awaiting teacher review",
+            "待补证" to "Awaiting supplementary evidence",
+            "补证已接收 · 待教师复核" to "Supplement received · Awaiting teacher review",
+            "技术处理中" to "Technical processing",
+            "有效 · 已计入" to "Valid · Credited",
+            "有效 · 未计入" to "Valid · Not credited",
+            "无效" to "Invalid"
+        )
+
+        assertEquals(
+            expectedLabels,
+            ExerciseReviewStageUiPolicy.V81ReviewStages.map {
+                it.chineseLabel to it.englishLabel
+            }
+        )
+        assertEquals(
+            expectedLabels.size,
+            ExerciseReviewStageUiPolicy.V81ReviewStages.distinct().size
+        )
+    }
+
+    @Test
+    fun processingStagesNeverClaimACompletedResultOrCreditedMinutes() {
+        val processingStages = ExerciseReviewStageUiPolicy.V81ReviewStages
+            .filterNot(ExerciseRecordReviewStage::isFinalResult)
+
+        assertEquals(
+            listOf(
+                ExerciseRecordReviewStage.PendingAiCheck,
+                ExerciseRecordReviewStage.PendingTeacherReview,
+                ExerciseRecordReviewStage.PendingStudentSupplement,
+                ExerciseRecordReviewStage.SupplementReceivedPendingTeacherReview,
+                ExerciseRecordReviewStage.TechnicalProcessing
+            ),
+            processingStages
+        )
+        processingStages.forEach { stage ->
+            val ui = ExerciseRecordReviewUiModel(
+                actualWholeMinutes = 65,
+                eligibleWholeMinutes = null,
+                creditedWholeMinutes = null,
+                stage = stage
+            )
+            assertFalse(ui.stage.isFinalResult)
+            assertNull(ui.creditedWholeMinutes)
+        }
+        assertTrue(ExerciseRecordReviewStage.ValidCredited.isFinalResult)
+        assertTrue(ExerciseRecordReviewStage.ValidNotCredited.isFinalResult)
+        assertTrue(ExerciseRecordReviewStage.Invalid.isFinalResult)
+        assertFalse(ExerciseRecordReviewStage.StageUnavailable.isFinalResult)
+    }
+
+    @Test
+    fun reviewModelRejectsCreditClaimsThatContradictTheStage() {
+        assertTrue(
+            runCatching {
+                ExerciseRecordReviewUiModel(
+                    actualWholeMinutes = 65,
+                    eligibleWholeMinutes = null,
+                    creditedWholeMinutes = 60,
+                    stage = ExerciseRecordReviewStage.TechnicalProcessing
+                )
+            }.isFailure
+        )
+        assertTrue(
+            runCatching {
+                ExerciseRecordReviewUiModel(
+                    actualWholeMinutes = 65,
+                    eligibleWholeMinutes = null,
+                    creditedWholeMinutes = null,
+                    stage = ExerciseRecordReviewStage.ValidCredited
+                )
+            }.isFailure
+        )
+        assertTrue(
+            runCatching {
+                ExerciseRecordReviewUiModel(
+                    actualWholeMinutes = 65,
+                    eligibleWholeMinutes = null,
+                    creditedWholeMinutes = 30,
+                    stage = ExerciseRecordReviewStage.Invalid
+                )
+            }.isFailure
+        )
     }
 
     private fun record(reviewStatus: String?, hours: Double) = CheckInRecord(

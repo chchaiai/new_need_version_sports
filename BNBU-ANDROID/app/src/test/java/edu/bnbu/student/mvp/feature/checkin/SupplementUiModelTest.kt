@@ -1,6 +1,8 @@
 package edu.bnbu.student.mvp.feature.checkin
 
+import edu.bnbu.student.mvp.feature.review.LocalReviewUiFixtureProvider
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -42,7 +44,7 @@ class SupplementUiModelTest {
 
     @Test
     fun reviewSampleAndMissingBackendNeverCreateFakeSuccess() {
-        assertFalse(localReviewSupplementTask().canSubmit(
+        assertFalse(requireNotNull(LocalReviewUiFixtureProvider.supplementTask).canSubmit(
             writeEnabled = true,
             photoCount = 1,
             videoCount = 0,
@@ -97,6 +99,21 @@ class SupplementUiModelTest {
         ))
     }
 
+    @Test
+    fun localReviewTaskUsesAFixedReturnReasonAndKeepsThePublicNoteSeparate() {
+        val task = requireNotNull(LocalReviewUiFixtureProvider.supplementTask)
+
+        assertEquals(ExerciseReviewTeacherActionUi.ReturnForSupplement, task.reviewReason.action)
+        assertEquals(
+            ExerciseReviewPublicReasonCodeUi.MissingRequiredEvidence,
+            task.reviewReason.reasonCode
+        )
+        assertEquals(
+            "请补充能够说明本次运动现场与时间连续性的材料。",
+            task.reviewReason.publicSupplementalNote
+        )
+    }
+
     private fun formalTask(
         windowHours: Int = 24,
         state: SupplementTaskState = SupplementTaskState.Open,
@@ -105,7 +122,11 @@ class SupplementUiModelTest {
         recordId = "record-1",
         sportLabel = "Running",
         originalSubmittedAt = "2026-09-04 18:30",
-        publicReason = "Add clearer evidence",
+        reviewReason = ExerciseReviewPublicReasonUiModel.TeacherDecision(
+            action = ExerciseReviewTeacherActionUi.ReturnForSupplement,
+            reasonCode = ExerciseReviewPublicReasonCodeUi.UnclearEvidence,
+            publicSupplementalNote = "Add clearer evidence"
+        ),
         deadlineLabel = "2026-09-05 18:30",
         windowHours = windowHours,
         originalEvidenceLabels = listOf("Original photo"),

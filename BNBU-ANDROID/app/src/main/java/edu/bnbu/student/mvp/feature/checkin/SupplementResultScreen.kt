@@ -25,7 +25,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -33,9 +32,6 @@ import androidx.compose.ui.unit.dp
 import edu.bnbu.student.mvp.core.designsystem.BNBULayout
 import edu.bnbu.student.mvp.core.designsystem.bnbuClickable
 import edu.bnbu.student.mvp.core.designsystem.interfaceText
-
-private val SupplementResultBlue = Color(0xFF007AFF)
-private val SupplementResultGreen = Color(0xFF34C759)
 
 /** PAGE-STU-061: acceptance is not validity, approval, or credited progress. */
 @Composable
@@ -64,7 +60,7 @@ internal fun SupplementResultScreen(
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
                     contentDescription = interfaceText("返回一次补充", "Back to one-time supplement"),
-                    tint = SupplementResultBlue,
+                    tint = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.size(28.dp)
                 )
                 Spacer(Modifier.width(8.dp))
@@ -83,12 +79,12 @@ internal fun SupplementResultScreen(
             ) {
                 Surface(
                     shape = MaterialTheme.shapes.extraLarge,
-                    color = SupplementResultGreen.copy(alpha = 0.12f)
+                    color = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.12f)
                 ) {
                     Icon(
                         imageVector = Icons.Filled.CheckCircle,
                         contentDescription = null,
-                        tint = SupplementResultGreen,
+                        tint = MaterialTheme.colorScheme.tertiary,
                         modifier = Modifier.padding(14.dp).size(36.dp)
                     )
                 }
@@ -137,16 +133,25 @@ internal fun SupplementResultScreen(
             }
         }
         item {
+            Text(
+                text = interfaceText("本次补证原因", "Reason for this supplement"),
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.SemiBold
+            )
+            Spacer(Modifier.height(8.dp))
+            ExerciseReviewPublicReasonCard(model = model.reviewReason)
+        }
+        item {
             Surface(
                 modifier = Modifier.fillMaxWidth(),
                 shape = MaterialTheme.shapes.medium,
-                color = SupplementResultBlue.copy(alpha = 0.08f)
+                color = MaterialTheme.colorScheme.primary.copy(alpha = 0.08f)
             ) {
                 Row(modifier = Modifier.padding(14.dp), verticalAlignment = Alignment.Top) {
                     Icon(
                         imageVector = Icons.Filled.Schedule,
                         contentDescription = null,
-                        tint = SupplementResultBlue,
+                        tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(20.dp)
                     )
                     Spacer(Modifier.width(9.dp))
@@ -167,8 +172,8 @@ internal fun SupplementResultScreen(
                 onClick = onViewRecords,
                 modifier = Modifier.fillMaxWidth().heightIn(min = 54.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = SupplementResultBlue,
-                    contentColor = Color.White
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.onPrimary
                 )
             ) {
                 Text(interfaceText("返回记录与进度", "Back to records and progress"))

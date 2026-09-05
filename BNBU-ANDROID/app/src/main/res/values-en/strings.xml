@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">BNBU Sports</string>
+    <string name="startup_loading_title">Checking service status</string>
+    <string name="startup_loading_message">Restoring the local session and confirming whether the system is available. Please wait.</string>
+    <string name="startup_loading_state_description">Loading</string>
+    <string name="startup_error_title">Can’t connect to the service</string>
+    <string name="startup_error_message">The system status could not be confirmed. To prevent incorrect actions, the app will not enter normal mode automatically. Check your connection and try again.</string>
+    <string name="startup_error_state_description">Startup check failed</string>
+    <string name="startup_error_icon">Service connection error</string>
+    <string name="startup_retry">Retry</string>
+    <string name="startup_local_review">Enter local UI review</string>
+    <string name="startup_local_review_hint">Debug only. Uses clearly labelled local synthetic data and does not represent Backend, API, or real business success.</string>
     <string name="login_title">Sign in to BNBU Sports</string>
     <string name="login_subtitle">View sports courses, activity records, and minute progress in one place.</string>
     <string name="login_choose_method">Choose a sign-in method</string>

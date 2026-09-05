@@ -27,7 +27,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -35,9 +34,6 @@ import androidx.compose.ui.unit.dp
 import edu.bnbu.student.mvp.core.designsystem.interfaceText
 import edu.bnbu.student.mvp.core.network.UploadProgress
 import edu.bnbu.student.mvp.feature.checkin.session.SubmissionSummary
-
-private val SubmissionBlue = Color(0xFF007AFF)
-private val SubmissionGreen = Color(0xFF34C759)
 
 /** PAGE-STU-042: submission, locked-batch retry, and acceptance semantics. */
 @Composable
@@ -62,7 +58,7 @@ internal fun ExerciseSubmissionScreen(
                     Icon(
                         imageVector = if (hasLockedMedia) Icons.Filled.Lock else Icons.Filled.CloudUpload,
                         contentDescription = null,
-                        tint = SubmissionBlue,
+                        tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(22.dp)
                     )
                     Spacer(Modifier.size(9.dp))
@@ -108,7 +104,7 @@ internal fun ExerciseSubmissionScreen(
 
         Surface(
             modifier = Modifier.fillMaxWidth(),
-            color = SubmissionBlue.copy(alpha = 0.08f),
+            color = MaterialTheme.colorScheme.primary.copy(alpha = 0.08f),
             shape = MaterialTheme.shapes.medium
         ) {
             Row(
@@ -118,7 +114,7 @@ internal fun ExerciseSubmissionScreen(
                 Icon(
                     imageVector = Icons.Filled.Schedule,
                     contentDescription = null,
-                    tint = SubmissionBlue,
+                    tint = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.size(20.dp)
                 )
                 Spacer(Modifier.size(9.dp))
@@ -152,8 +148,8 @@ internal fun ExerciseSubmissionScreen(
                 .heightIn(min = 54.dp),
             shape = MaterialTheme.shapes.extraLarge,
             colors = ButtonDefaults.buttonColors(
-                containerColor = SubmissionBlue,
-                contentColor = Color.White
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary
             )
         ) {
             if (isSubmitting) {
@@ -229,7 +225,7 @@ private fun UploadStatePanel(
                 progress?.let {
                     Text(
                         text = "${it.percent}%",
-                        color = SubmissionBlue,
+                        color = MaterialTheme.colorScheme.primary,
                         fontWeight = FontWeight.SemiBold
                     )
                 }
@@ -238,7 +234,7 @@ private fun UploadStatePanel(
                 LinearProgressIndicator(
                     progress = { progress.fraction },
                     modifier = Modifier.fillMaxWidth(),
-                    color = SubmissionBlue,
+                    color = MaterialTheme.colorScheme.primary,
                     trackColor = MaterialTheme.colorScheme.surfaceVariant
                 )
                 Text(
@@ -273,13 +269,13 @@ internal fun ExerciseSubmissionAcceptedScreen(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Surface(
-            color = SubmissionGreen.copy(alpha = 0.12f),
+            color = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.12f),
             shape = MaterialTheme.shapes.extraLarge
         ) {
             Icon(
                 imageVector = Icons.Filled.CheckCircle,
                 contentDescription = null,
-                tint = SubmissionGreen,
+                tint = MaterialTheme.colorScheme.tertiary,
                 modifier = Modifier
                     .padding(14.dp)
                     .size(34.dp)
@@ -326,8 +322,8 @@ internal fun ExerciseSubmissionAcceptedScreen(
                 .heightIn(min = 54.dp),
             shape = MaterialTheme.shapes.extraLarge,
             colors = ButtonDefaults.buttonColors(
-                containerColor = SubmissionBlue,
-                contentColor = Color.White
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary
             )
         ) {
             Text(interfaceText("查看打卡记录", "View check-in records"))
