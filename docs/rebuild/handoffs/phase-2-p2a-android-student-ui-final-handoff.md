@@ -13,7 +13,7 @@
 | 权威基线分支 / Commit | `main` / `49d992a1333294ea561923cfea0b7d25864a4d91` |
 | Android 基线 tree | `a5071942e2371dc288e8b9e3630080f60e344761` |
 | Android 任务分支 | `codex/phase2-android-student-ui` |
-| Android 交付 Commit | `PENDING`：由用户完成本地审核后手动 Commit/Push |
+| Android UI 实施 Commit | `17bde8b81419a7ed6bdbef7d3390cbf2463d0838`；本地已创建，待用户手动 Push |
 | Android UI 设计版本 | `P2A-UI-2026.09.04-draft1` |
 | Contract | `contracts/openapi.yaml`；`1.2.0-contract` / `RC` |
 | Contract SHA-256 | `667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a` |

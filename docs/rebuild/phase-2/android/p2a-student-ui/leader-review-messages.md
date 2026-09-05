@@ -1,10 +1,10 @@
 # 给领导的发送模板
 
-发送前把 `[PR 链接]` 和 `[交付 Commit]` 替换为 GitHub 上的实际值。
+发送前把 `[PR 链接]` 替换为 GitHub 上的实际值。Android UI 实施 Commit 已固定为 `17bde8b81419a7ed6bdbef7d3390cbf2463d0838`。
 
 ## 消息一：请审核什么、具体交接文档在哪里
 
-领导您好，Phase 2 的 Android 学生端 UI 已完成并提交 PR：`[PR 链接]`，交付 Commit：`[交付 Commit]`。本次审核请先看具体交接文档 `docs/rebuild/handoffs/phase-2-p2a-android-student-ui-final-handoff.md`，里面集中列出了固定基线、页面范围、Web 对齐依据、自动测试、真机复测、未完成项和 Reviewer 清单。审核时建议重点看：学生端是否彻底移除分数/等级/排名；1,200 分钟、三种时长、成员与审核状态、一次补充等业务语义是否符合 v8.0；入班、运动取证、记录/耐力、补充、免测/认证和账户页面是否与学生 Web 的信息分组及流程一致；三项真机问题是否修复；演示数据是否明确标识；Files changed 是否只包含 Android UI、对应测试和交接文档，且未修改 Contract、Backend、业务正文和 STATUS。页面清单、用户流程、状态矩阵和交互/无障碍说明都由该最终交接文档链接进入。请安排 Android Reviewer，并让学生 Web 负责人参与跨端一致性核对。
+领导您好，Phase 2 的 Android 学生端 UI 已完成并提交 PR：`[PR 链接]`，Android UI 实施 Commit：`17bde8b81419a7ed6bdbef7d3390cbf2463d0838`。本次审核请先看具体交接文档 `docs/rebuild/handoffs/phase-2-p2a-android-student-ui-final-handoff.md`，里面集中列出了固定基线、页面范围、Web 对齐依据、自动测试、真机复测、未完成项和 Reviewer 清单。审核时建议重点看：学生端是否彻底移除分数/等级/排名；1,200 分钟、三种时长、成员与审核状态、一次补充等业务语义是否符合 v8.0；入班、运动取证、记录/耐力、补充、免测/认证和账户页面是否与学生 Web 的信息分组及流程一致；三项真机问题是否修复；演示数据是否明确标识；Files changed 是否只包含 Android UI、对应测试和交接文档，且未修改 Contract、Backend、业务正文和 STATUS。页面清单、用户流程、状态矩阵和交互/无障碍说明都由该最终交接文档链接进入。请安排 Android Reviewer，并让学生 Web 负责人参与跨端一致性核对。
 
 ## 消息二：本轮只改 UI，后端/业务问题和启动问题如何处理
 
