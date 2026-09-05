@@ -17,7 +17,7 @@
 | Android 任务分支 | `codex/phase2-android-student-ui` |
 | Android UI 初版实施 Commit | `17bde8b81419a7ed6bdbef7d3390cbf2463d0838`；已由用户 Push 并进入 PR #4，不是 V8.1 复审最终 Commit |
 | V8.1 主线同步 Commit | `f39c29dad2ddd3c2eb1d5924cff67d2ff825601d`；作为本轮复审改动的父提交，随任务分支更新进入 PR |
-| 第二轮问题基线 Commit | `6e0456c9de45188b5b5a6139ad551274fed9685d`；远端 PR #4 当前 HEAD，最终复审提交须推进此值 |
+| 第二轮问题基线 Commit | `6e0456c9de45188b5b5a6139ad551274fed9685d`；第二轮复审时的远端 PR #4 HEAD，最终复审提交须推进此历史值 |
 | 最终复审 Commit | 本交接所在最终本地 Commit；具体 SHA 在 Push 后由 `git rev-parse HEAD` / GitHub PR head 输出并回复 Reviewer，Git commit 不能在自身内容中自引用自己的 SHA |
 | Android Owner | `Exwind259` |
 | Android Reviewer / 学生 Web Reviewer | Android Reviewer 为当前已获 PR 审核权限的审核账号；学生 Web Reviewer由负责人正式指定，本文不猜测姓名 |
@@ -67,7 +67,7 @@
 
 - 93 个 `BNBU-ANDROID/**` 实现、资源和测试文件；
 - 11 个 `docs/rebuild/phase-2/android/p2a-student-ui/**` 设计与验收文件；
-- 13 个 `docs/rebuild/handoffs/phase-2-p2a-android-student-ui*` 交接文件。
+- 14 个 `docs/rebuild/handoffs/phase-2-p2a-android-student-ui*` 交接文件。
 
 生产变更集中在：
 
@@ -85,7 +85,7 @@
 R2-01—05 源码、测试、真机修正及交接统一完成后，在最终本地 Commit 上重新执行：
 
 ```text
-./gradlew.bat :app:testDebugUnitTest :app:lintDebug :app:assembleDebug :app:assembleDebugAndroidTest --no-daemon --offline
+./gradlew.bat :app:testDebugUnitTest :app:lintDebug :app:assembleDebug :app:assembleDebugAndroidTest --no-daemon --offline --no-build-cache --rerun-tasks
 ```
 
 当前最终候选结果如下；初版、R8、R10 和第一版 R2-05 中间产物均不再作为本轮候选：

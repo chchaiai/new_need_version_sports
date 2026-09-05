@@ -18,7 +18,7 @@ R10 Debug APK 已由用户传至自有真机并全新安装。用户确认启动
 | R10 V8.1 复审候选 APK | `app/build/outputs/apk/debug/app-debug.apk`；27,459,431 bytes；SHA-256 `a2c6a49a5e54830cec3b123ee3ebe03a7ceb4ea28dc3b1291687f5f20c97ecdb`；用户已传至未连接电脑的自有真机并全新安装，设备端未独立计算指纹 |
 | R2-05 最终视频复测 APK | `app/build/outputs/apk/debug/app-debug.apk`；27,463,039 bytes；SHA-256 `c98e30158d687056292c790fe85bd30cb6606cb673ef92a74ed8aa7d9b51183f`；447/447 JVM、22/22 AVD instrumentation 通过；用户于 2026-09-06 确认真机复测通过，设备端未独立计算指纹 |
 | R2-06 最终 Commit 强制重建 APK | `app/build/outputs/apk/debug/app-debug.apk`；25,853,071 bytes；SHA-256 `216561a78dc570dbb400d9789ff83b1184f9614cf3c1341ef753d30400b56ebc`；与 R2-05 源码相同，已由专用 AVD instrumentation 运行，未在用户真机单独重装 |
-| 基线 / 分支 | `49d992a1333294ea561923cfea0b7d25864a4d91` / `codex/phase2-android-student-ui`；UI 未提交 |
+| 基线 / 分支 | `49d992a1333294ea561923cfea0b7d25864a4d91` / `codex/phase2-android-student-ui`；初版已提交并进入 PR #4，R2-06 最终候选待 Push |
 | 设计版本 | `P2A-UI-2026.09.04-draft1` |
 | Android Owner / Reviewer / Web Reviewer | Android Owner：`Exwind259`；Android Reviewer：当前已获 PR 审核权限的审核账号；Web Reviewer：待负责人正式指定 |
 

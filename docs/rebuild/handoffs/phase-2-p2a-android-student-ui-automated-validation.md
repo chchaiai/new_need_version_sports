@@ -184,14 +184,14 @@ R11 结果见更新后的人工验收记录；上述缺测与发布阻塞继续�
 最终本地命令：
 
 ```powershell
-.\gradlew.bat :app:testDebugUnitTest :app:lintDebug :app:assembleDebug :app:assembleDebugAndroidTest --no-daemon --offline
+.\gradlew.bat :app:testDebugUnitTest :app:lintDebug :app:assembleDebug :app:assembleDebugAndroidTest --no-daemon --offline --no-build-cache --rerun-tasks
 ```
 
 最终设备命令：
 
 ```powershell
 $env:ANDROID_SERIAL='emulator-5554'
-.\gradlew.bat :app:connectedDebugAndroidTest --no-daemon --offline
+.\gradlew.bat :app:connectedDebugAndroidTest --no-daemon --offline --no-build-cache --rerun-tasks
 ```
 
 | 项目 | R2-06 最终结果 | 证据边界 |
