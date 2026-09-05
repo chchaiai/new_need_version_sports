@@ -9,7 +9,6 @@ import {
   deleteEnduranceRule,
   saveEnduranceRule,
 } from "./admin-service";
-import { LimitedReviewGrantDialog, SportTemplatePublishDialog } from "./admin-v8-governance";
 import { useAdminStore } from "./admin-store";
 import type { AdminLocale, EnduranceRule, EnduranceRuleInput, EnduranceTier, Gender, GradeGroup, RunType } from "./admin-types";
 import { AdminBadge, AdminConfirm, AdminDialog, AdminEmpty, AdminField, AdminInlineError, AdminSectionHeading } from "./admin-components";
@@ -56,7 +55,7 @@ function RuleDialog({ locale, tableKey, rule, close }: { locale: AdminLocale; ta
 }
 
 function EndurancePanel({ locale }: { locale: AdminLocale }) {
-  const { state, busyKey, error, run, mode } = useAdminStore();
+  const { state, busyKey, error, run } = useAdminStore();
   const tableOptions = [
     { gender: "male" as const, gradeGroup: "freshman_sophomore" as const, runType: "1000m" as const },
     { gender: "male" as const, gradeGroup: "junior_senior" as const, runType: "1000m" as const },
@@ -66,8 +65,6 @@ function EndurancePanel({ locale }: { locale: AdminLocale }) {
   const [tableKey, setTableKey] = useState(enduranceTableKey(tableOptions[0]));
   const [editing, setEditing] = useState<EnduranceRule | "new" | null>(null);
   const [deleting, setDeleting] = useState<EnduranceRule | null>(null);
-  const [publishingTemplate, setPublishingTemplate] = useState(false);
-  const [grantingReview, setGrantingReview] = useState(false);
   if (!state) return null;
   const rules = state.enduranceRules.filter((rule) => enduranceTableKey(rule) === tableKey).sort((left, right) => left.minSeconds - right.minSeconds);
   const issues = validateEnduranceTable(rules);
@@ -80,7 +77,7 @@ function EndurancePanel({ locale }: { locale: AdminLocale }) {
   };
   return (
     <section className="admin-surface admin-table-surface">
-      <AdminSectionHeading title={adminCopy(locale, "endurance_table")} description={adminCopy(locale, "rules_scope_hint")} action={<div className="admin-subadmin-heading-actions"><button className="secondary-button" type="button" onClick={() => setPublishingTemplate(true)}>{adminCopy(locale, "publish_sport_template")}</button><button className="secondary-button" type="button" onClick={() => setGrantingReview(true)}>{adminCopy(locale, "limited_review_grant")}</button><button className="primary-button" type="button" onClick={() => setEditing("new")}>{adminCopy(locale, "add_rule")}</button></div>} />
+      <AdminSectionHeading title={adminCopy(locale, "endurance_table")} action={<button className="primary-button" type="button" onClick={() => setEditing("new")}>{adminCopy(locale, "add_rule")}</button>} />
       <div className="admin-filter-row"><AppSelect label={adminCopy(locale, "table_selection")} value={tableKey} options={tableOptions.map((item) => ({ value: enduranceTableKey(item), label: optionLabel(item) }))} onChange={(value) => value && setTableKey(String(value))} /><AdminBadge tone={issues.length ? "red" : "green"}>{issues.length ? adminCopy(locale, "table_invalid", { count: issues.length }) : adminCopy(locale, "table_valid")}</AdminBadge></div>
       {rules.length === 0 ? <AdminEmpty locale={locale} /> : <>
         <div className="table-wrap endurance-table-wrap"><table className="admin-table"><thead><tr><th>{adminCopy(locale, "min_seconds")}</th><th>{adminCopy(locale, "max_seconds")}</th><th>{adminCopy(locale, "score")}</th><th>{adminCopy(locale, "tier")}</th><th>{adminCopy(locale, "note")}</th><th>{adminCopy(locale, "actions")}</th></tr></thead><tbody>{rules.map((rule) => <tr key={rule.id}><td>{rule.minSeconds}</td><td>{rule.maxSeconds}</td><td><b>{rule.score}</b></td><td><AdminBadge tone={rule.tier === "fail" ? "red" : rule.tier === "pass" ? "orange" : "green"}>{adminLabel(locale, "enduranceTier", rule.tier)}</AdminBadge></td><td>{rule.note || adminCopy(locale, "not_available")}</td><td><div className="admin-row-actions"><button type="button" onClick={() => setEditing(rule)}>{adminCopy(locale, "edit")}</button><button className="is-danger" type="button" onClick={() => setDeleting(rule)}>{adminCopy(locale, "delete")}</button></div></td></tr>)}</tbody></table></div>
@@ -91,8 +88,6 @@ function EndurancePanel({ locale }: { locale: AdminLocale }) {
         : <AdminInlineError message={error?.message} />}
       {editing && <RuleDialog locale={locale} tableKey={tableKey} rule={editing === "new" ? undefined : editing} close={() => setEditing(null)} />}
       {deleting && <AdminConfirm locale={locale} title={adminCopy(locale, "delete_rule_title")} description={adminCopy(locale, "delete_rule_body")} close={() => setDeleting(null)} confirm={() => void confirmDelete()} confirmLabel={adminCopy(locale, "delete")} busy={busyKey === deleteKey} danger><div className="admin-confirm-object"><b>{adminCopy(locale, "seconds_range", { min: deleting.minSeconds, max: deleting.maxSeconds })}</b><span>{deleting.score} · {adminLabel(locale, "enduranceTier", deleting.tier)}</span></div></AdminConfirm>}
-      {publishingTemplate && <SportTemplatePublishDialog locale={locale} demo={mode === "demo"} close={() => setPublishingTemplate(false)} />}
-      {grantingReview && <LimitedReviewGrantDialog locale={locale} demo={mode === "demo"} close={() => setGrantingReview(false)} />}
     </section>
   );
 }

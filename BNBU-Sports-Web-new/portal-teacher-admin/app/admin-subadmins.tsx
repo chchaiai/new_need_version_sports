@@ -12,7 +12,6 @@ import {
   AdminSectionHeading,
   formatAdminDate,
 } from "./admin-components";
-import { LimitedReviewGrantDialog } from "./admin-v8-governance";
 
 const STORAGE_KEY = "bnbu-admin-subadmins-v1";
 
@@ -184,7 +183,6 @@ export function AdminSubadmins({ locale, mode }: { locale: AdminLocale; mode: Wo
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState("");
   const [deleteCandidate, setDeleteCandidate] = useState<StoredSubAdmin | null>(null);
-  const [grantingReview, setGrantingReview] = useState(false);
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
@@ -475,9 +473,6 @@ export function AdminSubadmins({ locale, mode }: { locale: AdminLocale; mode: Wo
                   {notice}
                 </span>
               ) : null}
-              <button className="secondary-button" type="button" onClick={() => setGrantingReview(true)}>
-                {locale === "en" ? "Limited review grant" : "有限审核授权"}
-              </button>
               <button className="primary-button" type="button" disabled={mode !== "demo"} onClick={openCreate}>
                 {locale === "en" ? "Add sub-administrator" : "新增分管理员"}
               </button>
@@ -711,9 +706,6 @@ export function AdminSubadmins({ locale, mode }: { locale: AdminLocale; mode: Wo
           {error ? <p className="admin-inline-error" role="alert">{error}</p> : null}
         </AdminDialog>
       )}
-      {grantingReview ? (
-        <LimitedReviewGrantDialog locale={locale} demo={mode === "demo"} close={() => setGrantingReview(false)} />
-      ) : null}
     </div>
   );
 }

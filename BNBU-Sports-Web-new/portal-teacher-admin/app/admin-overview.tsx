@@ -9,8 +9,6 @@ import {
   AdminSectionHeading,
   formatAdminDate,
 } from "./admin-components";
-import { AiOcrServiceDialog, LimitedReviewGrantDialog, LimitedReviewGrantListDialog, SportTemplatePublishDialog } from "./admin-v8-governance";
-import { useState } from "react";
 
 export function AdminOverview({
   locale,
@@ -22,10 +20,6 @@ export function AdminOverview({
   onNavigate: (route: AdminRoute) => void;
 }) {
   const { state, loading, refresh } = useAdminStore();
-  const [publishingTemplate, setPublishingTemplate] = useState(false);
-  const [grantingReview, setGrantingReview] = useState(false);
-  const [listingGrants, setListingGrants] = useState(false);
-  const [editingAiOcr, setEditingAiOcr] = useState(false);
   if (!state) return null;
   const current = state.semesters.find(
     (semester) => semester.status === "current",
@@ -93,46 +87,6 @@ export function AdminOverview({
         ? adminCopy(locale, "health_down")
         : adminCopy(locale, "health_not_configured");
 
-  const enduranceTableCount = 4;
-  const enduranceBandsPerTable =
-    state.enduranceRules.length > 0 && state.enduranceRules.length % enduranceTableCount === 0
-      ? state.enduranceRules.length / enduranceTableCount
-      : null;
-
-  const governanceActions = (
-    <div className="admin-governance-actions">
-      <button className="secondary-button" type="button" onClick={() => setPublishingTemplate(true)}>
-        {adminCopy(locale, "publish_sport_template")}
-      </button>
-      <button className="secondary-button" type="button" onClick={() => setGrantingReview(true)}>
-        {adminCopy(locale, "limited_review_grant")}
-      </button>
-      <button className="secondary-button" type="button" onClick={() => setListingGrants(true)}>
-        {adminCopy(locale, "grant_list")}
-      </button>
-      <button className="secondary-button" type="button" onClick={() => setEditingAiOcr(true)}>
-        {adminCopy(locale, "ai_ocr_service")}
-      </button>
-    </div>
-  );
-
-  const governanceDialogs = (
-    <>
-      {publishingTemplate ? (
-        <SportTemplatePublishDialog locale={locale} demo={mode === "demo"} close={() => setPublishingTemplate(false)} />
-      ) : null}
-      {grantingReview ? (
-        <LimitedReviewGrantDialog locale={locale} demo={mode === "demo"} close={() => setGrantingReview(false)} />
-      ) : null}
-      {listingGrants ? (
-        <LimitedReviewGrantListDialog locale={locale} demo={mode === "demo"} close={() => setListingGrants(false)} />
-      ) : null}
-      {editingAiOcr ? (
-        <AiOcrServiceDialog locale={locale} demo={mode === "demo"} close={() => setEditingAiOcr(false)} />
-      ) : null}
-    </>
-  );
-
   if (mode === "real") {
     return (
       <div className="admin-page-stack">
@@ -173,14 +127,10 @@ export function AdminOverview({
         <section className="admin-surface">
           <p className="admin-quiet-empty">
             {locale === "zh"
-              ? "真实模式可查看支持反馈与已发布帮助内容，并管理服务端总学时规则审批。运动模板、有限审核授权走 Contract；Backend 未实现时显示真实错误，不在本地假装已发布。"
-              : "Real mode can read support feedback and published help content and manage approval of total-hours score rules. Sport templates and limited review grants use Contract; unimplemented Backend responses show the real error and are not faked locally."}
+              ? "真实模式可查看支持反馈与已发布帮助内容，并管理服务端总学时规则审批；客户端帮助发布 API 尚未开放。"
+              : "Real mode can read support feedback and published help content and manage approval of total-hours score rules. Client-side help publication is not in the API."}
           </p>
-          <div className="admin-subadmin-heading-actions" style={{ marginTop: 12 }}>
-            {governanceActions}
-          </div>
         </section>
-        {governanceDialogs}
       </div>
     );
   }
@@ -272,13 +222,9 @@ export function AdminOverview({
             <span>
               <small>{locale === "zh" ? "已配置规则" : "Configured rules"}</small>
               <b>
-                {enduranceBandsPerTable !== null
-                  ? locale === "zh"
-                    ? `每套 ${enduranceBandsPerTable} 档`
-                    : `${enduranceBandsPerTable} bands per table`
-                  : locale === "zh"
-                    ? `${state.enduranceRules.length} 条`
-                    : `${state.enduranceRules.length} rules`}
+                {locale === "zh"
+                  ? `${state.enduranceRules.length} 条`
+                  : `${state.enduranceRules.length} rules`}
               </b>
             </span>
             <span>
@@ -288,10 +234,6 @@ export function AdminOverview({
           </div>
         </section>
       </div>
-      <section className="admin-surface">
-        {governanceActions}
-      </section>
-      {governanceDialogs}
     </div>
   );
 }

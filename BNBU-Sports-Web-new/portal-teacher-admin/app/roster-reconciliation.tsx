@@ -13,7 +13,6 @@ import {
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AppSelect } from "./app-select";
 import { apiErrorText, currentApiRequestMode } from "./api-client";
-import { confirmRosterOcrDraft, importPaperRosterOcrDraft, type RosterOcrDraft } from "./teacher-data";
 import { FormField } from "./form-field";
 import {
   rosterReconciliationService,
@@ -445,64 +444,12 @@ function RosterDetailDrawer({ result, courses, canManage, onClose, onResolution 
 function RosterImportDialog({ course, currentBundle, onClose, onImported }: { course: RosterCourseReference; currentBundle: RosterReconciliationBundle; onClose: () => void; onImported: (bundle: RosterReconciliationBundle) => void }) {
   const isDemo = currentApiRequestMode() === "demo";
   const inputRef = useRef<HTMLInputElement>(null);
-  const ocrInputRef = useRef<HTMLInputElement>(null);
   const [parsed, setParsed] = useState<ParsedRosterFile | null>(null);
   const [mapping, setMapping] = useState<RosterFieldMapping | null>(null);
   const [validation, setValidation] = useState<ValidatedRosterImport | null>(null);
   const [parsing, setParsing] = useState(false);
   const [importing, setImporting] = useState(false);
-  const [ocrBusy, setOcrBusy] = useState(false);
-  const [ocrDraft, setOcrDraft] = useState<(RosterOcrDraft & { expectedCourseVersion: number }) | null>(null);
-  const [ocrNotice, setOcrNotice] = useState("");
   const [error, setError] = useState("");
-
-  const chooseOcrFile = async (file: File | undefined) => {
-    if (!file) return;
-    setError("");
-    setOcrNotice("");
-    const contentType = file.type === "image/png" ? "image/png" : file.type === "image/jpeg" ? "image/jpeg" : null;
-    if (!contentType) {
-      setError("纸质名单 OCR 只接受 JPEG/PNG。");
-      return;
-    }
-    if (isDemo) {
-      setError("演示模式不把纸质 OCR 写成正式名单。");
-      return;
-    }
-    setOcrBusy(true);
-    try {
-      const draft = await importPaperRosterOcrDraft(course.id, file, contentType);
-      setOcrDraft(draft);
-      setOcrNotice(draft.status === "DRAFT"
-        ? "OCR 草稿已导入。状态为 DRAFT，确认前不是当前名单。"
-        : "OCR 返回了非 DRAFT 状态。本页仍不把它当成当前快照，除非调用确认接口成功。");
-    } catch (nextError) {
-      setOcrDraft(null);
-      setError(nextError instanceof Error && nextError.message === "COURSE_VERSION_MISSING"
-        ? "未读到 Contract 课程 version，不能猜测 expectedCourseVersion。"
-        : importErrorMessage(nextError));
-    } finally {
-      setOcrBusy(false);
-    }
-  };
-
-  const confirmOcrDraft = async () => {
-    if (!ocrDraft || ocrDraft.status !== "DRAFT") return;
-    setOcrBusy(true);
-    setError("");
-    try {
-      await confirmRosterOcrDraft(course.id, ocrDraft.draftId, {
-        expectedVersion: ocrDraft.version,
-        expectedCourseVersion: ocrDraft.expectedCourseVersion,
-      });
-      setOcrDraft(null);
-      setOcrNotice("服务端已确认当前快照。本页不把未刷新的本地表格当成新名单。");
-    } catch (nextError) {
-      setError(importErrorMessage(nextError));
-    } finally {
-      setOcrBusy(false);
-    }
-  };
 
   const chooseFile = async (file: File | undefined) => {
     if (!file) return;
@@ -552,7 +499,7 @@ function RosterImportDialog({ course, currentBundle, onClose, onImported }: { co
       <div className="modal-head"><div><span className="eyebrow">官方名单导入 · 第 {step} 步，共 3 步</span><h2 id="roster-import-title">导入官方名单</h2><p>{course.name}</p></div><button className="icon-button" type="button" disabled={importing} aria-label="关闭导入" onClick={onClose}><X aria-hidden="true" /></button></div>
       <div className="teacher-dialog-body">
         <ol className="roster-import-steps" aria-label="导入进度"><li className={step >= 1 ? "active" : ""}>1 选择并预览</li><li className={step >= 2 ? "active" : ""}>2 字段映射</li><li className={step >= 3 ? "active" : ""}>3 校验并导入</li></ol>
-        {!parsed && <section className="roster-file-picker"><input ref={inputRef} type="file" accept=".xlsx,.xls,.csv" aria-label="选择学校官方课程名单文件" aria-describedby="roster-file-help" onChange={(event) => void chooseFile(event.target.files?.[0])} /><input ref={ocrInputRef} type="file" accept="image/jpeg,image/png" hidden aria-label="扫描纸质名单" onChange={(event) => void chooseOcrFile(event.target.files?.[0])} /><FileSpreadsheet aria-hidden="true" /><h3>{parsing || ocrBusy ? "正在解析文件" : "选择学校官方课程名单"}</h3><p id="roster-file-help">电子表继续走现有导入接口。纸质 OCR 依次调用 allocate、importRosterOcrDraft；确认走 confirmRosterOcrDraft。未确认草稿不会当成当前快照。</p><div className="roster-import-actions"><button className="primary-button" type="button" disabled={parsing || ocrBusy} onClick={() => inputRef.current?.click()}><Upload size={17} aria-hidden="true" />{parsing ? "正在解析" : "选择文件"}</button><button className="secondary-button" type="button" disabled={ocrBusy} onClick={() => ocrInputRef.current?.click()}>{ocrBusy ? "正在解析" : "扫描纸质名单 OCR"}</button></div>{ocrDraft ? <p>纸质 OCR 草稿 · <span translate="no">{ocrDraft.sourceDisplayName}</span> · {ocrDraft.rowCount} 行 · <span translate="no">{ocrDraft.status}</span></p> : null}{ocrNotice ? <p>{ocrNotice}</p> : null}</section>}
+        {!parsed && <section className="roster-file-picker"><input ref={inputRef} type="file" accept=".xlsx,.xls,.csv" aria-label="选择学校官方课程名单文件" aria-describedby="roster-file-help" onChange={(event) => void chooseFile(event.target.files?.[0])} /><FileSpreadsheet aria-hidden="true" /><h3>{parsing ? "正在解析文件" : "选择学校官方课程名单"}</h3><p id="roster-file-help">支持 .xlsx、.xls 和 .csv，最大 10 MB、最多 10,000 行。学号始终按字符串处理。</p><button className="primary-button" type="button" disabled={parsing} onClick={() => inputRef.current?.click()}><Upload size={17} aria-hidden="true" />{parsing ? "正在解析" : "选择文件"}</button></section>}
         {parsed && !validation && mapping && <>
           <section className="roster-file-summary"><FileSpreadsheet aria-hidden="true" /><div><h3>{parsed.fileName}</h3><p>{parsed.sheetName} · {parsed.totalRows} 行数据</p></div><button className="text-button" type="button" onClick={() => { setParsed(null); setMapping(null); }}>更换文件</button></section>
           <section className="roster-preview-section"><div><h3>数据预览</h3><p>显示前 {parsed.previewRows.length} 行；确认表头和学号前导零是否正确。</p></div><DataTable minWidth={Math.max(720, parsed.headers.length * 150)}><thead><tr>{parsed.headers.map((header) => <th key={header}>{header}</th>)}</tr></thead><tbody>{parsed.previewRows.map((row, index) => <tr key={index}>{parsed.headers.map((header) => <td key={header} translate={mapping.studentNumber === header ? "no" : undefined}>{row[header] || "—"}</td>)}</tr>)}</tbody></DataTable></section>
@@ -566,7 +513,7 @@ function RosterImportDialog({ course, currentBundle, onClose, onImported }: { co
         </>}
         {error && <p className="form-error roster-import-error" role="alert">{error}</p>}
       </div>
-      <div className="modal-footer"><button className="secondary-button" type="button" disabled={importing || ocrBusy} onClick={onClose}>取消导入</button>{ocrDraft?.status === "DRAFT" && !parsed ? <button className="primary-button" type="button" disabled={ocrBusy} onClick={() => void confirmOcrDraft()}>{ocrBusy ? "正在提交后端" : "确认 OCR 草稿"}</button> : null}{parsed && !validation && <button className="primary-button" type="button" onClick={validate}>本地预检</button>}{validation && <button className="primary-button" type="button" disabled={importing || validation.validRows === 0} onClick={() => void confirmImport()}>{importing ? isDemo ? "正在导入并对齐" : "正在提交后端" : "确认创建新版本"}</button>}</div>
+      <div className="modal-footer"><button className="secondary-button" type="button" disabled={importing} onClick={onClose}>取消导入</button>{parsed && !validation && <button className="primary-button" type="button" onClick={validate}>本地预检</button>}{validation && <button className="primary-button" type="button" disabled={importing || validation.validRows === 0} onClick={() => void confirmImport()}>{importing ? isDemo ? "正在导入并对齐" : "正在提交后端" : "确认创建新版本"}</button>}</div>
     </section>
   </div>;
 }

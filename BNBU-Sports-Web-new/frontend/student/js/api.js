@@ -861,12 +861,10 @@ export const previewCourseInvitation = (invitationCode, { auth = false } = {}) =
 export const listOwnProofTodos = () =>
   contractRequest("/student/proof-todos");
 
-export const submitExerciseProof = (recordId, mediaAssetIds, expectedVersion) =>
-  contractRequest(`/student/exercise-records/${encodeURIComponent(recordId)}/proof`, {
-    method: "POST",
-    idempotent: true,
-    body: { mediaAssetIds, expectedVersion },
-  });
+export const submitExerciseProof = () =>
+  Promise.reject(Object.assign(new Error("PROOF_WRITE_UNAVAILABLE_CONTRACT_1_2_0"), {
+    code: "PROOF_WRITE_UNAVAILABLE_CONTRACT_1_2_0",
+  }));
 
 export const getOwnExerciseRecord = (recordId) =>
   contractRequest(`/student/exercise-records/${encodeURIComponent(recordId)}`);

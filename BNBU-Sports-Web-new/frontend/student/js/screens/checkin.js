@@ -18,7 +18,7 @@ import {
 } from "../session.js";
 import {
   startServerSession, pauseServerSession, resumeServerSession, finishServerSession,
-  cancelServerSession, createRecordDraft, submitRecord, submitExerciseProof, getOwnExerciseRecord,
+  cancelServerSession, createRecordDraft, submitRecord,
   uploadMediaDraft, cacheRecordProofs, createMediaAccessUrl, proxyObjectUrl,
   loadServerRecordProofs,
   listMyRecords, getActiveSession, ApiError, toUserFacingError,
@@ -43,7 +43,7 @@ function proofSubmitPanel(app) {
   if (!todo) return "";
   const ui = checkinState(app);
   const retained = (ui.drafts || []).filter((draft) => draft.url);
-  return `<div class="body-small text-muted" style="margin-top:12px">${tx("当前有一次补证窗口。拍摄凭证后点提交补证，调用 Contract submitExerciseProof，不另开计入会话。", "An open proof window exists. After capturing proof, submit it with Contract submitExerciseProof; this does not start a credited session.")}</div>
+  return `<div class="body-small text-muted" style="margin-top:12px">${tx("当前有一次补证窗口。本页只展示补证流程；正式协议 1.2.0 没有运动记录补证包，不会向服务器写入。", "An open proof window exists. This page only shows the proof flow; Contract 1.2.0 has no exercise-record proof package, so nothing is written to the server.")}</div>
     <button class="outlined-btn pressable" type="button" data-action="checkin.submitProof" ${retained.length && app.isWriteAllowed() ? "" : "disabled"} style="min-height:44px;margin-top:8px">${tx("提交补证", "Submit proof")}</button>`;
 }
 
@@ -2108,43 +2108,11 @@ export const checkinActions = {
     const ui = checkinState(app);
     const drafts = (ui.drafts || []).filter((draft) => draft.url);
     if (!todo?.recordId || !drafts.length) return;
-    if (!app.isApiMode()) {
-      app.showDialog({
-        title: tx("无法提交补证", "Cannot submit proof"),
-        body: tx("本地预览不会把补证写成正式结果。请用真实账号调用 Contract submitExerciseProof。", "Local preview does not write proof as a real result. Use a live account for Contract submitExerciseProof."),
-        buttons: [{ label: tx("我知道了", "Got it"), action: "dialog.close" }],
-      });
-      return;
-    }
-    if (!todo.sessionId) {
-      app.showDialog({
-        title: tx("无法提交补证", "Cannot submit proof"),
-        body: tx("补证待办没有 sessionId，不能用现有媒体上传接口猜测会话。", "This proof to-do has no sessionId; the current media upload API cannot invent a session."),
-        buttons: [{ label: tx("我知道了", "Got it"), action: "dialog.close" }],
-      });
-      return;
-    }
-    try {
-      const uploaded = [];
-      for (const draft of drafts) {
-        const blob = draft.blob || (await fetch(draft.url).then((response) => response.blob()));
-        const mediaId = draft.mediaId || (await uploadMediaDraft(todo.sessionId, draft, blob)).mediaId;
-        uploaded.push(mediaId);
-      }
-      const record = await getOwnExerciseRecord(todo.recordId);
-      if (typeof record?.version !== "number") {
-        throw new Error("PROOF_RECORD_VERSION_MISSING");
-      }
-      await submitExerciseProof(todo.recordId, uploaded, record.version);
-      app.reloadApiWorkspace();
-      app.showDialog({
-        title: tx("补证已提交", "Proof submitted"),
-        body: tx("已调用 submitExerciseProof。服务端确认前本页不假装已补证完成。", "submitExerciseProof was called. This page does not treat proof as complete until the server confirms."),
-        buttons: [{ label: tx("我知道了", "Got it"), action: "dialog.close" }],
-      });
-    } catch (error) {
-      apiFailureDialog(app, error, tx("无法提交补证", "Cannot submit proof"));
-    }
+    app.showDialog({
+      title: tx("当前不能提交补证", "Cannot submit proof now"),
+      body: tx("当前正式协议 1.2.0 没有运动记录补证包。本页只展示补证流程，不会向服务器发送非正式写入。", "Official Contract 1.2.0 has no exercise-record proof package. This page only shows the flow and will not send an unofficial write."),
+      buttons: [{ label: tx("我知道了", "Got it"), action: "dialog.close" }],
+    });
   },
   "checkin.abandon": (app) => {
     app.showDialog({

@@ -3,10 +3,10 @@ import type { components } from "./phase5b-contract.generated";
 type Schema<Name extends keyof components["schemas"]> = components["schemas"][Name];
 
 export const PHASE5B_CONTRACT = {
-  version: "1.3.0-contract",
+  version: "1.2.0-contract",
   status: "RC",
   publicBasePath: "/api/v1",
-  openapiSha256: "b6bdcad2196dfdd5bccf3c50dc02cf69f5bc431ca4b7d7147efc652004406093",
+  openapiSha256: "667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a",
 } as const;
 
 export const teacherLoginRequest = {
@@ -102,12 +102,6 @@ export const currentCourse = {
     totalTargetMinutes: 1200,
     revisionNumber: 2,
   },
-  creditPolicy: {
-    minCreditThresholdMinutes: 30,
-    maxCreditMinutes: 60,
-    weeklySessionFrequency: 3,
-    sportTemplateId: null,
-  },
   activeMemberCount: 32,
   removedMemberCount: 1,
   version: 7,
@@ -148,7 +142,6 @@ export const exerciseRecord = {
   },
   businessDate: "2026-08-31",
   category: "COURSE_RELATED",
-  sportType: "RUNNING",
   description: "完成操场慢跑与拉伸训练",
   actualDurationSeconds: 4020,
   creditedMinutes: 60,
@@ -172,8 +165,6 @@ export const exerciseRecord = {
   currentReview: {
     result: "VALID",
     studentVisibleReason: null,
-    proofWindowHours: null,
-    proofDueAt: null,
     sequenceNumber: 1,
     updatedAt: "2026-08-31T03:15:00Z",
     version: 1,
@@ -194,7 +185,6 @@ export const emptyExerciseRecordPage = {
 export const appendReviewRequest = {
   result: "INVALID",
   studentVisibleReason: "凭证不足以确认本次运动内容，请下一业务日期重新完成运动。",
-  proofWindowHours: null,
   expectedVersion: 1,
 } satisfies Schema<"AppendRecordReviewRequest">;
 
@@ -210,8 +200,6 @@ export const appendReviewResponse = {
     name: "王老师",
   },
   studentVisibleReason: "凭证不足以确认本次运动内容，请下一业务日期重新完成运动。",
-  proofWindowHours: null,
-  proofDueAt: null,
   occurredAt: "2026-08-31T04:20:00Z",
 } satisfies Schema<"RecordReview">;
 

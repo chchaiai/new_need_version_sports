@@ -543,12 +543,8 @@ const englishText: Record<string, string> = {
   退回补证: "Return for proof",
   "当前接口没有退回补证结果，不能写入。":
     "The current API has no return-for-proof result, so this cannot be written.",
-  "通过与无效仍可走现有审核接口。退回补证调用 Contract `appendExerciseRecordReview`（RETURN_FOR_PROOF，24/72 小时，自由文本原因）。Backend 未实现时会显示真实错误，不在本地假装已退回。":
-    "Pass and invalid still use the existing review API. Return-for-proof calls Contract appendExerciseRecordReview (RETURN_FOR_PROOF, 24/72 hours, free-text reason). Unimplemented Backend responses show the real error and are not faked locally.",
-  "按 v8.0 展示通过 / 退回补证 / 无效。通过与无效仍写入现有接口；退回补证调用 Contract RETURN_FOR_PROOF。":
-    "Show pass / return-for-proof / invalid per v8.0. Pass and invalid still write the current API; return-for-proof calls Contract RETURN_FOR_PROOF.",
-  "依据服务端记录追加有效或无效。退回补证调用 Contract RETURN_FOR_PROOF。":
-    "Append valid or invalid from server records. Return-for-proof calls Contract RETURN_FOR_PROOF.",
+  "依据服务端记录追加有效或无效。退回补证仅展示流程，当前正式协议不会写入。":
+    "Append valid or invalid from server records. Return-for-proof is displayed only and is not written on the current official contract.",
   "查看 Backend 实时健康状态。统一运动模板与有限审核授权走 Contract；Backend 未实现时显示真实错误。":
     "View live Backend health. Unified sport templates and limited review grants use Contract; unimplemented Backend responses show the real error.",
   "查看 Backend 实时健康状态。模板发布、有限审核授权走 Contract，失败时显示真实错误。":
@@ -561,6 +557,10 @@ const englishText: Record<string, string> = {
     "Set sub-admin accounts and existing sidebar permissions. Limited review grants use Contract createLimitedReviewGrant.",
   "维护四套耐力跑换算表，并可通过 Contract 发布运动模板。已开课课程不会被回溯改门槛。":
     "Maintain the four endurance conversion tables and publish sport templates through Contract. Open courses are not changed retroactively.",
+  "维护四套耐力跑成绩换算规则。学时目标仅由任课教师在教学班内配置。":
+    "Maintain the four endurance conversion tables. Hour targets are configured only by the responsible teacher inside a class.",
+  "维护服务端总学时成绩规则草稿，并执行双管理员审批流程。":
+    "Maintain the server-side total-hour grade-rule draft and run the two-administrator approval flow.",
   "查看服务端教学班与时间窗。已发布课程门槛锁定；邀请按 Contract durationMinutes 生成。":
     "View server class sections and time windows. Published-course thresholds stay locked; invitations use Contract durationMinutes.",
   "查看真实课程成员。电子名单走现有导入；纸质 OCR 走 Contract，未确认草稿不会当成当前快照。":
@@ -1627,8 +1627,6 @@ const englishText: Record<string, string> = {
     "The authoritative requirement is 20 total valid exercise hours. Categories are display-only and teachers cannot create local override rules here.",
   "v8.0 总目标为 1,200 分钟，门槛与周频次由已发布模板锁定。当前接口仍按累计有效运动 20 小时 TOTAL_ONLY 裁决；本页不能改公式，也不能把目标改成 30/45/60 分钟门槛。":
     "v8.0 locks a 1,200-minute total and template thresholds. The current API still judges 20 valid hours TOTAL_ONLY; this page cannot change the formula or switch to 30/45/60-minute thresholds.",
-  "v8.0 按整分钟计入、单次最多 60 分钟。补录将调用 Contract `createMakeupExerciseRecord`。":
-    "v8.0 credits whole minutes with a 60-minute cap. Makeup calls Contract createMakeupExerciseRecord.",
   选择已发布模板: "Select a published template",
   当前接口没有已发布模板: "No published template in the current API",
   "当前接口没有模板锁定操作，不能写入。":
@@ -1654,8 +1652,8 @@ const englishText: Record<string, string> = {
   "邀请有效期（分钟）": "Invitation duration (minutes)",
   "5–120，默认 30。到期后仅允许一次 10 分钟宽限，不能刷新续期。":
     "5–120 minutes, default 30. After expiry there is one 10-minute grace window that cannot be refreshed.",
-  "新提交按 Contract 应为待 AI 初审，现网旧接口仍可能默认有效。退回补证会调用新审核协议；服务未就绪时显示错误，不在本地假装已退回。":
-    "New submissions should be pending AI review per Contract; the live old API may still default to valid. Return-for-proof uses the new review protocol; unimplemented services show the error and are not faked locally.",
+  "新提交按 Contract 应为待 AI 初审，现网旧接口仍可能默认有效。退回补证只展示流程设计，当前正式协议不会写入。":
+    "New submissions should be awaiting AI check under Contract; the live legacy API may still default to valid. Return-for-proof is display-only and is not written on the current official contract.",
   "演示模式不把退回补证写成正式结果。":
     "Demo mode does not write return-for-proof as a real result.",
   "请填写学生可见的退回原因（自由文本，暂无固定分类清单）。":
@@ -1679,10 +1677,22 @@ const englishText: Record<string, string> = {
   "不能代替固定分类，也不增加其他兜底项。":
     "This does not replace the fixed category and does not add an Other fallback.",
   "补充说明不能代替固定分类。": "A supplemental note cannot replace the fixed category.",
-  "通过与无效仍可走现有审核接口。退回补证和判无效必须选择 V8.1 六类固定公开原因，可再写一句公开补充说明；不再使用自由文本或其他兜底项。Backend 未实现时会显示真实错误，不在本地假装已退回。":
-    "Pass and invalid still use the current review API. Return-for-proof and mark-invalid must use a V8.1 fixed public reason, with an optional original-language public note. Free text and an Other fallback are not used. Unimplemented backends show the real error.",
-  "按 V8.1 展示通过 / 退回补证 / 无效。退回与判无效必须选择六类固定公开原因；通过与无效仍写入现有接口，退回补证调用 Contract RETURN_FOR_PROOF。":
-    "Show pass / return-for-proof / invalid per V8.1. Return and invalid require one of the six fixed public reasons. Pass and invalid still write the current API; return-for-proof calls Contract RETURN_FOR_PROOF.",
+  "通过与无效仍可走现有审核接口。退回补证和判无效必须选择 V8.1 六类固定公开原因，可再写一句公开补充说明；不再使用自由文本或其他兜底项。退回补证当前只核对流程，不会向服务器发送非正式写入。":
+    "Pass and invalid still use the current review API. Return-for-proof and mark-invalid must use a V8.1 fixed public reason, with an optional original-language public note. Free text and an Other fallback are not used. Return-for-proof currently only checks the flow and does not send an unofficial write.",
+  "按 V8.1 展示通过 / 退回补证 / 无效。退回与判无效必须选择六类固定公开原因；通过与无效仍写入现有接口。退回补证仅作流程设计，正式协议 1.2.0 不会发送写入。":
+    "Show pass / return-for-proof / invalid per V8.1. Return and invalid require one of the six fixed public reasons. Pass and invalid still write the current API. Return-for-proof is flow design only and is not written on Contract 1.2.0.",
+  "退回补证（展示设计）": "Return for proof (display design)",
+  "必须选择一项适用于退回补证的固定公开原因。可选一句公开补充说明保留原文。当前正式协议 1.2.0 不能写入该动作；核对完成后不会向服务器发送请求。":
+    "Choose one fixed public reason that applies to return-for-proof. An optional public note stays in the original language. Official Contract 1.2.0 cannot write this action, so confirming does not send a request.",
+  "核对原因（不写入）": "Check reason (no write)",
+  "当前正式协议 1.2.0 的审核结果只有有效 / 无效，不能写入退回补证。本对话框只用于核对原因和 24/72 小时窗口；下一步需独立 Contract CR，现在不会向服务器发送请求。":
+    "Official Contract 1.2.0 review results are only valid or invalid, so return-for-proof cannot be written. This dialog only checks the reason and 24/72-hour window. A separate Contract CR is required next; no request is sent now.",
+  "当前正式协议 1.2.0 没有教师补录接口。本对话框只用于流程设计，不会向服务器写入。":
+    "Official Contract 1.2.0 has no teacher makeup endpoint. This dialog is flow design only and does not write to the server.",
+  "按整分钟计入、单次最多 60 分钟。当前正式协议 1.2.0 没有教师补录写入接口，正式模式不会向服务器发送请求。":
+    "Credit whole minutes, capped at 60 per record. Official Contract 1.2.0 has no teacher makeup write, so production mode does not send a request.",
+  "已发布课程的门槛与周频次锁定。本轮不接入未发布的运动模板协议。":
+    "Published-course thresholds and weekly frequency stay locked. This change set does not connect unpublished sport-template protocol.",
   确认退回补证: "Confirm return for proof",
   补证窗口: "Proof window",
   "24 小时": "24 hours",

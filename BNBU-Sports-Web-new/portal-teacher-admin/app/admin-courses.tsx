@@ -269,7 +269,7 @@ export function AdminCourses({
       <section className="admin-surface admin-course-list-surface">
         <AdminSectionHeading
           title={locale === "zh" ? "课程列表" : "Courses"}
-          description={locale === "zh" ? "只读查看当前全部课程。现有接口继续用；不新开放无接口能力。" : "Read-only view of current courses. Existing APIs stay in use; capabilities without an API are not opened."}
+          description={locale === "zh" ? "先查看班级运行摘要，再按需展开学期、目标和成员明细。" : "Scan each class summary first, then expand semester, target, and membership details when needed."}
         />
         <div className="admin-audit-filters admin-course-filters">
           <AdminField locale={locale} label={locale === "zh" ? "搜索课程" : "Search courses"}>

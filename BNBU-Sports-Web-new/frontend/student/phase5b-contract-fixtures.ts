@@ -13,10 +13,10 @@ export type CreateCertificationApplicationWireRequest = Omit<
 };
 
 export const PHASE5B_STUDENT_CONTRACT = {
-  version: "1.3.0-contract",
+  version: "1.2.0-contract",
   status: "RC",
   publicBasePath: "/api/v1",
-  openapiSha256: "b6bdcad2196dfdd5bccf3c50dc02cf69f5bc431ca4b7d7147efc652004406093",
+  openapiSha256: "667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a",
 } as const;
 
 export const studentActor = {
@@ -74,12 +74,6 @@ export const studentCourse = {
     courseRelatedTargetMinutes: 720,
     otherTargetMinutes: 480,
     totalTargetMinutes: 1200,
-  },
-  creditPolicy: {
-    minCreditThresholdMinutes: 30,
-    maxCreditMinutes: 60,
-    weeklySessionFrequency: 3,
-    sportTemplateId: null,
   },
 } satisfies Schema<"StudentCourse">;
 
@@ -146,7 +140,6 @@ export const activeExerciseSession = {
   sessionId: "74000000-0000-4000-8000-000000000001",
   courseId: studentCourse.courseId,
   enrollmentId: activeStudentProgress.enrollmentId,
-  sportType: "RUNNING",
   status: "ACTIVE",
   startedAt: "2026-09-01T00:00:00Z",
   pausedAt: null,
@@ -154,13 +147,11 @@ export const activeExerciseSession = {
   businessDate: "2026-09-01",
   elapsedActiveSeconds: 1200,
   actualDurationSeconds: null,
-  creditedMinutesPreview: null,
   stateVersion: 3,
 } satisfies Schema<"ExerciseSession">;
 
 export const startExerciseSessionRequest = {
   courseId: studentCourse.courseId,
-  sportType: "RUNNING",
 } satisfies Schema<"StartExerciseSessionRequest">;
 
 export const idleSessionError = {
@@ -202,11 +193,7 @@ const invitationStatuses = ["ACTIVE", "EXPIRED", "REVOKED", "COURSE_CLOSED", "NO
 
 export const invitationPreviews = invitationStatuses.map((status) => ({
   course: invitationCourse,
-  durationMinutes: 30,
   expiresAt: "2026-09-30T15:59:59Z",
-  joinStartAllowed: status === "ACTIVE",
-  inGrace: false,
-  graceExpiresAt: null,
   status,
 })) satisfies readonly Schema<"CourseInvitationPreview">[];
 

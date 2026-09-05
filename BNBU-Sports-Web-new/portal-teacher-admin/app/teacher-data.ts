@@ -1,7 +1,6 @@
 import {
   ApiError,
   apiErrorText,
-  contractRequest,
   isUnsupported,
   request,
   requestWithMeta,
@@ -259,25 +258,6 @@ export async function createCourseInvite(
   );
 }
 
-export type CreatedCourseInvitation = {
-  invitation: {
-    invitationId: string;
-    durationMinutes: number;
-    expiresAt: string;
-  };
-  invitationCode: string;
-};
-
-export async function createContractCourseInvitation(
-  courseId: string,
-  body: { durationMinutes: number; expectedCourseVersion: number },
-): Promise<CreatedCourseInvitation> {
-  return contractRequest(
-    `/courses/${encodeURIComponent(courseId)}/invitations`,
-    { method: "POST", body },
-  );
-}
-
 export async function fetchExerciseRecords(
   classSectionId?: string,
 ): Promise<ExerciseRecord[]> {
@@ -334,143 +314,6 @@ export async function submitExerciseReview(
       ? { "Idempotency-Key": idempotencyKey }
       : undefined,
   });
-}
-
-export async function returnExerciseRecordForProof(
-  courseId: string,
-  recordId: string,
-  body: {
-    studentVisibleReason: string;
-    proofWindowHours: 24 | 72;
-    expectedVersion: number;
-  },
-): Promise<unknown> {
-  // Not Contract 1.2.0. Official appendExerciseRecordReview only accepts
-  // result VALID|INVALID plus studentVisibleReason. RETURN_FOR_PROOF and
-  // proofWindowHours are local/unofficial fields pending a Contract CR.
-  return contractRequest(
-    `/courses/${encodeURIComponent(courseId)}/exercise-records/${encodeURIComponent(recordId)}/reviews`,
-    {
-      method: "POST",
-      body: {
-        result: "RETURN_FOR_PROOF",
-        studentVisibleReason: body.studentVisibleReason,
-        proofWindowHours: body.proofWindowHours,
-        expectedVersion: body.expectedVersion,
-      },
-    },
-  );
-}
-
-export async function createMakeupExerciseRecord(
-  courseId: string,
-  body: {
-    enrollmentId: string;
-    category: "COURSE_RELATED" | "OTHER";
-    sportType: string;
-    description: string;
-    creditedMinutes: number;
-    expectedCourseVersion: number;
-  },
-): Promise<unknown> {
-  return contractRequest(
-    `/courses/${encodeURIComponent(courseId)}/makeup-records`,
-    { method: "POST", body },
-  );
-}
-
-export async function listPublishedSportTemplates(): Promise<{ items?: unknown[] }> {
-  return contractRequest("/sport-templates");
-}
-
-export async function getContractCourse(courseId: string): Promise<{ version?: number }> {
-  return contractRequest(`/courses/${encodeURIComponent(courseId)}`);
-}
-
-type UploadAllocation = {
-  allocationId: string;
-  uploadUrl: string;
-  uploadMethod: "PUT" | "POST";
-  requiredHeaders: Record<string, string>;
-};
-
-export type RosterOcrDraft = {
-  draftId: string;
-  status: "DRAFT" | "CONFIRMED";
-  version: number;
-  rowCount: number;
-  sourceDisplayName: string;
-};
-
-async function sha256Hex(buffer: ArrayBuffer): Promise<string> {
-  const digest = await crypto.subtle.digest("SHA-256", buffer);
-  return [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, "0")).join("");
-}
-
-async function putAllocatedUpload(allocation: UploadAllocation, body: Blob): Promise<void> {
-  const response = await fetch(allocation.uploadUrl, {
-    method: allocation.uploadMethod,
-    headers: allocation.requiredHeaders,
-    body,
-  });
-  if (!response.ok) {
-    throw new Error(`OCR_UPLOAD_FAILED:${response.status}`);
-  }
-}
-
-export async function allocateRosterOcr(
-  courseId: string,
-  body: { fileName: string; contentType: "image/jpeg" | "image/png"; byteSize: number },
-): Promise<UploadAllocation> {
-  return contractRequest(
-    `/courses/${encodeURIComponent(courseId)}/roster-ocr/allocation`,
-    { method: "POST", body },
-  );
-}
-
-export async function importRosterOcrDraft(
-  courseId: string,
-  body: { allocationId: string; clientChecksumSha256: string; expectedCourseVersion: number },
-): Promise<RosterOcrDraft> {
-  return contractRequest(
-    `/courses/${encodeURIComponent(courseId)}/roster-ocr/drafts`,
-    { method: "POST", body },
-  );
-}
-
-export async function confirmRosterOcrDraft(
-  courseId: string,
-  draftId: string,
-  body: { expectedVersion: number; expectedCourseVersion: number },
-): Promise<unknown> {
-  return contractRequest(
-    `/courses/${encodeURIComponent(courseId)}/roster-ocr/drafts/${encodeURIComponent(draftId)}/confirmation`,
-    { method: "POST", body },
-  );
-}
-
-export async function importPaperRosterOcrDraft(
-  courseId: string,
-  file: File,
-  contentType: "image/jpeg" | "image/png",
-): Promise<RosterOcrDraft & { expectedCourseVersion: number }> {
-  const buffer = await file.arrayBuffer();
-  const course = await getContractCourse(courseId);
-  if (typeof course.version !== "number") {
-    throw new Error("COURSE_VERSION_MISSING");
-  }
-  const allocation = await allocateRosterOcr(courseId, {
-    fileName: file.name,
-    contentType,
-    byteSize: file.size,
-  });
-  await putAllocatedUpload(allocation, new Blob([buffer], { type: contentType }));
-  const draft = await importRosterOcrDraft(courseId, {
-    allocationId: allocation.allocationId,
-    clientChecksumSha256: await sha256Hex(buffer),
-    expectedCourseVersion: course.version,
-  });
-  return { ...draft, expectedCourseVersion: course.version };
 }
 
 export async function fetchLatestExerciseReview(

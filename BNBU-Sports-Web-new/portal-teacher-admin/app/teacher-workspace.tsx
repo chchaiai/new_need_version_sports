@@ -77,8 +77,7 @@ import type {
 } from "./roster-reconciliation-types";
 import {
   createInvalidToValidReviewOperation,
-  createContractCourseInvitation,
-  createMakeupExerciseRecord,
+  createCourseInvite,
   loadSubmittedCheckins,
   fetchExerciseRecord,
   loadTeacherCourses,
@@ -93,7 +92,6 @@ import {
   ReviewTransitionConsistencyError,
   reviewExemptionApplication,
   submitExerciseReviewWithRetry,
-  returnExerciseRecordForProof,
   subscribeDemoCurrentSemester,
   transitionInvalidExerciseReviewToValid,
   tryAcquireReviewTransitionLock,
@@ -833,7 +831,7 @@ function AuditStatusSelector({
         </button>
       </div>
       <p className="record-audit-hint">
-        通过与无效仍可走现有审核接口。退回补证和判无效必须选择 V8.1 六类固定公开原因，可再写一句公开补充说明；不再使用自由文本或其他兜底项。Backend 未实现时会显示真实错误，不在本地假装已退回。
+        通过与无效仍可走现有审核接口。退回补证和判无效必须选择 V8.1 六类固定公开原因，可再写一句公开补充说明；不再使用自由文本或其他兜底项。退回补证当前只核对流程，不会向服务器发送非正式写入。
       </p>
       {record.auditStatus === "invalid" && (
         <>
@@ -1949,43 +1947,25 @@ export function TeacherWorkspace({
   };
 
   const openReturnForProof = (record: CheckinRecord) => {
-    if (mode === "demo") {
-      showToast("演示模式不把退回补证写成正式结果。");
-      return;
-    }
     openDialog(
       { type: "checkin-return-proof", recordId: record.id },
       { proofWindowHours: "24", publicReasonId: "", publicSupplementalNote: "" },
     );
   };
 
-  const confirmReturnForProof = async (recordId: string) => {
+  const confirmReturnForProof = (recordId: string) => {
     const selectedReason = publicReasonById(form.publicReasonId);
-    const publicNote = form.publicSupplementalNote?.trim() || "";
-    const windowHours = form.proofWindowHours === "72" ? 72 : 24;
     if (!selectedReason || !selectedReason.actions.includes(TEACHER_REVIEW_ACTIONS.ReturnForSupplement)) {
       setFormError("请选择一项适用于退回补证的固定公开原因。");
       return;
     }
-    const reason = publicNote ? `${selectedReason.zh}\n${publicNote}` : selectedReason.zh;
-    const record = records.find((item) => item.id === recordId);
-    if (!record) {
+    if (!records.some((item) => item.id === recordId)) {
       setFormError("找不到该打卡记录。");
       return;
     }
-    try {
-      const fresh = await fetchExerciseRecord(recordId);
-      await returnExerciseRecordForProof(record.courseId, recordId, {
-        studentVisibleReason: reason,
-        proofWindowHours: windowHours,
-        expectedVersion: fresh.version,
-      });
-      await refreshTeacherData();
-      closeDialog();
-      showToast("已提交退回补证。服务端确认前不会在本地假装已退回。");
-    } catch (error) {
-      showToast(userErrorToast(toUserFacingError(error)));
-    }
+    setFormError(
+      "当前正式协议 1.2.0 的审核结果只有有效 / 无效，不能写入退回补证。本对话框只用于核对原因和 24/72 小时窗口；下一步需独立 Contract CR，现在不会向服务器发送请求。",
+    );
   };
 
   const confirmCorrectAttendanceToValid = async (recordId: string) => {
@@ -2325,33 +2305,26 @@ export function TeacherWorkspace({
       showToast(`Mock 邀请码 ${code} 已生成（${durationMinutes} 分钟）。`);
       return true;
     }
-    const target = courses.find((course) => course.id === courseId);
-    if (typeof target?.version !== "number") {
-      showToast("缺少课程版本，无法按 Contract 生成邀请。");
-      return false;
-    }
     try {
-      const created = await createContractCourseInvitation(courseId, {
-        durationMinutes,
-        expectedCourseVersion: target.version,
-      });
+      const expiresAt = new Date(Date.now() + durationMinutes * 60 * 1000).toISOString();
+      const invite = await createCourseInvite(courseId, expiresAt);
       setCourses((current) =>
         current.map((course) =>
           course.id === courseId
             ? {
                 ...course,
                 invite: {
-                  code: created.invitationCode,
-                  expiresAt: created.invitation.expiresAt,
+                  code: invite.inviteToken,
+                  expiresAt: invite.expiresAt,
                   status: "active",
-                  durationMinutes: created.invitation.durationMinutes,
+                  durationMinutes,
                 },
               }
             : course,
         ),
       );
       setInviteQr(null);
-      showToast(`已生成新的课程邀请（${created.invitation.durationMinutes} 分钟）；服务端返回的到期时间为 ${created.invitation.expiresAt}。`);
+      showToast(`已生成新的课程邀请（${durationMinutes} 分钟）；服务端返回的到期时间为 ${invite.expiresAt}。`);
       return true;
     } catch (error) {
       showToast(userErrorToast(toUserFacingError(error)));
@@ -2550,26 +2523,9 @@ export function TeacherWorkspace({
         return;
       }
       if (mode !== "demo") {
-        const course = courses.find((item) => item.id === student.courseId);
-        if (!student.enrollmentId || typeof course?.version !== "number") {
-          setFormError("缺少成员关系或课程版本，无法补录。");
-          return;
-        }
-        try {
-          await createMakeupExerciseRecord(student.courseId, {
-            enrollmentId: student.enrollmentId,
-            category: form.creditType === "课程相关" ? "COURSE_RELATED" : "OTHER",
-            sportType,
-            description: reason,
-            creditedMinutes: minutes,
-            expectedCourseVersion: course.version,
-          });
-          await refreshTeacherData();
-          showToast("已提交教师补录。服务端确认前不会在本地假装已计入。");
-          closeDialog();
-        } catch (error) {
-          setFormError(toUserFacingError(error));
-        }
+        setFormError(
+          "当前正式协议 1.2.0 没有教师补录接口。本对话框只用于流程设计，不会向服务器写入。",
+        );
         return;
       }
       const nextRecord: CheckinRecord = {
@@ -3504,7 +3460,7 @@ export function TeacherWorkspace({
             <div className="compact-guidance">
               <span aria-hidden="true">i</span>
               <p>
-                新提交按 Contract 应为待 AI 初审，现网旧接口仍可能默认有效。退回补证会调用新审核协议；服务未就绪时显示错误，不在本地假装已退回。
+                新提交按 Contract 应为待 AI 初审，现网旧接口仍可能默认有效。退回补证只展示流程设计，当前正式协议不会写入。
               </p>
             </div>
           }
@@ -4731,7 +4687,7 @@ export function TeacherWorkspace({
                 <select id="course-published-template" disabled aria-describedby="course-published-template-help">
                   <option>发布后参数锁定，不能改模板</option>
                 </select>
-                <p id="course-published-template-help">已发布课程的门槛与周频次锁定。创建课程前请在管理端发布模板并用 createCourse.sportTemplateId。</p>
+                <p id="course-published-template-help">已发布课程的门槛与周频次锁定。本轮不接入未发布的运动模板协议。</p>
               </div>
               <div className="course-target-setting">
                 <label htmlFor="course-v8-total-minutes">v8.0 总目标</label>
@@ -5235,7 +5191,7 @@ export function TeacherWorkspace({
                       }
                     />
                     <p className="record-audit-hint">
-                      v8.0 按整分钟计入、单次最多 60 分钟。补录将调用 Contract `createMakeupExerciseRecord`。
+                      按整分钟计入、单次最多 60 分钟。当前正式协议 1.2.0 没有教师补录写入接口，正式模式不会向服务器发送请求。
                     </p>
                     <Field label="整分钟计入" required>
                       <input
@@ -5335,9 +5291,9 @@ export function TeacherWorkspace({
       {dialog?.type === "checkin-return-proof" && selectedReturnRecord && (
         <Dialog
           className="checkin-invalid-dialog"
-          eyebrow="Contract 退回补证"
+          eyebrow="退回补证（展示设计）"
           title={`将“${selectedReturnRecord.sport}”退回一次补证`}
-          description="必须选择一项适用于退回补证的固定公开原因。可选一句公开补充说明保留原文。窗口从服务器确认退回时起算。BD-20260904-01 已关闭原待定分类。"
+          description="必须选择一项适用于退回补证的固定公开原因。可选一句公开补充说明保留原文。当前正式协议 1.2.0 不能写入该动作；核对完成后不会向服务器发送请求。"
           close={closeDialog}
           footer={
             <>
@@ -5345,9 +5301,9 @@ export function TeacherWorkspace({
               <button
                 className="primary-button"
                 type="button"
-                onClick={() => void confirmReturnForProof(selectedReturnRecord.id)}
+                onClick={() => confirmReturnForProof(selectedReturnRecord.id)}
               >
-                确认退回补证
+                核对原因（不写入）
               </button>
             </>
           }

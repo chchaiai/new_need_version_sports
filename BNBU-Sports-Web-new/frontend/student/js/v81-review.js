@@ -156,7 +156,7 @@ export function resolvePublicReasonModel(record = {}) {
 }
 
 const FORBIDDEN_ZH = /成绩|得分|分数|换算分|等级|排名|名次|绩点|及格|不及格|优秀|良好/;
-const FORBIDDEN_EN = /\b(final\s+(?:grade|score)|converted\s+(?:endurance\s+)?score|endurance\s+(?:converted\s+)?score|grade\s+point\s+average|gpa|(?:class|course|overall)\s+rank(?:ing)?)\b/i;
+const FORBIDDEN_EN = /\b(?:score|grade|rank(?:ing)?|gpa)\b|\b(?:\d+(?:\.\d+)?\s*points?|points?\s*[:=]?\s*\d+(?:\.\d+)?)\b/i;
 const MAINTENANCE_TERMS = /维护|服务恢复|系统模式|maintenance|service restoration/i;
 const FEEDBACK_TERMS = /反馈|工单|feedback|support ticket/i;
 const DEADLINE_TERMS = /截止|到期|剩余时间|deadline|expires?|time remaining/i;
@@ -164,39 +164,50 @@ const REVIEW_TERMS = /审核|材料|补充|补证|复核|有效|无效|免测|�
 const MEMBERSHIP_TERMS = /入班|退班|课程成员|邀请|enrol|enroll|membership|invitation/i;
 const PROGRESS_TERMS = /分钟|运动进度|原始用时|minutes?|activity progress|raw time/i;
 
-function containsAny(value, ...needles) {
-  return needles.some((needle) => value.includes(needle));
-}
+const TARGET_KIND = Object.freeze({
+  maintenance: "maintenance",
+  system_mode: "maintenance",
+  feedback: "feedback",
+  membership: "membership",
+  enrollment: "membership",
+  course_invite: "membership",
+  invitation: "membership",
+  course: "membership",
+  exercise_record: "review",
+  exercise: "review",
+  record: "review",
+  supplement: "review",
+  exemption: "review",
+  certification: "review",
+  application: "review",
+  endurance: "progress",
+  final_grade: "blocked",
+});
+
+const EXEMPTION_TARGETS = new Set(["exemption", "physical_test_exemption", "checkin_exemption", "certification", "application"]);
 
 export function classifyStudentNotice(notice = {}) {
   const title = String(notice.title || "").trim();
-  const message = String(notice.message || "").trim();
+  const message = String(notice.message || notice.body || "").trim();
   if (!title || !message) return null;
   const searchable = `${title}\n${message}`;
-  const target = String(notice.targetType || "").trim().toLowerCase();
-  const category = String(notice.category || "").trim().toLowerCase();
-  const kind = (() => {
-    if (containsAny(target, "maintenance", "system_mode")) return "maintenance";
-    if (target.includes("feedback")) return "feedback";
-    if (containsAny(target, "membership", "enrollment", "course_invite", "invitation")) return "membership";
-    if (containsAny(target, "exercise", "record", "supplement", "exemption", "certification", "application")) {
-      return "review";
-    }
-    if (category === "deadline") return "deadline";
-    if (category === "review") return "review";
-    if (category === "organization") return "membership";
-    if (MAINTENANCE_TERMS.test(searchable)) return "maintenance";
-    if (FEEDBACK_TERMS.test(searchable)) return "feedback";
-    if (DEADLINE_TERMS.test(searchable)) return "deadline";
-    if (REVIEW_TERMS.test(searchable)) return "review";
-    if (MEMBERSHIP_TERMS.test(searchable)) return "membership";
-    if (PROGRESS_TERMS.test(searchable)) return "progress";
-    return null;
-  })();
-  if (!kind) return null;
+  const target = String(notice.targetType || notice.targetRoute || "").trim().toLowerCase();
+  const category = String(notice.category || notice.notificationType || "").trim().toLowerCase();
+  if (target === "final_grade" || category === "final_grade") return null;
+  const kind = TARGET_KIND[target]
+    || (category === "deadline" ? "deadline" : "")
+    || (category === "review" ? "review" : "")
+    || (category === "organization" ? "membership" : "")
+    || (MAINTENANCE_TERMS.test(searchable) ? "maintenance" : "")
+    || (FEEDBACK_TERMS.test(searchable) ? "feedback" : "")
+    || (DEADLINE_TERMS.test(searchable) ? "deadline" : "")
+    || (REVIEW_TERMS.test(searchable) ? "review" : "")
+    || (MEMBERSHIP_TERMS.test(searchable) ? "membership" : "")
+    || (PROGRESS_TERMS.test(searchable) ? "progress" : "");
+  if (!kind || kind === "blocked") return null;
   if (FORBIDDEN_ZH.test(searchable) || FORBIDDEN_EN.test(searchable)) return null;
   const exemptionTerms = /免测|认证|exemption|certification/i;
-  const opensExemption = ["exemption", "physical_test_exemption", "checkin_exemption", "certification", "application"].includes(target)
+  const opensExemption = EXEMPTION_TARGETS.has(target)
     && (target !== "application" || exemptionTerms.test(searchable));
   return { ...notice, kind, opensExemption };
 }

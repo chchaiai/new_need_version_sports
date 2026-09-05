@@ -23,7 +23,6 @@ import {
 import { cloneInitialAdminState } from "./admin-mock-data";
 import {
   apiErrorText,
-  contractRequest,
   request,
   requestWithMeta,
 } from "./api-client";
@@ -960,50 +959,4 @@ export async function listHelpArticleProjections(locale: "zh-CN" | "en") {
     `/help-articles?locale=${encodeURIComponent(locale)}`,
   );
   return response.data;
-}
-
-export function publishSportTemplate(body: {
-  name: string;
-  minCreditThresholdMinutes: 30 | 45 | 60;
-  weeklySessionFrequency: 2 | 3 | 4;
-  courseRelatedTargetMinutes: number;
-  otherTargetMinutes: number;
-}) {
-  return contractRequest("/admin/sport-templates", { method: "POST", body });
-}
-
-export function createLimitedReviewGrant(body: {
-  courseId: string;
-  granteeTeacherId: string;
-  recordIds: string[];
-  note: string | null;
-}) {
-  return contractRequest("/admin/limited-review-grants", { method: "POST", body });
-}
-
-export function listLimitedReviewGrants() {
-  return contractRequest("/admin/limited-review-grants");
-}
-
-export function revokeLimitedReviewGrant(
-  grantId: string,
-  body: { expectedVersion: number },
-) {
-  return contractRequest(
-    `/admin/limited-review-grants/${encodeURIComponent(grantId)}/revocation`,
-    { method: "POST", body },
-  );
-}
-
-export function getAiOcrServiceStatus() {
-  return contractRequest("/admin/ai-ocr-service");
-}
-
-export function updateAiOcrServiceConfig(body: {
-  aiEnabled: boolean;
-  ocrEnabled: boolean;
-  note: string | null;
-  expectedVersion: number;
-}) {
-  return contractRequest("/admin/ai-ocr-service", { method: "PUT", body });
 }

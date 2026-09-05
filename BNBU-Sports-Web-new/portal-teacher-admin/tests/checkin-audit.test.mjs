@@ -233,11 +233,12 @@ test("teacher workspace exposes invalid records and direct correction wording", 
   assert.match(workspace, /label: "无效记录"/);
   assert.match(workspace, /新提交按 Contract 应为待 AI 初审/);
   assert.match(workspace, /退回补证/);
-  assert.match(workspace, /returnExerciseRecordForProof/);
-  assert.match(workspace, /createMakeupExerciseRecord/);
-  assert.match(workspace, /createContractCourseInvitation/);
-  assert.doesNotMatch(workspace, /当前接口没有退回补证结果，不能写入。/);
-  assert.match(workspace, /手动标记为无效|退回补证会调用新审核协议/);
+  assert.match(workspace, /当前正式协议 1\.2\.0 的审核结果只有有效 \/ 无效，不能写入退回补证/);
+  assert.doesNotMatch(workspace, /returnExerciseRecordForProof/);
+  assert.doesNotMatch(workspace, /createMakeupExerciseRecord/);
+  assert.doesNotMatch(workspace, /createContractCourseInvitation/);
+  assert.doesNotMatch(workspace, /RETURN_FOR_PROOF/);
+  assert.match(workspace, /核对原因（不写入）/);
   assert.match(workspace, /当前筛选没有无效记录/);
   assert.match(workspace, /纠正说明/);
   assert.match(workspace, /确认纠正为有效/);

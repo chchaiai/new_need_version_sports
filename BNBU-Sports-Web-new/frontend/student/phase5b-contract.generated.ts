@@ -4,30 +4,6 @@
  */
 
 export interface paths {
-    readonly "/admin/ai-ocr-service": {
-        readonly parameters: {
-            readonly query?: never;
-            readonly header?: never;
-            readonly path?: never;
-            readonly cookie?: never;
-        };
-        /**
-         * Get AI/OCR service status
-         * @description SUPER-only availability and backlog. Raw media for judgement is never returned.
-         */
-        readonly get: operations["getAiOcrServiceStatus"];
-        /**
-         * Update AI/OCR service configuration
-         * @description SUPER-only enable/disable of AI first-pass and OCR services. It does not judge student media.
-         */
-        readonly put: operations["updateAiOcrServiceConfig"];
-        readonly post?: never;
-        readonly delete?: never;
-        readonly options?: never;
-        readonly head?: never;
-        readonly patch?: never;
-        readonly trace?: never;
-    };
     readonly "/admin/audit-archive-jobs": {
         readonly parameters: {
             readonly query?: never;
@@ -370,70 +346,6 @@ export interface paths {
          * @description Allows only DRAFT to PUBLISHED, PUBLISHED to ARCHIVED, and ARCHIVED to PUBLISHED. It never deletes, schedules, rolls back, or adds an approval state.
          */
         readonly post: operations["transitionHelpArticleState"];
-        readonly delete?: never;
-        readonly options?: never;
-        readonly head?: never;
-        readonly patch?: never;
-        readonly trace?: never;
-    };
-    readonly "/admin/limited-review-grants": {
-        readonly parameters: {
-            readonly query?: never;
-            readonly header?: never;
-            readonly path?: never;
-            readonly cookie?: never;
-        };
-        /**
-         * List limited review grants
-         * @description SUPER-only list of active and revoked limited-review grants. Grants never transfer course ownership.
-         */
-        readonly get: operations["listLimitedReviewGrants"];
-        readonly put?: never;
-        /**
-         * Grant limited review of explicit records
-         * @description Assigns an in-service teacher to named record to-dos without transferring responsible-teacher or grade-edit rights.
-         */
-        readonly post: operations["createLimitedReviewGrant"];
-        readonly delete?: never;
-        readonly options?: never;
-        readonly head?: never;
-        readonly patch?: never;
-        readonly trace?: never;
-    };
-    readonly "/admin/limited-review-grants/{grantId}/revocation": {
-        readonly parameters: {
-            readonly query?: never;
-            readonly header?: never;
-            readonly path?: never;
-            readonly cookie?: never;
-        };
-        readonly get?: never;
-        readonly put?: never;
-        /**
-         * Revoke a limited review grant
-         * @description Stops further limited-review decisions. Historical reviews remain.
-         */
-        readonly post: operations["revokeLimitedReviewGrant"];
-        readonly delete?: never;
-        readonly options?: never;
-        readonly head?: never;
-        readonly patch?: never;
-        readonly trace?: never;
-    };
-    readonly "/admin/sport-templates": {
-        readonly parameters: {
-            readonly query?: never;
-            readonly header?: never;
-            readonly path?: never;
-            readonly cookie?: never;
-        };
-        readonly get?: never;
-        readonly put?: never;
-        /**
-         * Publish a confirmed sport template
-         * @description SUPER-only publication of an allowed 30/45/60 threshold and 2/3/4 weekly frequency template. Already published courses are not retroactively changed.
-         */
-        readonly post: operations["publishSportTemplate"];
         readonly delete?: never;
         readonly options?: never;
         readonly head?: never;
@@ -1076,66 +988,6 @@ export interface paths {
         readonly patch?: never;
         readonly trace?: never;
     };
-    readonly "/courses/{courseId}/endurance-ocr/allocation": {
-        readonly parameters: {
-            readonly query?: never;
-            readonly header?: never;
-            readonly path?: never;
-            readonly cookie?: never;
-        };
-        readonly get?: never;
-        readonly put?: never;
-        /**
-         * Allocate an endurance OCR upload
-         * @description Allocates a short-lived JPEG/PNG upload for 800/1000m paper results. The draft is not student-visible.
-         */
-        readonly post: operations["allocateEnduranceOcr"];
-        readonly delete?: never;
-        readonly options?: never;
-        readonly head?: never;
-        readonly patch?: never;
-        readonly trace?: never;
-    };
-    readonly "/courses/{courseId}/endurance-ocr/drafts": {
-        readonly parameters: {
-            readonly query?: never;
-            readonly header?: never;
-            readonly path?: never;
-            readonly cookie?: never;
-        };
-        readonly get?: never;
-        readonly put?: never;
-        /**
-         * Import an endurance OCR draft
-         * @description Creates a teacher-only endurance OCR draft. Unconfirmed rows are not measurements.
-         */
-        readonly post: operations["importEnduranceOcrDraft"];
-        readonly delete?: never;
-        readonly options?: never;
-        readonly head?: never;
-        readonly patch?: never;
-        readonly trace?: never;
-    };
-    readonly "/courses/{courseId}/endurance-ocr/drafts/{draftId}/confirmation": {
-        readonly parameters: {
-            readonly query?: never;
-            readonly header?: never;
-            readonly path?: never;
-            readonly cookie?: never;
-        };
-        readonly get?: never;
-        readonly put?: never;
-        /**
-         * Confirm an endurance OCR draft
-         * @description Confirms selected draft rows into endurance measurements. Ambiguous times are not auto-guessed.
-         */
-        readonly post: operations["confirmEnduranceOcrDraft"];
-        readonly delete?: never;
-        readonly options?: never;
-        readonly head?: never;
-        readonly patch?: never;
-        readonly trace?: never;
-    };
     readonly "/courses/{courseId}/exercise-records": {
         readonly parameters: {
             readonly query?: never;
@@ -1187,7 +1039,7 @@ export interface paths {
         readonly put?: never;
         /**
          * Append a teacher review result
-         * @description Appends a student-visible VALID, RETURN_FOR_PROOF, or INVALID decision that must change the current result. RETURN_FOR_PROOF is allowed once and starts a 24- or 72-hour proof window from the server confirmation instant. Reason text is free-form; there is no public category enum. It never changes credited minutes or media facts. Limited-review grantees may call this only for records listed on an active grant.
+         * @description Appends a student-visible VALID or INVALID decision that must change the current result. It never changes the Record, media, actual duration, credited minutes, or daily submission slot.
          */
         readonly post: operations["appendExerciseRecordReview"];
         readonly delete?: never;
@@ -1254,26 +1106,6 @@ export interface paths {
          * @description Revokes the invitation without deleting invitation or enrollment history.
          */
         readonly post: operations["revokeCourseInvitation"];
-        readonly delete?: never;
-        readonly options?: never;
-        readonly head?: never;
-        readonly patch?: never;
-        readonly trace?: never;
-    };
-    readonly "/courses/{courseId}/makeup-records": {
-        readonly parameters: {
-            readonly query?: never;
-            readonly header?: never;
-            readonly path?: never;
-            readonly cookie?: never;
-        };
-        readonly get?: never;
-        readonly put?: never;
-        /**
-         * Create a teacher makeup exercise record
-         * @description Creates a VALID record with teacher-entered 1-60 credited whole minutes. It does not use the obsolete 0/60/120 ladder.
-         */
-        readonly post: operations["createMakeupExerciseRecord"];
         readonly delete?: never;
         readonly options?: never;
         readonly head?: never;
@@ -1504,66 +1336,6 @@ export interface paths {
         readonly patch?: never;
         readonly trace?: never;
     };
-    readonly "/courses/{courseId}/roster-ocr/allocation": {
-        readonly parameters: {
-            readonly query?: never;
-            readonly header?: never;
-            readonly path?: never;
-            readonly cookie?: never;
-        };
-        readonly get?: never;
-        readonly put?: never;
-        /**
-         * Allocate a paper-roster OCR upload
-         * @description Allocates a short-lived JPEG/PNG upload for paper roster OCR. The result is not a current snapshot.
-         */
-        readonly post: operations["allocateRosterOcr"];
-        readonly delete?: never;
-        readonly options?: never;
-        readonly head?: never;
-        readonly patch?: never;
-        readonly trace?: never;
-    };
-    readonly "/courses/{courseId}/roster-ocr/drafts": {
-        readonly parameters: {
-            readonly query?: never;
-            readonly header?: never;
-            readonly path?: never;
-            readonly cookie?: never;
-        };
-        readonly get?: never;
-        readonly put?: never;
-        /**
-         * Import a paper-roster OCR draft
-         * @description Parses the uploaded image into a DRAFT. Teachers must confirm before it becomes the current snapshot.
-         */
-        readonly post: operations["importRosterOcrDraft"];
-        readonly delete?: never;
-        readonly options?: never;
-        readonly head?: never;
-        readonly patch?: never;
-        readonly trace?: never;
-    };
-    readonly "/courses/{courseId}/roster-ocr/drafts/{draftId}/confirmation": {
-        readonly parameters: {
-            readonly query?: never;
-            readonly header?: never;
-            readonly path?: never;
-            readonly cookie?: never;
-        };
-        readonly get?: never;
-        readonly put?: never;
-        /**
-         * Confirm a paper-roster OCR draft
-         * @description Turns a DRAFT into the current roster snapshot. Partial review must not be reported as full-batch success.
-         */
-        readonly post: operations["confirmRosterOcrDraft"];
-        readonly delete?: never;
-        readonly options?: never;
-        readonly head?: never;
-        readonly patch?: never;
-        readonly trace?: never;
-    };
     readonly "/courses/{courseId}/roster-snapshots": {
         readonly parameters: {
             readonly query?: never;
@@ -1675,7 +1447,7 @@ export interface paths {
         readonly put?: never;
         /**
          * Start an exercise session
-         * @description Uses the server instant to open the first ACTIVE interval, store sportType, and fix the Asia/Shanghai business date after checking enrollment, current semester, check-in window, target, and single-session constraints. Clients never submit duration or credited minutes.
+         * @description Uses the server instant to open the first ACTIVE interval and fix the Asia/Shanghai business date after checking enrollment, current semester, check-in window, target, and single-session constraints.
          */
         readonly post: operations["startExerciseSession"];
         readonly delete?: never;
@@ -1755,7 +1527,7 @@ export interface paths {
         readonly put?: never;
         /**
          * Submit a formal exercise record
-         * @description Atomically creates the immutable Record, binds verified evidence, derives actual duration, business date, and 0-60 credited whole minutes from the completed Session, and creates the initial SYSTEM PENDING_AI review. Swimming must be accepted within 15 minutes of the server completedAt. This is not a VALID credit yet.
+         * @description Atomically creates the immutable Record, binds verified evidence, derives actual duration/business date/0-60-120 credited minutes from the completed Session, and creates the initial SYSTEM VALID review. No draft, pending-review, resubmission, or attempt state is created.
          */
         readonly post: operations["submitExerciseRecord"];
         readonly delete?: never;
@@ -2128,26 +1900,6 @@ export interface paths {
         readonly patch?: never;
         readonly trace?: never;
     };
-    readonly "/sport-templates": {
-        readonly parameters: {
-            readonly query?: never;
-            readonly header?: never;
-            readonly path?: never;
-            readonly cookie?: never;
-        };
-        /**
-         * List published sport templates
-         * @description Returns currently published templates that teachers may select before course publish. Later template edits do not change already published courses.
-         */
-        readonly get: operations["listPublishedSportTemplates"];
-        readonly put?: never;
-        readonly post?: never;
-        readonly delete?: never;
-        readonly options?: never;
-        readonly head?: never;
-        readonly patch?: never;
-        readonly trace?: never;
-    };
     readonly "/student/applications": {
         readonly parameters: {
             readonly query?: never;
@@ -2312,26 +2064,6 @@ export interface paths {
         readonly patch?: never;
         readonly trace?: never;
     };
-    readonly "/student/exercise-records/{recordId}/proof": {
-        readonly parameters: {
-            readonly query?: never;
-            readonly header?: never;
-            readonly path?: never;
-            readonly cookie?: never;
-        };
-        readonly get?: never;
-        readonly put?: never;
-        /**
-         * Submit the one-time proof package
-         * @description Accepts the second media version for a RETURN_FOR_PROOF record inside the server proof window and returns the record to AWAITING_TEACHER. It does not create a new session or a second return.
-         */
-        readonly post: operations["submitExerciseProof"];
-        readonly delete?: never;
-        readonly options?: never;
-        readonly head?: never;
-        readonly patch?: never;
-        readonly trace?: never;
-    };
     readonly "/student/exercise-sessions/active": {
         readonly parameters: {
             readonly query?: never;
@@ -2425,29 +2157,9 @@ export interface paths {
         };
         /**
          * Get the student's current course progress
-         * @description Separately reports VALID-record minutes and active-certification minutes, then category caps, total raw ratio, rounded display percent, and eligibility. Endurance and final grade are not included in the 1,200-minute calculation.
+         * @description Separately reports VALID-record minutes and active-certification minutes, then category caps, total raw ratio, rounded display percent, and eligibility. Endurance and final grade are not included in the 20-hour calculation.
          */
         readonly get: operations["getOwnCourseProgress"];
-        readonly put?: never;
-        readonly post?: never;
-        readonly delete?: never;
-        readonly options?: never;
-        readonly head?: never;
-        readonly patch?: never;
-        readonly trace?: never;
-    };
-    readonly "/student/proof-todos": {
-        readonly parameters: {
-            readonly query?: never;
-            readonly header?: never;
-            readonly path?: never;
-            readonly cookie?: never;
-        };
-        /**
-         * List the student's open proof to-dos
-         * @description Returns currently open one-time proof windows with server remainingSeconds. Expired records are not listed. Clients must not invent to-do rows or countdown from local clocks.
-         */
-        readonly get: operations["listOwnProofTodos"];
         readonly put?: never;
         readonly post?: never;
         readonly delete?: never;
@@ -2491,7 +2203,7 @@ export interface paths {
         readonly put?: never;
         /**
          * Create a teacher-owned course
-         * @description Creates a course in the unique current semester with its first 1200-minute target revision and locked credit policy.
+         * @description Creates a course in the unique current semester together with its first 1200-minute target revision.
          */
         readonly post: operations["createCourse"];
         readonly delete?: never;
@@ -2658,36 +2370,16 @@ export interface components {
         readonly AdminKind: "SUPER" | "SUB";
         /** @enum {string} */
         readonly AdminPermission: "COURSE_VIEW" | "SEMESTER" | "USERS_ACCOUNTS" | "FEEDBACK" | "GLOBAL_RULES" | "SYSTEM_MODE" | "HELP_CENTER" | "AUDIT_QUERY";
-        /** @description Service availability and backlog only. Administrators never receive raw media for judgement. */
-        readonly AiOcrServiceStatus: {
-            readonly aiEnabled: boolean;
-            /** Format: int32 */
-            readonly backlogCount: number;
-            readonly note: string | null;
-            readonly ocrEnabled: boolean;
-            /**
-             * Format: date-time
-             * @description RFC 3339 UTC instant. Servers emit an explicit Z offset; clients localize only for display.
-             */
-            readonly updatedAt: string;
-            /**
-             * Format: int64
-             * @description Optimistic-concurrency version.
-             */
-            readonly version: number;
-        };
         readonly AppendRecordReviewRequest: {
             /**
              * Format: int64
              * @description Optimistic-concurrency version.
              */
             readonly expectedVersion: number;
-            readonly proofWindowHours: (24 | 72) | null;
             /** @enum {string} */
-            readonly result: "VALID" | "INVALID" | "RETURN_FOR_PROOF";
-            /** @description Student-visible free text. No closed public category list is defined. */
+            readonly result: "VALID" | "INVALID";
             readonly studentVisibleReason: string;
-        } & (unknown & unknown);
+        };
         readonly ApplicationDecision: {
             readonly decidedBy: components["schemas"]["TeacherSummary"];
             /** @enum {string} */
@@ -2974,30 +2666,6 @@ export interface components {
              */
             readonly expectedVersion: number;
         };
-        readonly ConfirmEnduranceOcrDraftRequest: {
-            /**
-             * Format: int64
-             * @description Optimistic-concurrency version.
-             */
-            readonly expectedCourseVersion: number;
-            /**
-             * Format: int64
-             * @description Optimistic-concurrency version.
-             */
-            readonly expectedVersion: number;
-        };
-        readonly ConfirmRosterOcrDraftRequest: {
-            /**
-             * Format: int64
-             * @description Optimistic-concurrency version.
-             */
-            readonly expectedCourseVersion: number;
-            /**
-             * Format: int64
-             * @description Optimistic-concurrency version.
-             */
-            readonly expectedVersion: number;
-        };
         /** @description A teacher-owned course. No course code or teaching-class number exists in the external Contract. */
         readonly Course: {
             /** Format: int32 */
@@ -3017,7 +2685,6 @@ export interface components {
              * @description Opaque public identifier; clients must not infer meaning from it.
              */
             readonly courseId: string;
-            readonly creditPolicy: components["schemas"]["CourseCreditPolicy"];
             readonly description: string | null;
             readonly displayStatus: ("UPCOMING" | "ACTIVE") | null;
             readonly joinOpen: boolean;
@@ -3097,11 +2764,6 @@ export interface components {
             /** Format: int32 */
             readonly courseRelatedTargetMinutes: number;
             readonly description: string | null;
-            /**
-             * Format: int32
-             * @enum {integer}
-             */
-            readonly minCreditThresholdMinutes: 30 | 45 | 60;
             readonly name: string;
             /** Format: int32 */
             readonly otherTargetMinutes: number;
@@ -3110,31 +2772,6 @@ export interface components {
              * @description Opaque public identifier; clients must not infer meaning from it.
              */
             readonly semesterId: string;
-            readonly sportTemplateId: string | null;
-            /**
-             * Format: int32
-             * @enum {integer}
-             */
-            readonly weeklySessionFrequency: 2 | 3 | 4;
-        };
-        /** @description Locked at course publish from a published template or explicit allowed parameters. Later template edits do not retroact. */
-        readonly CourseCreditPolicy: {
-            /**
-             * Format: int32
-             * @constant
-             */
-            readonly maxCreditMinutes: 60;
-            /**
-             * Format: int32
-             * @enum {integer}
-             */
-            readonly minCreditThresholdMinutes: 30 | 45 | 60;
-            readonly sportTemplateId: string | null;
-            /**
-             * Format: int32
-             * @enum {integer}
-             */
-            readonly weeklySessionFrequency: 2 | 3 | 4;
         };
         /** @description Recoverable teacher-management metadata. The raw invitation code and digest are never returned. */
         readonly CourseInvitation: {
@@ -3144,8 +2781,6 @@ export interface components {
              */
             readonly courseId: string;
             readonly displaySuffix: string;
-            /** Format: int32 */
-            readonly durationMinutes: number;
             /**
              * Format: date-time
              * @description RFC 3339 UTC instant. Servers emit an explicit Z offset; clients localize only for display.
@@ -3168,35 +2803,28 @@ export interface components {
         };
         readonly CourseInvitationCreateRequest: {
             /**
-             * Format: int32
-             * @description Authoritative invitation lifetime. Default business value is 30. Server computes expiresAt.
-             */
-            readonly durationMinutes: number;
-            /**
              * Format: int64
              * @description Optimistic-concurrency version.
              */
             readonly expectedCourseVersion: number;
-        };
-        readonly CourseInvitationPage: {
-            readonly items: readonly components["schemas"]["CourseInvitation"][];
-            readonly page: components["schemas"]["CursorPage"];
-        };
-        /** @description Every recognized invitation code returns exactly one of the five content states with the safe course and expiry projection. Grace cannot be refreshed. Unknown, malformed, or unsafe-to-project codes use INVITATION_INVALID instead. */
-        readonly CourseInvitationPreview: {
-            readonly course: components["schemas"]["InvitationCourseSummary"];
-            /** Format: int32 */
-            readonly durationMinutes: number;
             /**
              * Format: date-time
              * @description RFC 3339 UTC instant. Servers emit an explicit Z offset; clients localize only for display.
              */
             readonly expiresAt: string;
-            readonly graceExpiresAt: string | null;
-            /** @description True only when the authenticated actor already has a server-registered in-progress registration for this invitation inside the single 10-minute grace. Anonymous preview is always false. */
-            readonly inGrace: boolean;
-            /** @description False after natural expiry for a new join start. True only while ACTIVE. */
-            readonly joinStartAllowed: boolean;
+        };
+        readonly CourseInvitationPage: {
+            readonly items: readonly components["schemas"]["CourseInvitation"][];
+            readonly page: components["schemas"]["CursorPage"];
+        };
+        /** @description Every recognized invitation code returns exactly one of the five content states with the safe course and expiry projection. Unknown, malformed, or unsafe-to-project codes use INVITATION_INVALID instead. */
+        readonly CourseInvitationPreview: {
+            readonly course: components["schemas"]["InvitationCourseSummary"];
+            /**
+             * Format: date-time
+             * @description RFC 3339 UTC instant. Servers emit an explicit Z offset; clients localize only for display.
+             */
+            readonly expiresAt: string;
             /** @enum {string} */
             readonly status: "ACTIVE" | "EXPIRED" | "REVOKED" | "COURSE_CLOSED" | "NOT_CURRENT";
         };
@@ -3295,38 +2923,6 @@ export interface components {
             readonly sortWeight: number;
             readonly titleEn: string;
             readonly titleZh: string;
-        };
-        readonly CreateLimitedReviewGrantRequest: {
-            /**
-             * Format: uuid
-             * @description Opaque public identifier; clients must not infer meaning from it.
-             */
-            readonly courseId: string;
-            /**
-             * Format: uuid
-             * @description Opaque public identifier; clients must not infer meaning from it.
-             */
-            readonly granteeTeacherId: string;
-            readonly note: string | null;
-            readonly recordIds: readonly string[];
-        };
-        /** @description Teacher makeup of 1-60 whole minutes. It is not the old 1h/2h ladder. */
-        readonly CreateMakeupExerciseRecordRequest: {
-            readonly category: components["schemas"]["ExerciseCategory"];
-            /** Format: int32 */
-            readonly creditedMinutes: number;
-            readonly description: string;
-            /**
-             * Format: uuid
-             * @description Opaque public identifier; clients must not infer meaning from it.
-             */
-            readonly enrollmentId: string;
-            /**
-             * Format: int64
-             * @description Optimistic-concurrency version.
-             */
-            readonly expectedCourseVersion: number;
-            readonly sportType: components["schemas"]["ExerciseSportType"];
         };
         readonly CreateStudentApplicationRequest: components["schemas"]["CreateExemptionApplicationRequest"] | components["schemas"]["CreateCertificationApplicationRequest"];
         /** @description The non-empty exactly confirmed initial password is a temporary password assigned by another person. Successful creation sets the new administrator's CurrentActor.mustChangePassword=true; no additional password-strength rule is added. */
@@ -3442,34 +3038,6 @@ export interface components {
             readonly ruleRevisionNumber: number;
             /** Format: int32 */
             readonly score: number;
-        };
-        /** @description Endurance OCR draft. Unconfirmed rows are not student-visible measurements. */
-        readonly EnduranceOcrDraft: {
-            readonly confirmedAt: string | null;
-            /**
-             * Format: uuid
-             * @description Opaque public identifier; clients must not infer meaning from it.
-             */
-            readonly courseId: string;
-            /**
-             * Format: date-time
-             * @description RFC 3339 UTC instant. Servers emit an explicit Z offset; clients localize only for display.
-             */
-            readonly createdAt: string;
-            /**
-             * Format: uuid
-             * @description Opaque public identifier; clients must not infer meaning from it.
-             */
-            readonly draftId: string;
-            /** Format: int32 */
-            readonly rowCount: number;
-            /** @enum {string} */
-            readonly status: "DRAFT" | "CONFIRMED";
-            /**
-             * Format: int64
-             * @description Optimistic-concurrency version.
-             */
-            readonly version: number;
         };
         /** @description Endurance outcome is independent from 20-hour progress and final grade. A missing unique conversion is represented by conversion null. */
         readonly EnduranceOutcome: {
@@ -3623,7 +3191,7 @@ export interface components {
          * @description Stable machine-readable error code.
          * @enum {string}
          */
-        readonly ErrorCode: "INVALID_REQUEST" | "INVALID_CURSOR" | "AUTHENTICATION_REQUIRED" | "INVALID_CREDENTIALS" | "TOKEN_EXPIRED" | "CHALLENGE_EXPIRED" | "ACCOUNT_DISABLED" | "FIRST_PASSWORD_CHANGE_REQUIRED" | "FORBIDDEN" | "RESOURCE_NOT_FOUND" | "IDEMPOTENCY_KEY_REUSED" | "VERSION_CONFLICT" | "VALIDATION_FAILED" | "PAYLOAD_TOO_LARGE" | "UNSUPPORTED_MEDIA_TYPE" | "RATE_LIMITED" | "SYSTEM_MAINTENANCE" | "DEPENDENCY_UNAVAILABLE" | "INTERNAL_ERROR" | "EMAIL_ALREADY_IN_USE" | "LOGIN_NAME_ALREADY_IN_USE" | "STUDENT_NUMBER_ALREADY_IN_USE" | "EMPLOYEE_ID_ALREADY_IN_USE" | "ACCOUNT_DELETION_BLOCKED" | "ADMIN_RESPONSIBILITY_BLOCKED" | "INVITATION_INVALID" | "COURSE_ALREADY_JOINED" | "ENROLLMENT_NOT_ACTIVE" | "COURSE_NOT_OPEN" | "COURSE_TARGET_TOTAL_INVALID" | "COURSE_TARGET_BELOW_ACTIVE_CREDIT" | "COURSE_CLOSE_BLOCKED" | "SEMESTER_COMBINATION_EXISTS" | "SEMESTER_NOT_UPCOMING" | "SEMESTER_NOT_CURRENT" | "SEMESTER_START_DATE_NOT_REACHED" | "ROSTER_SOURCE_INVALID" | "ROSTER_ROW_LIMIT_EXCEEDED" | "ROSTER_FINDING_ALREADY_RESOLVED" | "ROSTER_SNAPSHOT_NOT_IN_COURSE" | "SESSION_ALREADY_ACTIVE" | "SESSION_TRANSITION_INVALID" | "CHECKIN_WINDOW_CLOSED" | "COURSE_TARGET_ALREADY_MET" | "DAILY_RECORD_ALREADY_EXISTS" | "MEDIA_NOT_VERIFIED" | "MEDIA_OWNERSHIP_MISMATCH" | "MEDIA_LIMIT_EXCEEDED" | "MEDIA_CONTENT_INVALID" | "MEDIA_ALREADY_BOUND" | "RECORD_DESCRIPTION_INVALID" | "REVIEW_RESULT_UNCHANGED" | "SWIM_SUBMIT_WINDOW_EXPIRED" | "PROOF_WINDOW_CLOSED" | "PROOF_ALREADY_SUBMITTED" | "PROOF_RETURN_NOT_ALLOWED" | "INVITATION_DURATION_INVALID" | "ROSTER_OCR_NOT_CONFIRMED" | "SPORT_TEMPLATE_NOT_PUBLISHED" | "MAKEUP_MINUTES_INVALID" | "LIMITED_REVIEW_SCOPE_DENIED" | "ENDURANCE_OUTCOME_EXEMPT" | "ENDURANCE_RULE_TABLE_INVALID" | "APPLICATION_EVIDENCE_LIMIT_EXCEEDED" | "APPLICATION_TRANSITION_INVALID" | "APPLICATION_SUPPLEMENT_NOT_ALLOWED" | "CERTIFICATION_CREDIT_INVALID" | "FINAL_GRADE_VALUE_INVALID" | "FEEDBACK_TRANSITION_INVALID" | "HELP_ARTICLE_TRANSITION_INVALID" | "HELP_ARTICLE_PUBLICATION_INCOMPLETE" | "SYSTEM_MODE_UNCHANGED" | "MAINTENANCE_ANNOUNCEMENT_REQUIRED" | "AUDIT_DATE_RANGE_INVALID" | "AUDIT_ARCHIVE_NOT_READY";
+        readonly ErrorCode: "INVALID_REQUEST" | "INVALID_CURSOR" | "AUTHENTICATION_REQUIRED" | "INVALID_CREDENTIALS" | "TOKEN_EXPIRED" | "CHALLENGE_EXPIRED" | "ACCOUNT_DISABLED" | "FIRST_PASSWORD_CHANGE_REQUIRED" | "FORBIDDEN" | "RESOURCE_NOT_FOUND" | "IDEMPOTENCY_KEY_REUSED" | "VERSION_CONFLICT" | "VALIDATION_FAILED" | "PAYLOAD_TOO_LARGE" | "UNSUPPORTED_MEDIA_TYPE" | "RATE_LIMITED" | "SYSTEM_MAINTENANCE" | "DEPENDENCY_UNAVAILABLE" | "INTERNAL_ERROR" | "EMAIL_ALREADY_IN_USE" | "LOGIN_NAME_ALREADY_IN_USE" | "STUDENT_NUMBER_ALREADY_IN_USE" | "EMPLOYEE_ID_ALREADY_IN_USE" | "ACCOUNT_DELETION_BLOCKED" | "ADMIN_RESPONSIBILITY_BLOCKED" | "INVITATION_INVALID" | "COURSE_ALREADY_JOINED" | "ENROLLMENT_NOT_ACTIVE" | "COURSE_NOT_OPEN" | "COURSE_TARGET_TOTAL_INVALID" | "COURSE_TARGET_BELOW_ACTIVE_CREDIT" | "COURSE_CLOSE_BLOCKED" | "SEMESTER_COMBINATION_EXISTS" | "SEMESTER_NOT_UPCOMING" | "SEMESTER_NOT_CURRENT" | "SEMESTER_START_DATE_NOT_REACHED" | "ROSTER_SOURCE_INVALID" | "ROSTER_ROW_LIMIT_EXCEEDED" | "ROSTER_FINDING_ALREADY_RESOLVED" | "ROSTER_SNAPSHOT_NOT_IN_COURSE" | "SESSION_ALREADY_ACTIVE" | "SESSION_TRANSITION_INVALID" | "CHECKIN_WINDOW_CLOSED" | "COURSE_TARGET_ALREADY_MET" | "DAILY_RECORD_ALREADY_EXISTS" | "MEDIA_NOT_VERIFIED" | "MEDIA_OWNERSHIP_MISMATCH" | "MEDIA_LIMIT_EXCEEDED" | "MEDIA_CONTENT_INVALID" | "MEDIA_ALREADY_BOUND" | "RECORD_DESCRIPTION_INVALID" | "REVIEW_RESULT_UNCHANGED" | "ENDURANCE_OUTCOME_EXEMPT" | "ENDURANCE_RULE_TABLE_INVALID" | "APPLICATION_EVIDENCE_LIMIT_EXCEEDED" | "APPLICATION_TRANSITION_INVALID" | "APPLICATION_SUPPLEMENT_NOT_ALLOWED" | "CERTIFICATION_CREDIT_INVALID" | "FINAL_GRADE_VALUE_INVALID" | "FEEDBACK_TRANSITION_INVALID" | "HELP_ARTICLE_TRANSITION_INVALID" | "HELP_ARTICLE_PUBLICATION_INCOMPLETE" | "SYSTEM_MODE_UNCHANGED" | "MAINTENANCE_ANNOUNCEMENT_REQUIRED" | "AUDIT_DATE_RANGE_INVALID" | "AUDIT_ARCHIVE_NOT_READY";
         /** @description Safe structured details. Arrays are empty when no values apply; the entire details property may instead be null. */
         readonly ErrorDetails: {
             readonly blockers: readonly string[];
@@ -3649,7 +3217,7 @@ export interface components {
         };
         /** @enum {string} */
         readonly ExerciseCategory: "COURSE_RELATED" | "OTHER";
-        /** @description Immutable exercise facts plus a separate current review projection. Review results never rewrite creditedMinutes. */
+        /** @description Immutable exercise facts plus a separate current review projection. INVALID never rewrites creditedMinutes. */
         readonly ExerciseRecord: {
             /** Format: int64 */
             readonly actualDurationSeconds: number;
@@ -3666,9 +3234,9 @@ export interface components {
             readonly courseId: string;
             /**
              * Format: int32
-             * @description Server-derived whole minutes: 0 below the course threshold, otherwise min(floored active minutes, 60). INVALID and RETURN_FOR_PROOF never rewrite this fact.
+             * @enum {integer}
              */
-            readonly creditedMinutes: number;
+            readonly creditedMinutes: 0 | 60 | 120;
             readonly currentReview: components["schemas"]["RecordReviewSummary"];
             readonly description: string;
             /**
@@ -3687,7 +3255,6 @@ export interface components {
              * @description Opaque public identifier; clients must not infer meaning from it.
              */
             readonly sessionId: string;
-            readonly sportType: components["schemas"]["ExerciseSportType"];
             readonly student: components["schemas"]["StudentSummary"];
             /**
              * Format: date-time
@@ -3699,7 +3266,7 @@ export interface components {
             readonly items: readonly components["schemas"]["ExerciseRecord"][];
             readonly page: components["schemas"]["CursorPage"];
         };
-        /** @description All formal times, businessDate, elapsed intervals, actual duration, and credited-minute preview are server-derived. Clients never submit them. */
+        /** @description All formal times, businessDate, elapsed intervals, and actual duration are server-derived. Clients never submit them. */
         readonly ExerciseSession: {
             readonly actualDurationSeconds: number | null;
             /**
@@ -3713,7 +3280,6 @@ export interface components {
              * @description Opaque public identifier; clients must not infer meaning from it.
              */
             readonly courseId: string;
-            readonly creditedMinutesPreview: number | null;
             /** Format: int64 */
             readonly elapsedActiveSeconds: number;
             /**
@@ -3727,7 +3293,6 @@ export interface components {
              * @description Opaque public identifier; clients must not infer meaning from it.
              */
             readonly sessionId: string;
-            readonly sportType: components["schemas"]["ExerciseSportType"];
             /**
              * Format: date-time
              * @description RFC 3339 UTC instant. Servers emit an explicit Z offset; clients localize only for display.
@@ -3748,11 +3313,6 @@ export interface components {
              */
             readonly expectedVersion: number;
         };
-        /**
-         * @description Declared sport for session rules such as the swimming 15-minute submit window. It is not a credited-minute input.
-         * @enum {string}
-         */
-        readonly ExerciseSportType: "RUNNING" | "BASKETBALL" | "FOOTBALL" | "BADMINTON" | "TABLE_TENNIS" | "SWIMMING" | "FITNESS" | "CYCLING" | "OTHER";
         readonly ExistingStudentJoinRequest: {
             /**
              * Format: int64
@@ -3959,34 +3519,6 @@ export interface components {
         };
         /** @enum {string} */
         readonly HelpArticleStatus: "DRAFT" | "PUBLISHED" | "ARCHIVED";
-        readonly ImportEnduranceOcrDraftRequest: {
-            /**
-             * Format: uuid
-             * @description Opaque public identifier; clients must not infer meaning from it.
-             */
-            readonly allocationId: string;
-            /** @description Hex-encoded SHA-256 checksum. */
-            readonly clientChecksumSha256: string;
-            /**
-             * Format: int64
-             * @description Optimistic-concurrency version.
-             */
-            readonly expectedCourseVersion: number;
-        };
-        readonly ImportRosterOcrDraftRequest: {
-            /**
-             * Format: uuid
-             * @description Opaque public identifier; clients must not infer meaning from it.
-             */
-            readonly allocationId: string;
-            /** @description Hex-encoded SHA-256 checksum. */
-            readonly clientChecksumSha256: string;
-            /**
-             * Format: int64
-             * @description Optimistic-concurrency version.
-             */
-            readonly expectedCourseVersion: number;
-        };
         /** @description Safe pre-authentication preview containing only the course, teacher, and semester identity. */
         readonly InvitationCourseSummary: {
             /**
@@ -3997,43 +3529,6 @@ export interface components {
             readonly name: string;
             readonly responsibleTeacher: components["schemas"]["TeacherSummary"];
             readonly semester: components["schemas"]["SemesterSummary"];
-        };
-        /** @description Does not transfer responsible-teacher ownership or grant course edit / final-grade mutation. */
-        readonly LimitedReviewGrant: {
-            /**
-             * Format: uuid
-             * @description Opaque public identifier; clients must not infer meaning from it.
-             */
-            readonly courseId: string;
-            /**
-             * Format: date-time
-             * @description RFC 3339 UTC instant. Servers emit an explicit Z offset; clients localize only for display.
-             */
-            readonly createdAt: string;
-            /**
-             * Format: uuid
-             * @description Opaque public identifier; clients must not infer meaning from it.
-             */
-            readonly granteeTeacherId: string;
-            /**
-             * Format: uuid
-             * @description Opaque public identifier; clients must not infer meaning from it.
-             */
-            readonly grantId: string;
-            readonly note: string | null;
-            readonly recordIds: readonly string[];
-            readonly revokedAt: string | null;
-            /** @enum {string} */
-            readonly status: "ACTIVE" | "REVOKED";
-            /**
-             * Format: int64
-             * @description Optimistic-concurrency version.
-             */
-            readonly version: number;
-        };
-        readonly LimitedReviewGrantPage: {
-            readonly items: readonly components["schemas"]["LimitedReviewGrant"][];
-            readonly page: components["schemas"]["CursorPage"];
         };
         readonly LocalizedText: {
             readonly en: string;
@@ -4230,43 +3725,6 @@ export interface components {
             /** Format: int32 */
             readonly validRecordMinutes: number;
         };
-        /** @description Only currently open one-time proof windows. Expired items are not listed; they become PROOF_OVERDUE_INVALID. */
-        readonly ProofTodo: {
-            /**
-             * Format: uuid
-             * @description Opaque public identifier; clients must not infer meaning from it.
-             */
-            readonly courseId: string;
-            /**
-             * Format: date-time
-             * @description RFC 3339 UTC instant. Servers emit an explicit Z offset; clients localize only for display.
-             */
-            readonly proofDueAt: string;
-            /**
-             * Format: int32
-             * @enum {integer}
-             */
-            readonly proofWindowHours: 24 | 72;
-            /**
-             * Format: uuid
-             * @description Opaque public identifier; clients must not infer meaning from it.
-             */
-            readonly recordId: string;
-            /** Format: int64 */
-            readonly remainingSeconds: number;
-            /**
-             * Format: uuid
-             * @description Opaque public identifier; clients must not infer meaning from it.
-             */
-            readonly sessionId: string;
-            /** @enum {string} */
-            readonly status: "OPEN";
-            readonly studentVisibleReason: string;
-        };
-        readonly ProofTodoPage: {
-            readonly items: readonly components["schemas"]["ProofTodo"][];
-            readonly page: components["schemas"]["CursorPage"];
-        };
         readonly PublishFinalGradeRequest: {
             /**
              * Format: int64
@@ -4279,23 +3737,6 @@ export interface components {
              */
             readonly gradeValue: number;
             readonly remark: string | null;
-        };
-        readonly PublishSportTemplateRequest: {
-            /** Format: int32 */
-            readonly courseRelatedTargetMinutes: number;
-            /**
-             * Format: int32
-             * @enum {integer}
-             */
-            readonly minCreditThresholdMinutes: 30 | 45 | 60;
-            readonly name: string;
-            /** Format: int32 */
-            readonly otherTargetMinutes: number;
-            /**
-             * Format: int32
-             * @enum {integer}
-             */
-            readonly weeklySessionFrequency: 2 | 3 | 4;
         };
         readonly RecordImageMediaAllocationRequest: {
             /** Format: int64 */
@@ -4314,21 +3755,20 @@ export interface components {
         };
         readonly RecordReview: {
             /** @enum {string} */
-            readonly actorType: "SYSTEM" | "AI" | "TEACHER";
-            readonly fromResult: components["schemas"]["RecordReviewResult"] | null;
+            readonly actorType: "SYSTEM" | "TEACHER";
+            readonly fromResult: ("VALID" | "INVALID") | null;
             /**
              * Format: date-time
              * @description RFC 3339 UTC instant. Servers emit an explicit Z offset; clients localize only for display.
              */
             readonly occurredAt: string;
-            readonly proofDueAt: string | null;
-            readonly proofWindowHours: (24 | 72) | null;
             /**
              * Format: uuid
              * @description Opaque public identifier; clients must not infer meaning from it.
              */
             readonly recordId: string;
-            readonly result: components["schemas"]["RecordReviewResult"];
+            /** @enum {string} */
+            readonly result: "VALID" | "INVALID";
             readonly reviewer: components["schemas"]["TeacherSummary"] | null;
             /**
              * Format: uuid
@@ -4343,15 +3783,9 @@ export interface components {
             readonly items: readonly components["schemas"]["RecordReview"][];
             readonly page: components["schemas"]["CursorPage"];
         };
-        /**
-         * @description Student-visible current result. Submit starts as PENDING_AI. Teachers append VALID, RETURN_FOR_PROOF, or INVALID. There is no public category enum for return/invalid reasons.
-         * @enum {string}
-         */
-        readonly RecordReviewResult: "PENDING_AI" | "AWAITING_TEACHER" | "VALID" | "RETURN_FOR_PROOF" | "INVALID" | "PROOF_OVERDUE_INVALID";
         readonly RecordReviewSummary: {
-            readonly proofDueAt: string | null;
-            readonly proofWindowHours: (24 | 72) | null;
-            readonly result: components["schemas"]["RecordReviewResult"];
+            /** @enum {string} */
+            readonly result: "VALID" | "INVALID";
             /** Format: int64 */
             readonly sequenceNumber: number;
             readonly studentVisibleReason: string | null;
@@ -4435,13 +3869,6 @@ export interface components {
             readonly expectedVersion: number;
             readonly studentVisibleReason: string;
         };
-        readonly RevokeLimitedReviewGrantRequest: {
-            /**
-             * Format: int64
-             * @description Optimistic-concurrency version.
-             */
-            readonly expectedVersion: number;
-        };
         readonly RosterFinding: {
             readonly enrollment: components["schemas"]["Enrollment"] | null;
             /**
@@ -4496,42 +3923,6 @@ export interface components {
              * @description Optimistic-concurrency version.
              */
             readonly expectedCourseVersion: number;
-        };
-        readonly RosterOcrAllocationRequest: {
-            /** Format: int64 */
-            readonly byteSize: number;
-            /** @enum {string} */
-            readonly contentType: "image/jpeg" | "image/png";
-            readonly fileName: string;
-        };
-        /** @description Paper-roster OCR result awaiting teacher confirmation. DRAFT is not a current snapshot. */
-        readonly RosterOcrDraft: {
-            readonly confirmedAt: string | null;
-            /**
-             * Format: uuid
-             * @description Opaque public identifier; clients must not infer meaning from it.
-             */
-            readonly courseId: string;
-            /**
-             * Format: date-time
-             * @description RFC 3339 UTC instant. Servers emit an explicit Z offset; clients localize only for display.
-             */
-            readonly createdAt: string;
-            /**
-             * Format: uuid
-             * @description Opaque public identifier; clients must not infer meaning from it.
-             */
-            readonly draftId: string;
-            /** Format: int32 */
-            readonly rowCount: number;
-            readonly sourceDisplayName: string;
-            /** @enum {string} */
-            readonly status: "DRAFT" | "CONFIRMED";
-            /**
-             * Format: int64
-             * @description Optimistic-concurrency version.
-             */
-            readonly version: number;
         };
         readonly RosterRevertRequest: {
             /**
@@ -4745,59 +4136,12 @@ export interface components {
             /** @enum {string} */
             readonly targetState: "ACTIVE" | "DISABLED";
         };
-        readonly SportTemplate: {
-            /** Format: int32 */
-            readonly courseRelatedTargetMinutes: number;
-            /**
-             * Format: int32
-             * @constant
-             */
-            readonly maxCreditMinutes: 60;
-            /**
-             * Format: int32
-             * @enum {integer}
-             */
-            readonly minCreditThresholdMinutes: 30 | 45 | 60;
-            readonly name: string;
-            /** Format: int32 */
-            readonly otherTargetMinutes: number;
-            /**
-             * Format: date-time
-             * @description RFC 3339 UTC instant. Servers emit an explicit Z offset; clients localize only for display.
-             */
-            readonly publishedAt: string;
-            /**
-             * Format: uuid
-             * @description Opaque public identifier; clients must not infer meaning from it.
-             */
-            readonly templateId: string;
-            /**
-             * Format: int32
-             * @constant
-             */
-            readonly totalTargetMinutes: 1200;
-            /**
-             * Format: int64
-             * @description Optimistic-concurrency version.
-             */
-            readonly version: number;
-            /**
-             * Format: int32
-             * @enum {integer}
-             */
-            readonly weeklySessionFrequency: 2 | 3 | 4;
-        };
-        readonly SportTemplatePage: {
-            readonly items: readonly components["schemas"]["SportTemplate"][];
-            readonly page: components["schemas"]["CursorPage"];
-        };
         readonly StartExerciseSessionRequest: {
             /**
              * Format: uuid
              * @description Opaque public identifier; clients must not infer meaning from it.
              */
             readonly courseId: string;
-            readonly sportType: components["schemas"]["ExerciseSportType"];
         };
         /** @description Read-only student account projection. Only ACTIVE and PENDING student status values exist. */
         readonly StudentAccount: {
@@ -4888,7 +4232,6 @@ export interface components {
              * @description Opaque public identifier; clients must not infer meaning from it.
              */
             readonly courseId: string;
-            readonly creditPolicy: components["schemas"]["CourseCreditPolicy"];
             readonly description: string | null;
             readonly name: string;
             readonly responsibleTeacher: components["schemas"]["TeacherSummary"];
@@ -5031,15 +4374,6 @@ export interface components {
             readonly items: readonly components["schemas"]["SubAdmin"][];
             readonly page: components["schemas"]["CursorPage"];
             readonly summary: components["schemas"]["SubAdminGovernanceSummary"];
-        };
-        /** @description Binds the second media version of the same record. It is not a new session, new record, or second return. */
-        readonly SubmitExerciseProofRequest: {
-            /**
-             * Format: int64
-             * @description Optimistic-concurrency version.
-             */
-            readonly expectedVersion: number;
-            readonly mediaAssetIds: readonly string[];
         };
         /** @description Does not accept actual duration, credited minutes, business date, review result, or formal timestamps. */
         readonly SubmitExerciseRecordRequest: {
@@ -5229,16 +4563,6 @@ export interface components {
         readonly UnreadNotificationCount: {
             /** Format: int64 */
             readonly unreadCount: number;
-        };
-        readonly UpdateAiOcrServiceConfigRequest: {
-            readonly aiEnabled: boolean;
-            /**
-             * Format: int64
-             * @description Optimistic-concurrency version.
-             */
-            readonly expectedVersion: number;
-            readonly note: string | null;
-            readonly ocrEnabled: boolean;
         };
         readonly UpdateEnduranceRuleIntervalChange: {
             /**
@@ -5459,69 +4783,6 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
-    readonly getAiOcrServiceStatus: {
-        readonly parameters: {
-            readonly query?: never;
-            readonly header?: never;
-            readonly path?: never;
-            readonly cookie?: never;
-        };
-        readonly requestBody?: never;
-        readonly responses: {
-            /** @description Successful response. */
-            readonly 200: {
-                headers: {
-                    readonly "X-Request-Id": components["headers"]["RequestId"];
-                    readonly [name: string]: unknown;
-                };
-                content: {
-                    readonly "application/json": components["schemas"]["AiOcrServiceStatus"];
-                };
-            };
-            readonly 401: components["responses"]["Unauthorized"];
-            readonly 403: components["responses"]["Forbidden"];
-            readonly 429: components["responses"]["TooManyRequests"];
-            readonly 500: components["responses"]["InternalError"];
-            readonly 503: components["responses"]["ServiceUnavailable"];
-        };
-    };
-    readonly updateAiOcrServiceConfig: {
-        readonly parameters: {
-            readonly query?: never;
-            readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
-                readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
-            };
-            readonly path?: never;
-            readonly cookie?: never;
-        };
-        readonly requestBody: {
-            readonly content: {
-                readonly "application/json": components["schemas"]["UpdateAiOcrServiceConfigRequest"];
-            };
-        };
-        readonly responses: {
-            /** @description Successful response. */
-            readonly 200: {
-                headers: {
-                    readonly "X-Request-Id": components["headers"]["RequestId"];
-                    readonly [name: string]: unknown;
-                };
-                content: {
-                    readonly "application/json": components["schemas"]["AiOcrServiceStatus"];
-                };
-            };
-            readonly 400: components["responses"]["BadRequest"];
-            readonly 401: components["responses"]["Unauthorized"];
-            readonly 403: components["responses"]["Forbidden"];
-            readonly 409: components["responses"]["Conflict"];
-            readonly 412: components["responses"]["PreconditionFailed"];
-            readonly 422: components["responses"]["UnprocessableEntity"];
-            readonly 429: components["responses"]["TooManyRequests"];
-            readonly 500: components["responses"]["InternalError"];
-            readonly 503: components["responses"]["ServiceUnavailable"];
-        };
-    };
     readonly requestAuditArchive: {
         readonly parameters: {
             readonly query?: never;
@@ -6160,152 +5421,6 @@ export interface operations {
             readonly 404: components["responses"]["NotFound"];
             readonly 409: components["responses"]["Conflict"];
             readonly 412: components["responses"]["PreconditionFailed"];
-            readonly 422: components["responses"]["UnprocessableEntity"];
-            readonly 429: components["responses"]["TooManyRequests"];
-            readonly 500: components["responses"]["InternalError"];
-            readonly 503: components["responses"]["ServiceUnavailable"];
-        };
-    };
-    readonly listLimitedReviewGrants: {
-        readonly parameters: {
-            readonly query?: {
-                /** @description Opaque keyset cursor returned by this exact operation and filter set. */
-                readonly cursor?: string;
-                /** @description Maximum number of items to return. */
-                readonly limit?: number;
-                readonly status?: "ACTIVE" | "REVOKED";
-            };
-            readonly header?: never;
-            readonly path?: never;
-            readonly cookie?: never;
-        };
-        readonly requestBody?: never;
-        readonly responses: {
-            /** @description Successful response. */
-            readonly 200: {
-                headers: {
-                    readonly "X-Request-Id": components["headers"]["RequestId"];
-                    readonly [name: string]: unknown;
-                };
-                content: {
-                    readonly "application/json": components["schemas"]["LimitedReviewGrantPage"];
-                };
-            };
-            readonly 400: components["responses"]["BadRequest"];
-            readonly 401: components["responses"]["Unauthorized"];
-            readonly 403: components["responses"]["Forbidden"];
-            readonly 429: components["responses"]["TooManyRequests"];
-            readonly 500: components["responses"]["InternalError"];
-            readonly 503: components["responses"]["ServiceUnavailable"];
-        };
-    };
-    readonly createLimitedReviewGrant: {
-        readonly parameters: {
-            readonly query?: never;
-            readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
-                readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
-            };
-            readonly path?: never;
-            readonly cookie?: never;
-        };
-        readonly requestBody: {
-            readonly content: {
-                readonly "application/json": components["schemas"]["CreateLimitedReviewGrantRequest"];
-            };
-        };
-        readonly responses: {
-            /** @description Successful response. */
-            readonly 201: {
-                headers: {
-                    readonly "X-Request-Id": components["headers"]["RequestId"];
-                    readonly [name: string]: unknown;
-                };
-                content: {
-                    readonly "application/json": components["schemas"]["LimitedReviewGrant"];
-                };
-            };
-            readonly 400: components["responses"]["BadRequest"];
-            readonly 401: components["responses"]["Unauthorized"];
-            readonly 403: components["responses"]["Forbidden"];
-            readonly 404: components["responses"]["NotFound"];
-            readonly 409: components["responses"]["Conflict"];
-            readonly 422: components["responses"]["UnprocessableEntity"];
-            readonly 429: components["responses"]["TooManyRequests"];
-            readonly 500: components["responses"]["InternalError"];
-            readonly 503: components["responses"]["ServiceUnavailable"];
-        };
-    };
-    readonly revokeLimitedReviewGrant: {
-        readonly parameters: {
-            readonly query?: never;
-            readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
-                readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
-            };
-            readonly path: {
-                /** @description Opaque grantId. */
-                readonly grantId: string;
-            };
-            readonly cookie?: never;
-        };
-        readonly requestBody: {
-            readonly content: {
-                readonly "application/json": components["schemas"]["RevokeLimitedReviewGrantRequest"];
-            };
-        };
-        readonly responses: {
-            /** @description Successful response. */
-            readonly 200: {
-                headers: {
-                    readonly "X-Request-Id": components["headers"]["RequestId"];
-                    readonly [name: string]: unknown;
-                };
-                content: {
-                    readonly "application/json": components["schemas"]["LimitedReviewGrant"];
-                };
-            };
-            readonly 400: components["responses"]["BadRequest"];
-            readonly 401: components["responses"]["Unauthorized"];
-            readonly 403: components["responses"]["Forbidden"];
-            readonly 404: components["responses"]["NotFound"];
-            readonly 409: components["responses"]["Conflict"];
-            readonly 412: components["responses"]["PreconditionFailed"];
-            readonly 429: components["responses"]["TooManyRequests"];
-            readonly 500: components["responses"]["InternalError"];
-            readonly 503: components["responses"]["ServiceUnavailable"];
-        };
-    };
-    readonly publishSportTemplate: {
-        readonly parameters: {
-            readonly query?: never;
-            readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
-                readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
-            };
-            readonly path?: never;
-            readonly cookie?: never;
-        };
-        readonly requestBody: {
-            readonly content: {
-                readonly "application/json": components["schemas"]["PublishSportTemplateRequest"];
-            };
-        };
-        readonly responses: {
-            /** @description Successful response. */
-            readonly 201: {
-                headers: {
-                    readonly "X-Request-Id": components["headers"]["RequestId"];
-                    readonly [name: string]: unknown;
-                };
-                content: {
-                    readonly "application/json": components["schemas"]["SportTemplate"];
-                };
-            };
-            readonly 400: components["responses"]["BadRequest"];
-            readonly 401: components["responses"]["Unauthorized"];
-            readonly 403: components["responses"]["Forbidden"];
-            readonly 409: components["responses"]["Conflict"];
             readonly 422: components["responses"]["UnprocessableEntity"];
             readonly 429: components["responses"]["TooManyRequests"];
             readonly 500: components["responses"]["InternalError"];
@@ -7559,131 +6674,6 @@ export interface operations {
             readonly 503: components["responses"]["ServiceUnavailable"];
         };
     };
-    readonly allocateEnduranceOcr: {
-        readonly parameters: {
-            readonly query?: never;
-            readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
-                readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
-            };
-            readonly path: {
-                /** @description Opaque courseId. */
-                readonly courseId: string;
-            };
-            readonly cookie?: never;
-        };
-        readonly requestBody: {
-            readonly content: {
-                readonly "application/json": components["schemas"]["RosterOcrAllocationRequest"];
-            };
-        };
-        readonly responses: {
-            /** @description Successful response. */
-            readonly 201: {
-                headers: {
-                    readonly "X-Request-Id": components["headers"]["RequestId"];
-                    readonly [name: string]: unknown;
-                };
-                content: {
-                    readonly "application/json": components["schemas"]["UploadAllocation"];
-                };
-            };
-            readonly 400: components["responses"]["BadRequest"];
-            readonly 401: components["responses"]["Unauthorized"];
-            readonly 403: components["responses"]["Forbidden"];
-            readonly 404: components["responses"]["NotFound"];
-            readonly 409: components["responses"]["Conflict"];
-            readonly 413: components["responses"]["PayloadTooLarge"];
-            readonly 415: components["responses"]["UnsupportedMediaType"];
-            readonly 429: components["responses"]["TooManyRequests"];
-            readonly 500: components["responses"]["InternalError"];
-            readonly 503: components["responses"]["ServiceUnavailable"];
-        };
-    };
-    readonly importEnduranceOcrDraft: {
-        readonly parameters: {
-            readonly query?: never;
-            readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
-                readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
-            };
-            readonly path: {
-                /** @description Opaque courseId. */
-                readonly courseId: string;
-            };
-            readonly cookie?: never;
-        };
-        readonly requestBody: {
-            readonly content: {
-                readonly "application/json": components["schemas"]["ImportEnduranceOcrDraftRequest"];
-            };
-        };
-        readonly responses: {
-            /** @description Successful response. */
-            readonly 201: {
-                headers: {
-                    readonly "X-Request-Id": components["headers"]["RequestId"];
-                    readonly [name: string]: unknown;
-                };
-                content: {
-                    readonly "application/json": components["schemas"]["EnduranceOcrDraft"];
-                };
-            };
-            readonly 400: components["responses"]["BadRequest"];
-            readonly 401: components["responses"]["Unauthorized"];
-            readonly 403: components["responses"]["Forbidden"];
-            readonly 404: components["responses"]["NotFound"];
-            readonly 409: components["responses"]["Conflict"];
-            readonly 412: components["responses"]["PreconditionFailed"];
-            readonly 413: components["responses"]["PayloadTooLarge"];
-            readonly 422: components["responses"]["UnprocessableEntity"];
-            readonly 429: components["responses"]["TooManyRequests"];
-            readonly 500: components["responses"]["InternalError"];
-            readonly 503: components["responses"]["ServiceUnavailable"];
-        };
-    };
-    readonly confirmEnduranceOcrDraft: {
-        readonly parameters: {
-            readonly query?: never;
-            readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
-                readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
-            };
-            readonly path: {
-                /** @description Opaque courseId. */
-                readonly courseId: string;
-                /** @description Opaque draftId. */
-                readonly draftId: string;
-            };
-            readonly cookie?: never;
-        };
-        readonly requestBody: {
-            readonly content: {
-                readonly "application/json": components["schemas"]["ConfirmEnduranceOcrDraftRequest"];
-            };
-        };
-        readonly responses: {
-            /** @description Successful response. */
-            readonly 200: {
-                headers: {
-                    readonly "X-Request-Id": components["headers"]["RequestId"];
-                    readonly [name: string]: unknown;
-                };
-                content: {
-                    readonly "application/json": components["schemas"]["EnduranceOcrDraft"];
-                };
-            };
-            readonly 400: components["responses"]["BadRequest"];
-            readonly 401: components["responses"]["Unauthorized"];
-            readonly 403: components["responses"]["Forbidden"];
-            readonly 404: components["responses"]["NotFound"];
-            readonly 409: components["responses"]["Conflict"];
-            readonly 412: components["responses"]["PreconditionFailed"];
-            readonly 429: components["responses"]["TooManyRequests"];
-            readonly 500: components["responses"]["InternalError"];
-            readonly 503: components["responses"]["ServiceUnavailable"];
-        };
-    };
     readonly listCourseExerciseRecords: {
         readonly parameters: {
             readonly query?: {
@@ -7691,7 +6681,7 @@ export interface operations {
                 readonly cursor?: string;
                 /** @description Maximum number of items to return. */
                 readonly limit?: number;
-                readonly reviewResult?: components["schemas"]["RecordReviewResult"];
+                readonly reviewResult?: "VALID" | "INVALID";
                 readonly studentId?: string;
             };
             readonly header?: never;
@@ -7904,7 +6894,6 @@ export interface operations {
             readonly 404: components["responses"]["NotFound"];
             readonly 409: components["responses"]["Conflict"];
             readonly 412: components["responses"]["PreconditionFailed"];
-            readonly 422: components["responses"]["UnprocessableEntity"];
             readonly 429: components["responses"]["TooManyRequests"];
             readonly 500: components["responses"]["InternalError"];
             readonly 503: components["responses"]["ServiceUnavailable"];
@@ -7947,47 +6936,6 @@ export interface operations {
             readonly 404: components["responses"]["NotFound"];
             readonly 409: components["responses"]["Conflict"];
             readonly 412: components["responses"]["PreconditionFailed"];
-            readonly 429: components["responses"]["TooManyRequests"];
-            readonly 500: components["responses"]["InternalError"];
-            readonly 503: components["responses"]["ServiceUnavailable"];
-        };
-    };
-    readonly createMakeupExerciseRecord: {
-        readonly parameters: {
-            readonly query?: never;
-            readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
-                readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
-            };
-            readonly path: {
-                /** @description Opaque courseId. */
-                readonly courseId: string;
-            };
-            readonly cookie?: never;
-        };
-        readonly requestBody: {
-            readonly content: {
-                readonly "application/json": components["schemas"]["CreateMakeupExerciseRecordRequest"];
-            };
-        };
-        readonly responses: {
-            /** @description Successful response. */
-            readonly 201: {
-                headers: {
-                    readonly "X-Request-Id": components["headers"]["RequestId"];
-                    readonly [name: string]: unknown;
-                };
-                content: {
-                    readonly "application/json": components["schemas"]["ExerciseRecord"];
-                };
-            };
-            readonly 400: components["responses"]["BadRequest"];
-            readonly 401: components["responses"]["Unauthorized"];
-            readonly 403: components["responses"]["Forbidden"];
-            readonly 404: components["responses"]["NotFound"];
-            readonly 409: components["responses"]["Conflict"];
-            readonly 412: components["responses"]["PreconditionFailed"];
-            readonly 422: components["responses"]["UnprocessableEntity"];
             readonly 429: components["responses"]["TooManyRequests"];
             readonly 500: components["responses"]["InternalError"];
             readonly 503: components["responses"]["ServiceUnavailable"];
@@ -8458,132 +7406,6 @@ export interface operations {
             readonly 413: components["responses"]["PayloadTooLarge"];
             readonly 415: components["responses"]["UnsupportedMediaType"];
             readonly 422: components["responses"]["UnprocessableEntity"];
-            readonly 429: components["responses"]["TooManyRequests"];
-            readonly 500: components["responses"]["InternalError"];
-            readonly 503: components["responses"]["ServiceUnavailable"];
-        };
-    };
-    readonly allocateRosterOcr: {
-        readonly parameters: {
-            readonly query?: never;
-            readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
-                readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
-            };
-            readonly path: {
-                /** @description Opaque courseId. */
-                readonly courseId: string;
-            };
-            readonly cookie?: never;
-        };
-        readonly requestBody: {
-            readonly content: {
-                readonly "application/json": components["schemas"]["RosterOcrAllocationRequest"];
-            };
-        };
-        readonly responses: {
-            /** @description Successful response. */
-            readonly 201: {
-                headers: {
-                    readonly "X-Request-Id": components["headers"]["RequestId"];
-                    readonly [name: string]: unknown;
-                };
-                content: {
-                    readonly "application/json": components["schemas"]["UploadAllocation"];
-                };
-            };
-            readonly 400: components["responses"]["BadRequest"];
-            readonly 401: components["responses"]["Unauthorized"];
-            readonly 403: components["responses"]["Forbidden"];
-            readonly 404: components["responses"]["NotFound"];
-            readonly 409: components["responses"]["Conflict"];
-            readonly 413: components["responses"]["PayloadTooLarge"];
-            readonly 415: components["responses"]["UnsupportedMediaType"];
-            readonly 429: components["responses"]["TooManyRequests"];
-            readonly 500: components["responses"]["InternalError"];
-            readonly 503: components["responses"]["ServiceUnavailable"];
-        };
-    };
-    readonly importRosterOcrDraft: {
-        readonly parameters: {
-            readonly query?: never;
-            readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
-                readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
-            };
-            readonly path: {
-                /** @description Opaque courseId. */
-                readonly courseId: string;
-            };
-            readonly cookie?: never;
-        };
-        readonly requestBody: {
-            readonly content: {
-                readonly "application/json": components["schemas"]["ImportRosterOcrDraftRequest"];
-            };
-        };
-        readonly responses: {
-            /** @description Successful response. */
-            readonly 201: {
-                headers: {
-                    readonly "X-Request-Id": components["headers"]["RequestId"];
-                    readonly [name: string]: unknown;
-                };
-                content: {
-                    readonly "application/json": components["schemas"]["RosterOcrDraft"];
-                };
-            };
-            readonly 400: components["responses"]["BadRequest"];
-            readonly 401: components["responses"]["Unauthorized"];
-            readonly 403: components["responses"]["Forbidden"];
-            readonly 404: components["responses"]["NotFound"];
-            readonly 409: components["responses"]["Conflict"];
-            readonly 412: components["responses"]["PreconditionFailed"];
-            readonly 413: components["responses"]["PayloadTooLarge"];
-            readonly 422: components["responses"]["UnprocessableEntity"];
-            readonly 429: components["responses"]["TooManyRequests"];
-            readonly 500: components["responses"]["InternalError"];
-            readonly 503: components["responses"]["ServiceUnavailable"];
-        };
-    };
-    readonly confirmRosterOcrDraft: {
-        readonly parameters: {
-            readonly query?: never;
-            readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
-                readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
-            };
-            readonly path: {
-                /** @description Opaque courseId. */
-                readonly courseId: string;
-                /** @description Opaque draftId. */
-                readonly draftId: string;
-            };
-            readonly cookie?: never;
-        };
-        readonly requestBody: {
-            readonly content: {
-                readonly "application/json": components["schemas"]["ConfirmRosterOcrDraftRequest"];
-            };
-        };
-        readonly responses: {
-            /** @description Successful response. */
-            readonly 200: {
-                headers: {
-                    readonly "X-Request-Id": components["headers"]["RequestId"];
-                    readonly [name: string]: unknown;
-                };
-                content: {
-                    readonly "application/json": components["schemas"]["RosterSnapshot"];
-                };
-            };
-            readonly 400: components["responses"]["BadRequest"];
-            readonly 401: components["responses"]["Unauthorized"];
-            readonly 403: components["responses"]["Forbidden"];
-            readonly 404: components["responses"]["NotFound"];
-            readonly 409: components["responses"]["Conflict"];
-            readonly 412: components["responses"]["PreconditionFailed"];
-            readonly 413: components["responses"]["PayloadTooLarge"];
             readonly 429: components["responses"]["TooManyRequests"];
             readonly 500: components["responses"]["InternalError"];
             readonly 503: components["responses"]["ServiceUnavailable"];
@@ -9600,38 +8422,6 @@ export interface operations {
             readonly 503: components["responses"]["ServiceUnavailable"];
         };
     };
-    readonly listPublishedSportTemplates: {
-        readonly parameters: {
-            readonly query?: {
-                /** @description Opaque keyset cursor returned by this exact operation and filter set. */
-                readonly cursor?: string;
-                /** @description Maximum number of items to return. */
-                readonly limit?: number;
-            };
-            readonly header?: never;
-            readonly path?: never;
-            readonly cookie?: never;
-        };
-        readonly requestBody?: never;
-        readonly responses: {
-            /** @description Successful response. */
-            readonly 200: {
-                headers: {
-                    readonly "X-Request-Id": components["headers"]["RequestId"];
-                    readonly [name: string]: unknown;
-                };
-                content: {
-                    readonly "application/json": components["schemas"]["SportTemplatePage"];
-                };
-            };
-            readonly 400: components["responses"]["BadRequest"];
-            readonly 401: components["responses"]["Unauthorized"];
-            readonly 403: components["responses"]["Forbidden"];
-            readonly 429: components["responses"]["TooManyRequests"];
-            readonly 500: components["responses"]["InternalError"];
-            readonly 503: components["responses"]["ServiceUnavailable"];
-        };
-    };
     readonly listOwnApplications: {
         readonly parameters: {
             readonly query?: {
@@ -9860,7 +8650,7 @@ export interface operations {
                 readonly cursor?: string;
                 /** @description Maximum number of items to return. */
                 readonly limit?: number;
-                readonly reviewResult?: components["schemas"]["RecordReviewResult"];
+                readonly reviewResult?: "VALID" | "INVALID";
             };
             readonly header?: never;
             readonly path?: never;
@@ -9911,48 +8701,6 @@ export interface operations {
             readonly 401: components["responses"]["Unauthorized"];
             readonly 403: components["responses"]["Forbidden"];
             readonly 404: components["responses"]["NotFound"];
-            readonly 429: components["responses"]["TooManyRequests"];
-            readonly 500: components["responses"]["InternalError"];
-            readonly 503: components["responses"]["ServiceUnavailable"];
-        };
-    };
-    readonly submitExerciseProof: {
-        readonly parameters: {
-            readonly query?: never;
-            readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
-                readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
-            };
-            readonly path: {
-                /** @description Opaque recordId. */
-                readonly recordId: string;
-            };
-            readonly cookie?: never;
-        };
-        readonly requestBody: {
-            readonly content: {
-                readonly "application/json": components["schemas"]["SubmitExerciseProofRequest"];
-            };
-        };
-        readonly responses: {
-            /** @description Successful response. */
-            readonly 200: {
-                headers: {
-                    readonly "X-Request-Id": components["headers"]["RequestId"];
-                    readonly [name: string]: unknown;
-                };
-                content: {
-                    readonly "application/json": components["schemas"]["ExerciseRecord"];
-                };
-            };
-            readonly 400: components["responses"]["BadRequest"];
-            readonly 401: components["responses"]["Unauthorized"];
-            readonly 403: components["responses"]["Forbidden"];
-            readonly 404: components["responses"]["NotFound"];
-            readonly 409: components["responses"]["Conflict"];
-            readonly 412: components["responses"]["PreconditionFailed"];
-            readonly 413: components["responses"]["PayloadTooLarge"];
-            readonly 422: components["responses"]["UnprocessableEntity"];
             readonly 429: components["responses"]["TooManyRequests"];
             readonly 500: components["responses"]["InternalError"];
             readonly 503: components["responses"]["ServiceUnavailable"];
@@ -10127,38 +8875,6 @@ export interface operations {
                     readonly "application/json": components["schemas"]["StudentCourseProgress"];
                 };
             };
-            readonly 401: components["responses"]["Unauthorized"];
-            readonly 403: components["responses"]["Forbidden"];
-            readonly 429: components["responses"]["TooManyRequests"];
-            readonly 500: components["responses"]["InternalError"];
-            readonly 503: components["responses"]["ServiceUnavailable"];
-        };
-    };
-    readonly listOwnProofTodos: {
-        readonly parameters: {
-            readonly query?: {
-                /** @description Opaque keyset cursor returned by this exact operation and filter set. */
-                readonly cursor?: string;
-                /** @description Maximum number of items to return. */
-                readonly limit?: number;
-            };
-            readonly header?: never;
-            readonly path?: never;
-            readonly cookie?: never;
-        };
-        readonly requestBody?: never;
-        readonly responses: {
-            /** @description Successful response. */
-            readonly 200: {
-                headers: {
-                    readonly "X-Request-Id": components["headers"]["RequestId"];
-                    readonly [name: string]: unknown;
-                };
-                content: {
-                    readonly "application/json": components["schemas"]["ProofTodoPage"];
-                };
-            };
-            readonly 400: components["responses"]["BadRequest"];
             readonly 401: components["responses"]["Unauthorized"];
             readonly 403: components["responses"]["Forbidden"];
             readonly 429: components["responses"]["TooManyRequests"];

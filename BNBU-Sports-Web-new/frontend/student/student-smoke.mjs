@@ -2216,6 +2216,11 @@ check("v8.1 notices keep proof wording and drop only explicit score disclosures"
   ]);
   assert.deepEqual(notices.map((notice) => notice.id), ["upload-failed", "proof"]);
   assert.equal(classifyStudentNotice({ title: "Evidence passed initial checks", message: "Waiting for teacher review" })?.kind, "review");
+  assert.equal(classifyStudentNotice({ title: "Score: 95", message: "Record updated", category: "review", targetType: "exercise_record" }), null);
+  assert.equal(classifyStudentNotice({ title: "Grade: A", message: "Record updated", category: "review", targetType: "exercise_record" }), null);
+  assert.equal(classifyStudentNotice({ title: "Ranking: 1", message: "Record updated", category: "review", targetType: "exercise_record" }), null);
+  assert.equal(classifyStudentNotice({ title: "Result", message: "You passed with 90 points", category: "review", targetType: "exercise_record" }), null);
+  assert.equal(classifyStudentNotice({ title: "Scoreboard", message: "Hidden", targetType: "exercise_record_score" }), null);
 });
 
 check("v8.1 maintenance page shows paused proof timing or an unavailable state", () => {
