@@ -4,7 +4,7 @@
 
 当前状态：第二轮复审修正、本地构建、专用 AVD 22/22 instrumentation 和指定真机回归均已完成；有明确设备证据的页面为 9/41，覆盖深度不一。结果见[人工验收记录](manual-acceptance-record.md)。本指南中的“预期”不能替代未执行页面/状态的证据。
 
-下表是 R2-06 最终复审候选。R8 已完成运行时评审数据的 source-set 隔离，但正式 Release APK 产物检查仍未关闭；最终 Commit SHA 由 Push 后的 Git/PR head 提供。
+下表是用户实际安装并完成指定真机复测的 R2-05 增量候选。R2-06 最终 Commit 的强制重建 APK 指纹另见自动验证 handoff；两者源码相同但产物指纹不同，不能混用。R8 已完成运行时评审数据的 source-set 隔离，正式 Release APK 产物检查仍未关闭。
 
 ## 1. 本次验收对象
 
@@ -15,7 +15,7 @@
 | 当前业务权威 | `main@8c9826822f35876f8d01480f8baf184027711dfe`（V8.1） |
 | 原 Android 实施基线 | `49d992a1333294ea561923cfea0b7d25864a4d91`；仅用于追溯初版实现 |
 | 设计版本 | `P2A-UI-2026.09.04-draft1` |
-| R2-06 Debug 候选 APK | `BNBU-ANDROID/app/build/outputs/apk/debug/app-debug.apk` |
+| R2-05 真机复测 Debug 候选 | 构建时为 `BNBU-ANDROID/app/build/outputs/apk/debug/app-debug.apk`；后续已被 R2-06 强制重建覆盖 |
 | 包名 / 版本 | `edu.bnbu.student.mvp.debug` / `0.1.0-mvp-debug` |
 | APK 大小 | 27,463,039 bytes |
 | APK SHA-256 | `c98e30158d687056292c790fe85bd30cb6606cb673ef92a74ed8aa7d9b51183f` |

@@ -17,7 +17,7 @@ docs/rebuild/handoffs/phase-2-p2a-android-student-ui-final-handoff.md
 1. 系统模式首次确认后，普通轮询失败保留最后确认模式并显示中性连接阻断，不再伪造 MAINTENANCE 或补证暂停承诺；只有服务器明确返回维护才进入维护语义。
 2. 英文通知拦截 Score、Grade、Ranking 和数字 points 等学生结果泄漏，同时保留 Evidence upload failed、Evidence passed initial checks、Evidence level unavailable 等合法流程通知。
 
-同一最终 Commit 的证据为：JVM 447/447（78 suites）；Lint 0 error、5 existing warnings；Debug 和 AndroidTest APK 构建通过；专用 AVD BNBU_P2_UI_Review / API 37 实际执行 instrumentation 22/22 通过；git diff --check 通过；Contract SHA-256 未变化。当前真机配置下，原系统启动页/无服务启动门禁、五个主页面指定检查、语言切换、录像/视频预览、英文通知固定文案和视频底部说明移除均已复测通过。
+同一最终 Commit 的证据为：JVM 447/447（78 suites）；Lint 0 error、5 existing warnings；强制重建 Debug APK SHA-256 `216561a78dc570dbb400d9789ff83b1184f9614cf3c1341ef753d30400b56ebc`、AndroidTest APK SHA-256 `ced6c6980653c66d4b030af0dda6ea72abe0428e4564dedf29f38aca6ce31a0c`；专用 AVD BNBU_P2_UI_Review / API 37 实际执行 instrumentation 22/22 通过；git diff --check 通过；Contract SHA-256 未变化。当前真机配置下，源码等同的 R2-05 候选已确认原系统启动页/无服务启动门禁、五个主页面指定检查、语言切换、录像/视频预览、英文通知固定文案和视频底部说明移除；最终强制重建包由 AVD 验证，未伪称再次安装到真机。
 
 PR Files changed 未由 Android 修改业务正文、Contract/OpenAPI、Backend、Web、infra、tests/e2e 或根 STATUS。请按 PARTIAL 边界审核，并由 Android Reviewer记录最终结论；学生 Web Reviewer 仍由负责人正式指定。
 ```

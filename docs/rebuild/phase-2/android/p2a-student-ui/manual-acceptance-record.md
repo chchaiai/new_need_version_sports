@@ -17,6 +17,7 @@ R10 Debug APK 已由用户传至自有真机并全新安装。用户确认启动
 | 当前三项 UI 修复后复测 APK | `app/build/outputs/apk/debug/app-debug.apk`；构建机 SHA-256 `edfd9b1c580aac1d66fc50443c676c68a3badac68534acdf78810da787688aa1`；25,824,014 bytes；用户确认已复测，设备端未独立计算指纹 |
 | R10 V8.1 复审候选 APK | `app/build/outputs/apk/debug/app-debug.apk`；27,459,431 bytes；SHA-256 `a2c6a49a5e54830cec3b123ee3ebe03a7ceb4ea28dc3b1291687f5f20c97ecdb`；用户已传至未连接电脑的自有真机并全新安装，设备端未独立计算指纹 |
 | R2-05 最终视频复测 APK | `app/build/outputs/apk/debug/app-debug.apk`；27,463,039 bytes；SHA-256 `c98e30158d687056292c790fe85bd30cb6606cb673ef92a74ed8aa7d9b51183f`；447/447 JVM、22/22 AVD instrumentation 通过；用户于 2026-09-06 确认真机复测通过，设备端未独立计算指纹 |
+| R2-06 最终 Commit 强制重建 APK | `app/build/outputs/apk/debug/app-debug.apk`；25,853,071 bytes；SHA-256 `216561a78dc570dbb400d9789ff83b1184f9614cf3c1341ef753d30400b56ebc`；与 R2-05 源码相同，已由专用 AVD instrumentation 运行，未在用户真机单独重装 |
 | 基线 / 分支 | `49d992a1333294ea561923cfea0b7d25864a4d91` / `codex/phase2-android-student-ui`；UI 未提交 |
 | 设计版本 | `P2A-UI-2026.09.04-draft1` |
 | Android Owner / Reviewer / Web Reviewer | Android Owner：`Exwind259`；Android Reviewer：当前已获 PR 审核权限的审核账号；Web Reviewer：待负责人正式指定 |
@@ -157,7 +158,8 @@ R10 Debug APK 已由用户传至自有真机并全新安装。用户确认启动
 - Manifest 和系统 Splash Theme 继续使用原有 `splash_main_system_generated`、V31 `verity_ai_generated_system`；后续可见 Loading 复用同一主品牌和合作方资源，但仍不让系统 Splash 等待网络。
 - 命令：`./gradlew.bat :app:testDebugUnitTest :app:lintDebug :app:assembleDebug :app:assembleDebugAndroidTest --no-daemon --offline` 及 `./gradlew.bat :app:connectedDebugAndroidTest --no-daemon --offline`。
 - 结果：BUILD SUCCESSFUL；JVM 447/447（78 suites）；Lint 0 Error、5 Warning；专用 AVD `BNBU_P2_UI_Review` / API 37 实际执行 22/22 instrumentation 通过，0 skipped/failed；`git diff --check` 为 0。
-- 最新 Debug APK：27,463,039 bytes；SHA-256 `c98e30158d687056292c790fe85bd30cb6606cb673ef92a74ed8aa7d9b51183f`。AndroidTest APK：1,000,761 bytes；SHA-256 `517828c30cf54e5d130f6715516f650a1def669537c62021aaab15d8fe7d365d`。
+- 用户真机复测的 R2-05 Debug APK：27,463,039 bytes；SHA-256 `c98e30158d687056292c790fe85bd30cb6606cb673ef92a74ed8aa7d9b51183f`。当轮 AndroidTest APK：1,000,761 bytes；SHA-256 `517828c30cf54e5d130f6715516f650a1def669537c62021aaab15d8fe7d365d`。
+- R2-06 最终 Commit 使用 `--no-build-cache --rerun-tasks` 强制重建后，Debug APK 为 25,853,071 bytes / SHA-256 `216561a78dc570dbb400d9789ff83b1184f9614cf3c1341ef753d30400b56ebc`；AndroidTest APK 为 984,688 bytes / SHA-256 `ced6c6980653c66d4b030af0dda6ea72abe0428e4564dedf29f38aca6ce31a0c`。最终 AVD 证据绑定强制重建包；真机证据仍如实绑定 R2-05 包。
 - R2-DEVICE-01、03 已由用户在 2026-09-05 真机确认；R2-DEVICE-02 最终方案于 2026-09-06 获用户真机确认，三项均已关闭。未覆盖业务态、其他设备和完整无障碍组合不由此关闭。
 
 用户新问题模板：编号 / 页面 / 设备与配置 / 操作 / 预期 / 实际 / 截图 / 影响 / UI或后续阶段归属 / 处理状态。

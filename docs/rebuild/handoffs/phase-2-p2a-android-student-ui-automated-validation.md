@@ -198,8 +198,8 @@ $env:ANDROID_SERIAL='emulator-5554'
 |---|---|---|
 | Debug JVM | 447 tests / 78 suites；0 failures、0 errors、0 skipped | 本地 JVM 与静态策略；不是 Backend E2E |
 | Lint Debug | 0 errors、5 个既有 warnings | `MutableCollectionMutableState`、`DiscouragedApi`、`TypographyDashes`、2 个 `VectorPath`；没有声称零 warning |
-| Debug APK | 27,463,039 bytes；SHA-256 `c98e30158d687056292c790fe85bd30cb6606cb673ef92a74ed8aa7d9b51183f` | Debug 评审包，不是 Release APK |
-| AndroidTest APK | 1,000,761 bytes；SHA-256 `517828c30cf54e5d130f6715516f650a1def669537c62021aaab15d8fe7d365d` | 测试安装包，不用于手工评审 |
+| Debug APK | 25,853,071 bytes；SHA-256 `216561a78dc570dbb400d9789ff83b1184f9614cf3c1341ef753d30400b56ebc` | 最终 Commit 强制重建 Debug 包，不是 Release APK；用户真机复测绑定的源码等同 R2-05 增量候选为 `c98e301...` |
+| AndroidTest APK | 984,688 bytes；SHA-256 `ced6c6980653c66d4b030af0dda6ea72abe0428e4564dedf29f38aca6ce31a0c` | 最终 Commit 强制重建测试安装包，不用于手工评审 |
 | instrumentation | 专用 AVD `BNBU_P2_UI_Review` / `emulator-5554` / Android API 37 / `sdk_gphone16k_x86_64`；22/22 passed，0 failed/error/skipped | 已实际设备运行；不等于 41 页七状态或真实服务流程 |
 | 真机指定回归 | 当前用户自有真机配置下通过启动门禁与原品牌页、五个主页面指定检查、普通后台返回、语言切换、录像/视频预览、英文通知固定文案和视频底部说明移除 | 设备型号/API/字体组合未完整登记，不能外推其他设备或完整无障碍 |
 | Git/范围 | `git diff --check` 退出码 0；相对 `origin/main` 共 117 个文件，禁止路径 0；OpenAPI SHA-256 不变 | 不含 Contract、Backend、Web、业务正文、infra、e2e 或根 STATUS |

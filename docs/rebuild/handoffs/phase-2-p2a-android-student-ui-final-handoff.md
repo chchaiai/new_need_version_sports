@@ -92,12 +92,12 @@ R2-01—05 源码、测试、真机修正及交接统一完成后，在最终本
 
 - JVM：447/447，78 suites；0 failures、0 errors、0 skipped。
 - Lint：0 error、5 个既有 warning；没有将 warning 表述为零问题。
-- Debug APK：27,463,039 bytes；SHA-256 `c98e30158d687056292c790fe85bd30cb6606cb673ef92a74ed8aa7d9b51183f`。
-- AndroidTest APK：1,000,761 bytes；SHA-256 `517828c30cf54e5d130f6715516f650a1def669537c62021aaab15d8fe7d365d`。
+- Debug APK：25,853,071 bytes；SHA-256 `216561a78dc570dbb400d9789ff83b1184f9614cf3c1341ef753d30400b56ebc`。
+- AndroidTest APK：984,688 bytes；SHA-256 `ced6c6980653c66d4b030af0dda6ea72abe0428e4564dedf29f38aca6ce31a0c`。
 - 专用 AVD `BNBU_P2_UI_Review`，序列号 `emulator-5554`，Android/API 37，型号 `sdk_gphone16k_x86_64`：22/22 instrumentation 实际执行通过；0 failure、0 error、0 skipped。
 - instrumentation 覆盖启动 Loading/Error/Retry、主导航/返回、权限、连接失败不伪造维护、真实维护与断线安全呈现、审核阶段/补证预览、英文通知固定文案等关键场景；不等于 41 页七状态或真实 Backend E2E。
 - Debug APK 的 v2 签名验证通过；包名 `edu.bnbu.student.mvp.debug`，版本 `0.1.0-mvp-debug`，minSdk 26、targetSdk 35、debuggable。此为 Debug 签名与磁盘元数据，不是发布批准。
-- `git diff --check` 退出码 0；相对 `origin/main` 的禁止路径扫描为 0；Contract SHA-256 保持不变。
+- `git diff --check` 退出码 0；相对 `origin/main` 的禁止路径扫描为 0；Contract SHA-256 保持不变。上述两个 APK 来自在最终 Commit 上使用 `--no-build-cache --rerun-tasks` 的强制重建；用户真机复测绑定的 R2-05 增量候选为 `c98e301...`，源码内容相同但不能把两个 APK 指纹混写。
 
 详细证据见 [第 13 步自动验证](phase-2-p2a-android-student-ui-automated-validation.md) 和 [第 14 步结论](phase-2-p2a-android-student-ui-manual-acceptance.md)。构建成功、静态测试和本轮真机走查均不等于完整业务测试通过。
 

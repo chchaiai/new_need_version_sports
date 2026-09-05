@@ -30,11 +30,11 @@
 
 - `:app:testDebugUnitTest`: 447/447 passed across 78 suites; 0 failures/errors/skipped.
 - `:app:lintDebug`: 0 errors and 5 existing warnings.
-- `:app:assembleDebug`: passed; Debug APK 27,463,039 bytes; SHA-256 `c98e30158d687056292c790fe85bd30cb6606cb673ef92a74ed8aa7d9b51183f`.
-- `:app:assembleDebugAndroidTest`: passed; AndroidTest APK 1,000,761 bytes; SHA-256 `517828c30cf54e5d130f6715516f650a1def669537c62021aaab15d8fe7d365d`.
+- `:app:assembleDebug`: forced rebuild passed; Debug APK 25,853,071 bytes; SHA-256 `216561a78dc570dbb400d9789ff83b1184f9614cf3c1341ef753d30400b56ebc`.
+- `:app:assembleDebugAndroidTest`: forced rebuild passed; AndroidTest APK 984,688 bytes; SHA-256 `ced6c6980653c66d4b030af0dda6ea72abe0428e4564dedf29f38aca6ce31a0c`.
 - `:app:connectedDebugAndroidTest`: dedicated AVD `BNBU_P2_UI_Review`, serial `emulator-5554`, Android/API 37, model `sdk_gphone16k_x86_64`; 22/22 passed, 0 failures/errors/skipped.
 - `git diff --check`: passed. Relative to `origin/main`: 117 files, 0 prohibited paths. Contract SHA-256 unchanged.
-- Physical-device review passed for the no-service startup gate and original splash, five main-page checks, ordinary background return, camera/microphone prompts, recording controls, retained-video first frame/controls, in-place language switch, English notification chrome and bilingual removal of the clipped video footer. Evidence covers 9/41 pages at different depths and is not full-flow acceptance.
+- Physical-device review used the source-equivalent R2-05 incremental Debug candidate, SHA-256 `c98e30158d687056292c790fe85bd30cb6606cb673ef92a74ed8aa7d9b51183f`. It passed the no-service startup gate and original splash, five main-page checks, ordinary background return, camera/microphone prompts, recording controls, retained-video first frame/controls, in-place language switch, English notification chrome and bilingual removal of the clipped video footer. The final forced-build APK above was exercised by the dedicated AVD instrumentation, not separately reinstalled on the phone. Evidence covers 9/41 pages at different depths and is not full-flow acceptance.
 
 ## Scope boundary
 
