@@ -7,6 +7,14 @@
 import { t, tx, setLanguage, getLanguage } from "./i18n.js";
 import { localStore, BUILD } from "./store.js";
 import { emptyWorkspace } from "./data.js";
+import { toVisibleStudentNotices } from "./v81-review.js";
+import {
+  LOCAL_PREVIEW_ACCOUNT_ID,
+  LOCAL_PREVIEW_SESSION_KIND,
+  buildLocalPreviewWorkspace,
+  localPreviewEnabled,
+  localPreviewRequested,
+} from "./local-preview.js";
 import {
   hasApiSession,
   clearApiSession,
@@ -21,7 +29,7 @@ import {
   subscribeSystemMaintenance,
 } from "./api.js";
 import { icon } from "./icons.js";
-import { renderStartupSplash, renderMaintenancePage, renderPlannedMaintenanceBanner, renderSyncStatusBanner } from "./screens/startup.js";
+import { renderStartupSplash, renderMaintenancePage, renderPlannedMaintenanceBanner, renderSyncStatusBanner, renderLocalPreviewBanner } from "./screens/startup.js";
 import { renderPrivacyConsent, renderPrivacyPolicy, consentActions, loadPolicyMarkdown } from "./screens/consent.js";
 import { renderPreLoginGuide, renderPostEnrollmentGuide, guideActions, guideBackInterceptor, attachGuideSwipe } from "./screens/guide.js";
 import { renderLogin, loginActions } from "./screens/login.js";
@@ -40,6 +48,13 @@ import { renderEnduranceScoring, renderExemption, servicesActions, servicesBackI
 
 const params = new URLSearchParams(globalThis.location?.search || "");
 const requestedSystemModeOverride = params.get("sysmode")?.trim().toLowerCase() ?? null;
+const localPreviewBootRequested = localPreviewEnabled(
+  globalThis.__BNBU_PUBLIC_CONFIG__,
+  globalThis.location?.hostname,
+) && (
+  localPreviewRequested(globalThis.location?.search || "")
+  || localStore.getSession()?.kind === LOCAL_PREVIEW_SESSION_KIND
+);
 const INSTANT_SUB_SCREENS = new Set(["settings", "exemption", "endurance"]);
 const SYSTEM_MODE_POLL_MS = 15_000;
 
@@ -52,7 +67,7 @@ export function shouldQuerySystemMode({ hostname = "", appEnv = "unknown", overr
 }
 
 export function qaSystemModeOverride(appEnv = "unknown", override = null) {
-  if (String(appEnv).toLowerCase() !== "qa") return null;
+  if (!["qa", "local"].includes(String(appEnv).toLowerCase())) return null;
   const value = String(override || "").toLowerCase();
   return ["normal", "maintenance", "planned"].includes(value) ? value : null;
 }
@@ -66,7 +81,7 @@ const remoteSystemModeEnabled = shouldQuerySystemMode({
   hostname: globalThis.location?.hostname,
   appEnv: globalThis.__BNBU_PUBLIC_CONFIG__?.appEnv,
   override: systemModeOverride,
-});
+}) && !localPreviewBootRequested;
 
 /** Release every transient Blob URL held by current-account UI state without
  * traversing the browser's opaque File/Blob objects. */
@@ -84,7 +99,7 @@ export function revokeTransientBlobUrls(value, seen = new Set()) {
 export const app = {
   BUILD,
   state: {
-    // Query overrides are local QA-only. Every non-preview deployment reads
+    // Query overrides are local/QA preview only. Other deployments read
     // the public SystemMode projection before opening the workspace.
     systemMode: systemModeOverride === "maintenance" ? "MAINTENANCE" : "NORMAL",
     systemModeChecked: !remoteSystemModeEnabled,
@@ -172,13 +187,7 @@ export const app = {
     return !activeEnrollment && !(req && (req.status === "PENDING" || req.status === "ACTIVE"));
   },
   visibleNotices() {
-    return this.state.workspace.notices.filter((n) => {
-      if (n.category !== "review") return true;
-      const targets = ["exemption", "physical_test_exemption", "checkin_exemption", "application"];
-      if (n.targetType && targets.includes(String(n.targetType).toLowerCase())) return true;
-      const keywords = ["免测", "免打卡", "校队", "社团", "证明材料", "申请"];
-      return keywords.some((k) => n.title.includes(k) || n.message.includes(k));
-    });
+    return toVisibleStudentNotices(this.state.workspace.notices);
   },
   unreadNoticeCount() { return this.visibleNotices().filter((n) => n.isUnread).length; },
 
@@ -192,6 +201,7 @@ export const app = {
     const previousReadAt = notice.readAt ?? null;
     notice.isUnread = false;
     notice.readAt = new Date().toISOString();
+    if (this.isLocalPreview() || !this.isApiMode()) return true;
     try {
       const updated = await markNotificationRead(id);
       notice.readAt = updated.readAt;
@@ -214,6 +224,40 @@ export const app = {
   isApiMode() {
     return localStore.getSession()?.kind === "api";
   },
+  /** True only for the local UI-review shell. Not a formal join or check-in. */
+  isLocalPreview() {
+    return localStore.getSession()?.kind === LOCAL_PREVIEW_SESSION_KIND
+      && localPreviewEnabled(globalThis.__BNBU_PUBLIC_CONFIG__, globalThis.location?.hostname);
+  },
+  enterLocalPreview() {
+    if (!localPreviewEnabled(globalThis.__BNBU_PUBLIC_CONFIG__, globalThis.location?.hostname)) return false;
+    clearApiSession();
+    localStore.setSession({
+      accountId: LOCAL_PREVIEW_ACCOUNT_ID,
+      kind: LOCAL_PREVIEW_SESSION_KIND,
+      signedInAt: new Date().toISOString(),
+    });
+    this.state.systemMode = "NORMAL";
+    this.state.systemModeChecked = true;
+    this.state.isRestoringSession = false;
+    this.state.privacyConsentChecked = true;
+    this.state.needsPrivacyConsent = false;
+    this.state.loginPrivacyAccepted = true;
+    this.state.authenticated = true;
+    this.state.requiresContactBinding = false;
+    this.state.postEnrollmentGuideCompleted = true;
+    this.state.preLoginGuideCompleted = true;
+    this.state.showEmailLogin = false;
+    this.state.showScanJoin = false;
+    this.state.showRecoveryRequest = false;
+    this.state.lastError = null;
+    this.state.isShowingCachedData = false;
+    this.state.isLoading = false;
+    this.state.workspace = buildLocalPreviewWorkspace();
+    this.navDirection = "forward";
+    this.render();
+    return true;
+  },
   /** Establishes the authenticated shell after a successful invite join. */
   async completeApiLogin(joined = {}) {
     // `/me` is deliberately allowed while the freshly joined user is still
@@ -229,6 +273,13 @@ export const app = {
   },
   /** Loads/refreshes the live workspace; keeps the shell usable on failure. */
   async reloadApiWorkspace(preloadedIdentity = null) {
+    if (this.isLocalPreview()) {
+      this.state.isLoading = false;
+      this.state.lastError = null;
+      this.state.isShowingCachedData = false;
+      this.render();
+      return true;
+    }
     const epoch = currentApiSessionEpoch();
     this.state.isLoading = true;
     this.render();
@@ -509,6 +560,7 @@ export const app = {
 
   renderAuthenticatedShell() {
     const s = this.state;
+    const previewBanner = this.isLocalPreview() ? renderLocalPreviewBanner() : "";
     const banner = s.lastError !== null || s.isShowingCachedData ? renderSyncStatusBanner(this) : "";
     const sub = s.subScreen
       ? `<div class="screen sub-screen-overlay ${this.navDirection === "forward" ? "anim-enter-forward" : ""}">${this.renderSubScreen()}</div>`
@@ -516,6 +568,7 @@ export const app = {
     const sheet = s.notificationSheetOpen ? renderNotificationSheet(this) : "";
     return `
       <div class="screen main-shell">
+        ${previewBanner}
         ${banner}
         <div class="tab-host screen-scroll" data-scroll-key="tab-${s.tab}">${this.renderTabContent()}</div>
         ${this.bottomNavHtml()}
@@ -670,12 +723,17 @@ export const app = {
       this.applySystemModeStatus({ mode: "MAINTENANCE", policyVersion: null, updatedAt: null });
     });
     loadPolicyMarkdown();
-    setTimeout(() => {
+    const restoreSession = () => {
       const session = localStore.getSession();
       const privacyAccepted = localStore.hasAgreedPrivacyPolicy(BUILD.PRIVACY_POLICY_VERSION);
+      this.state.privacyConsentChecked = true;
+      if (localPreviewEnabled(globalThis.__BNBU_PUBLIC_CONFIG__, globalThis.location?.hostname)
+        && (localPreviewRequested(globalThis.location?.search || "") || session?.kind === LOCAL_PREVIEW_SESSION_KIND)) {
+        this.enterLocalPreview();
+        return;
+      }
       this.state.needsPrivacyConsent = !privacyAccepted;
       this.state.loginPrivacyAccepted = privacyAccepted;
-      this.state.privacyConsentChecked = true;
       if (session?.kind === "api" && hasApiSession()) {
         this.state.authenticated = true;
         this.state.postEnrollmentGuideCompleted = localStore.hasCompletedPostEnrollmentGuide(session.accountId);
@@ -692,7 +750,9 @@ export const app = {
       this.state.isRestoringSession = false;
       this.navDirection = "forward";
       this.render();
-    }, 900);
+    };
+    if (localPreviewBootRequested) restoreSession();
+    else setTimeout(restoreSession, 900);
 
     // 1 Hz heartbeat for the exercise session timer.
     setInterval(() => checkinTick(this), 1000);

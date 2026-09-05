@@ -18,7 +18,7 @@ const HELP_CATEGORY_LABELS = {
   enrollment: ["加入课程与补正", "Enrollment & corrections"],
   checkin: ["打卡与学时", "Check-ins & credits"],
   evidence: ["凭证上传", "Evidence upload"],
-  course: ["课程与成绩", "Classes & grades"],
+  course: ["课程与进度", "Classes & progress"],
   exemption: ["免测", "Exemptions"],
   organization: ["组织认证", "Organization verification"],
   notification: ["通知", "Notifications"],

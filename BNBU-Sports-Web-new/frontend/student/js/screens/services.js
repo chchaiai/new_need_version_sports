@@ -1,7 +1,6 @@
-// Endurance run score conversion (#35) — scoring/EnduranceScoringScreen.kt
+// Endurance / fitness-test view (#35). Students only see confirmed time or exemption.
 // Exemption applications (#36) — exemption/ExemptionScreen.kt
-// Endurance remains a non-authoritative preview. Exemption applications use
-// the authenticated `/api/v1` draft/upload/update/submit workflow.
+// Exemption applications use the authenticated `/api/v1` draft/upload/update/submit workflow.
 
 import { t, tx } from "../i18n.js";
 import { icon } from "../icons.js";
@@ -9,10 +8,9 @@ import { validateProofFile } from "../proofs.js";
 import { esc, spinner, emptyPlaceholder, validationPanel, sectionTitle, statusBadge, statusMessagePanel, segmented, actionButton, fieldLabel, fieldControlAttrs, fieldSupport, userFacingErrorPanel, focusFirstInvalidField } from "../ui.js";
 import {
   ApiError,
-  createMediaAccessUrl,
   createExemptionApplication,
+  createMediaAccessUrl,
   mapStructuredExemptionApplication,
-  previewEnduranceConversion,
   proxyObjectUrl,
   submitExemptionApplication,
   toUserFacingError,
@@ -24,11 +22,10 @@ import {
 //  #35 Endurance scoring
 // ═══════════════════════════════════════════════════════════════
 
-function enduranceState(app) {
-  if (!app.ui.endurance) {
-    app.ui.endurance = { minutes: "", seconds: "", result: null, loading: false, error: null, errorField: null };
-  }
-  return app.ui.endurance;
+function formatRunTime(totalSeconds) {
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  return `${minutes}′${String(seconds).padStart(2, "0")}″`;
 }
 
 function demographicLabel(student) {
@@ -37,18 +34,22 @@ function demographicLabel(student) {
   return [gender, grade].filter(Boolean).join(" · ");
 }
 
-const tierLabel = (tier) => ({ excellent: tx("优秀", "Excellent"), good: tx("良好", "Good"), pass: tx("及格", "Pass"), fail: tx("不及格", "Fail") }[tier] || tier);
-
 export function renderEnduranceScoring(app) {
-  const ui = enduranceState(app);
   const student = app.state.workspace.student;
-  const runType = student.gender === "male" ? "1000m" : "800m";
+  const grades = app.state.workspace.grades || {};
+  const runType = student.gender === "male" ? "1000m" : student.gender === "female" ? "800m" : "800m / 1000m";
   const label = demographicLabel(student);
-  const tierColor = ui.result
-    ? { excellent: "var(--color-primary)", good: "#4CAF50", pass: "var(--color-secondary)", fail: "var(--color-error)" }[ui.result.tier] || "var(--color-on-surface-variant)"
-    : null;
-  const minuteError = ui.errorField === "minutes" ? ui.error : null;
-  const secondError = ui.errorField === "seconds" ? ui.error : null;
+  const status = grades.enduranceRunStatus;
+  const recordedTime = grades.enduranceRunTimeSeconds > 0 ? formatRunTime(grades.enduranceRunTimeSeconds) : null;
+  let primary = tx("暂未记录", "Not recorded");
+  let hint = tx("只显示教师已确认的项目、用时或免测。没有换算分或等级。", "Only the confirmed event, time, or exemption is shown. No converted scores or bands.");
+  if (status === "recorded") {
+    primary = recordedTime || primary;
+    hint = tx("已确认的测试用时", "Confirmed test time");
+  } else if (status === "exempt") {
+    primary = tx("免测", "Exempt");
+    hint = tx("不记录真实用时，不产生换算分", "No recorded time and no converted score");
+  }
 
   return `<div class="screen" style="background:transparent">
     <div class="screen-scroll" data-scroll-key="endurance">
@@ -70,58 +71,10 @@ export function renderEnduranceScoring(app) {
         </div>
         <div style="height:12px"></div>
         <div class="swiss-panel">
-          <div class="label-medium text-primary">${tx("全局规则试算", "Global-rule preview")}</div>
-          <div style="height:6px"></div>
-          <div class="body-small text-muted">${tx("输入用时后按性别和年级组换算。女生对应 800m，男生对应 1000m。此工具只用于试算，不写入正式成绩。", "Enter a time to calculate by gender and grade group. Women use 800m and men use 1000m. This tool is a preview and does not change official grades.")}</div>
-          <div style="height:4px"></div>
-          <div class="body-small text-muted">${tx("换算请求由服务器使用管理员当前启用的全局规则执行，客户端不保存独立换算表。", "The Backend uses the administrator's active global rules; the client keeps no separate conversion table.")}</div>
-        </div>
-        <div style="height:16px"></div>
-        <div class="swiss-panel">
-          <div class="row" style="gap:12px;align-items:flex-end">
-            <div class="col grow">
-              ${fieldLabel({ id: "endurance-minutes", label: t("endurance_minutes"), required: true })}
-              <div style="height:6px"></div>
-              <input ${fieldControlAttrs({ id: "endurance-minutes", error: minuteError, helper: tx("0–99 分钟", "0–99 minutes"), required: true })} class="text-field" type="number" inputmode="numeric" min="0" max="99" step="1" placeholder="0" value="${esc(ui.minutes)}" data-input="endurance.minutes" />
-              ${fieldSupport({ id: "endurance-minutes", error: minuteError, helper: tx("0–99 分钟", "0–99 minutes") })}
-            </div>
-            <span style="font-size:28px;font-weight:500;color:var(--color-on-surface);padding-bottom:10px">′</span>
-            <div class="col grow">
-              ${fieldLabel({ id: "endurance-seconds", label: t("endurance_seconds"), required: true })}
-              <div style="height:6px"></div>
-              <input ${fieldControlAttrs({ id: "endurance-seconds", error: secondError, helper: tx("0–59 秒", "0–59 seconds"), required: true })} class="text-field" type="number" inputmode="numeric" min="0" max="59" step="1" placeholder="00" value="${esc(ui.seconds)}" data-input="endurance.seconds" />
-              ${fieldSupport({ id: "endurance-seconds", error: secondError, helper: tx("0–59 秒", "0–59 seconds") })}
-            </div>
-            <span style="font-size:28px;font-weight:500;color:var(--color-on-surface);padding-bottom:10px">″</span>
-          </div>
-          <div style="height:14px"></div>
-          <button class="primary-btn pressable" data-action="endurance.convert" ${ui.loading ? "disabled" : ""}>
-            ${ui.loading ? spinner(18, "on-primary") : icon("timer", 18)}<span>${ui.loading ? t("endurance_converting") : t("endurance_convert")}</span>
-          </button>
-        </div>
-        ${ui.error && !ui.errorField ? `<div style="height:12px"></div>${validationPanel(ui.error)}` : ""}
-        ${ui.result ? `
-          <div style="height:16px"></div>
-          ${sectionTitle(t("endurance_result"))}
+          <div class="headline-medium text-on-surface">${esc(primary)}</div>
           <div style="height:8px"></div>
-          <div class="swiss-panel">
-            <div class="row" style="justify-content:space-between">
-              <div class="col" style="gap:6px">
-                <span class="label-medium text-muted">${t("endurance_score")}</span>
-                <span style="font-size:48px;line-height:54px;font-weight:500;color:${tierColor}">${ui.result.score}</span>
-              </div>
-              <div class="col" style="gap:6px;align-items:flex-end">
-                <span class="label-medium text-muted">${t("endurance_level")}</span>
-                ${statusBadge(tierLabel(ui.result.tier), true)}
-              </div>
-            </div>
-            <div style="height:14px"></div>
-            <div class="endurance-result-strip">
-              <span class="text-primary" style="display:inline-flex">${icon("check-circle", 20)}</span>
-              <span class="body-medium text-on-surface">${t("endurance_input_time", Math.floor(ui.result.timeSeconds / 60), ui.result.timeSeconds % 60)}</span>
-              <span class="body-small text-muted">${esc(label)}</span>
-            </div>
-          </div>` : ""}
+          <div class="body-small text-muted">${esc(hint)}</div>
+        </div>
         <div style="height:28px"></div>
       </div>
     </div>
@@ -427,7 +380,7 @@ export function renderExemption(app, params) {
       ${sectionTitle(tx("体育免测与免打卡申请", "Test and check-in exemptions"))}
       <div class="swiss-panel"><div class="col" style="gap:8px">
         <span class="label-medium text-primary">${tx("后端权威申请", "Backend-authoritative applications")}</span>
-        <span class="body-medium text-on-surface">${tx("耐力跑免测仅适用于 800m / 1000m；通过后由任课教师为该生单独评定耐力跑分数。", "Endurance-run exemptions apply only to 800 m / 1000 m. After approval, the instructor assigns the endurance-run score individually.")}</span>
+        <span class="body-medium text-on-surface">${tx("耐力跑免测仅适用于 800m / 1000m；通过后耐力跑位置显示免测，不记录用时。", "Endurance-run exemptions apply only to 800 m / 1000 m. After approval, the endurance slot shows exemption and records no time.")}</span>
         <span class="body-small text-muted">${tx("校队或社团免打卡须填写组织名称并上传证明，审核通过后由教师确认可抵扣的运动时长。", "Team or club check-in exemptions require an organization name and proof. The instructor confirms any eligible hour offset after approval.")}</span>
         <span class="body-small text-muted">${tx("申请、材料状态和审核结果均以后端为准；提交失败不会在本地伪造成功记录。", "Applications, evidence status, and review results are backend-authoritative. A failed submission never creates a local success record.")}</span>
       </div></div>
@@ -454,69 +407,6 @@ export const servicesActions = {
   "services.back": (app) => {
     app.ui.endurance = null;
     app.closeSub();
-  },
-  // — Endurance —
-  "endurance.minutes": (app, el) => {
-    const ui = enduranceState(app);
-    ui.minutes = el.value.replace(/\D/g, "").slice(0, 2);
-    if (el.value !== ui.minutes) el.value = ui.minutes;
-    if (ui.errorField === "minutes") { ui.error = null; ui.errorField = null; }
-  },
-  "endurance.seconds": (app, el) => {
-    const ui = enduranceState(app);
-    ui.seconds = el.value.replace(/\D/g, "").slice(0, 2);
-    if (el.value !== ui.seconds) el.value = ui.seconds;
-    if (ui.errorField === "seconds") { ui.error = null; ui.errorField = null; }
-  },
-  "endurance.convert": async (app) => {
-    const ui = enduranceState(app);
-    const student = app.state.workspace.student;
-    const minutes = ui.minutes === "" ? 0 : Number(ui.minutes);
-    const seconds = ui.seconds === "" ? 0 : Number(ui.seconds);
-    const total = minutes * 60 + seconds;
-    ui.result = null;
-    ui.errorField = null;
-    if (!Number.isInteger(minutes) || minutes < 0 || minutes > 99 || total <= 0) {
-      ui.error = t("endurance_invalid_time");
-      ui.errorField = "minutes";
-      app.render();
-      focusFirstInvalidField(app._viewport, ["#endurance-minutes"]);
-      return;
-    }
-    if (!Number.isInteger(seconds) || seconds < 0 || seconds > 59) {
-      ui.error = t("endurance_invalid_seconds");
-      ui.errorField = "seconds";
-      app.render();
-      focusFirstInvalidField(app._viewport, ["#endurance-seconds"]);
-      return;
-    }
-    if (!student.gender) {
-      ui.error = t("endurance_gender_required");
-      app.render();
-      return;
-    }
-    if (!student.gradeLevel) {
-      ui.error = t("endurance_grade_required");
-      app.render();
-      return;
-    }
-    ui.error = null;
-    ui.errorField = null;
-    ui.loading = true;
-    app.render();
-    try {
-      const result = await previewEnduranceConversion({
-        timeSeconds: total,
-        gender: student.gender,
-        gradeLevel: student.gradeLevel,
-      });
-      ui.result = { ...result, tier: String(result.tier || "fail").toLowerCase() };
-    } catch (error) {
-      ui.error = toUserFacingError(error).message || t("endurance_failed");
-    } finally {
-      ui.loading = false;
-      app.render();
-    }
   },
   // — Exemption —
   "exemption.back": (app) => {

@@ -18,7 +18,7 @@
     "typecheck": "npm run contract:check && npm run phase5gb:contract:check && tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.worker.json && tsc --noEmit -p tsconfig.phase5b-student.json",
     "start": "vinext start",
     "test:phase5gb": "node --import tsx --test tests/phase5gb-contract-revalidation.test.mjs",
-    "test": "npm run build && node --import tsx --test tests/rendered-html.test.mjs tests/contract-binding.test.mjs tests/api-client.test.mjs tests/form-field.test.mjs tests/input-ui-coverage.test.mjs tests/checkin-audit.test.mjs tests/admin-domain.test.mjs tests/i18n-resources.test.mjs tests/roster-reconciliation.test.mjs tests/roster-reconciliation-mock.test.mjs tests/semester-presentation.test.mjs tests/phase5b-contract-mock.test.mjs tests/phase5b-contract-revalidation.test.mjs tests/phase5gb-contract-revalidation.test.mjs",
+    "test": "npm run build && node --import tsx --test tests/rendered-html.test.mjs tests/contract-binding.test.mjs tests/api-client.test.mjs tests/form-field.test.mjs tests/input-ui-coverage.test.mjs tests/checkin-audit.test.mjs tests/review-public-reasons.test.mjs tests/admin-domain.test.mjs tests/i18n-resources.test.mjs tests/roster-reconciliation.test.mjs tests/roster-reconciliation-mock.test.mjs tests/semester-presentation.test.mjs tests/phase5b-contract-mock.test.mjs tests/phase5b-contract-revalidation.test.mjs tests/phase5gb-contract-revalidation.test.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next"
   },
   "dependencies": {

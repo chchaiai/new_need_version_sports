@@ -257,6 +257,7 @@ const englishText: Record<string, string> = {
   成员状态: "Membership status",
   移出课程原因: "Reason for removal",
   打卡审核: "Check-in Review",
+  内部成绩册: "Internal gradebook",
   成绩管理: "Grade Management",
   免测与认证: "Exemptions & Verification",
   免测与组织认证: "Exemptions & Organization Verification",
@@ -273,8 +274,8 @@ const englishText: Record<string, string> = {
     "Review check-in completion, system confidence, and all activity evidence by student.",
   "集中处理学生打卡记录与异常内容。":
     "Review pending student check-ins and records that need attention.",
-  "录入耐力跑成绩并统一发布给学生。":
-    "Record endurance-run grades and publish them to students.",
+  "查看内部成绩投影。换算分、等级和排名不向学生披露。":
+    "Review the internal gradebook. Converted scores, bands, and rankings are not disclosed to students.",
   "审核医学免测及校队、社团认证，并配置相应分数或学时抵扣。":
     "Review medical exemptions and team or club verification, then set grades or credit offsets.",
   "审核免测申请及组织认证材料。":
@@ -383,8 +384,8 @@ const englishText: Record<string, string> = {
   月: "month",
   日: "day",
   成绩录入: "Grade entry",
-  "按教学班录入耐力跑成绩，系统自动换算分数；发布后学生可见。":
-    "Enter endurance-run grades by class. The system calculates scores automatically; published grades are visible to students.",
+  "按教学班确认耐力跑用时并查看内部换算。换算分、等级不向学生披露。":
+    "Confirm endurance-run times by class and review the internal conversion. Converted scores and bands are not disclosed to students.",
   发布成绩: "Publish grades",
   耐力跑: "Endurance run",
   未录入: "Not recorded",
@@ -507,6 +508,8 @@ const englishText: Record<string, string> = {
     "Project the QR code for the student app to scan, or copy the invitation code for manual entry. After the student confirms their details and server validation succeeds, they immediately become a course member.",
   "邀请码失效后不能再用于加入课程。生成新邀请码会重新开始 7 天有效期。":
     "An expired invitation cannot be used to join a class. Generating a new invitation starts a fresh 7-day validity period.",
+  "邀请码失效后不能再用于加入课程。v8.0 要求 5–120 分钟有效期与 10 分钟宽限；当前接口仍按既有有效期生成，不能在本页改成 5–120 分钟。":
+    "An expired invitation cannot be used to join a class. v8.0 requires a 5–120 minute validity window and a 10-minute grace period; the current API still issues the existing expiry, so this page cannot change it to 5–120 minutes.",
   "请使用学生端扫描二维码；无法扫码时，可在学生端手动输入邀请码。":
     "Use the student app to scan the QR code. If scanning is unavailable, enter the invitation code manually in the student app.",
   "二维码仅用于定位课程并携带短期加入凭证；学生资料校验成功后直接加入，无需教师审批。已加入成员会立即出现在学生名单中。":
@@ -537,6 +540,39 @@ const englishText: Record<string, string> = {
   审核意见: "Review comment",
   请选择: "Select an option",
   通过: "Approve",
+  退回补证: "Return for proof",
+  "当前接口没有退回补证结果，不能写入。":
+    "The current API has no return-for-proof result, so this cannot be written.",
+  "依据服务端记录追加有效或无效。退回补证仅展示流程，当前正式协议不会写入。":
+    "Append valid or invalid from server records. Return-for-proof is displayed only and is not written on the current official contract.",
+  "查看 Backend 实时健康状态。统一运动模板与有限审核授权走 Contract；Backend 未实现时显示真实错误。":
+    "View live Backend health. Unified sport templates and limited review grants use Contract; unimplemented Backend responses show the real error.",
+  "查看 Backend 实时健康状态。模板发布、有限审核授权走 Contract，失败时显示真实错误。":
+    "View live Backend health. Template publishing and limited review grants use Contract; failures show the real error.",
+  "管理本人班级与时间窗。已发布课程的门槛由模板锁定；本页不能改公式。邀请按 5–120 分钟生成。":
+    "Manage your classes and time windows. Published-course thresholds stay locked by template; this page cannot change the formula. Invitations are created for 5–120 minutes.",
+  "查看直接加入的成员。电子名单走现有导入；纸质 OCR 走 Contract allocateRosterOcr，未确认草稿不会当成当前名单。":
+    "View directly joined members. Spreadsheet import uses the current API; paper OCR uses Contract allocateRosterOcr and unconfirmed drafts are not treated as the current roster.",
+  "设置分管理员账号与现有侧栏权限。有限审核授权走 Contract createLimitedReviewGrant。":
+    "Set sub-admin accounts and existing sidebar permissions. Limited review grants use Contract createLimitedReviewGrant.",
+  "维护四套耐力跑换算表，并可通过 Contract 发布运动模板。已开课课程不会被回溯改门槛。":
+    "Maintain the four endurance conversion tables and publish sport templates through Contract. Open courses are not changed retroactively.",
+  "维护四套耐力跑成绩换算规则。学时目标仅由任课教师在教学班内配置。":
+    "Maintain the four endurance conversion tables. Hour targets are configured only by the responsible teacher inside a class.",
+  "维护服务端总学时成绩规则草稿，并执行双管理员审批流程。":
+    "Maintain the server-side total-hour grade-rule draft and run the two-administrator approval flow.",
+  "查看服务端教学班与时间窗。已发布课程门槛锁定；邀请按 Contract durationMinutes 生成。":
+    "View server class sections and time windows. Published-course thresholds stay locked; invitations use Contract durationMinutes.",
+  "查看真实课程成员。电子名单走现有导入；纸质 OCR 走 Contract，未确认草稿不会当成当前快照。":
+    "View live course members. Spreadsheet import uses the current API; paper OCR uses Contract and unconfirmed drafts are not treated as the current snapshot.",
+  "维护四套耐力跑换算表，并可通过 Contract 发布运动模板。":
+    "Maintain the four endurance conversion tables and publish sport templates through Contract.",
+  "审核免测与认证。内部自定义分不向学生披露；抵扣字段仍写入现有申请接口。":
+    "Review exemptions and certifications. Internal custom scores are not shown to students; offset fields still write the current application API.",
+  "只读查看当前全部课程。不代填成绩，不开放单条打卡下钻。":
+    "Read-only view of all current courses. Do not enter grades or drill into individual check-ins.",
+  "审核服务端免测申请；内部自定义分不向学生披露。审核结论不会自动生成分数。":
+    "Review server exemption applications; internal custom scores are not shown to students. A review does not invent a score.",
   驳回: "Reject",
   要求补正: "Request correction",
   要求补材料: "Request more material",
@@ -587,8 +623,8 @@ const englishText: Record<string, string> = {
   秒: "Seconds",
   自动换算: "Automatic conversion",
   缺考原因: "Reason for absence",
-  "我已检查全班成绩，确认发布后学生可见并收到不可关闭的通知":
-    "I have checked the entire class. After publication, grades will be visible to students and they will receive a mandatory notification.",
+  "我已检查全班内部成绩，确认发布不向学生披露换算分、等级或排名":
+    "I have reviewed the internal class gradebook and confirm publication will not disclose converted scores, bands, or rankings to students.",
   免测分数: "Exemption score",
   "根据实际情况自定义，不固定为 100 分":
     "Set this according to the circumstances; it is not fixed at 100.",
@@ -1147,13 +1183,13 @@ const englishText: Record<string, string> = {
   "已发布成绩已修改，审计来源已记录":
     "Published grade updated; audit source recorded",
   学生成绩已保存: "Student grade saved",
-  "请确认全班学生将看到成绩后再发布。":
-    "Confirm that all students will see the grades before publishing.",
+  "请确认这是内部成绩发布，不会向学生披露换算分或等级。":
+    "Confirm this is an internal gradebook publication and will not disclose converted scores or bands to students.",
   全班成绩已发布: "Class grades published",
   "审核结果和学生可见的审核意见均为必填项。":
     "A review decision and student-visible review comment are required.",
-  "通过耐力跑免测时必须设置 0–100 的自定义分数。":
-    "A custom score from 0 to 100 is required when approving an endurance-run exemption.",
+  "通过耐力跑免测时必须设置 0–100 的内部自定义分数（不向学生披露）。":
+    "A custom internal score from 0 to 100 is required when approving an endurance-run exemption; it is not disclosed to students.",
   "课程运动与其他运动抵扣之和必须大于 0，且不得超过 20 小时。":
     "Course-activity and other-activity offsets must total more than 0 and no more than 20 hours.",
   "申请已审核通过并同步成绩/抵扣结果":
@@ -1303,8 +1339,8 @@ const englishText: Record<string, string> = {
     "The review comment is visible to the student; club leaders do not participate in system review.",
   耐力跑换算表: "Endurance-run conversion table",
   打卡时间窗: "Check-in time window",
-  "维护四套耐力跑成绩换算规则。学时目标仅由任课教师在教学班内配置。":
-    "Maintain four endurance-run conversion rule sets. Credit targets are configured only by the instructor for each class.",
+  "只维护四套耐力跑换算表。运动模板不在本页；学时目标由任课教师在教学班配置。":
+    "This page only maintains the four conversion tables. Sport templates are not edited here; credit targets are set by the instructor for each class.",
   打卡凭证审核工具: "Check-in evidence review tool",
   份材料: "evidence items",
   下载原件: "Download original",
@@ -1337,10 +1373,10 @@ const englishText: Record<string, string> = {
   已提供脱敏地图与运动区域概览:
     "A masked map and activity-area overview are available",
   分: "points",
-  "发布后，全班学生将在成绩页查看耐力跑分数/状态和打卡学时完成情况。":
-    "After publication, all students in the class can view endurance-run scores/status and check-in credit completion.",
-  "发布将立即同步学生端并发送不可关闭的成绩通知；之后如修改耐力跑成绩，学生端会同步更新。":
-    "Publication immediately syncs to students and sends a mandatory grade notification. Later endurance-run grade changes also sync to students.",
+  "发布后形成内部成绩版本。学生只看原始用时、免测和打卡分钟，不看换算分或等级。":
+    "Publication creates an internal gradebook version. Students only see confirmed times, exemptions, and check-in minutes—not converted scores or bands.",
+  "内部发布不会向学生推送分数通知；之后如修正用时，只更新内部投影。":
+    "Internal publication does not send score notifications to students. Later time corrections only update the internal projection.",
   名单对齐: "Roster Reconciliation",
   已正确加入: "Matched",
   未加入课程: "Not joined",
@@ -1483,8 +1519,33 @@ const englishText: Record<string, string> = {
   选择学校官方课程名单文件: "Select the university official class roster file",
   "支持 .xlsx、.xls 和 .csv，最大 10 MB、最多 10,000 行。学号始终按字符串处理。":
     "Supports .xlsx, .xls, and .csv up to 10 MB and 10,000 rows. Student numbers are always treated as strings.",
+  "电子表继续走现有导入接口。纸质 OCR 依次调用 allocate、importRosterOcrDraft；确认走 confirmRosterOcrDraft。未确认草稿不会当成当前快照。":
+    "Spreadsheets still use the current import API. Paper OCR calls allocate then importRosterOcrDraft; confirmation uses confirmRosterOcrDraft. Unconfirmed drafts are not the current snapshot.",
+  "纸质名单 OCR 只接受 JPEG/PNG。":
+    "Paper-roster OCR accepts JPEG/PNG only.",
+  "演示模式不把纸质 OCR 写成正式名单。":
+    "Demo mode does not write paper OCR as a real roster.",
+  "未读到 Contract 课程 version，不能猜测 expectedCourseVersion。":
+    "Contract course version is missing; expectedCourseVersion is not guessed.",
+  "OCR 草稿已导入。状态为 DRAFT，确认前不是当前名单。":
+    "The OCR draft was imported. Status is DRAFT and it is not the current roster before confirmation.",
+  "OCR 返回了非 DRAFT 状态。本页仍不把它当成当前快照，除非调用确认接口成功。":
+    "OCR returned a non-DRAFT status. This page still does not treat it as the current snapshot until confirmation succeeds.",
+  "服务端已确认当前快照。本页不把未刷新的本地表格当成新名单。":
+    "The server confirmed the current snapshot. This page does not treat an unrefreshed local table as the new roster.",
+  确认OCR草稿: "Confirm OCR draft",
+  "确认 OCR 草稿": "Confirm OCR draft",
+  "纸质 OCR 草稿": "Paper OCR draft",
+  "纸质 OCR 草稿 ·": "Paper OCR draft ·",
+  "行 ·": "rows ·",
+  "OCR 上传授权已申请。请等待教师确认草稿；未确认前不会当成当前名单。":
+    "OCR upload allocation was requested. Wait for the teacher to confirm the draft; it is not the current roster before confirmation.",
+  扫描纸质名单: "Scan paper roster",
   正在解析: "Parsing",
   选择文件: "Choose file",
+  "扫描纸质名单 OCR": "Scan paper roster OCR",
+  "当前接口没有纸质名单 OCR 草稿，不能写入。":
+    "The current API has no paper-roster OCR draft, so it cannot be written.",
   行数据: "data rows",
   更换文件: "Choose another file",
   数据预览: "Data preview",
@@ -1564,6 +1625,94 @@ const englishText: Record<string, string> = {
     "The server uses a TOTAL_ONLY rule and does not set course/independent activity quotas.",
   "当前权威要求为累计有效运动 20 小时。分类时长仅用于展示，不作为单独达标门槛；教师不能在此页面创建本地覆盖规则。":
     "The authoritative requirement is 20 total valid exercise hours. Categories are display-only and teachers cannot create local override rules here.",
+  "v8.0 总目标为 1,200 分钟，门槛与周频次由已发布模板锁定。当前接口仍按累计有效运动 20 小时 TOTAL_ONLY 裁决；本页不能改公式，也不能把目标改成 30/45/60 分钟门槛。":
+    "v8.0 locks a 1,200-minute total and template thresholds. The current API still judges 20 valid hours TOTAL_ONLY; this page cannot change the formula or switch to 30/45/60-minute thresholds.",
+  选择已发布模板: "Select a published template",
+  当前接口没有已发布模板: "No published template in the current API",
+  "当前接口没有模板锁定操作，不能写入。":
+    "The current API has no template-lock operation, so it cannot be written.",
+  "发布后参数锁定，不能改模板":
+    "Published parameters are locked; the template cannot be changed.",
+  "已发布课程的门槛与周频次锁定。创建课程前请在管理端发布模板并用 createCourse.sportTemplateId。":
+    "Published-course thresholds and weekly frequency stay locked. Publish a template in admin and pass createCourse.sportTemplateId before creating a course.",
+  "邀请有效期须为 5–120 的整数分钟。":
+    "Invitation duration must be a whole number of minutes from 5 to 120.",
+  "缺少课程版本，无法按 Contract 生成邀请。":
+    "The course version is missing, so a Contract invitation cannot be created.",
+  "该操作没有已批准的后端能力，真实模式不会创建本地减免事实。":
+    "This action has no approved backend capability, so live mode will not create a local waiver.",
+  "学时类别、1–60 整分钟、运动项目和补录原因均为必填项。":
+    "Credit category, 1–60 whole minutes, sport, and makeup reason are required.",
+  "缺少成员关系或课程版本，无法补录。":
+    "Enrollment or course version is missing, so makeup cannot be submitted.",
+  "已提交教师补录。服务端确认前不会在本地假装已计入。":
+    "Teacher makeup was submitted. It is not treated as credited until the server confirms.",
+  "邀请码失效后不能再用于加入课程。有效期 5–120 分钟，到期后仅一次 10 分钟宽限且不得刷新。":
+    "An expired invitation cannot be used to join. Duration is 5–120 minutes; after expiry there is one 10-minute grace window that cannot be refreshed.",
+  "邀请有效期（分钟）": "Invitation duration (minutes)",
+  "5–120，默认 30。到期后仅允许一次 10 分钟宽限，不能刷新续期。":
+    "5–120 minutes, default 30. After expiry there is one 10-minute grace window that cannot be refreshed.",
+  "新提交按 Contract 应为待 AI 初审，现网旧接口仍可能默认有效。退回补证只展示流程设计，当前正式协议不会写入。":
+    "New submissions should be awaiting AI check under Contract; the live legacy API may still default to valid. Return-for-proof is display-only and is not written on the current official contract.",
+  "演示模式不把退回补证写成正式结果。":
+    "Demo mode does not write return-for-proof as a real result.",
+  "请填写学生可见的退回原因（自由文本，暂无固定分类清单）。":
+    "Enter a student-visible return reason as free text. There is no frozen public category list yet.",
+  "请选择一项适用于退回补证的固定公开原因。":
+    "Choose one fixed public reason that applies to return-for-proof.",
+  "请选择一项适用于判为无效的固定公开原因。":
+    "Choose one fixed public reason that applies to marking invalid.",
+  "已提交退回补证。服务端确认前不会在本地假装已退回。":
+    "Return-for-proof was submitted. It is not treated as returned until the server confirms.",
+  "找不到该打卡记录。": "That check-in record was not found.",
+  "Contract 退回补证": "Contract return-for-proof",
+  "原因使用自由文本。PENDING-UI-P2W2-01 固定分类仍暂缓。窗口从服务器确认退回时起算。":
+    "Use free-text reasons. PENDING-UI-P2W2-01 frozen categories remain deferred. The window starts when the server confirms the return.",
+  "必须选择一项适用于退回补证的固定公开原因。可选一句公开补充说明保留原文。窗口从服务器确认退回时起算。BD-20260904-01 已关闭原待定分类。":
+    "Choose one fixed public reason that applies to return-for-proof. An optional public note is kept in the original language. The window starts when the server confirms the return. BD-20260904-01 closed the previous pending category list.",
+  "必须选择一项适用于判为无效的固定公开原因。可选一句公开补充说明保留原文。不能选择仅适用于退回的分类，也不提供其他兜底项。":
+    "Choose one fixed public reason that applies to marking invalid. An optional public note is kept in the original language. Return-only categories and an Other fallback are not available.",
+  退回补证公开原因: "Return-for-proof public reason",
+  "公开补充说明（可选，保留原文）": "Public supplemental note (optional, original language)",
+  "不能代替固定分类，也不增加其他兜底项。":
+    "This does not replace the fixed category and does not add an Other fallback.",
+  "补充说明不能代替固定分类。": "A supplemental note cannot replace the fixed category.",
+  "通过与无效仍可走现有审核接口。退回补证和判无效必须选择 V8.1 六类固定公开原因，可再写一句公开补充说明；不再使用自由文本或其他兜底项。退回补证当前只核对流程，不会向服务器发送非正式写入。":
+    "Pass and invalid still use the current review API. Return-for-proof and mark-invalid must use a V8.1 fixed public reason, with an optional original-language public note. Free text and an Other fallback are not used. Return-for-proof currently only checks the flow and does not send an unofficial write.",
+  "按 V8.1 展示通过 / 退回补证 / 无效。退回与判无效必须选择六类固定公开原因；通过与无效仍写入现有接口。退回补证仅作流程设计，正式协议 1.2.0 不会发送写入。":
+    "Show pass / return-for-proof / invalid per V8.1. Return and invalid require one of the six fixed public reasons. Pass and invalid still write the current API. Return-for-proof is flow design only and is not written on Contract 1.2.0.",
+  "退回补证（展示设计）": "Return for proof (display design)",
+  "必须选择一项适用于退回补证的固定公开原因。可选一句公开补充说明保留原文。当前正式协议 1.2.0 不能写入该动作；核对完成后不会向服务器发送请求。":
+    "Choose one fixed public reason that applies to return-for-proof. An optional public note stays in the original language. Official Contract 1.2.0 cannot write this action, so confirming does not send a request.",
+  "核对原因（不写入）": "Check reason (no write)",
+  "当前正式协议 1.2.0 的审核结果只有有效 / 无效，不能写入退回补证。本对话框只用于核对原因和 24/72 小时窗口；下一步需独立 Contract CR，现在不会向服务器发送请求。":
+    "Official Contract 1.2.0 review results are only valid or invalid, so return-for-proof cannot be written. This dialog only checks the reason and 24/72-hour window. A separate Contract CR is required next; no request is sent now.",
+  "当前正式协议 1.2.0 没有教师补录接口。本对话框只用于流程设计，不会向服务器写入。":
+    "Official Contract 1.2.0 has no teacher makeup endpoint. This dialog is flow design only and does not write to the server.",
+  "按整分钟计入、单次最多 60 分钟。当前正式协议 1.2.0 没有教师补录写入接口，正式模式不会向服务器发送请求。":
+    "Credit whole minutes, capped at 60 per record. Official Contract 1.2.0 has no teacher makeup write, so production mode does not send a request.",
+  "已发布课程的门槛与周频次锁定。本轮不接入未发布的运动模板协议。":
+    "Published-course thresholds and weekly frequency stay locked. This change set does not connect unpublished sport-template protocol.",
+  确认退回补证: "Confirm return for proof",
+  补证窗口: "Proof window",
+  "24 小时": "24 hours",
+  "72 小时": "72 hours",
+  学生可见原因: "Student-visible reason",
+  "自由文本，不是固定公开分类。": "Free text, not a frozen public category.",
+  "仅作对照显示；服务端仍按 20 小时 TOTAL_ONLY 裁决。":
+    "Shown for comparison only; the server still judges 20 hours TOTAL_ONLY.",
+  "v8.0 总目标": "v8.0 total target",
+  整分钟计入: "Whole-minute credit",
+  "当前补录接口只能写 1 或 2 小时，不能改成整分钟。":
+    "The current makeup API can only write 1 or 2 hours and cannot switch to whole minutes.",
+  "向学生披露换算分、等级或排名": "Disclose converted scores, bands, or ranking to students",
+  "当前接口不能把换算分发给学生，发布仍只形成内部成绩版本。":
+    "The current API cannot send converted scores to students; publishing still creates an internal grade version only.",
+  "内部自定义分与抵扣上限仍跟现有接口；换算分不向学生披露。":
+    "Internal custom scores and offset caps still follow the current API; converted scores are not disclosed to students.",
+  "当前接口不能向学生披露内部自定义分。":
+    "The current API cannot disclose internal custom scores to students.",
+  向学生披露内部自定义分: "Disclose internal custom scores to students",
   当前邀请码明文不会被重新读取: "The current invitation plaintext cannot be retrieved again",
   "如需重新展示，请生成新邀请码；服务端会同时使此前的有效邀请码失效。":
     "Generate a new invitation to display it again; the server will invalidate the previous active invitation.",
@@ -1585,8 +1734,8 @@ const englishText: Record<string, string> = {
   "业务规则明确禁止教师覆盖计入时长。教师可以追加“有效/无效”审核记录，但不能在客户端改写服务端时长事实。":
     "The API prohibits teacher duration overrides. Teachers may append valid/invalid reviews but cannot rewrite server duration facts from the client.",
   服务端成绩: "Server score",
-  "成绩由服务端按已审核记录与已生效规则计算；教师端不本地录入耐力跑分数。":
-    "The server calculates scores from reviewed records and the active rule; the teacher client does not enter local endurance-run scores.",
+  "内部成绩由服务端按已审核记录与已生效规则计算；换算分不向学生披露，教师端不本地录入分数。":
+    "The internal grade is calculated on the server from reviewed records and active rules. Converted scores are not disclosed to students; teachers do not enter scores locally.",
   重新计算: "Recalculate",
   尚未计算: "Not calculated",
   未发布: "Unpublished",
@@ -1619,8 +1768,8 @@ const englishText: Record<string, string> = {
     "View genuine class members, enrollment status, and server score progress.",
   "依据服务端记录与受保护运动凭证追加有效或无效审核。":
     "Append a valid or invalid review based on the server record and protected exercise evidence.",
-  "重新计算并发布服务端成绩投影；客户端不录入或伪造分数。":
-    "Recalculate and publish server score projections; the client neither enters nor fabricates scores.",
+  "刷新内部成绩投影。换算分不向学生披露；客户端不录入或伪造分数。":
+    "Refresh the internal grade projection. Converted scores are not disclosed to students; the client does not enter or invent scores.",
   "审核服务端免测申请；审核结论不会自动生成分数或抵扣时长。":
     "Review server exemption applications; a decision does not automatically create a score or duration offset.",
   "查看服务端学期状态；当前 API 不提供手工创建、切换或归档操作。":
@@ -1631,8 +1780,8 @@ const englishText: Record<string, string> = {
     "View organization-scoped user feedback; the current API provides no reply or status mutation.",
   "查看学生端提交的问题类型和问题描述；当前 API 不提供回复或状态变更操作。":
     "View the problem category and description submitted by students; the current API provides no reply or status mutation.",
-  "维护服务端总学时成绩规则草稿，并执行双管理员审批流程。":
-    "Maintain server total-hours score-rule drafts and complete the two-administrator approval flow.",
+  "只维护四套耐力跑换算表。运动模板不在本页。":
+    "This page only maintains the four endurance-run conversion tables. Sport templates are not edited here.",
   "查看当前服务端系统模式；客户端不显示当前 API 未开放的切换操作。":
     "View the current server system mode; the client hides switching actions not exposed by the API.",
   "查看服务端已发布的中英文帮助内容；当前客户端 API 不提供发布能力。":
@@ -2082,9 +2231,9 @@ const dynamicText: Array<[RegExp, (...matches: string[]) => string]> = [
     (_, file) => `Opened the front-end preview for ${file}.`,
   ],
   [
-    /^系统已按性别默认 (.*)，用时将依据“(.*)”换算表自动生成分数。$/,
+    /^系统已按性别默认 (.*)，用时将依据“(.*)”换算表生成内部换算分，不向学生披露。$/,
     (_, distance, group) =>
-      `The default distance is ${distance} based on gender. The score is calculated from the “${translateText(group)}” conversion table.`,
+      `The default distance is ${distance} based on gender. The internal converted score comes from the “${translateText(group)}” table and is not shown to students.`,
   ],
   [/^有效期：(.*)$/, (_, date) => `Valid until: ${translateText(date)}`],
   [

@@ -5,10 +5,11 @@
 // keeps local drafts (the student may start again the same day); only an
 // explicit discard or a successful submission clears them.
 
-import { tx, currentLocale } from "../i18n.js";
+import { tx, currentLocale, getLanguage } from "../i18n.js";
 import { icon } from "../icons.js";
 import { esc, spinner, emptyPlaceholder, validationPanel, sectionTitle, statusBadge, userFacingErrorPanel, fieldLabel, fieldControlAttrs, fieldSupport } from "../ui.js";
 import { hourText } from "../data.js";
+import { resolvePublicReasonModel, reviewStageFromRecord, reviewStageLabel } from "../v81-review.js";
 import { canNormalizeCapturedImage, validateProofFile } from "../proofs.js";
 import {
   canStartExercise, hasSubmittedCheckInToday, loadSession, saveSession, clearSession,
@@ -31,6 +32,35 @@ const MAX_IMAGES = MAX_PROOF_IMAGES;
 const MAX_VIDEOS = MAX_PROOF_VIDEOS;
 const OTHER = "other";
 
+function selectedProofTodo(app) {
+  const todos = Array.isArray(app.state.workspace?.proofTodos) ? app.state.workspace.proofTodos : [];
+  const focused = checkinState(app).focusProofRecordId;
+  return todos.find((item) => item.recordId === focused) || todos[0] || null;
+}
+
+function proofSubmitPanel(app) {
+  const todo = selectedProofTodo(app);
+  if (!todo) return "";
+  const ui = checkinState(app);
+  const retained = (ui.drafts || []).filter((draft) => draft.url);
+  return `<div class="body-small text-muted" style="margin-top:12px">${tx("当前有一次补证窗口。本页只展示补证流程；正式协议 1.2.0 没有运动记录补证包，不会向服务器写入。", "An open proof window exists. This page only shows the proof flow; Contract 1.2.0 has no exercise-record proof package, so nothing is written to the server.")}</div>
+    <button class="outlined-btn pressable" type="button" data-action="checkin.submitProof" ${retained.length && app.isWriteAllowed() ? "" : "disabled"} style="min-height:44px;margin-top:8px">${tx("提交补证", "Submit proof")}</button>`;
+}
+
+function creditPolicyChips(policy) {
+  const threshold = Number(policy?.minCreditThresholdMinutes);
+  const cap = Number(policy?.maxCreditMinutes);
+  const knownThreshold = [30, 45, 60].includes(threshold);
+  return `<div class="row" style="gap:8px;flex-wrap:wrap">
+    <button class="outlined-btn" type="button" ${knownThreshold && threshold === 30 ? "" : "disabled"} style="min-height:40px">${tx("30 分钟门槛", "30-minute threshold")}${threshold === 30 ? tx("（课程已锁定）", " (locked for course)") : ""}</button>
+    <button class="outlined-btn" type="button" ${knownThreshold && threshold === 45 ? "" : "disabled"} style="min-height:40px">${tx("45 分钟门槛", "45-minute threshold")}${threshold === 45 ? tx("（课程已锁定）", " (locked for course)") : ""}</button>
+    <button class="outlined-btn" type="button" ${cap === 60 ? "" : "disabled"} style="min-height:40px">${tx("60 分钟封顶", "60-minute cap")}${cap === 60 ? tx("（课程已锁定）", " (locked for course)") : ""}</button>
+  </div>
+  <div class="body-small text-muted" style="margin-top:8px">${policy
+    ? tx(`服务端课程门槛 ${threshold} 分钟，封顶 ${cap || 60} 分钟。`, `Server course threshold ${threshold} min, cap ${cap || 60} min.`)
+    : tx("尚未读到 Contract 课程 creditPolicy；不把本地按钮当成已计入。", "Course creditPolicy has not loaded from Contract; these buttons are not credited minutes.")}</div>`;
+}
+
 function initialLiveCameraState() {
   return {
     mode: null,
@@ -49,15 +79,15 @@ function initialLiveCameraState() {
 }
 
 const SPORT_OPTIONS = [
-  { value: "running", zh: "跑步", en: "Running", icon: "directions-run" },
-  { value: "basketball", zh: "篮球", en: "Basketball", icon: "sports-basketball" },
-  { value: "football", zh: "足球", en: "Football", icon: "sports-soccer" },
-  { value: "badminton", zh: "羽毛球", en: "Badminton", icon: "sports-badminton" },
-  { value: "table_tennis", zh: "乒乓球", en: "Table tennis", icon: "sports-table-tennis" },
-  { value: "swimming", zh: "游泳", en: "Swimming", icon: "pool" },
-  { value: "fitness", zh: "健身", en: "Fitness", icon: "fitness-center" },
-  { value: "cycling", zh: "骑行", en: "Cycling", icon: "directions-bike" },
-  { value: OTHER, zh: "其他", en: "Other", icon: "more-horiz" },
+  { value: "running", zh: "跑步", en: "Running", icon: "sport-running" },
+  { value: "basketball", zh: "篮球", en: "Basketball", icon: "sport-basketball" },
+  { value: "football", zh: "足球", en: "Football", icon: "sport-football" },
+  { value: "badminton", zh: "羽毛球", en: "Badminton", icon: "sport-badminton" },
+  { value: "table_tennis", zh: "乒乓球", en: "Table tennis", icon: "sport-table-tennis" },
+  { value: "swimming", zh: "游泳", en: "Swimming", icon: "sport-swimming" },
+  { value: "fitness", zh: "健身", en: "Fitness", icon: "sport-fitness" },
+  { value: "cycling", zh: "骑行", en: "Cycling", icon: "sport-cycling" },
+  { value: OTHER, zh: "其他", en: "Other", icon: "sport-other" },
 ];
 
 const creditTypeLabel = (creditType) =>
@@ -76,6 +106,13 @@ function sportLabel(details) {
   if (details.sportType === OTHER) return details.customSportName || "";
   const option = SPORT_OPTIONS.find((o) => o.value === details.sportType);
   return option ? tx(option.zh, option.en) : details.sportType;
+}
+
+function sportIconName(value) {
+  const raw = String(value || "").trim();
+  const key = raw.toLowerCase();
+  const option = SPORT_OPTIONS.find((item) => item.value === key || item.zh === raw);
+  return option?.icon || "sport-other";
 }
 
 /** courseSportSelection (ExerciseSessionState.kt): sport inferred from course name. */
@@ -115,6 +152,7 @@ function checkinState(app) {
       activeSessionConflict: null,
       drafts: [],
       previewDraftId: null,
+      focusProofRecordId: null,
       liveCamera: initialLiveCameraState(),
     };
   }
@@ -327,12 +365,9 @@ function renderPreparation(app) {
 
   const sportOptions = isCourse
     ? (courseSport
-        ? [{ value: courseSport.sportType, zh: courseSport.displayName, en: courseSport.displayName, icon: SPORT_OPTIONS.find((o) => o.value === courseSport.sportType)?.icon || "more-horiz" }]
+        ? [{ value: courseSport.sportType, zh: courseSport.displayName, en: courseSport.displayName, icon: SPORT_OPTIONS.find((o) => o.value === courseSport.sportType)?.icon || "sport-other" }]
         : [])
     : SPORT_OPTIONS;
-
-  const sportRows = [];
-  for (let i = 0; i < sportOptions.length; i += 4) sportRows.push(sportOptions.slice(i, i + 4));
 
   return `<div class="checkin-prep">
     <div class="col" style="gap:20px;padding-bottom:104px">
@@ -342,6 +377,11 @@ function renderPreparation(app) {
             <div class="headline-small text-on-surface">${blocked === null ? tx("准备开始", "Ready to start") : tx("暂时无法开始", "Unable to start")}</div>
             <div style="height:5px"></div>
             <div class="body-medium text-muted">${blocked === null ? tx("选择运动项目，开始记录有效时长", "Choose an exercise to start recording active time.") : esc(blocked)}</div>
+            <div style="height:8px"></div>
+            <div class="body-small text-muted">${tx("计入由服务端按整分钟、课程门槛和 60 分钟封顶计算。提交仍走现有会话接口时，本页不把 30/45/60 写成已计入。", "The server credits whole minutes using the course threshold and a 60-minute cap. While submit still uses the existing session API, this page does not treat 30/45/60 as already credited.")}</div>
+            <div style="height:12px"></div>
+            ${creditPolicyChips(workspace.creditPolicy)}
+            ${proofSubmitPanel(app)}
           </div>
           ${statusPill(blocked === null ? tx("可打卡", "Available") : tx("不可打卡", "Unavailable"), blocked === null ? GREEN : ORANGE)}
         </div>
@@ -382,13 +422,10 @@ function renderPreparation(app) {
           <div class="course-divider" style="margin:18px 0 16px"></div>
           <div class="title-small text-on-surface">${isCourse ? tx("课程运动", "Course exercise") : tx("运动项目", "Exercise type")}</div>
           <div style="height:10px"></div>
-          <div class="col" style="gap:8px">
-            ${sportRows.map((row) => `<div class="row" style="gap:8px">${row
-              .map((option) => `<button class="sport-btn pressable${sportType === option.value ? " selected" : ""}" data-action="checkin.sport" data-value="${esc(option.value)}">
-                ${icon(option.icon, 22)}<span class="label-medium ellipsis">${esc(tx(option.zh, option.en))}</span>
-              </button>`)
-              .join("")}</div>`).join("")}
-          </div>
+          <div class="sport-grid">${sportOptions.map((option) => `<button class="sport-btn pressable${sportType === option.value ? " selected" : ""}" data-action="checkin.sport" data-value="${esc(option.value)}" type="button">
+              <span class="sport-glyph">${icon(option.icon, 24)}</span>
+              <span class="label-medium ellipsis">${esc(tx(option.zh, option.en))}</span>
+            </button>`).join("")}</div>
           ${isCourse && currentCourse ? `<div style="height:10px"></div><span class="body-small text-muted">${tx(`已根据当前课程“${currentCourse.name}”自动选择`, `Automatically selected for the current course “${currentCourse.name}”.`)}</span>` : ""}
           ${!isCourse && sportType === OTHER ? `<div style="height:12px"></div>
             <div class="col custom-sport-card">
@@ -558,6 +595,8 @@ function renderRunning(app, session, paused) {
   const details = session.details;
   return `<div class="col" style="gap:0;padding-bottom:24px">
     <div class="row">
+      <span class="sport-glyph">${icon(sportIconName(details.sportType), 24)}</span>
+      <span style="width:10px"></span>
       <div class="col grow">
         <span class="headline-small text-on-surface">${esc(sportLabel(details))}</span>
         <span class="body-small text-muted">${creditTypeLabel(details.creditType)}</span>
@@ -777,18 +816,19 @@ function renderRecordsTab(app) {
       const course = record.courseId ? app.state.workspace.courses.find((c) => c.id === record.courseId) : null;
       const courseName = course?.name || tx("自主运动", "Independent exercise");
       return `<button class="course-card pressable" data-action="checkin.openRecord" data-record-id="${esc(record.id)}" style="text-align:left">
-        <div class="col" style="gap:4px">
-          <span class="title-large text-on-surface ellipsis">${esc(recordSportName(record))}</span>
-          <span class="body-small text-muted">${esc(record.submittedAt.split(" ")[0] || tx("未提供", "Not available"))}</span>
+        <div class="row" style="align-items:flex-start;gap:10px">
+          <span class="sport-glyph compact">${icon(sportIconName(record.sportCode || record.sportType), 20)}</span>
+          <div class="col grow" style="gap:4px;min-width:0">
+            <span class="title-large text-on-surface ellipsis">${esc(recordSportName(record))}</span>
+            <span class="body-small text-muted">${esc(record.submittedAt.split(" ")[0] || tx("未提供", "Not available"))}</span>
+          </div>
         </div>
         <div class="row">
           <span class="title-medium text-on-surface">${hourText(record.hours)}</span>
           <span style="width:6px"></span>
           <span class="body-small text-muted">${creditLabel(record)}</span>
           <span class="grow"></span>
-          ${record.reviewResult === "INVALID"
-            ? `${statusBadge(reviewStatusText(record))}<span style="width:8px"></span>`
-            : ""}
+          ${statusBadge(reviewStatusText(record))}<span style="width:8px"></span>
           <span class="label-medium text-muted">${creditTypeLabel(record.creditType)}</span>
         </div>
         <div class="course-divider"></div>
@@ -855,9 +895,39 @@ function creditLabel(record) {
 }
 
 function reviewStatusText(record) {
-  if (record.reviewResult === "VALID") return tx("有效", "Valid");
-  if (record.reviewResult === "INVALID") return tx("无效", "Invalid");
-  return null;
+  return reviewStageLabel(reviewStageFromRecord(record), getLanguage() === "en-US");
+}
+
+function renderPublicReasonPanel(record) {
+  const model = resolvePublicReasonModel(record);
+  if (model.kind === "systemOverdue") {
+    return `<div class="swiss-panel" data-testid="reviewReason.card">
+      <div class="label-medium text-muted">${tx("决定来源", "Decision source")}</div>
+      <div class="body-medium text-on-surface" style="margin-top:4px">${tx("系统", "System")}</div>
+      <div class="label-medium text-muted" style="margin-top:10px">${tx("公开结果原因", "Public result reason")}</div>
+      <div class="body-medium text-on-surface" style="margin-top:4px">${tx("补证逾期", "Supplementary evidence deadline missed")}</div>
+      <div class="body-small text-muted" style="margin-top:8px">${tx("该原因不属于教师原因选项，也不会重新开放补证入口。", "This is not a teacher reason option and does not reopen supplementation.")}</div>
+    </div>`;
+  }
+  if (model.kind === "teacher") {
+    const label = getLanguage() === "en-US" ? model.reason.en : model.reason.zh;
+    return `<div class="swiss-panel" data-testid="reviewReason.card">
+      <div class="label-medium text-muted">${tx("固定公开原因", "Fixed public reason")}</div>
+      <div class="body-medium text-on-surface" style="margin-top:4px">${esc(label)}</div>
+      ${model.publicNote ? `<div class="label-medium text-muted" style="margin-top:10px">${tx("公开补充说明（保留原文）", "Public supplemental note (original language)")}</div>
+      <div class="body-medium text-on-surface" style="margin-top:4px">${esc(model.publicNote)}</div>` : ""}
+    </div>`;
+  }
+  if (!model.publicNote && record.reviewResult !== "INVALID" && record.reviewResult !== "PROOF_OVERDUE_INVALID" && record.reviewResult !== "RETURN_FOR_PROOF") {
+    return "";
+  }
+  return `<div class="swiss-panel" data-testid="reviewReason.card">
+    <div class="label-medium text-muted">${tx("固定公开原因", "Fixed public reason")}</div>
+    <div class="body-medium text-on-surface" style="margin-top:4px">${tx("暂不可用", "Currently unavailable")}</div>
+    <div class="body-small text-muted" style="margin-top:8px">${tx("当前记录未提供可识别的固定原因分类；不会根据自由文本猜测分类。", "This record has no identifiable fixed reason category; free text is not used to guess one.")}</div>
+    ${model.publicNote ? `<div class="label-medium text-muted" style="margin-top:10px">${tx("公开说明（保留原文）", "Public note (original language)")}</div>
+    <div class="body-medium text-on-surface" style="margin-top:4px">${esc(model.publicNote)}</div>` : ""}
+  </div>`;
 }
 
 function recordDetailTime(value) {
@@ -904,7 +974,7 @@ function renderRecordDetail(app, record) {
     </div>
     <div class="row" style="padding-top:8px"><span class="title-medium text-on-surface grow">${tx("记录信息", "Record information")}</span></div>
     <div class="swiss-panel" style="padding:6px 18px">
-      ${reviewStatusText(record) ? detailInfoRow("info-outline", tx("审核状态", "Review status"), reviewStatusText(record)) : ""}
+      ${detailInfoRow("info-outline", tx("审核状态", "Review status"), reviewStatusText(record))}
       ${detailInfoRow("timer", tx("提交时间", "Submitted"), record.submittedAt)}
       ${detailInfoRow("timer", tx("开始时间", "Started"), recordDetailTime(record.startTime))}
       ${detailInfoRow("timer", tx("结束时间", "Ended"), recordDetailTime(record.endTime))}
@@ -913,17 +983,8 @@ function renderRecordDetail(app, record) {
       ${detailInfoRow("info-outline", tx("打卡类别", "Check-in category"), creditTypeLabel(record.creditType))}
       ${detailInfoRow("attach-file", tx("凭证", "Proof"), proofSummaryText(record), true)}
     </div>
-    ${record.reviewResult === "INVALID" ? `
-      <section class="swiss-panel rejected-record-panel" role="status">
-        <div class="col" style="gap:7px">
-          <span class="title-medium" style="color:${RED}">${tx("上一次提交已被拒绝", "The previous submission was rejected")}</span>
-          <span class="body-medium text-on-surface">${esc(tx(`拒绝原因：${rejectionReasonText(record)}`, `Reason: ${rejectionReasonText(record)}`))}</span>
-          <span class="body-small text-muted">${esc(tx("该记录保留为审核历史；请按业务规则在下一个业务日期重新运动并提交新记录。", "This record remains in review history; follow the business rules and submit a new activity on the next business date."))}</span>
-        </div>
-      </section>` : ""}
-    ${record.teacherPublicFeedback && record.reviewResult !== "INVALID" ? `
-      <div class="row" style="padding-top:8px"><span class="title-medium text-on-surface grow">${tx("审核结果", "Review result")}</span></div>
-      <div class="swiss-panel"><span class="body-medium text-on-surface">${esc(record.teacherPublicFeedback)}</span></div>` : ""}
+    <div class="row" style="padding-top:8px"><span class="title-medium text-on-surface grow">${tx("公开原因或说明", "Public reason or note")}</span></div>
+    ${renderPublicReasonPanel(record)}
     ${record.note ? `
       <div class="row" style="padding-top:8px"><span class="title-medium text-on-surface grow">${tx("运动说明", "Exercise notes")}</span></div>
       <div class="swiss-panel"><span class="body-medium text-on-surface">${esc(record.note)}</span></div>` : ""}
@@ -1200,7 +1261,9 @@ async function finishSession(app, session, { auto }) {
       } finally {
         ui.sessionTransitioning = false;
       }
-    } else return;
+    } else if (!app.isLocalPreview()) {
+      return;
+    }
     clearSession(accountId(app));
     app.showDialog({
       title: tx("运动提示", "Exercise notice"),
@@ -1226,10 +1289,13 @@ async function finishSession(app, session, { auto }) {
     persist(app, finished);
     app.render();
   };
-  if (!app.isApiMode() || !session.serverId) return;
-  finishServerSession(session.serverId, session.serverVersion).then(complete, (error) => {
-    apiFailureDialog(app, error, tx("结束运动失败", "Could not end the session"));
-  });
+  if (app.isApiMode() && session.serverId) {
+    finishServerSession(session.serverId, session.serverVersion).then(complete, (error) => {
+      apiFailureDialog(app, error, tx("结束运动失败", "Could not end the session"));
+    });
+    return;
+  }
+  if (app.isLocalPreview()) complete(null);
 }
 
 function stopLiveCamera(ui) {
@@ -1558,6 +1624,14 @@ function submitCheckIn(app, session) {
     return;
   }
   ui.finish.submitting = false;
+  if (app.isLocalPreview()) {
+    app.showDialog({
+      title: tx("本地预览不提交", "Local preview does not submit"),
+      body: tx("这是本地界面预览，不会写入 Backend，也不是正式打卡成功。", "This is a local UI preview. Nothing is written to Backend, and this is not a formal check-in."),
+      buttons: [{ label: tx("知道了", "OK"), action: "dialog.close" }],
+    });
+    return;
+  }
   apiFailureDialog(app, new ApiError(401, { code: "AUTH_SESSION_REQUIRED", message: "" }), tx("提交失败", "Submission failed"));
   app.render();
 }
@@ -1741,6 +1815,10 @@ export const checkinActions = {
     };
     const begin = () => {
       if (!app.isApiMode()) {
+        if (app.isLocalPreview()) {
+          afterStart(null);
+          return;
+        }
         apiFailureDialog(app, new ApiError(401, { code: "AUTH_SESSION_REQUIRED", message: "" }), tx("无法开始运动", "Cannot start"));
         return;
       }
@@ -1805,8 +1883,11 @@ export const checkinActions = {
       persist(app, paused);
       app.render();
     };
-    if (!app.isApiMode() || !session.serverId) return;
-    pauseServerSession(session.serverId, session.serverVersion).then(apply, (error) => apiFailureDialog(app, error, tx("暂停失败", "Pause failed")));
+    if (app.isApiMode() && session.serverId) {
+      pauseServerSession(session.serverId, session.serverVersion).then(apply, (error) => apiFailureDialog(app, error, tx("暂停失败", "Pause failed")));
+      return;
+    }
+    if (app.isLocalPreview()) apply(null);
   },
   "checkin.resume": (app) => {
     const session = loadSession(accountId(app));
@@ -1817,8 +1898,11 @@ export const checkinActions = {
       persist(app, resumed);
       app.render();
     };
-    if (!app.isApiMode() || !session.serverId) return;
-    resumeServerSession(session.serverId, session.serverVersion).then(apply, (error) => apiFailureDialog(app, error, tx("继续失败", "Resume failed")));
+    if (app.isApiMode() && session.serverId) {
+      resumeServerSession(session.serverId, session.serverVersion).then(apply, (error) => apiFailureDialog(app, error, tx("继续失败", "Resume failed")));
+      return;
+    }
+    if (app.isLocalPreview()) apply(null);
   },
   "checkin.requestFinish": (app) => {
     if (checkinState(app).sessionTransitioning) return;
@@ -2017,6 +2101,18 @@ export const checkinActions = {
     if (!session || session.phase !== "finished") return;
     if (!app.isWriteAllowed()) return;
     submitCheckIn(app, session);
+  },
+  "checkin.submitProof": async (app) => {
+    if (!app.isWriteAllowed()) return;
+    const todo = selectedProofTodo(app);
+    const ui = checkinState(app);
+    const drafts = (ui.drafts || []).filter((draft) => draft.url);
+    if (!todo?.recordId || !drafts.length) return;
+    app.showDialog({
+      title: tx("当前不能提交补证", "Cannot submit proof now"),
+      body: tx("当前正式协议 1.2.0 没有运动记录补证包。本页只展示补证流程，不会向服务器发送非正式写入。", "Official Contract 1.2.0 has no exercise-record proof package. This page only shows the flow and will not send an unofficial write."),
+      buttons: [{ label: tx("我知道了", "Got it"), action: "dialog.close" }],
+    });
   },
   "checkin.abandon": (app) => {
     app.showDialog({

@@ -20,7 +20,9 @@ frontend/
 npm run preview
 ```
 
-学生端入口为 `http://127.0.0.1:4174/student/`；访问预览根路径会跳转到学生端。
+学生端入口为 `http://127.0.0.1:4174/student/`；访问预览根路径会跳转到学生端。本地 `APP_ENV=local` 时可用 `http://127.0.0.1:4174/student/?preview=student` 直接进入界面预览（不登录真实账号，不写入 Backend，不是正式入班/打卡）。
+
+前端 Contract 接线、旧接口保留项，以及正式版必须隐藏的预览入口与学生藏分表面，见仓库 [`docs/rebuild/handoffs/2026-09-04-frontend-api-and-production-hide.md`](../../docs/rebuild/handoffs/2026-09-04-frontend-api-and-production-hide.md)。
 
 ## 验证
 

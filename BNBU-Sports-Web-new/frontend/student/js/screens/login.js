@@ -3,6 +3,7 @@
 import { t, tx } from "../i18n.js";
 import { icon } from "../icons.js";
 import { universityLockup, focusFirstInvalidField } from "../ui.js";
+import { localPreviewEnabled } from "../local-preview.js";
 
 export function realTestEntryEnabled(config = globalThis.__BNBU_PUBLIC_CONFIG__) {
   return config?.appEnv === "local";
@@ -23,6 +24,7 @@ function loginMethodButton({ title, subtitle, iconName, primary, enabled, action
 export function renderLogin(app) {
   const accepted = app.state.loginPrivacyAccepted;
   const showRealTestEntry = realTestEntryEnabled();
+  const showLocalPreview = localPreviewEnabled();
   return `<div class="screen login-screen">
     <div class="screen-scroll" data-scroll-key="login">
       <div class="auth-column">
@@ -47,21 +49,33 @@ export function renderLogin(app) {
           <div class="login-divider"></div>
           <div class="label-large text-muted" style="font-weight:500;padding:28px 0 12px">${t("login_other_methods")}</div>
           ${loginMethodButton({ title: t("login_scan_button"), subtitle: t("login_scan_hint"), iconName: "qr-code-scanner", primary: false, enabled: accepted, action: "login.scan" })}
-          ${showRealTestEntry ? `
+          ${showRealTestEntry || showLocalPreview ? `
             <div class="local-test-divider" aria-hidden="true"></div>
-            <details class="local-test-access">
+            <details class="local-test-access" open>
               <summary>${tx("学生端测试入口", "Student test entry")}</summary>
               <div class="local-test-access-body">
-                <div class="title-medium">${tx("真实账号测试", "Real-account testing")}</div>
-                <div class="body-small text-muted">${tx("使用真实学生账号和密码登录；登录后所有数据均通过 HTTP API 从 Backend 获取。", "Sign in with a real student account and password; all signed-in data is loaded from Backend HTTP APIs.")}</div>
+                ${showLocalPreview ? `
+                <div class="title-medium">${tx("本地界面预览", "Local UI preview")}</div>
+                <div class="body-small text-muted">${tx("无需真实账号。只看当前规则和 UI，不写入 Backend，不是正式入班或打卡成功。", "No real account. Review current rules and UI only. Nothing is written to Backend, and this is not a formal join or check-in.")}</div>
                 ${loginMethodButton({
-                  title: tx("进入账号密码登录", "Open account sign-in"),
-                  subtitle: tx("不提供免登录账号，不使用本地合成业务数据", "No password-free account or local synthetic business data"),
+                  title: tx("直接进入本地预览", "Enter local preview"),
+                  subtitle: tx("使用本地预览数据，可加 ?preview=student", "Uses local preview data; ?preview=student also works"),
+                  iconName: "info-outline",
+                  primary: false,
+                  enabled: accepted,
+                  action: "login.localReview",
+                })}` : ""}
+                ${showRealTestEntry ? `
+                <div class="title-medium">${tx("真实账号测试", "Real-account testing")}</div>
+                <div class="body-small text-muted">${tx("使用真实学生账号和邮箱验证码登录；登录后所有数据均通过 HTTP API 从 Backend 获取。", "Sign in with a real student account and email code; all signed-in data is loaded from Backend HTTP APIs.")}</div>
+                ${loginMethodButton({
+                  title: tx("进入账号验证码登录", "Open account sign-in"),
+                  subtitle: tx("正式链路仍要真实账号", "The live path still needs a real account"),
                   iconName: "email",
                   primary: false,
                   enabled: accepted,
                   action: "login.testEntry",
-                })}
+                })}` : ""}
               </div>
             </details>` : ""}
         </div>
@@ -111,5 +125,14 @@ export const loginActions = {
     app.state.showEmailLogin = true;
     app.navDirection = "forward";
     app.render();
+  },
+  "login.localReview": (app) => {
+    if (!localPreviewEnabled()) return;
+    if (!app.state.loginPrivacyAccepted) {
+      app.render();
+      focusFirstInvalidField(app._viewport, ["#login-privacy-check"]);
+      return;
+    }
+    app.enterLocalPreview();
   },
 };

@@ -3,7 +3,7 @@
 // tapping an unread notice marks it read first; Review notices close the sheet
 // and open the exemption screen; others open the in-sheet detail.
 
-import { t } from "../i18n.js";
+import { t, tx } from "../i18n.js";
 import { icon } from "../icons.js";
 import { esc, statusBadge, emptyPlaceholder } from "../ui.js";
 
@@ -17,6 +17,21 @@ const FILTERS = [
 function notificationsState(app) {
   if (!app.ui.notifications) app.ui.notifications = { filter: "all", selectedNoticeId: null };
   return app.ui.notifications;
+}
+
+function proofCountdown(app) {
+  const todos = Array.isArray(app.state.workspace?.proofTodos) ? app.state.workspace.proofTodos : [];
+  if (!todos.length) {
+    return `<button class="outlined-btn" type="button" disabled style="min-height:44px;margin-bottom:8px">${tx("补证倒计时（当前无待办）", "Proof countdown (none open)")}</button>`;
+  }
+  const nearest = todos.reduce((best, item) => {
+    const remain = Number(item.remainingSeconds);
+    if (!Number.isFinite(remain)) return best;
+    if (!best || remain < Number(best.remainingSeconds)) return item;
+    return best;
+  }, null);
+  const minutes = nearest ? Math.max(0, Math.ceil(Number(nearest.remainingSeconds) / 60)) : 0;
+  return `<div class="body-medium" style="min-height:44px;margin-bottom:8px">${tx(`最近补证截止还剩约 ${minutes} 分钟（服务器 remainingSeconds）`, `Nearest proof deadline: about ${minutes} min (server remainingSeconds)`)}</div>`;
 }
 
 /** Refresh only the sheet body so its open animation and the page below stay intact. */
@@ -37,16 +52,20 @@ function refreshNotificationSheet(app) {
   currentBody.replaceWith(nextBody);
 }
 
+function studentVisibleNoticeText(text) {
+  return String(text || "");
+}
+
 function noticeRow(notice) {
   return `<button class="swiss-panel pressable notice-row" data-action="notifications.openNotice" data-notice-id="${esc(notice.id)}">
     <div class="row" style="align-items:flex-start;gap:10px">
       <span style="display:inline-flex;flex:none;color:${notice.isUnread ? "var(--color-primary)" : "var(--color-on-surface-variant)"}">${icon(notice.isUnread ? "notifications" : "check-circle", 20)}</span>
       <div class="col grow" style="gap:6px;text-align:left">
         <div class="row">
-          <span class="body-medium grow" style="color:var(--color-on-surface);font-weight:${notice.isUnread ? 600 : 400}">${esc(notice.title)}</span>
+          <span class="body-medium grow" style="color:var(--color-on-surface);font-weight:${notice.isUnread ? 600 : 400}">${esc(studentVisibleNoticeText(notice.title))}</span>
           <span class="label-small text-muted">${esc(notice.time)}</span>
         </div>
-        <span class="body-small text-muted">${esc(notice.message)}</span>
+        <span class="body-small text-muted">${esc(studentVisibleNoticeText(notice.message))}</span>
       </div>
     </div>
   </button>`;
@@ -63,11 +82,11 @@ export function renderNotificationSheet(app) {
   if (showingDetail) {
     content = `<div class="col" style="gap:14px;overflow-y:auto">
       <div class="swiss-panel">
-        <div class="title-large text-on-surface">${esc(selectedNotice.title)}</div>
+        <div class="title-large text-on-surface">${esc(studentVisibleNoticeText(selectedNotice.title))}</div>
         <div style="height:4px"></div>
         <div class="label-medium text-muted">${esc(selectedNotice.time)}</div>
         <div style="height:6px"></div>
-        <div class="body-medium text-muted">${esc(selectedNotice.message)}</div>
+        <div class="body-medium text-muted">${esc(studentVisibleNoticeText(selectedNotice.message))}</div>
       </div>
       ${selectedNotice.isUnread ? `<button class="text-btn pressable" data-action="notifications.markRead" data-notice-id="${esc(selectedNotice.id)}" style="width:100%">
         ${icon("check-circle", 20)}<span>${t("notification_mark_read")}</span>
@@ -105,6 +124,8 @@ export function renderNotificationSheet(app) {
           <span class="title-large text-on-surface grow">${t(showingDetail ? "notification_detail" : "notification_title")}</span>
           <button class="icon-btn pressable" data-action="notifications.close" aria-label="${t("notification_close")}">${icon("close", 24)}</button>
         </div>
+        ${showingDetail ? "" : `<p class="body-small text-muted" style="margin:0 0 8px">${tx("通知不含分数。补证截止只使用服务器 proof-todos。", "Notices do not include scores. Proof deadlines use server proof-todos only.")}</p>`}
+        ${showingDetail ? "" : proofCountdown(app)}
         ${showingDetail ? "" : `<div class="row">
           ${statusBadge(unread > 0 ? t("notification_unread_count", unread) : t("notification_none_unread"))}
           <span class="grow"></span>
@@ -141,11 +162,16 @@ export const notificationActions = {
       refreshNotificationSheet(app);
       return;
     }
-    if (notice.category === "review") {
-      // Review notices leave the sheet and open the exemption screen directly.
+    if (notice.opensExemption) {
       app.state.notificationSheetOpen = false;
       app.ui.notifications = null;
       app.openSub("exemption", { targetId: notice.targetId || null });
+    } else if (notice.kind === "review" && notice.targetId) {
+      app.state.notificationSheetOpen = false;
+      app.ui.notifications = null;
+      if (!app.ui.checkin) app.ui.checkin = {};
+      app.ui.checkin.selectedRecordId = notice.targetId;
+      app.selectTab("checkin");
     } else {
       ui.selectedNoticeId = notice.id;
       refreshNotificationSheet(app);

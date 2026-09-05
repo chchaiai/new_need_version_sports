@@ -397,6 +397,12 @@ function knownApiErrorMessage(error) {
     SYSTEM_SERVICE_UNAVAILABLE: tx("依赖服务暂时不可用，请稍后再试。", "A required service is unavailable. Try again later."),
     SYSTEM_DEPENDENCY_TIMEOUT: tx("服务响应超时，请稍后再试。", "The service timed out. Try again later."),
     SYSTEM_INVALID_RESPONSE: tx("服务返回的数据不完整，本次操作已安全停止。", "The service returned incomplete data, so this action was stopped safely."),
+    RESOURCE_NOT_FOUND: tx("请求的资源不存在。", "The requested resource was not found."),
+    AUTHENTICATION_REQUIRED: tx("请先登录后再继续操作。", "Sign in before continuing."),
+    PROOF_WINDOW_CLOSED: tx("补证窗口已关闭。", "The proof window has closed."),
+    PROOF_ALREADY_SUBMITTED: tx("本次退回已提交过补证。", "Proof was already submitted for this return."),
+    SWIM_SUBMIT_WINDOW_EXPIRED: tx("游泳须在结束后 15 分钟内由服务器受理提交。", "Swimming must be accepted by the server within 15 minutes after the session ends."),
+    INVITATION_INVALID: tx("邀请码无效或当前不能加入。", "This invitation is invalid or not joinable."),
   };
   if (known[error.code]) return known[error.code];
   if (error.status === 401) return tx("登录状态已失效。", "Your sign-in session is no longer valid.");
@@ -685,6 +691,34 @@ async function rawRequest(path, {
   return includeMeta ? parsed : parsed?.data;
 }
 
+async function rawContractRequest(path, {
+  method = "GET", body, headers = {}, auth = true, idempotent = false,
+} = {}) {
+  const tokens = readTokens();
+  const requestHeaders = { ...headers };
+  if (body !== undefined) requestHeaders["Content-Type"] = "application/json";
+  if (idempotent && !hasIdempotencyKey(requestHeaders)) requestHeaders["Idempotency-Key"] = uuid();
+  if (auth && tokens?.accessToken) requestHeaders["Authorization"] = `Bearer ${tokens.accessToken}`;
+  let response;
+  try {
+    response = await fetch(`${apiBaseUrl()}${path}`, {
+      method,
+      headers: requestHeaders,
+      body: body !== undefined ? JSON.stringify(body) : undefined,
+    });
+  } catch (error) {
+    throw new ClientTransportError(error, { method, route: path });
+  }
+  let parsed = null;
+  try { parsed = await response.json(); } catch { /* empty body */ }
+  if (!response.ok) {
+    const error = new ApiError(response.status, parsed, { method, route: path });
+    if (error.code === "SYSTEM_MAINTENANCE") publishSystemMaintenance();
+    throw error;
+  }
+  return parsed;
+}
+
 async function refreshSession(expectedEpoch) {
   const tokens = readTokens();
   if (!tokens?.refreshToken) throw new ApiError(401, { code: "AUTH_REQUIRED", message: "No refresh token" });
@@ -747,6 +781,43 @@ export async function request(path, options = {}) {
   }
 }
 
+export async function contractRequest(path, options = {}) {
+  const stableOptions = stableRequestOptions(options);
+  try {
+    return await rawContractRequest(path, stableOptions);
+  } catch (error) {
+    const authenticated = stableOptions.auth !== false && readTokens();
+    if (authenticated && isTerminalAccessFailure(error)) {
+      clearApiSession();
+      throw error;
+    }
+    if (authenticated && isRefreshableAccessFailure(error)) {
+      const epoch = authSessionEpoch;
+      if (!refreshAttempt || refreshAttempt.epoch !== epoch) {
+        const attempt = { epoch, promise: null };
+        attempt.promise = refreshSession(epoch).finally(() => {
+          if (refreshAttempt === attempt) refreshAttempt = null;
+        });
+        refreshAttempt = attempt;
+      }
+      const attempt = refreshAttempt;
+      try {
+        await attempt.promise;
+      } catch (refreshError) {
+        if (
+          authSessionEpoch === attempt.epoch &&
+          isTerminalRefreshFailure(refreshError)
+        ) {
+          clearApiSession();
+        }
+        throw refreshError;
+      }
+      return rawContractRequest(path, stableOptions);
+    }
+    throw error;
+  }
+}
+
 const CURSOR_PAGE_LIMIT = 100;
 
 function withCursor(path, cursor) {
@@ -783,6 +854,23 @@ async function listAllCursorPages(path) {
 // ── Auth & join flow ─────────────────────────────────────────────
 export const previewInvite = (inviteToken) =>
   request(`/course-invites/${encodeURIComponent(inviteToken)}/preview`, { auth: false });
+
+export const previewCourseInvitation = (invitationCode, { auth = false } = {}) =>
+  contractRequest(`/course-invitations/${encodeURIComponent(invitationCode)}`, { auth });
+
+export const listOwnProofTodos = () =>
+  contractRequest("/student/proof-todos");
+
+export const submitExerciseProof = () =>
+  Promise.reject(Object.assign(new Error("PROOF_WRITE_UNAVAILABLE_CONTRACT_1_2_0"), {
+    code: "PROOF_WRITE_UNAVAILABLE_CONTRACT_1_2_0",
+  }));
+
+export const getOwnExerciseRecord = (recordId) =>
+  contractRequest(`/student/exercise-records/${encodeURIComponent(recordId)}`);
+
+export const getOwnCurrentCourseContract = () =>
+  contractRequest("/student/course");
 
 export async function joinWithInvite(inviteToken, profile) {
   // 1. one-time join capability from the public profile facts
@@ -1904,6 +1992,11 @@ export async function loadApiWorkspace(preloadedIdentity = null) {
         ? tx("进行中", "In progress")
         : tx("已按有效打卡累计", "Summed from valid check-ins");
 
+  const [proofTodoPage, contractCourse] = await Promise.all([
+    optionalCapability(listOwnProofTodos()),
+    optionalCapability(getOwnCurrentCourseContract()),
+  ]);
+
   return {
     workspace: {
       student: mapServerStudent(me, profile, semester, deriveStudentStatus(activeEnrollments)),
@@ -1939,6 +2032,8 @@ export async function loadApiWorkspace(preloadedIdentity = null) {
       exemptions: exemptions.map(mapStructuredExemptionApplication),
       checkInTimeWindow: timeWindow,
       courseJoinRequest: null,
+      proofTodos: Array.isArray(proofTodoPage?.items) ? proofTodoPage.items : [],
+      creditPolicy: contractCourse?.creditPolicy || null,
     },
     activeServerSession: activeSession,
   };
