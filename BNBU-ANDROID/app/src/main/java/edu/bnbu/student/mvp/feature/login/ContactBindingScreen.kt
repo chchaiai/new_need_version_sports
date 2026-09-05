@@ -326,8 +326,8 @@ fun ContactBindingScreen(
                         )
                     } else {
                         interfaceText(
-                            "绑定学校登记邮箱，用于身份验证及重要通知。",
-                            "Bind the email registered with your school for identity checks and important notices."
+                            "绑定学校登记邮箱，用于身份验证和邮箱验证码登录。业务提醒只在站内通知中心查看。",
+                            "Bind the email registered with your school for identity verification and email-code sign-in. Business reminders appear only in the in-app notification centre."
                         )
                     },
                     color = colors.onSurfaceVariant,
@@ -610,7 +610,7 @@ private fun RequiredActivationFooter(
             modifier = Modifier.testTag("emailSecurity.help")
         ) {
             Text(
-                text = interfaceText("邮箱遇到问题？联系管理员", "Email problem? Contact an administrator"),
+                text = interfaceText("邮箱遇到问题？查看学校核验说明", "Email problem? View school verification guidance"),
                 style = MaterialTheme.typography.bodySmall
             )
         }
@@ -662,8 +662,8 @@ fun ContactActivationHelpScreen(onBack: () -> Unit) {
         )
         Text(
             text = interfaceText(
-                "请联系学校管理员核验身份，并补录或更正你的学校登记邮箱。",
-                "Contact a school administrator to verify your identity and add or correct your registered email."
+                "学生端没有手机号、短信验证码或自助账户恢复入口。请联系学校体育教学部门或账户管理员完成身份核验，并按学校流程处理登录邮箱；本页面不会直接改绑。",
+                "The student client has no phone, SMS-code, or self-service account-recovery flow. Contact the school sports office or account administrator for identity verification and follow the school's email-recovery process; this page cannot change the address."
             ),
             color = colors.onSurfaceVariant,
             style = MaterialTheme.typography.bodyLarge

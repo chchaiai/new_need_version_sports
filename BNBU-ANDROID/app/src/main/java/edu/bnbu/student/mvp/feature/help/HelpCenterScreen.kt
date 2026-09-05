@@ -27,6 +27,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -75,8 +76,8 @@ fun HelpCenterScreen(
     var isLoading by remember { mutableStateOf(true) }
     var loadError by remember { mutableStateOf<String?>(null) }
     var isShowingCachedArticles by remember { mutableStateOf(false) }
-    var searchQuery by remember { mutableStateOf("") }
-    var expandedArticleId by remember { mutableStateOf<String?>(null) }
+    var searchQuery by rememberSaveable { mutableStateOf("") }
+    var expandedArticleId by rememberSaveable { mutableStateOf<String?>(null) }
     val locale = AppLanguagePreferences.currentLanguage.languageTag
 
     suspend fun loadArticles() {

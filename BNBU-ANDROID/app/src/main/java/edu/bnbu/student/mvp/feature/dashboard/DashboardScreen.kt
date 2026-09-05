@@ -49,6 +49,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.ProgressBarRangeInfo
 import androidx.compose.ui.semantics.progressBarRangeInfo
@@ -64,7 +65,6 @@ import edu.bnbu.student.mvp.core.designsystem.PrimaryActionButton
 import edu.bnbu.student.mvp.core.designsystem.interfaceText
 import edu.bnbu.student.mvp.core.local.AppLanguagePreferences
 import edu.bnbu.student.mvp.core.designsystem.pressScale
-import edu.bnbu.student.mvp.core.model.hourText
 import edu.bnbu.student.mvp.core.model.studentNumberForDisplay
 import edu.bnbu.student.mvp.core.model.dashboardProgressStatusLabel
 import edu.bnbu.student.mvp.core.state.StudentAppState
@@ -72,6 +72,8 @@ import edu.bnbu.student.mvp.feature.checkin.canStartExercise
 import edu.bnbu.student.mvp.feature.checkin.session.ExerciseSessionController
 import edu.bnbu.student.mvp.feature.checkin.session.ExerciseSessionState
 import edu.bnbu.student.mvp.feature.checkin.session.effectiveDurationMillis
+import edu.bnbu.student.mvp.feature.common.studentProgressUiModel
+import edu.bnbu.student.mvp.feature.notifications.toStudentNoticeUiModels
 import androidx.compose.runtime.mutableLongStateOf
 import java.text.SimpleDateFormat
 import java.time.ZoneId
@@ -108,7 +110,7 @@ internal fun DashboardScreen(
                     appState = appState,
                     // Remote businessDate is Backend-owned; never hide the
                     // action from a device-local calendar guess.
-                    hasCheckedIn = !appState.isV1ContractBacked && appState.hasSubmittedCheckInToday(),
+                    hasSubmittedToday = !appState.isV1ContractBacked && appState.hasSubmittedCheckInToday(),
                     onOpenCheckIn = onOpenCheckIn
                 )
             }
@@ -149,11 +151,7 @@ internal fun DashboardScreen(
     }
 }
 
-/**
- * Keeps the student's immediate daily decision ahead of longer-term progress.
- * A successful submission is intentionally presented as a calm confirmation;
- * the primary action only appears while a check-in is still needed.
- */
+/** Keeps an interrupted real exercise visible above longer-term progress. */
 @Composable
 private fun ExerciseResumePanel(
     state: ExerciseSessionState,
@@ -242,13 +240,12 @@ private fun formatResumeDuration(durationMillis: Long): String {
 
 /**
  * Keeps the student's immediate daily decision ahead of longer-term progress.
- * A successful submission is intentionally presented as a calm confirmation;
- * the primary action only appears while a check-in is still needed.
+ * A submission starts review; it neither proves credit nor blocks another real exercise.
  */
 @Composable
 private fun TodayCheckInPanel(
     appState: StudentAppState,
-    hasCheckedIn: Boolean,
+    hasSubmittedToday: Boolean,
     onOpenCheckIn: () -> Unit
 ) {
     val cs = MaterialTheme.colorScheme
@@ -279,7 +276,7 @@ private fun TodayCheckInPanel(
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.SemiBold
             )
-            if (hasCheckedIn) {
+            if (hasSubmittedToday) {
                 Icon(
                     imageVector = Icons.Filled.CheckCircle,
                     contentDescription = null,
@@ -292,7 +289,7 @@ private fun TodayCheckInPanel(
         Spacer(Modifier.height(16.dp))
         Text(
             text = stringResource(
-                if (hasCheckedIn) {
+                if (hasSubmittedToday) {
                     R.string.dashboard_today_checkin_complete
                 } else {
                     R.string.dashboard_today_checkin_pending
@@ -305,7 +302,7 @@ private fun TodayCheckInPanel(
         Spacer(Modifier.height(6.dp))
         Text(
             text = stringResource(
-                if (hasCheckedIn) {
+                if (hasSubmittedToday) {
                     R.string.dashboard_today_checkin_complete_hint
                 } else {
                     R.string.dashboard_today_checkin_pending_hint
@@ -324,14 +321,18 @@ private fun TodayCheckInPanel(
             blockedReason = blockedReason
         )
 
-        if (!hasCheckedIn) {
-            Spacer(Modifier.height(20.dp))
-            PrimaryActionButton(
-                title = stringResource(R.string.dashboard_start_checkin),
-                icon = Icons.Filled.AddBox,
-                onClick = onOpenCheckIn
-            )
-        }
+        Spacer(Modifier.height(20.dp))
+        PrimaryActionButton(
+            title = stringResource(
+                if (hasSubmittedToday) {
+                    R.string.dashboard_continue_exercise
+                } else {
+                    R.string.dashboard_start_checkin
+                }
+            ),
+            icon = Icons.Filled.AddBox,
+            onClick = onOpenCheckIn
+        )
     }
 }
 
@@ -515,6 +516,9 @@ private fun DashboardHeader(
     onOpenNotificationSheet: () -> Unit
 ) {
     val cs = MaterialTheme.colorScheme
+    val safeUnreadCount = appState.workspace.notices
+        .toStudentNoticeUiModels()
+        .count { it.isUnread }
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
@@ -544,7 +548,7 @@ private fun DashboardHeader(
             )
         }
         NotificationBell(
-            unreadCount = appState.unreadNoticeCount,
+            unreadCount = safeUnreadCount,
             onClick = onOpenNotificationSheet
         )
     }
@@ -612,7 +616,7 @@ private fun NotificationBell(unreadCount: Int, onClick: () -> Unit) {
 private fun ProgressOverview(appState: StudentAppState) {
     val cs = MaterialTheme.colorScheme
     val accent = homeAccentColor()
-    val completionPercent = (appState.completionRatio * 100).toInt()
+    val progress = appState.studentProgressUiModel()
 
     HomeCard(contentPadding = 20.dp) {
         Row(
@@ -630,9 +634,9 @@ private fun ProgressOverview(appState: StudentAppState) {
             HomeStatusPill(
                 text = dashboardProgressStatusLabel(
                     studentStatus = appState.workspace.student.status,
-                    progressStatus = appState.workspace.progress.status
+                    progressStatus = if (progress.isQualified) "QUALIFIED" else "IN_PROGRESS"
                 ),
-                emphasized = !appState.hasHourRisk
+                emphasized = progress.isQualified
             )
         }
 
@@ -649,7 +653,7 @@ private fun ProgressOverview(appState: StudentAppState) {
             verticalAlignment = Alignment.Bottom
         ) {
             Text(
-                text = appState.totalCompleted.hourText(),
+                text = progress.creditedTotalMinutes.toString(),
                 color = cs.onSurface,
                 fontSize = 44.sp,
                 lineHeight = 50.sp,
@@ -657,49 +661,45 @@ private fun ProgressOverview(appState: StudentAppState) {
                 letterSpacing = (-1).sp
             )
             Spacer(Modifier.width(8.dp))
-            if (appState.hourRule.isAvailable) {
-                Text(
-                    text = "/ ${appState.hourRule.total.hourText()}",
-                    color = cs.onSurfaceVariant,
-                    style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier.padding(bottom = 6.dp)
-                )
-            }
+            Text(
+                text = interfaceText(
+                    "/ ${progress.totalTargetMinutes} 分钟",
+                    "/ ${progress.totalTargetMinutes} min"
+                ),
+                color = cs.onSurfaceVariant,
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.padding(bottom = 6.dp)
+            )
             Spacer(Modifier.weight(1f))
-            if (appState.hourRule.isAvailable) {
-                Text(
-                    text = "$completionPercent%",
-                    color = accent,
-                    style = MaterialTheme.typography.headlineSmall,
-                    fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier.padding(bottom = 4.dp)
-                )
-            }
+            Text(
+                text = "${progress.completionPercent}%",
+                color = accent,
+                style = MaterialTheme.typography.headlineSmall,
+                fontWeight = FontWeight.SemiBold,
+                modifier = Modifier.padding(bottom = 4.dp)
+            )
         }
 
-        if (appState.hourRule.isAvailable) {
-            Spacer(Modifier.height(18.dp))
-            HomeProgressBar(
-                value = appState.totalCompleted,
-                total = appState.hourRule.total,
-                height = 8.dp
-            )
-            Spacer(Modifier.height(12.dp))
-        }
+        Spacer(Modifier.height(18.dp))
+        HomeProgressBar(
+            value = progress.creditedTotalMinutes,
+            total = progress.totalTargetMinutes,
+            height = 8.dp
+        )
+        Spacer(Modifier.height(12.dp))
         Text(
-            text = if (!appState.hourRule.isAvailable) {
-                interfaceText("目标学时暂未向学生端开放", "Required-hour targets are not available to students")
-            } else if (appState.totalRemaining == 0.0) {
+            text = if (progress.isQualified) {
                 stringResource(R.string.dashboard_goal_reached)
             } else {
-                stringResource(
-                    R.string.dashboard_total_remaining,
-                    appState.totalRemaining.hourText()
+                pluralStringResource(
+                    R.plurals.dashboard_total_remaining,
+                    progress.remainingTotalMinutes,
+                    progress.remainingTotalMinutes
                 )
             },
-            color = if (appState.totalRemaining == 0.0) accent else cs.onSurfaceVariant,
+            color = if (progress.isQualified) accent else cs.onSurfaceVariant,
             style = MaterialTheme.typography.bodyMedium,
-            fontWeight = if (appState.totalRemaining == 0.0) {
+            fontWeight = if (progress.isQualified) {
                 FontWeight.Medium
             } else {
                 FontWeight.Normal
@@ -710,14 +710,14 @@ private fun ProgressOverview(appState: StudentAppState) {
 
 @Composable
 private fun ProgressBreakdown(appState: StudentAppState) {
+    val progress = appState.studentProgressUiModel()
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         HomeSectionTitle(stringResource(R.string.dashboard_breakdown))
         HomeCard {
             ProgressMetric(
                 title = stringResource(R.string.dashboard_course_exercise),
-                value = appState.workspace.progress.course,
-                total = appState.hourRule.courseRequired,
-                targetAvailable = appState.hourRule.isAvailable
+                valueMinutes = progress.creditedCourseMinutes,
+                targetMinutes = progress.courseTargetMinutes
             )
 
             HorizontalDivider(
@@ -727,9 +727,8 @@ private fun ProgressBreakdown(appState: StudentAppState) {
 
             ProgressMetric(
                 title = stringResource(R.string.dashboard_general_exercise),
-                value = appState.workspace.progress.general,
-                total = appState.hourRule.generalRequired,
-                targetAvailable = appState.hourRule.isAvailable
+                valueMinutes = progress.creditedGeneralMinutes,
+                targetMinutes = progress.generalTargetMinutes
             )
         }
     }
@@ -738,9 +737,8 @@ private fun ProgressBreakdown(appState: StudentAppState) {
 @Composable
 private fun ProgressMetric(
     title: String,
-    value: Double,
-    total: Double,
-    targetAvailable: Boolean
+    valueMinutes: Int,
+    targetMinutes: Int?
 ) {
     val cs = MaterialTheme.colorScheme
     Row(
@@ -756,10 +754,16 @@ private fun ProgressMetric(
             fontWeight = FontWeight.Medium
         )
         Text(
-            text = if (targetAvailable) {
-                "${value.hourText()} / ${total.hourText()}"
+            text = if (targetMinutes != null) {
+                interfaceText(
+                    "$valueMinutes / $targetMinutes 分钟",
+                    "$valueMinutes / $targetMinutes min"
+                )
             } else {
-                value.hourText()
+                interfaceText(
+                    "$valueMinutes 分钟 · 目标待同步",
+                    "$valueMinutes min · target pending"
+                )
             },
             color = cs.onSurface,
             style = MaterialTheme.typography.titleMedium,
@@ -825,16 +829,16 @@ private fun HomeStatusPill(
 
 @Composable
 private fun HomeProgressBar(
-    value: Double,
-    total: Double,
+    value: Int,
+    total: Int,
     height: androidx.compose.ui.unit.Dp
 ) {
     val cs = MaterialTheme.colorScheme
     val accent = homeAccentColor()
-    val progress = if (total <= 0.0) {
+    val progress = if (total <= 0) {
         0f
     } else {
-        (value / total).toFloat().coerceIn(0f, 1f)
+        (value.toFloat() / total.toFloat()).coerceIn(0f, 1f)
     }
     val animatedProgress = animateFloatAsState(
         targetValue = progress,
@@ -869,6 +873,3 @@ private fun HomeProgressBar(
 
 @Composable
 private fun homeAccentColor() = MaterialTheme.colorScheme.primary
-
-private val StudentAppState.hasHourRisk: Boolean
-    get() = courseRemaining > 0.0 || generalRemaining > 0.0

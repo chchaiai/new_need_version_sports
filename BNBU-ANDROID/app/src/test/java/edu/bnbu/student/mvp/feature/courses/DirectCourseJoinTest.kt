@@ -91,6 +91,71 @@ class DirectCourseJoinTest {
         assertTrue(!protocol.contains("joinCapability=secret"))
     }
 
+    @Test
+    fun mapsServerJoinOutcomesToDistinctResultStates() {
+        val course = CourseJoinInfo("course-1", "Course", "Teacher", "Semester")
+
+        assertEquals(
+            CourseJoinResultKind.AlreadyEnrolled,
+            courseJoinResultFromFailure(v1HttpError("ENROLLMENT_ALREADY_ACTIVE", "req-already"), course).kind
+        )
+        assertEquals(
+            CourseJoinResultKind.SemesterConflict,
+            courseJoinResultFromFailure(v1HttpError("ENROLLMENT_SEMESTER_CONFLICT", "req-conflict"), course).kind
+        )
+        assertEquals(
+            CourseJoinResultKind.InvitationExpired,
+            courseJoinResultFromFailure(v1HttpError("COURSE_INVITE_EXPIRED", "req-expired"), course).kind
+        )
+        assertEquals(
+            CourseJoinResultKind.GracePeriodExhausted,
+            courseJoinResultFromFailure(v1HttpError("AUTH_JOIN_CAPABILITY_EXPIRED", "req-grace"), course).kind
+        )
+        assertEquals(
+            CourseJoinResultKind.InvitationRevoked,
+            courseJoinResultFromFailure(v1HttpError("COURSE_INVITE_REVOKED", "req-revoked"), course).kind
+        )
+        assertEquals(
+            CourseJoinResultKind.CourseClosed,
+            courseJoinResultFromFailure(v1HttpError("COURSE_CLASS_SECTION_NOT_JOINABLE", "req-closed"), course).kind
+        )
+    }
+
+    @Test
+    fun neverPromotesTechnicalOrUnknownFailuresToSuccess() {
+        val course = CourseJoinInfo("course-1", "Course", "Teacher", "Semester")
+        val technical = courseJoinResultFromFailure(
+            V1NetworkException(
+                operationId = "joinClassSectionWithInvite",
+                cause = IOException("offline"),
+                requestId = "req-network"
+            ),
+            course
+        )
+        val unknown = courseJoinResultFromFailure(
+            V1ProtocolException(
+                operationId = "joinClassSectionWithInvite",
+                statusCode = 200,
+                requestId = "req-protocol",
+                reason = "invalid response"
+            ),
+            course
+        )
+
+        assertEquals(CourseJoinResultKind.TechnicalFailure, technical.kind)
+        assertEquals(CourseJoinResultKind.ResultUnknown, unknown.kind)
+        assertEquals("req-network", technical.diagnosticId)
+        assertEquals("req-protocol", unknown.diagnosticId)
+    }
+
+    @Test
+    fun successfulResultRequiresAnExplicitAuthoritativeCompletion() {
+        val course = CourseJoinInfo("course-1", "Course", "Teacher", "Semester")
+
+        assertEquals(CourseJoinResultKind.Success, successfulCourseJoinResult(course, false).kind)
+        assertEquals(CourseJoinResultKind.AlreadyEnrolled, successfulCourseJoinResult(course, true).kind)
+    }
+
     private fun v1HttpError(code: String, requestId: String) = V1HttpException(
         operationId = "joinClassSectionWithInvite",
         statusCode = 409,

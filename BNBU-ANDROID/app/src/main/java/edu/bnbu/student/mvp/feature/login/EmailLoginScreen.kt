@@ -120,7 +120,10 @@ fun EmailLoginScreen(
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             IconButton(onClick = onBack, modifier = Modifier.testTag("emailLogin.back")) {
-                Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
+                Icon(
+                    Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = interfaceText("返回登录方式", "Back to sign-in options")
+                )
             }
             Text(
                 text = interfaceText("邮箱验证码登录", "Email verification sign-in"),

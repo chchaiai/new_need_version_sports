@@ -14,24 +14,31 @@ class CheckInHoursPresentationPolicyTest {
     }
 
     @Test
-    fun checkInHoursCardMatchesTheWebStudentPresentationBaseline() {
+    fun recordsAndProgressScreenUsesTheV8MinutePresentationBoundary() {
         val source = File(
             projectRoot,
             "app/src/main/java/edu/bnbu/student/mvp/feature/grades/GradesScreen.kt"
         ).readText()
+        val progressAdapter = File(
+            projectRoot,
+            "app/src/main/java/edu/bnbu/student/mvp/feature/common/StudentProgressUiModel.kt"
+        ).readText()
 
         listOf(
-            "progress.status.trim().equals(\"QUALIFIED\", ignoreCase = true)",
-            "有效打卡时长已累计；学时目标等待后端同步",
-            "等待后端确认达标状态",
-            "已按有效打卡累计，还需 \${formatHours(remaining)} 小时",
-            " / 待后端同步"
+            "本学期已计入",
+            "实际 ",
+            "可计 ",
+            "计入 ",
+            "待新接口"
         ).forEach { token ->
-            assertTrue("Check-in hours card must include $token", source.contains(token))
+            assertTrue("Records and progress UI must include $token", source.contains(token))
         }
 
-        assertFalse(source.contains("required = rule.courseRequired.takeIf"))
-        assertFalse(source.contains("required = rule.generalRequired.takeIf"))
-        assertFalse(source.contains("\${formatHours(completed)} / \${formatHours(required)} 小时"))
+        assertFalse(source.contains("PublishedGradeCard"))
+        assertFalse(source.contains("publishedTotalGrade"))
+        assertFalse(source.contains("enduranceRunScore"))
+        assertFalse(source.contains("小时"))
+        assertTrue(progressAdapter.contains("StudentSemesterTargetMinutes = 1_200"))
+        assertTrue(progressAdapter.contains("legacyHoursToWholeMinutes"))
     }
 }

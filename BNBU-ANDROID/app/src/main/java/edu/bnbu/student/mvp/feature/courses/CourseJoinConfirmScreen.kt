@@ -1,6 +1,5 @@
 package edu.bnbu.student.mvp.feature.courses
 
-import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -35,7 +34,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.ImeAction
@@ -43,7 +41,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import edu.bnbu.student.mvp.core.designsystem.BNBUFormField
-import edu.bnbu.student.mvp.core.designsystem.BNBUErrorPanel
 import edu.bnbu.student.mvp.core.designsystem.BNBULayout
 import edu.bnbu.student.mvp.core.designsystem.BNBUPrimaryButton
 import edu.bnbu.student.mvp.core.designsystem.GridBackground
@@ -54,12 +51,9 @@ import edu.bnbu.student.mvp.core.designsystem.interfaceText
 import edu.bnbu.student.mvp.core.error.ClientErrorContext
 import edu.bnbu.student.mvp.core.error.ClientErrorMapper
 import edu.bnbu.student.mvp.core.error.SafeClientLogger
-import edu.bnbu.student.mvp.core.error.UserFacingError
 import edu.bnbu.student.mvp.core.local.AppLanguagePreferences
 import edu.bnbu.student.mvp.core.network.ApiHttpException
 import edu.bnbu.student.mvp.core.network.CourseJoinRequestBody
-import edu.bnbu.student.mvp.core.network.v1.generated.CourseInvitePreview
-import edu.bnbu.student.mvp.core.network.v1.generated.CurrentUserData
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
 
@@ -68,31 +62,6 @@ private const val MaxStudentNumberLength = 32
 private const val MaxGradeLength = 4
 private val StudentNumberPattern = Regex("^[A-Za-z0-9][A-Za-z0-9-]{4,31}$")
 private val GradeYearPattern = Regex("^\\d{4}$")
-
-/** Course information resolved and validated from a teacher-issued invitation. */
-data class CourseJoinInfo(
-    val id: String,
-    val name: String,
-    val teacher: String,
-    val semester: String,
-    val isDemoScanResult: Boolean = false
-)
-
-internal fun CourseInvitePreview.toCourseJoinInfo(): CourseJoinInfo = CourseJoinInfo(
-    id = classSectionId,
-    name = courseName,
-    teacher = teacherDisplayName,
-    semester = semesterDisplayName
-)
-
-sealed interface CourseJoinCompletion {
-    val alreadyJoined: Boolean
-
-    data class Authoritative(
-        val currentUser: CurrentUserData,
-        override val alreadyJoined: Boolean = false
-    ) : CourseJoinCompletion
-}
 
 private enum class JoinGender(val apiValue: String) {
     Male("male"),
@@ -113,7 +82,7 @@ private enum class JoinGender(val apiValue: String) {
 
 /**
  * Confirms identity details and atomically creates an active course membership.
- * A successful response is handed to [onJoined] before this screen navigates away.
+ * A server-confirmed success or safely mapped failure is handed to [onJoinResult].
  */
 @Composable
 fun CourseJoinConfirmScreen(
@@ -127,7 +96,7 @@ fun CourseJoinConfirmScreen(
     activeCourseId: String? = null,
     onBack: () -> Unit = {},
     onEnterExistingCourse: () -> Unit = {},
-    onJoined: suspend (CourseJoinCompletion) -> Unit = {},
+    onJoinResult: (CourseJoinResultUiModel, CourseJoinCompletion?) -> Unit = { _, _ -> },
     submitCourseJoin: suspend (CourseJoinRequestBody) -> CourseJoinCompletion
 ) {
     val appLanguage = AppLanguagePreferences.currentLanguage
@@ -138,9 +107,7 @@ fun CourseJoinConfirmScreen(
     var isSubmitting by rememberSaveable { mutableStateOf(false) }
     var hasSubmitted by rememberSaveable { mutableStateOf(false) }
     var errorMessage by rememberSaveable(appLanguage) { mutableStateOf<String?>(null) }
-    var userFacingError by remember { mutableStateOf<UserFacingError?>(null) }
     val focusManager = LocalFocusManager.current
-    val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val colors = MaterialTheme.colorScheme
     val nameFocusRequester = remember { FocusRequester() }
@@ -148,7 +115,7 @@ fun CourseJoinConfirmScreen(
     val gradeFocusRequester = remember { FocusRequester() }
     val alreadyInThisCourse = activeCourseId != null && activeCourseId == course.id
     val alreadyInAnotherCourse = activeCourseId != null && activeCourseId != course.id
-    val formFieldsEnabled = !isSubmitting && (writeEnabled || course.isDemoScanResult)
+    val formFieldsEnabled = !isSubmitting && writeEnabled && course.enrollmentOpen
     val normalizedName = name.trim().replace(Regex("\\s+"), " ")
     val normalizedStudentNumber = studentNumber.trim().uppercase()
     val normalizedGrade = grade.trim()
@@ -189,12 +156,12 @@ fun CourseJoinConfirmScreen(
             gender = genderValue,
             grade = trimmedGrade
         )
-        userFacingError = null
         if (errorMessage != null) return
 
         focusManager.clearFocus(force = true)
         isSubmitting = true
         scope.launch {
+            var result: Pair<CourseJoinResultUiModel, CourseJoinCompletion?>? = null
             try {
                 val body = CourseJoinRequestBody(
                     studentName = trimmedName,
@@ -205,31 +172,32 @@ fun CourseJoinConfirmScreen(
                 )
                 val response = submitCourseJoin(body)
                 hasSubmitted = true
-                onJoined(response)
-                val message = if (response.alreadyJoined) {
-                    interfaceText("你已经加入该课程", "You have already joined this course.")
-                } else {
-                    interfaceText("你已成功加入《${course.name}》", "You have successfully joined ${course.name}.")
-                }
-                Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+                result = successfulCourseJoinResult(course, response.alreadyJoined) to response
             } catch (error: CancellationException) {
                 throw error
             } catch (error: Throwable) {
                 hasSubmitted = false
                 val mapped = ClientErrorMapper.map(error, ClientErrorContext.JOIN)
-                userFacingError = mapped
                 SafeClientLogger.log(
                     error = mapped,
                     context = ClientErrorContext.JOIN,
-                    httpStatus = (error as? ApiHttpException)?.statusCode
+                    httpStatus = when (error) {
+                        is edu.bnbu.student.mvp.core.network.v1.V1HttpException -> error.statusCode
+                        is ApiHttpException -> error.statusCode
+                        else -> null
+                    }
                 )
+                result = courseJoinResultFromFailure(error, course) to null
             } finally {
                 isSubmitting = false
             }
+            result?.let { (uiResult, completion) -> onJoinResult(uiResult, completion) }
         }
     }
 
-    BackHandler(enabled = !isSubmitting, onBack = onBack)
+    BackHandler {
+        if (!isSubmitting) onBack()
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
         GridBackground(modifier = Modifier.fillMaxSize())
@@ -269,16 +237,14 @@ fun CourseJoinConfirmScreen(
                 )
             }
 
-            if (course.isDemoScanResult) {
-                ValidationPanel(
-                    interfaceText(
-                        "模拟扫码成功预览：你可以查看和填写本页，但不会请求服务器或加入课程。",
-                        "Simulated scan-success preview: you can inspect and fill in this screen, but no server request or course join will occur."
-                    )
-                )
-            }
-
             CompactCourseSummary(course)
+
+            ValidationPanel(
+                interfaceText(
+                    "邀请默认有效 30 分钟，教师可设置 5–120 分钟。只有服务端在自然到期前登记的同一次流程，才可能获得一次不可刷新的 10 分钟宽限；撤销或关闭会立即终止。",
+                    "Invitations default to 30 minutes and may be set from 5–120 minutes. Only the same flow registered by the server before natural expiry may receive one non-refreshable 10-minute grace period; revocation or closure ends it immediately."
+                )
+            )
 
             Column(verticalArrangement = Arrangement.spacedBy(BNBULayout.Space8)) {
                 Text(
@@ -297,6 +263,12 @@ fun CourseJoinConfirmScreen(
             }
 
             when {
+                !course.enrollmentOpen -> ValidationPanel(
+                    interfaceText(
+                        "服务端返回该课程当前已关闭加入。请返回并联系课程负责人，本页不会提交入班。",
+                        "The server reports that enrollment is closed for this course. Go back and contact the course owner; this screen will not submit enrollment."
+                    )
+                )
                 alreadyInThisCourse -> {
                     ValidationPanel(interfaceText("你已经加入该课程。", "You have already joined this course."))
                     BNBUPrimaryButton(
@@ -313,18 +285,11 @@ fun CourseJoinConfirmScreen(
                 )
                 else -> {
                     errorMessage?.let { ValidationPanel(it) }
-                    userFacingError?.let { error ->
-                        BNBUErrorPanel(
-                            error = error,
-                            onDismiss = { userFacingError = null }
-                        )
-                    }
                     BNBUFormField(
                         value = name,
                         onValueChange = {
                             name = it.take(MaxNameLength)
                             errorMessage = null
-                            userFacingError = null
                         },
                         label = interfaceText("姓名", "Name"),
                         placeholder = interfaceText("请输入姓名", "Enter your name"),
@@ -347,7 +312,6 @@ fun CourseJoinConfirmScreen(
                         onValueChange = {
                             studentNumber = it.take(MaxStudentNumberLength)
                             errorMessage = null
-                            userFacingError = null
                         },
                         label = interfaceText("学号", "Student ID"),
                         placeholder = interfaceText("请输入学号", "Enter your student ID"),
@@ -391,7 +355,6 @@ fun CourseJoinConfirmScreen(
                             onSelected = {
                                 genderValue = it.apiValue
                                 errorMessage = null
-                                userFacingError = null
                             },
                             enabled = formFieldsEnabled,
                             optionTestTag = { "courseJoinConfirm.gender.${it.apiValue}" }
@@ -402,7 +365,6 @@ fun CourseJoinConfirmScreen(
                         onValueChange = {
                             grade = it.filter(Char::isDigit).take(MaxGradeLength)
                             errorMessage = null
-                            userFacingError = null
                         },
                         label = interfaceText("年级", "Cohort year"),
                         placeholder = "2024",
@@ -422,14 +384,12 @@ fun CourseJoinConfirmScreen(
                     )
                     Spacer(Modifier.height(BNBULayout.Space4))
                     BNBUPrimaryButton(
-                        title = if (course.isDemoScanResult) {
-                            interfaceText("预览模式，不会提交", "Preview only — no submission")
-                        } else if (isSubmitting) {
+                        title = if (isSubmitting) {
                             interfaceText("正在加入…", "Joining…")
                         } else {
                             interfaceText("确认加入", "Confirm join")
                         },
-                        enabled = formValid && !hasSubmitted && writeEnabled && !course.isDemoScanResult,
+                        enabled = formValid && !hasSubmitted && writeEnabled,
                         loading = isSubmitting,
                         modifier = Modifier.testTag("courseJoinConfirm.submit"),
                         onClick = ::submit
@@ -459,6 +419,24 @@ private fun CompactCourseSummary(course: CourseJoinInfo) {
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
+            Text(
+                text = interfaceText(
+                    if (course.enrollmentOpen) "邀请状态：已取得服务端邀请信息" else "邀请状态：课程已关闭加入",
+                    if (course.enrollmentOpen) "Invitation status: server invitation facts received" else "Invitation status: course enrollment is closed"
+                ),
+                color = if (course.enrollmentOpen) colors.primary else colors.error,
+                style = MaterialTheme.typography.labelMedium
+            )
+            course.invitationExpiresAt?.let { expiresAt ->
+                Text(
+                    text = interfaceText(
+                        "邀请截止：$expiresAt（最终有效性以提交时服务端校验为准）",
+                        "Invitation expiry: $expiresAt (final validity is checked by the server when submitted)"
+                    ),
+                    color = colors.onSurfaceVariant,
+                    style = MaterialTheme.typography.bodySmall
+                )
+            }
         }
     }
 }

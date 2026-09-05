@@ -491,7 +491,7 @@ fun <T> SegmentedControl(
             Box(
                 modifier = Modifier
                     .weight(1f)
-                    .heightIn(min = 44.dp)
+                    .heightIn(min = BNBULayout.TouchTarget)
                     .pressScale(interactionSource, enabled)
                     .background(
                         backgroundColor,
@@ -508,7 +508,7 @@ fun <T> SegmentedControl(
                     .then(
                         optionTestTag?.let { Modifier.testTag(it(value)) } ?: Modifier
                     )
-                    .padding(horizontal = 4.dp),
+                    .padding(horizontal = 4.dp, vertical = 8.dp),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
@@ -516,9 +516,7 @@ fun <T> SegmentedControl(
                     modifier = Modifier.fillMaxWidth(),
                     style = MaterialTheme.typography.labelLarge,
                     color = contentColor,
-                    maxLines = 1,
-                    textAlign = TextAlign.Center,
-                    overflow = TextOverflow.Ellipsis
+                    textAlign = TextAlign.Center
                 )
             }
         }

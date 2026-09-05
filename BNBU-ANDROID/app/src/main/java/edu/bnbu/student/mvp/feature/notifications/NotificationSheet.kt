@@ -62,8 +62,6 @@ import edu.bnbu.student.mvp.core.designsystem.StatusBadge
 import edu.bnbu.student.mvp.core.designsystem.SwissPanel
 import edu.bnbu.student.mvp.core.designsystem.bnbuClickable
 import edu.bnbu.student.mvp.core.designsystem.pressScale
-import edu.bnbu.student.mvp.core.model.NoticeCategory
-import edu.bnbu.student.mvp.core.model.StudentNotice
 import edu.bnbu.student.mvp.R
 import kotlinx.coroutines.launch
 
@@ -76,8 +74,8 @@ private enum class NotificationFilter(val labelRes: Int) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NotificationSheet(
-    notices: List<StudentNotice>,
+internal fun NotificationSheet(
+    notices: List<StudentNoticeUiModel>,
     unreadCount: Int,
     onDismiss: () -> Unit,
     onMarkRead: (String) -> Unit,
@@ -173,7 +171,7 @@ fun NotificationSheet(
                         onFilterSelected = { selectedFilter = it },
                         onNoticeSelected = { notice ->
                             if (notice.isUnread) onMarkRead(notice.id)
-                            if (notice.category == NoticeCategory.Review) {
+                            if (notice.opensExemption) {
                                 dismissSheet { onOpenExemption(notice.targetId) }
                             } else {
                                 selectedNoticeId = notice.id
@@ -252,18 +250,18 @@ private fun NotificationSheetHeader(
 @Composable
 @OptIn(ExperimentalFoundationApi::class)
 private fun NotificationList(
-    notices: List<StudentNotice>,
+    notices: List<StudentNoticeUiModel>,
     selectedFilter: NotificationFilter,
     onFilterSelected: (NotificationFilter) -> Unit,
-    onNoticeSelected: (StudentNotice) -> Unit
+    onNoticeSelected: (StudentNoticeUiModel) -> Unit
 ) {
     val filtered = remember(notices, selectedFilter) {
         notices.filter { notice ->
             when (selectedFilter) {
                 NotificationFilter.All -> true
                 NotificationFilter.Unread -> notice.isUnread
-                NotificationFilter.Deadline -> notice.category == NoticeCategory.Deadline
-                NotificationFilter.Application -> notice.category == NoticeCategory.Review
+                NotificationFilter.Deadline -> notice.kind == StudentNoticeKind.Deadline
+                NotificationFilter.Application -> notice.kind == StudentNoticeKind.Review
             }
         }
     }
@@ -327,7 +325,7 @@ private fun NotificationList(
 
 @Composable
 private fun NotificationRow(
-    notice: StudentNotice,
+    notice: StudentNoticeUiModel,
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
@@ -381,7 +379,7 @@ private fun NotificationRow(
 }
 
 @Composable
-private fun NotificationDetail(notice: StudentNotice, onMarkRead: (String) -> Unit) {
+private fun NotificationDetail(notice: StudentNoticeUiModel, onMarkRead: (String) -> Unit) {
     val cs = MaterialTheme.colorScheme
     LazyColumn(
         modifier = Modifier.fillMaxWidth(),

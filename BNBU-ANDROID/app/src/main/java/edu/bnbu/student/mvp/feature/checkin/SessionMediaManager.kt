@@ -63,6 +63,7 @@ import coil3.video.VideoFrameDecoder
 import coil3.video.videoFrameMillis
 import edu.bnbu.student.mvp.core.designsystem.bnbuClickable
 import edu.bnbu.student.mvp.core.designsystem.interfaceText
+import edu.bnbu.student.mvp.core.exercise.ExerciseMediaServerStatus
 import edu.bnbu.student.mvp.core.model.ProofMediaType
 import edu.bnbu.student.mvp.core.model.ProofUploadRule
 import edu.bnbu.student.mvp.feature.checkin.session.ExerciseSessionController
@@ -91,6 +92,8 @@ internal fun SessionMediaManager(
     val drafts = controller.drafts
     val photos = drafts.filter { it.type == ProofMediaType.Image }
     val videos = drafts.filter { it.type == ProofMediaType.Video }
+    val totalBytes = drafts.sumOf { it.byteCount }
+    val hasLockedMedia = drafts.any { it.serverMediaId != null }
     var previewDraftId by rememberSaveable { mutableStateOf<String?>(null) }
     var deleteDraftId by rememberSaveable { mutableStateOf<String?>(null) }
 
@@ -153,12 +156,21 @@ internal fun SessionMediaManager(
 
     Column(modifier = modifier.fillMaxWidth()) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Text(
-                text = interfaceText("已拍摄素材", "Captured media"),
-                style = MaterialTheme.typography.titleSmall,
-                fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.weight(1f)
-            )
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = interfaceText("首版材料", "Initial evidence"),
+                    style = MaterialTheme.typography.titleSmall,
+                    fontWeight = FontWeight.SemiBold
+                )
+                Text(
+                    text = interfaceText(
+                        "合计 ${formatByteCount(totalBytes)} / ${ExerciseEvidenceUiPolicy.MaxVersionMegabytes} MB",
+                        "Total ${formatByteCount(totalBytes)} / ${ExerciseEvidenceUiPolicy.MaxVersionMegabytes} MB"
+                    ),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = MaterialTheme.typography.labelSmall
+                )
+            }
             MediaCountPill(
                 text = interfaceText(
                     "照片 ${photos.size}/${ProofUploadRule.maxImageCount}",
@@ -190,10 +202,17 @@ internal fun SessionMediaManager(
             }
             Spacer(Modifier.height(8.dp))
             Text(
-                text = interfaceText(
-                    "点击某项凭证可预览；正式提交开始前，可以删除不合适的照片或视频。",
-                    "Open an evidence item to preview it. Before formal submission starts, you can delete an unsuitable photo or video."
-                ),
+                text = if (hasLockedMedia) {
+                    interfaceText(
+                        "点击可预览。带“已锁定”的材料已进入正式流程，不能删除或替换；恢复时继续同一批次。",
+                        "Open an item to preview it. Locked evidence is already in the formal flow and cannot be deleted or replaced; recovery continues the same batch."
+                    )
+                } else {
+                    interfaceText(
+                        "点击某项材料可预览；正式上传开始前，可以删除不合适的照片或视频。",
+                        "Open an evidence item to preview it. Before formal upload starts, you can delete an unsuitable photo or video."
+                    )
+                },
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 style = MaterialTheme.typography.bodySmall
             )
@@ -267,7 +286,7 @@ private fun MediaDraftThumbnail(
     Surface(
         modifier = Modifier
             .width(112.dp)
-            .height(122.dp)
+            .height(140.dp)
             .bnbuClickable(enabled = canOpen, onClick = onOpen),
         color = MaterialTheme.colorScheme.surface,
         shape = shape,
@@ -327,15 +346,22 @@ private fun MediaDraftThumbnail(
                 maxLines = 1
             )
             Text(
-                text = if (draft.type == ProofMediaType.Image) {
-                    formatByteCount(draft.byteCount)
-                } else {
-                    draft.durationSeconds?.let(::formatMediaDuration) ?: formatByteCount(draft.byteCount)
+                text = buildString {
+                    append(
+                        if (draft.type == ProofMediaType.Image) {
+                            formatByteCount(draft.byteCount)
+                        } else {
+                            draft.durationSeconds?.let(::formatMediaDuration)
+                                ?: formatByteCount(draft.byteCount)
+                        }
+                    )
+                    append(" · ")
+                    append(draft.mediaStateLabel())
                 },
                 modifier = Modifier.padding(start = 8.dp, end = 8.dp, bottom = 6.dp),
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 style = MaterialTheme.typography.labelSmall,
-                maxLines = 1
+                maxLines = 2
             )
         }
     }
@@ -445,10 +471,17 @@ private fun RetainedPhotoPreviewDialog(
                 }
                 ZoomablePhoto(file = file, imageLoader = imageLoader)
                 Text(
-                    text = interfaceText(
-                        "正式提交开始前，如果觉得不合适，可以删除这项凭证。",
-                        "If this item is unsuitable, you can delete it before formal submission starts."
-                    ),
+                    text = if (canDelete) {
+                        interfaceText(
+                            "正式上传开始前，如果觉得不合适，可以删除这项材料。",
+                            "If this item is unsuitable, you can delete it before formal upload starts."
+                        )
+                    } else {
+                        interfaceText(
+                            "这项材料已锁定或正在处理，不能删除或替换；上传恢复会继续使用同一文件。",
+                            "This evidence is locked or being processed and cannot be deleted or replaced; upload recovery uses the same file."
+                        )
+                    },
                     modifier = Modifier.padding(16.dp),
                     color = Color.White.copy(alpha = 0.78f),
                     style = MaterialTheme.typography.bodySmall
@@ -503,8 +536,15 @@ private fun RetainedVideoPreviewDialog(
                     AndroidView(
                         factory = { androidContext ->
                             VideoView(androidContext).also { view ->
+                                val mediaController = MediaController(androidContext)
+                                view.setMediaController(mediaController)
+                                view.setOnPreparedListener {
+                                    // Decode the first visible frame while remaining paused, then
+                                    // expose playback controls without requiring a blind tap.
+                                    view.seekTo(1)
+                                    view.post { mediaController.show(0) }
+                                }
                                 view.setVideoURI(Uri.fromFile(file))
-                                view.setMediaController(MediaController(androidContext).also(view::setMediaController))
                             }
                         },
                         modifier = Modifier
@@ -522,10 +562,17 @@ private fun RetainedVideoPreviewDialog(
                     }
                 }
                 Text(
-                    text = interfaceText(
-                        "正式提交开始前，如果觉得不合适，可以删除这项凭证；处理失败时也可以删除后重录。",
-                        "If this item is unsuitable, you can delete it before formal submission starts. If processing fails, delete it and record again."
-                    ),
+                    text = if (canDelete) {
+                        interfaceText(
+                            "正式上传开始前，如果觉得不合适，可以删除后重录。",
+                            "If this item is unsuitable, delete and record it again before formal upload starts."
+                        )
+                    } else {
+                        interfaceText(
+                            "这项视频已锁定或正在处理，不能删除或重录；上传恢复会继续使用同一文件。",
+                            "This video is locked or being processed and cannot be deleted or recorded again; upload recovery uses the same file."
+                        )
+                    },
                     modifier = Modifier.padding(16.dp),
                     color = Color.White.copy(alpha = 0.78f),
                     style = MaterialTheme.typography.bodySmall
@@ -603,8 +650,19 @@ private fun formatMediaDuration(seconds: Double): String {
     return "%02d:%02d".format(totalSeconds / 60L, totalSeconds % 60L)
 }
 
+private fun SessionMediaDraft.mediaStateLabel(): String = when {
+    serverMediaId == null -> interfaceText("本地草稿", "Local draft")
+    serverMediaStatus == ExerciseMediaServerStatus.AVAILABLE ->
+        interfaceText("已锁定 · 可用", "Locked · Available")
+    serverMediaStatus == ExerciseMediaServerStatus.FAILED ->
+        interfaceText("已锁定 · 处理失败", "Locked · Processing failed")
+    else -> interfaceText("已锁定 · 待处理", "Locked · Pending")
+}
+
 private fun formatByteCount(byteCount: Long): String {
-    return if (byteCount >= 1_000_000L) {
+    return if (byteCount <= 0L) {
+        "0 KB"
+    } else if (byteCount >= 1_000_000L) {
         "%.1f MB".format(byteCount / 1_000_000.0)
     } else {
         "${(byteCount / 1_000L).coerceAtLeast(1L)} KB"

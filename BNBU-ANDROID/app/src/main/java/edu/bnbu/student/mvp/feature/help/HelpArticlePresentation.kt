@@ -42,12 +42,12 @@ internal val HelpCategoryCodes = listOf(
 internal fun helpCategoryLabel(categoryCode: String): String = when (categoryCode.trim().lowercase()) {
     "login" -> interfaceText("登录与验证码", "Sign-in & verification codes")
     "enrollment" -> interfaceText("加入课程与补正", "Enrollment & corrections")
-    "checkin" -> interfaceText("打卡与学时", "Check-ins & credits")
+    "checkin" -> interfaceText("打卡与分钟", "Check-ins & minutes")
     "evidence" -> interfaceText("凭证上传", "Evidence upload")
-    "course" -> interfaceText("课程与成绩", "Classes & grades")
+    "course" -> interfaceText("课程与进度", "Classes & progress")
     "exemption" -> interfaceText("免测", "Exemptions")
-    "organization" -> interfaceText("组织认证", "Organization verification")
-    "notification" -> interfaceText("通知", "Notifications")
+    "organization" -> interfaceText("校队/社团认证", "Team/club certification")
+    "notification" -> interfaceText("站内通知", "In-app notifications")
     "maintenance" -> interfaceText("维护期间操作", "Maintenance operations")
     "feedback" -> interfaceText("服务反馈", "Service feedback")
     else -> interfaceText("其他", "Other")
@@ -63,8 +63,8 @@ internal fun localReviewHelpArticles(): List<HelpArticleContent> = listOf(
         locale = interfaceText("zh-CN", "en"),
         title = interfaceText("如何提交运动打卡？", "How do I submit an activity check-in?"),
         bodyMarkdown = interfaceText(
-            "进入打卡页，确认当前课程与时间窗，完成运动后上传至少一份凭证并提交。",
-            "Open Check-in, confirm the class and time window, then upload at least one item of evidence after the activity and submit."
+            "进入“打卡”，核对课程和教师配置的 30/45/60 分钟门槛。完成后提交当前材料；已受理不等于有效或已计入分钟。",
+            "Open Check-in and review the class and its teacher-selected 30/45/60-minute threshold. Submit the current evidence when finished; received does not mean valid or credited."
         ),
         publishedAt = "2026-03-02T08:00:00Z",
         version = 1
@@ -87,8 +87,8 @@ internal fun localReviewHelpArticles(): List<HelpArticleContent> = listOf(
         locale = interfaceText("zh-CN", "en"),
         title = interfaceText("验证码连续输错后怎么办？", "What happens after repeated verification-code failures?"),
         bodyMarkdown = interfaceText(
-            "连续输错 5 次后账号锁定 15 分钟。可以等待自动解锁，或联系管理员核验后提前解锁。",
-            "After five consecutive failures, the account is locked for 15 minutes. Wait for automatic unlock or contact an administrator for verified early unlock."
+            "连续输错或频繁申请验证码时，系统可能暂时限制继续尝试。请按页面提示稍后重试；无法使用已验证邮箱时，联系学校体育教学部门或账户管理员完成身份核验。",
+            "Repeated incorrect codes or frequent requests may temporarily limit further attempts. Retry when the page allows; if you cannot use the verified email, contact the school sports office or account administrator for identity verification."
         ),
         publishedAt = "2026-03-05T08:00:00Z",
         version = 1

@@ -5,6 +5,12 @@ import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
+import androidx.compose.ui.test.assertIsSelected
+import androidx.compose.ui.test.assertCountEquals
+import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.SemanticsMatcher
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithContentDescription
@@ -41,6 +47,9 @@ import org.junit.Assert.assertTrue
  * Authentication and enrollment remain server-owned. These device tests verify
  * the formal pre-authentication and activation surfaces without manufacturing a
  * local student session. Full submission still requires a camera and backend.
+ * The explicit review-navigation tests below use debug-only synthetic data and
+ * a null repository. They do not validate authentication or submission.
+ * Run only on a disposable, dedicated test installation: setup/teardown clear app state.
  */
 @RunWith(AndroidJUnit4::class)
 class CoreJourneyUiTest {
@@ -101,7 +110,7 @@ class CoreJourneyUiTest {
     }
 
     @Test
-    fun scanEntry_offersAnIsolatedSimulatedSuccessPreview() {
+    fun scanEntry_hasNoSimulatedSuccessAndOpensDedicatedManualInput() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         instrumentation.uiAutomation.grantRuntimePermission(
             instrumentation.targetContext.packageName,
@@ -116,13 +125,18 @@ class CoreJourneyUiTest {
         composeRule.onNodeWithTag("login.scanJoin").performClick()
         composeRule.onNodeWithTag("screen.courseJoin.scan").assertIsDisplayed()
         composeRule.onNodeWithTag("courseJoin.scan.camera").assertIsDisplayed()
-        composeRule.onNodeWithTag("courseJoin.scan.manualInput").assertIsDisplayed()
-        composeRule.onNodeWithTag("courseJoin.scan.simulateSuccess")
+        assertTrue(
+            composeRule.onAllNodesWithTag("courseJoin.scan.simulateSuccess")
+                .fetchSemanticsNodes()
+                .isEmpty()
+        )
+        composeRule.onNodeWithTag("courseJoin.scan.manualInput")
             .assertIsDisplayed()
             .performClick()
-        composeRule.onNodeWithTag("screen.courseJoinConfirm").assertIsDisplayed()
-        composeRule.onNodeWithText("大学体育（一）").assertIsDisplayed()
-        composeRule.onNodeWithTag("courseJoinConfirm.submit").assertIsNotEnabled()
+        composeRule.onNodeWithTag("screen.courseJoin.enterCode").assertIsDisplayed()
+        composeRule.onNodeWithTag("courseJoin.enterCode.input").assertIsDisplayed()
+        composeRule.onNodeWithTag("courseJoin.enterCode.submit").assertIsNotEnabled()
+        assertTrue(composeRule.onAllNodesWithTag("screen.courseJoinConfirm").fetchSemanticsNodes().isEmpty())
     }
 
     @Test
@@ -206,6 +220,72 @@ class CoreJourneyUiTest {
         composeRule.onNodeWithText("当前邮箱：s***@example.edu.cn").assertIsDisplayed()
         composeRule.onNodeWithText("验证码将分别发送到当前邮箱和新邮箱。").assertIsDisplayed()
         composeRule.onNodeWithTag("emailSecurity.newEmail").assertIsDisplayed()
+    }
+
+    @Test
+    fun emailLogin_systemBackReturnsToSignInChoices() {
+        setAppRootContent()
+        composeRule.onNodeWithTag("login.email").assertIsEnabled().performClick()
+        composeRule.onNodeWithContentDescription("返回登录方式").assertIsDisplayed()
+
+        pressSystemBack()
+
+        composeRule.onNodeWithTag("login.email").assertIsDisplayed()
+        composeRule.onNodeWithTag("login.scanJoin").assertIsDisplayed()
+    }
+
+    @Test
+    fun localReview_fiveMainTabsKeepSelectionAndBackReturnsHome() {
+        enterSyntheticReviewWorkspace()
+        setAppRootContent()
+        composeRule.onNodeWithTag("banner.localReview").assertIsDisplayed()
+        val tabRole = SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Tab)
+        composeRule.onAllNodes(tabRole).assertCountEquals(5)
+
+        listOf("课程", "打卡", "记录与进度", "我的").forEach { label ->
+            composeRule.onNode(hasText(label) and tabRole).performClick().assertIsSelected()
+            when (label) {
+                "打卡" -> composeRule.onNodeWithTag("screen.checkIn").assertIsDisplayed()
+                "记录与进度" -> composeRule.onNodeWithTag("screen.recordsProgress").assertIsDisplayed()
+            }
+            pressSystemBack()
+            composeRule.onNode(hasText("首页") and tabRole).assertIsSelected()
+        }
+    }
+
+    @Test
+    fun localReview_supplementPreviewReturnsWithoutSubmitting() {
+        enterSyntheticReviewWorkspace()
+        setAppRootContent()
+        val tabRole = SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Tab)
+        composeRule.onNode(hasText("记录与进度") and tabRole).performClick()
+        composeRule.onNodeWithTag("recordsProgress.supplementReviewEntry")
+            .performScrollTo().performClick()
+        composeRule.onNodeWithTag("screen.supplementTask").assertIsDisplayed()
+        composeRule.onNodeWithTag("supplement.submit").performScrollTo().assertIsNotEnabled()
+        composeRule.onNodeWithText("查看“已接收”评审样例").performScrollTo().performClick()
+        composeRule.onNodeWithTag("screen.supplementResult").assertIsDisplayed()
+
+        pressSystemBack()
+        composeRule.onNodeWithTag("screen.supplementTask").assertIsDisplayed()
+        pressSystemBack()
+        composeRule.onNodeWithTag("screen.recordsProgress").assertIsDisplayed()
+        assertTrue(appState.apiRepository == null)
+    }
+
+    private fun enterSyntheticReviewWorkspace() {
+        val workspace = requireNotNull(LocalReviewWorkspaceProvider.workspaceFactory).invoke()
+        localStore.markPostEnrollmentGuideCompleted(workspace.student.id)
+        composeRule.runOnUiThread { appState.enterLocalReview(workspace) }
+        assertTrue(appState.isLocalReviewMode)
+        assertTrue(appState.apiRepository == null)
+    }
+
+    private fun pressSystemBack() {
+        composeRule.activityRule.scenario.onActivity {
+            it.onBackPressedDispatcher.onBackPressed()
+        }
+        composeRule.waitForIdle()
     }
 
     @Test

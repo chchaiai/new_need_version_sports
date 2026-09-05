@@ -3,6 +3,7 @@ package edu.bnbu.student.mvp
 import android.app.Application
 import android.Manifest
 import android.content.Context
+import android.content.ContextWrapper
 import android.content.pm.PackageManager
 import android.content.Intent
 import android.net.Uri
@@ -18,11 +19,14 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
 import edu.bnbu.student.mvp.core.designsystem.AppleTextButton as TextButton
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.window.DialogProperties
 import androidx.lifecycle.AndroidViewModel
@@ -95,6 +99,18 @@ class MainActivity : ComponentActivity() {
         checkForPlayUpdate()
 
         setContent {
+            val hostContext = LocalContext.current
+            val appLanguage = appState.appLanguage
+            val localizedContext = remember(hostContext, appLanguage) {
+                val resourceContext = AppLanguagePreferences.localizedContext(hostContext)
+                object : ContextWrapper(hostContext) {
+                    override fun getAssets() = resourceContext.assets
+                    override fun getResources() = resourceContext.resources
+                }
+            }
+            val localizedConfiguration = remember(localizedContext) {
+                localizedContext.resources.configuration
+            }
             var updateRequirement by remember { mutableStateOf<UpdateRequirement?>(null) }
             LaunchedEffect(Unit) {
                 updateRequirement = checkMinimumVersion()
@@ -113,29 +129,34 @@ class MainActivity : ComponentActivity() {
                     appStateViewModel.isPrivacyConsentChecked &&
                     isSystemModeChecked
             if (startupInputsReady) {
-                BNBUStudentTheme(themeMode = appState.themeMode) {
-                    AppRootScreen(
-                        appState = appState,
-                        exerciseSessionController = appStateViewModel.exerciseSessionController,
-                        localStore = appStateViewModel.localStore,
-                        initialPrivacyConsentRequired =
-                            appStateViewModel.isPrivacyConsentRequired,
-                        onPrivacyConsentAccepted =
-                            appStateViewModel::markPrivacyConsentAccepted,
-                        onInitialTargetReady = { isInitialTargetReady = true },
-                        onRequestNotificationPermission = ::requestNotificationPermissionIfNeeded,
-                        localReviewWorkspaceFactory = LocalReviewWorkspaceProvider.workspaceFactory
-                    )
-
-                    updateRequirement?.let { requirement ->
-                        UpdateRequiredDialog(
-                            requirement = requirement,
-                            onUpdate = { openUpdateUrl(requirement.downloadUrl) }
+                CompositionLocalProvider(
+                    LocalContext provides localizedContext,
+                    LocalConfiguration provides localizedConfiguration
+                ) {
+                    BNBUStudentTheme(themeMode = appState.themeMode) {
+                        AppRootScreen(
+                            appState = appState,
+                            exerciseSessionController = appStateViewModel.exerciseSessionController,
+                            localStore = appStateViewModel.localStore,
+                            initialPrivacyConsentRequired =
+                                appStateViewModel.isPrivacyConsentRequired,
+                            onPrivacyConsentAccepted =
+                                appStateViewModel::markPrivacyConsentAccepted,
+                            onInitialTargetReady = { isInitialTargetReady = true },
+                            onRequestNotificationPermission = ::requestNotificationPermissionIfNeeded,
+                            localReviewWorkspaceFactory = LocalReviewWorkspaceProvider.workspaceFactory
                         )
-                    }
 
-                    if (updateRequirement == null && isPlayUpdateReady) {
-                        PlayUpdateReadyDialog(onRestart = ::completePlayUpdate)
+                        updateRequirement?.let { requirement ->
+                            UpdateRequiredDialog(
+                                requirement = requirement,
+                                onUpdate = { openUpdateUrl(requirement.downloadUrl) }
+                            )
+                        }
+
+                        if (updateRequirement == null && isPlayUpdateReady) {
+                            PlayUpdateReadyDialog(onRestart = ::completePlayUpdate)
+                        }
                     }
                 }
             }

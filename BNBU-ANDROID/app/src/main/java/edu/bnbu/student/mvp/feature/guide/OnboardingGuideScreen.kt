@@ -178,7 +178,7 @@ private fun preLoginGuideSteps(): List<GuideStep> = listOf(
 private fun postEnrollmentGuideSteps(): List<GuideStep> = listOf(
     GuideStep(
         title = interfaceText("开始一次运动", "Start an activity"),
-        eyebrow = interfaceText("从首页或“运动”开始", "Start from Home or Exercise"),
+        eyebrow = interfaceText("从首页或“打卡”开始", "Start from Home or Check-in"),
         description = interfaceText(
             "选择课程和运动项目后开始计时，完成本次运动任务。",
             "Choose a course and an activity, then start timing your workout."
@@ -198,8 +198,8 @@ private fun postEnrollmentGuideSteps(): List<GuideStep> = listOf(
         title = interfaceText("提交并查看记录", "Submit and review records"),
         eyebrow = interfaceText("完成后确认并提交", "Confirm and submit when finished"),
         description = interfaceText(
-            "补充说明、确认凭证后提交打卡；在“记录”中查看历史运动、时长和媒体。",
-            "Add notes, confirm your proof, and submit the check-in. Use Records to review exercise history, duration, and media."
+            "补充说明、确认凭证后提交打卡；在“记录与进度”中查看历史运动、实际分钟和只读材料。",
+            "Add notes, confirm your evidence, and submit the check-in. Use Records & progress to review activity history, actual minutes, and read-only evidence."
         ),
         artwork = GuideArtwork.SubmittedRecords
     ),
@@ -207,8 +207,8 @@ private fun postEnrollmentGuideSteps(): List<GuideStep> = listOf(
         title = interfaceText("需要时提交申请", "Apply when you need to"),
         eyebrow = interfaceText("个人中心 · 服务", "Profile · Services"),
         description = interfaceText(
-            "可按性别提交 800 米或 1000 米耐力跑免测，也可提交校队、社团申请，并查看状态、补充材料或重新提交。",
-            "Submit the gender-matched 800 m or 1000 m endurance exemption, or a school-team or student-club application, then review status, add documents, or resubmit."
+            "可按性别提交 800 米或 1000 米耐力跑免测，也可提交校队或社团认证。查看正式状态；只有服务器标记“需补材料”时才能补充。",
+            "Submit the gender-matched 800 m or 1000 m endurance exemption, or a school-team or student-club certification. Review the formal status; evidence can be added only when the server marks it as required."
         ),
         artwork = GuideArtwork.Applications
     )
@@ -681,7 +681,7 @@ private fun StartExerciseArtwork() {
                         style = MaterialTheme.typography.titleSmall
                     )
                     Text(
-                        text = interfaceText("从首页或“运动”进入", "Open it from Home or Exercise"),
+                        text = interfaceText("从首页或“打卡”进入", "Open it from Home or Check-in"),
                         color = colors.onSurfaceVariant,
                         style = MaterialTheme.typography.bodySmall
                     )
@@ -845,7 +845,7 @@ private fun SubmittedRecordsArtwork() {
         }
         StatusArtworkRow(
             icon = Icons.Filled.History,
-            text = interfaceText("在“记录”中查看历史", "Review history in Records"),
+            text = interfaceText("在“记录与进度”中查看", "Review it under Records & progress"),
             containerColor = colors.tertiaryContainer,
             contentColor = colors.onTertiaryContainer,
             iconColor = colors.tertiary
@@ -885,12 +885,12 @@ private fun ApplicationsArtwork() {
             ApplicationArtworkCard(
                 modifier = Modifier.weight(1f),
                 icon = Icons.AutoMirrored.Filled.Assignment,
-                title = interfaceText("打卡、校队或社团", "Check-in, school team, or student club")
+                title = interfaceText("校队或社团认证", "Team or club certification")
             )
         }
         StatusArtworkRow(
             icon = Icons.Filled.FileUpload,
-            text = interfaceText("查看状态、补充材料或重新提交", "Check status, add documents, or resubmit"),
+            text = interfaceText("仅在“需补材料”时补充", "Add evidence only when required"),
             containerColor = colors.secondaryContainer,
             contentColor = colors.onSecondaryContainer,
             iconColor = colors.secondary
