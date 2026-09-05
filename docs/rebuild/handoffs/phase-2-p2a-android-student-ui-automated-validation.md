@@ -202,7 +202,7 @@ $env:ANDROID_SERIAL='emulator-5554'
 | AndroidTest APK | 984,688 bytes；SHA-256 `ced6c6980653c66d4b030af0dda6ea72abe0428e4564dedf29f38aca6ce31a0c` | 最终 Commit 强制重建测试安装包，不用于手工评审 |
 | instrumentation | 专用 AVD `BNBU_P2_UI_Review` / `emulator-5554` / Android API 37 / `sdk_gphone16k_x86_64`；22/22 passed，0 failed/error/skipped | 已实际设备运行；不等于 41 页七状态或真实服务流程 |
 | 真机指定回归 | 当前用户自有真机配置下通过启动门禁与原品牌页、五个主页面指定检查、普通后台返回、语言切换、录像/视频预览、英文通知固定文案和视频底部说明移除 | 设备型号/API/字体组合未完整登记，不能外推其他设备或完整无障碍 |
-| Git/范围 | `git diff --check` 退出码 0；相对 `origin/main` 共 117 个文件，禁止路径 0；OpenAPI SHA-256 不变 | 不含 Contract、Backend、Web、业务正文、infra、e2e 或根 STATUS |
+| Git/范围 | `git diff --check` 退出码 0；相对 `origin/main` 共 118 个文件，禁止路径 0；OpenAPI SHA-256 不变 | 不含 Contract、Backend、Web、业务正文、infra、e2e 或根 STATUS |
 
 最终提交创建后，上述两条 Gradle 命令和 Git 检查在该同一 HEAD 上重新执行；Push 后用本地/远端分支 SHA 一致性确认将结果绑定到 Reviewer 收到的新 Commit。若最终执行结果或 APK SHA 与本节不一致，必须先更正文档并重新形成候选，不得沿用本表。
 
