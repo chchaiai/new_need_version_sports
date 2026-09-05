@@ -18,6 +18,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.liveRegion
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import edu.bnbu.student.mvp.core.error.UserFacingError
@@ -39,7 +42,8 @@ internal fun BNBUErrorPanel(
             .fillMaxWidth()
             .background(colors.errorContainer, MaterialTheme.shapes.medium)
             .padding(BNBULayout.CardPadding)
-            .testTag("errorPanel"),
+            .testTag("errorPanel")
+            .semantics { liveRegion = LiveRegionMode.Polite },
         verticalArrangement = Arrangement.spacedBy(BNBULayout.Space8)
     ) {
         Row(verticalAlignment = Alignment.Top) {

@@ -28,10 +28,14 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
@@ -71,6 +75,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.liveRegion
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -79,10 +86,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.IntOffset
 import edu.bnbu.student.mvp.BuildConfig
 import edu.bnbu.student.mvp.R
+import edu.bnbu.student.mvp.SystemModeConnectionState
 import edu.bnbu.student.mvp.core.designsystem.BNBULayout
 import edu.bnbu.student.mvp.core.designsystem.BNBUMotion
 import edu.bnbu.student.mvp.core.designsystem.interfaceText
 import edu.bnbu.student.mvp.core.local.AndroidAppLocalStore
+import edu.bnbu.student.mvp.core.model.AppLanguage
 import edu.bnbu.student.mvp.core.model.SystemMode
 import edu.bnbu.student.mvp.core.model.StudentWorkspace
 import edu.bnbu.student.mvp.core.model.safeStudentNumberOrNull
@@ -92,10 +101,16 @@ import edu.bnbu.student.mvp.core.network.v1.V1CourseJoinIdentity
 import edu.bnbu.student.mvp.core.network.v1.generated.Gender
 import edu.bnbu.student.mvp.core.state.StudentAppState
 import edu.bnbu.student.mvp.feature.checkin.CheckInScreen
+import edu.bnbu.student.mvp.feature.checkin.SupplementResultScreen
+import edu.bnbu.student.mvp.feature.checkin.SupplementTaskScreen
 import edu.bnbu.student.mvp.feature.checkin.session.ExerciseSessionController
 import edu.bnbu.student.mvp.feature.courses.CourseJoinConfirmScreen
 import edu.bnbu.student.mvp.feature.courses.CourseJoinCompletion
 import edu.bnbu.student.mvp.feature.courses.CourseJoinInfo
+import edu.bnbu.student.mvp.feature.courses.CourseJoinInfoStateSaver
+import edu.bnbu.student.mvp.feature.courses.CourseJoinResultScreen
+import edu.bnbu.student.mvp.feature.courses.CourseJoinResultUiModel
+import edu.bnbu.student.mvp.feature.courses.CourseJoinResultUiModelStateSaver
 import edu.bnbu.student.mvp.feature.courses.CoursesScreen
 import edu.bnbu.student.mvp.feature.courses.EnterInviteCodeScreen
 import edu.bnbu.student.mvp.feature.courses.ScanJoinScreen
@@ -112,12 +127,13 @@ import edu.bnbu.student.mvp.feature.login.ContactBindingMode
 import edu.bnbu.student.mvp.feature.login.ContactBindingScreen
 import edu.bnbu.student.mvp.feature.login.ContactActivationHelpScreen
 import edu.bnbu.student.mvp.feature.notifications.NotificationSheet
+import edu.bnbu.student.mvp.feature.notifications.toStudentNoticeUiModels
 import edu.bnbu.student.mvp.feature.profile.AccountDetailsScreen
 import edu.bnbu.student.mvp.feature.profile.AccountDeletionScreen
 import edu.bnbu.student.mvp.feature.profile.ProfileSettingsScreen
+import edu.bnbu.student.mvp.feature.review.LocalReviewUiFixtureProvider
 import edu.bnbu.student.mvp.feature.profile.PrivacyPolicyScreen
 import edu.bnbu.student.mvp.feature.profile.ProfileScreen
-import edu.bnbu.student.mvp.feature.scoring.EnduranceScoringScreen
 import edu.bnbu.student.mvp.feature.exemption.ExemptionScreen
 import edu.bnbu.student.mvp.feature.feedback.FeedbackScreen
 import edu.bnbu.student.mvp.feature.settings.AboutScreen
@@ -131,7 +147,7 @@ enum class AppTab(
     Dashboard("首页", null),
     Courses("课程", Icons.AutoMirrored.Filled.MenuBook),
     CheckIn("打卡", Icons.Filled.AddBox),
-    Grades("运动进度", Icons.Filled.BarChart),
+    Grades("记录与进度", Icons.Filled.BarChart),
     Profile("我的", Icons.Filled.AccountCircle)
 }
 
@@ -140,8 +156,10 @@ enum class SubScreen {
     ScanJoin,
     EnterCode,
     CourseJoinConfirm,
-    EnduranceScoring,
+    CourseJoinResult,
     Exemption,
+    SupplementTask,
+    SupplementResult,
     AccountDetails,
     Settings,
     ContactBinding,
@@ -168,7 +186,6 @@ private suspend fun V1CourseJoinCoordinator.resolveCourseInvite(
     inviteCode: String
 ): CourseJoinInfo {
     val preview = preview(inviteCode)
-    check(preview.enrollmentOpen) { "ENROLLMENT_CLOSED" }
     return preview.toCourseJoinInfo()
 }
 
@@ -199,6 +216,7 @@ private suspend fun V1CourseJoinCoordinator.submitCourseJoin(
 }
 
 @Composable
+@Suppress("UNUSED_PARAMETER")
 internal fun AppRootScreen(
     appState: StudentAppState,
     exerciseSessionController: ExerciseSessionController,
@@ -207,46 +225,61 @@ internal fun AppRootScreen(
     onPrivacyConsentAccepted: () -> Unit = {},
     onInitialTargetReady: () -> Unit = {},
     onRequestNotificationPermission: () -> Unit = {},
-    localReviewWorkspaceFactory: (() -> StudentWorkspace)? = null
+    localReviewWorkspaceFactory: (() -> StudentWorkspace)? = null,
+    maintenanceSupplementTiming: MaintenanceSupplementTimingUiModel =
+        MaintenanceSupplementTimingUiModel.Unavailable,
+    systemModeConnectionState: SystemModeConnectionState =
+        SystemModeConnectionState.CONFIRMED,
+    onRetrySystemMode: () -> Unit = {}
 ) {
     Box(
         modifier = Modifier
             .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
+            .safeDrawingPadding()
+            .imePadding()
             .onGloballyPositioned { onInitialTargetReady() }
     ) {
         when (appState.systemMode) {
             SystemMode.MAINTENANCE -> MaintenancePage(
                 message = appState.systemModeStatus.message,
-                estimatedRecoveryTime = appState.systemModeStatus.estimatedRecoveryTime
+                estimatedRecoveryTime = appState.systemModeStatus.estimatedRecoveryTime,
+                appLanguage = appState.appLanguage,
+                supplementTiming = maintenanceSupplementTiming,
+                refreshUnavailable =
+                    systemModeConnectionState == SystemModeConnectionState.REFRESH_UNAVAILABLE,
+                onRetrySystemMode = onRetrySystemMode
             )
             SystemMode.NORMAL -> {
-                val plannedMaintenanceAt = appState.systemModeStatus.plannedMaintenanceAt
-                if (plannedMaintenanceAt == null) {
-                    AppRootContent(
-                        appState = appState,
-                        exerciseSessionController = exerciseSessionController,
-                        localStore = localStore,
-                        initialPrivacyConsentRequired = initialPrivacyConsentRequired,
-                        onPrivacyConsentAccepted = onPrivacyConsentAccepted,
-                        onRequestNotificationPermission = onRequestNotificationPermission,
-                        localReviewWorkspaceFactory = localReviewWorkspaceFactory
-                    )
+                if (systemModeConnectionState == SystemModeConnectionState.REFRESH_UNAVAILABLE) {
+                    SystemModeRefreshUnavailablePage(onRetry = onRetrySystemMode)
                 } else {
-                    Column(modifier = Modifier.fillMaxSize()) {
-                        PlannedMaintenanceBanner(
-                            plannedMaintenanceAt = plannedMaintenanceAt,
-                            message = appState.systemModeStatus.message
+                    val plannedMaintenanceAt = appState.systemModeStatus.plannedMaintenanceAt
+                    if (plannedMaintenanceAt == null) {
+                        AppRootContent(
+                            appState = appState,
+                            exerciseSessionController = exerciseSessionController,
+                            localStore = localStore,
+                            initialPrivacyConsentRequired = initialPrivacyConsentRequired,
+                            onPrivacyConsentAccepted = onPrivacyConsentAccepted,
+                            localReviewWorkspaceFactory = localReviewWorkspaceFactory
                         )
-                        Box(modifier = Modifier.weight(1f)) {
-                            AppRootContent(
-                                appState = appState,
-                                exerciseSessionController = exerciseSessionController,
-                                localStore = localStore,
-                                initialPrivacyConsentRequired = initialPrivacyConsentRequired,
-                                onPrivacyConsentAccepted = onPrivacyConsentAccepted,
-                                onRequestNotificationPermission = onRequestNotificationPermission,
-                                localReviewWorkspaceFactory = localReviewWorkspaceFactory
+                    } else {
+                        Column(modifier = Modifier.fillMaxSize()) {
+                            PlannedMaintenanceBanner(
+                                plannedMaintenanceAt = plannedMaintenanceAt,
+                                message = appState.systemModeStatus.message
                             )
+                            Box(modifier = Modifier.weight(1f)) {
+                                AppRootContent(
+                                    appState = appState,
+                                    exerciseSessionController = exerciseSessionController,
+                                    localStore = localStore,
+                                    initialPrivacyConsentRequired = initialPrivacyConsentRequired,
+                                    onPrivacyConsentAccepted = onPrivacyConsentAccepted,
+                                    localReviewWorkspaceFactory = localReviewWorkspaceFactory
+                                )
+                            }
                         }
                     }
                 }
@@ -262,7 +295,6 @@ private fun AppRootContent(
     localStore: AndroidAppLocalStore,
     initialPrivacyConsentRequired: Boolean,
     onPrivacyConsentAccepted: () -> Unit,
-    onRequestNotificationPermission: () -> Unit,
     localReviewWorkspaceFactory: (() -> StudentWorkspace)?
 ) {
     val courseJoinCoordinator = remember(localStore) {
@@ -287,11 +319,19 @@ private fun AppRootContent(
     var showEmailLogin by rememberSaveable { mutableStateOf(false) }
     var showRecoveryRequest by rememberSaveable { mutableStateOf(false) }
     var showScanJoin by rememberSaveable { mutableStateOf(false) }
+    var showEnterInviteCode by rememberSaveable { mutableStateOf(false) }
     var needsPrivacyConsent by rememberSaveable(initialPrivacyConsentRequired) {
         mutableStateOf(initialPrivacyConsentRequired)
     }
     var pendingInviteCode by rememberSaveable { mutableStateOf<String?>(null) }
-    var pendingInviteCourse by remember { mutableStateOf<CourseJoinInfo?>(null) }
+    var pendingInviteCourse by rememberSaveable(saver = CourseJoinInfoStateSaver) {
+        mutableStateOf<CourseJoinInfo?>(null)
+    }
+    var pendingJoinResult by rememberSaveable(saver = CourseJoinResultUiModelStateSaver) {
+        mutableStateOf<CourseJoinResultUiModel?>(null)
+    }
+    var pendingJoinCompletion by remember { mutableStateOf<CourseJoinCompletion.Authoritative?>(null) }
+    val preLoginJoinStateHolder = rememberSaveableStateHolder()
     var activationSupportScreen by rememberSaveable { mutableStateOf<ActivationSupportScreen?>(null) }
     val accountId = appState.workspace.student.id
     var preLoginCourseGuideCompleted by remember {
@@ -316,15 +356,8 @@ private fun AppRootContent(
         appState.isAuthenticated -> AuthUiState.Authenticated
         else -> AuthUiState.Login
     }
-    LaunchedEffect(authUiState, appState.requiresContactBinding) {
-        if (
-            authUiState == AuthUiState.Authenticated &&
-            !appState.requiresContactBinding &&
-            !appState.isLocalReviewMode
-        ) {
-            onRequestNotificationPermission()
-        }
-    }
+    // v8.0 uses the in-app notification centre only. Keep the callback in this public root
+    // signature until the host cleanup phase, but never request Android notification permission.
     AnimatedContent(
         targetState = authUiState,
         modifier = Modifier.fillMaxSize(),
@@ -400,40 +433,69 @@ private fun AppRootContent(
             AuthUiState.Login -> {
                 val inviteCode = pendingInviteCode
                 val inviteCourse = pendingInviteCourse
-                if (inviteCode != null && inviteCourse != null) {
-                    CourseJoinConfirmScreen(
-                        inviteCode = inviteCode,
-                        course = inviteCourse,
-                        initialName = appState.workspace.student.name,
-                        initialStudentNumber = appState.workspace.student.safeStudentNumberOrNull().orEmpty(),
-                        initialGender = appState.workspace.student.gender,
-                        initialGrade = appState.workspace.student.gradeLevel,
-                        writeEnabled = appState.isWriteAllowed,
-                        activeCourseId = appState.workspace.courses.firstOrNull {
-                            it.isCurrent && it.hasActiveMembership
-                        }?.id,
-                        onBack = {
-                            pendingInviteCode = null
-                            pendingInviteCourse = null
-                            showScanJoin = true
-                        },
-                        onJoined = { completion ->
-                            when (completion) {
-                                is CourseJoinCompletion.Authoritative ->
-                                    appState.acceptV1Authentication(completion.currentUser)
+                val joinResult = pendingJoinResult
+                if (joinResult != null) {
+                    CourseJoinResultScreen(
+                        result = joinResult,
+                        onDone = {
+                            preLoginJoinStateHolder.removeState("preLoginCourseJoinConfirm")
+                            pendingJoinCompletion?.let { completion ->
+                                appState.acceptV1Authentication(completion.currentUser)
                             }
                             pendingInviteCode = null
                             pendingInviteCourse = null
+                            pendingJoinResult = null
+                            pendingJoinCompletion = null
                             showScanJoin = false
+                            showEnterInviteCode = false
                         },
-                        submitCourseJoin = { body ->
-                            courseJoinCoordinator.submitCourseJoin(
-                                inviteCode = inviteCode,
-                                expectedClassSectionId = inviteCourse.id,
-                                body = body
-                            )
-                        }
+                        onRetrySubmission = {
+                            pendingJoinResult = null
+                            pendingJoinCompletion = null
+                        },
+                        onUseAnotherInvitation = {
+                            preLoginJoinStateHolder.removeState("preLoginCourseJoinConfirm")
+                            pendingInviteCode = null
+                            pendingInviteCourse = null
+                            pendingJoinResult = null
+                            pendingJoinCompletion = null
+                            showEnterInviteCode = false
+                            showScanJoin = true
+                        },
+                        canOpenCourse = pendingJoinCompletion != null
                     )
+                } else if (inviteCode != null && inviteCourse != null) {
+                    preLoginJoinStateHolder.SaveableStateProvider("preLoginCourseJoinConfirm") {
+                        CourseJoinConfirmScreen(
+                            inviteCode = inviteCode,
+                            course = inviteCourse,
+                            initialName = appState.workspace.student.name,
+                            initialStudentNumber = appState.workspace.student.safeStudentNumberOrNull().orEmpty(),
+                            initialGender = appState.workspace.student.gender,
+                            initialGrade = appState.workspace.student.gradeLevel,
+                            writeEnabled = appState.isWriteAllowed,
+                            activeCourseId = appState.workspace.courses.firstOrNull {
+                                it.isCurrent && it.hasActiveMembership
+                            }?.id,
+                            onBack = {
+                                preLoginJoinStateHolder.removeState("preLoginCourseJoinConfirm")
+                                pendingInviteCode = null
+                                pendingInviteCourse = null
+                                showScanJoin = true
+                            },
+                            onJoinResult = { result, completion ->
+                                pendingJoinResult = result
+                                pendingJoinCompletion = completion as? CourseJoinCompletion.Authoritative
+                            },
+                            submitCourseJoin = { body ->
+                                courseJoinCoordinator.submitCourseJoin(
+                                    inviteCode = inviteCode,
+                                    expectedClassSectionId = inviteCourse.id,
+                                    body = body
+                                )
+                            }
+                        )
+                    }
                 } else if (showScanJoin) {
                     ScanJoinScreen(
                         onInviteResolved = { code, course ->
@@ -442,11 +504,29 @@ private fun AppRootContent(
                             showScanJoin = false
                         },
                         onBack = { showScanJoin = false },
+                        onEnterCode = {
+                            showScanJoin = false
+                            showEnterInviteCode = true
+                        },
+                        resolveInvite = courseJoinCoordinator::resolveCourseInvite
+                    )
+                } else if (showEnterInviteCode) {
+                    EnterInviteCodeScreen(
+                        onInviteResolved = { code, course ->
+                            pendingInviteCode = code
+                            pendingInviteCourse = course
+                            showEnterInviteCode = false
+                        },
+                        onBack = {
+                            showEnterInviteCode = false
+                            showScanJoin = true
+                        },
                         resolveInvite = courseJoinCoordinator::resolveCourseInvite
                     )
                 } else if (showRecoveryRequest) {
                     RecoveryRequestScreen(onBack = { showRecoveryRequest = false })
                 } else if (showEmailLogin) {
+                    BackHandler { showEmailLogin = false }
                     EmailLoginScreen(
                         localStore = localStore,
                         onLoginSuccess = { current ->
@@ -550,17 +630,80 @@ private fun PlannedMaintenanceBanner(plannedMaintenanceAt: String, message: Stri
 }
 
 @Composable
-private fun MaintenancePage(message: String, estimatedRecoveryTime: String?) {
+private fun SystemModeRefreshUnavailablePage(onRetry: () -> Unit) {
+    val colors = MaterialTheme.colorScheme
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(colors.background)
+            .padding(32.dp)
+            .testTag("systemMode.refreshUnavailable"),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .widthIn(max = 520.dp)
+                .verticalScroll(rememberScrollState())
+                .semantics { liveRegion = LiveRegionMode.Polite },
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Filled.CloudOff,
+                contentDescription = stringResource(R.string.system_mode_refresh_error_icon),
+                tint = colors.primary,
+                modifier = Modifier.size(56.dp)
+            )
+            Text(
+                text = stringResource(R.string.system_mode_refresh_error_title),
+                style = MaterialTheme.typography.headlineSmall,
+                textAlign = TextAlign.Center
+            )
+            Text(
+                text = stringResource(R.string.system_mode_refresh_error_message),
+                style = MaterialTheme.typography.bodyLarge,
+                color = colors.onSurfaceVariant,
+                textAlign = TextAlign.Center
+            )
+            Button(
+                onClick = onRetry,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(min = BNBULayout.TouchTarget)
+                    .testTag("systemMode.refreshRetry")
+            ) {
+                Icon(imageVector = Icons.Filled.Refresh, contentDescription = null)
+                Spacer(modifier = Modifier.size(8.dp))
+                Text(stringResource(R.string.system_mode_refresh_retry))
+            }
+        }
+    }
+}
+
+@Composable
+internal fun MaintenancePage(
+    message: String,
+    estimatedRecoveryTime: String?,
+    appLanguage: AppLanguage,
+    supplementTiming: MaintenanceSupplementTimingUiModel,
+    refreshUnavailable: Boolean = false,
+    onRetrySystemMode: () -> Unit = {}
+) {
     val colors = MaterialTheme.colorScheme
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(colors.background)
             .statusBarsPadding()
-            .padding(32.dp),
+            .padding(32.dp)
+            .testTag("screen.maintenance"),
         contentAlignment = Alignment.Center
     ) {
         Column(
+            modifier = Modifier
+                .verticalScroll(rememberScrollState())
+                .semantics { liveRegion = LiveRegionMode.Polite },
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(14.dp)
         ) {
@@ -580,6 +723,103 @@ private fun MaintenancePage(message: String, estimatedRecoveryTime: String?) {
                 text = estimatedRecoveryTime?.let { interfaceText("预计恢复时间：$it", "Estimated recovery time: $it") } ?: interfaceText("预计恢复时间：请留意后续通知", "Estimated recovery time: watch for further notices."),
                 style = MaterialTheme.typography.titleSmall,
                 color = colors.primary
+            )
+            Text(
+                text = interfaceText(
+                    "预计恢复时间仅供参考，不是实际恢复时间或补证截止时间。",
+                    "The estimated recovery time is informational; it is not the actual recovery time or a supplementary-evidence deadline."
+                ),
+                style = MaterialTheme.typography.bodySmall,
+                color = colors.onSurfaceVariant
+            )
+            if (refreshUnavailable) {
+                MaintenanceRefreshUnavailablePanel(onRetry = onRetrySystemMode)
+            } else {
+                MaintenanceSupplementTimingPanel(
+                    model = supplementTiming,
+                    appLanguage = appLanguage
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun MaintenanceRefreshUnavailablePanel(onRetry: () -> Unit) {
+    val colors = MaterialTheme.colorScheme
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .testTag("maintenance.refreshUnavailable"),
+        shape = RoundedCornerShape(20.dp),
+        color = colors.tertiaryContainer,
+        contentColor = colors.onTertiaryContainer
+    ) {
+        Column(
+            modifier = Modifier.padding(18.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Text(
+                text = stringResource(R.string.maintenance_refresh_error_title),
+                style = MaterialTheme.typography.titleMedium
+            )
+            Text(
+                text = stringResource(R.string.maintenance_refresh_error_message),
+                style = MaterialTheme.typography.bodyMedium
+            )
+            Button(
+                onClick = onRetry,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(min = BNBULayout.TouchTarget)
+                    .testTag("maintenance.refreshRetry")
+            ) {
+                Icon(imageVector = Icons.Filled.Refresh, contentDescription = null)
+                Spacer(modifier = Modifier.size(8.dp))
+                Text(stringResource(R.string.system_mode_refresh_retry))
+            }
+        }
+    }
+}
+
+@Composable
+private fun MaintenanceSupplementTimingPanel(
+    model: MaintenanceSupplementTimingUiModel,
+    appLanguage: AppLanguage
+) {
+    val presentation = model.toPresentation(appLanguage) ?: return
+    val colors = MaterialTheme.colorScheme
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .testTag("maintenance.supplementTiming"),
+        shape = RoundedCornerShape(20.dp),
+        color = colors.secondaryContainer,
+        contentColor = colors.onSecondaryContainer
+    ) {
+        Column(
+            modifier = Modifier.padding(18.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Text(
+                text = presentation.title,
+                style = MaterialTheme.typography.labelLarge
+            )
+            Text(
+                text = presentation.status,
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.testTag("maintenance.supplementTiming.status")
+            )
+            presentation.remainingTime?.let { remainingTime ->
+                Text(
+                    text = remainingTime,
+                    style = MaterialTheme.typography.titleSmall,
+                    modifier = Modifier.testTag("maintenance.supplementTiming.remaining")
+                )
+            }
+            Text(
+                text = presentation.detail,
+                style = MaterialTheme.typography.bodyMedium
             )
         }
     }
@@ -608,7 +848,13 @@ private fun AuthenticatedAppContent(
     var renderedSubScreen by rememberSaveable { mutableStateOf(subScreen) }
     var exemptionTargetId by rememberSaveable { mutableStateOf<String?>(null) }
     var scannedInviteCode by rememberSaveable { mutableStateOf<String?>(null) }
-    var scannedInviteCourse by remember { mutableStateOf<CourseJoinInfo?>(null) }
+    var scannedInviteCourse by rememberSaveable(saver = CourseJoinInfoStateSaver) {
+        mutableStateOf<CourseJoinInfo?>(null)
+    }
+    var scannedJoinResult by rememberSaveable(saver = CourseJoinResultUiModelStateSaver) {
+        mutableStateOf<CourseJoinResultUiModel?>(null)
+    }
+    var enterCodeReturnsToScan by rememberSaveable { mutableStateOf(false) }
     var showNotificationSheet by rememberSaveable { mutableStateOf(false) }
     LaunchedEffect(subScreen) {
         if (subScreen != SubScreen.None) renderedSubScreen = subScreen
@@ -623,6 +869,10 @@ private fun AuthenticatedAppContent(
             SubScreen.Feedback,
             SubScreen.About -> subScreen = SubScreen.Settings
             SubScreen.Changelog -> subScreen = SubScreen.About
+            SubScreen.SupplementResult -> {
+                renderedSubScreen = SubScreen.SupplementTask
+                subScreen = SubScreen.SupplementTask
+            }
             else -> {
                 exemptionTargetId = null
                 subScreen = SubScreen.None
@@ -701,17 +951,25 @@ private fun AuthenticatedAppContent(
                                 renderedSubScreen = SubScreen.Exemption
                                 subScreen = SubScreen.Exemption
                             },
-                            openEnduranceScoring = {
-                                renderedSubScreen = SubScreen.EnduranceScoring
-                                subScreen = SubScreen.EnduranceScoring
+                            openSupplement = {
+                                if (appState.isLocalReviewMode) {
+                                    renderedSubScreen = SubScreen.SupplementTask
+                                    subScreen = SubScreen.SupplementTask
+                                }
                             },
                             openScanJoin = {
                                 scannedInviteCode = null
                                 scannedInviteCourse = null
+                                scannedJoinResult = null
+                                enterCodeReturnsToScan = false
                                 renderedSubScreen = SubScreen.ScanJoin
                                 subScreen = SubScreen.ScanJoin
                             },
                             openEnterCode = {
+                                scannedInviteCode = null
+                                scannedInviteCourse = null
+                                scannedJoinResult = null
+                                enterCodeReturnsToScan = false
                                 renderedSubScreen = SubScreen.EnterCode
                                 subScreen = SubScreen.EnterCode
                             }
@@ -741,10 +999,13 @@ private fun AuthenticatedAppContent(
                 exemptionTargetId = exemptionTargetId,
                 scannedInviteCode = scannedInviteCode,
                 scannedInviteCourse = scannedInviteCourse,
+                scannedJoinResult = scannedJoinResult,
                 onClose = {
                     exemptionTargetId = null
                     scannedInviteCode = null
                     scannedInviteCourse = null
+                    scannedJoinResult = null
+                    enterCodeReturnsToScan = false
                     subScreen = SubScreen.None
                 },
                 onNavigateFromSettings = { destination ->
@@ -770,14 +1031,51 @@ private fun AuthenticatedAppContent(
                 onInviteResolved = { code, course ->
                     scannedInviteCode = code
                     scannedInviteCourse = course
+                    scannedJoinResult = null
                     renderedSubScreen = SubScreen.CourseJoinConfirm
                     subScreen = SubScreen.CourseJoinConfirm
+                },
+                onJoinResult = { result, completion ->
+                    if (completion is CourseJoinCompletion.Authoritative) {
+                        appState.acceptV1Authentication(completion.currentUser)
+                    }
+                    scannedJoinResult = result
+                    renderedSubScreen = SubScreen.CourseJoinResult
+                    subScreen = SubScreen.CourseJoinResult
                 },
                 onReturnToScan = {
                     scannedInviteCode = null
                     scannedInviteCourse = null
+                    scannedJoinResult = null
+                    enterCodeReturnsToScan = false
                     renderedSubScreen = SubScreen.ScanJoin
                     subScreen = SubScreen.ScanJoin
+                },
+                onReturnToConfirm = {
+                    scannedJoinResult = null
+                    renderedSubScreen = SubScreen.CourseJoinConfirm
+                    subScreen = SubScreen.CourseJoinConfirm
+                },
+                onOpenEnterCode = {
+                    enterCodeReturnsToScan = true
+                    renderedSubScreen = SubScreen.EnterCode
+                    subScreen = SubScreen.EnterCode
+                },
+                onReturnFromEnterCode = {
+                    if (enterCodeReturnsToScan) {
+                        renderedSubScreen = SubScreen.ScanJoin
+                        subScreen = SubScreen.ScanJoin
+                    } else {
+                        subScreen = SubScreen.None
+                    }
+                },
+                onOpenSupplementResult = {
+                    renderedSubScreen = SubScreen.SupplementResult
+                    subScreen = SubScreen.SupplementResult
+                },
+                onReturnToSupplementTask = {
+                    renderedSubScreen = SubScreen.SupplementTask
+                    subScreen = SubScreen.SupplementTask
                 }
             )
         }
@@ -785,12 +1083,18 @@ private fun AuthenticatedAppContent(
     }
 
     if (showNotificationSheet) {
+        val studentNotices = appState.workspace.notices.toStudentNoticeUiModels()
         NotificationSheet(
-            notices = appState.visibleNotices,
-            unreadCount = appState.unreadNoticeCount,
+            notices = studentNotices,
+            unreadCount = studentNotices.count { it.isUnread },
             onDismiss = { showNotificationSheet = false },
             onMarkRead = appState::markNoticeRead,
-            onMarkAllRead = appState::markAllNoticesRead,
+            onMarkAllRead = {
+                studentNotices
+                    .asSequence()
+                    .filter { it.isUnread }
+                    .forEach { notice -> appState.markNoticeRead(notice.id) }
+            },
             onOpenExemption = { targetId ->
                 showNotificationSheet = false
                 exemptionTargetId = targetId
@@ -930,6 +1234,7 @@ private fun SubScreenOverlay(
     exemptionTargetId: String?,
     scannedInviteCode: String?,
     scannedInviteCourse: CourseJoinInfo?,
+    scannedJoinResult: CourseJoinResultUiModel?,
     onClose: () -> Unit,
     onNavigateFromSettings: (SubScreen) -> Unit,
     onReturnToSettings: () -> Unit,
@@ -937,12 +1242,19 @@ private fun SubScreenOverlay(
     onOpenChangelog: () -> Unit,
     onReturnToAbout: () -> Unit,
     onInviteResolved: (String, CourseJoinInfo) -> Unit,
-    onReturnToScan: () -> Unit
+    onJoinResult: (CourseJoinResultUiModel, CourseJoinCompletion?) -> Unit,
+    onReturnToScan: () -> Unit,
+    onReturnToConfirm: () -> Unit,
+    onOpenEnterCode: () -> Unit,
+    onReturnFromEnterCode: () -> Unit,
+    onOpenSupplementResult: () -> Unit,
+    onReturnToSupplementTask: () -> Unit
 ) {
     val repo = appState.apiRepository
     val courseJoinCoordinator = remember(localStore) {
         V1CourseJoinCoordinator.create(localStore)
     }
+    val courseJoinStateHolder = rememberSaveableStateHolder()
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -951,15 +1263,6 @@ private fun SubScreenOverlay(
             .padding(BNBULayout.ScreenHorizontal)
     ) {
         when (subScreen) {
-            SubScreen.EnduranceScoring -> {
-                EnduranceScoringScreen(
-                    appState = appState,
-                    student = appState.workspace.student,
-                    repository = repo,
-                    onUnauthorized = appState::handleUnauthorized,
-                    onBack = onClose
-                )
-            }
             SubScreen.Exemption -> {
                 ExemptionScreen(
                     appState = appState,
@@ -969,6 +1272,28 @@ private fun SubScreenOverlay(
                     onBack = onClose
                 )
             }
+            SubScreen.SupplementTask -> SupplementTaskScreen(
+                model = requireNotNull(LocalReviewUiFixtureProvider.supplementTask) {
+                    "Local review supplement data is unavailable in this build."
+                },
+                note = "",
+                onNoteChanged = {},
+                photoCount = 0,
+                videoCount = 0,
+                writeEnabled = false,
+                onBack = onClose,
+                onAddPhoto = {},
+                onRecordVideo = {},
+                onSubmit = {},
+                onPreviewAcceptedState = onOpenSupplementResult
+            )
+            SubScreen.SupplementResult -> SupplementResultScreen(
+                model = requireNotNull(LocalReviewUiFixtureProvider.supplementTask) {
+                    "Local review supplement data is unavailable in this build."
+                },
+                onBack = onReturnToSupplementTask,
+                onViewRecords = onClose
+            )
             SubScreen.AccountDetails -> AccountDetailsScreen(
                 appState = appState,
                 onBack = onClose
@@ -1024,50 +1349,84 @@ private fun SubScreenOverlay(
                 val inviteCode = scannedInviteCode
                 val inviteCourse = scannedInviteCourse
                 if (inviteCode != null && inviteCourse != null) {
-                    CourseJoinConfirmScreen(
-                        inviteCode = inviteCode,
-                        course = inviteCourse,
-                        initialName = appState.workspace.student.name,
-                        initialStudentNumber = appState.workspace.student.safeStudentNumberOrNull().orEmpty(),
-                        initialGender = appState.workspace.student.gender,
-                        initialGrade = appState.workspace.student.gradeLevel,
-                        writeEnabled = appState.isWriteAllowed,
-                        activeCourseId = appState.workspace.courses.firstOrNull {
-                            it.isCurrent && it.hasActiveMembership
-                        }?.id,
-                        onBack = onReturnToScan,
-                        onEnterExistingCourse = onClose,
-                        onJoined = { completion ->
-                            when (completion) {
-                                is CourseJoinCompletion.Authoritative ->
-                                    appState.acceptV1Authentication(completion.currentUser)
+                    courseJoinStateHolder.SaveableStateProvider("authenticatedCourseJoinConfirm") {
+                        CourseJoinConfirmScreen(
+                            inviteCode = inviteCode,
+                            course = inviteCourse,
+                            initialName = appState.workspace.student.name,
+                            initialStudentNumber = appState.workspace.student.safeStudentNumberOrNull().orEmpty(),
+                            initialGender = appState.workspace.student.gender,
+                            initialGrade = appState.workspace.student.gradeLevel,
+                            writeEnabled = appState.isWriteAllowed,
+                            activeCourseId = appState.workspace.courses.firstOrNull {
+                                it.isCurrent && it.hasActiveMembership
+                            }?.id,
+                            onBack = {
+                                courseJoinStateHolder.removeState("authenticatedCourseJoinConfirm")
+                                onReturnToScan()
+                            },
+                            onEnterExistingCourse = onClose,
+                            onJoinResult = onJoinResult,
+                            submitCourseJoin = { body ->
+                                courseJoinCoordinator.submitCourseJoin(
+                                    inviteCode = inviteCode,
+                                    expectedClassSectionId = inviteCourse.id,
+                                    body = body
+                                )
                             }
-                            onClose()
+                        )
+                    }
+                } else {
+                    ScanJoinScreen(
+                        onInviteResolved = { code, course ->
+                            courseJoinStateHolder.removeState("authenticatedCourseJoinConfirm")
+                            onInviteResolved(code, course)
                         },
-                        submitCourseJoin = { body ->
-                            courseJoinCoordinator.submitCourseJoin(
-                                inviteCode = inviteCode,
-                                expectedClassSectionId = inviteCourse.id,
-                                body = body
-                            )
+                        onBack = onClose,
+                        onEnterCode = onOpenEnterCode,
+                        resolveInvite = courseJoinCoordinator::resolveCourseInvite
+                    )
+                }
+            }
+            SubScreen.CourseJoinResult -> {
+                val result = scannedJoinResult
+                if (result != null) {
+                    CourseJoinResultScreen(
+                        result = result,
+                        onDone = onClose,
+                        onRetrySubmission = onReturnToConfirm,
+                        onUseAnotherInvitation = {
+                            courseJoinStateHolder.removeState("authenticatedCourseJoinConfirm")
+                            onReturnToScan()
                         }
                     )
                 } else {
                     ScanJoinScreen(
-                        onInviteResolved = onInviteResolved,
+                        onInviteResolved = { code, course ->
+                            courseJoinStateHolder.removeState("authenticatedCourseJoinConfirm")
+                            onInviteResolved(code, course)
+                        },
                         onBack = onClose,
+                        onEnterCode = onOpenEnterCode,
                         resolveInvite = courseJoinCoordinator::resolveCourseInvite
                     )
                 }
             }
             SubScreen.ScanJoin -> ScanJoinScreen(
-                onInviteResolved = onInviteResolved,
+                onInviteResolved = { code, course ->
+                    courseJoinStateHolder.removeState("authenticatedCourseJoinConfirm")
+                    onInviteResolved(code, course)
+                },
                 onBack = onClose,
+                onEnterCode = onOpenEnterCode,
                 resolveInvite = courseJoinCoordinator::resolveCourseInvite
             )
             SubScreen.EnterCode -> EnterInviteCodeScreen(
-                onInviteResolved = onInviteResolved,
-                onBack = onClose,
+                onInviteResolved = { code, course ->
+                    courseJoinStateHolder.removeState("authenticatedCourseJoinConfirm")
+                    onInviteResolved(code, course)
+                },
+                onBack = onReturnFromEnterCode,
                 resolveInvite = courseJoinCoordinator::resolveCourseInvite
             )
             SubScreen.None -> Unit
@@ -1144,7 +1503,7 @@ private fun FloatingBottomNavigationBar(
         Surface(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(72.dp),
+                .heightIn(min = 72.dp),
             shape = RoundedCornerShape(32.dp),
             color = colors.surface,
             contentColor = colors.onSurface,
@@ -1153,7 +1512,9 @@ private fun FloatingBottomNavigationBar(
         ) {
             Row(
                 modifier = Modifier
-                    .fillMaxSize()
+                    .fillMaxWidth()
+                    .height(IntrinsicSize.Min)
+                    .heightIn(min = 72.dp)
                     .padding(horizontal = BNBULayout.Space4)
                     .selectableGroup(),
                 horizontalArrangement = Arrangement.SpaceEvenly,
@@ -1243,7 +1604,7 @@ private fun FloatingBottomNavigationItem(
             role = Role.Tab,
             interactionSource = interactionSource,
             indication = null
-        ),
+        ).padding(vertical = 4.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -1317,7 +1678,7 @@ private fun RootTabContent(
     openAccountDetails: () -> Unit = {},
     openSettings: () -> Unit = {},
     openExemption: (String?) -> Unit = {},
-    openEnduranceScoring: () -> Unit = {},
+    openSupplement: () -> Unit = {},
     openScanJoin: () -> Unit = {},
     openEnterCode: () -> Unit = {}
 ) {
@@ -1352,13 +1713,15 @@ private fun RootTabContent(
                     exerciseSessionController = exerciseSessionController,
                     onReturnHome = onReturnDashboard
                 )
-                AppTab.Grades -> GradesScreen(appState)
+                AppTab.Grades -> GradesScreen(
+                    appState = appState,
+                    onOpenSupplement = if (appState.isLocalReviewMode) openSupplement else null
+                )
                 AppTab.Profile -> ProfileScreen(
                     appState = appState,
                     onOpenAccountDetails = openAccountDetails,
                     onOpenSettings = openSettings,
-                    onOpenExemption = openExemption,
-                    onOpenEnduranceScoring = openEnduranceScoring
+                    onOpenExemption = openExemption
                 )
             }
         }

@@ -34,11 +34,13 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.CalendarMonth
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.PersonOutline
 import androidx.compose.material.icons.filled.QrCodeScanner
+import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material.icons.filled.TextFields
 import edu.bnbu.student.mvp.core.designsystem.AppleButton as Button
 import androidx.compose.material3.HorizontalDivider
@@ -65,7 +67,10 @@ import edu.bnbu.student.mvp.core.designsystem.BNBUMotion
 import edu.bnbu.student.mvp.core.designsystem.bnbuClickable
 import edu.bnbu.student.mvp.core.designsystem.interfaceText
 import edu.bnbu.student.mvp.core.model.Course
+import edu.bnbu.student.mvp.core.model.EnduranceRunStatus
 import edu.bnbu.student.mvp.core.state.StudentAppState
+import edu.bnbu.student.mvp.feature.common.StudentProgressUiModel
+import edu.bnbu.student.mvp.feature.common.studentProgressUiModel
 
 private val CourseCardShape = RoundedCornerShape(18.dp)
 private val CourseControlShape = RoundedCornerShape(14.dp)
@@ -115,6 +120,7 @@ fun CoursesScreen(
         } else {
             CourseDetail(
                 course = selectedCourse,
+                appState = appState,
                 onBack = { selectedCourseId = null }
             )
         }
@@ -148,7 +154,10 @@ private fun CourseList(
             CourseLargeHeader(
                 title = interfaceText("我的课程", "My courses"),
                 subtitle = subtitle,
-                supportingText = interfaceText("每学期仅可选择一门课程", "You may select one course per semester.")
+                supportingText = interfaceText(
+                    "同一学期仅保留一个有效教学班",
+                    "Only one active teaching class is kept per semester."
+                )
             )
         }
 
@@ -527,24 +536,17 @@ private fun CourseCard(
                 )
             }
 
-            if (historical && course.finalGrade != null) {
+            if (historical) {
                 HorizontalDivider(color = colors.outlineVariant.copy(alpha = 0.55f))
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(
-                        text = interfaceText("最终成绩", "Final grade"),
-                        modifier = Modifier.weight(1f),
-                        color = colors.onSurfaceVariant,
-                        fontSize = 14.sp,
-                        lineHeight = 19.sp
-                    )
-                    Text(
-                        text = interfaceText("${course.finalGrade} 分", "${course.finalGrade} points"),
-                        color = colors.onSurface,
-                        fontSize = 17.sp,
-                        lineHeight = 22.sp,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                }
+                Text(
+                    text = interfaceText(
+                        "历史课程仅展示本人的课程关系与运动事实",
+                        "Past courses show only your course relationship and activity facts"
+                    ),
+                    color = colors.onSurfaceVariant,
+                    fontSize = 13.sp,
+                    lineHeight = 18.sp
+                )
             }
         }
     }
@@ -576,6 +578,7 @@ private fun CourseMetaLine(icon: ImageVector, text: String) {
 @Composable
 private fun CourseDetail(
     course: Course,
+    appState: StudentAppState,
     onBack: () -> Unit
 ) {
     val isHistoricalCourse = course.isHistorical()
@@ -594,10 +597,15 @@ private fun CourseDetail(
         item {
             CourseInformationPanel(course = course)
         }
-        if (isHistoricalCourse) {
-            item {
-                FinalGradePanel(course = course)
-            }
+        item {
+            PersonalCourseStatusPanel(course = course, appState = appState)
+        }
+        item {
+            CourseRulesPanel(
+                progress = appState.studentProgressUiModel(),
+                isLocalReviewMode = appState.isLocalReviewMode,
+                historical = isHistoricalCourse
+            )
         }
     }
 }
@@ -671,6 +679,10 @@ private fun CourseInformationPanel(course: Course) {
         CourseFact(
             interfaceText("开课学期", "Teaching term"),
             course.safeSemesterDisplayLabel()
+        ),
+        CourseFact(
+            interfaceText("常规截止", "Regular deadline"),
+            course.deadline.ifBlank { interfaceText("待课程规则同步", "Course rule pending") }
         )
     )
     CourseGroupedPanel {
@@ -687,41 +699,155 @@ private fun CourseInformationPanel(course: Course) {
 }
 
 @Composable
-private fun FinalGradePanel(course: Course) {
-    val colors = MaterialTheme.colorScheme
+private fun PersonalCourseStatusPanel(course: Course, appState: StudentAppState) {
+    val enduranceStatus = when (appState.workspace.grades.enduranceRunStatus) {
+        EnduranceRunStatus.Recorded -> interfaceText("已确认原始用时", "Raw time confirmed")
+        EnduranceRunStatus.Exempt -> interfaceText("已确认免测", "Exemption confirmed")
+        EnduranceRunStatus.Absent -> interfaceText("已记录未完成", "Not completed")
+        EnduranceRunStatus.NotRecorded -> interfaceText("待教师确认", "Instructor confirmation pending")
+    }
+    val hasConfirmedEnduranceFact =
+        appState.workspace.grades.enduranceRunStatus != EnduranceRunStatus.NotRecorded
+    val hasActivityRecords = appState.workspace.records.any { record ->
+        record.courseId == course.id || (course.isCurrent && record.courseId == null)
+    }
     CourseGroupedPanel {
         Text(
-            text = interfaceText("最终成绩", "Final grade"),
-            color = colors.onSurfaceVariant,
-            fontSize = 14.sp,
-            lineHeight = 19.sp
+            text = interfaceText("本人核验", "My checks"),
+            color = MaterialTheme.colorScheme.onSurface,
+            fontSize = 18.sp,
+            lineHeight = 24.sp,
+            fontWeight = FontWeight.SemiBold
         )
         Spacer(Modifier.height(8.dp))
-        val finalGrade = course.finalGrade
-        if (finalGrade == null) {
+        CourseCheckRow(
+            label = interfaceText("注册与入班", "Registration & enrolment"),
+            value = if (course.hasActiveMembership) {
+                interfaceText("已完成", "Complete")
+            } else {
+                interfaceText("已退班", "Withdrawn")
+            },
+            confirmed = course.hasActiveMembership
+        )
+        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.55f))
+        CourseCheckRow(
+            label = interfaceText("原始体测", "Raw fitness test"),
+            value = enduranceStatus,
+            confirmed = hasConfirmedEnduranceFact
+        )
+        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.55f))
+        CourseCheckRow(
+            label = interfaceText("运动记录", "Activity records"),
+            value = if (hasActivityRecords) {
+                interfaceText("已有记录", "Records available")
+            } else {
+                interfaceText("暂无记录", "No records")
+            },
+            confirmed = hasActivityRecords
+        )
+    }
+}
+
+@Composable
+private fun CourseCheckRow(label: String, value: String, confirmed: Boolean) {
+    val colors = MaterialTheme.colorScheme
+    Row(
+        modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            imageVector = if (confirmed) Icons.Filled.CheckCircle else Icons.Filled.Schedule,
+            contentDescription = null,
+            tint = if (confirmed) colors.primary else colors.onSurfaceVariant,
+            modifier = Modifier.size(19.dp)
+        )
+        Spacer(Modifier.width(10.dp))
+        Text(
+            text = label,
+            modifier = Modifier.weight(1f),
+            color = colors.onSurface,
+            fontSize = 15.sp,
+            lineHeight = 20.sp
+        )
+        Text(
+            text = value,
+            color = colors.onSurfaceVariant,
+            fontSize = 14.sp,
+            lineHeight = 20.sp
+        )
+    }
+}
+
+@Composable
+private fun CourseRulesPanel(
+    progress: StudentProgressUiModel,
+    isLocalReviewMode: Boolean,
+    historical: Boolean
+) {
+    val pending = interfaceText("待课程规则同步", "Course rule pending")
+    CourseGroupedPanel {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Icon(
+                imageVector = Icons.Filled.Schedule,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.size(20.dp)
+            )
+            Spacer(Modifier.width(10.dp))
             Text(
-                text = interfaceText("暂未发布", "Not published"),
-                color = colors.onSurface,
-                fontSize = 20.sp,
-                lineHeight = 26.sp,
+                text = interfaceText("课程运动规则", "Course activity rules"),
+                color = MaterialTheme.colorScheme.onSurface,
+                fontSize = 18.sp,
+                lineHeight = 24.sp,
                 fontWeight = FontWeight.SemiBold
             )
-        } else {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(
-                    text = interfaceText("$finalGrade 分", "$finalGrade points"),
-                    modifier = Modifier.weight(1f),
-                    color = colors.onSurface,
-                    fontSize = 30.sp,
-                    lineHeight = 35.sp,
-                    fontWeight = FontWeight.SemiBold
+        }
+        Spacer(Modifier.height(10.dp))
+        DetailFactRow(
+            label = interfaceText("总目标", "Total target"),
+            value = interfaceText("${progress.totalTargetMinutes} 分钟", "${progress.totalTargetMinutes} min")
+        )
+        DetailFactRow(
+            label = interfaceText("两类目标", "Category targets"),
+            value = if (progress.categoryTargetsAvailable) {
+                interfaceText(
+                    "课程相关 ${progress.courseTargetMinutes} 分钟 · 其他运动 ${progress.generalTargetMinutes} 分钟",
+                    "Course-related ${progress.courseTargetMinutes} min · other ${progress.generalTargetMinutes} min"
                 )
-                CourseStatusPill(
-                    text = course.gradeStatus.gradeStatusLabel(finalGrade),
-                    emphasized = course.gradeStatus != "fail" && finalGrade >= 60,
-                    destructive = course.gradeStatus == "fail" || finalGrade < 60
-                )
+            } else {
+                pending
             }
+        )
+        DetailFactRow(
+            label = interfaceText("起算门槛", "Eligibility threshold"),
+            value = if (isLocalReviewMode) {
+                interfaceText("30 分钟（本地评审样例）", "30 min (local review sample)")
+            } else {
+                pending
+            }
+        )
+        DetailFactRow(
+            label = interfaceText("单次计入", "Per-session credit"),
+            value = interfaceText("最多 60 分钟", "Up to 60 min")
+        )
+        DetailFactRow(
+            label = interfaceText("每周计入", "Weekly credit"),
+            value = if (isLocalReviewMode) {
+                interfaceText("最多 3 条（本地评审样例）", "Up to 3 records (local review sample)")
+            } else {
+                pending
+            }
+        )
+        if (!historical) {
+            Text(
+                text = interfaceText(
+                    "达到计入上限或目标后，仍可继续记录真实运动。",
+                    "You may keep recording real exercise after a credit limit or goal is reached."
+                ),
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                fontSize = 13.sp,
+                lineHeight = 19.sp
+            )
         }
     }
 }
@@ -815,13 +941,10 @@ private fun Course.isHistorical(): Boolean =
         semesterStatus == "archived" ||
         enrollmentStatus.trim().lowercase() in setOf("completed", "withdrawn", "removed", "exited", "disabled")
 
-private fun String.enrollmentStatusLabel(): String = when (this) {
+private fun String.enrollmentStatusLabel(): String = when (trim().lowercase()) {
     "active", "enrolled" -> interfaceText("修读中", "In progress")
     "completed" -> interfaceText("已完成", "Complete")
-    "withdrawn" -> interfaceText("已退出课程", "Exited course")
-    "removed" -> interfaceText("已移出课程", "Removed from course")
-    "exited" -> interfaceText("已退出课程", "Exited course")
-    "disabled" -> interfaceText("成员关系已停用", "Membership disabled")
+    "withdrawn", "removed", "exited", "disabled", "pending" -> interfaceText("已退班", "Withdrawn")
     else -> ifBlank { interfaceText("待确认", "Pending") }
 }
 
@@ -861,10 +984,4 @@ private fun String.semesterStatusLabel(): String = when (this) {
     "current" -> interfaceText("当前学期", "Current semester")
     "archived" -> interfaceText("历史学期", "Past semester")
     else -> ifBlank { interfaceText("学期待定", "Semester pending") }
-}
-
-private fun String?.gradeStatusLabel(finalGrade: Int): String = when (this) {
-    "pass" -> interfaceText("及格", "Pass")
-    "fail" -> interfaceText("不及格", "Fail")
-    else -> if (finalGrade >= 60) interfaceText("及格", "Pass") else interfaceText("不及格", "Fail")
 }

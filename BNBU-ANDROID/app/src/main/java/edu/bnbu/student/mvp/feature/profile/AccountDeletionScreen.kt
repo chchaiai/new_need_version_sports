@@ -232,8 +232,8 @@ internal fun AccountDeletionScreen(
                     )
                     DeletionFact(
                         interfaceText(
-                            "存在进行中运动或待审核记录时，后端会拒绝注销并保留当前账户。",
-                            "An active exercise or pending review blocks deletion and leaves the account unchanged."
+                            "存在进行中的运动或服务器确认的其他阻塞事项时，注销会被拒绝并保留当前账户。",
+                            "An active exercise or another server-confirmed blocking item prevents deletion and leaves the account unchanged."
                         )
                     )
                 }

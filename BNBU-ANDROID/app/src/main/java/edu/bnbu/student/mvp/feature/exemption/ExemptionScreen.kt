@@ -127,8 +127,9 @@ private enum class ExemptionTab {
 }
 
 private const val MaxExemptionReasonLength = 1_000
-private const val MaxExemptionMediaItems = 20
-private val AllowedExemptionImageMimeTypes = setOf("image/jpeg", "image/png")
+internal const val MaxExemptionMediaItems = 3
+internal const val MaxExemptionImageBytes = 10_000_000L
+private val AllowedExemptionImageMimeTypes = arrayOf("image/jpeg", "image/png", "image/webp")
 
 @Composable
 fun ExemptionScreen(
@@ -352,8 +353,8 @@ fun ExemptionScreen(
 
         item {
             SectionTitle(
-                eyebrow = interfaceText("免测申请", "Exemption"),
-                title = interfaceText("体育免测与免打卡申请", "Test and check-in exemptions")
+                eyebrow = interfaceText("学生申请", "Student applications"),
+                title = interfaceText("耐力跑免测与校队/社团认证", "Endurance exemption and team/club certification")
             )
         }
 
@@ -411,7 +412,7 @@ fun ExemptionScreen(
                     item {
                         EmptyPlaceholder(
                             title = interfaceText("暂无申请", "No applications"),
-                            message = interfaceText("你还没有提交过免测或免打卡申请。", "You have not submitted a test- or check-in-exemption application.")
+                            message = interfaceText("你还没有提交过耐力跑免测或校队/社团认证申请。", "You have not submitted an endurance exemption or team/club certification application.")
                         )
                     }
                 } else {
@@ -801,7 +802,7 @@ private fun ExemptionDetail(
                 }
             }
         }
-        if (exemption.status == "需补材料" || exemption.status == "已驳回") {
+        if (exemption.status == "需补材料") {
             item {
                 ActionButton(
                     title = interfaceText("补交证明材料", "Submit additional documents"),
@@ -1092,7 +1093,9 @@ private fun NewExemptionForm(
         }
     }
 
-    val maxAttachments = MaxExemptionMediaItems
+    val existingApplicationImages = initialExemption?.proofFiles?.size ?: 0
+    val maxAttachments = (MaxExemptionMediaItems - existingApplicationImages).coerceAtLeast(0)
+    val totalApplicationImages = existingApplicationImages + proofAttachments.size
 
     // Camera launcher
     val cameraLauncher = rememberLauncherForActivityResult(
@@ -1104,12 +1107,16 @@ private fun NewExemptionForm(
             file?.delete()
         } else if (success && uri != null && file != null) {
             val attachment = file.toProofAttachmentFromCamera(uri)
-            if (attachment != null && attachment.isValidForUpload) {
+            if (
+                attachment != null &&
+                attachment.exemptionValidationMessage() == null &&
+                proofAttachments.size < maxAttachments
+            ) {
                 proofAttachments = proofAttachments + attachment
                 attachmentNotice = interfaceText("已拍摄 1 张凭证照片。", "Captured 1 proof photo.")
             } else {
                 file.delete()
-                attachmentNotice = interfaceText("拍摄失败，请重试或从相册选择。", "Capture failed. Try again or choose from photos.")
+                attachmentNotice = interfaceText("照片须为 JPEG 且不超过 10 MB，请重试或从相册选择。", "The photo must be JPEG and no larger than 10 MB. Try again or choose from photos.")
             }
         } else {
             file?.delete()
@@ -1151,6 +1158,7 @@ private fun NewExemptionForm(
             val newAttachments = pickedAttachments
                 .distinctBy { it.source }
                 .filterNot { it.source in existingSources }
+                .filter { it.exemptionValidationMessage() == null }
                 .filter { attachment ->
                     val uri = runCatching { Uri.parse(attachment.source) }.getOrNull()
                     uri != null && context.takePersistableReadPermissionIfPossible(uri)
@@ -1160,9 +1168,9 @@ private fun NewExemptionForm(
             }
             attachmentNotice = when {
                 uris.isEmpty() -> null
-                newAttachments.isEmpty() -> interfaceText("未添加图片：仅支持 JPEG、PNG，请避免重复选择并使用可长期授权的相册图片。", "No image added. Use JPEG or PNG photos with persistent access and avoid duplicates.")
+                newAttachments.isEmpty() -> interfaceText("未添加图片：仅支持 10 MB 以内的 JPEG、PNG 或 WebP，请避免重复选择。", "No image added. Use JPEG, PNG, or WebP images up to 10 MB and avoid duplicates.")
                 newAttachments.size < uris.size ->
-                    interfaceText("已添加 ${newAttachments.size} 张图片；非 JPEG/PNG、重复、超限或无法长期授权的图片已跳过。", "Added ${newAttachments.size} image(s); non-JPEG/PNG, duplicate, excess, or inaccessible images were skipped.")
+                    interfaceText("已添加 ${newAttachments.size} 张图片；格式、大小、重复、总数超限或无法长期授权的图片已跳过。", "Added ${newAttachments.size} image(s); files with invalid format or size, duplicates, excess items, or inaccessible files were skipped.")
                 else -> interfaceText("已添加 ${newAttachments.size} 张图片。", "Added ${newAttachments.size} image(s).")
             }
         }
@@ -1172,9 +1180,9 @@ private fun NewExemptionForm(
 
     SwissPanel {
         Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-            if (initialExemption != null) {
-                Text(
-                    text = interfaceText("正在为 ${initialExemption.localizedTypeLabel()} 补交证明，请上传新的有效材料。", "Submitting additional documents for ${initialExemption.localizedTypeLabel()}. Upload new valid documents."),
+                if (initialExemption != null) {
+                    Text(
+                    text = interfaceText("正在为 ${initialExemption.localizedTypeLabel()} 补充材料；原有 $existingApplicationImages 张图片保持只读，本申请还可新增 $maxAttachments 张。", "Adding documents to ${initialExemption.localizedTypeLabel()}. The $existingApplicationImages existing image(s) stay read-only, and $maxAttachments more may be added to this application."),
                     color = cs.primary,
                     style = MaterialTheme.typography.bodyMedium
                 )
@@ -1278,7 +1286,7 @@ private fun NewExemptionForm(
                         modifier = Modifier.weight(1f)
                     )
                     Text(
-                        text = interfaceText("${proofAttachments.size} / $maxAttachments 张图片", "${proofAttachments.size} / $maxAttachments images"),
+                        text = interfaceText("$totalApplicationImages / $MaxExemptionMediaItems 张图片", "$totalApplicationImages / $MaxExemptionMediaItems images"),
                         color = cs.onSurfaceVariant,
                         style = MaterialTheme.typography.labelMedium
                     )
@@ -1295,7 +1303,7 @@ private fun NewExemptionForm(
                         onClick = {
                             if (isSubmitting) return@ActionButton
                             if (proofAttachments.size >= maxAttachments) {
-                                attachmentNotice = interfaceText("已达到 $maxAttachments 个凭证上限。", "Maximum of $maxAttachments proof items reached.")
+                                attachmentNotice = interfaceText("同一申请首次与全部补充累计最多 $MaxExemptionMediaItems 张图片。", "Initial and all supplemental evidence for one application are limited to $MaxExemptionMediaItems images in total.")
                                 return@ActionButton
                             }
                             var photoFile: File? = null
@@ -1332,9 +1340,9 @@ private fun NewExemptionForm(
                         enabled = !isSubmitting && proofAttachments.size < maxAttachments,
                         onClick = {
                             if (proofAttachments.size < maxAttachments) {
-                                mediaPicker.launch(arrayOf("image/*"))
+                                mediaPicker.launch(AllowedExemptionImageMimeTypes)
                             } else {
-                                attachmentNotice = interfaceText("已达到 $maxAttachments 个凭证上限。", "Maximum of $maxAttachments proof items reached.")
+                                attachmentNotice = interfaceText("同一申请首次与全部补充累计最多 $MaxExemptionMediaItems 张图片。", "Initial and all supplemental evidence for one application are limited to $MaxExemptionMediaItems images in total.")
                             }
                         }
                     )
@@ -1362,9 +1370,9 @@ private fun NewExemptionForm(
                     if (proofAttachments.isEmpty()) {
                         Text(
                             text = if (selectedType.isCheckInExemption) {
-                                interfaceText("必填：至少上传一张能够证明相关组织身份的 JPEG 或 PNG 图片。", "Required: upload at least one JPEG or PNG image proving organization membership.")
+                                interfaceText("必填：至少上传一张能够证明相关组织身份的 JPEG、PNG 或 WebP 图片（单张不超过 10 MB）。", "Required: upload at least one JPEG, PNG, or WebP image proving organization membership (10 MB maximum each).")
                             } else {
-                                interfaceText("必填：至少上传一张耐力跑免测 JPEG 或 PNG 证明图片。", "Required: upload at least one JPEG or PNG image for the endurance-run exemption.")
+                                interfaceText("必填：至少上传一张耐力跑免测 JPEG、PNG 或 WebP 证明图片（单张不超过 10 MB）。", "Required: upload at least one JPEG, PNG, or WebP image for the endurance-run exemption (10 MB maximum each).")
                             },
                             color = cs.onSurfaceVariant,
                             style = MaterialTheme.typography.bodySmall
@@ -1415,7 +1423,15 @@ private fun NewExemptionForm(
                         return@PrimaryActionButton
                     }
                     if (proofAttachments.isEmpty()) {
-                        onError(interfaceText("请至少上传一张 JPEG 或 PNG 证明图片", "Upload at least one JPEG or PNG proof image."))
+                        onError(interfaceText("请至少上传一张 JPEG、PNG 或 WebP 证明图片", "Upload at least one JPEG, PNG, or WebP proof image."))
+                        return@PrimaryActionButton
+                    }
+                    if (totalApplicationImages > MaxExemptionMediaItems) {
+                        onError(interfaceText("同一申请首次与全部补充累计最多 3 张图片", "Initial and all supplemental evidence for one application are limited to 3 images in total."))
+                        return@PrimaryActionButton
+                    }
+                    if (proofAttachments.any { it.exemptionValidationMessage() != null }) {
+                        onError(interfaceText("证明图片须为 JPEG、PNG 或 WebP，且单张不超过 10 MB", "Proof images must be JPEG, PNG, or WebP and no larger than 10 MB each."))
                         return@PrimaryActionButton
                     }
                     val remoteRepository = repository
@@ -1536,6 +1552,7 @@ private fun ExemptionProofAttachmentRow(
     onRemove: () -> Unit
 ) {
     val cs = MaterialTheme.colorScheme
+    val validationMessage = attachment.exemptionValidationMessage()
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -1561,9 +1578,9 @@ private fun ExemptionProofAttachmentRow(
                 text = buildList {
                     add(attachment.type.label)
                     add(attachment.displaySize)
-                    attachment.validationMessage?.let { add(it) }
+                    validationMessage?.let { add(it) }
                 }.joinToString(" · "),
-                color = if (attachment.isValidForUpload) cs.onSurfaceVariant else cs.primary,
+                color = if (validationMessage == null) cs.onSurfaceVariant else cs.error,
                 style = MaterialTheme.typography.labelMedium
             )
         }
@@ -1593,13 +1610,18 @@ private fun Uri.toProofAttachment(context: Context, index: Int): ProofAttachment
     val originalName = context.displayNameFor(this, index)
     val hasSupportedExtension = originalName.endsWith(".jpg", ignoreCase = true) ||
         originalName.endsWith(".jpeg", ignoreCase = true) ||
-        originalName.endsWith(".png", ignoreCase = true)
+        originalName.endsWith(".png", ignoreCase = true) ||
+        originalName.endsWith(".webp", ignoreCase = true)
     if (mimeType != null && mimeType !in AllowedExemptionImageMimeTypes) return null
     if (mimeType == null && !hasSupportedExtension) return null
     val fileName = if (hasSupportedExtension) {
         originalName
     } else {
-        "$originalName.${if (mimeType == "image/png") "png" else "jpg"}"
+        "$originalName.${when (mimeType) {
+            "image/png" -> "png"
+            "image/webp" -> "webp"
+            else -> "jpg"
+        }}"
     }
     return ProofAttachment(
         id = UUID.randomUUID().toString(),
@@ -1608,6 +1630,19 @@ private fun Uri.toProofAttachment(context: Context, index: Int): ProofAttachment
         byteCount = context.byteCountFor(this),
         source = toString()
     )
+}
+
+private fun ProofAttachment.exemptionValidationMessage(): String? = when {
+    type != ProofMediaType.Image -> interfaceText(
+        "免测/认证申请只接受图片",
+        "Exemption and certification applications accept images only"
+    )
+    byteCount != null && byteCount <= 0L -> interfaceText("图片为空", "The image is empty")
+    byteCount != null && byteCount > MaxExemptionImageBytes -> interfaceText(
+        "图片超过 10 MB",
+        "The image exceeds 10 MB"
+    )
+    else -> null
 }
 
 private fun String.exemptionStatusLabel(): String = when (this) {
@@ -1634,8 +1669,8 @@ private fun String.localizedExemptionStatus(): String = when (this) {
 private fun Exemption.localizedTypeLabel(): String = when (type) {
     "run_800m" -> interfaceText("800m 免测", "800m test exemption")
     "run_1000m" -> interfaceText("1000m 免测", "1000m test exemption")
-    "school_team" -> interfaceText("校队免打卡", "School-team check-in exemption")
-    "student_club" -> interfaceText("社团免打卡", "Student-club check-in exemption")
+    "school_team" -> interfaceText("校队认证", "School-team certification")
+    "student_club" -> interfaceText("社团认证", "Student-club certification")
     "physical_test" -> interfaceText("历史体测免测", "Legacy physical-test exemption")
     "exercise_check_in" -> interfaceText("历史运动打卡豁免", "Legacy exercise check-in exemption")
     "special_circumstance" -> interfaceText("特殊情况申请", "Special-circumstance application")
@@ -1645,8 +1680,8 @@ private fun Exemption.localizedTypeLabel(): String = when (type) {
 private fun ExemptionType.localizedLabel(): String = when (this) {
     ExemptionType.Run800m -> interfaceText("800m 耐力跑免测", "800m endurance-run exemption")
     ExemptionType.Run1000m -> interfaceText("1000m 耐力跑免测", "1000m endurance-run exemption")
-    ExemptionType.SchoolTeam -> interfaceText("校队免打卡", "School-team check-in exemption")
-    ExemptionType.StudentClub -> interfaceText("社团免打卡", "Student-club check-in exemption")
+    ExemptionType.SchoolTeam -> interfaceText("校队认证", "School-team certification")
+    ExemptionType.StudentClub -> interfaceText("社团认证", "Student-club certification")
     ExemptionType.SpecialCircumstance -> interfaceText("特殊情况申请", "Special-circumstance application")
 }
 
@@ -1675,7 +1710,7 @@ private fun ExemptionRulesPanel(isPreview: Boolean) {
                 style = MaterialTheme.typography.bodyMedium
             )
             Text(
-                text = interfaceText("耐力跑免测和校队/社团免打卡至少上传一张 JPEG 或 PNG 证明图片；可拍照或从相册选择，不接受 PDF、视频或其他文件。", "Endurance-run and team/club applications require at least one JPEG or PNG proof image, taken with the camera or chosen from photos. PDF, video, and other files are not accepted."),
+                text = interfaceText("耐力跑免测与校队/社团认证只接受 JPEG、PNG 或 WebP 图片；同一申请首次与全部补充累计最多 3 张，单张不超过 10 MB，不接受 PDF、视频或其他文件。", "Endurance exemptions and team/club certifications accept JPEG, PNG, or WebP images only. Initial and all supplemental evidence for one application are limited to 3 images in total, 10 MB each; PDF, video, and other files are not accepted."),
                 color = cs.onSurfaceVariant,
                 style = MaterialTheme.typography.bodySmall
             )
@@ -1683,7 +1718,7 @@ private fun ExemptionRulesPanel(isPreview: Boolean) {
                 text = if (isPreview) {
                     interfaceText("当前尚未连接服务器，页面不会生成本地申请数据；请重新登录后提交。", "The server is not connected. This page will not create local application data; sign in again to submit.")
                 } else {
-                    interfaceText("申请被驳回或需要补材料时，可在申请详情中补充材料后再次提交。", "If an application is rejected or needs more documents, add them from its details and submit again.")
+                    interfaceText("只有服务器明确标记“需补材料”时才能在同一申请中补充；已驳回不会在客户端自行变成可重提。认证认可分钟及两类分配以服务器事实为准。", "Documents may be added to the same application only when the server explicitly marks it as requiring supplements. A rejection is not made resubmittable by the client. Recognized minutes and category allocation remain server facts.")
                 },
                 color = cs.onSurfaceVariant,
                 style = MaterialTheme.typography.bodySmall

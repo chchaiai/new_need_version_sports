@@ -349,8 +349,8 @@ private fun FeedbackForm(
                     "Include the steps, expected result, and actual result"
                 ),
                 supportingText = interfaceText(
-                    "请勿填写密码、验证码或访问令牌。",
-                    "Do not include passwords, verification codes, or access tokens."
+                    "请勿填写密码、验证码、访问令牌、完整身份资料或媒体内容。",
+                    "Do not include passwords, verification codes, access tokens, complete identity details, or media content."
                 ),
                 errorText = descriptionError,
                 counter = description.length to MaxDescriptionLength,
@@ -387,13 +387,18 @@ private fun FeedbackForm(
     Row(verticalAlignment = Alignment.CenterVertically) { Text(ticket.ticketNumber.ifBlank { ticket.id }, style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f)); StatusBadge(ticket.status.feedbackStatusLabel(), filled = true) }
     Text(feedbackCategoryLabel(ticket.category), color = MaterialTheme.colorScheme.primary); Text(ticket.description, maxLines = 3)
     if (ticket.createdAt.isNotBlank()) Text(interfaceText("提交时间：", "Submitted: ") + ticket.createdAt, color = MaterialTheme.colorScheme.onSurfaceVariant)
-    ticket.reply?.takeIf { it.isNotBlank() }?.let { Text(interfaceText("处理说明：", "Response: ") + it, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+    ticket.reply?.takeIf { it.isNotBlank() }?.let { Text(interfaceText("管理员公开回复：", "Public administrator response: ") + it, color = MaterialTheme.colorScheme.onSurfaceVariant) }
 } }
 
-private fun String.feedbackStatusLabel(): String = when (lowercase()) {
-    "pending", "open", "submitted", "待处理" -> interfaceText("待处理", "Pending")
-    "processing", "in_progress", "处理中" -> interfaceText("处理中", "In progress")
-    "resolved", "closed", "completed", "已解决", "已关闭" -> interfaceText("已解决", "Resolved")
-    "rejected", "已驳回" -> interfaceText("已驳回", "Rejected")
-    else -> ifBlank { interfaceText("待处理", "Pending") }
+internal fun String.feedbackStatusLabel(): String = when (trim().lowercase()) {
+    "pending", "open", "submitted", "pending_acceptance", "待处理", "待受理" ->
+        interfaceText("待受理", "Pending acceptance")
+    "processing", "in_progress", "accepted", "处理中", "受理中" ->
+        interfaceText("受理中", "In progress")
+    "pending_technical", "technical_pending", "awaiting_technical", "待技术团队处理" ->
+        interfaceText("待技术团队处理", "Waiting for technical team")
+    "resolved", "completed", "已解决", "处理完成" ->
+        interfaceText("处理完成", "Completed")
+    "closed", "已关闭" -> interfaceText("已关闭", "Closed")
+    else -> trim().ifBlank { interfaceText("状态待确认", "Status unavailable") }
 }

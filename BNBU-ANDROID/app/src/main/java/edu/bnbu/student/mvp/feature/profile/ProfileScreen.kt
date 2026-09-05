@@ -1,6 +1,5 @@
 package edu.bnbu.student.mvp.feature.profile
 
-import android.content.Context
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -27,7 +26,6 @@ import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -44,7 +42,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -71,30 +68,20 @@ import java.time.format.DateTimeFormatter
 
 @Composable
 private fun ApplicationPanel(
-    onOpenExemption: (String?) -> Unit,
-    onOpenEnduranceScoring: () -> Unit
+    onOpenExemption: (String?) -> Unit
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         SectionTitle(
             eyebrow = stringResource(R.string.profile_services_eyebrow),
             title = stringResource(R.string.profile_services_title)
         )
-        Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-            ServiceShortcut(
-                title = stringResource(R.string.profile_exemption),
-                description = stringResource(R.string.profile_exemption_short_hint),
-                icon = Icons.Filled.FitnessCenter,
-                modifier = Modifier.weight(1f),
-                onClick = { onOpenExemption(null) }
-            )
-            ServiceShortcut(
-                title = stringResource(R.string.profile_endurance),
-                description = stringResource(R.string.profile_endurance_short_hint),
-                icon = Icons.Filled.Timer,
-                modifier = Modifier.weight(1f),
-                onClick = onOpenEnduranceScoring
-            )
-        }
+        ServiceShortcut(
+            title = stringResource(R.string.profile_exemption),
+            description = stringResource(R.string.profile_exemption_short_hint),
+            icon = Icons.Filled.FitnessCenter,
+            modifier = Modifier.fillMaxWidth(),
+            onClick = { onOpenExemption(null) }
+        )
     }
 }
 
@@ -141,7 +128,7 @@ private fun ServiceShortcut(
                     text = description,
                     color = cs.onSurfaceVariant,
                     style = MaterialTheme.typography.labelMedium,
-                    maxLines = 1,
+                    maxLines = 2,
                     overflow = TextOverflow.Ellipsis
                 )
             }
@@ -154,8 +141,7 @@ fun ProfileScreen(
     appState: StudentAppState,
     onOpenAccountDetails: () -> Unit = {},
     onOpenSettings: () -> Unit = {},
-    onOpenExemption: (String?) -> Unit = {},
-    onOpenEnduranceScoring: () -> Unit = {}
+    onOpenExemption: (String?) -> Unit = {}
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -163,7 +149,7 @@ fun ProfileScreen(
     ) {
         item { ProfileHeader(appState, onOpenAccountDetails, onOpenSettings) }
 
-        item { ApplicationPanel(onOpenExemption, onOpenEnduranceScoring) }
+        item { ApplicationPanel(onOpenExemption) }
         item { TeacherPanel(appState) }
         item { IdentityPanel(appState) }
         item { Spacer(Modifier.height(40.dp)) }
@@ -509,7 +495,6 @@ private fun SettingsPanel(
     onOpenAbout: () -> Unit = {}
 ) {
     val cs = MaterialTheme.colorScheme
-    val context = LocalContext.current
     val chineseLanguageLabel = stringResource(R.string.profile_chinese)
     val englishLanguageLabel = stringResource(R.string.profile_english)
     var showLogoutConfirmation by remember { mutableStateOf(false) }
@@ -568,9 +553,7 @@ private fun SettingsPanel(
                     label = { if (it == AppLanguage.Chinese) chineseLanguageLabel else englishLanguageLabel },
                     onSelected = { language ->
                         if (language != appState.appLanguage) {
-                            if (appState.updateAppLanguage(language)) {
-                                context.findActivity()?.recreate()
-                            }
+                            appState.updateAppLanguage(language)
                         }
                     }
                 )
@@ -648,12 +631,6 @@ private fun SettingsPanel(
             )
         }
     }
-}
-
-private tailrec fun Context.findActivity(): android.app.Activity? = when (this) {
-    is android.app.Activity -> this
-    is android.content.ContextWrapper -> baseContext.findActivity()
-    else -> null
 }
 
 internal fun StudentProfile.localizedGradeLabel(): String = when (gradeLevel) {

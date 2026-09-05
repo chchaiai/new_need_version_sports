@@ -1,5 +1,7 @@
 package edu.bnbu.student.mvp.feature.checkin
 
+import androidx.activity.compose.BackHandler
+
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
@@ -24,10 +26,13 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.AttachFile
-import androidx.compose.material.icons.filled.History
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Error
+import androidx.compose.material.icons.filled.HourglassTop
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Photo
 import androidx.compose.material.icons.filled.PlayCircle
+import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material.icons.filled.School
 import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material.icons.filled.Videocam
@@ -40,10 +45,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -60,8 +64,6 @@ import coil3.compose.SubcomposeAsyncImage
 import coil3.request.ImageRequest
 import coil3.video.VideoFrameDecoder
 import edu.bnbu.student.mvp.core.designsystem.EmptyPlaceholder
-import edu.bnbu.student.mvp.core.designsystem.BNBUErrorPanel
-import edu.bnbu.student.mvp.core.designsystem.BNBUPrimaryButton
 import edu.bnbu.student.mvp.core.designsystem.SectionTitle
 import edu.bnbu.student.mvp.core.designsystem.ValidationPanel
 import edu.bnbu.student.mvp.core.designsystem.bnbuClickable
@@ -71,17 +73,9 @@ import edu.bnbu.student.mvp.core.model.CheckInRecord
 import edu.bnbu.student.mvp.core.model.CreditType
 import edu.bnbu.student.mvp.core.model.ProofAttachment
 import edu.bnbu.student.mvp.core.model.ProofMediaType
-import edu.bnbu.student.mvp.core.model.contributesToCreditedHours
-import edu.bnbu.student.mvp.core.model.hourText
-import edu.bnbu.student.mvp.core.error.ClientErrorContext
-import edu.bnbu.student.mvp.core.error.ClientErrorMapper
-import edu.bnbu.student.mvp.core.error.SafeClientLogger
-import edu.bnbu.student.mvp.core.error.UserFacingError
-import edu.bnbu.student.mvp.core.exercise.ExerciseRecordAttemptContext
 import edu.bnbu.student.mvp.core.state.StudentAppState
 import edu.bnbu.student.mvp.core.time.studentLocalRecordDateText
 import edu.bnbu.student.mvp.core.time.studentLocalRecordDateTimeText
-import kotlinx.coroutines.CancellationException
 
 @Composable
 internal fun RecordListIntro(records: List<CheckInRecord>) {
@@ -92,7 +86,10 @@ internal fun RecordListIntro(records: List<CheckInRecord>) {
                 title = interfaceText("打卡记录", "Check-in records")
             )
             Text(
-                text = interfaceText("查看每次运动的学时与记录详情", "View the hours and details of every exercise."),
+                text = interfaceText(
+                    "查看实际分钟、审核阶段和最终计入结果",
+                    "View actual minutes, review stage, and final credited result."
+                ),
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 style = MaterialTheme.typography.bodyMedium
             )
@@ -100,9 +97,9 @@ internal fun RecordListIntro(records: List<CheckInRecord>) {
         if (records.isNotEmpty()) {
             RecordOverview(
                 totalCount = records.size,
-                recordedHours = records
-                    .filter { it.contributesToCreditedHours }
-                    .sumOf { it.hours }
+                recordedMinutes = records.sumOf {
+                    it.toExerciseRecordReviewUiModel().creditedWholeMinutes ?: 0
+                }
             )
         }
     }
@@ -111,7 +108,7 @@ internal fun RecordListIntro(records: List<CheckInRecord>) {
 @Composable
 private fun RecordOverview(
     totalCount: Int,
-    recordedHours: Double
+    recordedMinutes: Int
 ) {
     val cs = MaterialTheme.colorScheme
     Surface(
@@ -128,12 +125,12 @@ private fun RecordOverview(
                 verticalArrangement = Arrangement.spacedBy(3.dp)
             ) {
                 Text(
-                    text = interfaceText("计入学时", "Credited hours"),
+                    text = interfaceText("已计入分钟", "Credited minutes"),
                     color = cs.onSurfaceVariant,
                     style = MaterialTheme.typography.labelMedium
                 )
                 Text(
-                    text = recordedHours.hourText(),
+                    text = interfaceText("$recordedMinutes 分钟", "$recordedMinutes min"),
                     color = cs.onSurface,
                     style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.SemiBold
@@ -188,6 +185,7 @@ internal fun RecordCard(
     onOpenDetail: () -> Unit
 ) {
     val cs = MaterialTheme.colorScheme
+    val review = record.toExerciseRecordReviewUiModel()
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -229,28 +227,26 @@ internal fun RecordCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = record.hours.hourText(),
+                    text = review.actualWholeMinutes.minuteValueText(),
                     color = cs.onSurface,
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.SemiBold
                 )
                 Spacer(Modifier.width(6.dp))
                 Text(
-                    text = record.creditHoursLabel(),
+                    text = interfaceText("实际运动", "Actual exercise"),
                     color = cs.onSurfaceVariant,
                     style = MaterialTheme.typography.bodySmall
                 )
                 Spacer(Modifier.weight(1f))
-                if (record.reviewStatus.equals("INVALID", ignoreCase = true)) {
-                    InvalidRecordBadge()
-                    Spacer(Modifier.width(8.dp))
-                }
-                Text(
-                    text = record.creditType.recordDisplayLabel(),
-                    color = cs.onSurfaceVariant,
-                    style = MaterialTheme.typography.labelMedium
-                )
+                RecordStageBadge(stage = review.stage)
             }
+            Spacer(Modifier.height(7.dp))
+            Text(
+                text = review.creditOutcomeText(),
+                color = cs.onSurfaceVariant,
+                style = MaterialTheme.typography.bodySmall
+            )
             Spacer(Modifier.height(14.dp))
             HorizontalDivider(color = cs.outlineVariant.copy(alpha = 0.55f))
             Spacer(Modifier.height(12.dp))
@@ -284,15 +280,37 @@ internal fun RecordCard(
 }
 
 @Composable
-private fun InvalidRecordBadge() {
+private fun RecordStageBadge(stage: ExerciseRecordReviewStage) {
     val cs = MaterialTheme.colorScheme
+    val container = when (stage) {
+        ExerciseRecordReviewStage.ValidCredited,
+        ExerciseRecordReviewStage.ValidNotCredited -> cs.secondaryContainer
+        ExerciseRecordReviewStage.Invalid -> cs.errorContainer
+        ExerciseRecordReviewStage.PendingAiCheck,
+        ExerciseRecordReviewStage.PendingTeacherReview,
+        ExerciseRecordReviewStage.SupplementReceivedPendingTeacherReview -> cs.primaryContainer
+        ExerciseRecordReviewStage.PendingStudentSupplement -> cs.tertiaryContainer
+        ExerciseRecordReviewStage.TechnicalProcessing,
+        ExerciseRecordReviewStage.StageUnavailable -> cs.surfaceVariant
+    }
+    val content = when (stage) {
+        ExerciseRecordReviewStage.Invalid -> cs.onErrorContainer
+        ExerciseRecordReviewStage.ValidCredited,
+        ExerciseRecordReviewStage.ValidNotCredited -> cs.onSecondaryContainer
+        ExerciseRecordReviewStage.PendingAiCheck,
+        ExerciseRecordReviewStage.PendingTeacherReview,
+        ExerciseRecordReviewStage.SupplementReceivedPendingTeacherReview -> cs.onPrimaryContainer
+        ExerciseRecordReviewStage.PendingStudentSupplement -> cs.onTertiaryContainer
+        ExerciseRecordReviewStage.TechnicalProcessing,
+        ExerciseRecordReviewStage.StageUnavailable -> cs.onSurfaceVariant
+    }
     Surface(
-        color = cs.errorContainer,
-        contentColor = cs.onErrorContainer,
+        color = container,
+        contentColor = content,
         shape = MaterialTheme.shapes.small
     ) {
         Text(
-            text = interfaceText("无效", "Invalid"),
+            text = stage.displayText(),
             modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp),
             style = MaterialTheme.typography.labelSmall,
             fontWeight = FontWeight.SemiBold
@@ -338,11 +356,6 @@ private fun CheckInRecord.sportDisplayName(): String =
     sportType?.takeIf { it.isNotBlank() }?.recordSportDisplayName()
         ?: taskTitle.localizedCheckInTaskTitle()
 
-private fun CheckInRecord.creditHoursLabel(): String = when {
-    contributesToCreditedHours -> interfaceText("计入学时", "Credited hours")
-    else -> interfaceText("未计入学时", "Not credited")
-}
-
 private fun String.localizedCheckInTaskTitle(): String = when (trim()) {
     "", "运动打卡", "Exercise check-in" -> interfaceText("运动打卡", "Exercise check-in")
     else -> this
@@ -370,6 +383,10 @@ private fun CheckInRecord.proofSummaryText(): String {
         if (videos > 0) add(interfaceText("$videos 个短视频", "$videos ${if (videos == 1) "video" else "videos"}"))
     }.joinToString(interfaceText("，", ", "))
 }
+
+private fun Int?.minuteValueText(): String = this?.let {
+    interfaceText("$it 分钟", "$it min")
+} ?: interfaceText("待提供", "Pending")
 
 @Composable
 private fun RecordMediaGrid(
@@ -582,36 +599,13 @@ internal fun CheckInRecordDetail(
     appState: StudentAppState,
     record: CheckInRecord,
     imageLoader: ImageLoader,
-    onBack: () -> Unit,
-    onStartResubmission: () -> Unit
+    onBack: () -> Unit
 ) {
+    BackHandler(onBack = onBack)
     val context = LocalContext.current
     val cs = MaterialTheme.colorScheme
     var openError by remember { mutableStateOf<String?>(null) }
-    var attemptContext by remember(record.id) {
-        mutableStateOf<ExerciseRecordAttemptContext?>(null)
-    }
-    var attemptContextError by remember(record.id) {
-        mutableStateOf<UserFacingError?>(null)
-    }
-    var isAttemptContextLoading by remember(record.id) { mutableStateOf(false) }
-
-    LaunchedEffect(record.id, appState.isLocalReviewMode, appState.isV1ContractBacked) {
-        isAttemptContextLoading = true
-        attemptContext = null
-        attemptContextError = null
-        try {
-            attemptContext = appState.fetchExerciseRecordAttemptContext(record.id)
-        } catch (cancelled: CancellationException) {
-            throw cancelled
-        } catch (failure: Throwable) {
-            val mapped = ClientErrorMapper.map(failure, ClientErrorContext.RECORD)
-            SafeClientLogger.log(mapped, ClientErrorContext.RECORD)
-            attemptContextError = mapped
-        } finally {
-            isAttemptContextLoading = false
-        }
-    }
+    val review = record.toExerciseRecordReviewUiModel()
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(14.dp)
@@ -656,15 +650,15 @@ internal fun CheckInRecordDetail(
             ) {
                 Column(modifier = Modifier.padding(horizontal = 18.dp, vertical = 6.dp)) {
                     DetailInfoRow(
-                        icon = Icons.Filled.History,
-                        label = interfaceText("提交次数", "Attempt"),
-                        value = attemptContext.attemptDisplayText(isAttemptContextLoading)
+                        icon = Icons.Filled.Info,
+                        label = interfaceText("处理阶段", "Processing stage"),
+                        value = review.stage.displayText()
                     )
                     HorizontalDivider(color = cs.outlineVariant.copy(alpha = 0.45f))
                     DetailInfoRow(
                         icon = Icons.Filled.Info,
-                        label = interfaceText("审核状态", "Review status"),
-                        value = record.reviewStatus.recordReviewStatusText()
+                        label = interfaceText("计入结果", "Credit result"),
+                        value = review.creditOutcomeText()
                     )
                     HorizontalDivider(color = cs.outlineVariant.copy(alpha = 0.45f))
                     DetailInfoRow(
@@ -692,6 +686,25 @@ internal fun CheckInRecordDetail(
                     )
                     HorizontalDivider(color = cs.outlineVariant.copy(alpha = 0.45f))
                     DetailInfoRow(
+                        icon = Icons.Filled.Timer,
+                        label = interfaceText("可计分钟", "Eligible minutes"),
+                        value = review.eligibleWholeMinutes.minuteValueText()
+                    )
+                    HorizontalDivider(color = cs.outlineVariant.copy(alpha = 0.45f))
+                    DetailInfoRow(
+                        icon = Icons.Filled.Timer,
+                        label = interfaceText("实际计入", "Credited minutes"),
+                        value = review.creditedWholeMinutes.minuteValueText()
+                    )
+                    HorizontalDivider(color = cs.outlineVariant.copy(alpha = 0.45f))
+                    DetailInfoRow(
+                        icon = Icons.Filled.Schedule,
+                        label = interfaceText("业务日期", "Business date"),
+                        value = record.businessDate?.takeIf { it.isNotBlank() }
+                            ?: interfaceText("待服务器提供", "Pending server data")
+                    )
+                    HorizontalDivider(color = cs.outlineVariant.copy(alpha = 0.45f))
+                    DetailInfoRow(
                         icon = Icons.Filled.School,
                         label = interfaceText("关联课程", "Course"),
                         value = record.courseDisplayName(appState)
@@ -711,51 +724,16 @@ internal fun CheckInRecordDetail(
                 }
             }
         }
-        item {
-            SubmissionChainPanel(
-                recordId = record.id,
-                attemptContext = attemptContext,
-                loading = isAttemptContextLoading
-            )
-        }
-        if (record.reviewStatus.equals("INVALID", ignoreCase = true)) {
+        if (!record.teacherPublicFeedback.isNullOrBlank()) {
             item {
-                RejectedAttemptPanel(
-                    record = record,
-                    attemptContext = attemptContext,
-                    loading = isAttemptContextLoading,
-                    writeAllowed = appState.isWriteAllowed,
-                    onStartResubmission = onStartResubmission
+                DetailSectionHeader(title = interfaceText("公开原因或说明", "Public reason or note"))
+            }
+            item {
+                ExerciseReviewPublicReasonCard(
+                    model = ExerciseReviewPublicReasonUiModel.FixedCategoryUnavailable(
+                        publicSupplementalNote = record.teacherPublicFeedback
+                    )
                 )
-            }
-            attemptContextError?.let { error ->
-                item {
-                    BNBUErrorPanel(
-                        error = error,
-                        onDismiss = { attemptContextError = null }
-                    )
-                }
-            }
-        }
-        if (!record.teacherPublicFeedback.isNullOrBlank() &&
-            !record.reviewStatus.equals("INVALID", ignoreCase = true)
-        ) {
-            item {
-                DetailSectionHeader(title = interfaceText("审核结果", "Review result"))
-            }
-            item {
-                Surface(
-                    modifier = Modifier.fillMaxWidth(),
-                    color = cs.surface,
-                    shape = MaterialTheme.shapes.large
-                ) {
-                    Text(
-                        text = record.teacherPublicFeedback,
-                        modifier = Modifier.padding(18.dp),
-                        color = cs.onSurface,
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                }
             }
         }
         if (record.note.isNotBlank()) {
@@ -782,7 +760,7 @@ internal fun CheckInRecordDetail(
         }
         item {
             DetailSectionHeader(
-                title = interfaceText("照片与视频", "Photos & videos"),
+                title = interfaceText("首版照片与视频（只读）", "Initial photos & videos (read-only)"),
                 trailing = interfaceText("${record.proofFiles.size} 个", "${record.proofFiles.size} items")
             )
         }
@@ -805,156 +783,6 @@ internal fun CheckInRecordDetail(
             }
         }
         item { Spacer(Modifier.height(28.dp)) }
-    }
-}
-
-@Composable
-private fun SubmissionChainPanel(
-    recordId: String,
-    attemptContext: ExerciseRecordAttemptContext?,
-    loading: Boolean
-) {
-    val colors = MaterialTheme.colorScheme
-    Surface(
-        modifier = Modifier.fillMaxWidth(),
-        color = colors.surface,
-        shape = MaterialTheme.shapes.large
-    ) {
-        if (attemptContext == null) {
-            Row(
-                modifier = Modifier.padding(18.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                if (loading) {
-                    CircularProgressIndicator(modifier = Modifier.size(18.dp), strokeWidth = 2.dp)
-                    Spacer(Modifier.width(10.dp))
-                }
-                Text(
-                    text = if (loading) {
-                        interfaceText("正在读取提交链…", "Loading submission history…")
-                    } else {
-                        interfaceText(
-                            "提交链尚未通过后端验证，当前不能发起补交。",
-                            "The submission chain has not been verified by the backend, so resubmission is unavailable."
-                        )
-                    },
-                    color = colors.onSurfaceVariant,
-                    style = MaterialTheme.typography.bodyMedium
-                )
-            }
-        } else {
-            Column(
-                modifier = Modifier.padding(18.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                Text(
-                    text = attemptContext.attemptDisplayText(loading = false),
-                    color = colors.onSurface,
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.SemiBold
-                )
-                Text(
-                    text = if (attemptContext.previousAttemptId == null) {
-                        interfaceText(
-                            "上一条：无，这是首次正式提交。",
-                            "Previous: None; this is the first formal submission."
-                        )
-                    } else {
-                        interfaceText(
-                            "上一条：上一条正式提交仍独立保留。",
-                            "Previous: The previous formal submission remains independently preserved."
-                        )
-                    },
-                    color = colors.onSurfaceVariant,
-                    style = MaterialTheme.typography.bodySmall
-                )
-                Text(
-                    text = if (attemptContext.rootAttemptId == recordId) {
-                        interfaceText(
-                            "首次提交：本条就是首次正式提交。",
-                            "Root attempt: This record is the initial formal submission."
-                        )
-                    } else {
-                        interfaceText(
-                            "首次提交：最初的正式提交仍作为审核历史保留。",
-                            "Root attempt: The initial formal submission remains in the review history."
-                        )
-                    },
-                    color = colors.onSurfaceVariant,
-                    style = MaterialTheme.typography.bodySmall
-                )
-            }
-        }
-    }
-}
-
-@Composable
-private fun RejectedAttemptPanel(
-    record: CheckInRecord,
-    attemptContext: ExerciseRecordAttemptContext?,
-    loading: Boolean,
-    writeAllowed: Boolean,
-    onStartResubmission: () -> Unit
-) {
-    val colors = MaterialTheme.colorScheme
-    Surface(
-        modifier = Modifier.fillMaxWidth(),
-        color = colors.errorContainer.copy(alpha = 0.42f),
-        shape = MaterialTheme.shapes.large
-    ) {
-        Column(
-            modifier = Modifier.padding(18.dp),
-            verticalArrangement = Arrangement.spacedBy(10.dp)
-        ) {
-            Text(
-                text = interfaceText("上一次提交已被拒绝", "The previous submission was rejected"),
-                color = colors.onErrorContainer,
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.SemiBold
-            )
-            Text(
-                text = interfaceText("拒绝原因", "Reason for rejection"),
-                color = colors.onSurfaceVariant,
-                style = MaterialTheme.typography.labelMedium,
-                fontWeight = FontWeight.SemiBold
-            )
-            Text(
-                text = record.teacherPublicFeedback?.takeIf(String::isNotBlank)
-                    ?: interfaceText("教师未提供公开拒绝原因。", "The teacher did not provide a public reason."),
-                color = colors.onSurface,
-                style = MaterialTheme.typography.bodyMedium
-            )
-            Text(
-                text = interfaceText("可重新补交", "You can submit a new attempt"),
-                color = colors.onSurface,
-                style = MaterialTheme.typography.titleSmall,
-                fontWeight = FontWeight.SemiBold
-            )
-            Text(
-                text = interfaceText(
-                    "补交会创建新的正式尝试。原记录、审核结果和凭证会继续保留，不会被补交覆盖。",
-                    "A resubmission creates a new formal attempt. The original record, review result, and proof stay in history and are not overwritten."
-                ),
-                color = colors.onSurfaceVariant,
-                style = MaterialTheme.typography.bodySmall
-            )
-            BNBUPrimaryButton(
-                title = interfaceText("重新补交", "Resubmit"),
-                onClick = onStartResubmission,
-                modifier = Modifier.fillMaxWidth(),
-                enabled = attemptContext != null && !loading && writeAllowed
-            )
-            if (attemptContext == null && !loading) {
-                Text(
-                    text = interfaceText(
-                        "读取并验证提交链后才能补交。",
-                        "The submission chain must be loaded and verified before resubmission."
-                    ),
-                    color = colors.onSurfaceVariant,
-                    style = MaterialTheme.typography.bodySmall
-                )
-            }
-        }
     }
 }
 
@@ -1022,6 +850,18 @@ private fun DetailSectionHeader(title: String, trailing: String? = null) {
 @Composable
 private fun RecordResultCard(record: CheckInRecord) {
     val cs = MaterialTheme.colorScheme
+    val review = record.toExerciseRecordReviewUiModel()
+    val statusIcon = when (review.stage) {
+        ExerciseRecordReviewStage.ValidCredited,
+        ExerciseRecordReviewStage.ValidNotCredited -> Icons.Filled.CheckCircle
+        ExerciseRecordReviewStage.Invalid -> Icons.Filled.Error
+        ExerciseRecordReviewStage.PendingAiCheck,
+        ExerciseRecordReviewStage.PendingTeacherReview,
+        ExerciseRecordReviewStage.PendingStudentSupplement,
+        ExerciseRecordReviewStage.SupplementReceivedPendingTeacherReview,
+        ExerciseRecordReviewStage.TechnicalProcessing -> Icons.Filled.HourglassTop
+        ExerciseRecordReviewStage.StageUnavailable -> Icons.Filled.Info
+    }
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = MaterialTheme.shapes.large,
@@ -1033,7 +873,20 @@ private fun RecordResultCard(record: CheckInRecord) {
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Spacer(Modifier.weight(1f))
+                Icon(
+                    imageVector = statusIcon,
+                    contentDescription = null,
+                    tint = cs.onSurfaceVariant,
+                    modifier = Modifier.size(20.dp)
+                )
+                Spacer(Modifier.width(8.dp))
+                Text(
+                    text = review.stage.displayText(),
+                    modifier = Modifier.weight(1f),
+                    color = cs.onSurface,
+                    style = MaterialTheme.typography.labelLarge,
+                    fontWeight = FontWeight.SemiBold
+                )
                 Text(
                     text = record.submittedDate(),
                     color = cs.onSurfaceVariant,
@@ -1062,30 +915,24 @@ private fun RecordResultCard(record: CheckInRecord) {
             HorizontalDivider(color = cs.outlineVariant.copy(alpha = 0.55f))
             Spacer(Modifier.height(16.dp))
             Text(
-                text = record.hours.hourText(),
+                text = review.actualWholeMinutes.minuteValueText(),
                 color = cs.onSurface,
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.SemiBold
             )
             Text(
-                text = record.creditHoursLabel(),
+                text = interfaceText("实际运动分钟", "Actual exercise minutes"),
                 color = cs.onSurfaceVariant,
                 style = MaterialTheme.typography.labelMedium
             )
+            Spacer(Modifier.height(10.dp))
+            Text(
+                text = review.creditOutcomeText(),
+                color = cs.onSurfaceVariant,
+                style = MaterialTheme.typography.bodyMedium
+            )
         }
     }
-}
-
-private fun ExerciseRecordAttemptContext?.attemptDisplayText(loading: Boolean): String = when {
-    this != null -> interfaceText("第 $attemptNumber 次提交", "Attempt $attemptNumber")
-    loading -> interfaceText("正在读取", "Loading")
-    else -> interfaceText("尚未验证", "Not verified")
-}
-
-private fun String?.recordReviewStatusText(): String = when (this?.uppercase()) {
-    "VALID" -> interfaceText("有效", "Valid")
-    "INVALID" -> interfaceText("无效", "Invalid")
-    else -> interfaceText("记录状态异常", "Invalid review state")
 }
 
 private fun String?.recordDetailTimeText(): String {

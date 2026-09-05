@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import androidx.annotation.DrawableRes
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
@@ -27,22 +28,14 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.DirectionsBike
-import androidx.compose.material.icons.automirrored.filled.DirectionsRun
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.CameraAlt
-import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.FitnessCenter
-import androidx.compose.material.icons.filled.MoreHoriz
 import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.Pool
-import androidx.compose.material.icons.filled.SportsBasketball
-import androidx.compose.material.icons.filled.SportsSoccer
-import androidx.compose.material.icons.filled.SportsTennis
 import androidx.compose.material.icons.filled.Stop
 import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material.icons.filled.Videocam
@@ -53,7 +46,6 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import edu.bnbu.student.mvp.core.designsystem.AppleIconButton as IconButton
-import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import edu.bnbu.student.mvp.core.designsystem.AppleOutlinedButton as OutlinedButton
 import androidx.compose.material3.Surface
@@ -71,11 +63,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.selected
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -106,24 +100,20 @@ import edu.bnbu.student.mvp.core.model.CheckInTimeWindow
 import edu.bnbu.student.mvp.core.model.ProofAttachment
 import edu.bnbu.student.mvp.core.model.ProofMediaType
 import edu.bnbu.student.mvp.core.model.ProofUploadRule
-import edu.bnbu.student.mvp.core.model.hourText
 import edu.bnbu.student.mvp.core.network.UploadProgress
 import edu.bnbu.student.mvp.core.network.v1.V1HttpException
 import edu.bnbu.student.mvp.core.state.StudentAppState
 import edu.bnbu.student.mvp.core.time.BeijingCheckInZoneId
-import edu.bnbu.student.mvp.core.time.toBeijingBusinessDate
 import edu.bnbu.student.mvp.feature.checkin.session.ExerciseSessionController
 import edu.bnbu.student.mvp.feature.checkin.session.ExerciseSessionDetails
 import edu.bnbu.student.mvp.feature.checkin.session.ExerciseSessionState
 import edu.bnbu.student.mvp.feature.checkin.session.MaxExerciseDescriptionLength
 import edu.bnbu.student.mvp.feature.checkin.session.MaximumExerciseMillis
-import edu.bnbu.student.mvp.feature.checkin.session.MinimumValidExerciseMillis
 import edu.bnbu.student.mvp.feature.checkin.session.SessionCaptureTarget
 import edu.bnbu.student.mvp.feature.checkin.session.SessionDraftKey
 import edu.bnbu.student.mvp.feature.checkin.session.SessionMediaDraft
 import edu.bnbu.student.mvp.feature.checkin.session.SubmissionSummary
 import edu.bnbu.student.mvp.feature.checkin.session.courseSportSelection
-import edu.bnbu.student.mvp.feature.checkin.session.creditedExerciseHours
 import edu.bnbu.student.mvp.feature.checkin.session.effectiveDurationMillis
 import edu.bnbu.student.mvp.feature.dashboard.CourseJoinEntryPanel
 import java.io.File
@@ -148,16 +138,10 @@ private data class ExerciseSportOption(
     val value: String,
     val label: String,
     val englishLabel: String = label,
-    val icon: ImageVector? = null,
-    @DrawableRes val iconResource: Int? = null
+    @DrawableRes val iconResource: Int
 )
 
-internal const val ExerciseSportGridColumnCount = 4
-
-private val CheckInBlue = Color(0xFF007AFF)
-private val CheckInGreen = Color(0xFF34C759)
-private val CheckInOrange = Color(0xFFFF9500)
-private val CheckInRed = Color(0xFFFF3B30)
+internal const val ExerciseSportGridColumnCount = 3
 
 /** The result of the checks that must pass before a new exercise session starts. */
 internal data class CheckInReadiness(
@@ -188,16 +172,13 @@ internal fun evaluateCheckInReadiness(
     appState.checkInTimeWindow.canStartExercise(now)?.let { reason ->
         return CheckInReadiness(false, reason)
     }
-    if (!appState.isV1ContractBacked && appState.hasSubmittedCheckInToday()) {
-        return CheckInReadiness(false, interfaceText("今日已打卡，每天只能提交一次", "You have already checked in today. Only one submission is allowed per day."))
-    }
     return CheckInReadiness(canStart = true)
 }
 
 private val ExerciseSportOptions = listOf(
-    ExerciseSportOption("running", "跑步", "Running", Icons.AutoMirrored.Filled.DirectionsRun),
-    ExerciseSportOption("basketball", "篮球", "Basketball", Icons.Filled.SportsBasketball),
-    ExerciseSportOption("football", "足球", "Football", Icons.Filled.SportsSoccer),
+    ExerciseSportOption("running", "跑步", "Running", R.drawable.ic_sports_running),
+    ExerciseSportOption("basketball", "篮球", "Basketball", R.drawable.ic_sports_basketball),
+    ExerciseSportOption("football", "足球", "Football", R.drawable.ic_sports_football),
     ExerciseSportOption(
         value = "badminton",
         label = "羽毛球",
@@ -210,10 +191,10 @@ private val ExerciseSportOptions = listOf(
         englishLabel = "Table tennis",
         iconResource = R.drawable.ic_sports_table_tennis
     ),
-    ExerciseSportOption("swimming", "游泳", "Swimming", Icons.Filled.Pool),
-    ExerciseSportOption("fitness", "健身", "Fitness", Icons.Filled.FitnessCenter),
-    ExerciseSportOption("cycling", "骑行", "Cycling", Icons.AutoMirrored.Filled.DirectionsBike),
-    ExerciseSportOption(ExerciseSessionDetails.OtherSportType, "其他", "Other", Icons.Filled.MoreHoriz)
+    ExerciseSportOption("swimming", "游泳", "Swimming", R.drawable.ic_sports_swimming),
+    ExerciseSportOption("fitness", "健身", "Fitness", R.drawable.ic_sports_fitness),
+    ExerciseSportOption("cycling", "骑行", "Cycling", R.drawable.ic_sports_cycling),
+    ExerciseSportOption(ExerciseSessionDetails.OtherSportType, "其他", "Other", R.drawable.ic_sports_other)
 )
 
 private fun CreditType.displayLabel(): String = when (this) {
@@ -231,6 +212,7 @@ internal fun ExerciseCheckInRoot(
     val accountId = appState.workspace.student.id
     var selectedTab by rememberSaveable { mutableStateOf(ExerciseCheckInTab.Exercise) }
     var selectedRecordId by rememberSaveable { mutableStateOf<String?>(null) }
+    var showLeaveSessionConfirm by rememberSaveable { mutableStateOf(false) }
     val context = LocalContext.current
     val imageLoader = remember(context) {
         ImageLoader.Builder(context)
@@ -260,11 +242,7 @@ internal fun ExerciseCheckInRoot(
             appState = appState,
             record = selectedRecord,
             imageLoader = imageLoader,
-            onBack = { selectedRecordId = null },
-            onStartResubmission = {
-                selectedRecordId = null
-                selectedTab = ExerciseCheckInTab.Exercise
-            }
+            onBack = { selectedRecordId = null }
         )
         return
     }
@@ -272,6 +250,37 @@ internal fun ExerciseCheckInRoot(
     val isFocusedSession = controller.state is ExerciseSessionState.Active ||
         controller.state is ExerciseSessionState.Paused ||
         controller.state is ExerciseSessionState.Finished
+    val hasOngoingSession = controller.state is ExerciseSessionState.Active ||
+        controller.state is ExerciseSessionState.Paused
+    LaunchedEffect(hasOngoingSession) {
+        if (!hasOngoingSession) showLeaveSessionConfirm = false
+    }
+    BackHandler(enabled = hasOngoingSession && selectedTab == ExerciseCheckInTab.Exercise) {
+        showLeaveSessionConfirm = true
+    }
+    if (showLeaveSessionConfirm && hasOngoingSession) {
+        AlertDialog(
+            onDismissRequest = { showLeaveSessionConfirm = false },
+            title = { Text(interfaceText("返回首页？", "Return to Home?")) },
+            text = {
+                Text(interfaceText(
+                    "返回不会结束或提交本次运动。你可以从首页继续查看运动状态。",
+                    "Returning does not end or submit this session. You can reopen its status from Home."
+                ))
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    showLeaveSessionConfirm = false
+                    onReturnHome()
+                }) { Text(interfaceText("返回首页", "Return to Home")) }
+            },
+            dismissButton = {
+                TextButton(onClick = { showLeaveSessionConfirm = false }) {
+                    Text(interfaceText("留在此页", "Stay here"))
+                }
+            }
+        )
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -384,10 +393,27 @@ private fun ExerciseFlowContent(
 
     if (controller.isRestoring) {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Column(
+                modifier = Modifier.padding(horizontal = 24.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
                 CircularProgressIndicator()
                 Spacer(Modifier.height(12.dp))
-                Text(interfaceText("正在恢复运动会话…", "Restoring exercise session…"))
+                Text(
+                    text = interfaceText("正在核对可恢复内容…", "Checking recoverable content…"),
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.SemiBold
+                )
+                Spacer(Modifier.height(6.dp))
+                Text(
+                    text = interfaceText(
+                        "正在交叉核对服务器会话与本地媒体草稿；恢复完成前不会把草稿显示为已提交。",
+                        "Cross-checking the server session and local media drafts. Drafts are not treated as submitted while recovery is in progress."
+                    ),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = MaterialTheme.typography.bodySmall,
+                    textAlign = TextAlign.Center
+                )
             }
         }
         return
@@ -408,21 +434,26 @@ private fun ExerciseFlowContent(
         is ExerciseSessionState.Active -> ExerciseRunningContent(
             controller = controller,
             state = state,
-            paused = false,
-            isLocalReviewMode = appState.isLocalReviewMode
+            paused = false
         )
         is ExerciseSessionState.Paused -> ExerciseRunningContent(
             controller = controller,
             state = state,
-            paused = true,
-            isLocalReviewMode = appState.isLocalReviewMode
+            paused = true
         )
         is ExerciseSessionState.Finished -> ExerciseFinishedContent(appState, controller, state)
-        is ExerciseSessionState.Submitted -> ExerciseSubmittedContent(
-            state = state,
-            onViewRecords = onViewRecords,
-            onReturnHome = controller::resetAfterSubmission
-        )
+        is ExerciseSessionState.Submitted -> LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            contentPadding = PaddingValues(top = 18.dp, bottom = 28.dp)
+        ) {
+            item {
+                ExerciseSubmissionAcceptedScreen(
+                    summary = state.summary,
+                    onViewRecords = onViewRecords,
+                    onReturnHome = controller::resetAfterSubmission
+                )
+            }
+        }
     }
 }
 
@@ -622,7 +653,7 @@ private fun ExercisePreparationContent(
                     ?: ExerciseSportOption(
                         value = ExerciseSessionDetails.OtherSportType,
                         label = courseSport.displayName,
-                        icon = Icons.Filled.MoreHoriz
+                        iconResource = R.drawable.ic_sports_other
                     )
             )
         }.orEmpty()
@@ -642,15 +673,6 @@ private fun ExercisePreparationContent(
     // businessDate from the organization timezone and authoritatively rejects
     // a second daily submission.
     val hasSubmittedToday = !appState.isV1ContractBacked && appState.hasSubmittedCheckInToday(today)
-    val todayRecordHours = if (appState.isV1ContractBacked) {
-        0.0
-    } else {
-        appState.workspace.records
-            .asSequence()
-            .filter { it.creditType != CreditType.OrganizationOffset }
-            .filter { it.submittedAt.toBeijingBusinessDate() == today }
-            .sumOf { it.hours }
-    }
     val timeWindow = appState.checkInTimeWindow
     val readiness = evaluateCheckInReadiness(appState, currentShanghaiTime)
     val startBlockedReason = readiness.blockedReason
@@ -673,7 +695,7 @@ private fun ExercisePreparationContent(
                     currentCourseName = currentCourse?.name,
                     teacherName = currentCourse?.teacher,
                     blockedReason = startBlockedReason,
-                    submittedHours = todayRecordHours.takeIf { hasSubmittedToday }
+                    hasSubmittedToday = hasSubmittedToday
                 )
             }
             item {
@@ -728,7 +750,7 @@ private fun ExerciseReadinessHeader(
     currentCourseName: String?,
     teacherName: String?,
     blockedReason: String?,
-    submittedHours: Double?
+    hasSubmittedToday: Boolean
 ) {
     val colors = MaterialTheme.colorScheme
     Surface(
@@ -758,7 +780,7 @@ private fun ExerciseReadinessHeader(
                 }
                 StatusPill(
                     label = if (blockedReason == null) interfaceText("可打卡", "Available") else interfaceText("不可打卡", "Unavailable"),
-                    color = if (blockedReason == null) CheckInGreen else CheckInOrange
+                    color = if (blockedReason == null) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.secondary
                 )
             }
 
@@ -770,7 +792,7 @@ private fun ExerciseReadinessHeader(
                 Icon(
                     imageVector = Icons.Filled.Timer,
                     contentDescription = null,
-                    tint = CheckInBlue,
+                    tint = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.size(20.dp)
                 )
                 Spacer(Modifier.width(10.dp))
@@ -800,7 +822,7 @@ private fun ExerciseReadinessHeader(
                         modifier = Modifier
                             .size(20.dp)
                             .background(
-                                CheckInBlue.copy(alpha = 0.12f),
+                                MaterialTheme.colorScheme.primary.copy(alpha = 0.12f),
                                 MaterialTheme.shapes.extraSmall
                             ),
                         contentAlignment = Alignment.Center
@@ -808,7 +830,7 @@ private fun ExerciseReadinessHeader(
                         Box(
                             modifier = Modifier
                                 .size(6.dp)
-                                .background(CheckInBlue, MaterialTheme.shapes.extraSmall)
+                                .background(MaterialTheme.colorScheme.primary, MaterialTheme.shapes.extraSmall)
                         )
                     }
                     Spacer(Modifier.width(10.dp))
@@ -838,11 +860,14 @@ private fun ExerciseReadinessHeader(
                     style = MaterialTheme.typography.bodySmall
                 )
             }
-            submittedHours?.let {
+            if (hasSubmittedToday) {
                 Spacer(Modifier.height(12.dp))
                 Text(
-                    text = interfaceText("今日已提交 ${it.hourText()}，每日限提交一次", "${it.hourText()} submitted today; one submission per day."),
-                    color = CheckInOrange,
+                    text = interfaceText(
+                        "今日已有记录进入审核；你仍可继续真实运动，本次可能不计入考核进度。",
+                        "A record is already under review today. You may keep exercising; this session may not be credited."
+                    ),
+                    color = MaterialTheme.colorScheme.secondary,
                     style = MaterialTheme.typography.bodySmall,
                     fontWeight = FontWeight.Medium
                 )
@@ -922,7 +947,10 @@ private fun ExerciseSetupCard(
                 style = MaterialTheme.typography.titleSmall
             )
             Spacer(Modifier.height(10.dp))
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Row(
+                modifier = Modifier.selectableGroup(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
                 CategoryButton(
                     label = interfaceText("课程相关", "Course-related"),
                     selected = selectedCreditType == CreditType.CourseRelated,
@@ -930,7 +958,7 @@ private fun ExerciseSetupCard(
                     onClick = { onCreditTypeSelected(CreditType.CourseRelated) }
                 )
                 CategoryButton(
-                    label = interfaceText("自主运动", "Independent exercise"),
+                    label = interfaceText("其他运动", "Other exercise"),
                     selected = selectedCreditType == CreditType.General,
                     modifier = Modifier.weight(1f),
                     onClick = { onCreditTypeSelected(CreditType.General) }
@@ -1007,12 +1035,18 @@ private fun SportOptionButton(
     onClick: () -> Unit
 ) {
     val colors = MaterialTheme.colorScheme
-    val containerColor = if (selected) CheckInBlue.copy(alpha = 0.10f) else colors.surfaceVariant.copy(alpha = 0.6f)
-    val contentColor = if (selected) CheckInBlue else colors.onSurfaceVariant
+    val containerColor = if (selected) colors.primary.copy(alpha = 0.10f) else colors.surfaceVariant.copy(alpha = 0.6f)
+    val contentColor = if (selected) colors.primary else colors.onSurfaceVariant
     Surface(
         modifier = modifier
-            .heightIn(min = 68.dp)
-            .bnbuClickable(onClick = onClick),
+            .heightIn(min = 88.dp)
+            .testTag("checkIn.sport.${option.value}")
+            .semantics { this.selected = selected }
+            .bnbuClickable(
+                onClickLabel = interfaceText("选择${option.label}", "Select ${option.englishLabel}"),
+                role = Role.RadioButton,
+                onClick = onClick
+            ),
         color = containerColor,
         shape = MaterialTheme.shapes.medium
     ) {
@@ -1021,19 +1055,20 @@ private fun SportOptionButton(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            if (option.iconResource != null) {
+            Box(
+                modifier = Modifier
+                    .size(42.dp)
+                    .background(
+                        color = if (selected) colors.primary.copy(alpha = 0.14f) else colors.surface,
+                        shape = CircleShape
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
                 Icon(
                     painter = painterResource(option.iconResource),
                     contentDescription = null,
                     tint = contentColor,
-                    modifier = Modifier.size(22.dp)
-                )
-            } else {
-                Icon(
-                    imageVector = requireNotNull(option.icon),
-                    contentDescription = null,
-                    tint = contentColor,
-                    modifier = Modifier.size(22.dp)
+                    modifier = Modifier.size(25.dp)
                 )
             }
             Spacer(Modifier.height(5.dp))
@@ -1046,107 +1081,6 @@ private fun SportOptionButton(
                 textAlign = TextAlign.Center
             )
         }
-    }
-}
-
-@Composable
-private fun SemesterProgressCard(
-    courseCompleted: Double,
-    courseRequired: Double,
-    generalCompleted: Double,
-    generalRequired: Double,
-    totalCompleted: Double,
-    totalRequired: Double
-) {
-    val colors = MaterialTheme.colorScheme
-    val progress = if (totalRequired <= 0.0) 0f else {
-        (totalCompleted / totalRequired).toFloat().coerceIn(0f, 1f)
-    }
-    Surface(
-        modifier = Modifier.fillMaxWidth(),
-        color = colors.surface,
-        shape = MaterialTheme.shapes.large
-    ) {
-        Column(modifier = Modifier.padding(18.dp)) {
-            Row(verticalAlignment = Alignment.Bottom) {
-                Column(modifier = Modifier.weight(1f)) {
-                    Text(
-                        text = interfaceText("已完成", "Completed"),
-                        color = colors.onSurfaceVariant,
-                        style = MaterialTheme.typography.bodySmall
-                    )
-                    Row(verticalAlignment = Alignment.Bottom) {
-                        Text(
-                            text = totalCompleted.hourText(),
-                            color = colors.onSurface,
-                            style = MaterialTheme.typography.headlineMedium,
-                            fontWeight = FontWeight.SemiBold
-                        )
-                        Text(
-                            text = " / ${totalRequired.hourText()}",
-                            modifier = Modifier.padding(bottom = 3.dp),
-                            color = colors.onSurfaceVariant,
-                            style = MaterialTheme.typography.bodyMedium
-                        )
-                    }
-                }
-                Text(
-                    text = "${(progress * 100).toInt()}%",
-                    color = CheckInBlue,
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.SemiBold
-                )
-            }
-            Spacer(Modifier.height(12.dp))
-            LinearProgressIndicator(
-                progress = { progress },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(5.dp),
-                color = CheckInBlue,
-                trackColor = colors.surfaceVariant
-            )
-            Spacer(Modifier.height(18.dp))
-            Row(modifier = Modifier.fillMaxWidth()) {
-                ProgressMetric(
-                    label = interfaceText("课程相关", "Course-related"),
-                    value = "${courseCompleted.hourText()} / ${courseRequired.hourText()}",
-                    modifier = Modifier.weight(1f)
-                )
-                Box(
-                    modifier = Modifier
-                        .width(1.dp)
-                        .height(36.dp)
-                        .background(colors.outlineVariant.copy(alpha = 0.6f))
-                )
-                ProgressMetric(
-                    label = interfaceText("自主运动", "Independent exercise"),
-                    value = "${generalCompleted.hourText()} / ${generalRequired.hourText()}",
-                    modifier = Modifier.weight(1f)
-                )
-            }
-        }
-    }
-}
-
-@Composable
-private fun ProgressMetric(label: String, value: String, modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier.padding(horizontal = 10.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = value,
-            color = MaterialTheme.colorScheme.onSurface,
-            style = MaterialTheme.typography.titleSmall,
-            fontWeight = FontWeight.SemiBold
-        )
-        Spacer(Modifier.height(2.dp))
-        Text(
-            text = label,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            style = MaterialTheme.typography.bodySmall
-        )
     }
 }
 
@@ -1167,7 +1101,10 @@ private fun ExerciseCaptureNotice() {
         )
         Spacer(Modifier.width(10.dp))
         Text(
-            text = interfaceText("运动中可随时现场拍照或录像。凭证仅保存在本机，结束运动并确认后才会提交。", "You can take photos or videos while exercising. Proof stays on this device until you end the session and confirm submission."),
+            text = interfaceText(
+                "运动中可随时现场拍照或录像。凭证仅保存在本机，结束运动并确认后才会提交。提交后仍需审核，达到计入上限或目标也不影响继续记录真实运动。",
+                "You can take photos or videos while exercising. Evidence stays on this device until you finish and submit. Submission still requires review, and a credit limit or completed goal does not stop you recording real exercise."
+            ),
             color = colors.onSurfaceVariant,
             style = MaterialTheme.typography.bodySmall
         )
@@ -1207,8 +1144,8 @@ private fun StartExerciseBar(
                     .testTag("checkIn.startExercise"),
                 shape = MaterialTheme.shapes.extraLarge,
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = CheckInBlue,
-                    contentColor = Color.White,
+                    containerColor = colors.primary,
+                    contentColor = colors.onPrimary,
                     disabledContainerColor = colors.surfaceVariant,
                     disabledContentColor = colors.onSurfaceVariant
                 )
@@ -1300,8 +1237,8 @@ private fun CategoryButton(
     Surface(
         modifier = modifier
             .heightIn(min = 52.dp)
-            .bnbuClickable(onClick = onClick),
-        color = if (selected) CheckInBlue.copy(alpha = 0.10f) else colors.surfaceVariant.copy(alpha = 0.6f),
+            .selectable(selected = selected, role = Role.RadioButton, onClick = onClick),
+        color = if (selected) colors.primary.copy(alpha = 0.10f) else colors.surfaceVariant.copy(alpha = 0.6f),
         shape = MaterialTheme.shapes.small
     ) {
         Box(
@@ -1310,7 +1247,7 @@ private fun CategoryButton(
         ) {
             Text(
                 text = label,
-                color = if (selected) CheckInBlue else colors.onSurfaceVariant,
+                color = if (selected) colors.primary else colors.onSurfaceVariant,
                 style = MaterialTheme.typography.labelLarge,
                 fontWeight = if (selected) FontWeight.SemiBold else FontWeight.Normal,
                 maxLines = 2,
@@ -1325,14 +1262,12 @@ private fun CategoryButton(
 private fun ExerciseRunningContent(
     controller: ExerciseSessionController,
     state: ExerciseSessionState,
-    paused: Boolean,
-    isLocalReviewMode: Boolean
+    paused: Boolean
 ) {
     var now by remember { mutableLongStateOf(System.currentTimeMillis()) }
     var showFinishConfirm by remember { mutableStateOf(false) }
     val duration = state.effectiveDurationMillis(now)
     val limitReached = duration >= MaximumExerciseMillis
-    val endsWithoutCredit = duration < MinimumValidExerciseMillis
     val details = state.detailsOrNull() ?: return
     val draftCount = controller.drafts.size
     LaunchedEffect(state) {
@@ -1374,7 +1309,7 @@ private fun ExerciseRunningContent(
             title = {
                 Text(
                     if (limitReached) {
-                        interfaceText("今日运动已达 2 小时上限", "Daily exercise limit reached")
+                        interfaceText("本次计时已停止", "This session timer has stopped")
                     } else {
                         interfaceText("你确定要结束本次运动吗？", "End this exercise session?")
                     }
@@ -1384,22 +1319,20 @@ private fun ExerciseRunningContent(
                 {
                     Text(
                         interfaceText(
-                            "计时已自动暂停，运动时长不再累计。请进入下一步核对运动说明和现场凭证；当前保留的现场凭证会全部提交。",
-                            "The timer has paused and no more time will be counted. Next, review the exercise description and on-site proof; all retained proof will be submitted."
-                        )
-                    )
-                }
-            } else if (endsWithoutCredit) {
-                {
-                    Text(
-                        interfaceText(
-                            "运动未满 1 小时，结束后不会计入打卡，计时将清零，本地草稿将被清除。",
-                            "This exercise is under 1 hour. Ending it will not count toward check-in hours and will clear the timer and local drafts."
+                            "请进入下一步核对实际运动时长、运动说明和现场证据。是否可计及最终计入分钟由服务器规则与审核结果确认。",
+                            "Continue to review the active duration, notes, and on-site evidence. Eligible and credited minutes are confirmed by server rules and review."
                         )
                     )
                 }
             } else {
-                null
+                {
+                    Text(
+                        interfaceText(
+                            "结束后不能恢复为进行中。实际运动事实会保留；是否达到课程设置的 30/45/60 分钟门槛以及最终计入多少分钟，均以服务器确认结果为准。",
+                            "After ending, this session cannot return to active. The actual exercise fact remains; the server confirms whether the 30/45/60-minute course threshold is met and how many minutes are credited."
+                        )
+                    )
+                }
             }
         )
     }
@@ -1431,7 +1364,7 @@ private fun ExerciseRunningContent(
                 }
                 StatusPill(
                     label = if (paused) interfaceText("已暂停", "Paused") else interfaceText("记录中", "Recording"),
-                    color = if (paused) CheckInOrange else CheckInGreen
+                    color = if (paused) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.tertiary
                 )
             }
 
@@ -1448,7 +1381,7 @@ private fun ExerciseRunningContent(
                     Icon(
                         imageVector = Icons.Filled.Timer,
                         contentDescription = null,
-                        tint = CheckInBlue,
+                        tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(24.dp)
                     )
                     Spacer(Modifier.height(12.dp))
@@ -1477,8 +1410,8 @@ private fun ExerciseRunningContent(
                             modifier = Modifier.weight(1f)
                         )
                         SessionMetric(
-                            label = interfaceText("预计学时", "Expected hours"),
-                            value = "${creditedExerciseHours(duration)}h",
+                            label = interfaceText("完整分钟", "Whole minutes"),
+                            value = wholeActiveMinutes(duration).toString(),
                             modifier = Modifier.weight(1f)
                         )
                         SessionMetric(
@@ -1487,6 +1420,40 @@ private fun ExerciseRunningContent(
                             modifier = Modifier.weight(1f)
                         )
                     }
+                }
+            }
+
+            Spacer(Modifier.height(14.dp))
+            Surface(
+                modifier = Modifier.fillMaxWidth(),
+                color = MaterialTheme.colorScheme.primary.copy(alpha = 0.08f),
+                shape = MaterialTheme.shapes.large
+            ) {
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    Text(
+                        text = interfaceText("分钟计入规则", "Minute credit rules"),
+                        style = MaterialTheme.typography.titleSmall,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                    Text(
+                        text = interfaceText(
+                            "课程门槛由教师在开课前设为 30、45 或 60 分钟；达到门槛后按完整实际分钟计算，单次最多计入 60 分钟。",
+                            "The teacher sets a 30, 45, or 60-minute threshold before the course opens. Once met, whole active minutes are eligible, capped at 60 minutes per record."
+                        ),
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                    Text(
+                        text = interfaceText(
+                            "日、周与目标上限只限制考核计入，不限制继续记录真实运动。",
+                            "Daily, weekly, and target limits affect credit only; they do not stop you recording real exercise."
+                        ),
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        style = MaterialTheme.typography.bodySmall
+                    )
                 }
             }
 
@@ -1505,7 +1472,17 @@ private fun ExerciseRunningContent(
                             fontWeight = FontWeight.SemiBold
                         )
                         Text(
-                            text = interfaceText("仅保存在本机，结束后再确认提交", "Saved only on this device until you confirm submission after ending."),
+                            text = if (details.sportType == "swimming") {
+                                interfaceText(
+                                    "游泳需要运动前、运动后照片各 1 张。请先在安全、允许拍摄的区域保留运动前照片；当前草稿仅保存在本机。",
+                                    "Swimming needs one before and one after photo. Capture the before photo first in a safe area where photography is allowed; the current draft stays on this device."
+                                )
+                            } else {
+                                interfaceText(
+                                    "仅保存在本机，结束后再确认提交",
+                                    "Saved only on this device until you confirm submission after ending."
+                                )
+                            },
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             style = MaterialTheme.typography.bodySmall
                         )
@@ -1533,8 +1510,8 @@ private fun ExerciseRunningContent(
                         .heightIn(min = 54.dp),
                     shape = MaterialTheme.shapes.extraLarge,
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = CheckInBlue,
-                        contentColor = Color.White
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        contentColor = MaterialTheme.colorScheme.onPrimary
                     )
                 ) {
                     Icon(Icons.Filled.PlayArrow, contentDescription = null)
@@ -1549,8 +1526,8 @@ private fun ExerciseRunningContent(
                         .heightIn(min = 54.dp),
                     shape = MaterialTheme.shapes.extraLarge,
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = CheckInBlue,
-                        contentColor = Color.White
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        contentColor = MaterialTheme.colorScheme.onPrimary
                     )
                 ) {
                     Icon(Icons.Filled.Pause, contentDescription = null)
@@ -1574,48 +1551,6 @@ private fun ExerciseRunningContent(
                 Icon(Icons.Filled.Stop, contentDescription = null)
                 Spacer(Modifier.width(8.dp))
                 Text(interfaceText("结束运动", "End exercise"))
-            }
-
-            if (isLocalReviewMode) {
-                Spacer(Modifier.height(8.dp))
-                OutlinedButton(
-                    onClick = {
-                        controller.advanceLocalReviewToTwoHours(isLocalReviewMode = true)
-                    },
-                    enabled = !controller.isSessionBusy && !limitReached,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .testTag("exercise.localReview.twoHours")
-                ) {
-                    Icon(Icons.Filled.Timer, contentDescription = null)
-                    Spacer(Modifier.width(8.dp))
-                    Text(interfaceText("直达 2 小时", "Jump to 2 hours"))
-                }
-                Text(
-                    text = interfaceText(
-                        "仅用于免登录测试，不会写入真实 Backend 时长。",
-                        "Local review only. This does not write duration to the real Backend."
-                    ),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    style = MaterialTheme.typography.bodySmall,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
-                )
-            }
-
-            if (controller.isTestDurationToolVisible) {
-                Spacer(Modifier.height(8.dp))
-                OutlinedButton(
-                    onClick = controller::addSixtyMinutes,
-                    enabled = !controller.isSessionBusy,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .testTag("exercise.add60Minutes")
-                ) {
-                    Icon(Icons.Filled.Add, contentDescription = null)
-                    Spacer(Modifier.width(8.dp))
-                    Text(interfaceText("增加 60 分钟", "Add 60 minutes"))
-                }
             }
 
         }
@@ -1654,9 +1589,14 @@ private fun ExerciseFinishedContent(
     var descriptionTouched by remember { mutableStateOf(false) }
     var isSubmitting by remember { mutableStateOf(false) }
     var uploadProgress by remember { mutableStateOf<UploadProgress?>(null) }
+    var showSwimmingDelayExplanation by rememberSaveable { mutableStateOf(false) }
+    var swimmingDelayExplanation by rememberSaveable { mutableStateOf("") }
     val descriptionFocusRequester = remember { FocusRequester() }
     val capturedImageCount = controller.drafts.count { it.type == ProofMediaType.Image }
     val capturedVideoCount = controller.drafts.count { it.type == ProofMediaType.Video }
+    val capturedTotalBytes = controller.drafts.sumOf { it.byteCount }
+    val hasLockedMedia = controller.drafts.any { it.serverMediaId != null }
+    val isSwimming = state.details.sportType == "swimming"
     localMessage?.let { text ->
         AlertDialog(
             onDismissRequest = { localMessage = null },
@@ -1680,6 +1620,22 @@ private fun ExerciseFinishedContent(
             title = { Text(interfaceText("放弃待提交记录？", "Discard pending record?")) },
             text = { Text(interfaceText("本次运动时长和所有本地媒体草稿都会被删除。", "The exercise duration and all local media drafts will be deleted.")) }
         )
+    }
+
+    if (showSwimmingDelayExplanation) {
+        SwimmingDelayExplanationScreen(
+            explanation = swimmingDelayExplanation,
+            onExplanationChanged = { swimmingDelayExplanation = it },
+            canSubmit = false,
+            isSubmitting = false,
+            unavailableReason = interfaceText(
+                "当前 Android 基线没有延迟说明接口，也无法核验完全离线资格和服务器截止时间；此页仅保存本地 UI 草稿，不会形成正式提交。",
+                "The current Android baseline has no delay-explanation endpoint and cannot verify fully-offline eligibility or the server deadline. This page keeps a local UI draft only and does not create a formal submission."
+            ),
+            onBack = { showSwimmingDelayExplanation = false },
+            onSubmit = {}
+        )
+        return
     }
 
     LazyColumn(
@@ -1717,11 +1673,25 @@ private fun ExerciseFinishedContent(
                     fontWeight = FontWeight.SemiBold
                 )
                 Spacer(Modifier.height(8.dp))
-                Text(interfaceText("有效运动时长 · 计入 ${state.creditedHours} 小时", "Active exercise time · ${state.creditedHours} credited hours"))
+                Text(
+                    interfaceText(
+                        "实际 ACTIVE 时长 · ${wholeActiveMinutes(state.activeDurationMillis)} 个完整分钟",
+                        "Actual ACTIVE duration · ${wholeActiveMinutes(state.activeDurationMillis)} whole minutes"
+                    )
+                )
                 Spacer(Modifier.height(6.dp))
                 Text(
                     "${state.details.creditType.displayLabel()} · ${sportLabel(state.details)}",
                     color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Spacer(Modifier.height(6.dp))
+                Text(
+                    text = interfaceText(
+                        "可计分钟和实际计入分钟须等待服务器规则与审核结果，当前不在本机估算。",
+                        "Eligible and credited minutes wait for server rules and review and are not estimated on this device."
+                    ),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = MaterialTheme.typography.bodySmall
                 )
                 }
             }
@@ -1770,51 +1740,30 @@ private fun ExerciseFinishedContent(
             }
         }
         item {
-            Surface(
-                modifier = Modifier.fillMaxWidth(),
-                color = MaterialTheme.colorScheme.surface,
-                shape = MaterialTheme.shapes.large
-            ) {
-                Column(modifier = Modifier.padding(16.dp)) {
-                Text(interfaceText("现场补拍", "Capture more proof"), style = MaterialTheme.typography.titleMedium)
-                Spacer(Modifier.height(8.dp))
-                Text(
-                    interfaceText("运动结束后仍可现场补拍照片或最长 15 秒的有声视频；不提供相册入口。", "After exercise, you can capture another photo or an audio-enabled video up to 15 seconds. Gallery selection is unavailable."),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    style = MaterialTheme.typography.bodySmall
-                )
-                Spacer(Modifier.height(12.dp))
-                MediaCaptureActions(
-                    controller = controller,
-                    allowVideo = true,
-                    lightContent = false
-                )
-                Spacer(Modifier.height(18.dp))
-                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.55f))
-                Spacer(Modifier.height(16.dp))
-                Text(
-                    text = interfaceText("本次打卡凭证", "Check-in proof"),
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.SemiBold
-                )
-                Text(
-                    text = interfaceText("至少拍摄 1 项，当前保留素材会全部提交", "Capture at least one item; all retained media will be submitted"),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    style = MaterialTheme.typography.bodySmall
-                )
-                Spacer(Modifier.height(10.dp))
-                SessionMediaManager(
-                    controller = controller,
-                    submissionRequired = true
-                )
+            ExerciseEvidenceScreen(
+                isSwimming = isSwimming,
+                photoCount = capturedImageCount,
+                videoCount = capturedVideoCount,
+                totalBytes = capturedTotalBytes,
+                hasLockedMedia = hasLockedMedia,
+                captureActions = {
+                    MediaCaptureActions(
+                        controller = controller,
+                        allowVideo = true,
+                        lightContent = false
+                    )
+                },
+                mediaManager = {
+                    SessionMediaManager(
+                        controller = controller,
+                        submissionRequired = true
+                    )
+                },
+                onOpenSwimmingDelayExplanation = if (isSwimming) {
+                    { showSwimmingDelayExplanation = true }
+                } else {
+                    null
                 }
-            }
-        }
-        item {
-            Text(
-                text = interfaceText("最多 ${ProofUploadRule.maxImageCount} 张照片和 ${ProofUploadRule.maxVideoCount} 个视频", "Up to ${ProofUploadRule.maxImageCount} photos and ${ProofUploadRule.maxVideoCount} videos"),
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                style = MaterialTheme.typography.bodySmall
             )
         }
         item {
@@ -1837,10 +1786,19 @@ private fun ExerciseFinishedContent(
                     SummaryRow(interfaceText("结束时间", "End time"), formatDateTime(state.endedAtEpochMillis))
                     SummaryRow(interfaceText("实际运动时长", "Active duration"), formatDuration(state.activeDurationMillis))
                     SummaryRow(
-                        interfaceText("计入学时", "Credited hours"),
-                        interfaceText("${creditedExerciseHours(state.activeDurationMillis)} 小时", "${creditedExerciseHours(state.activeDurationMillis)} hours")
+                        interfaceText("可计分钟", "Eligible minutes"),
+                        interfaceText("待服务器确认", "Pending server confirmation")
                     )
-                    SummaryRow(interfaceText("打卡日期", "Check-in date"), formatDate(state.startedAtEpochMillis))
+                    SummaryRow(
+                        interfaceText("实际计入分钟", "Credited minutes"),
+                        interfaceText("待审核与计入选择", "Pending review and allocation")
+                    )
+                    SummaryRow(interfaceText("本机显示开始日期", "Device display start date"), formatDate(state.startedAtEpochMillis))
+                    SummaryRow(
+                        interfaceText("服务器业务日期", "Server business date"),
+                        interfaceText("提交后读取", "Read after submission")
+                    )
+                    SummaryRow(interfaceText("材料版本", "Evidence version"), interfaceText("首版", "Initial"))
                     SummaryRow(
                         interfaceText("凭证数量", "Proof count"),
                         interfaceText(
@@ -1854,133 +1812,102 @@ private fun ExerciseFinishedContent(
             }
         }
         item {
-            if (isSubmitting) {
-                uploadProgress?.let { progress ->
-                    Surface(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .testTag("checkIn.uploadProgress"),
-                        color = MaterialTheme.colorScheme.surface,
-                        shape = MaterialTheme.shapes.large
-                    ) {
-                        Column(
-                            modifier = Modifier.padding(16.dp),
-                            verticalArrangement = Arrangement.spacedBy(10.dp)
-                        ) {
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.SpaceBetween,
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Text(
-                                    text = if (progress.percent >= 100) {
-                                        interfaceText("凭证上传完成，正在提交记录", "Proof uploaded; submitting the record")
-                                    } else {
-                                        interfaceText("正在上传图片和视频", "Uploading photos and videos")
-                                    },
-                                    style = MaterialTheme.typography.titleSmall,
-                                    fontWeight = FontWeight.SemiBold
-                                )
-                                Text(
-                                    text = "${progress.percent}%",
-                                    color = CheckInBlue,
-                                    fontWeight = FontWeight.SemiBold
-                                )
-                            }
-                            LinearProgressIndicator(
-                                progress = { progress.fraction },
-                                modifier = Modifier.fillMaxWidth(),
-                                color = CheckInBlue,
-                                trackColor = MaterialTheme.colorScheme.surfaceVariant
-                            )
-                            Text(
-                                text = formatUploadBytes(progress.bytesSent, progress.totalBytes),
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                style = MaterialTheme.typography.bodySmall
-                            )
-                        }
-                    }
-                    Spacer(Modifier.height(12.dp))
-                }
+            val blockedReason = when {
+                isSwimming -> interfaceText(
+                    "当前接口不能标记游泳前照/后照，也不能核验服务器 15 分钟首次受理期限，因此暂不开放正式提交。",
+                    "The current interface cannot tag before/after swimming photos or verify the server's 15-minute initial-acceptance deadline, so formal submission is unavailable."
+                )
+                !appState.isWriteAllowed -> interfaceText(
+                    "当前环境不允许写入；本地草稿会继续保留。",
+                    "Writes are unavailable in the current environment. Local drafts remain saved."
+                )
+                else -> null
             }
-            Button(
-                onClick = {
-                    if (isSubmitting) return@Button
-                    descriptionValidationRequested = true
-                    if (state.details.description.isBlank()) {
-                        descriptionFocusRequester.requestFocus()
-                        return@Button
-                    }
-                    isSubmitting = true
-                    uploadProgress = null
-                    submissionError = null
-                    controller.submitReadyProofs(
-                        onProgress = { uploadProgress = it }
-                    ) { result ->
-                        isSubmitting = false
-                        uploadProgress = null
-                        result.fold(
-                            onSuccess = { proofCount ->
-                                controller.markSubmitted(
-                                    SubmissionSummary(
-                                        date = formatDate(state.startedAtEpochMillis),
-                                        startTime = formatTime(state.startedAtEpochMillis),
-                                        endTime = formatTime(state.endedAtEpochMillis),
-                                        duration = formatDuration(state.activeDurationMillis),
-                                        creditedHours = state.creditedHours,
-                                        creditType = state.details.creditType.displayLabel(),
-                                        sportType = sportLabel(state.details),
-                                        proofCount = proofCount
-                                    )
-                                )
-                                // The record list and score projection are
-                                // server-owned. Refresh immediately so the
-                                // successful submission is visible without an
-                                // app restart or a misleading retry attempt.
-                                appState.refreshWorkspace()
-                            },
-                            onFailure = { error ->
-                                val mapped = ClientErrorMapper.map(
-                                    error,
-                                    ClientErrorContext.RECORD
-                                )
-                                submissionError = mapped
-                                SafeClientLogger.log(
-                                    error = mapped,
-                                    context = ClientErrorContext.RECORD,
-                                    httpStatus = (error as? V1HttpException)?.statusCode
-                                )
-                            }
+            ExerciseSubmissionScreen(
+                isSubmitting = isSubmitting,
+                uploadProgress = uploadProgress,
+                hasLockedMedia = hasLockedMedia,
+                submitEnabled = blockedReason == null,
+                blockedReason = blockedReason,
+                summaryContent = {
+                    SummaryRow(
+                        interfaceText("材料", "Evidence"),
+                        interfaceText(
+                            "$capturedImageCount 张照片 + $capturedVideoCount 个视频",
+                            "$capturedImageCount photos + $capturedVideoCount video"
+                        )
+                    )
+                    SummaryRow(
+                        interfaceText("受理后阶段", "Stage after acceptance"),
+                        interfaceText("待系统检查或教师审核", "Pending system checks or teacher review")
+                    )
+                    if (isSwimming) {
+                        SummaryRow(
+                            interfaceText("首次受理期限", "Initial acceptance deadline"),
+                            interfaceText(
+                                "服务器结束后 ${ExerciseEvidenceUiPolicy.SwimmingInitialAcceptanceMinutes} 分钟内",
+                                "Within ${ExerciseEvidenceUiPolicy.SwimmingInitialAcceptanceMinutes} minutes of server finish"
+                            )
+                        )
+                        SummaryRow(
+                            interfaceText("同批续传", "Same-batch resume"),
+                            interfaceText(
+                                "锁定后 ${ExerciseEvidenceUiPolicy.SwimmingLockedBatchResumeMinutes} 分钟内",
+                                "Within ${ExerciseEvidenceUiPolicy.SwimmingLockedBatchResumeMinutes} minutes after lock"
+                            )
                         )
                     }
                 },
-                enabled = !isSubmitting && appState.isWriteAllowed,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .heightIn(min = 54.dp),
-                shape = MaterialTheme.shapes.extraLarge,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = CheckInBlue,
-                    contentColor = Color.White
-                )
-            ) {
-                if (isSubmitting) {
-                    CircularProgressIndicator(
-                        modifier = Modifier.size(18.dp),
-                        strokeWidth = 2.dp,
-                        color = MaterialTheme.colorScheme.onPrimary
-                    )
-                    Spacer(Modifier.width(8.dp))
-                }
-                Text(if (isSubmitting) interfaceText("提交中…", "Submitting…") else interfaceText("提交打卡", "Submit check-in"))
-            }
-            TextButton(
-                onClick = { showAbandonConfirm = true },
-                enabled = !isSubmitting,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text(interfaceText("放弃本次记录", "Discard this record"), color = CheckInRed)
-            }
+                onSubmit = {
+                    if (!isSubmitting) {
+                        descriptionValidationRequested = true
+                        if (state.details.description.isBlank()) {
+                            descriptionFocusRequester.requestFocus()
+                        } else {
+                            isSubmitting = true
+                            uploadProgress = null
+                            submissionError = null
+                            controller.submitReadyProofs(
+                                onProgress = { uploadProgress = it }
+                            ) { result ->
+                                isSubmitting = false
+                                uploadProgress = null
+                                result.fold(
+                                    onSuccess = { proofCount ->
+                                        controller.markSubmitted(
+                                            SubmissionSummary(
+                                                date = formatDate(state.startedAtEpochMillis),
+                                                startTime = formatTime(state.startedAtEpochMillis),
+                                                endTime = formatTime(state.endedAtEpochMillis),
+                                                duration = formatDuration(state.activeDurationMillis),
+                                                // The accepted response is not an authoritative credit result.
+                                                creditedHours = 0,
+                                                creditType = state.details.creditType.displayLabel(),
+                                                sportType = sportLabel(state.details),
+                                                proofCount = proofCount
+                                            )
+                                        )
+                                        appState.refreshWorkspace()
+                                    },
+                                    onFailure = { error ->
+                                        val mapped = ClientErrorMapper.map(
+                                            error,
+                                            ClientErrorContext.RECORD
+                                        )
+                                        submissionError = mapped
+                                        SafeClientLogger.log(
+                                            error = mapped,
+                                            context = ClientErrorContext.RECORD,
+                                            httpStatus = (error as? V1HttpException)?.statusCode
+                                        )
+                                    }
+                                )
+                            }
+                        }
+                    }
+                },
+                onDiscard = { showAbandonConfirm = true }
+            )
         }
     }
 }
@@ -2301,7 +2228,7 @@ private fun MediaCaptureActions(
                     "The ${ProofUploadRule.maxVideoCount}-video limit is reached; open the video to delete it before submission."
                 )
             },
-            color = CheckInOrange,
+            color = MaterialTheme.colorScheme.secondary,
             style = MaterialTheme.typography.bodySmall
         )
     }
@@ -2328,7 +2255,7 @@ private fun CaptureButton(
             else colors.outlineVariant.copy(alpha = 0.7f)
         ),
         colors = ButtonDefaults.outlinedButtonColors(
-            contentColor = if (lightContent) Color.White else CheckInBlue,
+            contentColor = if (lightContent) Color.White else colors.primary,
             disabledContentColor = if (lightContent) {
                 Color.White.copy(alpha = 0.4f)
             } else {
@@ -2358,11 +2285,6 @@ private fun formatDuration(durationMillis: Long): String {
     val minutes = (totalSeconds % 3_600L) / 60L
     val seconds = totalSeconds % 60L
     return "%02d:%02d:%02d".format(hours, minutes, seconds)
-}
-
-private fun formatUploadBytes(sentBytes: Long, totalBytes: Long): String {
-    fun megabytes(bytes: Long): String = String.format(java.util.Locale.US, "%.1f MB", bytes / 1_048_576.0)
-    return "${megabytes(sentBytes)} / ${megabytes(totalBytes)}"
 }
 
 private fun formatStartTime(state: ExerciseSessionState): String {
@@ -2410,93 +2332,6 @@ private fun SessionMediaDraft.toProofAttachment(file: java.io.File): ProofAttach
         durationSeconds = durationSeconds,
         source = file.toURI().toString()
     )
-}
-
-@Composable
-private fun ExerciseSubmittedContent(
-    state: ExerciseSessionState.Submitted,
-    onViewRecords: () -> Unit,
-    onReturnHome: () -> Unit
-) {
-    val summary = state.summary
-    LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(top = 18.dp, bottom = 28.dp),
-        verticalArrangement = Arrangement.spacedBy(18.dp)
-    ) {
-        item {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 10.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Surface(
-                    color = CheckInGreen.copy(alpha = 0.12f),
-                    shape = MaterialTheme.shapes.extraLarge
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.CheckCircle,
-                        contentDescription = null,
-                        tint = CheckInGreen,
-                        modifier = Modifier
-                            .padding(14.dp)
-                            .size(34.dp)
-                    )
-                }
-                Spacer(Modifier.height(16.dp))
-                Text(
-                    text = interfaceText("提交成功", "Submitted"),
-                    color = MaterialTheme.colorScheme.onBackground,
-                    style = MaterialTheme.typography.headlineMedium,
-                    fontWeight = FontWeight.SemiBold
-                )
-                Spacer(Modifier.height(6.dp))
-                Text(
-                    text = interfaceText("已计入 ${state.creditedHours} 小时", "${state.creditedHours} hours credited"),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    style = MaterialTheme.typography.bodyMedium
-                )
-            }
-        }
-        item {
-            Surface(
-                modifier = Modifier.fillMaxWidth(),
-                color = MaterialTheme.colorScheme.surface,
-                shape = MaterialTheme.shapes.large
-            ) {
-                Column(modifier = Modifier.padding(16.dp)) {
-                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    SummaryRow(interfaceText("打卡日期", "Check-in date"), summary.date)
-                    SummaryRow(interfaceText("开始时间", "Start time"), summary.startTime)
-                    SummaryRow(interfaceText("结束时间", "End time"), summary.endTime)
-                    SummaryRow(interfaceText("运动时长", "Exercise duration"), summary.duration)
-                    SummaryRow(interfaceText("打卡类别", "Check-in category"), summary.creditType)
-                    SummaryRow(interfaceText("运动项目", "Exercise type"), summary.sportType)
-                    SummaryRow(interfaceText("凭证数量", "Proof count"), interfaceText("${summary.proofCount} 个", "${summary.proofCount} items"))
-                }
-                }
-            }
-        }
-        item {
-            Button(
-                onClick = onViewRecords,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .heightIn(min = 54.dp),
-                shape = MaterialTheme.shapes.extraLarge,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = CheckInBlue,
-                    contentColor = Color.White
-                )
-            ) {
-                Text(interfaceText("查看打卡记录", "View check-in records"))
-            }
-            TextButton(onClick = onReturnHome, modifier = Modifier.fillMaxWidth()) {
-                Text(interfaceText("返回运动首页", "Back to exercise home"))
-            }
-        }
-    }
 }
 
 @Composable

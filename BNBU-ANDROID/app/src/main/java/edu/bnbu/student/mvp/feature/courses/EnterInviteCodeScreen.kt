@@ -40,8 +40,15 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import edu.bnbu.student.mvp.core.designsystem.BNBUFormField
+import edu.bnbu.student.mvp.core.designsystem.BNBUErrorPanel
 import edu.bnbu.student.mvp.core.designsystem.interfaceText
+import edu.bnbu.student.mvp.core.error.ClientErrorContext
+import edu.bnbu.student.mvp.core.error.ClientErrorMapper
+import edu.bnbu.student.mvp.core.error.SafeClientLogger
+import edu.bnbu.student.mvp.core.error.UserFacingError
 import edu.bnbu.student.mvp.core.local.AppLanguagePreferences
+import edu.bnbu.student.mvp.core.network.ApiHttpException
+import edu.bnbu.student.mvp.core.network.v1.V1HttpException
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
 
@@ -59,13 +66,11 @@ fun EnterInviteCodeScreen(
 ) {
     val appLanguage = AppLanguagePreferences.currentLanguage
     var code by rememberSaveable { mutableStateOf("") }
-    var isResolving by rememberSaveable { mutableStateOf(false) }
+    var isResolving by remember { mutableStateOf(false) }
     var codeFocusedOnce by rememberSaveable { mutableStateOf(false) }
     var codeTouched by rememberSaveable { mutableStateOf(false) }
     var submitAttempted by rememberSaveable { mutableStateOf(false) }
-    // Presentation text must not be restored from the old locale after an
-    // Activity recreation; the input itself remains saveable.
-    var errorMessage by rememberSaveable(appLanguage) { mutableStateOf<String?>(null) }
+    var userFacingError by remember(appLanguage) { mutableStateOf<UserFacingError?>(null) }
     val codeFocusRequester = remember { FocusRequester() }
     val scope = rememberCoroutineScope()
     val normalizedCode = code.trim()
@@ -86,12 +91,12 @@ fun EnterInviteCodeScreen(
         if (isResolving) return
         submitAttempted = true
         if (!isInviteCode(normalizedCode)) {
-            errorMessage = null
+            userFacingError = null
             codeFocusRequester.requestFocus()
             return
         }
 
-        errorMessage = null
+        userFacingError = null
         isResolving = true
         scope.launch {
             try {
@@ -99,14 +104,26 @@ fun EnterInviteCodeScreen(
             } catch (error: CancellationException) {
                 throw error
             } catch (error: Throwable) {
-                errorMessage = inviteLookupErrorMessage(error)
+                val mapped = ClientErrorMapper.map(error, ClientErrorContext.JOIN)
+                userFacingError = mapped
+                SafeClientLogger.log(
+                    error = mapped,
+                    context = ClientErrorContext.JOIN,
+                    httpStatus = when (error) {
+                        is V1HttpException -> error.statusCode
+                        is ApiHttpException -> error.statusCode
+                        else -> null
+                    }
+                )
             } finally {
                 isResolving = false
             }
         }
     }
 
-    BackHandler(enabled = !isResolving, onBack = onBack)
+    BackHandler {
+        if (!isResolving) onBack()
+    }
 
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -152,8 +169,8 @@ fun EnterInviteCodeScreen(
             BNBUFormField(
                 value = code,
                 onValueChange = {
-                    code = it
-                    errorMessage = null
+                    code = it.take(InviteTokenMaxLength)
+                    userFacingError = null
                 },
                 label = interfaceText("邀请码", "Invitation code"),
                 testTag = "courseJoin.enterCode.input",
@@ -181,17 +198,17 @@ fun EnterInviteCodeScreen(
                 ),
                 keyboardActions = KeyboardActions(onDone = { resolveInviteCode() })
             )
-            errorMessage?.let {
-                Text(
-                    text = it,
-                    color = MaterialTheme.colorScheme.error,
-                    style = MaterialTheme.typography.bodyMedium,
+            userFacingError?.let { error ->
+                BNBUErrorPanel(
+                    error = error,
+                    onRetry = if (error.retryable) ::resolveInviteCode else null,
+                    onDismiss = { userFacingError = null },
                     modifier = Modifier.testTag("courseJoin.enterCode.error")
                 )
             }
             Button(
                 onClick = ::resolveInviteCode,
-                enabled = !isResolving,
+                enabled = !isResolving && normalizedCode.isNotBlank(),
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(52.dp)

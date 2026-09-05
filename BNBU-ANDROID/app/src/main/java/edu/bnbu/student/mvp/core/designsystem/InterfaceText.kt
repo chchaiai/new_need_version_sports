@@ -32,7 +32,7 @@ object InterfaceTextResources {
         val context = applicationContext ?: return fallback
         // Never consult the device locale here.  AppLanguagePreferences is
         // initialized before Application/UI creation and is also updated
-        // synchronously before the language-change Activity recreation.
+        // synchronously before the in-place localized composition refresh.
         val localizedContext = AppLanguagePreferences.localizedContext(context)
         val resources = localizedContext.resources
         val resourceId = resources.getIdentifier(resourceName(chinese, english), "string", context.packageName)

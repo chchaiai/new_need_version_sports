@@ -34,8 +34,8 @@ import edu.bnbu.student.mvp.core.designsystem.SwissPanel
 import edu.bnbu.student.mvp.core.designsystem.interfaceText
 
 /**
- * Recovery is intentionally guidance-only. A student who cannot receive email
- * must be verified by a school administrator before the account email changes.
+ * Recovery is intentionally guidance-only. Student clients do not provide
+ * phone/SMS sign-in or a self-service account recovery mutation.
  */
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
@@ -51,13 +51,16 @@ fun RecoveryRequestScreen(onBack: () -> Unit) {
             TopAppBar(
                 title = {
                     Text(
-                        text = interfaceText("无法使用邮箱", "Can't access your email"),
+                        text = interfaceText("邮箱登录帮助", "Email sign-in help"),
                         fontWeight = FontWeight.SemiBold
                     )
                 },
                 navigationIcon = {
                     IconButton(onClick = onBack, modifier = Modifier.testTag("emailRecovery.back")) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
+                        Icon(
+                            Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = interfaceText("返回登录方式", "Back to sign-in options")
+                        )
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -87,15 +90,15 @@ fun RecoveryRequestScreen(onBack: () -> Unit) {
                     )
                     Spacer(Modifier.height(16.dp))
                     Text(
-                        text = interfaceText("请联系学校管理员", "Contact your school administrator"),
+                        text = interfaceText("无法使用已验证邮箱？", "Can't use your verified email?"),
                         style = MaterialTheme.typography.headlineSmall,
                         fontWeight = FontWeight.SemiBold
                     )
                     Spacer(Modifier.height(12.dp))
                     Text(
                         text = interfaceText(
-                            "管理员会先核验你的校内身份，再补录或更正登录邮箱。",
-                            "An administrator will verify your school identity before adding or correcting the sign-in email."
+                            "学生端没有手机号、短信验证码或自助账户恢复入口。请联系学校体育教学部门或账户管理员完成身份核验，并按学校流程处理登录邮箱；本页面不会直接改绑。",
+                            "The student client has no phone, SMS-code, or self-service account-recovery flow. Contact the school sports office or account administrator for identity verification and follow the school's email-recovery process; this page cannot change the address."
                         ),
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         style = MaterialTheme.typography.bodyLarge
