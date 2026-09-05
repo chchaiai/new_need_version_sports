@@ -358,6 +358,15 @@ button { cursor: pointer; }
 .login-card label > span:first-child, .modal-fields label > span, .reason-field > span, .field-grid label > span { font-size: 14px; font-weight: 700; }
 input, textarea, select { width: 100%; border: 1px solid var(--color-outline-variant); background: var(--color-surface-low); color: var(--color-on-surface); border-radius: 12px; padding: 12px 14px; }
 input { height: 48px; }
+input[type="checkbox"],
+input[type="radio"] {
+  width: 16px;
+  height: 16px;
+  min-height: 0;
+  padding: 0;
+  border-radius: 4px;
+  accent-color: var(--color-primary);
+}
 textarea { min-height: 96px; resize: vertical; }
 input::placeholder, textarea::placeholder { color: var(--color-outline); }
 input:focus, textarea:focus, select:focus { border-color: var(--color-primary); }

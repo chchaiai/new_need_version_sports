@@ -14,6 +14,8 @@ export function emptyWorkspace() {
     exemptions: [],
     checkInTimeWindow: { windowMode: "unavailable", dateRangeStart: null, dateRangeEnd: null, dailyStartTime: "", dailyEndTime: "", excludedDates: [], semesterDeadline: null },
     courseJoinRequest: null,
+    proofTodos: [],
+    creditPolicy: null,
   };
 }
 

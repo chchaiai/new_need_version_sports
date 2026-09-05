@@ -66,10 +66,10 @@ import {
 } from "../app/phase5b-contract-revalidation-fixtures.ts";
 
 const expectedBinding = {
-  version: "1.2.0-contract",
+  version: "1.3.0-contract",
   status: "RC",
   publicBasePath: "/api/v1",
-  openapiSha256: "667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a",
+  openapiSha256: "b6bdcad2196dfdd5bccf3c50dc02cf69f5bc431ca4b7d7147efc652004406093",
 };
 
 function classifyActiveSession(httpStatus, body) {
@@ -99,7 +99,7 @@ function summaryWithoutGeneratedAt(summary) {
   return Object.fromEntries(Object.entries(summary).filter(([key]) => key !== "generatedAt"));
 }
 
-test("student and Portal validation bindings pin the exact 1.2.0 Contract version and SHA", () => {
+test("student and Portal validation bindings pin the exact 1.3.0 Contract version and SHA", () => {
   assert.deepEqual(PHASE5B_CONTRACT, expectedBinding);
   assert.deepEqual(PHASE5B_STUDENT_CONTRACT, expectedBinding);
 });

@@ -807,6 +807,7 @@ type RequestOptions = {
   body?: unknown;
   auth?: boolean;
   headers?: Record<string, string>;
+  asContractDto?: boolean;
 };
 
 function hasIdempotencyKey(headers: Record<string, string>): boolean {
@@ -874,6 +875,9 @@ async function rawEnvelopeRequest<T>(
     const error = new ApiError(response.status, parsed, { method, route: path });
     if (error.code === "SYSTEM_MAINTENANCE") publishSystemMaintenance();
     throw error;
+  }
+  if (options.asContractDto) {
+    return { data: parsed as T, meta: {} };
   }
   return { data: parsed?.data as T, meta: parsed?.meta ?? {} };
 }
@@ -1007,6 +1011,17 @@ export function request<T>(
   options: RequestOptions = {},
 ): Promise<T> {
   const stableOptions = stableRequestOptions(options);
+  return requestWithRefresh(
+    () => rawRequest<T>(path, stableOptions),
+    stableOptions,
+  );
+}
+
+export function contractRequest<T>(
+  path: string,
+  options: RequestOptions = {},
+): Promise<T> {
+  const stableOptions = stableRequestOptions({ ...options, asContractDto: true });
   return requestWithRefresh(
     () => rawRequest<T>(path, stableOptions),
     stableOptions,

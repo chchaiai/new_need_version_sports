@@ -97,7 +97,6 @@ export function renderProfile(app) {
     ${sectionTitle(t("profile_services_title"))}
     <div class="row" style="gap:12px;align-items:stretch">
       ${serviceShortcut({ title: t("profile_exemption"), description: t("profile_exemption_short_hint"), iconName: "fitness-center", action: "profile.openExemption" })}
-      ${serviceShortcut({ title: t("profile_endurance"), description: t("profile_endurance_short_hint"), iconName: "timer", action: "profile.openEndurance" })}
     </div>
   </div>`;
 
@@ -128,6 +127,7 @@ export function renderProfile(app) {
   const memberships = workspace.memberships;
   const identityPanel = `<div class="col" style="gap:12px">
     ${sectionTitle(t("profile_identity_title"))}
+    <span class="body-small text-muted">${tx("抵扣只作用于其他运动分钟。本页显示服务端返回值，不本地换算或伪造分钟。", "Offsets apply only to other exercise minutes. This page shows the server value and does not convert or invent minutes locally.")}</span>
     ${memberships.length === 0
       ? emptyPlaceholder(t("profile_no_memberships"), t("profile_no_memberships_hint"))
       : `<div class="swiss-panel">${memberships
@@ -309,7 +309,7 @@ export function renderAccountDeletion(app) {
         <div class="swiss-panel col" style="gap:12px;border:1px solid var(--color-error)">
           <div class="title-medium text-error">${tx("这是不可恢复的危险操作", "This is an irreversible action")}</div>
           <div class="body-medium text-on-surface">${tx("注销后，当前账号会立即停用，所有设备的登录会话、刷新令牌和推送设备关联都会失效。", "Deletion immediately disables this account and revokes sign-ins, refresh tokens, and push-device links on every device.")}</div>
-          <div class="body-medium text-on-surface">${tx("可识别个人资料会删除或去标识化；为保证成绩、审核和审计完整性必须保留的记录会以匿名方式继续保存。", "Identifying profile data is removed or de-identified. Records required for grades, reviews, and audit integrity remain anonymously.")}</div>
+          <div class="body-medium text-on-surface">${tx("可识别个人资料会删除或去标识化；为保证审核和审计完整性必须保留的记录会以匿名方式继续保存。", "Identifying profile data is removed or de-identified. Records required for reviews and audit integrity remain anonymously.")}</div>
           <div class="body-medium text-on-surface">${tx("以后再次注册会创建全新的账号，不会恢复这一个账号或它的历史身份。", "A later registration creates a new account; this identity and its old account are never restored.")}</div>
         </div>
         ${challengeReady ? `<div class="swiss-panel col" style="gap:14px">

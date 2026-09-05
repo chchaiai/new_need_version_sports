@@ -32,9 +32,9 @@ import {
   updateSubAdminRequest,
 } from "../app/phase5gb-contract-fixtures.ts";
 
-const contractVersion = "1.2.0-contract";
+const contractVersion = "1.3.0-contract";
 const contractStatus = "RC";
-const contractSha = "667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a";
+const contractSha = "b6bdcad2196dfdd5bccf3c50dc02cf69f5bc431ca4b7d7147efc652004406093";
 
 const openapiUrl = new URL("../../../contracts/openapi.yaml", import.meta.url);
 const metadataUrl = new URL("../../../contracts/contract-metadata.json", import.meta.url);
@@ -81,7 +81,7 @@ function operation(operationId) {
   return match;
 }
 
-test("Portal and Student bindings pin the same 1.2.0 RC metadata and actual OpenAPI SHA", () => {
+test("Portal and Student bindings pin the same 1.3.0 RC metadata and actual OpenAPI SHA", () => {
   const expected = {
     version: contractVersion,
     status: contractStatus,
@@ -175,13 +175,13 @@ test("all seven CR-003 response surfaces remain bound to StudentApplication cert
   }
 });
 
-test("the exact 45 Admin operations are gated and the exact 10 recovery operations stay gate-safe", () => {
+test("the exact 52 Admin operations are gated and the exact 10 recovery operations stay gate-safe", () => {
   const gated = allOperations()
     .filter((item) => item["x-roles"]?.includes("ADMIN") && item["x-error-codes"]?.includes("FIRST_PASSWORD_CHANGE_REQUIRED"))
     .map((item) => item.operationId)
     .sort();
   assert.deepEqual(gated, [...ADMIN_GATED_OPERATION_IDS]);
-  assert.equal(gated.length, 45);
+  assert.equal(gated.length, 52);
   for (const operationId of ADMIN_GATED_OPERATION_IDS) {
     const item = operation(operationId);
     assert.ok(item.responses[403], `${operationId} must declare 403`);

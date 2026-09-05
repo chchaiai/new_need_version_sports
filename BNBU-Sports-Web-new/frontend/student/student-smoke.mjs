@@ -90,11 +90,30 @@ import {
   videoThumbnailDimensions,
 } from "./js/screens/checkin.js";
 import { localStore } from "./js/store.js";
+import { icon } from "./js/icons.js";
 import {
   HELP_CATEGORY_CODES,
   helpCategoryLabel,
   renderHelpMarkdown,
 } from "./js/help-content.js";
+import {
+  LOCAL_PREVIEW_ACCOUNT_ID,
+  buildLocalPreviewWorkspace,
+  localPreviewEnabled,
+  localPreviewRequested,
+} from "./js/local-preview.js";
+import {
+  PUBLIC_REASON_CATALOG,
+  SYSTEM_OVERDUE_REASON,
+  TEACHER_ACTIONS,
+  classifyStudentNotice,
+  maintenanceTimingPresentation,
+  matchExactPublicReason,
+  reasonsForAction,
+  resolvePublicReasonModel,
+  reviewStageFromRecord,
+  toVisibleStudentNotices,
+} from "./js/v81-review.js";
 const failures = [];
 const checks = [];
 const checkinScreenSource = await readFile(
@@ -126,6 +145,10 @@ const joinScreenSource = await readFile(
   new URL("./js/screens/join.js", import.meta.url),
   "utf8",
 );
+const notificationsScreenSource = await readFile(
+  new URL("./js/screens/notifications.js", import.meta.url),
+  "utf8",
+);
 const servicesScreenSource = await readFile(
   new URL("./js/screens/services.js", import.meta.url),
   "utf8",
@@ -144,6 +167,10 @@ const verificationScreenSource = await readFile(
 );
 const startupScreenSource = await readFile(
   new URL("./js/screens/startup.js", import.meta.url),
+  "utf8",
+);
+const tokenSource = await readFile(
+  new URL("./css/tokens.css", import.meta.url),
   "utf8",
 );
 const studentIndexSource = await readFile(
@@ -309,14 +336,23 @@ check("semester presentation preserves the administrator-managed name", () => {
 });
 
 
-check("student login keeps real-account testing and removes password-free preview", () => {
+check("student login keeps real-account testing and gates local UI preview", () => {
   assert.match(loginScreenSource, /config\?\.appEnv === "local"/u);
   assert.match(loginScreenSource, /login\.testEntry/u);
+  assert.match(loginScreenSource, /login\.localReview/u);
   assert.match(loginScreenSource, /学生端测试入口/u);
-  assert.match(loginScreenSource, /真实学生账号和密码登录/u);
-  assert.doesNotMatch(loginScreenSource, /login\.localReview|免登录预览|使用本地预览数据/u);
-  assert.doesNotMatch(appSource, /enterLocalReview|reviewMode|demoAccount|demo-session/u);
-  assert.doesNotMatch(appSource, /params\.get\("mock"\) === "student"/u);
+  assert.match(loginScreenSource, /本地界面预览/u);
+  assert.match(loginScreenSource, /真实学生账号和邮箱验证码登录/u);
+  assert.equal(localPreviewEnabled({ appEnv: "local" }, "127.0.0.1"), true);
+  assert.equal(localPreviewEnabled({ appEnv: "production" }, "127.0.0.1"), false);
+  assert.equal(localPreviewEnabled({ appEnv: "staging" }, "localhost"), false);
+  assert.equal(localPreviewEnabled({ appEnv: "qa" }, "127.0.0.1"), false);
+  assert.equal(localPreviewEnabled({ appEnv: "unknown" }, "sports.example"), false);
+  assert.equal(localPreviewRequested("?preview=student"), true);
+  assert.equal(localPreviewRequested("?mock=student"), true);
+  assert.equal(localPreviewRequested("?sysmode=normal"), false);
+  assert.match(appSource, /enterLocalPreview/u);
+  assert.doesNotMatch(appSource, /reviewMode|demoAccount|demo-session/u);
   assert.doesNotMatch(checkinScreenSource, /checkin\.addMockPhoto|添加 Mock 照片/u);
   assert.doesNotMatch(checkinScreenSource, /Mock Session|增加 60 分钟|checkin\.add60/u);
   assert.doesNotMatch(servicesScreenSource, /mockEnduranceConversion/u);
@@ -325,6 +361,46 @@ check("student login keeps real-account testing and removes password-free previe
   assert.doesNotMatch(bindingScreenSource, /mock-email-verification|Mock 邮箱验证成功/u);
   assert.doesNotMatch(profileScreenSource, /mock-account-deletion/u);
   assert.match(profileScreenSource, /app\.logout\(\{ clearAccountData: true \}\)/u);
+  assert.match(checkinScreenSource, /本地预览不提交/u);
+});
+
+check("local UI preview workspace is labeled and does not invent student scores", () => {
+  const workspace = buildLocalPreviewWorkspace();
+  assert.equal(workspace.student.id, LOCAL_PREVIEW_ACCOUNT_ID);
+  assert.equal(workspace.student.status, "ACTIVE");
+  assert.equal(workspace.grades.totalScore, null);
+  assert.equal(workspace.grades.enduranceRunScore, null);
+  assert.equal(workspace.grades.enduranceRunStatus, "recorded");
+  assert.ok(workspace.courses.some((course) => course.isCurrent && course.enrollmentStatus === "enrolled"));
+  assert.ok(workspace.notices.some((notice) => /成绩|总分|等级/.test(`${notice.title}${notice.message}`)));
+  const html = renderDashboard({
+    state: { workspace },
+    unreadNoticeCount: () => workspace.notices.filter((notice) => notice.isUnread).length,
+    hasActiveEnrollment: () => true,
+  });
+  assert.match(html, /630 分钟/u);
+  assert.match(html, /1200 分钟/u);
+  assert.doesNotMatch(html, />10\.5h</u);
+});
+
+check("check-in sport icons share one stroke set and keep each activity recognizable", () => {
+  assert.match(checkinScreenSource, /class="sport-grid"/u);
+  assert.match(checkinScreenSource, /icon: "sport-running"/u);
+  assert.match(checkinScreenSource, /icon: "sport-badminton"/u);
+  assert.match(checkinScreenSource, /icon: "sport-table-tennis"/u);
+  assert.match(checkinScreenSource, /icon: "sport-other"/u);
+  assert.doesNotMatch(checkinScreenSource, /value: "(cricket|tennis|volleyball|yoga|jump-rope)"/u);
+  assert.match(checkinScreenSource, /value: "running"/u);
+  assert.match(checkinScreenSource, /value: OTHER/u);
+  for (const name of [
+    "sport-running", "sport-basketball", "sport-football", "sport-badminton",
+    "sport-table-tennis", "sport-swimming", "sport-fitness", "sport-cycling", "sport-other",
+  ]) {
+    const svg = icon(name, 24);
+    assert.match(svg, /stroke="currentColor"/u);
+    assert.match(svg, /stroke-width="2"/u);
+    assert.match(svg, /<svg /u);
+  }
 });
 
 check("time window evaluator blocks unavailable policy", () => {
@@ -435,11 +511,12 @@ check("dashboard keeps the full backend total and never invents a missing target
     unreadNoticeCount: () => 0,
     hasActiveEnrollment: () => true,
   });
-  assert.match(html, />26h</u);
+  assert.match(html, />1560 分钟</u);
   assert.match(html, /待后端同步/u);
   assert.match(html, /老师设置为全天可打卡/u);
   assert.match(html, /进行中/u);
-  assert.doesNotMatch(html, />20h</u);
+  assert.doesNotMatch(html, /1200 分钟/u);
+  assert.doesNotMatch(html, />26h</u);
 });
 
 check("system mode opens only for an explicit NORMAL projection", async () => {
@@ -461,11 +538,12 @@ check("system mode opens only for an explicit NORMAL projection", async () => {
   assert.equal(shouldQuerySystemMode({ hostname: "127.0.0.1", appEnv: "unknown" }), false);
   assert.equal(shouldQuerySystemMode({ hostname: "127.0.0.1", appEnv: "local" }), true);
   assert.equal(qaSystemModeOverride("production", "maintenance"), null);
-  assert.equal(qaSystemModeOverride("local", "maintenance"), null);
+  assert.equal(qaSystemModeOverride("local", "maintenance"), "maintenance");
   assert.equal(qaSystemModeOverride("qa", "maintenance"), "maintenance");
   assert.equal(qaSystemModeOverride("qa", "unknown"), null);
   assert.equal(shouldQuerySystemMode({ hostname: "sports.example", appEnv: "production", override: qaSystemModeOverride("production", "maintenance") }), true);
   assert.equal(shouldQuerySystemMode({ hostname: "sports.example", appEnv: "qa", override: qaSystemModeOverride("qa", "maintenance") }), false);
+  assert.equal(shouldQuerySystemMode({ hostname: "127.0.0.1", appEnv: "local", override: qaSystemModeOverride("local", "normal") }), false);
 });
 
 check("dashboard progress state follows active membership", () => {
@@ -759,6 +837,16 @@ check("check-in stages follow the Android information hierarchy", () => {
     checkinScreenSource,
     /durationMs < SESSION_MIN_CREDIT_MILLIS \? 0 : creditedHours\(durationMs\)/u,
   );
+  assert.match(
+    checkinScreenSource,
+    /计入由服务端按整分钟、课程门槛和 60 分钟封顶计算/u,
+  );
+  assert.match(checkinScreenSource, /30 分钟门槛/u);
+  assert.match(checkinScreenSource, /45 分钟门槛/u);
+  assert.match(checkinScreenSource, /60 分钟封顶/u);
+  assert.match(checkinScreenSource, /creditPolicyChips\(workspace.creditPolicy\)/u);
+  assert.match(checkinScreenSource, /data-action="checkin.submitProof"/u);
+  assert.match(checkinScreenSource, /提交补证/u);
   assert.match(checkinScreenSource, /data-timer-hours>\$\{estimatedCreditedHours\(duration\)\}h/u);
   assert.match(checkinScreenSource, /hoursEl\.textContent = `\$\{estimatedCreditedHours\(duration\)\}h`/u);
 });
@@ -1766,7 +1854,7 @@ check("account cleanup releases nested transient Blob URLs", async () => {
   }
 });
 
-check("Student form primitives focus the first invalid control and endurance inputs expose numeric semantics", () => {
+check("Student form primitives focus the first invalid control and endurance view hides scores", () => {
   const focused = [];
   const viewport = {
     querySelector(selector) {
@@ -1778,13 +1866,10 @@ check("Student form primitives focus the first invalid control and endurance inp
 
   const html = renderEnduranceScoring({
     ui: {},
-    state: { workspace: { student: { gender: "male", gradeLevel: "freshman" } } },
+    state: { workspace: { student: { gender: "male", gradeLevel: "freshman" }, grades: { enduranceRunStatus: "recorded", enduranceRunTimeSeconds: 210 } } },
   });
-  assert.match(html, /<label[^>]+for="endurance-minutes"/u);
-  assert.match(html, /id="endurance-minutes"[^>]+type="number"[^>]+min="0"[^>]+max="99"/u);
-  assert.match(html, /id="endurance-seconds"[^>]+type="number"[^>]+min="0"[^>]+max="59"/u);
-  assert.match(html, /aria-describedby="endurance-minutes-support"/u);
-  assert.match(html, /aria-describedby="endurance-seconds-support"/u);
+  assert.match(html, /3′30″/u);
+  assert.doesNotMatch(html, /endurance-minutes|endurance\.convert|单项得分|优秀|良好|及格/u);
   assert.match(loginScreenSource, /focusFirstInvalidField\(app\._viewport, \["#login-privacy-check"\]\)/u);
   assert.match(verificationScreenSource, /\["#vlogin-contact", "#vlogin-code"\]/u);
   assert.match(joinScreenSource, /#manual-invite-code/u);
@@ -2070,6 +2155,80 @@ check("exercise session round-trips through the store per account", () => {
   assert.equal(localStore.getExerciseSession("acct-2"), null);
   localStore.clearExerciseSession("acct-1");
   assert.equal(localStore.getExerciseSession("acct-1"), null);
+});
+
+check("v8 contract-wired student pages keep grace non-refreshable and show server proof todos", () => {
+  assert.match(joinScreenSource, /expiresAt: preview\.expiresAt/u);
+  assert.match(joinScreenSource, /刷新宽限（业务不允许续期）/u);
+  assert.match(joinScreenSource, /无需教师审批/u);
+  assert.match(joinScreenSource, /服务端待审核（旧状态）/u);
+  assert.match(dashboardScreenSource, /打开补证待办/u);
+  assert.match(dashboardScreenSource, /data-action="dashboard.openProofTodo"/u);
+  assert.doesNotMatch(dashboardScreenSource, /打开补证待办（当前接口没有）/u);
+  assert.match(gradesScreenSource, /查看换算分 \/ 等级 \/ 排名（不向学生披露）/u);
+  assert.match(coursesScreenSource, /加入另一门课（同学期已有课程）/u);
+  assert.match(notificationsScreenSource, /补证倒计时/u);
+  assert.doesNotMatch(notificationsScreenSource, /补证倒计时（当前接口没有）/u);
+  assert.match(profileScreenSource, /不本地换算或伪造分钟/u);
+});
+
+check("v8.1 public reasons keep six bilingual categories and action scopes", () => {
+  assert.deepEqual(
+    PUBLIC_REASON_CATALOG.map((reason) => [reason.zh, reason.en]),
+    [
+      ["材料不清晰", "Unclear evidence"],
+      ["必需材料缺失（含要求的前后照）", "Missing required evidence"],
+      ["材料与本次运动不符", "Evidence does not match this session"],
+      ["材料信息矛盾", "Inconsistent evidence"],
+      ["材料真实性待核实", "Evidence authenticity requires clarification"],
+      ["经核实存在重复使用或冒用材料", "Confirmed reuse or misuse of evidence"],
+    ],
+  );
+  assert.equal(reasonsForAction(TEACHER_ACTIONS.ReturnForSupplement).length, 5);
+  assert.equal(reasonsForAction(TEACHER_ACTIONS.MarkInvalid).length, 5);
+  assert.equal(matchExactPublicReason("材料不清晰")?.id, "UnclearEvidence");
+  assert.equal(matchExactPublicReason("凭证模糊"), null);
+  assert.equal(SYSTEM_OVERDUE_REASON.zh, "补证逾期");
+  assert.equal(resolvePublicReasonModel({ teacherPublicFeedback: "请补一张原图" }).kind, "unavailable");
+  assert.equal(resolvePublicReasonModel({ studentVisibleReason: "材料不清晰\n请补一张原图" }).kind, "teacher");
+  assert.equal(resolvePublicReasonModel({ reviewResult: "PROOF_OVERDUE_INVALID" }).kind, "systemOverdue");
+});
+
+check("v8.1 review stages stay separate and do not guess missing wire values", () => {
+  assert.equal(reviewStageFromRecord({ reviewResult: "PENDING_AI" }).zh, "待 AI 检查");
+  assert.equal(reviewStageFromRecord({ reviewResult: "AWAITING_TEACHER" }).zh, "待教师复核");
+  assert.equal(reviewStageFromRecord({ reviewResult: "RETURN_FOR_PROOF" }).zh, "待补证");
+  assert.equal(reviewStageFromRecord({ reviewResult: "TECHNICAL_PROCESSING" }).zh, "技术处理中");
+  assert.equal(reviewStageFromRecord({ reviewResult: "VALID", hours: 1 }).zh, "有效 · 已计入");
+  assert.equal(reviewStageFromRecord({ reviewResult: "VALID", hours: 0 }).zh, "有效 · 未计入");
+  assert.equal(reviewStageFromRecord({ reviewResult: null, hours: 1 }).zh, "审核阶段暂不可用");
+  assert.match(checkinScreenSource, /固定公开原因/u);
+  assert.match(checkinScreenSource, /reviewStageFromRecord/u);
+});
+
+check("v8.1 notices keep proof wording and drop only explicit score disclosures", () => {
+  const notices = toVisibleStudentNotices([
+    { id: "upload-failed", title: "Evidence upload failed", message: "Try the same evidence batch again", category: "review", targetType: "exercise_record" },
+    { id: "proof", title: "运动材料需要补证", message: "请在截止前补充原次运动材料。", category: "review", targetType: "exercise_record" },
+    { id: "score", title: "成绩已发布", message: "本学期总分预估 85，等级良好。", category: "system" },
+    { id: "grade-en", title: "Final grade available", message: "Open the app", category: "review", targetType: "exercise_record" },
+    { id: "generic", title: "欢迎回来", message: "暂无待办", category: "system" },
+  ]);
+  assert.deepEqual(notices.map((notice) => notice.id), ["upload-failed", "proof"]);
+  assert.equal(classifyStudentNotice({ title: "Evidence passed initial checks", message: "Waiting for teacher review" })?.kind, "review");
+});
+
+check("v8.1 maintenance page shows paused proof timing or an unavailable state", () => {
+  const paused = maintenanceTimingPresentation(
+    { kind: "paused", serverConfirmedRemainingSeconds: 18 * 3600 + 24 * 60 },
+    false,
+  );
+  assert.equal(paused.status, "计时已暂停");
+  assert.match(paused.remainingTime, /18小时24分钟/u);
+  const unavailable = maintenanceTimingPresentation({ kind: "unavailable" }, false);
+  assert.equal(unavailable.status, "状态暂不可确认");
+  assert.match(startupScreenSource, /maintenance\.supplementTiming/u);
+  assert.match(startupScreenSource, /预计恢复时间仅供参考/u);
 });
 
 for (const { name, fn } of checks) {

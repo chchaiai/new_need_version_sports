@@ -3,10 +3,10 @@
 // welcome (conditional) → join request entry OR course join entry → ongoing
 // exercise resume (conditional) → total progress → breakdown.
 
-import { t, tx, currentLocale } from "../i18n.js";
+import { t, tx, currentLocale, getLanguage } from "../i18n.js";
 import { icon } from "../icons.js";
 import { esc } from "../ui.js";
-import { hourText } from "../data.js";
+import { resolvePublicReasonModel } from "../v81-review.js";
 import { canStartExercise, hasSubmittedCheckInToday, loadSession, sessionDurationMs, formatTimer } from "../session.js";
 import { joinRequestEntryPanel } from "./join.js";
 
@@ -23,14 +23,19 @@ function homeProgressBar(value, total, height) {
   return `<div class="home-progress" style="height:${height}px"><div class="fill" style="width:${progress * 100}%"></div></div>`;
 }
 
+function formatMinutesFromHours(value) {
+  const minutes = Math.round((Number(value) || 0) * 60);
+  return tx(`${minutes} 分钟`, `${minutes} min`);
+}
+
 function categoryMetric({ title, value, target }) {
   const targetText = Number.isFinite(target)
-    ? hourText(target)
+    ? formatMinutesFromHours(target)
     : tx("待后端同步", "Waiting for backend");
   return `<div class="col">
     <div class="row" style="gap:12px">
       <span class="title-medium text-on-surface grow" style="font-weight:500">${esc(title)}</span>
-      <span class="body-medium text-on-surface" style="font-weight:500">${hourText(value)} / ${esc(targetText)}</span>
+      <span class="body-medium text-on-surface" style="font-weight:500">${formatMinutesFromHours(value)} / ${esc(targetText)}</span>
     </div>
   </div>`;
 }
@@ -151,6 +156,10 @@ export function renderDashboard(app) {
       <div class="title-large text-on-surface">${t("dashboard_join_course")}</div>
       <div style="height:8px"></div>
       <div class="body-medium text-muted">${t("dashboard_join_course_hint")}</div>
+      <div style="height:8px"></div>
+      <div class="body-small text-muted">${tx("加入成功后即为有效成员，无需教师审批。已开始的同一次入班可使用服务器 10 分钟宽限，且不得刷新续期。", "A successful join is an active membership with no teacher approval. A join already started may use the server 10-minute grace period, which cannot be refreshed.")}</div>
+      <div style="height:12px"></div>
+      <button class="outlined-btn" type="button" disabled style="min-height:48px">${tx("刷新宽限（业务不允许续期）", "Refresh grace (not allowed)")}</button>
       <div style="height:20px"></div>
       <button class="primary-btn pressable" data-action="dashboard.scanJoin">${icon("qr-code-scanner", 20)}<span>${t("login_scan_button")}</span></button>
       <div style="height:4px"></div>
@@ -194,9 +203,9 @@ export function renderDashboard(app) {
     <div class="body-small text-muted">${t("dashboard_total_completed")}</div>
     <div style="height:4px"></div>
     <div class="row" style="align-items:flex-end">
-      <span style="font-size:44px;line-height:50px;font-weight:600;letter-spacing:-1px;color:var(--color-on-surface)">${d.hasAuthoritativeTotal ? hourText(d.totalCompleted) : "—"}</span>
+      <span style="font-size:44px;line-height:50px;font-weight:600;letter-spacing:-1px;color:var(--color-on-surface)">${d.hasAuthoritativeTotal ? formatMinutesFromHours(d.totalCompleted) : "—"}</span>
       <span style="width:8px"></span>
-      <span class="title-medium text-muted" style="padding-bottom:6px">/ ${d.hasAuthoritativeTarget ? hourText(workspace.hourRule.total) : tx("待后端同步", "Waiting for backend")}</span>
+      <span class="title-medium text-muted" style="padding-bottom:6px">/ ${d.hasAuthoritativeTarget ? formatMinutesFromHours(workspace.hourRule.total) : tx("待后端同步", "Waiting for backend")}</span>
       <span class="grow"></span>
       <span class="headline-small text-primary" style="padding-bottom:4px">${d.hasAuthoritativeTotal ? `${completionPercent}%` : "—"}</span>
     </div>
@@ -205,14 +214,14 @@ export function renderDashboard(app) {
     <div style="height:12px"></div>
     <div class="body-medium" style="color:${d.isQualified ? "var(--color-primary)" : "var(--color-on-surface-variant)"};font-weight:${d.isQualified ? 500 : 400}">
       ${!d.hasAuthoritativeTotal
-        ? tx("等待后端计算有效时长。", "Waiting for the backend to calculate valid hours.")
+        ? tx("等待后端计算有效分钟。", "Waiting for the backend to calculate valid minutes.")
         : !d.hasAuthoritativeTarget
-          ? tx("有效打卡时长已从后端累计；学时目标等待后端同步。", "Valid check-in hours are summed from the backend; the target is waiting for backend sync.")
+          ? tx("有效分钟已从后端累计；目标等待后端同步。", "Valid minutes are summed from the backend; the target is waiting for backend sync.")
         : d.isQualified
           ? t("dashboard_goal_reached")
           : d.totalRemaining === 0
-            ? tx(`总时长已达到 ${hourText(workspace.hourRule.total)}，等待后端确认达标状态。`, `The total has reached ${hourText(workspace.hourRule.total)}; waiting for backend qualification confirmation.`)
-            : t("dashboard_total_remaining", hourText(d.totalRemaining))}
+            ? tx(`总进度已达到 ${formatMinutesFromHours(workspace.hourRule.total)}，等待后端确认达标状态。`, `The total has reached ${formatMinutesFromHours(workspace.hourRule.total)}; waiting for backend qualification confirmation.`)
+            : t("dashboard_total_remaining", formatMinutesFromHours(d.totalRemaining))}
     </div>
   `, 20);
 
@@ -226,6 +235,31 @@ export function renderDashboard(app) {
     `)}
   </div>`;
 
+  const proofTodos = Array.isArray(workspace.proofTodos) ? workspace.proofTodos : [];
+  const proofTodoRows = proofTodos.map((item) => {
+    const remain = Number(item.remainingSeconds);
+    const minutes = Number.isFinite(remain) ? Math.max(0, Math.ceil(remain / 60)) : 0;
+    return `<button class="outlined-btn pressable" type="button" data-action="dashboard.openProofTodo" data-record-id="${esc(item.recordId || "")}" style="min-height:44px;width:100%;text-align:left">
+      <span class="body-medium grow">${esc((() => {
+        const model = resolvePublicReasonModel(item);
+        if (model.kind === "teacher") return getLanguage() === "en-US" ? model.reason.en : model.reason.zh;
+        if (model.kind === "systemOverdue") return tx("补证逾期", "Supplementary evidence deadline missed");
+        return item.studentVisibleReason || tx("待补证", "Proof required");
+      })())}</span>
+      <span class="body-small text-muted">${tx(`剩余约 ${minutes} 分钟`, `About ${minutes} min left`)}</span>
+    </button>`;
+  }).join("");
+  const proofTodoPanel = homeCard(`
+    <div class="title-large text-on-surface">${tx("补证待办", "Proof to-do")}</div>
+    <div style="height:8px"></div>
+    <div class="body-medium text-muted">${proofTodos.length
+      ? tx("截止时间来自服务器 remainingSeconds，本页不本地倒计时伪造。", "Deadlines come from server remainingSeconds; this page does not invent a local countdown.")
+      : tx("当前没有开放的补证窗口。列表只显示服务器返回的待办。", "There is no open proof window. This list only shows server to-dos.")}</div>
+    ${proofTodoRows ? `<div style="height:12px"></div>${proofTodoRows}` : ""}
+    <div style="height:16px"></div>
+    <button class="outlined-btn pressable" type="button" data-action="dashboard.openCheckIn" ${proofTodos.length ? "" : "disabled"} style="min-height:48px">${tx("打开补证待办", "Open proof to-do")}</button>
+  `);
+
   return `<div class="tab-content col" style="gap:28px;padding-top:4px">
     ${header}
     ${todayPanel}
@@ -233,6 +267,7 @@ export function renderDashboard(app) {
     ${resumePanel}
     ${overview}
     ${breakdown}
+    ${proofTodoPanel}
   </div>`;
 }
 
@@ -243,6 +278,11 @@ export const dashboardActions = {
     app.render();
   },
   "dashboard.openCheckIn": (app) => app.selectTab("checkin"),
+  "dashboard.openProofTodo": (app, el) => {
+    if (!app.ui.checkin) app.ui.checkin = {};
+    app.ui.checkin.focusProofRecordId = el?.dataset?.recordId || null;
+    app.selectTab("checkin");
+  },
   "dashboard.scanJoin": (app) => {
     app.ui.scan = null;
     app.openSub("scan", {});

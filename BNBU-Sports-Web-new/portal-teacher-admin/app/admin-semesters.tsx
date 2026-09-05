@@ -191,7 +191,7 @@ export function AdminSemesters({ locale }: { locale: AdminLocale }) {
       {storeError && <div className="admin-inline-error" role="alert">{storeError.message}</div>}
 
       <section className="admin-surface admin-table-surface admin-semester-list-surface">
-        <AdminSectionHeading title={locale === "zh" ? "全部学期" : "All semesters"} description={locale === "zh" ? "当前学期只允许切换产生，已归档学期不可恢复或删除。" : "Current status changes only through switching. Archived semesters cannot be restored or deleted."} />
+        <AdminSectionHeading title={locale === "zh" ? "全部学期" : "All semesters"} description={locale === "zh" ? "现有学期创建与切换保持。已归档学期不可恢复或删除；不新开放无接口能力。" : "Existing semester create and switch stay. Archived semesters cannot be restored or deleted; capabilities without an API are not opened."} />
         {state.semesters.length === 0 ? <AdminEmpty locale={locale} /> : (
           <>
             <div className="table-wrap admin-semester-table-wrap"><table className="admin-table admin-semester-table"><thead><tr><th>{locale === "zh" ? "学期" : "Semester"}</th><th>{adminCopy(locale, "academic_year")}</th><th>{adminCopy(locale, "date_range")}</th><th>{locale === "zh" ? "课程 / 学生" : "Courses / students"}</th><th>{adminCopy(locale, "status")}</th><th>{locale === "zh" ? "操作" : "Actions"}</th></tr></thead><tbody>{state.semesters.map((item) => (

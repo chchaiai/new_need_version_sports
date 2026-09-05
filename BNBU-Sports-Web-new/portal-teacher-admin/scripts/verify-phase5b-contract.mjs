@@ -4,10 +4,10 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const expected = Object.freeze({
-  contractVersion: "1.2.0-contract",
+  contractVersion: "1.3.0-contract",
   contractStatus: "RC",
   publicBasePath: "/api/v1",
-  openapiSha256: "667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a",
+  openapiSha256: "b6bdcad2196dfdd5bccf3c50dc02cf69f5bc431ca4b7d7147efc652004406093",
 });
 
 const scriptDirectory = dirname(fileURLToPath(import.meta.url));

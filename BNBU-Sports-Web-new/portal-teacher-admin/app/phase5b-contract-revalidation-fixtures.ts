@@ -23,6 +23,7 @@ export const teacherInvitationPage = {
       courseId: currentCourse.courseId,
       displaySuffix: "7K9M",
       status: "ACTIVE",
+      durationMinutes: 30,
       expiresAt: "2026-09-30T15:59:59Z",
       revocable: true,
       version: 4,
@@ -32,6 +33,7 @@ export const teacherInvitationPage = {
       courseId: currentCourse.courseId,
       displaySuffix: "2Q4R",
       status: "REVOKED",
+      durationMinutes: 30,
       expiresAt: "2026-09-15T15:59:59Z",
       revocable: false,
       version: 6,
@@ -422,6 +424,9 @@ export const createCourseRequest = {
   checkinClosesAt: "2027-01-15T15:59:59Z",
   courseRelatedTargetMinutes: 720,
   otherTargetMinutes: 480,
+  minCreditThresholdMinutes: 30,
+  weeklySessionFrequency: 3,
+  sportTemplateId: null,
 } satisfies Schema<"CourseCreateRequest">;
 
 export const semesterNotCurrentError = {

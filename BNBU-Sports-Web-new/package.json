@@ -3,7 +3,7 @@
   "private": true,
   "description": "BNBU 体育成绩管理系统",
   "scripts": {
-    "preview": "node frontend/preview-server.cjs",
+    "preview": "APP_ENV=local node frontend/preview-server.cjs",
     "test:web": "node frontend/preview-runtime-config.test.cjs",
     "test:student": "node frontend/student/student-smoke.mjs"
   }

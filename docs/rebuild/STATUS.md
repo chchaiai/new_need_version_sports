@@ -1,14 +1,21 @@
 # 当前进度状态
 
-> 更新时间：2026-09-04
+> 更新时间：2026-09-05
 >
-> 当前工作：按用户要求删除总览“0.4 待决边界”及当前失效引用，版本保持 V8.1，更新现有 [PR #3](https://github.com/chchaiai/new_need_version_sports/pull/3)；目标仍为 `chchaiai/new_need_version_sports:main`，未合并、未部署。
+> 当前工作：从仓库最新 `main@8c98268`（V8.1）按业务正文与 Contract 1.2.0 完成正式 Web 展示设计，分支 `codex/web-v81-align`。见 [V8.1 Web 交接](handoffs/2026-09-05-web-v81-align.md)。
 >
-> 完成状态：指定章节删除、引用同步与文档检查 DONE；系统开发整体仍 PARTIAL。当前学生端仅开发 Android / Web，教师与管理员继续使用 Web；未实施页面、Contract、Backend 或数据库迁移。
+> 完成状态：Web 通知、维护补证计时、六类公开原因和审核环节展示 PARTIAL（UI 按业务完成；业务有而合同没有的能力已列入交接，未私造正式协议）。颜色保持原 Web 主题。系统开发整体仍 PARTIAL。未合并、未部署。
 
 本页按各部分的具体情况记录当前进度。后续工作的数字编号和事项见 [项目 README](../../README.md#后续开发路线)。
 
-## 本轮删除指定待决说明
+## 本轮 Web V8.1 展示设计（进行中）
+
+- 业务权威为 `origin/main@8c9826822f35876f8d01480f8baf184027711dfe` 的 V8.1 四份正文；协议权威为仓库 `1.2.0-contract`。不对齐 Android，不以 Android 复审为设计来源。
+- 已按业务完成：学生通知过滤（保留审核/补证，省略成绩类）、维护页补证暂停/剩余或暂不可确认、六类中英原因与系统逾期分离、审核环节词表、教师退回/判无效固定分类。颜色恢复原 Web 主题。
+- 未改 Contract、业务正文、Android、Backend。业务有而合同没有的能力（退回补证 operation、原因枚举、补证包、维护剩余时间、锁定批次续传、中间审核态等）只写在交接表，不私造正式协议。
+- 正式补证、锁定批次续传和真实联调仍缺生产入口。
+
+## 前次删除指定待决说明
 
 - 用户要求先忽略并删除总览“0.4 待决边界”，版本仍为 V8.1；已删除该标题、说明与表格，清理四份当前业务正文对该节的引用，不在其他当前业务章节重新列出该表。
 - 本次是文档删减，不等于原问题已得到业务答案；不新增公开分类、不改变已确认审核/期限/SLA 等规则，也不将此前讨论建议视为 ACCEPTED。
@@ -104,7 +111,7 @@ CR 须经独立评审；接受后发布新的 Version / SHA，重新生成 Andro
 
 ## 交接与证据边界
 
-- 本轮：[章节删除交接](handoffs/2026-09-04-business-remove-pending-section.md)。前次为[V8.1 版本更正](handoffs/2026-09-04-business-version-v8.1.md)、[业务文档 PR 发布](handoffs/2026-09-04-business-pr-publication.md)、[业务复核决定同步](handoffs/2026-09-04-business-review-followup.md)、[审核公开原因与补证终结](handoffs/2026-09-04-review-public-reasons.md)和[客户端开发范围调整](handoffs/2026-09-04-business-platform-scope.md)。v8.0 原方案见[历史更新报告](handoffs/2026-09-04-teacher-first-business-update.md)；历史说明与现行正文冲突处不再适用。
+- 本轮：[V8.1 Web 展示设计](handoffs/2026-09-05-web-v81-align.md)。前次为[章节删除交接](handoffs/2026-09-04-business-remove-pending-section.md)、[V8.1 版本更正](handoffs/2026-09-04-business-version-v8.1.md)、[业务文档 PR 发布](handoffs/2026-09-04-business-pr-publication.md)、[业务复核决定同步](handoffs/2026-09-04-business-review-followup.md)、[审核公开原因与补证终结](handoffs/2026-09-04-review-public-reasons.md)和[客户端开发范围调整](handoffs/2026-09-04-business-platform-scope.md)。v8.0 原方案见[历史更新报告](handoffs/2026-09-04-teacher-first-business-update.md)；历史说明与现行正文冲突处不再适用。
 - 前次 v8.0 业务更新以 `71655cc18d0c29b159eebc4ba293a25a27bcfe7e` 为修改前基线；其报告中的分支、提交评审和 PR 状态是历史上下文。前次发布从 `49d992a1333294ea561923cfea0b7d25864a4d91` 开始，已提交文档并向指定目标仓库推送业务分支、创建 PR #3，未合并或部署。
 - 历史导入记录见[Phase 0 交接](handoffs/phase-0-repository-import-and-team-guide.md)；[历史状态](handoffs/baseline-status-2026-09-02.md)只供追溯。
 - 前次发布原样提交业务改动，仅为记录 PR 更新 STATUS 并新增发布交接；没有修改项目 README、Contract、Android、Web、Backend、数据库设计、实现或既有交接。当时四项 PENDING 及既有 Contract 门禁保持；本轮删除待决说明不修改 Contract 门禁。

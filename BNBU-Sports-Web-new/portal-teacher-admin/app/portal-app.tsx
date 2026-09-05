@@ -45,7 +45,6 @@ import {
   completeAccountRecovery,
   currentApiRequestMode,
   currentApiSessionEpoch,
-  getCurrentOrganization,
   getMe,
   hasApiSession,
   logoutApi,
@@ -171,7 +170,7 @@ const teacherNav: NavItem[] = [
   { id: "courses", label: "课程管理", icon: BookOpen },
   { id: "roster", label: "学生管理", icon: Users },
   { id: "checkins", label: "打卡审核", icon: ClipboardCheck },
-  { id: "grades", label: "成绩管理", icon: GraduationCap },
+  { id: "grades", label: "内部成绩册", icon: GraduationCap },
   { id: "exemptions", label: "免测与认证", icon: ShieldCheck },
 ];
 
@@ -216,39 +215,44 @@ const pageCopy: Record<
     courses: {
       title: "课程管理",
       eyebrow: "教学业务",
-      description: "管理本人授课班级、课程目标、打卡时间窗与邀请码。",
+      description:
+        "管理本人班级与时间窗。已发布课程的门槛由模板锁定；本页不能改公式。邀请按 5–120 分钟生成。",
     },
     roster: {
       title: "学生管理",
       eyebrow: "教学业务",
-      description: "查看直接加入的课程成员、加入信息、学时进度与当前状态。",
+      description:
+        "查看直接加入的成员。电子名单走现有导入；纸质 OCR 走 Contract allocateRosterOcr，未确认草稿不会当成当前名单。",
     },
     checkins: {
       title: "打卡审核",
       eyebrow: "教学业务",
-      description: "集中处理学生打卡记录与异常内容。",
+      description:
+        "按 V8.1 展示通过 / 退回补证 / 无效。退回与判无效必须选择六类固定公开原因；通过与无效仍写入现有接口，退回补证调用 Contract RETURN_FOR_PROOF。",
     },
     grades: {
-      title: "成绩管理",
+      title: "内部成绩册",
       eyebrow: "教学业务",
-      description: "录入耐力跑成绩并统一发布给学生。",
+      description: "查看内部成绩投影。换算分、等级和排名不向学生披露。",
     },
     exemptions: {
       title: "免测与组织认证",
       eyebrow: "教学业务",
-      description: "审核免测申请及组织认证材料。",
+      description:
+        "审核免测与认证。内部自定义分不向学生披露；抵扣字段仍写入现有申请接口。",
     },
   },
   admin: {
     overview: {
       title: "系统概览",
       eyebrow: "管理员工作台",
-      description: "查看 Backend 实时健康状态与当前可用的管理数据。",
+      description:
+        "查看 Backend 实时健康状态。统一运动模板与有限审核授权走 Contract；Backend 未实现时显示真实错误。",
     },
     courses: {
       title: "课程目录看板",
       eyebrow: "教学运行",
-      description: "只读查看当前全部课程、学生人数与打卡情况。",
+      description: "只读查看当前全部课程。不代填成绩，不开放单条打卡下钻。",
     },
     semesters: {
       title: "学期管理",
@@ -263,7 +267,8 @@ const pageCopy: Record<
     subadmins: {
       title: "分管理员设置",
       eyebrow: "权限管理",
-      description: "设置分管理员账号、初始密码以及可使用的侧边栏标签权限。",
+      description:
+        "设置分管理员账号与现有侧栏权限。有限审核授权走 Contract createLimitedReviewGrant。",
     },
     support: {
       title: "学生问题反馈",
@@ -275,7 +280,7 @@ const pageCopy: Record<
       title: "耐力跑换算表",
       eyebrow: "全局治理",
       description:
-        "维护四套耐力跑成绩换算规则。学时目标仅由任课教师在教学班内配置。",
+        "维护四套耐力跑换算表，并可通过 Contract 发布运动模板。已开课课程不会被回溯改门槛。",
     },
     system: {
       title: "系统模式",
@@ -297,20 +302,25 @@ const pageCopy: Record<
 
 const realPageDescription: Record<Role, Record<string, string>> = {
   teacher: {
-    courses: "查看服务端教学班、成员关系、时间窗与一次性课程邀请。",
-    roster: "查看真实课程成员、加入状态与服务端成绩进度。",
-    checkins: "依据服务端记录与受保护运动凭证追加有效或无效审核。",
-    grades: "重新计算并发布服务端成绩投影；客户端不录入或伪造分数。",
-    exemptions: "审核服务端免测申请；审核结论不会自动生成分数或抵扣时长。",
+    courses:
+      "查看服务端教学班与时间窗。已发布课程门槛锁定；邀请按 Contract durationMinutes 生成。",
+    roster:
+      "查看真实课程成员。电子名单走现有导入；纸质 OCR 走 Contract，未确认草稿不会当成当前快照。",
+    checkins:
+      "依据服务端记录追加有效或无效。退回补证调用 Contract RETURN_FOR_PROOF。",
+    grades: "刷新内部成绩投影。换算分不向学生披露；客户端不录入或伪造分数。",
+    exemptions:
+      "审核服务端免测申请；内部自定义分不向学生披露。审核结论不会自动生成分数。",
   },
   admin: {
-    overview: "查看 Backend 实时健康状态与当前可用的管理数据。",
+    overview:
+      "查看 Backend 实时健康状态。模板发布、有限审核授权走 Contract，失败时显示真实错误。",
     courses: "只读汇总当前学期全部教学班、成员关系和有效打卡数据。",
     semesters: "查看服务端当前学期；本地预览完整呈现创建、配置与切换流程。",
     accounts: "查看组织范围内的账号与角色资料；当前 API 不提供账号恢复、解锁或删除操作。",
     subadmins: "设置分管理员账号、初始密码和侧边栏权限；当前预览配置只保存在本浏览器。",
     support: "查看学生端提交的问题类型和问题描述；当前 API 不提供回复或状态变更操作。",
-    rules: "维护服务端总学时成绩规则草稿，并执行双管理员审批流程。",
+    rules: "维护四套耐力跑换算表，并可通过 Contract 发布运动模板。",
     system: "查看服务端系统模式；本地预览可验证完整的状态切换流程。",
     help: "查看服务端已发布的中英文帮助内容；当前客户端 API 不提供发布能力。",
     audit: "追踪服务端关键操作；审计记录只读，不可修改或删除。",
@@ -380,7 +390,6 @@ export function PortalApp() {
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [recoveryStep, setRecoveryStep] = useState<RecoveryStep | null>(null);
-  const [recoveryOrganizationCode, setRecoveryOrganizationCode] = useState("");
   const [recoveryAccount, setRecoveryAccount] = useState("");
   const [recoveryRole, setRecoveryRole] = useState<"TEACHER" | "ADMIN">(
     "TEACHER",
@@ -890,7 +899,6 @@ export function PortalApp() {
     requestedRole: "TEACHER" | "ADMIN",
     requestedAccount: string,
   ) => {
-    setRecoveryOrganizationCode("");
     setRecoveryAccount(requestedAccount);
     setRecoveryRole(requestedRole);
     setRecoveryId("");
@@ -912,20 +920,9 @@ export function PortalApp() {
     const visibleEmail = currentUser?.email.trim() ?? "";
     const requestedAccount = visibleEmail.includes("*") ? "" : visibleEmail;
     startRecovery(requestedRole, requestedAccount);
-    if (workspaceMode !== "real") return;
-    setRecoveryBusy(true);
-    try {
-      const organization = await getCurrentOrganization();
-      setRecoveryOrganizationCode(organization.organizationCode);
-    } catch (error) {
-      setRecoveryError(toUserFacingError(error, locale));
-    } finally {
-      setRecoveryBusy(false);
-    }
   };
 
   const resetPasswordSettings = () => {
-    setRecoveryOrganizationCode("");
     setRecoveryAccount("");
     setRecoveryId("");
     setRecoveryExpiresAt("");
@@ -960,7 +957,6 @@ export function PortalApp() {
 
   const sendRecoveryCode = async () => {
     if (recoveryBusy) return;
-    const organizationCode = recoveryOrganizationCode.trim().toUpperCase();
     const recoveryEmail = recoveryAccount.trim();
     if (!/^\S+@\S+\.\S+$/.test(recoveryEmail)) {
       setRecoveryError(localUserFacingError(
@@ -974,7 +970,6 @@ export function PortalApp() {
     setRecoveryError(null);
     try {
       const accepted = await requestAccountRecovery({
-        organizationCode: organizationCode || undefined,
         account: recoveryEmail,
         requestedRole: recoveryRole,
         locale: locale === "en" ? "en" : "zh-CN",
@@ -1671,9 +1666,6 @@ export function PortalApp() {
                 ? recoveryStep
                 : "identify"
             }
-            recoveryOrganizationReady={
-              workspaceMode === "demo" || Boolean(recoveryOrganizationCode)
-            }
             recoveryAccount={recoveryAccount}
             recoveryExpiresAt={recoveryExpiresAt}
             recoveryCode={recoveryCode}
@@ -2132,7 +2124,6 @@ function PasswordSettingsPanel({
   mode,
   user,
   step,
-  organizationReady,
   account,
   expiresAt,
   code,
@@ -2155,7 +2146,6 @@ function PasswordSettingsPanel({
   mode: WorkspaceMode;
   user: WorkspaceUser;
   step: PasswordSettingsStep;
-  organizationReady: boolean;
   account: string;
   expiresAt: string;
   code: string;
@@ -2278,7 +2268,7 @@ function PasswordSettingsPanel({
               type="submit"
               form="password-settings-identify-form"
               formNoValidate={isPreview}
-              disabled={busy || !organizationReady}
+              disabled={busy}
             >
               <Mail size={16} aria-hidden="true" />
               {isPreview
@@ -2439,7 +2429,6 @@ function Modal({
   user,
   locale,
   recoveryStep,
-  recoveryOrganizationReady,
   recoveryAccount,
   recoveryExpiresAt,
   recoveryCode,
@@ -2464,7 +2453,6 @@ function Modal({
   user: WorkspaceUser;
   locale: Locale;
   recoveryStep: PasswordSettingsStep;
-  recoveryOrganizationReady: boolean;
   recoveryAccount: string;
   recoveryExpiresAt: string;
   recoveryCode: string;
@@ -2637,7 +2625,6 @@ function Modal({
             mode={mode}
             user={user}
             step={recoveryStep}
-            organizationReady={recoveryOrganizationReady}
             account={recoveryAccount}
             expiresAt={recoveryExpiresAt}
             code={recoveryCode}

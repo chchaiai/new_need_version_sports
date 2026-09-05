@@ -231,11 +231,22 @@ test("teacher workspace exposes invalid records and direct correction wording", 
     "utf8",
   );
   assert.match(workspace, /label: "无效记录"/);
-  assert.match(workspace, /新提交默认有效/);
-  assert.match(workspace, /手动标记为无效/);
+  assert.match(workspace, /新提交按 Contract 应为待 AI 初审/);
+  assert.match(workspace, /退回补证/);
+  assert.match(workspace, /returnExerciseRecordForProof/);
+  assert.match(workspace, /createMakeupExerciseRecord/);
+  assert.match(workspace, /createContractCourseInvitation/);
+  assert.doesNotMatch(workspace, /当前接口没有退回补证结果，不能写入。/);
+  assert.match(workspace, /手动标记为无效|退回补证会调用新审核协议/);
   assert.match(workspace, /当前筛选没有无效记录/);
   assert.match(workspace, /纠正说明/);
   assert.match(workspace, /确认纠正为有效/);
+  assert.match(workspace, /选择已发布模板/);
+  assert.match(workspace, /整分钟计入/);
+  assert.match(workspace, /向学生披露换算分、等级或排名/);
+  assert.match(workspace, /title="当前接口不能把换算分发给学生，发布仍只形成内部成绩版本。"/);
+  assert.doesNotMatch(workspace, /<input type="checkbox" disabled \/>/);
+  assert.match(workspace, /向学生披露内部自定义分/);
   assert.doesNotMatch(workspace, /重开原因|确认重开并标记有效/);
   assert.match(workspace, /await transitionInvalidExerciseReviewToValid/);
 });

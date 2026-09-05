@@ -465,6 +465,7 @@ textarea.text-field { resize: vertical; min-height: 96px; }
 .banner .icon { flex: none; }
 .banner.read-only { background: var(--color-secondary-container); color: var(--color-on-secondary-container); }
 .banner.planned { background: var(--color-tertiary-container); color: var(--color-on-tertiary-container); }
+.banner.local-preview { background: color-mix(in srgb, #fff4d6 80%, var(--color-surface)); color: #714500; }
 .banner.sync-error { background: var(--color-error-container); color: var(--color-on-error-container); padding: 8px 16px; }
 .banner .banner-title { font-size: 15px; line-height: 20px; font-weight: 600; }
 .banner .banner-body { font-size: 13px; line-height: 18px; }
