@@ -66,6 +66,7 @@ import {
   selectCurrentStudentProgress,
   storeAuthSession,
   submitExemptionApplication,
+  mapServerNotification,
   toUserFacingError,
   uploadMediaDraft,
   updateExemptionApplication,
@@ -112,6 +113,7 @@ import {
   reasonsForAction,
   resolvePublicReasonModel,
   reviewStageFromRecord,
+  studentNoticeOpenAction,
   toVisibleStudentNotices,
 } from "./js/v81-review.js";
 const failures = [];
@@ -2221,6 +2223,89 @@ check("v8.1 notices keep proof wording and drop only explicit score disclosures"
   assert.equal(classifyStudentNotice({ title: "Ranking: 1", message: "Record updated", category: "review", targetType: "exercise_record" }), null);
   assert.equal(classifyStudentNotice({ title: "Result", message: "You passed with 90 points", category: "review", targetType: "exercise_record" }), null);
   assert.equal(classifyStudentNotice({ title: "Scoreboard", message: "Hidden", targetType: "exercise_record_score" }), null);
+});
+
+check("v8.1 official notification targetRoute survives mapping into notice visibility and navigation", () => {
+  const officialNotice = (overrides) => ({
+    notificationId: "11111111-1111-4111-8111-111111111111",
+    notificationType: "REVIEW_UPDATED",
+    title: "Review updated",
+    body: "Open details",
+    targetRoute: "EXERCISE_RECORD",
+    targetId: "22222222-2222-4222-8222-222222222222",
+    createdAt: "2026-09-05T10:00:00Z",
+    readAt: null,
+    ...overrides,
+  });
+
+  const hiddenPlain = classifyStudentNotice(mapServerNotification(officialNotice({
+    targetRoute: "FINAL_GRADE",
+    title: "Review updated",
+    body: "Open details",
+  })));
+  assert.equal(hiddenPlain, null);
+  assert.equal(studentNoticeOpenAction(mapServerNotification(officialNotice({
+    targetRoute: "FINAL_GRADE",
+    title: "Review updated",
+    body: "Open details",
+  }))), null);
+
+  const hiddenWithScoreCopy = classifyStudentNotice(mapServerNotification(officialNotice({
+    targetRoute: "FINAL_GRADE",
+    title: "Score: 95",
+    body: "Grade: A",
+  })));
+  assert.equal(hiddenWithScoreCopy, null);
+
+  const mappedRecord = mapServerNotification(officialNotice({
+    title: "Evidence upload failed",
+    body: "Try the same evidence batch again",
+    targetRoute: "EXERCISE_RECORD",
+  }));
+  assert.equal(mappedRecord.targetRoute, "EXERCISE_RECORD");
+  assert.equal(mappedRecord.targetType, "EXERCISE_RECORD");
+  const recordNotice = classifyStudentNotice(mappedRecord);
+  assert.equal(recordNotice?.kind, "review");
+  assert.deepEqual(studentNoticeOpenAction(recordNotice), {
+    type: "checkin",
+    targetId: officialNotice({}).targetId,
+  });
+
+  const mappedApplication = mapServerNotification(officialNotice({
+    notificationType: "APPLICATION_UPDATED",
+    title: "Exemption application updated",
+    body: "Hospital certificate is under review.",
+    targetRoute: "APPLICATION",
+    targetId: "33333333-3333-4333-8333-333333333333",
+  }));
+  assert.equal(mappedApplication.targetRoute, "APPLICATION");
+  const applicationNotice = classifyStudentNotice(mappedApplication);
+  assert.equal(applicationNotice?.kind, "review");
+  assert.equal(applicationNotice?.opensExemption, true);
+  assert.deepEqual(studentNoticeOpenAction(applicationNotice), {
+    type: "exemption",
+    targetId: "33333333-3333-4333-8333-333333333333",
+  });
+
+  const visible = toVisibleStudentNotices([
+    mapServerNotification(officialNotice({ targetRoute: "FINAL_GRADE", title: "Review updated", body: "Open details" })),
+    mapServerNotification(officialNotice({
+      notificationId: "44444444-4444-4444-8444-444444444444",
+      title: "Evidence upload failed",
+      body: "Try the same evidence batch again",
+      targetRoute: "EXERCISE_RECORD",
+    })),
+    mapServerNotification(officialNotice({
+      notificationId: "55555555-5555-4555-8555-555555555555",
+      notificationType: "APPLICATION_UPDATED",
+      title: "Exemption application updated",
+      body: "Hospital certificate is under review.",
+      targetRoute: "APPLICATION",
+      targetId: "33333333-3333-4333-8333-333333333333",
+    })),
+  ]);
+  assert.deepEqual(visible.map((notice) => notice.targetRoute), ["EXERCISE_RECORD", "APPLICATION"]);
+  assert.match(notificationsScreenSource, /studentNoticeOpenAction/u);
 });
 
 check("v8.1 maintenance page shows paused proof timing or an unavailable state", () => {

@@ -186,12 +186,16 @@ const TARGET_KIND = Object.freeze({
 
 const EXEMPTION_TARGETS = new Set(["exemption", "physical_test_exemption", "checkin_exemption", "certification", "application"]);
 
+function noticeTargetToken(notice = {}) {
+  return String(notice.targetRoute || notice.targetType || "").trim();
+}
+
 export function classifyStudentNotice(notice = {}) {
   const title = String(notice.title || "").trim();
   const message = String(notice.message || notice.body || "").trim();
   if (!title || !message) return null;
   const searchable = `${title}\n${message}`;
-  const target = String(notice.targetType || notice.targetRoute || "").trim().toLowerCase();
+  const target = noticeTargetToken(notice).toLowerCase();
   const category = String(notice.category || notice.notificationType || "").trim().toLowerCase();
   if (target === "final_grade" || category === "final_grade") return null;
   const kind = TARGET_KIND[target]
@@ -214,6 +218,23 @@ export function classifyStudentNotice(notice = {}) {
 
 export function toVisibleStudentNotices(notices) {
   return (Array.isArray(notices) ? notices : []).map(classifyStudentNotice).filter(Boolean);
+}
+
+export function studentNoticeOpenAction(notice) {
+  const classified = notice?.kind ? notice : classifyStudentNotice(notice);
+  if (!classified) return null;
+  const route = noticeTargetToken(classified).toUpperCase().replace(/-/g, "_");
+  if (route === "FINAL_GRADE") return null;
+  if (route === "EXERCISE_RECORD") {
+    return classified.targetId ? { type: "checkin", targetId: classified.targetId } : { type: "detail" };
+  }
+  if (route === "APPLICATION" || classified.opensExemption) {
+    return { type: "exemption", targetId: classified.targetId || null };
+  }
+  if (route === "ENDURANCE") return { type: "endurance", targetId: classified.targetId || null };
+  if (route === "COURSE") return { type: "courses" };
+  if (route === "FEEDBACK") return { type: "feedback" };
+  return { type: "detail" };
 }
 
 export function formatRemainingTime(seconds, english) {

@@ -545,16 +545,14 @@ const englishText: Record<string, string> = {
     "The current API has no return-for-proof result, so this cannot be written.",
   "依据服务端记录追加有效或无效。退回补证仅展示流程，当前正式协议不会写入。":
     "Append valid or invalid from server records. Return-for-proof is displayed only and is not written on the current official contract.",
-  "查看 Backend 实时健康状态。统一运动模板与有限审核授权走 Contract；Backend 未实现时显示真实错误。":
-    "View live Backend health. Unified sport templates and limited review grants use Contract; unimplemented Backend responses show the real error.",
-  "查看 Backend 实时健康状态。模板发布、有限审核授权走 Contract，失败时显示真实错误。":
-    "View live Backend health. Template publishing and limited review grants use Contract; failures show the real error.",
+  "查看 Backend 实时健康状态。Backend 未实现时显示真实错误。":
+    "View live Backend health. Unimplemented Backend responses show the real error.",
   "管理本人班级与时间窗。已发布课程的门槛由模板锁定；本页不能改公式。邀请按 5–120 分钟生成。":
     "Manage your classes and time windows. Published-course thresholds stay locked by template; this page cannot change the formula. Invitations are created for 5–120 minutes.",
   "查看直接加入的成员。电子名单走现有导入；纸质 OCR 走 Contract allocateRosterOcr，未确认草稿不会当成当前名单。":
     "View directly joined members. Spreadsheet import uses the current API; paper OCR uses Contract allocateRosterOcr and unconfirmed drafts are not treated as the current roster.",
-  "设置分管理员账号与现有侧栏权限。有限审核授权走 Contract createLimitedReviewGrant。":
-    "Set sub-admin accounts and existing sidebar permissions. Limited review grants use Contract createLimitedReviewGrant.",
+  "设置分管理员账号与现有侧栏权限。":
+    "Set sub-admin accounts and existing sidebar permissions.",
   "维护四套耐力跑换算表，并可通过 Contract 发布运动模板。已开课课程不会被回溯改门槛。":
     "Maintain the four endurance conversion tables and publish sport templates through Contract. Open courses are not changed retroactively.",
   "维护四套耐力跑成绩换算规则。学时目标仅由任课教师在教学班内配置。":

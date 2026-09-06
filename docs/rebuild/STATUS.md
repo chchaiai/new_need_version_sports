@@ -2,9 +2,9 @@
 
 > 更新时间：2026-09-06
 >
-> 当前工作：PR #5 复审修复已提交到 `codex/web-v81-align`。见 [V8.1 Web 交接](handoffs/2026-09-05-web-v81-align.md)。
+> 当前工作：PR #5 二次复审修复正式通知 `targetRoute` 映射，分支 `codex/web-v81-align`。见 [V8.1 Web 交接](handoffs/2026-09-05-web-v81-align.md)。
 >
-> 完成状态：Web 展示 PARTIAL。复审五项已合入本分支并重测。不是生产闭环。系统开发整体仍 PARTIAL。未合并 main、未部署。
+> 完成状态：Web 展示 PARTIAL。二次复审阻塞项已修。不是生产闭环。系统开发整体仍 PARTIAL。未合并 main、未部署。
 
 本页按各部分的具体情况记录当前进度。后续工作的数字编号和事项见 [项目 README](../../README.md#后续开发路线)。
 
