@@ -42,13 +42,11 @@ class ScanJoinScreenTest {
     }
 
     @Test
-    fun simulatedScanResultIsClearlyMarkedAsPreviewOnly() {
-        val course = simulatedCourseJoinInfo()
+    fun joinPreviewContainsOnlyAuthoritativeDisplayFactsAndNoDemoSuccessFlag() {
+        val fieldNames = CourseJoinInfo::class.java.declaredFields.map { it.name }.toSet()
 
-        assertTrue(course.isDemoScanResult)
-        assertEquals("大学体育（一）", course.name)
-        assertEquals("陈若宁", course.teacher)
-        assertFalse(CourseJoinInfo::class.java.declaredFields.any { it.name in setOf("courseNumber", "section") })
+        assertTrue(fieldNames.containsAll(setOf("id", "name", "teacher", "semester", "enrollmentOpen", "invitationExpiresAt")))
+        assertFalse(fieldNames.contains("isDemoScanResult"))
     }
 
     @Test
@@ -74,6 +72,8 @@ class ScanJoinScreenTest {
 
         assertEquals("section-1", course.id)
         assertEquals("Physical Education", course.name)
+        assertTrue(course.enrollmentOpen)
+        assertEquals(OffsetDateTime.parse("2026-12-01T00:00:00Z"), course.invitationExpiresAt)
     }
 
     @Test

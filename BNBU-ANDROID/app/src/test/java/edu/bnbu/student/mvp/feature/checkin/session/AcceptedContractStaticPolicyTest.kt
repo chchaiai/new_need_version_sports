@@ -59,7 +59,7 @@ class AcceptedContractStaticPolicyTest {
     }
 
     @Test
-    fun profileRestoresEnduranceConversionAndKeepsPublicStudentNumberSeparate() {
+    fun profileRemovesEnduranceConversionButKeepsRawFactsAndPublicStudentNumberSeparate() {
         val profile = projectFile(
             "app/src/main/java/edu/bnbu/student/mvp/feature/profile/ProfileScreen.kt"
         ).readText()
@@ -75,11 +75,21 @@ class AcceptedContractStaticPolicyTest {
         val appRoot = projectFile(
             "app/src/main/java/edu/bnbu/student/mvp/feature/shell/AppRootScreen.kt"
         ).readText()
+        val recordsAndProgress = projectFile(
+            "app/src/main/java/edu/bnbu/student/mvp/feature/grades/GradesScreen.kt"
+        ).readText()
+        val rawEndurance = projectFile(
+            "app/src/main/java/edu/bnbu/student/mvp/feature/grades/RawEnduranceResult.kt"
+        ).readText()
 
-        assertTrue(profile.contains("profile_endurance"))
-        assertTrue(profile.contains("onOpenEnduranceScoring"))
-        assertTrue(appRoot.contains("SubScreen.EnduranceScoring"))
-        assertTrue(appRoot.contains("EnduranceScoringScreen("))
+        assertFalse(profile.contains("profile_endurance"))
+        assertFalse(profile.contains("onOpenEnduranceScoring"))
+        assertFalse(appRoot.contains("SubScreen.EnduranceScoring"))
+        assertFalse(appRoot.contains("EnduranceScoringScreen("))
+        assertTrue(recordsAndProgress.contains("RawEnduranceResultCard("))
+        assertTrue(rawEndurance.contains("RawEnduranceResultCard("))
+        assertTrue(recordsAndProgress.contains("enduranceRunTimeSeconds"))
+        assertFalse(recordsAndProgress.contains("enduranceRunScore"))
         assertTrue(profile.contains("student.studentNumberForDisplay()"))
         assertTrue(account.contains("student.studentNumberForDisplay()"))
         assertTrue(dashboard.contains("studentNumberForDisplay()"))
@@ -175,7 +185,7 @@ class AcceptedContractStaticPolicyTest {
     }
 
     @Test
-    fun durationShortcutsStayTestGatedAndCannotMutateFormalLocalTime() {
+    fun legacyDurationShortcutsRemainInCoreButAreNotReachableFromTheV8Ui() {
         val controller = projectFile(
             "app/src/main/java/edu/bnbu/student/mvp/feature/checkin/session/ExerciseSessionController.kt"
         ).readText()
@@ -189,14 +199,14 @@ class AcceptedContractStaticPolicyTest {
         assertFalse(controller.contains("startedAtEpochMillis - durationMillis"))
         assertTrue(controller.contains("advanceLocalReviewToTwoHours(isLocalReviewMode: Boolean)"))
         assertTrue(controller.contains("!isLocalReviewMode || serverCoordinator != null"))
-        assertTrue(screen.contains("isLocalReviewMode = appState.isLocalReviewMode"))
-        assertTrue(screen.contains("exercise.localReview.twoHours"))
-        assertTrue(screen.contains("直达 2 小时"))
-        assertTrue(screen.contains("仅用于免登录测试"))
+        assertFalse(screen.contains("isLocalReviewMode = appState.isLocalReviewMode"))
+        assertFalse(screen.contains("exercise.localReview.twoHours"))
+        assertFalse(screen.contains("直达 2 小时"))
+        assertFalse(screen.contains("仅用于免登录测试"))
         assertTrue(controller.contains("coordinator.addSixtyMinutes()"))
-        assertTrue(screen.contains("if (controller.isTestDurationToolVisible)"))
-        assertTrue(screen.contains("controller::addSixtyMinutes"))
-        assertTrue(screen.contains("增加 60 分钟"))
+        assertFalse(screen.contains("if (controller.isTestDurationToolVisible)"))
+        assertFalse(screen.contains("controller::addSixtyMinutes"))
+        assertFalse(screen.contains("增加 60 分钟"))
         assertTrue(gateway.contains("control(\"addSixtyMinutesToExerciseSession\", \"add-sixty-minutes\", current)"))
         assertTrue(gateway.contains("addSixtyMinutesToExerciseSession"))
     }
@@ -320,7 +330,7 @@ class AcceptedContractStaticPolicyTest {
     }
 
     @Test
-    fun rejectedRecordRemainsHistoryAndOnlyGuidesASeparateResubmissionAttempt() {
+    fun oldResubmissionApiRemainsInCoreButIsNotPresentedAsTheV8SupplementFlow() {
         val gateway = projectFile(
             "app/src/main/java/edu/bnbu/student/mvp/core/network/v1/V1ExerciseSessionGateway.kt"
         ).readText()
@@ -339,20 +349,18 @@ class AcceptedContractStaticPolicyTest {
         assertTrue(repository.contains("createExerciseRecordResubmission("))
         assertTrue(repository.contains("version = record.version"))
 
-        assertTrue(detail.contains("上一次提交已被拒绝"))
-        assertTrue(detail.contains("第 \$attemptNumber 次提交"))
-        assertTrue(detail.contains("SubmissionChainPanel("))
-        assertTrue(detail.contains("可重新补交"))
         assertTrue(detail.contains("record.teacherPublicFeedback"))
-        assertTrue(detail.contains("fetchExerciseRecordAttemptContext(record.id)"))
-        assertTrue(detail.contains("原记录、审核结果和凭证会继续保留，不会被补交覆盖"))
-        assertTrue(detail.contains("enabled = attemptContext != null && !loading && writeAllowed"))
+        assertTrue(detail.contains("首版照片与视频（只读）"))
+        assertFalse(detail.contains("SubmissionChainPanel("))
+        assertFalse(detail.contains("可重新补交"))
+        assertFalse(detail.contains("fetchExerciseRecordAttemptContext(record.id)"))
+        assertFalse(detail.contains("onStartResubmission"))
         assertFalse(detail.contains("createExerciseRecordResubmission("))
         assertFalse(detail.contains("reviewStatus = \"DRAFT\""))
     }
 
     @Test
-    fun studentRecordUiMatchesWebCreditedHourAndDetailHierarchy() {
+    fun studentRecordUiUsesV8MinuteAndReviewHierarchy() {
         val detail = projectFile(
             "app/src/main/java/edu/bnbu/student/mvp/feature/checkin/CheckInRecords.kt"
         ).readText()
@@ -360,13 +368,14 @@ class AcceptedContractStaticPolicyTest {
             "app/src/main/java/edu/bnbu/student/mvp/core/state/StudentAppState.kt"
         ).readText()
 
-        assertTrue(detail.contains("filter { it.contributesToCreditedHours }"))
-        assertTrue(detail.contains("计入学时"))
-        assertTrue(detail.contains("未计入学时"))
-        assertTrue(detail.contains("提交次数"))
-        assertTrue(detail.contains("审核状态"))
-        assertTrue(detail.contains("审核结果"))
-        assertTrue(detail.indexOf("记录信息") < detail.indexOf("SubmissionChainPanel("))
+        assertTrue(detail.contains("实际运动"))
+        assertTrue(detail.contains("可计分钟"))
+        assertTrue(detail.contains("实际计入"))
+        assertTrue(detail.contains("处理阶段"))
+        assertTrue(detail.contains("公开原因或说明"))
+        assertTrue(detail.contains("首版照片与视频（只读）"))
+        assertFalse(detail.contains("计入学时"))
+        assertFalse(detail.contains("提交次数"))
         assertFalse(detail.contains("打卡时长"))
         assertFalse(detail.contains("教师公开意见"))
         assertFalse(detail.contains("appState.apiRepository"))

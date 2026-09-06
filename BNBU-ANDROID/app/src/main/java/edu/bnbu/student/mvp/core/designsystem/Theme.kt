@@ -24,17 +24,19 @@ import edu.bnbu.student.mvp.core.model.AppThemeMode
  * copying iOS controls. Screens consume roles such as primary, surface and
  * error, so hierarchy and contrast remain stable in both appearance modes.
  */
-private val primaryLight = Color(0xFF007AFF)
+// Light-scheme accents are intentionally dark enough to work both as text on
+// a light surface and as a filled control behind ordinary-size white text.
+private val primaryLight = Color(0xFF005FCC)
 private val onPrimaryLight = Color.White
 private val primaryContainerLight = Color(0xFFE8F2FF)
 private val onPrimaryContainerLight = Color(0xFF003E7D)
 
-private val primaryDark = Color(0xFF0A84FF)
-private val onPrimaryDark = Color.White
+private val primaryDark = Color(0xFF2997FF)
+private val onPrimaryDark = Color(0xFF001B33)
 private val primaryContainerDark = Color(0xFF16395F)
 private val onPrimaryContainerDark = Color(0xFFD6E9FF)
 
-private val secondaryLight = Color(0xFFFF9500)
+private val secondaryLight = Color(0xFF995400)
 private val onSecondaryLight = Color.White
 private val secondaryContainerLight = Color(0xFFFFF1D6)
 private val onSecondaryContainerLight = Color(0xFF5A3500)
@@ -44,7 +46,7 @@ private val onSecondaryDark = Color(0xFF2C1A00)
 private val secondaryContainerDark = Color(0xFF503500)
 private val onSecondaryContainerDark = Color(0xFFFFE2A8)
 
-private val tertiaryLight = Color(0xFF248A3D)
+private val tertiaryLight = Color(0xFF1B6F32)
 private val onTertiaryLight = Color.White
 private val tertiaryContainerLight = Color(0xFFE6F6E9)
 private val onTertiaryContainerLight = Color(0xFF0E4B1D)
@@ -54,13 +56,13 @@ private val onTertiaryDark = Color(0xFF002C0D)
 private val tertiaryContainerDark = Color(0xFF164B24)
 private val onTertiaryContainerDark = Color(0xFFC7F5D0)
 
-private val errorLight = Color(0xFFFF3B30)
+private val errorLight = Color(0xFFB3261E)
 private val onErrorLight = Color.White
 private val errorContainerLight = Color(0xFFFFE9E7)
 private val onErrorContainerLight = Color(0xFF7A1712)
 
 private val errorDark = Color(0xFFFF453A)
-private val onErrorDark = Color.White
+private val onErrorDark = Color(0xFF310300)
 private val errorContainerDark = Color(0xFF5C201D)
 private val onErrorContainerDark = Color(0xFFFFD2CE)
 

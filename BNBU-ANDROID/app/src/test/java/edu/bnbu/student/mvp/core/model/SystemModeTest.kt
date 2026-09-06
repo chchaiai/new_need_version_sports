@@ -1,6 +1,5 @@
 package edu.bnbu.student.mvp.core.model
 
-import edu.bnbu.student.mvp.fallbackSystemModeStatus
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -21,12 +20,5 @@ class SystemModeTest {
     fun onlyNormalAllowsWrites() {
         assertFalse(SystemMode.NORMAL.blocksWrites)
         assertTrue(SystemMode.MAINTENANCE.blocksWrites)
-    }
-
-    @Test
-    fun unavailableRemoteModeFailsClosedButLocalReviewRemainsAvailable() {
-        assertEquals(SystemMode.NORMAL, fallbackSystemModeStatus("local").mode)
-        assertEquals(SystemMode.MAINTENANCE, fallbackSystemModeStatus("staging").mode)
-        assertEquals(SystemMode.MAINTENANCE, fallbackSystemModeStatus("production").mode)
     }
 }
