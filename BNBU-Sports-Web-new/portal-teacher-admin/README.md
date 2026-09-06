@@ -14,6 +14,10 @@ npm install
 npm run dev
 ```
 
+本地开发可用登录页「跳过登录」或 `?mock=teacher` / `?mock=admin`（仅 `NODE_ENV=development`）。正式构建不得带该入口。
+
+前端 Contract 接线、仍走旧 `/api/v1` 的流程，以及正式版必须隐藏的预览/藏分表面，见 [`docs/rebuild/handoffs/2026-09-04-frontend-api-and-production-hide.md`](../../docs/rebuild/handoffs/2026-09-04-frontend-api-and-production-hide.md)。
+
 ## 验证
 
 ```bash

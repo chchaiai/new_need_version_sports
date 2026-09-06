@@ -30,7 +30,7 @@ test("read-only course filters and review, roster and exemption controls keep ac
   assert.doesNotMatch(teacher, /label="课程代码"/);
   assert.doesNotMatch(teacher, /label="教学班号"/);
   assert.doesNotMatch(teacher, /label="教师内部备注"|form\.internalNote|saveCheckinReview/);
-  assert.match(teacher, /role="radiogroup"[\s\S]*aria-invalid=\{Boolean\(userFacingFieldError\(formError, "reasonCode", "invalidReason"\)\)/);
+  assert.match(teacher, /role="radiogroup"[\s\S]*aria-invalid=\{Boolean\(userFacingFieldError\(formError, "reasonCode", "invalidReason", "publicReasonId"\)\)/);
   assert.match(teacher, /label="审核结果"[\s\S]*error=\{userFacingFieldError\(formError, "decision"\)\}/);
   assert.match(teacher, /label="审核意见" required error=\{userFacingFieldError\(formError, "publicComment", "comment"\)\}/);
   assert.match(roster, /controlId="roster-resolution-reason"/);

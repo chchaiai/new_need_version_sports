@@ -36,6 +36,11 @@ import {
 import { InviteQrCode } from "./invite-qr";
 import { statusLabel } from "./language";
 import {
+  TEACHER_REVIEW_ACTIONS,
+  publicReasonById,
+  reasonsForAction,
+} from "./review-public-reasons";
+import {
   applyAttendanceAuditState,
   deriveAuditSummary,
   toCreditedDurationHours,
@@ -73,8 +78,8 @@ import type {
 import {
   createInvalidToValidReviewOperation,
   createCourseInvite,
-  INVALID_REASON_TO_CODE,
   loadSubmittedCheckins,
+  fetchExerciseRecord,
   loadTeacherCourses,
   loadTeacherGrades,
   loadTeacherExemptions,
@@ -144,7 +149,20 @@ type Invite = {
   code: string;
   expiresAt: string;
   status: "active" | "revoked";
+  durationMinutes?: number;
 };
+
+const MAKEUP_SPORT_TYPES = [
+  { value: "RUNNING", label: "跑步" },
+  { value: "BASKETBALL", label: "篮球" },
+  { value: "FOOTBALL", label: "足球" },
+  { value: "BADMINTON", label: "羽毛球" },
+  { value: "TABLE_TENNIS", label: "乒乓球" },
+  { value: "SWIMMING", label: "游泳" },
+  { value: "FITNESS", label: "健身" },
+  { value: "CYCLING", label: "骑行" },
+  { value: "OTHER", label: "其他" },
+] as const;
 
 type CheckinWindow = {
   windowMode: "available" | "unavailable";
@@ -287,21 +305,15 @@ type DialogState =
   | { type: "supplement" }
   | { type: "checkin"; recordId: string }
   | { type: "checkin-invalid"; recordId: string }
+  | { type: "checkin-return-proof"; recordId: string }
   | { type: "checkin-correct-valid"; recordId: string }
   | { type: "grade"; gradeId: string }
   | { type: "publish-grades"; courseId: string }
   | { type: "exemption"; exemptionId: string | number }
   | null;
 
-const invalidAttendanceReasons = [
-  "运动时长不符合要求",
-  "图片或视频无法证明运动过程",
-  "媒体内容与运动无关",
-  "重复提交",
-  "疑似代打卡",
-  "运动记录异常",
-  "其他",
-] as const;
+const returnForProofReasons = reasonsForAction(TEACHER_REVIEW_ACTIONS.ReturnForSupplement);
+const markInvalidReasons = reasonsForAction(TEACHER_REVIEW_ACTIONS.MarkInvalid);
 
 const demoSemester: Semester = readDemoCurrentSemester();
 
@@ -773,9 +785,11 @@ const auditDecisionOptions: AuditStatus[] = ["valid", "invalid"];
 function AuditStatusSelector({
   record,
   onSelect,
+  onReturn,
 }: {
   record: CheckinRecord;
   onSelect: (record: CheckinRecord, status: AuditStatus) => void;
+  onReturn: (record: CheckinRecord) => void;
 }) {
   return (
     <div
@@ -803,11 +817,22 @@ function AuditStatusSelector({
               onClick={() => onSelect(record, status)}
             >
               <span aria-hidden="true" />
-              {auditStatusLabels[status]}
+              {status === "valid" ? "通过" : "无效"}
             </button>
           );
         })}
+        <button
+          type="button"
+          className="audit-status-option is-return"
+          onClick={() => onReturn(record)}
+        >
+          <span aria-hidden="true" />
+          退回补证
+        </button>
       </div>
+      <p className="record-audit-hint">
+        通过与无效仍可走现有审核接口。退回补证和判无效必须选择 V8.1 六类固定公开原因，可再写一句公开补充说明；不再使用自由文本或其他兜底项。退回补证当前只核对流程，不会向服务器发送非正式写入。
+      </p>
       {record.auditStatus === "invalid" && (
         <>
           <p className="record-invalid-reason">
@@ -1861,8 +1886,9 @@ export function TeacherWorkspace({
       openDialog(
         { type: "checkin-invalid", recordId: record.id },
         {
-          invalidReason: record.invalidReason ?? "",
-          auditRemark: record.auditRemark ?? "",
+          publicReasonId:
+            markInvalidReasons.find((reason) => reason.zh === record.invalidReason)?.id ?? "",
+          publicSupplementalNote: record.auditRemark ?? "",
         },
       );
       return;
@@ -1918,6 +1944,28 @@ export function TeacherWorkspace({
     } catch (error) {
       showToast(userErrorToast(toUserFacingError(error)));
     }
+  };
+
+  const openReturnForProof = (record: CheckinRecord) => {
+    openDialog(
+      { type: "checkin-return-proof", recordId: record.id },
+      { proofWindowHours: "24", publicReasonId: "", publicSupplementalNote: "" },
+    );
+  };
+
+  const confirmReturnForProof = (recordId: string) => {
+    const selectedReason = publicReasonById(form.publicReasonId);
+    if (!selectedReason || !selectedReason.actions.includes(TEACHER_REVIEW_ACTIONS.ReturnForSupplement)) {
+      setFormError("请选择一项适用于退回补证的固定公开原因。");
+      return;
+    }
+    if (!records.some((item) => item.id === recordId)) {
+      setFormError("找不到该打卡记录。");
+      return;
+    }
+    setFormError(
+      "当前正式协议 1.2.0 的审核结果只有有效 / 无效，不能写入退回补证。本对话框只用于核对原因和 24/72 小时窗口；下一步需独立 Contract CR，现在不会向服务器发送请求。",
+    );
   };
 
   const confirmCorrectAttendanceToValid = async (recordId: string) => {
@@ -1986,17 +2034,13 @@ export function TeacherWorkspace({
 
   const confirmInvalidAttendance = async (recordId: string) => {
     const record = records.find((item) => item.id === recordId);
-    const invalidReason = form.invalidReason?.trim();
-    const auditRemark = form.auditRemark?.trim();
-    if (!record || !invalidReason) {
-      setFormError("请选择一项无效原因。");
+    const selectedReason = publicReasonById(form.publicReasonId);
+    const auditRemark = form.publicSupplementalNote?.trim() || form.auditRemark?.trim() || "";
+    if (!record || !selectedReason || !selectedReason.actions.includes(TEACHER_REVIEW_ACTIONS.MarkInvalid)) {
+      setFormError("请选择一项适用于判为无效的固定公开原因。");
       return;
     }
-    if (invalidReason === "其他" && !auditRemark) {
-      setFormError("选择“其他”时，请填写备注。");
-      return;
-    }
-    const reasonCode = INVALID_REASON_TO_CODE[invalidReason] ?? "OTHER";
+    const invalidReason = selectedReason.zh;
     if (mode === "demo") {
       setRecords((current) =>
         current.map((item) =>
@@ -2022,8 +2066,8 @@ export function TeacherWorkspace({
         (fresh, currentReviewVersion) => ({
           result: "INVALID",
           publicComment: auditRemark || invalidReason,
-          reasonCode,
-          reason: reasonCode === "OTHER" ? auditRemark : invalidReason,
+          reasonCode: null,
+          reason: invalidReason,
           expectedReviewVersion: currentReviewVersion,
           expectedVersion: fresh.version,
         }),
@@ -2242,22 +2286,28 @@ export function TeacherWorkspace({
   };
 
   const generateInvite = async (courseId: string): Promise<boolean> => {
+    const durationMinutes = Math.round(Number(form.inviteDurationMinutes || "30"));
+    if (!Number.isInteger(durationMinutes) || durationMinutes < 5 || durationMinutes > 120) {
+      showToast("邀请有效期须为 5–120 的整数分钟。");
+      return false;
+    }
     if (mode === "demo") {
       const code = `MOCK-${String(Date.now()).slice(-6)}`;
-      const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString();
+      const expiresAt = new Date(Date.now() + durationMinutes * 60 * 1000).toISOString();
       setCourses((current) =>
         current.map((course) =>
           course.id === courseId
-            ? { ...course, invite: { code, expiresAt, status: "active" } }
+            ? { ...course, invite: { code, expiresAt, status: "active", durationMinutes } }
             : course,
         ),
       );
       setInviteQr(null);
-      showToast(`Mock 邀请码 ${code} 已生成。`);
+      showToast(`Mock 邀请码 ${code} 已生成（${durationMinutes} 分钟）。`);
       return true;
     }
     try {
-      const invite = await createCourseInvite(courseId);
+      const expiresAt = new Date(Date.now() + durationMinutes * 60 * 1000).toISOString();
+      const invite = await createCourseInvite(courseId, expiresAt);
       setCourses((current) =>
         current.map((course) =>
           course.id === courseId
@@ -2267,13 +2317,14 @@ export function TeacherWorkspace({
                   code: invite.inviteToken,
                   expiresAt: invite.expiresAt,
                   status: "active",
+                  durationMinutes,
                 },
               }
             : course,
         ),
       );
       setInviteQr(null);
-      showToast(`已生成新的课程邀请；服务端返回的到期时间为 ${invite.expiresAt}。`);
+      showToast(`已生成新的课程邀请（${durationMinutes} 分钟）；服务端返回的到期时间为 ${invite.expiresAt}。`);
       return true;
     } catch (error) {
       showToast(userErrorToast(toUserFacingError(error)));
@@ -2362,8 +2413,8 @@ export function TeacherWorkspace({
     const student = students.find((item) => item.id === studentId);
     const reason = form.reason?.trim();
     if (!student) return;
-    if (mode !== "demo" && action !== "remove") {
-      setFormError("该操作没有已批准的后端能力，真实模式不会创建本地补录或减免事实。");
+    if (mode !== "demo" && action === "waiver") {
+      setFormError("该操作没有已批准的后端能力，真实模式不会创建本地减免事实。");
       return;
     }
     if (action === "remove") {
@@ -2456,14 +2507,25 @@ export function TeacherWorkspace({
         true,
       );
     } else {
-      const hours = Number(form.hours);
+      const minutes = Math.round(Number(form.makeupMinutes || "30"));
+      const sportType = MAKEUP_SPORT_TYPES.some((item) => item.value === form.sport)
+        ? (form.sport as (typeof MAKEUP_SPORT_TYPES)[number]["value"])
+        : "";
       if (
-        ![1, 2].includes(hours) ||
+        !Number.isInteger(minutes) ||
+        minutes < 1 ||
+        minutes > 60 ||
         !form.creditType ||
-        !form.sport?.trim() ||
+        !sportType ||
         !reason
       ) {
-        setFormError("学时类型、1/2 小时时长、运动项目和补录原因均为必填项。");
+        setFormError("学时类别、1–60 整分钟、运动项目和补录原因均为必填项。");
+        return;
+      }
+      if (mode !== "demo") {
+        setFormError(
+          "当前正式协议 1.2.0 没有教师补录接口。本对话框只用于流程设计，不会向服务器写入。",
+        );
         return;
       }
       const nextRecord: CheckinRecord = {
@@ -2471,13 +2533,13 @@ export function TeacherWorkspace({
         studentId,
         courseId: student.courseId,
         creditType: form.creditType as "课程相关" | "其他运动",
-        sport: form.sport.trim(),
+        sport: MAKEUP_SPORT_TYPES.find((item) => item.value === sportType)?.label || sportType,
         startAt: "教师补录",
         endAt: "教师补录",
-        durationMinutes: hours * 60,
-        creditedMinutes: hours * 60,
-        originalHours: hours as 1 | 2,
-        approvedHours: hours as 1 | 2,
+        durationMinutes: minutes,
+        creditedMinutes: minutes,
+        originalHours: minutes / 60,
+        approvedHours: minutes / 60,
         description: reason,
         submittedAt: new Date().toISOString().slice(0, 10),
         status: "有效",
@@ -2497,16 +2559,16 @@ export function TeacherWorkspace({
                 ...item,
                 courseHours:
                   item.courseHours +
-                  (form.creditType === "课程相关" ? hours : 0),
+                  (form.creditType === "课程相关" ? minutes / 60 : 0),
                 otherHours:
                   item.otherHours +
-                  (form.creditType === "其他运动" ? hours : 0),
+                  (form.creditType === "其他运动" ? minutes / 60 : 0),
               }
             : item,
         ),
       );
       notify(
-        `已为 ${student.name} 补录 ${hours} 小时${form.creditType}学时，且不占用每日提交额度`,
+        `演示模式已为 ${student.name} 本地记下 ${minutes} 分钟${form.creditType}，不会当成服务端已计入。`,
         true,
       );
     }
@@ -2663,7 +2725,7 @@ export function TeacherWorkspace({
       if (item.kind === "耐力跑免测") {
         const score = Number(form.score);
         if (!Number.isFinite(score) || score < 0 || score > 100) {
-          setFormError("通过耐力跑免测时必须设置 0–100 的自定义分数。");
+          setFormError("通过耐力跑免测时必须设置 0–100 的内部自定义分数（不向学生披露）。");
           return;
         }
         next.score = score;
@@ -2762,6 +2824,10 @@ export function TeacherWorkspace({
       : undefined;
   const selectedInvalidRecord =
     dialog?.type === "checkin-invalid"
+      ? records.find((record) => record.id === dialog.recordId)
+      : undefined;
+  const selectedReturnRecord =
+    dialog?.type === "checkin-return-proof"
       ? records.find((record) => record.id === dialog.recordId)
       : undefined;
   const selectedCorrectionRecord =
@@ -3394,7 +3460,7 @@ export function TeacherWorkspace({
             <div className="compact-guidance">
               <span aria-hidden="true">i</span>
               <p>
-                新提交默认有效；如凭证存在问题，请进入记录并手动标记为无效。
+                新提交按 Contract 应为待 AI 初审，现网旧接口仍可能默认有效。退回补证只展示流程设计，当前正式协议不会写入。
               </p>
             </div>
           }
@@ -3708,6 +3774,7 @@ export function TeacherWorkspace({
                   <AuditStatusSelector
                     record={record}
                     onSelect={selectRecordAuditStatus}
+                    onReturn={openReturnForProof}
                   />
                 </article>
               ))}
@@ -3799,6 +3866,7 @@ export function TeacherWorkspace({
                       <AuditStatusSelector
                         record={record}
                         onSelect={selectRecordAuditStatus}
+                        onReturn={openReturnForProof}
                       />
                     </article>
                   ))}
@@ -3892,6 +3960,15 @@ export function TeacherWorkspace({
               <p className="admin-planned-banner">
                 本页只显示后端 StudentScore 投影；导出 API 当前为默认拒绝，因此不提供本地拼接 CSV。
               </p>
+              <button
+                className="secondary-button"
+                type="button"
+                disabled
+                title="当前接口不能把换算分发给学生，发布仍只形成内部成绩版本。"
+              >
+                向学生披露换算分、等级或排名
+              </button>
+              <p className="record-audit-hint">当前接口不能把换算分发给学生，发布仍只形成内部成绩版本。</p>
             </div>
           }
         >
@@ -4032,6 +4109,15 @@ export function TeacherWorkspace({
                 { value: "exception", label: "缺考", count: absentCount },
               ]}
             />
+            <button
+              className="secondary-button"
+              type="button"
+              disabled
+              title="当前接口不能把换算分发给学生，发布仍只形成内部成绩版本。"
+            >
+              向学生披露换算分、等级或排名
+            </button>
+            <p className="record-audit-hint">当前接口不能把换算分发给学生，发布仍只形成内部成绩版本。</p>
           </div>
         }
       >
@@ -4255,6 +4341,14 @@ export function TeacherWorkspace({
             <span>显示 {visible.length} 条申请</span>
             <span>共 {exemptions.length} 条申请</span>
           </div>
+          <aside className="grade-publication-notice">
+            内部自定义分与抵扣上限仍跟现有接口；换算分不向学生披露。
+          </aside>
+          <p>
+            <button className="secondary-button" type="button" disabled title="当前接口不能向学生披露内部自定义分。">
+              向学生披露内部自定义分
+            </button>
+          </p>
           <DataTable className="exemption-table" minWidth={980}>
             <thead>
               <tr>
@@ -4584,6 +4678,26 @@ export function TeacherWorkspace({
                 </p>
               </div>
             </div>
+            <aside className="grade-publication-notice">
+              v8.0 总目标为 1,200 分钟，门槛与周频次由已发布模板锁定。当前接口仍按累计有效运动 20 小时 TOTAL_ONLY 裁决；本页不能改公式，也不能把目标改成 30/45/60 分钟门槛。
+            </aside>
+            <div className="course-target-setting-list">
+              <div className="course-target-setting">
+                <label htmlFor="course-published-template">选择已发布模板</label>
+                <select id="course-published-template" disabled aria-describedby="course-published-template-help">
+                  <option>发布后参数锁定，不能改模板</option>
+                </select>
+                <p id="course-published-template-help">已发布课程的门槛与周频次锁定。本轮不接入未发布的运动模板协议。</p>
+              </div>
+              <div className="course-target-setting">
+                <label htmlFor="course-v8-total-minutes">v8.0 总目标</label>
+                <div className="course-target-unit-input">
+                  <input id="course-v8-total-minutes" type="number" value="1200" disabled aria-describedby="course-v8-total-help" />
+                  <span>分钟</span>
+                </div>
+                <p id="course-v8-total-help">仅作对照显示；服务端仍按 20 小时 TOTAL_ONLY 裁决。</p>
+              </div>
+            </div>
             {mode === "demo" ? (
               <div className="course-target-setting-list">
               <div className="course-target-setting">
@@ -4625,11 +4739,7 @@ export function TeacherWorkspace({
                 <p id="course-target-other-help">{`学生至少需要完成 ${form.otherTarget ?? selectedCourse.otherTarget} 小时自主运动。`}</p>
               </div>
               </div>
-            ) : (
-              <aside className="grade-publication-notice">
-                当前权威要求为累计有效运动 20 小时。分类时长仅用于展示，不作为单独达标门槛；教师不能在此页面创建本地覆盖规则。
-              </aside>
-            )}
+            ) : null}
             <FormError message={formError} />
           </section>
 
@@ -4753,7 +4863,7 @@ export function TeacherWorkspace({
               description={
                 isActiveInvite
                   ? "将二维码投影给学生端扫码，或复制邀请码在学生端手动输入。学生确认资料且服务端校验成功后会立即成为课程成员。"
-                  : "邀请码失效后不能再用于加入课程。生成新邀请码会重新开始 7 天有效期。"
+                  : "邀请码失效后不能再用于加入课程。有效期 5–120 分钟，到期后仅一次 10 分钟宽限且不得刷新。"
               }
               close={closeDialog}
               footer={
@@ -4895,6 +5005,20 @@ export function TeacherWorkspace({
                         : mode === "demo"
                           ? "生成后可投影二维码、下载或打印，也可将邀请码发送给学生。"
                           : "如需重新展示，请生成新邀请码；服务端会同时使此前的有效邀请码失效。"}
+                    </p>
+                    <Field label="邀请有效期（分钟）" required>
+                      <input
+                        type="number"
+                        min="5"
+                        max="120"
+                        value={form.inviteDurationMinutes ?? "30"}
+                        onChange={(event) =>
+                          updateForm("inviteDurationMinutes", event.target.value)
+                        }
+                      />
+                    </Field>
+                    <p className="field-note">
+                      5–120，默认 30。到期后仅允许一次 10 分钟宽限，不能刷新续期。
                     </p>
                   </div>
                 </section>
@@ -5066,27 +5190,35 @@ export function TeacherWorkspace({
                         updateForm("creditType", String(nextValue ?? ""))
                       }
                     />
-                    <AppSelect
-                      label="补录时长"
-                      required
-                      value={form.hours ?? "1"}
-                      options={[
-                        { value: "1", label: "1 小时" },
-                        { value: "2", label: "2 小时" },
-                      ]}
-                      onChange={(nextValue) =>
-                        updateForm("hours", String(nextValue ?? ""))
-                      }
-                    />
-                    <Field label="运动项目" required>
+                    <p className="record-audit-hint">
+                      按整分钟计入、单次最多 60 分钟。当前正式协议 1.2.0 没有教师补录写入接口，正式模式不会向服务器发送请求。
+                    </p>
+                    <Field label="整分钟计入" required>
                       <input
-                        value={form.sport ?? ""}
-                        onChange={(event) =>
-                          updateForm("sport", event.target.value)
-                        }
-                        placeholder="如 校园跑、课堂活动"
+                        id="makeup-whole-minutes"
+                        type="number"
+                        min="1"
+                        max="60"
+                        value={form.makeupMinutes ?? "30"}
+                        onChange={(event) => updateForm("makeupMinutes", event.target.value)}
+                        placeholder="1–60"
                       />
                     </Field>
+                    <AppSelect
+                      label="运动项目"
+                      required
+                      value={form.sport ?? ""}
+                      options={[
+                        { value: "", label: "请选择" },
+                        ...MAKEUP_SPORT_TYPES.map((item) => ({
+                          value: item.value,
+                          label: item.label,
+                        })),
+                      ]}
+                      onChange={(nextValue) =>
+                        updateForm("sport", String(nextValue ?? ""))
+                      }
+                    />
                     <Field label="教师凭证（可选）">
                       <input
                         value={form.proof ?? ""}
@@ -5156,12 +5288,67 @@ export function TeacherWorkspace({
           );
         })()}
 
+      {dialog?.type === "checkin-return-proof" && selectedReturnRecord && (
+        <Dialog
+          className="checkin-invalid-dialog"
+          eyebrow="退回补证（展示设计）"
+          title={`将“${selectedReturnRecord.sport}”退回一次补证`}
+          description="必须选择一项适用于退回补证的固定公开原因。可选一句公开补充说明保留原文。当前正式协议 1.2.0 不能写入该动作；核对完成后不会向服务器发送请求。"
+          close={closeDialog}
+          footer={
+            <>
+              <button className="secondary-button" type="button" onClick={closeDialog}>取消</button>
+              <button
+                className="primary-button"
+                type="button"
+                onClick={() => confirmReturnForProof(selectedReturnRecord.id)}
+              >
+                核对原因（不写入）
+              </button>
+            </>
+          }
+        >
+          <Field label="补证窗口" required>
+            <select
+              value={form.proofWindowHours ?? "24"}
+              onChange={(event) => updateForm("proofWindowHours", event.target.value)}
+            >
+              <option value="24">24 小时</option>
+              <option value="72">72 小时</option>
+            </select>
+          </Field>
+          <div className="invalid-reason-list" role="radiogroup" aria-label="退回补证公开原因">
+            {returnForProofReasons.map((reason) => (
+              <button
+                type="button"
+                role="radio"
+                aria-checked={form.publicReasonId === reason.id}
+                className={form.publicReasonId === reason.id ? "selected" : ""}
+                key={reason.id}
+                onClick={() => updateForm("publicReasonId", reason.id)}
+              >
+                <span aria-hidden="true" />
+                {reason.zh}
+                <small>{reason.en}</small>
+              </button>
+            ))}
+          </div>
+          <Field label="公开补充说明（可选，保留原文）" hint="不能代替固定分类，也不增加其他兜底项。">
+            <textarea
+              value={form.publicSupplementalNote ?? ""}
+              onChange={(event) => updateForm("publicSupplementalNote", event.target.value)}
+            />
+          </Field>
+          <FormError message={formError} />
+        </Dialog>
+      )}
+
       {dialog?.type === "checkin-invalid" && selectedInvalidRecord && (
         <Dialog
           className="checkin-invalid-dialog"
           eyebrow={mode === "demo" ? "前端审核原型" : "服务端正式审核"}
           title={`将“${selectedInvalidRecord.sport}”标记为无效`}
-          description="请选择最符合本条记录的原因。取消不会改变当前审核状态。"
+          description="必须选择一项适用于判为无效的固定公开原因。可选一句公开补充说明保留原文。不能选择仅适用于退回的分类，也不提供其他兜底项。"
           close={closeDialog}
           footer={
             <>
@@ -5188,45 +5375,37 @@ export function TeacherWorkspace({
             className="invalid-reason-list"
             role="radiogroup"
             aria-label="无效原因"
-            aria-invalid={Boolean(userFacingFieldError(formError, "reasonCode", "invalidReason")) || undefined}
+            aria-invalid={Boolean(userFacingFieldError(formError, "reasonCode", "invalidReason", "publicReasonId")) || undefined}
             aria-describedby={formError ? "teacher-form-error" : undefined}
           >
-            {invalidAttendanceReasons.map((reason) => (
+            {markInvalidReasons.map((reason) => (
               <button
                 type="button"
                 role="radio"
-                aria-checked={form.invalidReason === reason}
-                className={form.invalidReason === reason ? "selected" : ""}
-                key={reason}
-                onClick={() => updateForm("invalidReason", reason)}
+                aria-checked={form.publicReasonId === reason.id}
+                className={form.publicReasonId === reason.id ? "selected" : ""}
+                key={reason.id}
+                onClick={() => updateForm("publicReasonId", reason.id)}
               >
                 <span aria-hidden="true" />
-                {reason}
+                {reason.zh}
+                <small>{reason.en}</small>
               </button>
             ))}
           </div>
-          {form.invalidReason === "其他" && (
-            <Field
-              label="其他原因备注"
-              required
-              error={userFacingFieldError(formError, "reason", "publicComment", "auditRemark")}
-              hint={
-                mode === "demo"
-                  ? "备注仅保存在当前页面状态中"
-                  : "备注将随无效审核记录保存到服务端"
+          <Field
+            label="公开补充说明（可选，保留原文）"
+            error={userFacingFieldError(formError, "reason", "publicComment", "auditRemark")}
+            hint="补充说明不能代替固定分类。"
+          >
+            <textarea
+              maxLength={240}
+              value={form.publicSupplementalNote ?? form.auditRemark ?? ""}
+              onChange={(event) =>
+                updateForm("publicSupplementalNote", event.target.value)
               }
-            >
-              <textarea
-                autoFocus
-                maxLength={240}
-                value={form.auditRemark ?? ""}
-                onChange={(event) =>
-                  updateForm("auditRemark", event.target.value)
-                }
-                placeholder="请简要说明无效原因"
-              />
-            </Field>
-          )}
+            />
+          </Field>
           <FormError message={formError} />
         </Dialog>
       )}
@@ -5426,8 +5605,8 @@ export function TeacherWorkspace({
               title={`${student?.name} · ${mode === "demo" ? "成绩录入" : "服务端成绩"}`}
               description={
                 mode === "demo"
-                  ? `系统已按性别默认 ${distance}，用时将依据“${selectedGrade.gradeGroup}”换算表自动生成分数。`
-                  : "成绩由服务端按已审核记录与已生效规则计算；教师端不本地录入耐力跑分数。"
+                  ? `系统已按性别默认 ${distance}，用时将依据“${selectedGrade.gradeGroup}”换算表生成内部换算分，不向学生披露。`
+                  : "内部成绩由服务端按已审核记录与已生效规则计算；换算分不向学生披露，教师端不本地录入分数。"
               }
               close={closeDialog}
               footer={

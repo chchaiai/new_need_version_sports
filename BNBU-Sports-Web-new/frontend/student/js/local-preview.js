@@ -1,0 +1,303 @@
+// Local-only student UI review. Never a formal join, check-in, or Fake Success.
+// Gated to APP_ENV=local (or loopback unknown/dev/test). Production/staging/qa stay off.
+
+import { emptyWorkspace } from "./data.js";
+
+export const LOCAL_PREVIEW_ACCOUNT_ID = "LOCAL-REVIEW-STUDENT";
+export const LOCAL_PREVIEW_SESSION_KIND = "local-preview";
+
+const LOOPBACK_HOSTS = new Set(["localhost", "127.0.0.1", "::1", "[::1]"]);
+
+export function localPreviewEnabled(config = globalThis.__BNBU_PUBLIC_CONFIG__, hostname = globalThis.location?.hostname) {
+  const appEnv = String(config?.appEnv || "").toLowerCase();
+  if (["production", "staging", "qa"].includes(appEnv)) return false;
+  if (appEnv === "local") return true;
+  const loopback = LOOPBACK_HOSTS.has(String(hostname || "").toLowerCase());
+  return loopback && ["", "unknown", "development", "test"].includes(appEnv);
+}
+
+export function localPreviewRequested(search = globalThis.location?.search || "") {
+  const params = new URLSearchParams(search.startsWith("?") || search.length === 0 ? search : `?${search}`);
+  const preview = (params.get("preview") || "").trim().toLowerCase();
+  const mock = (params.get("mock") || "").trim().toLowerCase();
+  return preview === "student" || mock === "student";
+}
+
+export function buildLocalPreviewWorkspace() {
+  const workspace = emptyWorkspace();
+  workspace.student = {
+    ...workspace.student,
+    id: LOCAL_PREVIEW_ACCOUNT_ID,
+    name: "本地预览学生",
+    email: "preview@local",
+    emailVerified: true,
+    college: "本地预览学院",
+    className: "本地预览班",
+    status: "ACTIVE",
+    gender: "female",
+    gradeLevel: "sophomore",
+    admissionYear: 2024,
+    currentAcademicYear: "2026-2027",
+    gradeCalculatedAt: "",
+    accountStatus: "ACTIVE",
+  };
+  workspace.courses = [{
+    id: "preview-course",
+    classSectionId: "preview-section",
+    enrollmentId: "preview-enrollment",
+    code: "PE1001",
+    section: "PE1001-01",
+    name: "大学体育（羽毛球）",
+    semester: "2026-2027 第一学期",
+    teacher: "预览教师",
+    teacherId: "preview-teacher",
+    checkInTimeWindow: {
+      windowMode: "semester_wide",
+      dateRangeStart: "2026-09-01",
+      dateRangeEnd: "2027-01-15",
+      dailyStartTime: null,
+      dailyEndTime: null,
+      excludedDates: [],
+      semesterDeadline: "2027-01-15",
+    },
+    semesterId: "preview-semester",
+    academicYear: "2026-2027",
+    term: "FIRST",
+    semesterStatus: "current",
+    status: "active",
+    enrollmentStatus: "enrolled",
+    isCurrent: true,
+    deadline: "2027-01-15",
+    students: null,
+    pending: null,
+    completion: null,
+    missing: null,
+    finalGrade: null,
+    gradeStatus: null,
+  }];
+  workspace.progress = {
+    id: LOCAL_PREVIEW_ACCOUNT_ID,
+    name: "本地预览学生",
+    college: "本地预览学院",
+    className: "本地预览班",
+    course: 6.5,
+    general: 4,
+    rawCourse: 6.5,
+    rawGeneral: 4,
+    totalValidHours: 10.5,
+    qualificationStatus: "NOT_QUALIFIED",
+    scoreAvailable: false,
+    exam: 0,
+    attendance: 0,
+    physical: 0,
+    status: "进行中",
+    source: "local-preview",
+    organizationCredit: null,
+  };
+  workspace.hourRule = {
+    total: 20,
+    courseRequired: 10,
+    generalRequired: 10,
+    dailyLimit: 2,
+    categoryAllocationMode: "CATEGORY_TARGETS",
+    source: "local-preview",
+  };
+  workspace.records = [
+    {
+      id: "preview-record-valid-course",
+      enrollmentId: "preview-enrollment",
+      sessionId: "preview-session-1",
+      version: 1,
+      serverStatus: "REVIEWED",
+      reviewResult: "VALID",
+      reviewReasonCode: null,
+      reviewPublicComment: "记录有效，已计入运动时长。",
+      courseId: "preview-course",
+      taskTitle: "运动打卡",
+      creditType: "course",
+      hours: 1,
+      businessDate: "2026-08-28",
+      submittedAt: "2026-08-28 18:20",
+      proofSummary: "凭证已提交",
+      proofPhotoCount: 2,
+      proofVideoCount: 0,
+      proofFiles: [],
+      serverProofsLoaded: true,
+      teacherPublicFeedback: "记录有效，已计入运动时长。",
+      teacherInternalNote: null,
+      note: "羽毛球对打",
+      remark: "",
+      sportType: "羽毛球",
+      sportCode: "badminton",
+      customSportName: "",
+      startTime: null,
+      endTime: "2026-08-28T18:20:00",
+      actualDurationSeconds: 3600,
+    },
+    {
+      id: "preview-record-valid-general",
+      enrollmentId: "preview-enrollment",
+      sessionId: "preview-session-2",
+      version: 1,
+      serverStatus: "REVIEWED",
+      reviewResult: "VALID",
+      reviewReasonCode: null,
+      reviewPublicComment: "记录有效，已计入运动时长。",
+      courseId: null,
+      taskTitle: "运动打卡",
+      creditType: "general",
+      hours: 1.5,
+      businessDate: "2026-08-21",
+      submittedAt: "2026-08-21 07:40",
+      proofSummary: "凭证已提交",
+      proofPhotoCount: 1,
+      proofVideoCount: 1,
+      proofFiles: [],
+      serverProofsLoaded: true,
+      teacherPublicFeedback: "记录有效，已计入运动时长。",
+      teacherInternalNote: null,
+      note: "操场慢跑",
+      remark: "",
+      sportType: "跑步",
+      sportCode: "running",
+      customSportName: "",
+      startTime: null,
+      endTime: "2026-08-21T07:40:00",
+      actualDurationSeconds: 5400,
+    },
+    {
+      id: "preview-record-invalid",
+      enrollmentId: "preview-enrollment",
+      sessionId: "preview-session-3",
+      version: 1,
+      serverStatus: "REVIEWED",
+      reviewResult: "INVALID",
+      reviewReasonCode: null,
+      reviewPublicComment: "凭证无法确认运动过程。",
+      courseId: "preview-course",
+      taskTitle: "运动打卡",
+      creditType: "course",
+      hours: 0,
+      businessDate: "2026-08-18",
+      submittedAt: "2026-08-18 20:05",
+      proofSummary: "凭证已提交",
+      proofPhotoCount: 1,
+      proofVideoCount: 0,
+      proofFiles: [],
+      serverProofsLoaded: true,
+      teacherPublicFeedback: "未通过：凭证无法确认运动过程。",
+      teacherInternalNote: null,
+      note: "室内拉伸",
+      remark: "",
+      sportType: "其他",
+      sportCode: "other",
+      customSportName: "拉伸",
+      startTime: null,
+      endTime: "2026-08-18T20:05:00",
+      actualDurationSeconds: 3600,
+    },
+  ];
+  workspace.grades = {
+    studentId: LOCAL_PREVIEW_ACCOUNT_ID,
+    studentName: "本地预览学生",
+    visibleBlocks: [],
+    totalScore: null,
+    totalDisplay: "未开放",
+    isPassed: null,
+    courseGradeStatus: "rules_not_published",
+    displayConfigVersion: 0,
+    sourceTrace: "本地预览：学生端不展示分数。",
+    enduranceRunTimeSeconds: 272,
+    enduranceRunStatus: "recorded",
+    enduranceRunScore: null,
+  };
+  workspace.memberships = [];
+  workspace.notices = [
+    {
+      id: "preview-notice-score",
+      title: "成绩已发布",
+      message: "本学期总分预估 85，等级良好。",
+      time: "昨天",
+      createdAt: "2026-09-03T10:00:00Z",
+      category: "system",
+      notificationType: "SCORE_PUBLISHED",
+      targetType: null,
+      targetId: null,
+      isUnread: true,
+      readAt: null,
+    },
+    {
+      id: "preview-notice-progress",
+      title: "打卡进度有更新",
+      message: "有效运动时长已重新累计，不含分数。",
+      time: "2 天前",
+      createdAt: "2026-09-02T09:00:00Z",
+      category: "system",
+      notificationType: "PROGRESS_UPDATED",
+      targetType: null,
+      targetId: null,
+      isUnread: true,
+      readAt: null,
+    },
+    {
+      id: "preview-notice-upload-failed",
+      title: "Evidence upload failed",
+      message: "Try the same evidence batch again",
+      time: "今天",
+      createdAt: "2026-09-05T10:00:00Z",
+      category: "review",
+      notificationType: "EVIDENCE_UPLOAD_FAILED",
+      targetType: "exercise_record",
+      targetId: "preview-record-running",
+      isUnread: true,
+      readAt: null,
+    },
+    {
+      id: "preview-notice-proof",
+      title: "运动材料需要补证",
+      message: "教师已退回，请在截止前补充原次运动材料。",
+      time: "今天",
+      createdAt: "2026-09-05T09:00:00Z",
+      category: "review",
+      notificationType: "RETURN_FOR_PROOF",
+      targetType: "exercise_record",
+      targetId: "preview-record-running",
+      isUnread: true,
+      readAt: null,
+    },
+    {
+      id: "preview-notice-exemption",
+      title: "免测申请有新处理意见",
+      message: "已收到校医院证明，正在审核。",
+      time: "上周",
+      createdAt: "2026-08-28T11:05:00Z",
+      category: "review",
+      notificationType: "APPLICATION_UPDATED",
+      targetType: "physical_test_exemption",
+      targetId: "preview-exemption-800m",
+      isUnread: false,
+      readAt: "2026-08-28T12:00:00Z",
+    },
+  ];
+  workspace.teachers = [{ teacherId: "preview-teacher", teacherName: "预览教师" }];
+  workspace.exemptions = [{
+    id: "preview-exemption-800m",
+    type: "800m",
+    status: "审核中",
+    reason: "本地预览用的免测申请，不写入 Backend。",
+    createdAt: "2026-08-21 11:05",
+    reviewComment: "已收到校医院证明，正在审核。",
+    proofFiles: [{ name: "preview_certificate.jpg", source: "" }],
+  }];
+  workspace.checkInTimeWindow = {
+    windowMode: "semester_wide",
+    dateRangeStart: "2026-09-01",
+    dateRangeEnd: "2027-01-15",
+    dailyStartTime: null,
+    dailyEndTime: null,
+    excludedDates: [],
+    semesterDeadline: "2027-01-15",
+  };
+  workspace.courseJoinRequest = null;
+  return workspace;
+}

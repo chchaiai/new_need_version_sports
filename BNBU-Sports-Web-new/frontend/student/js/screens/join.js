@@ -6,7 +6,7 @@
 import { tx } from "../i18n.js";
 import { icon } from "../icons.js";
 import { esc, spinner, sectionTitle, statusBadge, validationPanel, actionButton, fieldLabel, fieldControlAttrs, fieldSupport, userFacingErrorPanel, focusFirstInvalidField } from "../ui.js";
-import { previewInvite, joinWithInvite, storeJoinContext, ApiError, toUserFacingError } from "../api.js";
+import { previewInvite, previewCourseInvitation, joinWithInvite, storeJoinContext, ApiError, toUserFacingError } from "../api.js";
 
 // Real backend invite tokens are "<id>.<secret>" — dots/underscores allowed.
 const INVITE_CODE_PATTERN = /^[A-Za-z0-9][A-Za-z0-9._~-]{15,199}$/;
@@ -33,8 +33,14 @@ function inviteCodeFromQr(rawValue) {
 /** Every invite lookup uses the real backend. Failures never fall back to mock data. */
 function lookupInvite(code, { onResolved, onUnavailable, onError }) {
   previewInvite(code).then(
-    (preview) => {
+    async (preview) => {
       if (!preview.enrollmentOpen) { onUnavailable(); return; }
+      let contractPreview = null;
+      try {
+        contractPreview = await previewCourseInvitation(code, { auth: false });
+      } catch {
+        contractPreview = null;
+      }
       onResolved(code, {
         name: preview.courseName,
         courseNumber: preview.courseCode,
@@ -42,6 +48,12 @@ function lookupInvite(code, { onResolved, onUnavailable, onError }) {
         teacher: preview.teacherDisplayName,
         semester: preview.semesterDisplayName,
         classSectionId: preview.classSectionId,
+        expiresAt: preview.expiresAt || contractPreview?.expiresAt || null,
+        enrollmentOpen: preview.enrollmentOpen,
+        joinStartAllowed: contractPreview?.joinStartAllowed ?? preview.enrollmentOpen,
+        inGrace: Boolean(contractPreview?.inGrace),
+        graceExpiresAt: contractPreview?.graceExpiresAt || null,
+        durationMinutes: contractPreview?.durationMinutes || null,
         real: true,
       });
     },
@@ -54,6 +66,32 @@ function lookupInvite(code, { onResolved, onUnavailable, onError }) {
 
 const inviteExpiredMessage = () =>
   tx("该邀请已过期或已被撤销，请联系教师获取新二维码或邀请码", "This invitation has expired or was revoked. Contact the teacher for a new QR code or invitation code.");
+
+const inviteApiLimitHint = () =>
+  tx("邀请有效期 5–120 分钟，默认 30 分钟。到期前已登记的同一次流程可有 10 分钟宽限，且不得刷新续期。", "Invites last 5–120 minutes (default 30). A registration already started before expiry may use one 10-minute grace period that cannot be refreshed.");
+
+function inviteExpiryCopy(invite) {
+  if (invite?.inGrace && invite.graceExpiresAt) {
+    const remainMs = Date.parse(invite.graceExpiresAt) - Date.now();
+    const minutes = Number.isFinite(remainMs) ? Math.max(0, Math.ceil(remainMs / 60000)) : 0;
+    return tx(`当前处于服务器登记的 10 分钟宽限，大约还剩 ${minutes} 分钟。宽限不得刷新续期。`, `You are in the server-registered 10-minute grace period, about ${minutes} min left. Grace cannot be refreshed.`);
+  }
+  const ms = Date.parse(invite?.expiresAt || "");
+  if (!Number.isFinite(ms)) {
+    return tx("有效期以服务端 expiresAt 为准。宽限不得刷新续期。", "Validity follows server expiresAt. Grace cannot be refreshed.");
+  }
+  const remainMs = ms - Date.now();
+  if (remainMs <= 0) {
+    return tx("邀请已到期。仅到期前已登记的同一次流程可继续宽限，不能新开入班或刷新宽限。", "This invite has expired. Only a registration already started may continue in grace; you cannot start a new join or refresh grace.");
+  }
+  const minutes = Math.max(1, Math.ceil(remainMs / 60000));
+  const duration = invite?.durationMinutes ? tx(`（本次 ${invite.durationMinutes} 分钟）`, ` (${invite.durationMinutes} min window)`) : "";
+  return tx(`服务端到期时间还剩约 ${minutes} 分钟${duration}。宽限不得刷新续期。`, `About ${minutes} min remain until server expiry${duration}. Grace cannot be refreshed.`);
+}
+
+function disabledGraceButton() {
+  return `<button class="outlined-btn" type="button" disabled style="min-height:48px">${tx("刷新宽限（业务不允许续期）", "Refresh grace (not allowed)")}</button>`;
+}
 
 /** Backend invite tokens are opaque and case-sensitive. */
 function normalizeInviteInput(value) { return value.trim(); }
@@ -124,6 +162,10 @@ export function renderScanJoin(app, { preLogin = false } = {}) {
       <div class="headline-small" style="color:var(--color-on-background)">${tx("扫描课程二维码", "Scan a course QR code")}</div>
       <div style="height:8px"></div>
       <div class="body-large text-muted">${tx("将老师提供的二维码对准扫描框，识别后可核对课程信息。", "Align the teacher's QR code in the frame to review the course details.")}</div>
+      <div style="height:8px"></div>
+      <div class="body-small text-muted">${inviteApiLimitHint()}</div>
+      <div style="height:12px"></div>
+      ${disabledGraceButton()}
       <div style="height:24px"></div>
       ${cameraArea}
       <div style="height:14px"></div>
@@ -325,6 +367,9 @@ export function renderEnterInviteCode(app) {
         <span class="text-primary" style="display:inline-flex">${icon("keyboard", 24)}</span>
         <div class="headline-small text-on-surface">${tx("输入邀请码", "Enter invitation code")}</div>
         <div class="body-large text-muted">${tx("请输入老师提供的邀请码。查询后请核对课程名称、教师和学期信息，再确认加入。", "Enter the token from your teacher. Review the course name, instructor, and term before joining.")}</div>
+        <div class="body-small text-muted">${inviteApiLimitHint()}</div>
+        <div style="height:8px"></div>
+        ${disabledGraceButton()}
         <div style="height:8px"></div>
         <div class="col">
           ${fieldLabel({ id: "enter-invite-code", label: tx("邀请码", "Invitation code"), required: true })}
@@ -451,7 +496,9 @@ export function renderCourseJoinConfirm(app, params) {
           ${joinFact(tx("课程名称", "Course name"), course.name)}
           ${joinFact(tx("授课老师", "Instructor"), course.teacher)}
           ${joinFact(tx("学期", "Term"), course.semester)}
-          <div class="body-medium text-muted">${tx("请确认以上课程信息无误后再加入", "Confirm that these course details are correct before joining.")}</div>
+          ${joinFact(tx("邀请有效期", "Invitation validity"), inviteExpiryCopy(course))}
+          <div class="body-medium text-muted">${tx("核对无误后加入即为有效成员，无需教师审批。本页仍调用现有 preview / join 接口。", "After you confirm, a successful join is an active membership with no teacher approval. This page still calls the current preview / join APIs.")}</div>
+          ${disabledGraceButton()}
         </div></div>
         ${sectionTitle(tx("填写身份资料", "Enter identity details"))}
         <div class="swiss-panel">${identityContent}</div>
@@ -491,7 +538,7 @@ function reviewComment(label, comment) {
 
 export function localizedJoinStatus(status) {
   switch (status) {
-    case "PENDING": return tx("待审核", "Under review");
+    case "PENDING": return tx("服务端待审核（旧状态）", "Server pending (legacy)");
     case "ACTIVE": return tx("已通过", "Approved");
     case "REJECTED": return tx("已拒绝", "Rejected");
     case "NEEDS_CORRECTION": return tx("需补正", "Information needed");
@@ -535,7 +582,8 @@ export function renderJoinRequestStatus(app, params) {
     </div></div>`;
   } else if (request.status === "PENDING") {
     panel = `<div class="swiss-panel"><div class="col" style="gap:16px">
-      ${statusHeading(tx("申请状态：待教师审核", "Status: under teacher review"), "error-outline")}
+      ${statusHeading(tx("申请状态：服务端仍返回待审核", "Status: server still returns pending review"), "error-outline")}
+      <div class="body-medium text-muted">${tx("v8.0 正常加入无需教师审批。若仍看到待审核，这是旧接口状态，本页不能改成直接有效。", "v8.0 joins do not need teacher approval. If this still shows pending, it is a legacy API status and this page cannot turn it into an active membership.")}</div>
       ${factList([
         [tx("课程", "Course"), request.courseName],
         [tx("教师", "Teacher"), request.teacherName],

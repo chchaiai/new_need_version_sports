@@ -24,7 +24,14 @@ npm run preview
 # 打开 http://127.0.0.1:4174/student/
 ```
 
-学生端预览直接访问 `http://127.0.0.1:4174/student/`。学生端只进入正常账号登录流程；登录后通过 HTTP API 使用真实 Backend 数据，不提供免登录学生或本地合成业务数据。
+学生端预览直接访问 `http://127.0.0.1:4174/student/`。正式链路仍是邮箱验证码登录，登录后通过 HTTP API 使用真实 Backend 数据。
+
+仅在本地 `APP_ENV=local`（`npm run preview` 已默认设置）可用免登录界面预览，用来核对规则和 UI：
+
+- 登录页「学生端测试入口」→「直接进入本地预览」
+- 或打开 `http://127.0.0.1:4174/student/?preview=student`
+
+预览会显示醒目横幅，不写入 Backend，不是正式入班或打卡成功。生产 / staging / qa 不会开启这条路径。
 
 学生端是无外部运行时依赖的静态 SPA。运动打卡凭证只通过 `getUserMedia` 实时相机流拍摄或录制，不提供文件选择框；免测证明同时支持相机和文件选择并保留来源。相机和麦克风需要 HTTPS 或 localhost。
 

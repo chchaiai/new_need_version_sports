@@ -86,7 +86,7 @@ export function renderCourses(app) {
     <div class="col" style="gap:5px">
       <span class="course-large-title">${tx("我的课程", "My courses")}</span>
       <span style="font-size:17px;line-height:23px;color:var(--color-on-surface)">${esc(subtitle)}</span>
-      <span style="font-size:13px;line-height:18px;color:var(--color-on-surface-variant)">${tx("每学期仅可选择一门课程", "You may select one course per semester.")}</span>
+      <span style="font-size:13px;line-height:18px;color:var(--color-on-surface-variant)">${tx("每学期仅可选择一门课程。加入仍使用教师现有邀请接口；宽限不能在本页续期。", "You may select one course per semester. Joining still uses the teacher's current invitation API; grace time cannot be extended here.")}</span>
     </div>
     ${hasPendingJoinRequest ? `
       <button class="course-card pressable" data-action="join.openStatus" style="padding:16px 18px">
@@ -108,6 +108,8 @@ export function renderCourses(app) {
       <button class="outlined-btn pressable" data-action="courses.enterCode" style="min-height:52px;border-radius:14px">
         ${icon("text-fields", 20)}<span style="font-size:16px;font-weight:600">${tx("输入邀请码", "Enter invitation code")}</span>
       </button>
+    </div>` : app.hasActiveEnrollment() ? `<div class="col" style="gap:10px">
+      <button class="outlined-btn" type="button" disabled style="min-height:52px;border-radius:14px">${tx("加入另一门课（同学期已有课程）", "Join another course (already enrolled this semester)")}</button>
     </div>` : ""}
   </div>`;
 }

@@ -71,6 +71,7 @@ test("keeps formal authentication and gates skip-sign-in preview access to local
   assert.match(app, /await requestAccountRecovery\(/);
   assert.match(app, /await completeAccountRecovery\(/);
   assert.doesNotMatch(app, /id="recovery-organization"/);
+  assert.doesNotMatch(app, /organizationCode: organizationCode/);
   assert.doesNotMatch(app, /学校组织代码/);
   assert.doesNotMatch(language, /学校组织代码/);
   assert.match(language, /输入账号绑定邮箱和账号身份/);
@@ -139,7 +140,7 @@ test("teacher and admin account dialogs use an in-workspace password settings fl
   assert.match(app, /无需跳转登录页，在当前工作台完成邮箱验证并设置新密码。/);
   assert.match(app, /id="password-settings-identify-form"/);
   assert.match(app, /id="password-settings-reset-form"/);
-  assert.match(app, /await getCurrentOrganization\(\)/);
+  assert.doesNotMatch(app, /await getCurrentOrganization\(\)/);
   assert.doesNotMatch(app, /id="password-settings-organization"/);
   assert.match(app, /requestAccountRecovery\(\{/);
   assert.match(app, /completeAccountRecovery\(\{/);
