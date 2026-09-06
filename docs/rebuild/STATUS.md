@@ -1,12 +1,22 @@
 # 当前进度状态
 
-> 更新时间：2026-09-06
+> 更新时间：2026-09-07
 >
-> 当前工作：PR #5 复审修复已提交到 `codex/web-v81-align`。见 [V8.1 Web 交接](handoffs/2026-09-05-web-v81-align.md)。
+> 当前工作：Phase 4 V8.1 本批次联合设计与最终接受已完成，按负责人授权统一归档六份文档并提交PR。见[Phase 4联合交接](handoffs/new-req-phase-4.md)及[联合汇总§9～10](../architecture/new-requirements/p4-design-deltas-v81.md#9-最终接受登记2026-09-07)。
 >
-> 完成状态：Web 展示 PARTIAL。复审五项已合入本分支并重测。不是生产闭环。系统开发整体仍 PARTIAL。未合并 main、未部署。
+> 完成状态：本批次ACCEPTED/PARTIAL；Phase4 IN_PROGRESS，Phase5 LOCKED。Z的A/C/E/G2、H的B/D/F/G1/G3及联合汇总均已按约定深度接受，四项业务PENDING、追溯/工程DoD及Contract门禁未关闭。产品与数据库均NOT EXECUTED。
 
 本页按各部分的具体情况记录当前进度。后续工作的数字编号和事项见 [项目 README](../../README.md#后续开发路线)。
+
+## 本轮 Phase 4 V8.1 联合设计收尾（PARTIAL）
+
+- 原始设计基线为`main@dbdedf9be958af08dd4a2c56d23191c626cca625`；H设计阶段分支为`codex/phase4-huang-review-timing`，统一发布分支为`docs/phase4-v81-partial-handoff`。Contract仍为`1.2.0-contract / RC / 667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a`。
+- P4-Z归档前v10 为 `8eb159dd…aafe`，登记被接受 v9 `d3f5b911…229a46`；G2接受登记快照 `7618a69a…1f62`，H 内容 Review 版 `55b04e2c…e6d4`；联合汇总 `8ff37739…567c` 已由 H 定向确认，无 P0/P1 finding。 这些SHA标识接受/审阅快照，当前归档文件由Git提交与路径定位。
+- [P4-H 正式整包](../architecture/new-requirements/p4-design-huang-v81.md) 位于仓库内唯一落点，包含 B/D/F/G1/G3；归档前被接受源快照SHA-256为 `cb5f01c61784f002ad43947f52f505653821678ecda7cb50d957b4be3ea5126d`。不另建重复的客户端分层或 Contract 缺口正式副本。
+- H↔Z 八项引用为 8 确认/0 不一致/0 待补；ISS-019/020/021 已闭合。联合汇总 J-11 中“未发现 H 仓库内正式稿”仅是 Z 隔离工作区观察，现已由 H 确认实际落点。
+- 四项 PENDING 原样保留：六类均不适用时的终局标准、首次材料期限/受理边界、学校工作日日历/日内边界、非维护故障错误逾期补救。Phase 3 豁免不消除 REQ/Impact Matrix 追溯缺项。
+- `CR-20260901-005` 仍 PROPOSED/BLOCKING，GAP-H13、H15～H18 仍阻塞受影响 Contract；不得据本批次设计直接进入 Backend、数据库/Migration、正式客户端 binding 或 E2E。
+- H原设计阶段仅修改H正式稿、本页及Handoff；周润基已接受其整包并获负责人授权，统一发布Z主稿、G2、联合汇总、H整包、Handoff、STATUS六份文档。此次只归位文件并调整链接/接受/发布元数据，外部源附件及四项`.DS_Store`不动。业务正文、Contract、产品代码、数据库/Migration和infra不改；不合并或部署。发布检查见PR说明，不重跑稳定算法及上游测试。
 
 ## 本轮 Web V8.1 展示设计（复审修复已重测）
 
@@ -73,12 +83,12 @@
 
 | 部分 | 现有成果与证据 | 未完成事项 |
 |---|---|---|
-| 新需求 | 原 ACCEPTED 决策中无冲突部分继续生效；现含 `BD-20260904-01/02`，旧接管及教师维护改密例外已被本轮替代，见[总览](../business/00-overview.md)与[本轮交接](handoffs/2026-09-04-business-review-followup.md) | 不补造独立会议原文；后续新增需求另行登记 |
+| 新需求 | 原ACCEPTED决策中无冲突部分继续生效；P4-Z A/C/E/G2、[P4-H B/D/F/G1/G3整包](../architecture/new-requirements/p4-design-huang-v81.md)及联合汇总已按本批次约定深度接受，见[Phase4交接](handoffs/new-req-phase-4.md) | 四项业务PENDING、追溯/工程DoD及Contract门禁仍开放；本批次PARTIAL，Phase4 IN_PROGRESS，Phase5 LOCKED |
 | 业务规则 | [总流程](../business/00-overview.md)、[学生](../business/10-student-flow.md)、[教师](../business/20-teacher-flow.md)、[管理员](../business/30-admin-flow.md) 为 V8.1；当前开发范围 Android / Web，已同步用户本轮确认的补证、维护、SLA、关闭与职责/备注边界 | 仍须完成页面、状态与 Contract 设计；文档删减不代表原问题已解决或产品已运行 |
 | UI / 用户流程 | Android 学生端、Web 学生端、教师 / 管理员 Portal 已有页面和交互代码 | 本轮新增需求对应的入口、页面、Loading / Empty / Error 与权限反馈尚未设计 |
-| Domain / 数据库 | [领域与数据库设计](../architecture/phase-3-domain-and-database-design.md) 已覆盖状态、不变量、关系、唯一约束、事务、索引、审计和历史保留 | 当前只有设计，没有本仓库新 Backend 的 migration、真实数据库执行或运行验证；后续仅按新需求增量修改 |
-| Backend 架构 | [架构职责](../architecture/backend-architecture.md)、[模块边界](../architecture/backend-module-boundaries.md)、[依赖规则](../architecture/backend-dependency-rules.md) 已明确 | 最小 Composition Root、模块实现和可执行架构测试尚未建立 |
-| API Contract | `1.2.0-contract` / `RC`，`/api/v1`，109 paths / 121 operations / 193 schemas / 66 errors；[metadata](../../contracts/contract-metadata.json) 与实际文件 SHA 一致 | [CR-20260901-005](../../contracts/change-requests/CR-20260901-005-explicit-discriminator-mappings.md) 仍是 PROPOSED / BLOCKING；三组 discriminator 显式映射、版本提升与下游重验证尚未完成 |
+| Domain / 数据库 | [领域与数据库设计](../architecture/phase-3-domain-and-database-design.md) 继续作为旧基线；P4-Z/H 增量已补状态机、不变量、事实归属、事务/并发、统计/材料/结算与迁移恢复边界 | 当前仍只有设计，没有新 Backend 的真实表、Migration、环境盘点、数据库执行或恢复演练 |
+| Backend 架构 | [架构职责](../architecture/backend-architecture.md)、[模块边界](../architecture/backend-module-boundaries.md)、[依赖规则](../architecture/backend-dependency-rules.md) 继续有效；P4-H/Z 已给出新需求的模块 Owner 和跨模块保护边界 | Contract 与 PENDING 门禁未关闭；最小 Composition Root、模块实现和可执行架构测试尚未建立 |
+| API Contract | `1.2.0-contract` / `RC`，`/api/v1`，109 paths / 121 operations / 193 schemas / 66 errors；[metadata](../../contracts/contract-metadata.json) 与实际文件 SHA 一致；P4-H §17 已汇总新需求差异 | [CR-20260901-005](../../contracts/change-requests/CR-20260901-005-explicit-discriminator-mappings.md) 仍 PROPOSED/BLOCKING；GAP-H13、H15～H18 等受业务决定约束，未发布新 Version/SHA |
 | Android | 已有 Kotlin 客户端、旧接口清单、隔离的 DTO 生成和 Contract / Mock 验证；[已有验证记录](handoffs/phase-5g-a-android-affected-contract-revalidation.md) 包含 341/341 单测通过、构建通过 | 正式绑定仍为 `3.0.0-contract`，网络链路尚未迁移至新 Contract；没有本仓库真实 Backend 接入和真机 E2E 验收 |
 | Web | 已有学生端与 Portal；[已有验证记录](handoffs/phase-5g-b-web-affected-contract-revalidation.md) 包含 affected 13/13、Portal 125/125、Student smoke 79/79、类型检查、构建和浏览器检查 | Portal 正式快照仍为 `3.0.0-web-snapshot`；验证绑定未替换正式旧 API / DTO，演示数据与 BACKEND_REQUIRED 边界仍存在 |
 | Backend 实现 | [实现目录](../../BNBU-Sports-Backend/README.md) 的 Git 跟踪内容只有 README | 无可启动服务、真实认证、Use Case、PostgreSQL 持久化或 COS 接入 |
