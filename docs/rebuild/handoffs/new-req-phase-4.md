@@ -69,7 +69,7 @@ P4-H 的详细结束报告以其 §18 为准；当前只完成设计与 Reviewer
 - ISS-021：G2 精确内容版已进入 H 独立 Review；G2-10/12～15D 无 P0/P1 概念冲突。
 - H 对联合汇总 J-01～J-13 的定向结论：确认，无 P0/P1 finding；没有重跑 A 的稳定算法样本。
 - 联合汇总 J-11 的“未发现仓库内 H 正式稿”是 Z 隔离工作区的观察；H 侧已按 §2.2 确认正式落点和整包/分件关系。
-- 联合汇总仍由 Z 唯一编辑。H 不修改或复制 Z/G2/汇总源文件；Z 后续只需吸收本 Handoff、STATUS 和 P4-H 新 SHA 的引用事实。
+- 联合汇总已由 Z 作为唯一编辑者完成回填，吸收了本 Handoff、STATUS 及 P4-H 接受快照的版本和引用事实；本批次联合收尾已完成。H 侧未修改 Z/G2/汇总设计源文件。
 
 ## 5. 保留的四项业务 PENDING
 
@@ -130,7 +130,7 @@ product_execution: NOT_EXECUTED
 database_migration: NOT_EXECUTED
 ```
 
-Z已核实H三份交接文件SHA/引用并完成联合汇总回填；下一步按授权发布六份文档PR供审阅，其后按单个工作项处理剩余Phase4门禁，不因文档入库启动产品开发。
+Z已核实H三份交接文件SHA/引用并完成联合汇总回填；六份文档已提交至[PR #7](https://github.com/chchaiai/new_need_version_sports/pull/7)供审阅，未执行合并。后续按负责人安排处理PR审阅意见及剩余Phase4门禁，不因文档入库启动产品开发。
 
 ## 10. 文档归档与发布证据边界（2026-09-07）
 
