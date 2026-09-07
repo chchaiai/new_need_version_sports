@@ -2,9 +2,9 @@
 
 > 更新时间：2026-09-07
 >
-> 当前工作：Phase 4 V8.1 本批次联合设计与最终接受已完成，按负责人授权统一归档六份文档并提交PR。见[Phase 4联合交接](handoffs/new-req-phase-4.md)及[联合汇总§9～10](../architecture/new-requirements/p4-design-deltas-v81.md#9-最终接受登记2026-09-07)。
+> 当前工作：Phase 4 V8.1 本批次联合设计与最终接受已完成，按负责人授权统一归档六份文档并提交PR。见[Phase 4联合交接](handoffs/new-req-phase-4.md)及[联合汇总§9～10](../architecture/new-requirements/p4-design-deltas-v81.md#9-最终接受登记2026-09-07)。Web 通知 `targetRoute` 映射见 [PR #6](https://github.com/chchaiai/new_need_version_sports/pull/6) 与 [V8.1 Web 交接](handoffs/2026-09-05-web-v81-align.md)。
 >
-> 完成状态：本批次ACCEPTED/PARTIAL；Phase4 IN_PROGRESS，Phase5 LOCKED。Z的A/C/E/G2、H的B/D/F/G1/G3及联合汇总均已按约定深度接受，四项业务PENDING、追溯/工程DoD及Contract门禁未关闭。产品与数据库均NOT EXECUTED。
+> 完成状态：本批次ACCEPTED/PARTIAL；Phase4 IN_PROGRESS，Phase5 LOCKED。Z的A/C/E/G2、H的B/D/F/G1/G3及联合汇总均已按约定深度接受，四项业务PENDING、追溯/工程DoD及Contract门禁未关闭。产品与数据库均NOT EXECUTED。Web 展示仍 PARTIAL。
 
 本页按各部分的具体情况记录当前进度。后续工作的数字编号和事项见 [项目 README](../../README.md#后续开发路线)。
 
@@ -22,6 +22,7 @@
 
 - 业务权威为 `origin/main@8c9826822f35876f8d01480f8baf184027711dfe` 的 V8.1 四份正文；协议权威为仓库 `1.2.0-contract`。
 - 已按 PR #5 复审：恢复 1.2.0 绑定/门禁；退回补证与学生补证包不再非正式写入；删除有限审核授权；英文 `score/grade/rank/points` 通知拦截；拆出模板/OCR/补录/1.3.0 邀请写入。
+- PR #6：`mapServerNotification()` 保留正式 `targetRoute`；`FINAL_GRADE` 整条省略；`EXERCISE_RECORD` / `APPLICATION` 按路由打开，不再误进打卡页。
 - 未改 Contract、业务正文、Android、Backend。正式补证、维护剩余秒、锁定批次续传仍只在交接表登记。
 
 ## 前次删除指定待决说明
