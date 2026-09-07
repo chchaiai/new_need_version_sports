@@ -1,8 +1,8 @@
 # Phase 4 · V8.1 联合增量设计汇总（P4-Z / P4-H）
 
-> 状态：ACCEPTED（周润基于2026-09-07明确接受本批次PARTIAL设计交付）；本文唯一编辑者：周润基（P4-Z）；联合Reviewer：黄友晟（P4-H）。
+> 当前版本：`P4-HZ-FINAL-ALIGN-1.0`；状态：ACCEPTED。原§1～10为分批设计和决定前的历史记录，最终决定、替代关系、Phase 2映射与阶段门禁以§11为准。
 >
-> 本批次：PARTIAL；Phase 4：IN_PROGRESS；phase_5_gate：LOCKED。
+> 本批次：DONE；Phase 4：DONE；phase_5_gate：READY。
 >
 > 执行状态：NOT EXECUTED（产品、Contract、数据库、migration、回填、备份恢复与部署）；设计核对证据另列。
 >
@@ -124,3 +124,28 @@ H §18.5已明确仅吸收交接事实无需重审稳定设计正文，因此不
 §2前后各历史评审记录中的SHA保留原身份。本汇总归档前最终接受登记版SHA为 `b9dc5192971ef9ac41962d55a815fbb713024ed0a62092a1d6fb83d18274352f`；其余来源身份见J-02。发布后文件由Git提交与路径定位，PR记录实际检查和提交证据，不把旧附件SHA称为新文件SHA，也不循环回填相互引用哈希。
 
 本轮核对范围为六份文档的来源一致性、正文保持、链接/锚点、格式、Git范围和受保护文件；稳定算法与上游验证复用原证据，不重跑产品、Contract verify或数据库操作。实际结果随PR提交说明列出。设计接受仍为ACCEPTED/PARTIAL，Phase4 IN_PROGRESS、Phase5 LOCKED，四项PENDING、REQ/Phase2追溯与工程/Contract缺项继续留在Phase4；产品、Contract、数据库、migration、回填、备份恢复及部署均NOT EXECUTED。〔来源：本会话负责人授权/统一提交指令；§9接受登记；J-02/08～10/13；原任务验证与门禁要求。〕
+
+## 11. 最终语义对齐与历史结论替代
+
+<a id="p4-hz-final-alignment"></a>
+
+本节由本次最终收尾Finding触发，是§1～10之后的当前联合结论。旧段落中的“PARTIAL”“四项PENDING”“canonical UNKNOWN”“GAP-H13待定”“Phase 4 IN_PROGRESS / Phase 5 LOCKED”均作为历史审阅快照保留，不再控制当前阶段；它们分别由H §19.2～19.8、Z §12、G2 §13、矩阵§8和本节取代。
+
+### 11.1 决定已进入双方正式设计
+
+- P-01：完成必要检查、六类无效依据均不适用且仅剩未证实疑虑时判`VALID`。H为B/F定义Owner；Z的C/E只消费结果。
+- P-02：Z在C/E正式定义普通首次`acceptedAt < endedAt + 24h`，同一锁定批次`completedAt < acceptedAt + 30m`，等号拒绝、服务器时间裁决；合法受理链不因关闭或移出被截断。游泳和补证窗口保持独立。
+- P-03：两个完整学校工作日为版本化校历覆盖区间内172800秒，`Asia/Shanghai`日界，暂停相交区间取并集。H定义；Z/G2消费。
+- P-04：错误逾期以追加纠错恢复原剩余机会，保留旧终局、历史、已用机会和合法后继。H定义；Z/G2消费。
+- GAP-H13：所有已认证`TEACHER`可只读查看历史remark；学生及通知/导出/缓存/日志/公开页不可见，新成绩不创建remark。H定义；Z/G2消费。
+- Contract：Phase 5唯一起始输入是`CON-011 / main 73945754a8dbd490709a0a92fda696febf6433eb / 1.2.0-contract RC / 667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a`。两个4.0.1同名候选仅作不同历史身份。
+
+### 11.2 Phase 2对应与延期责任
+
+Phase 2页面清单、用户流程、七状态矩阵、Android UI foundation及最终交接，已在矩阵§8.3和Z §12.4分别对应到B/C/E/F/G1/G2及AT-01～08、16、18～25。不存在的REQ编号未被虚构；实际交付路径、页面/状态键、BD和AT构成稳定追溯键。原J-09/J-10和ISS-007的Phase 2对应缺项就Phase 4交付而言关闭。
+
+已批准延期事项有明确责任和阶段：Contract Owner在Phase 5完成CR-005及新Version/SHA；Android/Web Owner在Phase 6完成生成/Mock，在Phase 8完成真实接入；Academic Term/Data/Backend Owner在Phase 7完成版本化校历、Schema、状态机和迁移实现；Environment/Data/Backend Owner在Phase 9完成E2E与恢复演练；隐私/运营、设计Reviewer和Staging Owner在Phase 10完成相应验收；Release Owner在Phase 11完成发布门禁。上述执行项仍`NOT_EXECUTED`。
+
+### 11.3 联合复核范围
+
+最终互审必须绑定修改后的H `P4H-FINAL-ALIGN-1.3`、Z `P4Z-FINAL-ALIGN-1.1`、G2 `P4Z-G2-FINAL-ALIGN-1.1`、矩阵`P4-TRACE-V8.1-1.2`及本汇总`P4-HZ-FINAL-ALIGN-1.0`，并覆盖STATUS、最终交接和最终报告。复核检查P-01～04、CON-011、GAP-H13、Phase 2映射、延期Owner/阶段及main Web修复保持；Finding关闭记录和完整SHA见最终Review记录及PR。当前目标结论为开放Finding 0、`Phase 4 DONE / Phase 5 READY`，不包含产品、数据库、Migration或部署执行。

@@ -150,3 +150,24 @@ Z已核实H三份交接文件SHA/引用并完成联合汇总回填；六份文�
 - 实际校历表、产品代码、数据库/Migration、真实AI/OCR/媒体/权限、恢复演练、部署与E2E仍`NOT_EXECUTED`，按路线进入后续阶段，不冒充Phase 4执行结果。
 
 最终结论：`Phase 4 DONE / Phase 5 READY`。本交接只解锁Phase 5 Contract工作，不解锁Backend、客户端实现、部署或生产操作。
+
+## 12. 最终语义对齐补充
+
+本节响应最终收尾Finding，取代本交接§1、§5～10及所引历史文件中的四项PENDING、Contract UNKNOWN、GAP-H13待定和Phase 5 LOCKED结论。正式版本为H `P4H-FINAL-ALIGN-1.3`、Z `P4Z-FINAL-ALIGN-1.1`、G2 `P4Z-G2-FINAL-ALIGN-1.1`、矩阵`P4-TRACE-V8.1-1.2`及联合汇总`P4-HZ-FINAL-ALIGN-1.0`。
+
+### 12.1 已落实的当前规则
+
+- P-01：规定检查完成、六类无效依据均不适用且只剩未证实疑虑时判`VALID`。
+- P-02：普通首次材料严格满足服务器`acceptedAt < endedAt + 24h`；同一锁定批次严格满足`completedAt < acceptedAt + 30m`；等号拒绝。合法受理链不因课程关闭或成员移出被截断，游泳和补证专门窗口不被覆盖。
+- P-03：两个完整学校工作日按版本化学校工作日表累计172800秒，`Asia/Shanghai`日界，暂停相交区间取并集。
+- P-04：错误逾期后以追加纠错恢复原剩余机会，保留旧终局、历史、已用机会和合法后继。
+- GAP-H13：所有已认证`TEACHER`可只读查看历史remark；学生和其他出口不可见，新成绩不创建remark。
+- Contract：Phase 5唯一输入是`CON-011 / main 73945754a8dbd490709a0a92fda696febf6433eb / 1.2.0-contract RC / 667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a`；两个4.0.1候选仅作不同历史身份。
+
+### 12.2 Phase 2与后续阶段
+
+Phase 2页面清单、用户流程、七状态矩阵、Android UI foundation和最终交接已在矩阵§8.3及Z §12.4对应到B/C/E/F/G1/G2和AT。Phase 5由Contract Owner完成CR-005、新Version/SHA；Phase 6由Android/Web Owner完成生成与Mock；Phase 7由Academic Term/Data/Backend Owner完成校历、Schema、状态机和迁移实现；Phase 8完成客户端真实接入及FCM清理；Phase 9完成本地E2E与恢复演练；Phase 10完成Staging、隐私与全量七态/无障碍；Phase 11由Release Owner完成发布门禁。所有后续执行当前仍`NOT_EXECUTED`。
+
+### 12.3 main保持与最终Review
+
+本分支已合入`origin/main@73945754a8dbd490709a0a92fda696febf6433eb`，保留PR #6的五份Web修复，不改其产品代码。最终H↔Z复核覆盖上述修改后版本、STATUS、本交接、最终报告和Review记录；检查范围为五项决定、Phase 2对应、延期Owner/阶段、完整SHA、链接/锚点、main Web文件保持及`NOT_EXECUTED`边界。Finding关闭记录见`phase-4-final-alignment-review.md`；目标开放Finding为0，PR由用户审核后决定是否合并。

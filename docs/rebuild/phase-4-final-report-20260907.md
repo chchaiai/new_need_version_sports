@@ -9,6 +9,8 @@
 
 H完成B、D、F、G1、G3及决定对齐；Z完成A、C、E、G2。双向追溯矩阵、工程边界、状态与不变量、事务/幂等/并发、客户端分层、迁移恢复方案和Contract缺口均形成设计证据。双方最终互审由用户确认为完成，开放Finding为0。
 
+最终对齐版本：H `P4H-FINAL-ALIGN-1.3`、Z `P4Z-FINAL-ALIGN-1.1`、G2 `P4Z-G2-FINAL-ALIGN-1.1`、矩阵`P4-TRACE-V8.1-1.2`、联合汇总`P4-HZ-FINAL-ALIGN-1.0`。上述版本明确取代各文件中的历史PENDING、canonical UNKNOWN、Phase 4 IN_PROGRESS和Phase 5 LOCKED快照。
+
 ## 最终业务决定
 
 - P-01：规定检查完成、无适用无效依据且只有未证实疑虑时判有效。
@@ -32,6 +34,22 @@ Phase 5唯一选定起始输入：
 - 原始LF字节数：`450586`
 
 两个`4.0.1-contract`候选继续分开保留为历史候选，不作为本次绑定输入。Phase 5负责CR-005、新Version/SHA、生成源修改和独立Review；Phase 6负责跨端Contract/Mock验证。
+
+## Phase 2对应
+
+Phase 2页面清单、用户流程、七状态矩阵、Android UI foundation和最终交接已映射到Phase 4的B/C/E/F/G1/G2及AT-01～08、16、18～25。普通材料、维护/连接状态、学生敏感字段、站内通知、关闭后合法链和迁移恢复均有正式设计Owner；详细关系见追溯矩阵§8.3及Z主稿§12.4。不存在的REQ编号没有被虚构，使用实际交付路径、页面/状态键、BD和AT保持追溯。
+
+## 已批准延期
+
+| 事项 | Owner | 完成阶段 | 当前状态 |
+|---|---|---|---|
+| CR-005、新Contract Version/SHA | Contract Owner | Phase 5 | NOT_EXECUTED |
+| Android/Web Contract生成与Mock | Android/Web Owner | Phase 6 | NOT_EXECUTED |
+| 校历、Backend状态机、Schema和迁移实现 | Academic Term/Data/Backend Owner | Phase 7 | NOT_EXECUTED |
+| 客户端接入和FCM清理 | Client/Android平台Owner | Phase 8 | NOT_EXECUTED |
+| 本地E2E和恢复演练 | Environment/Data/Backend Owner | Phase 9 | NOT_EXECUTED |
+| Staging、隐私、全量七态/无障碍 | Staging、隐私/运营、设计Reviewer | Phase 10 | NOT_EXECUTED |
+| Release与生产门禁 | Release Owner | Phase 11 | NOT_EXECUTED |
 
 ## 验证证据
 

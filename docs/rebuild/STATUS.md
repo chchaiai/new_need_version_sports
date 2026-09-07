@@ -4,16 +4,20 @@
 >
 > 当前工作：Phase 4 V8.1 已完成最终互审和负责人决定对齐，进入阶段退出；下一阶段为 Phase 5 API Contract / OpenAPI。
 >
-> 完成状态：`Phase 4 DONE`；`Phase 5 READY`。H/Z设计及最终互审已接受，P-01～04、GAP-H13和Contract起始身份均已决定并完成设计对齐。产品、数据库、Migration、真实恢复和E2E仍为后续阶段`NOT_EXECUTED`。
+> 完成状态：`Phase 4 DONE`；`Phase 5 READY`。H/Z正式设计、追溯矩阵、联合汇总及修改后最终互审均已接受；P-01～04、GAP-H13和Contract起始身份均已决定并落实。产品、数据库、Migration、真实恢复和E2E仍为后续阶段`NOT_EXECUTED`。
+>
+> main已有Web通知`targetRoute`修复保持不变，见[PR #6](https://github.com/chchaiai/new_need_version_sports/pull/6)与[V8.1 Web交接](handoffs/2026-09-05-web-v81-align.md)。
 
 本页按各部分的具体情况记录当前进度。后续工作的数字编号和事项见 [项目 README](../../README.md#后续开发路线)。
 
 ## 本轮 Phase 4 V8.1 联合设计收尾（DONE）
 
-- 最终H版本：`P4H-REMAINING-ENG-1.2`；所有教师可只读查看历史FinalGrade remark，学生不可见，新成绩不创建remark；GAP-H13关闭。
+- 最终版本：H `P4H-FINAL-ALIGN-1.3`、Z `P4Z-FINAL-ALIGN-1.1`、G2 `P4Z-G2-FINAL-ALIGN-1.1`、矩阵`P4-TRACE-V8.1-1.2`、联合汇总`P4-HZ-FINAL-ALIGN-1.0`。旧PENDING/UNKNOWN/LOCKED仅作历史快照，均有最终替代登记。
 - P-01～04已按负责人决定对齐。实际学校工作日表作为运行输入转后续阶段，不再视为Phase 4业务规则未决。
 - Phase 5起始Contract固定为`main / 73945754a8dbd490709a0a92fda696febf6433eb / 1.2.0-contract / RC / 667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a`。两个4.0.1仅作历史候选。
 - 用户确认双方最终互审完成且无待整改Finding，并直接确认结束Phase 4。CR-005和新Contract发布进入Phase 5；不把它们标为已执行。
+- 普通首次材料由Z-C正式固定：服务器`acceptedAt < endedAt + 24h`；同一锁定批次`completedAt < acceptedAt + 30m`；等号拒绝，合法受理链不因关闭/移出被截断。所有教师可只读查看历史FinalGrade remark，学生不可见，新成绩不创建remark。
+- Phase 2页面清单、流程、七状态矩阵及Android UI foundation已在最终矩阵§8.3对应到B/C/E/F/G1/G2与AT；后续Contract/客户端/Backend/数据/环境/Release Owner和Phase 5～11完成阶段已登记。
 
 - 原始设计基线为`main@dbdedf9be958af08dd4a2c56d23191c626cca625`；H设计阶段分支为`codex/phase4-huang-review-timing`，统一发布分支为`docs/phase4-v81-partial-handoff`。Contract仍为`1.2.0-contract / RC / 667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a`。
 - P4-Z归档前v10 为 `8eb159dd…aafe`，登记被接受 v9 `d3f5b911…229a46`；G2接受登记快照 `7618a69a…1f62`，H 内容 Review 版 `55b04e2c…e6d4`；联合汇总 `8ff37739…567c` 已由 H 定向确认，无 P0/P1 finding。 这些SHA标识接受/审阅快照，当前归档文件由Git提交与路径定位。
@@ -27,6 +31,7 @@
 
 - 业务权威为 `origin/main@8c9826822f35876f8d01480f8baf184027711dfe` 的 V8.1 四份正文；协议权威为仓库 `1.2.0-contract`。
 - 已按 PR #5 复审：恢复 1.2.0 绑定/门禁；退回补证与学生补证包不再非正式写入；删除有限审核授权；英文 `score/grade/rank/points` 通知拦截；拆出模板/OCR/补录/1.3.0 邀请写入。
+- PR #6：`mapServerNotification()` 保留正式 `targetRoute`；`FINAL_GRADE` 整条省略；`EXERCISE_RECORD` / `APPLICATION` 按路由打开，不再误进打卡页。
 - 未改 Contract、业务正文、Android、Backend。正式补证、维护剩余秒、锁定批次续传仍只在交接表登记。
 
 ## 前次删除指定待决说明

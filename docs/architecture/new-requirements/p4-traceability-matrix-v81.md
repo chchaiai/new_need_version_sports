@@ -1,6 +1,8 @@
 # Phase 4 · V8.1 双向追溯矩阵
 
-> 文件版本：`P4-TRACE-V8.1-1.1`
+> 文件版本：`P4-TRACE-V8.1-1.2`
+>
+> `1.1`保留为决定前快照；§0～7中的PENDING、canonical UNKNOWN、Phase 4 IN_PROGRESS、Phase 5 LOCKED和旧文件SHA不再是当前结论。最终追溯、替代关系及Phase 2对应以§8为准。
 >
 > 工作项：`WI-0020`；Owner：H；Reviewer：Z；风险：R2。
 >
@@ -220,3 +222,57 @@ WI-0020交接记录保存实际命令与结果，至少覆盖：冻结HEAD和工
 - Git commit、push、PR、merge、rebase、reset、clean或stash。
 
 因此，本文件完成后仅进入逻辑 `READY_FOR_REVIEW`（控制面 `READY_FOR_HANDOFF`），等待同批Z 17-A完成后交换整包。它不把任何 `NOT_EXECUTED` 项提升为 `EXECUTED`，也不改变Phase 4/5门禁。
+
+## 8. 最终决定、Phase 2与后续阶段追溯
+
+<a id="p4-trace-final-alignment"></a>
+
+### 8.1 旧结论替代表
+
+| 旧记录 | 当前正式记录 | 当前结论 |
+|---|---|---|
+| §0.2、§1～6中的P-01～04 `PENDING/BLOCKED` | H §19.2～19.5；Z §12.2～12.3；G2 §13.2 | 四项均`DECISION_ACCEPTED / DESIGN_ALIGNED` |
+| §0.3 canonical `UNKNOWN`及G3阻塞 | H §19.6；Z §12.1；G2 §13.1 | Phase 5唯一起始输入为`CON-011 / 1.2.0-contract RC / 667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a` |
+| GAP-H13 `BLOCKED` | H §19.7；Z §12.3；G2 §13.2 | 所有已认证`TEACHER`只读可见历史remark；学生及其他出口不可见；新成绩无remark |
+| §6.2 Phase 2/REQ映射未完成 | 本节§8.3及Z §12.4 | 以实际Phase 2交付路径、BD和AT完成Phase 4对应；不虚构REQ编号 |
+| 全文旧`Phase 4 IN_PROGRESS / Phase 5 LOCKED` | 本节§8.5、STATUS及最终Handoff | `Phase 4 DONE / Phase 5 READY` |
+
+### 8.2 决定到设计与验收
+
+| 决定 | 正式设计Owner | 下游消费 | AT/检查 | 状态 |
+|---|---|---|---|---|
+| P-01 六类均不适用且仅剩未证实疑虑 | H-B/F §19.2 | Z-C/E §12.3 | AT-02、05～07 | `DESIGNED/VERIFIED`；runtime `NOT_EXECUTED` |
+| P-02 普通首次受理/同批传输 | Z-C §12.2、Z-E §12.3 | H-B、G1、G2 §13.2 | AT-19、20、24；严格端点反例 | `DESIGNED/VERIFIED`；runtime `NOT_EXECUTED` |
+| P-03 两个学校工作日SLA | H-B/F §19.4 | Z-C/E、G2 §13.2 | AT-08及日历/暂停并集模型 | `DESIGNED/VERIFIED`；真实校历`NOT_EXECUTED` |
+| P-04 错误逾期追加纠错 | H-B/F §19.5 | Z-E、G2 §13.2 | AT-08、23～25 | `DESIGNED/VERIFIED`；runtime `NOT_EXECUTED` |
+| GAP-H13 历史remark教师可见 | H-F/G3 §19.7 | Z-E、G2 §13.2、G1出口 | AT-18/25及隐私出口检查 | `DESIGNED/VERIFIED`；Contract/迁移`NOT_EXECUTED` |
+
+P-02的规范谓词为：普通首次`acceptedAt < endedAt + 24h`，同一锁定批次全部必需对象`completedAt < acceptedAt + 30m`，等号均拒绝并使用服务器时间。合法受理后的链不因课程关闭或成员移出被截断；游泳15/30/24和教师补证24/72仍是独立专门规则。
+
+### 8.3 Phase 2交付物对应
+
+| Phase 2正式交付 | Phase 4需求/设计 | Phase 5～8接力 | 证据状态 |
+|---|---|---|---|
+| `docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md`与`user-flows.md` | B/C/E/F业务场景；G1 UI→Use Case路径；AT-01～08、16、18～25 | Contract Owner Phase 5；Android/Web Phase 6/8 | 对应已补齐；真实接口`NOT_EXECUTED` |
+| `state-matrix.md`与`interaction-accessibility.md` | 七状态映射B/F/G1 | Contract错误/状态Phase 5；Mock Phase 6；接入Phase 8 | 设计对应完成；全量设备证据留Phase 10 |
+| Phase 2 Android UI foundation最终交接 | 学生不见成绩/等级/排名，连接失败不伪造维护，通知fail closed | Android Owner Phase 6/8；Release Owner Phase 11 | Phase 2 UI证据复用；产品整体未完成 |
+| 运动取证/材料UI | C材料版本、P-02普通规则、游泳专门规则、B补证规则 | Contract Phase 5；Backend/Media Phase 7；客户端Phase 8 | 规则对应完成；真实上传/E2E留Phase 9 |
+| 入班、关闭、通知与恢复UI | E邀请/成员/结算、G2恢复、G1投影 | Contract Phase 5；Backend Phase 7；客户端Phase 8 | 设计对应完成；真实环境留Phase 9/10 |
+
+Phase 2材料未提供独立完整REQ编号集合，因此本矩阵使用其正式路径、页面/状态标识、既有BD和AT作为稳定键；这是可验证的实际对应，不创造伪REQ。原§6.2治理缺口就Phase 4交付而言已关闭。
+
+### 8.4 已批准延期事项
+
+| 事项 | Owner | 完成阶段 |
+|---|---|---|
+| CR-005、新Contract Version/SHA及Phase 4 wire表达 | Contract Owner | Phase 5 |
+| Android/Web Contract生成与Mock、旧API清单 | Android/Web Owner | Phase 6 |
+| 版本化学校工作日表、Backend状态机、Schema与迁移实现 | Academic Term/Data/Backend Owner | Phase 7 |
+| Android/Web真实模块接入、FCM关闭 | Client/Android平台Owner | Phase 8 |
+| 本地E2E、真实迁移/恢复演练 | Environment/Data/Backend Owner | Phase 9 |
+| Staging、隐私定稿、全量七态/无障碍 | Staging、隐私/运营、设计Reviewer | Phase 10 |
+| Release签名、发布与生产门禁 | Release Owner | Phase 11 |
+
+### 8.5 最终状态
+
+当前矩阵覆盖12项业务源、A/B/C/D/E/F/G1/G2/G3、AT-01～28、GAP-H01～H21及Phase 2实际交付对应。业务决定与Contract起始身份已确定，开放Phase 4 Finding为0；产品、Contract改写、数据库、Migration、部署和E2E仍`NOT_EXECUTED`。最终门禁为`Phase 4 DONE / Phase 5 READY`。

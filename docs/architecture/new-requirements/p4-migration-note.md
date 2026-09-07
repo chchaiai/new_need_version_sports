@@ -1,7 +1,7 @@
 # P4-Z · G2 迁移、回填与恢复边界
 
 <!-- WI-0027-BANNER-START -->
-> 当前新增G2工程总包：`P4Z-G2-ENG-1.0` / WI-0027；新增内容位于§7～12，须统一自检和最终互审，尚未接受。以下原ACCEPTED仅标识已接受的§1～6。
+> 当前G2最终设计：`P4Z-G2-FINAL-ALIGN-1.1`。1.0保留迁移/恢复工程边界；1.1在§13消费最终业务决定、CON-011、GAP-H13及Phase 2映射。§1～12中的PENDING、canonical UNKNOWN、Phase 4 IN_PROGRESS、Phase 5 LOCKED和“尚未接受”均为历史快照，当前结论以§13为准。
 <!-- WI-0027-BANNER-END -->
 
 > 文档状态：ACCEPTED（周润基已接受本批次G2边界设计；Reviewer：黄友晟）
@@ -160,3 +160,29 @@
 
 **G2-ENG-27（一次最终互审）。** Z本轮完成全部可执行设计及阻塞登记后，统一自检并将Z/G2、永久WI和交接连同原程序冻结为一个总包，逻辑READY_FOR_REVIEW、控制READY_FOR_HANDOFF；冻结后才审H剩余总包。最终双方Finding关闭后立即生成联合汇总、最终Handoff/STATUS与报告；没有R3决定时如实报告PARTIAL/阻塞，不虚构全部队列DONE。Phase4继续IN_PROGRESS、Phase5继续LOCKED，最终完成与解锁由负责人确认。〔负责人最新节奏覆盖；原G2-18的当前联合收尾阶段说明。〕
 <!-- WI-0027-G2-INCREMENT-END -->
+
+## 13. Phase 4最终迁移消费边界
+
+<a id="p4z-g2-final-alignment"></a>
+
+### 13.1 已决输入与旧记录替代
+
+G2当前输入固定为负责人决定原件`c65edff3d13184804130b623ff16e42460b0712f1e4d4bb98ca2199ea18a4034`、H最终定义[P4H §19.2～19.8](p4-design-huang-v81.md#198-跨文件最终对齐与phase-2消费)、Z最终消费[P4Z §12](p4-design-zhou-v81.md#p4z-final-alignment)及`CON-011 / main 73945754a8dbd490709a0a92fda696febf6433eb / 1.2.0-contract RC / 667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a`。G2-ENG-26/27与其他旧段落中的六项`BLOCKED_R3`、canonical UNKNOWN和等待互审，是决定前状态，由本节取代。
+
+### 13.2 决定对迁移/恢复的约束
+
+- P-01：恢复或重放必须保留B的最终`VALID`事实，不得因“只有疑虑”补造无效原因或把已完成检查恢复成永久待定。
+- P-02：普通首次材料必须保留服务端`endedAt`、严格`acceptedAt < endedAt + 24h`、锁定batch与严格`completedAt < acceptedAt + 30m`。等于端点拒绝；已受理链在课程关闭/成员移出后仍可按同批规则完成。迁移不得用文件时间、对象时间或草稿时间改写这些事实，也不得把游泳或补证专门窗口推广为普通规则。
+- P-03：任何SLA迁移必须携带学校工作日表版本、`Asia/Shanghai`日界、已累计预算及规范化暂停区间并集；实际表缺失时保留`HOLD_UNRESOLVED`，不默认周一至周五或48小时。
+- P-04：错误逾期纠错必须以追加事实保留旧终局、历史、已用机会和合法后继；不得物理回滚、删除终态、重发完整窗口或清零机会。
+- GAP-H13：历史remark原字节保留；所有已认证`TEACHER`可只读查看，但迁移不得扩大到学生、通知、导出、日志、公开页或普通缓存，也不得给新成绩创建remark。读取审计的actor、用途、对象和时间必须可迁移/重建。
+
+### 13.3 Phase 2与后续执行
+
+Phase 2页面/流程/七状态及Android UI foundation只作为恢复后可观察状态和客户端消费集合，不是数据来源。G2的完整性清单必须覆盖其依赖的Record、材料batch、审核轮次、维护区间、邀请/成员、结算版本、通知投影及历史remark审计；不得以UI样例或Mock回填真实事实。
+
+后续责任：Contract Owner在Phase 5完成CR-005及新Version/SHA；Android/Web Owner在Phase 6验证生成与Mock；Academic Term/Data Owner和Backend Owner在Phase 7提供版本化校历、Schema、迁移计划与实现；客户端Owner在Phase 8接入；Environment/Data Owner在Phase 9完成本地E2E与恢复演练；Staging/Release Owner在Phase 10/11完成环境与发布验证。真实盘点、DDL、回填、备份、恢复、切换和部署仍`NOT_EXECUTED`。
+
+### 13.4 当前结论
+
+G2设计状态为`DESIGNED / VERIFIED / ACCEPTED`，Phase 4为`DONE`，Phase 5为`READY`。这关闭的是业务输入和设计追溯，不是迁移执行；G2继续fail closed等待各后续阶段的真实数据与授权。

@@ -1822,17 +1822,38 @@ function notificationCategory(notification) {
   return "general";
 }
 
-export function mapServerNotification(notification) {
+const OFFICIAL_NOTIFICATION_TARGET_ROUTES = new Set([
+  "COURSE",
+  "EXERCISE_RECORD",
+  "APPLICATION",
+  "ENDURANCE",
+  "FINAL_GRADE",
+  "FEEDBACK",
+  "SYSTEM_MODE",
+]);
+
+export function officialNotificationTargetRoute(notification = {}) {
+  const route = String(notification.targetRoute ?? "").trim().toUpperCase();
+  if (OFFICIAL_NOTIFICATION_TARGET_ROUTES.has(route)) return route;
+  const legacy = String(notification.targetType ?? "").trim();
+  if (!legacy) return notification.targetRoute == null ? null : String(notification.targetRoute).trim() || null;
+  const asOfficial = legacy.toUpperCase().replace(/-/g, "_");
+  return OFFICIAL_NOTIFICATION_TARGET_ROUTES.has(asOfficial) ? asOfficial : legacy;
+}
+
+export function mapServerNotification(notification = {}) {
+  const targetRoute = officialNotificationTargetRoute(notification);
   return {
-    id: notification.id,
+    id: notification.notificationId || notification.id,
     title: notification.title,
     message: notification.body,
     time: formatLocal(notification.createdAt),
     createdAt: notification.createdAt,
     category: notificationCategory(notification),
     notificationType: notification.notificationType,
-    targetType: notification.targetType,
-    targetId: notification.targetId,
+    targetRoute,
+    targetType: targetRoute,
+    targetId: notification.targetId ?? null,
     isUnread: notification.readAt === null,
     readAt: notification.readAt,
   };

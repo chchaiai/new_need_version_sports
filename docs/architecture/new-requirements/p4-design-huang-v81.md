@@ -1,6 +1,6 @@
 # P4-H · V8.1 完整增量设计包（B / D / F / G1 / G3）
 
-> 当前H最终设计版本：`P4H-REMAINING-ENG-1.2`。1.0完成F、G1、G3工程DoD，1.1对齐负责人对P-01～04与Contract起始输入的决定，1.2登记最终决定“所有教师可只读查看历史FinalGrade remark”并关闭GAP-H13。学生仍不可见历史remark，新成绩仍不创建remark；不创建Contract/DDL/产品实现。
+> 当前H最终设计版本：`P4H-FINAL-ALIGN-1.3`。1.0完成F、G1、G3工程DoD，1.1对齐P-01～04与Contract起始输入，1.2关闭GAP-H13，1.3与Z/G2/矩阵/联合汇总建立最终替代关系及Phase 2映射。本文较早章节中的PENDING、canonical UNKNOWN、Phase 4 IN_PROGRESS或Phase 5 LOCKED均为带版本历史快照，当前结论只认§19.2～19.8。
 
 > 当前D限定工程增量：`P4H-D-ENG-1.1`。本增量只在§14.10～§14.16把已接受的D语义细化为可实现、可检查的内部工程设计；输入为已接受`P4H-B-ENG-1.0`，不改写原D定义、不消费同批Z-E新内容，不表示产品、数据库、真实OCR或Contract已实施。1.1仅整改`P4Z-WI0024-R2-001`所指出的耐力确认完整请求绑定与选中行唯一性。
 
@@ -1262,3 +1262,11 @@ Phase 5唯一选定起始输入为新仓库`main / 73945754a8dbd490709a0a92fda69
 负责人最终决定：所有已认证且当前角色为`TEACHER`的教师均可只读查看历史`FinalGradePublication.remark`；不按原课程责任教师、当前课程成员或治理分组进一步收窄。该读取只作用于历史publication/审计，不允许新增、修改、删除或复制remark到新最终成绩，也不恢复管理员代审或跨教师教学裁决。学生、学生API、通知、导出、缓存、日志和公开页面继续不得取得最终成绩或历史remark。访问必须保留actor、用途、对象和读取时间审计。
 
 据此GAP-H13更新为`DECISION_ACCEPTED / DESIGN_ALIGNED / CLOSED_FOR_PHASE4`。P-01～04、GAP-H15～H18及Contract起始输入均已完成决定对齐；双方最终互审由用户确认为已完成且没有待整改Finding。实际校历数据、CR-005、新Contract发布、产品/数据库/Migration/恢复和E2E属于后续阶段输入或执行，不再作为Phase 4业务决定阻塞。Phase 4设计阶段以`DONE`退出，Phase 5解锁为`READY`；Phase 5仍须从精确`1.2.0-contract / RC / 667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a`开始并发布新的唯一Version/SHA。
+
+### 19.8 跨文件最终对齐与Phase 2消费
+
+本节是H正式稿的最终替代登记。§13、§17、§18及§19.1/19.6中“等待P-01～04/GAP-H13”“canonical UNKNOWN”“Phase 4 IN_PROGRESS / Phase 5 LOCKED”等文字只描述当时输入，不再是当前门禁；分别由§19.2～19.7及本节取代。Z侧当前正式消费见[Z §12](p4-design-zhou-v81.md#p4z-final-alignment)，迁移/恢复消费见[G2 §13](p4-migration-note.md#p4z-g2-final-alignment)，追溯状态见[矩阵 §8](p4-traceability-matrix-v81.md#p4-trace-final-alignment)。
+
+Phase 2学生端页面清单、用户流程、七状态矩阵和Android UI foundation不是新的业务规则源；它们在Phase 4分别作为B/C/E/F的场景证据及G1的客户端消费输入。维护、材料上传、审核阶段、站内通知和学生敏感字段必须按本稿当前设计及Z当前设计修正旧UI假设。Phase 5由Contract Owner把这些已确认语义写入新Contract Version/SHA；Phase 6由Android/Web Owner做Contract与Mock验证；Phase 7由Backend/Data Owner实现持久化、状态机和校历数据接入；Phase 8由客户端Owner完成真实接入。Phase 2遗留的FCM清理、隐私定稿、完整无障碍/七态和Release证据分别由Android平台Owner、隐私/运营Owner、客户端/设计Reviewer和Release Owner在Phase 8、10、10及11完成。
+
+当前不存在Phase 4开放业务Finding。实际学校工作日表仍是Academic Term/Data Owner在Phase 7提供的版本化运行输入；CR-005和覆盖本设计的新Contract由Contract Owner在Phase 5完成；真实数据库迁移/回填/恢复由Data/Backend Owner在Phase 7设计实现并于Phase 9演练；跨端绑定和真实E2E分别在Phase 6/8和Phase 9完成。这些延期项有明确Owner和完成阶段，均不回退Phase 4的`DONE`，也不得提前标为`EXECUTED`。

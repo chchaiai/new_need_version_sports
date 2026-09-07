@@ -6,6 +6,7 @@
 import { t, tx } from "../i18n.js";
 import { icon } from "../icons.js";
 import { esc, statusBadge, emptyPlaceholder } from "../ui.js";
+import { studentNoticeOpenAction } from "../v81-review.js";
 
 const FILTERS = [
   { id: "all", labelKey: "notification_all" },
@@ -162,16 +163,29 @@ export const notificationActions = {
       refreshNotificationSheet(app);
       return;
     }
-    if (notice.opensExemption) {
+    const action = studentNoticeOpenAction(notice);
+    if (action?.type === "exemption") {
       app.state.notificationSheetOpen = false;
       app.ui.notifications = null;
-      app.openSub("exemption", { targetId: notice.targetId || null });
-    } else if (notice.kind === "review" && notice.targetId) {
+      app.openSub("exemption", { targetId: action.targetId || null });
+    } else if (action?.type === "checkin") {
       app.state.notificationSheetOpen = false;
       app.ui.notifications = null;
       if (!app.ui.checkin) app.ui.checkin = {};
-      app.ui.checkin.selectedRecordId = notice.targetId;
+      app.ui.checkin.selectedRecordId = action.targetId;
       app.selectTab("checkin");
+    } else if (action?.type === "endurance") {
+      app.state.notificationSheetOpen = false;
+      app.ui.notifications = null;
+      app.openSub("endurance", { targetId: action.targetId || null });
+    } else if (action?.type === "courses") {
+      app.state.notificationSheetOpen = false;
+      app.ui.notifications = null;
+      app.selectTab("courses");
+    } else if (action?.type === "feedback") {
+      app.state.notificationSheetOpen = false;
+      app.ui.notifications = null;
+      app.openSub("feedback");
     } else {
       ui.selectedNoticeId = notice.id;
       refreshNotificationSheet(app);

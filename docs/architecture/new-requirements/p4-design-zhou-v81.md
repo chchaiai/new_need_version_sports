@@ -1,7 +1,7 @@
 # P4-Z · V8.1 Domain / Database / Architecture 增量设计
 
 <!-- WI-0027-BANNER-START -->
-> 当前Z剩余工程总包：`P4Z-REMAINING-ENG-1.0` / WI-0027；本轮新增§11，主要G2工程实现见独立迁移稿，统一自检冻结后最终互审。原A/C/E接受身份保持。
+> 当前Z最终设计：`P4Z-FINAL-ALIGN-1.1`。1.0保留A/C/E/G2工程总包；1.1在§12正式消费P-01～04、CON-011、GAP-H13及Phase 2映射。本文§1～11中的PENDING、canonical UNKNOWN、Phase 4 IN_PROGRESS、Phase 5 LOCKED和“待H审核”均为历史快照，当前结论以§12为准。
 <!-- WI-0027-BANNER-END -->
 
 > 当前E增量：WI-0025 / P4Z-E-ENG-1.0 / READY_FOR_REVIEW（控制面READY_FOR_HANDOFF），新增§4.6～§4.12；待H做R2 Review。下方A/C横幅保留原字节，A/C接受以WI-0021/0023 DONE为准，不覆盖新E增量。
@@ -1091,3 +1091,45 @@ P4-Z/G2、H整包及联合汇总均已接受为本批次PARTIAL设计交付；�
 
 **Z-CLOSE-14（冻结与审核入口）。** 本轮将本稿新增横幅/§11、G2新增横幅/§7～12、WI-0027与交接作为一个完整包，自检程序检查允许路径、原输入逐字恢复、键/锚点/链接、R3清单和工作区，模型及程序/实际stdout/版本/完整SHA随包提供。冻结后只与H26总包最终互审一次，Finding整改仅限直接影响；不改H文件，不消费H26尚未交换的新增内容。自检0 Finding不是H已接受，WI先停READY_FOR_HANDOFF。〔本WI验收；G2-ENG-23～27。〕
 <!-- WI-0027-Z-INCREMENT-END -->
+
+## 12. Phase 4最终语义对齐
+
+<a id="p4z-final-alignment"></a>
+
+### 12.1 最终输入身份与替代关系
+
+本节是Z对A/C/E正式定义的当前覆盖层，不重写已接受算法。负责人决定原件为`BNBU_Phase4_Decisions_20260907_v1.0.docx / c65edff3d13184804130b623ff16e42460b0712f1e4d4bb98ca2199ea18a4034`；Phase 5唯一Contract起始输入为`CON-011 / main 73945754a8dbd490709a0a92fda696febf6433eb / 1.2.0-contract / RC / 667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a / LF 450586 bytes`。两个同名`4.0.1-contract`字节流继续作为不同历史候选，不是当前绑定输入。
+
+§10.9/10.10、Z-CLOSE-05～10、ISS-002～007及其他带日期记录中的“四项PENDING”“GAP-H13待决定”“canonical UNKNOWN”“Phase 5 LOCKED”均记录决定前状态，分别由本节12.2～12.5取代。`CR-20260901-005`和覆盖Phase 4语义的新Contract Version/SHA仍由Phase 5 Contract Owner完成；这不使Contract起始身份重新变为UNKNOWN。
+
+### 12.2 C正式定义：普通首次材料受理与传输
+
+普通运动的首次材料只有在服务器权威时间满足`acceptedAt < endedAt + 24h`时才能形成正式`MaterialVersionFact`；等于截止时刻即拒绝。`endedAt`取Record/Session Owner已持久化的运动结束事实，`acceptedAt`取服务端原子受理事实，客户端时间、上传开始时间、草稿时间或对象存储时间均不能替代。
+
+成功受理时必须原子锁定同一材料批次及其必需对象清单；该锁定批次只有在`completedAt < acceptedAt + 30m`时才可完成传输，等于30分钟端点即失败。续传必须保持同一batch ID、对象清单、Record、材料版本和受理收据，不能换批、补造对象或借30分钟窗口重新获得首次受理资格。课程关闭、成员移出或收尾发生在合法`acceptedAt`之后时，不截断该既有链及其同批传输；发生在正式受理之前时，不得由草稿或本地上传恢复出新链。
+
+上述普通规则不覆盖游泳“结束后15分钟首次受理/同批30分钟续传/完全离线24小时异常”专门分支，也不覆盖教师退回后的24/72小时补证窗口。C向B/E只输出服务器裁决后的受理、锁定批次、完成或拒绝事实，不在客户端或迁移层重算。
+
+### 12.3 A/C/E对四项决定及历史remark的消费
+
+- P-01：B完成规定检查、六类无效依据均不适用且只剩未证实疑虑时以`VALID`结束；Z的C/E消费该结果，不新增第七类、不把疑虑升级为已证实冒用，也不永久挂起。
+- P-02：C按§12.2定义普通首次受理与传输；E在课程关闭、成员移出和结算时保留截止前已经正式受理的合法链及其同批完成结果，不恢复新成员权限。
+- P-03：教师轮次SLA为两个完整学校工作日，即只在版本化学校工作日表覆盖区间内累计172800秒，时区和日界为`Asia/Shanghai 00:00`，维护/事故暂停取相交区间并集扣除。A/C/E只消费H/Academic Term Owner给出的轮次截止与日历版本，不以48小时、工作周猜测或客户端时间替代。
+- P-04：错误逾期后确认非维护故障时，消费H发布的追加纠错和原剩余机会；E保留旧终局与所有合法后继，G2不得物理回滚、发新完整窗口或清零已用补证机会。
+- GAP-H13：所有已认证且当前角色为`TEACHER`的教师均可只读查看历史`FinalGradePublication.remark`，不按原课程责任或当前成员收窄；访问须审计。新成绩不创建remark，学生、学生API、通知、导出、普通缓存、日志和公开页面不得取得历史remark或最终成绩。
+
+### 12.4 Phase 2交付对应与后续Owner
+
+| Phase 2交付 | Phase 4正式消费 | 已关闭对应 | 后续Owner / 完成阶段 |
+|---|---|---|---|
+| 41页页面清单、用户流程、七状态矩阵 | C材料、E关闭/结算、H-B审核、H-F维护及G1客户端分层 | 页面状态与AT-01～08、16、18～25已映射 | Contract Owner Phase 5；Android/Web Owner Phase 6/8 |
+| Android UI foundation及通知P1 | A统计投影、F学生出口、G1未知值/陈旧响应拒绝 | 不展示成绩/等级/排名，连接失败不伪造维护 | Android Owner Phase 6/8；Release Owner Phase 11 |
+| 运动取证、材料提交/恢复UI | C材料版本及本节普通/游泳边界 | 首次受理、同批锁定、传输截止和补证窗口分离 | Contract Owner Phase 5；Backend/Media Owner Phase 7；客户端Phase 8 |
+| 入班、关闭后恢复及站内通知流程 | E邀请/关闭/结算与G1响应投影 | 已受理旧链不因关闭/移出被截断 | Contract Owner Phase 5；Backend Phase 7；客户端Phase 8 |
+| Phase 2遗留FCM、隐私、全量七态/无障碍、Release证据 | 不属于Phase 4领域定义完成项 | 已登记且不冒充Phase 4 Finding | Android平台Owner Phase 8；隐私/运营与设计Reviewer Phase 10；Release Owner Phase 11 |
+
+本表使用Phase 2实际交付路径和BD/AT键完成对应，不虚构不存在的REQ编号。此前ISS-007/J-09/J-10所述“独立Phase 2清单未补齐”由本表及[最终矩阵§8](p4-traceability-matrix-v81.md#p4-trace-final-alignment)取代并关闭为Phase 4追溯事项；产品运行证据仍按后续阶段取得。
+
+### 12.5 当前阶段结论
+
+P-01～04、GAP-H13和Contract起始身份均为`DECISION_ACCEPTED / DESIGN_ALIGNED`。Phase 4正式设计状态为`DONE`，Phase 5门禁为`READY`。实际学校工作日表由Academic Term/Data Owner在Phase 7提供，CR-005及新Contract由Contract Owner在Phase 5完成，真实DB/migration/恢复由Backend/Data Owner在Phase 7设计实施并在Phase 9演练；这些事项继续`NOT_EXECUTED`，但不再表述为Phase 4业务决定未定。
