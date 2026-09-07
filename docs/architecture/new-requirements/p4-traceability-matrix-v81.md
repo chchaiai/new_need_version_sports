@@ -1,6 +1,8 @@
 # Phase 4 · V8.1 双向追溯矩阵
 
-> 文件版本：`P4-TRACE-V8.1-1.2`
+> 本轮修复候选：`PR8-DOC-FIX-01 / PATCH_PREPARED / OWNER_REVIEW_PENDING`。仅补齐既有合法Session在首次材料受理前遇关闭/移出的P-02分支，并校准交付SHA。原阶段退出及H/Z接受记录属于下述来源提交；不表示本候选已获新一轮互审或负责人验收。当前候选不得直接作为Phase 5正式开工基线；验收及远端提交后再核验。来源：`25bc20dcf19ac4646a16a1e27f076ac360e27da0`；本轮证据见`docs/rebuild/handoffs/phase-4-final-alignment-review.md`。
+
+> 文件版本：`P4-TRACE-V8.1-1.3`
 >
 > `1.1`保留为决定前快照；§0～7中的PENDING、canonical UNKNOWN、Phase 4 IN_PROGRESS、Phase 5 LOCKED和旧文件SHA不再是当前结论。最终追溯、替代关系及Phase 2对应以§8为准。
 >
@@ -242,12 +244,12 @@ WI-0020交接记录保存实际命令与结果，至少覆盖：冻结HEAD和工
 | 决定 | 正式设计Owner | 下游消费 | AT/检查 | 状态 |
 |---|---|---|---|---|
 | P-01 六类均不适用且仅剩未证实疑虑 | H-B/F §19.2 | Z-C/E §12.3 | AT-02、05～07 | `DESIGNED/VERIFIED`；runtime `NOT_EXECUTED` |
-| P-02 普通首次受理/同批传输 | Z-C §12.2、Z-E §12.3 | H-B、G1、G2 §13.2 | AT-19、20、24；严格端点反例 | `DESIGNED/VERIFIED`；runtime `NOT_EXECUTED` |
+| P-02 普通首次受理/同批传输 | Z-C §12.2、Z-E §12.3 | H-B、G1、G2 §13.2 | AT-19、20、24；Z §12.2.1 P02-R1～R10设计推演；runtime未执行 | `DESIGNED/VERIFIED`；runtime `NOT_EXECUTED` |
 | P-03 两个学校工作日SLA | H-B/F §19.4 | Z-C/E、G2 §13.2 | AT-08及日历/暂停并集模型 | `DESIGNED/VERIFIED`；真实校历`NOT_EXECUTED` |
 | P-04 错误逾期追加纠错 | H-B/F §19.5 | Z-E、G2 §13.2 | AT-08、23～25 | `DESIGNED/VERIFIED`；runtime `NOT_EXECUTED` |
 | GAP-H13 历史remark教师可见 | H-F/G3 §19.7 | Z-E、G2 §13.2、G1出口 | AT-18/25及隐私出口检查 | `DESIGNED/VERIFIED`；Contract/迁移`NOT_EXECUTED` |
 
-P-02的规范谓词为：普通首次`acceptedAt < endedAt + 24h`，同一锁定批次全部必需对象`completedAt < acceptedAt + 30m`，等号均拒绝并使用服务器时间。合法受理后的链不因课程关闭或成员移出被截断；游泳15/30/24和教师补证24/72仍是独立专门规则。
+P-02的规范谓词为：普通首次`acceptedAt < endedAt + 24h`，同一锁定批次全部必需对象`completedAt < acceptedAt + 30m`，等号均拒绝并使用服务器时间。边界前已由服务器确认的合法Session/Record，其尚未首次受理材料的原窗口及已受理批次的传输窗口均不因课程关闭、成员移出或收尾被截断；结算须识别两类合法未完链，见Z §12.2.1 P02-R1～R10。游泳15/30/24和教师补证24/72仍是独立专门规则。
 
 ### 8.3 Phase 2交付物对应
 

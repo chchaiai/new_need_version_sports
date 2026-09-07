@@ -1,5 +1,7 @@
 # Phase 4 最终结果报告
 
+> 本轮修复候选：`PR8-DOC-FIX-01 / PATCH_PREPARED / OWNER_REVIEW_PENDING`。仅补齐既有合法Session在首次材料受理前遇关闭/移出的P-02分支，并校准交付SHA。原阶段退出及H/Z接受记录属于下述来源提交；不表示本候选已获新一轮互审或负责人验收。当前候选不得直接作为Phase 5正式开工基线；验收及远端提交后再核验。来源：`25bc20dcf19ac4646a16a1e27f076ac360e27da0`；本轮证据见`docs/rebuild/handoffs/phase-4-final-alignment-review.md`。
+
 日期：2026-09-07
 阶段：Phase 4 V8.1 增量设计
 结论：`DONE`
@@ -9,12 +11,12 @@
 
 H完成B、D、F、G1、G3及决定对齐；Z完成A、C、E、G2。双向追溯矩阵、工程边界、状态与不变量、事务/幂等/并发、客户端分层、迁移恢复方案和Contract缺口均形成设计证据。双方最终互审由用户确认为完成，开放Finding为0。
 
-最终对齐版本：H `P4H-FINAL-ALIGN-1.3`、Z `P4Z-FINAL-ALIGN-1.1`、G2 `P4Z-G2-FINAL-ALIGN-1.1`、矩阵`P4-TRACE-V8.1-1.2`、联合汇总`P4-HZ-FINAL-ALIGN-1.0`。上述版本明确取代各文件中的历史PENDING、canonical UNKNOWN、Phase 4 IN_PROGRESS和Phase 5 LOCKED快照。
+最终对齐版本：H `P4H-FINAL-ALIGN-1.4`、Z `P4Z-FINAL-ALIGN-1.2`、G2 `P4Z-G2-FINAL-ALIGN-1.2`、矩阵`P4-TRACE-V8.1-1.3`、联合汇总`P4-HZ-FINAL-ALIGN-1.1`。上述版本明确取代各文件中的历史PENDING、canonical UNKNOWN、Phase 4 IN_PROGRESS和Phase 5 LOCKED快照。
 
 ## 最终业务决定
 
 - P-01：规定检查完成、无适用无效依据且只有未证实疑虑时判有效。
-- P-02：普通首次材料严格早于结束后24小时受理；同一锁定批次在受理后30分钟内严格完成传输。
+- P-02：普通首次材料严格早于结束后24小时受理；同一锁定批次在受理后30分钟内严格完成传输。边界前服务器已确认的合法Session/Record，即使首次材料尚未受理，仍保留原窗口；已经受理的保留同批传输，结算识别两类合法未完链。
 - P-03：教师SLA按带版本学校工作日表累计两个完整工作日，维护区间取并集扣除。
 - P-04：错误逾期以追加纠错恢复原剩余机会，保留历史，不发放完整新窗口。
 - GAP-H13：所有已认证`TEACHER`角色均可只读查看历史FinalGrade remark；学生不可见，新成绩不创建remark。

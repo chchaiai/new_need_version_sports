@@ -1,5 +1,7 @@
 # 当前进度状态
 
+> 本轮修复候选：`PR8-DOC-FIX-01 / PATCH_PREPARED / OWNER_REVIEW_PENDING`。仅补齐既有合法Session在首次材料受理前遇关闭/移出的P-02分支，并校准交付SHA。原阶段退出及H/Z接受记录属于下述来源提交；不表示本候选已获新一轮互审或负责人验收。当前候选不得直接作为Phase 5正式开工基线；验收及远端提交后再核验。来源：`25bc20dcf19ac4646a16a1e27f076ac360e27da0`；本轮证据见`docs/rebuild/handoffs/phase-4-final-alignment-review.md`。
+
 > 更新时间：2026-09-07
 >
 > 当前工作：Phase 4 V8.1 已完成最终互审和负责人决定对齐，进入阶段退出；下一阶段为 Phase 5 API Contract / OpenAPI。
@@ -12,11 +14,11 @@
 
 ## 本轮 Phase 4 V8.1 联合设计收尾（DONE）
 
-- 最终版本：H `P4H-FINAL-ALIGN-1.3`、Z `P4Z-FINAL-ALIGN-1.1`、G2 `P4Z-G2-FINAL-ALIGN-1.1`、矩阵`P4-TRACE-V8.1-1.2`、联合汇总`P4-HZ-FINAL-ALIGN-1.0`。旧PENDING/UNKNOWN/LOCKED仅作历史快照，均有最终替代登记。
+- 最终版本：H `P4H-FINAL-ALIGN-1.4`、Z `P4Z-FINAL-ALIGN-1.2`、G2 `P4Z-G2-FINAL-ALIGN-1.2`、矩阵`P4-TRACE-V8.1-1.3`、联合汇总`P4-HZ-FINAL-ALIGN-1.1`。旧PENDING/UNKNOWN/LOCKED仅作历史快照，均有最终替代登记。
 - P-01～04已按负责人决定对齐。实际学校工作日表作为运行输入转后续阶段，不再视为Phase 4业务规则未决。
 - Phase 5起始Contract固定为`main / 73945754a8dbd490709a0a92fda696febf6433eb / 1.2.0-contract / RC / 667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a`。两个4.0.1仅作历史候选。
 - 用户确认双方最终互审完成且无待整改Finding，并直接确认结束Phase 4。CR-005和新Contract发布进入Phase 5；不把它们标为已执行。
-- 普通首次材料由Z-C正式固定：服务器`acceptedAt < endedAt + 24h`；同一锁定批次`completedAt < acceptedAt + 30m`；等号拒绝，合法受理链不因关闭/移出被截断。所有教师可只读查看历史FinalGrade remark，学生不可见，新成绩不创建remark。
+- 普通首次材料由Z-C正式固定：服务器`acceptedAt < endedAt + 24h`；同一锁定批次`completedAt < acceptedAt + 30m`；等号拒绝，边界前服务器已确认的合法Session/Record，即使材料尚未首次受理也保留原窗口；已受理的保留原同批传输，结算识别两类合法未完链。所有教师可只读查看历史FinalGrade remark，学生不可见，新成绩不创建remark。
 - Phase 2页面清单、流程、七状态矩阵及Android UI foundation已在最终矩阵§8.3对应到B/C/E/F/G1/G2与AT；后续Contract/客户端/Backend/数据/环境/Release Owner和Phase 5～11完成阶段已登记。
 
 - 原始设计基线为`main@dbdedf9be958af08dd4a2c56d23191c626cca625`；H设计阶段分支为`codex/phase4-huang-review-timing`，统一发布分支为`docs/phase4-v81-partial-handoff`。Contract仍为`1.2.0-contract / RC / 667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a`。

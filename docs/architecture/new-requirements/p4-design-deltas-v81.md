@@ -1,6 +1,8 @@
 # Phase 4 · V8.1 联合增量设计汇总（P4-Z / P4-H）
 
-> 当前版本：`P4-HZ-FINAL-ALIGN-1.0`；状态：ACCEPTED。原§1～10为分批设计和决定前的历史记录，最终决定、替代关系、Phase 2映射与阶段门禁以§11为准。
+> 本轮修复候选：`PR8-DOC-FIX-01 / PATCH_PREPARED / OWNER_REVIEW_PENDING`。仅补齐既有合法Session在首次材料受理前遇关闭/移出的P-02分支，并校准交付SHA。原阶段退出及H/Z接受记录属于下述来源提交；不表示本候选已获新一轮互审或负责人验收。当前候选不得直接作为Phase 5正式开工基线；验收及远端提交后再核验。来源：`25bc20dcf19ac4646a16a1e27f076ac360e27da0`；本轮证据见`docs/rebuild/handoffs/phase-4-final-alignment-review.md`。
+
+> 当前版本：`P4-HZ-FINAL-ALIGN-1.1`；本轮状态：OWNER_REVIEW_PENDING。原§1～10为分批设计和决定前的历史记录，最终决定、替代关系、Phase 2映射与阶段门禁以§11为准。
 >
 > 本批次：DONE；Phase 4：DONE；phase_5_gate：READY。
 >
@@ -134,7 +136,7 @@ H §18.5已明确仅吸收交接事实无需重审稳定设计正文，因此不
 ### 11.1 决定已进入双方正式设计
 
 - P-01：完成必要检查、六类无效依据均不适用且仅剩未证实疑虑时判`VALID`。H为B/F定义Owner；Z的C/E只消费结果。
-- P-02：Z在C/E正式定义普通首次`acceptedAt < endedAt + 24h`，同一锁定批次`completedAt < acceptedAt + 30m`，等号拒绝、服务器时间裁决；合法受理链不因关闭或移出被截断。游泳和补证窗口保持独立。
+- P-02：Z在C/E正式定义普通首次`acceptedAt < endedAt + 24h`，同一锁定批次`completedAt < acceptedAt + 30m`，等号拒绝、服务器时间裁决；边界前服务器已确认的合法Session/Record，其尚未首次受理的原窗口与已受理批次传输均不因关闭、移出或收尾被截断；E结算同时识别两类链。游泳和补证窗口保持独立。
 - P-03：两个完整学校工作日为版本化校历覆盖区间内172800秒，`Asia/Shanghai`日界，暂停相交区间取并集。H定义；Z/G2消费。
 - P-04：错误逾期以追加纠错恢复原剩余机会，保留旧终局、历史、已用机会和合法后继。H定义；Z/G2消费。
 - GAP-H13：所有已认证`TEACHER`可只读查看历史remark；学生及通知/导出/缓存/日志/公开页不可见，新成绩不创建remark。H定义；Z/G2消费。
@@ -148,4 +150,4 @@ Phase 2页面清单、用户流程、七状态矩阵、Android UI foundation及�
 
 ### 11.3 联合复核范围
 
-最终互审必须绑定修改后的H `P4H-FINAL-ALIGN-1.3`、Z `P4Z-FINAL-ALIGN-1.1`、G2 `P4Z-G2-FINAL-ALIGN-1.1`、矩阵`P4-TRACE-V8.1-1.2`及本汇总`P4-HZ-FINAL-ALIGN-1.0`，并覆盖STATUS、最终交接和最终报告。复核检查P-01～04、CON-011、GAP-H13、Phase 2映射、延期Owner/阶段及main Web修复保持；Finding关闭记录和完整SHA见最终Review记录及PR。当前目标结论为开放Finding 0、`Phase 4 DONE / Phase 5 READY`，不包含产品、数据库、Migration或部署执行。
+最终互审必须绑定修改后的H `P4H-FINAL-ALIGN-1.4`、Z `P4Z-FINAL-ALIGN-1.2`、G2 `P4Z-G2-FINAL-ALIGN-1.2`、矩阵`P4-TRACE-V8.1-1.3`及本汇总`P4-HZ-FINAL-ALIGN-1.1`，并覆盖STATUS、最终交接和最终报告。复核检查P-01～04、CON-011、GAP-H13、Phase 2映射、延期Owner/阶段及main Web修复保持；Finding关闭记录和完整SHA见最终Review记录及PR。当前目标结论为开放Finding 0、`Phase 4 DONE / Phase 5 READY`，不包含产品、数据库、Migration或部署执行。

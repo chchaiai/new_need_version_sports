@@ -1,7 +1,9 @@
 # P4-Z · G2 迁移、回填与恢复边界
 
+> 本轮修复候选：`PR8-DOC-FIX-01 / PATCH_PREPARED / OWNER_REVIEW_PENDING`。仅补齐既有合法Session在首次材料受理前遇关闭/移出的P-02分支，并校准交付SHA。原阶段退出及H/Z接受记录属于下述来源提交；不表示本候选已获新一轮互审或负责人验收。当前候选不得直接作为Phase 5正式开工基线；验收及远端提交后再核验。来源：`25bc20dcf19ac4646a16a1e27f076ac360e27da0`；本轮证据见`docs/rebuild/handoffs/phase-4-final-alignment-review.md`。
+
 <!-- WI-0027-BANNER-START -->
-> 当前G2最终设计：`P4Z-G2-FINAL-ALIGN-1.1`。1.0保留迁移/恢复工程边界；1.1在§13消费最终业务决定、CON-011、GAP-H13及Phase 2映射。§1～12中的PENDING、canonical UNKNOWN、Phase 4 IN_PROGRESS、Phase 5 LOCKED和“尚未接受”均为历史快照，当前结论以§13为准。
+> 本轮G2候选设计：`P4Z-G2-FINAL-ALIGN-1.2`。1.0保留迁移/恢复工程边界；1.1在§13消费最终业务决定、CON-011、GAP-H13及Phase 2映射。§1～12中的PENDING、canonical UNKNOWN、Phase 4 IN_PROGRESS、Phase 5 LOCKED和“尚未接受”均为历史快照，当前结论以§13为准。
 <!-- WI-0027-BANNER-END -->
 
 > 文档状态：ACCEPTED（周润基已接受本批次G2边界设计；Reviewer：黄友晟）
@@ -172,7 +174,7 @@ G2当前输入固定为负责人决定原件`c65edff3d13184804130b623ff16e42460b
 ### 13.2 决定对迁移/恢复的约束
 
 - P-01：恢复或重放必须保留B的最终`VALID`事实，不得因“只有疑虑”补造无效原因或把已完成检查恢复成永久待定。
-- P-02：普通首次材料必须保留服务端`endedAt`、严格`acceptedAt < endedAt + 24h`、锁定batch与严格`completedAt < acceptedAt + 30m`。等于端点拒绝；已受理链在课程关闭/成员移出后仍可按同批规则完成。迁移不得用文件时间、对象时间或草稿时间改写这些事实，也不得把游泳或补证专门窗口推广为普通规则。
+- P-02：普通首次材料必须保留服务端`endedAt`、严格`acceptedAt < endedAt + 24h`、锁定batch与严格`completedAt < acceptedAt + 30m`。等于端点拒绝。须保留边界前服务器已确认的合法Session/Record、原课程/历史成员关系及其资格：尚未首次受理的仍可在原首次窗口内受理，已受理的继续原同批传输窗口。恢复清单不得只包含已受理材料而丢失前一种链，结算也须识别两种合法未完链。恢复不重置截止，不恢复完整成员权限，不允许新开运动。迁移不得用文件时间、对象时间或草稿时间改写这些事实，也不得把游泳或补证专门窗口推广为普通规则。
 - P-03：任何SLA迁移必须携带学校工作日表版本、`Asia/Shanghai`日界、已累计预算及规范化暂停区间并集；实际表缺失时保留`HOLD_UNRESOLVED`，不默认周一至周五或48小时。
 - P-04：错误逾期纠错必须以追加事实保留旧终局、历史、已用机会和合法后继；不得物理回滚、删除终态、重发完整窗口或清零机会。
 - GAP-H13：历史remark原字节保留；所有已认证`TEACHER`可只读查看，但迁移不得扩大到学生、通知、导出、日志、公开页或普通缓存，也不得给新成绩创建remark。读取审计的actor、用途、对象和时间必须可迁移/重建。
