@@ -1,6 +1,8 @@
 package edu.bnbu.student.mvp.feature.help
 
+import edu.bnbu.student.mvp.feature.review.LocalReviewUiFixtureProvider
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -38,9 +40,20 @@ class HelpArticlePresentationTest {
 
     @Test
     fun localReviewUsesPublishedAdministratorProjectionOnly() {
-        val articles = localReviewHelpArticles()
+        val articles = LocalReviewUiFixtureProvider.helpArticles()
         assertEquals(listOf("HA-001", "HA-006", "HA-002", "HA-003"), articles.map { it.id })
         assertEquals(listOf("checkin", "enrollment", "login", "exemption"), articles.map { it.categoryCode })
         assertTrue(articles.all { it.title.isNotBlank() && it.bodyMarkdown.isNotBlank() })
+    }
+
+    @Test
+    fun localReviewDoesNotInventVerificationCodeLockDurations() {
+        val copy = LocalReviewUiFixtureProvider.helpArticles().joinToString("\n") { it.bodyMarkdown }
+
+        assertFalse(copy.contains("连续输错 5 次"))
+        assertFalse(copy.contains("账号锁定 15 分钟"))
+        assertFalse(copy.contains("five consecutive failures", ignoreCase = true))
+        assertFalse(copy.contains("locked for 15 minutes", ignoreCase = true))
+        assertTrue(copy.contains("暂时限制继续尝试") || copy.contains("temporarily limit further attempts"))
     }
 }

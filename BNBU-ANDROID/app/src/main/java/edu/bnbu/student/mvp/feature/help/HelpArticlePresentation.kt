@@ -24,7 +24,6 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import edu.bnbu.student.mvp.core.designsystem.interfaceText
-import edu.bnbu.student.mvp.core.model.HelpArticleContent
 
 internal val HelpCategoryCodes = listOf(
     "login",
@@ -42,12 +41,12 @@ internal val HelpCategoryCodes = listOf(
 internal fun helpCategoryLabel(categoryCode: String): String = when (categoryCode.trim().lowercase()) {
     "login" -> interfaceText("登录与验证码", "Sign-in & verification codes")
     "enrollment" -> interfaceText("加入课程与补正", "Enrollment & corrections")
-    "checkin" -> interfaceText("打卡与学时", "Check-ins & credits")
+    "checkin" -> interfaceText("打卡与分钟", "Check-ins & minutes")
     "evidence" -> interfaceText("凭证上传", "Evidence upload")
-    "course" -> interfaceText("课程与成绩", "Classes & grades")
+    "course" -> interfaceText("课程与进度", "Classes & progress")
     "exemption" -> interfaceText("免测", "Exemptions")
-    "organization" -> interfaceText("组织认证", "Organization verification")
-    "notification" -> interfaceText("通知", "Notifications")
+    "organization" -> interfaceText("校队/社团认证", "Team/club certification")
+    "notification" -> interfaceText("站内通知", "In-app notifications")
     "maintenance" -> interfaceText("维护期间操作", "Maintenance operations")
     "feedback" -> interfaceText("服务反馈", "Service feedback")
     else -> interfaceText("其他", "Other")
@@ -55,57 +54,6 @@ internal fun helpCategoryLabel(categoryCode: String): String = when (categoryCod
 
 internal fun helpCategoryRank(categoryCode: String): Int =
     HelpCategoryCodes.indexOf(categoryCode.trim().lowercase()).let { if (it < 0) HelpCategoryCodes.size else it }
-
-internal fun localReviewHelpArticles(): List<HelpArticleContent> = listOf(
-    HelpArticleContent(
-        id = "HA-001",
-        categoryCode = "checkin",
-        locale = interfaceText("zh-CN", "en"),
-        title = interfaceText("如何提交运动打卡？", "How do I submit an activity check-in?"),
-        bodyMarkdown = interfaceText(
-            "进入打卡页，确认当前课程与时间窗，完成运动后上传至少一份凭证并提交。",
-            "Open Check-in, confirm the class and time window, then upload at least one item of evidence after the activity and submit."
-        ),
-        publishedAt = "2026-03-02T08:00:00Z",
-        version = 1
-    ),
-    HelpArticleContent(
-        id = "HA-006",
-        categoryCode = "enrollment",
-        locale = interfaceText("zh-CN", "en"),
-        title = interfaceText("如何扫码或使用邀请码加入课程？", "How do I join a class with a QR code or invitation code?"),
-        bodyMarkdown = interfaceText(
-            "扫描授课教师展示的课程二维码后，请先核对课程名称、班级、教师和学期，再填写姓名、学号、性别和年级并确认加入。服务端校验成功后会立即建立有效课程成员关系并进入学生首页，无需等待教师审核。无法扫码时，可在学生端输入邀请码；二维码过期或被撤销时，请向教师获取新的邀请。",
-            "After scanning the class QR code shown by your teacher, confirm the course, section, teacher, and semester, then enter your name, student ID, gender, and grade. Successful server validation creates an active membership immediately and opens the student home screen without teacher approval. If scanning is unavailable, enter the invitation code in the student app; ask for a new invitation if the code has expired or been revoked."
-        ),
-        publishedAt = "2026-08-01T08:00:00Z",
-        version = 1
-    ),
-    HelpArticleContent(
-        id = "HA-002",
-        categoryCode = "login",
-        locale = interfaceText("zh-CN", "en"),
-        title = interfaceText("验证码连续输错后怎么办？", "What happens after repeated verification-code failures?"),
-        bodyMarkdown = interfaceText(
-            "连续输错 5 次后账号锁定 15 分钟。可以等待自动解锁，或联系管理员核验后提前解锁。",
-            "After five consecutive failures, the account is locked for 15 minutes. Wait for automatic unlock or contact an administrator for verified early unlock."
-        ),
-        publishedAt = "2026-03-05T08:00:00Z",
-        version = 1
-    ),
-    HelpArticleContent(
-        id = "HA-003",
-        categoryCode = "exemption",
-        locale = interfaceText("zh-CN", "en"),
-        title = interfaceText("如何申请耐力跑免测？", "How do I apply for an endurance-run exemption?"),
-        bodyMarkdown = interfaceText(
-            "在申请页选择耐力跑免测，按要求提交医学材料并等待授课教师审核。",
-            "Choose Endurance-run exemption under Applications, provide the required medical documents, and wait for your teacher's review."
-        ),
-        publishedAt = "2026-04-12T08:00:00Z",
-        version = 1
-    )
-)
 
 internal sealed interface HelpMarkdownBlock {
     data class Heading(val level: Int, val text: String) : HelpMarkdownBlock

@@ -28,6 +28,7 @@ import edu.bnbu.student.mvp.core.designsystem.SwissPanel
 import edu.bnbu.student.mvp.core.designsystem.bnbuClickable
 import edu.bnbu.student.mvp.core.designsystem.interfaceText
 import edu.bnbu.student.mvp.core.model.studentNumberForDisplay
+import edu.bnbu.student.mvp.core.model.studentStatusLabel
 import edu.bnbu.student.mvp.core.state.StudentAppState
 
 /** Full account information, opened from the profile header instead of the main Profile tab. */
@@ -104,6 +105,10 @@ fun AccountDetailsScreen(
                     AccountDetailRow(
                         stringResource(R.string.profile_student_id),
                         student.studentNumberForDisplay()
+                    )
+                    AccountDetailRow(
+                        interfaceText("学生状态", "Student status"),
+                        studentStatusLabel(student.status)
                     )
                     AccountDetailRow(stringResource(R.string.profile_gender), gender)
                     AccountDetailRow(stringResource(R.string.profile_class), student.className)

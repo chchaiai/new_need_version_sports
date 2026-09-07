@@ -32,7 +32,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.CameraAlt
-import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.ErrorOutline
 import androidx.compose.material.icons.filled.FlashOff
 import androidx.compose.material.icons.filled.FlashOn
@@ -54,6 +53,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -99,16 +99,7 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
 
 private const val InviteTokenMinLength = 16
-private const val InviteTokenMaxLength = 512
-private const val SimulatedInviteCode = "SIMULATED-PREVIEW-ONLY"
-
-internal fun simulatedCourseJoinInfo() = CourseJoinInfo(
-    id = "simulated-section-pe101-01",
-    name = "大学体育（一）",
-    teacher = "陈若宁",
-    semester = "2025-2026 第二学期",
-    isDemoScanResult = true
-)
+internal const val InviteTokenMaxLength = 512
 
 /**
  * Scans a teacher-provided course QR code and resolves its public invite data.
@@ -121,6 +112,7 @@ internal fun simulatedCourseJoinInfo() = CourseJoinInfo(
 fun ScanJoinScreen(
     onInviteResolved: (inviteCode: String, course: CourseJoinInfo) -> Unit,
     onBack: () -> Unit,
+    onEnterCode: (() -> Unit)? = null,
     resolveInvite: suspend (inviteCode: String) -> CourseJoinInfo
 ) {
     val context = LocalContext.current
@@ -142,7 +134,7 @@ fun ScanJoinScreen(
     var isResolving by remember { mutableStateOf(false) }
     var message by remember { mutableStateOf<String?>(null) }
     var userFacingError by remember { mutableStateOf<UserFacingError?>(null) }
-    var showManualInput by remember { mutableStateOf(false) }
+    var showManualInput by rememberSaveable { mutableStateOf(false) }
     var lastScannedValue by remember { mutableStateOf<String?>(null) }
     var retryInviteCode by remember { mutableStateOf<String?>(null) }
     var flashEnabled by remember { mutableStateOf(false) }
@@ -256,7 +248,9 @@ fun ScanJoinScreen(
         }
     }
 
-    BackHandler(enabled = !isResolving, onBack = onBack)
+    BackHandler {
+        if (!isResolving) onBack()
+    }
 
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -402,40 +396,8 @@ fun ScanJoinScreen(
                 Spacer(Modifier.height(12.dp))
                 OutlinedButton(
                     onClick = {
-                        onInviteResolved(SimulatedInviteCode, simulatedCourseJoinInfo())
+                        onEnterCode?.invoke() ?: run { showManualInput = true }
                     },
-                    enabled = !isResolving,
-                    shape = RoundedCornerShape(14.dp),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(54.dp)
-                        .testTag("courseJoin.scan.simulateSuccess")
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.CheckCircle,
-                        contentDescription = null,
-                        modifier = Modifier.size(20.dp)
-                    )
-                    Spacer(Modifier.width(10.dp))
-                    Text(
-                        text = interfaceText("模拟扫码成功（预览）", "Simulate scan success (preview)"),
-                        style = MaterialTheme.typography.labelLarge
-                    )
-                }
-                Spacer(Modifier.height(8.dp))
-                Text(
-                    text = interfaceText(
-                        "仅展示扫码成功后的界面，不会请求服务器或加入课程。",
-                        "Shows the post-scan screen only. No server request or course join will occur."
-                    ),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    style = MaterialTheme.typography.bodySmall,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.fillMaxWidth()
-                )
-                Spacer(Modifier.height(12.dp))
-                OutlinedButton(
-                    onClick = { showManualInput = true },
                     enabled = !isResolving,
                     shape = RoundedCornerShape(14.dp),
                     modifier = Modifier
@@ -741,7 +703,7 @@ private fun ManualInviteCodeDialog(
     onDismiss: () -> Unit,
     onSubmit: (String) -> Unit
 ) {
-    var code by remember { mutableStateOf("") }
+    var code by rememberSaveable { mutableStateOf("") }
     val normalizedCode = code.trim()
     val showFormatError = code.isNotBlank() && !isInviteCode(normalizedCode)
     AlertDialog(
@@ -765,7 +727,7 @@ private fun ManualInviteCodeDialog(
                 Spacer(Modifier.height(20.dp))
                 BNBUFormField(
                     value = code,
-                    onValueChange = { code = it },
+                    onValueChange = { code = it.take(InviteTokenMaxLength) },
                     label = interfaceText("邀请码", "Invitation code"),
                     testTag = "courseJoin.scan.inviteCode",
                     required = true,

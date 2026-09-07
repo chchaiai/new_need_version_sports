@@ -16,11 +16,13 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -32,6 +34,7 @@ import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Stop
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -51,12 +54,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
-import edu.bnbu.student.mvp.core.designsystem.ActionButton
+import edu.bnbu.student.mvp.core.designsystem.AppleButton
+import edu.bnbu.student.mvp.core.designsystem.AppleFilledTonalButton
 import edu.bnbu.student.mvp.core.designsystem.BNBULayout
 import edu.bnbu.student.mvp.core.designsystem.PrimaryActionButton
 import edu.bnbu.student.mvp.core.designsystem.interfaceText
@@ -359,7 +364,7 @@ internal fun ExerciseVideoRecorderDialog(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(BNBULayout.Space12),
-                        horizontalArrangement = Arrangement.spacedBy(BNBULayout.Space12),
+                        horizontalArrangement = Arrangement.spacedBy(BNBULayout.Space8),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         when (phase) {
@@ -372,44 +377,44 @@ internal fun ExerciseVideoRecorderDialog(
                             )
 
                             ExerciseVideoRecordingPhase.RECORDING -> {
-                                ActionButton(
+                                RecorderActionButton(
                                     title = interfaceText("暂停", "Pause"),
                                     icon = Icons.Filled.Pause,
                                     filled = false,
-                                    modifier = Modifier.weight(1.15f),
+                                    modifier = Modifier.weight(1f),
                                     onClick = {
                                         recording?.pause()
                                         recordingClock.pause()
                                         phase = recordingClock.phase
                                     }
                                 )
-                                ActionButton(
+                                RecorderActionButton(
                                     title = interfaceText("结束", "Finish"),
                                     icon = Icons.Filled.Stop,
                                     filled = true,
-                                    modifier = Modifier.weight(0.9f),
+                                    modifier = Modifier.weight(1f),
                                     onClick = { stopRecording(cancel = false) }
                                 )
                                 RetakeRecordingButton(onClick = ::retakeRecording)
                             }
 
                             ExerciseVideoRecordingPhase.PAUSED -> {
-                                ActionButton(
+                                RecorderActionButton(
                                     title = interfaceText("继续录制", "Resume"),
                                     icon = Icons.Filled.PlayArrow,
                                     filled = true,
-                                    modifier = Modifier.weight(1.15f),
+                                    modifier = Modifier.weight(1f),
                                     onClick = {
                                         recording?.resume()
                                         recordingClock.resume()
                                         phase = recordingClock.phase
                                     }
                                 )
-                                ActionButton(
+                                RecorderActionButton(
                                     title = interfaceText("结束", "Finish"),
                                     icon = Icons.Filled.Stop,
                                     filled = false,
-                                    modifier = Modifier.weight(0.9f),
+                                    modifier = Modifier.weight(1f),
                                     onClick = { stopRecording(cancel = false) }
                                 )
                                 RetakeRecordingButton(onClick = ::retakeRecording)
@@ -438,6 +443,65 @@ internal fun ExerciseVideoRecorderDialog(
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun RecorderActionButton(
+    title: String,
+    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    filled: Boolean,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
+) {
+    val buttonModifier = modifier.heightIn(min = 72.dp)
+    val contentPadding = PaddingValues(horizontal = BNBULayout.Space8, vertical = BNBULayout.Space8)
+    if (filled) {
+        AppleButton(
+            onClick = onClick,
+            modifier = buttonModifier,
+            shape = MaterialTheme.shapes.medium,
+            contentPadding = contentPadding
+        ) {
+            RecorderActionContent(title = title, icon = icon)
+        }
+    } else {
+        AppleFilledTonalButton(
+            onClick = onClick,
+            modifier = buttonModifier,
+            shape = MaterialTheme.shapes.medium,
+            colors = ButtonDefaults.filledTonalButtonColors(
+                containerColor = MaterialTheme.colorScheme.surfaceContainerHighest,
+                contentColor = MaterialTheme.colorScheme.primary
+            ),
+            contentPadding = contentPadding
+        ) {
+            RecorderActionContent(title = title, icon = icon)
+        }
+    }
+}
+
+@Composable
+private fun RecorderActionContent(
+    title: String,
+    icon: androidx.compose.ui.graphics.vector.ImageVector
+) {
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(BNBULayout.Space4)
+    ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            modifier = Modifier.size(20.dp)
+        )
+        Text(
+            text = title,
+            maxLines = 2,
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.labelLarge
+        )
     }
 }
 

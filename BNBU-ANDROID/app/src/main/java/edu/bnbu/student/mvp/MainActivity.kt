@@ -3,6 +3,7 @@ package edu.bnbu.student.mvp
 import android.app.Application
 import android.Manifest
 import android.content.Context
+import android.content.ContextWrapper
 import android.content.pm.PackageManager
 import android.content.Intent
 import android.net.Uri
@@ -18,11 +19,15 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
 import edu.bnbu.student.mvp.core.designsystem.AppleTextButton as TextButton
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.window.DialogProperties
 import androidx.lifecycle.AndroidViewModel
@@ -36,6 +41,7 @@ import edu.bnbu.student.mvp.core.model.SystemModeStatus
 import edu.bnbu.student.mvp.core.state.StudentAppState
 import edu.bnbu.student.mvp.core.review.LocalReviewWorkspaceProvider
 import edu.bnbu.student.mvp.feature.shell.AppRootScreen
+import edu.bnbu.student.mvp.feature.shell.StartupGateScreen
 import edu.bnbu.student.mvp.feature.checkin.session.ExerciseSessionController
 import edu.bnbu.student.mvp.feature.checkin.session.SessionMediaUploadCoordinator
 import edu.bnbu.student.mvp.feature.checkin.session.SessionVideoCompressor
@@ -61,7 +67,10 @@ class MainActivity : ComponentActivity() {
     private val appStateViewModel: StudentAppStateViewModel by viewModels()
     private val appUpdateManager: AppUpdateManager by lazy { AppUpdateManagerFactory.create(this) }
     private var isInitialTargetReady = false
-    private var isSystemModeChecked by mutableStateOf(false)
+    private var startupServiceState by mutableStateOf(StartupServiceState.CHECKING)
+    private var systemModeConnectionState by
+        mutableStateOf(SystemModeConnectionState.CONFIRMED)
+    private var systemModeRequestGeneration by mutableIntStateOf(0)
     private var isPlayUpdateReady by mutableStateOf(false)
     private val installStateUpdatedListener = InstallStateUpdatedListener { state ->
         if (state.installStatus() == InstallStatus.DOWNLOADED) {
@@ -82,60 +91,128 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
         splashScreen.setKeepOnScreenCondition {
-            shouldKeepSystemSplash(
-                sessionRestoreComplete = !appStateViewModel.isRestoringSession,
-                privacyConsentChecked = appStateViewModel.isPrivacyConsentChecked,
-                systemModeChecked = isSystemModeChecked,
-                initialTargetReady = isInitialTargetReady
-            )
+            shouldKeepSystemSplash(initialSurfaceReady = isInitialTargetReady)
         }
         super.onCreate(savedInstanceState)
         val appState = appStateViewModel.appState
+        val localReviewWorkspaceFactory = LocalReviewWorkspaceProvider.workspaceFactory
         appUpdateManager.registerListener(installStateUpdatedListener)
         checkForPlayUpdate()
 
         setContent {
+            val hostContext = LocalContext.current
+            val appLanguage = appState.appLanguage
+            val localizedContext = remember(hostContext, appLanguage) {
+                val resourceContext = AppLanguagePreferences.localizedContext(hostContext)
+                object : ContextWrapper(hostContext) {
+                    override fun getAssets() = resourceContext.assets
+                    override fun getResources() = resourceContext.resources
+                }
+            }
+            val localizedConfiguration = remember(localizedContext) {
+                localizedContext.resources.configuration
+            }
             var updateRequirement by remember { mutableStateOf<UpdateRequirement?>(null) }
             LaunchedEffect(Unit) {
                 updateRequirement = checkMinimumVersion()
             }
 
-            LaunchedEffect(Unit) {
+            LaunchedEffect(systemModeRequestGeneration, appState.isLocalReviewMode) {
+                if (appState.isLocalReviewMode) return@LaunchedEffect
+
+                startupServiceState = StartupServiceState.CHECKING
+                val initialMode = requestSystemMode()
+                if (initialMode.isFailure) {
+                    startupServiceState = StartupServiceState.ERROR
+                    return@LaunchedEffect
+                }
+                appState.updateSystemMode(requireNotNull(initialMode.getOrNull()))
+                systemModeConnectionState = SystemModeConnectionState.CONFIRMED
+                startupServiceState = StartupServiceState.READY
+
                 while (true) {
-                    appState.updateSystemMode(checkSystemMode())
-                    isSystemModeChecked = true
                     delay(SYSTEM_MODE_POLL_MILLIS)
+                    val refreshedMode = requestSystemMode()
+                    val refreshResolution = resolveSystemModeRefresh(
+                        lastConfirmedStatus = appState.systemModeStatus,
+                        refreshedStatus = refreshedMode.getOrNull()
+                    )
+                    systemModeConnectionState = refreshResolution.connectionState
+                    if (refreshedMode.isSuccess) {
+                        appState.updateSystemMode(refreshResolution.confirmedStatus)
+                    } else {
+                        Log.w(
+                            SYSTEM_MODE_LOG_TAG,
+                            "Public system mode refresh unavailable; preserving last confirmed " +
+                                appState.systemMode.name
+                        )
+                    }
                 }
             }
 
-            val startupInputsReady =
+            val localStartupReady =
                 !appStateViewModel.isRestoringSession &&
-                    appStateViewModel.isPrivacyConsentChecked &&
-                    isSystemModeChecked
-            if (startupInputsReady) {
+                    appStateViewModel.isPrivacyConsentChecked
+            val startupSurfaceState = resolveStartupSurfaceState(
+                localStartupReady = localStartupReady,
+                serviceState = startupServiceState
+            )
+            CompositionLocalProvider(
+                LocalContext provides localizedContext,
+                LocalConfiguration provides localizedConfiguration
+            ) {
                 BNBUStudentTheme(themeMode = appState.themeMode) {
-                    AppRootScreen(
-                        appState = appState,
-                        exerciseSessionController = appStateViewModel.exerciseSessionController,
-                        localStore = appStateViewModel.localStore,
-                        initialPrivacyConsentRequired =
-                            appStateViewModel.isPrivacyConsentRequired,
-                        onPrivacyConsentAccepted =
-                            appStateViewModel::markPrivacyConsentAccepted,
-                        onInitialTargetReady = { isInitialTargetReady = true },
-                        onRequestNotificationPermission = ::requestNotificationPermissionIfNeeded,
-                        localReviewWorkspaceFactory = LocalReviewWorkspaceProvider.workspaceFactory
-                    )
-
-                    updateRequirement?.let { requirement ->
-                        UpdateRequiredDialog(
-                            requirement = requirement,
-                            onUpdate = { openUpdateUrl(requirement.downloadUrl) }
+                    when (startupSurfaceState) {
+                        StartupSurfaceState.LOADING,
+                        StartupSurfaceState.ERROR -> StartupGateScreen(
+                            state = startupSurfaceState,
+                            allowLocalReview =
+                                startupSurfaceState == StartupSurfaceState.ERROR &&
+                                    localReviewWorkspaceFactory != null,
+                            onRetry = { systemModeRequestGeneration += 1 },
+                            onEnterLocalReview = {
+                                localReviewWorkspaceFactory?.let { factory ->
+                                    appState.updateSystemMode(
+                                        SystemModeStatus(mode = SystemMode.NORMAL)
+                                    )
+                                    systemModeConnectionState =
+                                        SystemModeConnectionState.CONFIRMED
+                                    appState.enterLocalReview(factory())
+                                    startupServiceState = StartupServiceState.READY
+                                }
+                            },
+                            onInitialSurfaceReady = { isInitialTargetReady = true }
                         )
-                    }
 
-                    if (updateRequirement == null && isPlayUpdateReady) {
-                        PlayUpdateReadyDialog(onRestart = ::completePlayUpdate)
+                        StartupSurfaceState.APP -> {
+                            AppRootScreen(
+                                appState = appState,
+                                exerciseSessionController =
+                                    appStateViewModel.exerciseSessionController,
+                                localStore = appStateViewModel.localStore,
+                                initialPrivacyConsentRequired =
+                                    appStateViewModel.isPrivacyConsentRequired,
+                                onPrivacyConsentAccepted =
+                                    appStateViewModel::markPrivacyConsentAccepted,
+                                onInitialTargetReady = { isInitialTargetReady = true },
+                                onRequestNotificationPermission =
+                                    ::requestNotificationPermissionIfNeeded,
+                                localReviewWorkspaceFactory = localReviewWorkspaceFactory,
+                                systemModeConnectionState = systemModeConnectionState,
+                                onRetrySystemMode = { systemModeRequestGeneration += 1 }
+                            )
+
+                            updateRequirement?.let { requirement ->
+                                UpdateRequiredDialog(
+                                    requirement = requirement,
+                                    onUpdate = { openUpdateUrl(requirement.downloadUrl) }
+                                )
+                            }
+
+                            if (updateRequirement == null && isPlayUpdateReady) {
+                                PlayUpdateReadyDialog(onRestart = ::completePlayUpdate)
+                            }
+                        }
                     }
                 }
             }
@@ -216,27 +293,27 @@ class MainActivity : ComponentActivity() {
     }
 
     /** Production-like variants fail closed when the public mode cannot be confirmed. */
-    private suspend fun checkSystemMode(): SystemModeStatus {
+    private suspend fun requestSystemMode(): Result<SystemModeStatus> {
         return try {
             val response = V1PublicStatusClient().getSystemMode()
             val resolvedMode = SystemMode.from(response.mode.value)
             Log.i(SYSTEM_MODE_LOG_TAG, "Public system mode resolved to ${resolvedMode.name}")
-            SystemModeStatus(
-                mode = resolvedMode,
-                message = "",
-                estimatedRecoveryTime = null,
-                plannedMaintenanceAt = null
+            Result.success(
+                SystemModeStatus(
+                    mode = resolvedMode,
+                    message = "",
+                    estimatedRecoveryTime = null,
+                    plannedMaintenanceAt = null
+                )
             )
         } catch (error: CancellationException) {
             throw error
         } catch (error: Throwable) {
-            fallbackSystemModeStatus(BuildConfig.BNBU_ENVIRONMENT).also { fallback ->
-                Log.w(
-                    SYSTEM_MODE_LOG_TAG,
-                    "Public system mode unavailable; applying ${fallback.mode.name} " +
-                        "(${error::class.java.simpleName})"
-                )
-            }
+            Log.w(
+                SYSTEM_MODE_LOG_TAG,
+                "Public system mode unavailable (${error::class.java.simpleName})"
+            )
+            Result.failure(error)
         }
     }
 
@@ -312,15 +389,6 @@ internal fun shouldKeepSystemSplash(
 
 private const val SYSTEM_MODE_POLL_MILLIS = 15_000L
 private const val SYSTEM_MODE_LOG_TAG = "BNBU-SystemMode"
-
-internal fun fallbackSystemModeStatus(environment: String): SystemModeStatus =
-    if (environment.trim().equals("local", ignoreCase = true)) {
-        // Local review remains available without a Backend and is visibly
-        // isolated from real data and writes.
-        SystemModeStatus(mode = SystemMode.NORMAL)
-    } else {
-        SystemModeStatus(mode = SystemMode.MAINTENANCE)
-    }
 
 /** Compares numeric dot-separated version components, ignoring build suffixes such as -debug. */
 internal fun compareVersions(currentVersion: String, minimumVersion: String): Int {
