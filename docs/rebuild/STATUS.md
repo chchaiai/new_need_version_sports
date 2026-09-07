@@ -2,20 +2,25 @@
 
 > 更新时间：2026-09-07
 >
-> 当前工作：Phase 4 V8.1 本批次联合设计与最终接受已完成，按负责人授权统一归档六份文档并提交PR。见[Phase 4联合交接](handoffs/new-req-phase-4.md)及[联合汇总§9～10](../architecture/new-requirements/p4-design-deltas-v81.md#9-最终接受登记2026-09-07)。
+> 当前工作：Phase 4 V8.1 已完成最终互审和负责人决定对齐，进入阶段退出；下一阶段为 Phase 5 API Contract / OpenAPI。
 >
-> 完成状态：本批次ACCEPTED/PARTIAL；Phase4 IN_PROGRESS，Phase5 LOCKED。Z的A/C/E/G2、H的B/D/F/G1/G3及联合汇总均已按约定深度接受，四项业务PENDING、追溯/工程DoD及Contract门禁未关闭。产品与数据库均NOT EXECUTED。
+> 完成状态：`Phase 4 DONE`；`Phase 5 READY`。H/Z设计及最终互审已接受，P-01～04、GAP-H13和Contract起始身份均已决定并完成设计对齐。产品、数据库、Migration、真实恢复和E2E仍为后续阶段`NOT_EXECUTED`。
 
 本页按各部分的具体情况记录当前进度。后续工作的数字编号和事项见 [项目 README](../../README.md#后续开发路线)。
 
-## 本轮 Phase 4 V8.1 联合设计收尾（PARTIAL）
+## 本轮 Phase 4 V8.1 联合设计收尾（DONE）
+
+- 最终H版本：`P4H-REMAINING-ENG-1.2`；所有教师可只读查看历史FinalGrade remark，学生不可见，新成绩不创建remark；GAP-H13关闭。
+- P-01～04已按负责人决定对齐。实际学校工作日表作为运行输入转后续阶段，不再视为Phase 4业务规则未决。
+- Phase 5起始Contract固定为`main / 73945754a8dbd490709a0a92fda696febf6433eb / 1.2.0-contract / RC / 667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a`。两个4.0.1仅作历史候选。
+- 用户确认双方最终互审完成且无待整改Finding，并直接确认结束Phase 4。CR-005和新Contract发布进入Phase 5；不把它们标为已执行。
 
 - 原始设计基线为`main@dbdedf9be958af08dd4a2c56d23191c626cca625`；H设计阶段分支为`codex/phase4-huang-review-timing`，统一发布分支为`docs/phase4-v81-partial-handoff`。Contract仍为`1.2.0-contract / RC / 667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a`。
 - P4-Z归档前v10 为 `8eb159dd…aafe`，登记被接受 v9 `d3f5b911…229a46`；G2接受登记快照 `7618a69a…1f62`，H 内容 Review 版 `55b04e2c…e6d4`；联合汇总 `8ff37739…567c` 已由 H 定向确认，无 P0/P1 finding。 这些SHA标识接受/审阅快照，当前归档文件由Git提交与路径定位。
 - [P4-H 正式整包](../architecture/new-requirements/p4-design-huang-v81.md) 位于仓库内唯一落点，包含 B/D/F/G1/G3；归档前被接受源快照SHA-256为 `cb5f01c61784f002ad43947f52f505653821678ecda7cb50d957b4be3ea5126d`。不另建重复的客户端分层或 Contract 缺口正式副本。
 - H↔Z 八项引用为 8 确认/0 不一致/0 待补；ISS-019/020/021 已闭合。联合汇总 J-11 中“未发现 H 仓库内正式稿”仅是 Z 隔离工作区观察，现已由 H 确认实际落点。
-- 四项 PENDING 原样保留：六类均不适用时的终局标准、首次材料期限/受理边界、学校工作日日历/日内边界、非维护故障错误逾期补救。Phase 3 豁免不消除 REQ/Impact Matrix 追溯缺项。
-- `CR-20260901-005` 仍 PROPOSED/BLOCKING，GAP-H13、H15～H18 仍阻塞受影响 Contract；不得据本批次设计直接进入 Backend、数据库/Migration、正式客户端 binding 或 E2E。
+- 四项原PENDING已由负责人决定并完成设计对齐；GAP-H15～H18按Phase 4关闭。实际日历表仍作为后续运行输入，不冒充已提供。
+- GAP-H13已按“所有教师只读可见历史remark”关闭。`CR-20260901-005`继续作为Phase 5 Contract工作；不得据Phase 4 DONE直接进入Backend、数据库/Migration、正式客户端binding或E2E。
 - H原设计阶段仅修改H正式稿、本页及Handoff；周润基已接受其整包并获负责人授权，统一发布Z主稿、G2、联合汇总、H整包、Handoff、STATUS六份文档。此次只归位文件并调整链接/接受/发布元数据，外部源附件及四项`.DS_Store`不动。业务正文、Contract、产品代码、数据库/Migration和infra不改；不合并或部署。发布检查见PR说明，不重跑稳定算法及上游测试。
 
 ## 本轮 Web V8.1 展示设计（复审修复已重测）
@@ -83,7 +88,7 @@
 
 | 部分 | 现有成果与证据 | 未完成事项 |
 |---|---|---|
-| 新需求 | 原ACCEPTED决策中无冲突部分继续生效；P4-Z A/C/E/G2、[P4-H B/D/F/G1/G3整包](../architecture/new-requirements/p4-design-huang-v81.md)及联合汇总已按本批次约定深度接受，见[Phase4交接](handoffs/new-req-phase-4.md) | 四项业务PENDING、追溯/工程DoD及Contract门禁仍开放；本批次PARTIAL，Phase4 IN_PROGRESS，Phase5 LOCKED |
+| 新需求 | P4-Z A/C/E/G2、[P4-H B/D/F/G1/G3整包](../architecture/new-requirements/p4-design-huang-v81.md)、P-01～04和GAP-H13决定对齐及最终互审均完成，见[Phase4交接](handoffs/new-req-phase-4.md) | Phase4 DONE；Phase5 READY。产品实现和真实运行证据进入后续阶段 |
 | 业务规则 | [总流程](../business/00-overview.md)、[学生](../business/10-student-flow.md)、[教师](../business/20-teacher-flow.md)、[管理员](../business/30-admin-flow.md) 为 V8.1；当前开发范围 Android / Web，已同步用户本轮确认的补证、维护、SLA、关闭与职责/备注边界 | 仍须完成页面、状态与 Contract 设计；文档删减不代表原问题已解决或产品已运行 |
 | UI / 用户流程 | Android 学生端、Web 学生端、教师 / 管理员 Portal 已有页面和交互代码 | 本轮新增需求对应的入口、页面、Loading / Empty / Error 与权限反馈尚未设计 |
 | Domain / 数据库 | [领域与数据库设计](../architecture/phase-3-domain-and-database-design.md) 继续作为旧基线；P4-Z/H 增量已补状态机、不变量、事实归属、事务/并发、统计/材料/结算与迁移恢复边界 | 当前仍只有设计，没有新 Backend 的真实表、Migration、环境盘点、数据库执行或恢复演练 |

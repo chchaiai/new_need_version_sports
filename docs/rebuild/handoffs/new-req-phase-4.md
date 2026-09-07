@@ -1,12 +1,14 @@
-# Phase 4 · V8.1 新需求联合设计交接（PARTIAL）
+# Phase 4 · V8.1 新需求联合设计最终交接（DONE）
 
 > 日期：2026-09-06设计交接；2026-09-07最终接受与归档
 > Owner：周润基（P4-Z）、黄友晟（P4-H）
 > Reviewer：双方交叉 Review
-> 批次状态：PARTIAL
-> Phase 4：IN_PROGRESS
-> Phase 5：LOCKED
+> 批次状态：DONE
+> Phase 4：DONE
+> Phase 5：READY
 > 执行状态：设计文档已形成；产品、Contract、数据库、Migration、回填、恢复与部署均 NOT EXECUTED。
+
+> 最终退出依据：负责人决定文档`BNBU-P4-OWNER-DECISIONS-20260907-v1.0 / c65edff3d13184804130b623ff16e42460b0712f1e4d4bb98ca2199ea18a4034`；用户确认H/Z最终互审已完成，并于2026-09-07直接确认结束Phase 4。
 
 ## 1. 基线与授权边界
 
@@ -71,7 +73,9 @@ P4-H 的详细结束报告以其 §18 为准；当前只完成设计与 Reviewer
 - 联合汇总 J-11 的“未发现仓库内 H 正式稿”是 Z 隔离工作区的观察；H 侧已按 §2.2 确认正式落点和整包/分件关系。
 - 联合汇总已由 Z 作为唯一编辑者完成回填，吸收了本 Handoff、STATUS 及 P4-H 接受快照的版本和引用事实；本批次联合收尾已完成。H 侧未修改 Z/G2/汇总设计源文件。
 
-## 5. 保留的四项业务 PENDING
+## 5. 历史记录 当时保留的四项业务 PENDING
+
+本节记录此前PARTIAL交接状态；当前结论已由§11最终退出登记取代。
 
 1. `P-20260904-01`：六类均不适用、补证后仍只有疑虑时的终局标准。
 2. `P-20260904-02`：普通首次材料最晚时点，以及跨收尾/成员移出后的首次受理边界。
@@ -120,12 +124,12 @@ H原设计阶段仅涉及上述三份文件，未修改Z/G2/联合汇总源文�
 
 ## 9. 当前判断与下一工作项
 
-本批次达到约定设计深度，H与Z联合收尾及周润基最终接受均已完成。四项业务PENDING、REQ/Impact Matrix追溯、完整工程DoD与Contract门禁仍开放，因此：
+本批次达到约定设计深度，H与Z联合收尾及最终接受均已完成。负责人决定与用户最终确认已关闭Phase 4业务决定门禁，因此：
 
 ```yaml
-batch_status: PARTIAL
-phase_4_status: IN_PROGRESS
-phase_5_gate: LOCKED
+batch_status: DONE
+phase_4_status: DONE
+phase_5_gate: READY
 product_execution: NOT_EXECUTED
 database_migration: NOT_EXECUTED
 ```
@@ -134,4 +138,15 @@ Z已核实H三份交接文件SHA/引用并完成联合汇总回填；六份文�
 
 ## 10. 文档归档与发布证据边界（2026-09-07）
 
-本Handoff被接受来源为131行、8309字节，SHA-256 `f43198d0f3cefaeda30422ef3a84dfdc324785a0e997fbfd22e0d6f557fa7fd5`。本次按[联合汇总§10](../../architecture/new-requirements/p4-design-deltas-v81.md#10-文档归档与-pr-发布授权2026-09-07)统一归位六份文档并同步接受/发布元数据。§7原核对记录属于H设计阶段；Z此次仅检查来源、正文保持、仓库链接、格式和Git范围，实际发布检查及提交证据列入PR说明，不冒称重跑稳定算法或产品测试。四项PENDING与阶段门禁不变。
+本Handoff此前被接受来源为131行、8309字节，SHA-256 `f43198d0f3cefaeda30422ef3a84dfdc324785a0e997fbfd22e0d6f557fa7fd5`；该身份只保留为历史快照。最终状态和新SHA以§11及最终交付清单为准。
+
+## 11. 最终退出登记
+
+- H最终设计：`P4H-REMAINING-ENG-1.2`。1.0工程模型83 PASS / 0 FAIL；1.1决定对齐模型30 PASS / 0 FAIL；1.2关闭GAP-H13。
+- Z最终送审版本：`P4Z-REMAINING-ENG-1.0 / 66d584b4b770a51197f77edbda5710a284e06416dc0b0db64c7f6c5db8e004b9`；G2为`P4Z-G2-ENG-1.0 / df18cc046751d684a32245ad8e47daf467730fc8b708439d328a2be723fd88f7`，H复跑109 PASS / 0 FAIL并以0 Finding接受。
+- 用户确认双方最终审核完成；当前开放Finding为0。
+- P-01～04均已决定并完成H侧设计对齐。GAP-H13最终决定为所有`TEACHER`角色可只读查看历史remark；学生不可见，新成绩不创建remark。
+- Phase 5唯一起始输入为`1.2.0-contract / RC / 667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a`。CR-005、新Version/SHA、生成与跨端验证属于Phase 5/6。
+- 实际校历表、产品代码、数据库/Migration、真实AI/OCR/媒体/权限、恢复演练、部署与E2E仍`NOT_EXECUTED`，按路线进入后续阶段，不冒充Phase 4执行结果。
+
+最终结论：`Phase 4 DONE / Phase 5 READY`。本交接只解锁Phase 5 Contract工作，不解锁Backend、客户端实现、部署或生产操作。

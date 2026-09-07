@@ -1,5 +1,11 @@
 # P4-H · V8.1 完整增量设计包（B / D / F / G1 / G3）
 
+> 当前H最终设计版本：`P4H-REMAINING-ENG-1.2`。1.0完成F、G1、G3工程DoD，1.1对齐负责人对P-01～04与Contract起始输入的决定，1.2登记最终决定“所有教师可只读查看历史FinalGrade remark”并关闭GAP-H13。学生仍不可见历史remark，新成绩仍不创建remark；不创建Contract/DDL/产品实现。
+
+> 当前D限定工程增量：`P4H-D-ENG-1.1`。本增量只在§14.10～§14.16把已接受的D语义细化为可实现、可检查的内部工程设计；输入为已接受`P4H-B-ENG-1.0`，不改写原D定义、不消费同批Z-E新内容，不表示产品、数据库、真实OCR或Contract已实施。1.1仅整改`P4Z-WI0024-R2-001`所指出的耐力确认完整请求绑定与选中行唯一性。
+
+> 当前限定工程增量：`P4H-B-ENG-1.0`。本增量只在§9.6～§9.12把已接受的B语义细化为可实现、可检查的内部工程设计；不改写原状态机、不消费同批Z-C新内容，不表示产品、数据库或Contract已实施。
+
 > 状态：ACCEPTED（周润基于2026-09-07接受本批次PARTIAL设计交付，证据见§18.6）；Owner：黄友晟；Reviewer：周润基。
 >
 > 范围：黄友晟负责的 B 审核/计时、D 名单/OCR/耐力跑、F 治理/学生数据边界/系统模式、G1 客户端分层、G3 Contract 缺口；整合为一份供周润基审核的文件。
@@ -434,6 +440,98 @@ AI 回调按 task ID、attempt、provider event/result digest、material version
 - 维护切换与普通写：复用 `system-mode` 的组织级 mode guard，使切换与受理/判断有确定先后；维护期间教师页面操作和学生补证受理 fail closed。
 - A/E 发布与 B 变化：调用 [§6.2](#p4h-b-source-guard) 的 review source guard；版本漂移丢弃旧计算/冻结结果并重读，不把旧内容贴上新版本。
 
+### 9.6 限定工程模型与边界
+
+<a id="p4h-b-engineering-model"></a>
+
+`P4H-B-ENG-1.0`使用三类内部记录把§3～§9的已接受语义落到工程边界。字段名是Domain/Application设计名，不是DDL、OpenAPI、DTO或Contract wire承诺。
+
+| 记录 | 最小内容 | 唯一/不变量 | 用途 |
+|---|---|---|---|
+| `ReviewCommandReceipt` | `commandId`、command kind、actor/scope、request digest、期望Case/round/material/source revision、result kind、result reference/digest、服务器时间 | 同一B command namespace内`commandId`唯一；已提交receipt只追加；同ID不同digest必须拒绝 | 证明相同命令返回原结果，不以“当前看起来幂等”代替历史 |
+| `ReviewTransitionFact` | Case、before/after stage、before/after Case version、round/material、cause receipt、decision/task/timer引用、candidate/blocker revision前后值 | `afterCaseVersion = beforeCaseVersion + 1`；原转换不改写；只能表达§4.2的边或明确的技术恢复 | 将current projection与只追加历史绑定，便于重放和差异核对 |
+| `ReviewOutboxFact` | stable event key、aggregate/scope、receipt/transition引用、payload class/version、脱敏payload digest、publish state | `eventKey=(transitionId,eventClass,recipientOrScopeDiscriminator)`唯一；必要事件与转换同事务落库 | 允许事务后至少一次投递，重放不产生第二个业务事实 |
+
+`ReviewCommandReceipt`不保存原媒体、密钥、完整模型提示或教师隐藏备注。请求digest必须覆盖所有影响结果的绑定值；仅对JSON排序、空白或传输header归一化，不能忽略材料版本、原因、窗口、预期revision或actor scope。
+
+### 9.7 命令输入、前驱版本与结果
+
+<a id="p4h-b-command-envelope"></a>
+
+所有B mutation先构造完整的`ReviewCommandEnvelope`：`commandId`、command kind、actor identity/scope、server-received instant、`reviewCaseId`、expected Case version、expected round/material version，以及命令必需的task/timer/source revision。缺必填绑定不得降级为“使用最新值”。
+
+| 命令簇 | 必须绑定的额外输入 | 成功结果 | 拒绝/无操作结果 |
+|---|---|---|---|
+| 确定性检查/AI调度 | material/rule/input fingerprint、policy/service version | 原task/attempt或下一处理阶段引用 | Case或输入已变则`STALE_INPUT`；不创建重复task |
+| AI结果应用 | task、attempt、provider event/result digest、task创建时的Case/material/input/policy | 原转换、Decision或唯一教师待办 | 重复返回原结果；迟到/被取代只追加attempt结果，current Case不变 |
+| 教师通过/无效/首次退回 | 责任教师scope、current queue/round/material、动作可用的固定原因；退回另绑定24/72小时总窗口 | 原Decision或原Timer，并关闭原round/SLA/queue | 权限、阶段、版本或原因不匹配时拒绝；不关闭待办 |
+| 补证受理参与 | Timer、最新F source revision、服务端受理时间、C提供的批次前已定义`MaterialVersionFact` identity | 原Timer acceptance、round 2、queue/SLA与材料版本引用 | 截止等号、来源不完整/漂移、已ACCEPTED/EXPIRED的不同command均拒绝 |
+| 补证逾期 | Timer、重算所用F source revision、worker identity、数据库时间 | 原SYSTEM_EXPIRY Decision和终态Timer | 已受理、remaining大于0、开放维护或来源不完整时不逾期 |
+
+表中“原结果”由receipt指向事务中已落库的事实。即使Case后来进入新阶段，相同command/digest也返回当时结果，不重新用当前状态裁决。相同command但digest不同返回`IDEMPOTENCY_CONFLICT`，不泄露其他actor的历史payload。
+
+### 9.8 Unit of Work、锁和原子发布
+
+<a id="p4h-b-uow"></a>
+
+Application先以receipt查询处理相同command；未命中时才进入业务事务。跨模块顶层Use Case按既有全局顺序取得mode/scope guard和Record/material保护，B只在自己被分配的顺序位置参与。B内部固定按`ReviewSourceScope（仅影响投影时） → ReviewCase → active ReviewRound → SupplementTimer/AIReviewTask → active queue item`取得必要保护；已由顶层guard持有的scope不重复或反向取得。单一B命令不反向打开C/A/E/F Repository，不在B内发起隐藏的第二事务。
+
+一次成功mutation的最小原子集为：
+
+1. 校验expected Case/round/material/source revision和状态边；
+2. 追加Decision/task/timer/round/transition中命令所需的事实；
+3. 更新Case current projection，以及唯一queue/timer/task指针；
+4. 依影响实际递增candidate/blocker revision；不变的revision不为了“方便”递增；
+5. 插入必要通知/AuditEvent的outbox事实和完成receipt。
+
+任一步失败整体回滚：不得出现Decision已可见但Case未转换、Timer已关闭但版2未受理、queue已关闭但教师动作未成功，或revision已递增但快照事实不存在的部分发布。外部AI请求和outbox投递在事务外；它们只能基于已提交task/event事实执行。
+
+### 9.9 并发裁决和版本漂移
+
+<a id="p4h-b-concurrency"></a>
+
+| 竞态 | 共同裁决事实 | 唯一允许的结果 |
+|---|---|---|
+| 两个教师动作 | current round/queue、expected Case version、decision sequence | 首个合法CAS提交；另一个返回最新事实，不关闭第二次 |
+| AI回调与教师动作 | task/attempt创建时绑定和current Case/round/material | 只有当前阶段合法的一边能改current；迟到AI只留attempt历史 |
+| 补证受理与逾期worker | 同一Case/Timer、最新source revision、权威`acceptedAt/effectiveDueAt` | 只能`ACCEPTED`或`EXPIRED`；等于截止不是截止前 |
+| 维护切换与普通写 | 组织mode guard、F source revision、数据库时间 | 维护生效后的新业务写fail closed；旧请求不凭HTTP先后解释 |
+| A/E读取后与B mutation | candidate/blocker scope revision和参与式guard | revision未变才能发布；漂移则丢弃旧计算/冻结结果并重读 |
+
+冲突返回的当前事实是受权限限定的Domain结果，不暴露内部行、锁或其他教师的操作payload。重读后的新意图必须使用新command ID；不得修改旧command的digest来强行重试。
+
+### 9.10 来源revision和可重建投影
+
+candidate revision只在`EffectiveCandidate`集合的成员或其当前decision/round/material绑定变化时递增。blocker revision只在非终态Case集合或其当前stage/round/material/Timer/SLA/technical绑定变化时递增。同一转换同时影响两个投影时，在一个事务中分别递增，但不强求两个数值相等。
+
+快照页必须回传scope、revision、确定性页边界和完整性证明。任一页读取失败、revision混用、重复/缺页、行引用不存在或完整性证明不成立，整个快照是`INCOMPLETE_OR_CHANGED`，不是空集合。queue、remaining、dueAt和当前快照都可重建；Decision、round、Timer终局、receipt和transition history不可通过重建覆盖。
+
+### 9.11 有限故障恢复边界
+
+- worker只从已提交task/outbox事实重试；不扫描current Case后自行猜测一个缺失的业务命令。
+- 发现已有receipt但其result reference缺失，或transition/current projection无法对应时，标记数据完整性故障并停止受影响Case；不重跑命令制造新结果。
+- 只追加历史和current projection核对必须包含identity/revision/digest；“数量相等”不能证明恢复完整。
+- 逾期已成终局后才确认的非维护故障仍受`P-20260904-04`阻塞；恢复工具不得撤销`EXPIRED/INVALID`。
+- 本节只冻结停止与fail-closed边界；备份、真实数据修复、补偿事务和运行runbook仍为`NOT_EXECUTED`或R3。
+
+### 9.12 可确定性检查模型与未满足分支
+
+<a id="p4h-b-engineering-checks"></a>
+
+本增量的有限内存模型只检查以下设计不变量：
+
+1. 相同command/digest返回原结果，不增加Decision/Timer/round/queue/revision；相同command不同digest拒绝。
+2. expected Case version错误时无mutation；合法转换每次只递增一个Case version。
+3. 教师两个不同command竞争时只一个产生判断；迟到AI回调不覆盖教师结果。
+4. 首次合法退回一次性创建Timer；同command重放返回原Timer，不同command不能创建第二Timer。
+5. 补证受理与逾期互斥；截止前受理保留，等于截止拒绝，来源不完整/漂移时不逾期。
+6. 事务中注入任一失败点后，Case、历史、Timer/queue、revision、outbox和receipt整体回到前驱快照。
+7. candidate/blocker revision只按实际影响递增；重建投影不改写只追加事实。
+
+实际自检使用`WI-0022-B-ENG-MODEL-1.0`，覆盖上述不变量的40个断言，结果`40 PASS / 0 FAIL`；最终程序SHA-256为`329673687211679cfab1d6c465c333472efcadb5d7615c2a22d245a694bb2a97`。首轮业务断言执行完后的总数检查写成36，与实际前置断言39不符；仅修正检查器计数后复跑通过，设计正文和业务断言未因此改变。
+
+模型不证明真实数据库隔离级别、锁行为、所有并发交错、AI provider、媒体上传、真实日历、运行恢复、Contract或产品集成。P-01～P-04、GAP-H13及同批Z-C新内容均不是模型默认输入；受它们影响的分支继续`PENDING/BLOCKED_R3/NOT_EXECUTED`。
+
 ## 10. AT-01～AT-08 正反例推演
 
 以下是设计级顺序推演，不是产品、数据库、模型准确率或真实并发测试。
@@ -679,6 +777,52 @@ Roster 的 `COMPLETED` 还要求 current snapshot 已原子发布；Endurance �
 
 反例：把 `4.30` 自动换成 270 秒；因三条已成功就标全批完成；确认后覆盖 OCR 原文；某一选中行失败但仍提交另外两条。均禁止。
 
+### 14.10 命令收据、输入身份与原结果重放
+
+**D-ENG-01（名单命令收据）。** `RosterImportCommandReceipt`是`course-enrollment`内部工程记录，绑定`organizationId/courseId`、`commandId`、规范化请求digest、操作者、角色/责任教师校验结果、expected Course/Batch/current roster版本、输入batch和源材料checksum、结果snapshot/finding集合、提交后的版本及服务器时间。同一归属和command重放时，digest一致才返回原snapshot与原finding身份；digest不同返回幂等冲突，不重跑OCR、不重发名单，也不以当前最新snapshot替换原结果。它不是Contract字段或跨模块共享表。〔§14.1/14.2/14.4/14.7；AT-15。〕
+
+**D-ENG-02（耐力命令收据）。** `EnduranceConfirmCommandReceipt`由`endurance`拥有，除command/actor外，固定batch版本、按稳定顺序排列且ID唯一的选中DraftRow及各expected version、对应Enrollment/outcome前驱、测试项目/日期、明确整数秒、规则revision和原结果measurement/conversion集合。请求digest必须在可信服务端边界由这份完整、规范化的稳定语义请求派生，不信任调用方自报摘要；重试只在完整请求相同且派生digest一致时返回原提交结果。同command改变选中集合、任一值、日期或规则revision均冲突。不同command若前驱已变化则返回版本冲突，不得把已经确认的行再次解释为本次成功。〔§14.3/14.4/14.7；AT-17。〕
+
+**D-ENG-03（完整输入而非摘要布尔）。** 两类写命令都必须以服务端读取的完整事实构造digest和校验清单，不接收调用方自报的`allResolved=true`、`rowCountMatches=true`、`ocrPassed=true`或可与请求内容脱离的digest作为完成证据。名单发布清单覆盖全部身份定义源行和终局处理；耐力确认清单覆盖本次选中行并在任何写入前拒绝重复DraftRow ID，但不把未选中行伪装为已处理。分页、游标或来源清单未完成时拒绝准备正式写入。〔§14.2/14.3/14.5；AT-15/17。〕
+
+### 14.11 OCR任务、回调与人工决定的版本隔离
+
+**D-ENG-04（技术attempt只追加）。** 外部解析/OCR每次调用形成内部`ExtractionAttemptFact`，绑定batch、attemptNo、taskId、输入checksum、配置/模型version、请求digest、开始/结束时间、技术结果和受限错误分类。原始媒体仍只以opaque asset引用；密钥、签名URL、原始提示及未脱敏provider payload不得进入普通日志。技术超时/不可用/解析失败只结束该attempt并按既定有限重试或人工模式处理，不把业务行写成`EXCLUDED`、不生成正式snapshot/measurement。〔§14.2/14.3/14.5；§15.2/15.3。〕
+
+**D-ENG-05（陈旧回调防护）。** 回调必须匹配当前batch、taskId、attemptNo、输入checksum和配置version；重复同结果可幂等确认，身份不匹配、旧attempt晚到或payload digest变化均只保留技术审计，不能覆盖新草稿。某行已有教师决定后，晚到OCR不得改写原OCR输出、候选值、核对状态或正式事实；需要重新识别时创建新attempt和新候选版本，教师决定仍追加。〔§14.2/14.3/14.7；AT-17。〕
+
+### 14.12 两个Owner内事务与确定锁序
+
+**D-ENG-06（名单发布Unit of Work）。** 名单发布在`course-enrollment`单一事务中按`Course → RosterImportBatch → RosterDraftRow(按稳定行键升序) → current RosterSnapshot pointer`取得Owner内锁；进入锁后重新核对权限、expected versions、源行全集、500行上限、重复/歧义、每行`CONFIRMED/EXCLUDED`终局及当前前驱。事务原子写入新snapshot、全部entry、reconciliation findings、batch完成事实、Course current pointer、命令收据、AuditEvent和待发送outbox。任一步失败全部回滚；OCR task和跨Owner读不在事务内，也不反向持有其锁。〔§14.2/14.4/14.5/14.7；AT-15。〕
+
+**D-ENG-07（耐力确认Unit of Work）。** 耐力确认在`endurance`事务中按`EnduranceCaptureBatch → DraftRow(稳定行键升序) → EnduranceOutcome(稳定学生/项目键升序)`锁定；Enrollment资格和规则匹配结果先通过公开端口准备，在提交点使用绑定revision重新核对，不能锁住D事务再进入其他Owner私有表。先校验选中DraftRow ID集合无重复，再对所有选中行完整预检；稳定排序只用于锁顺序，不得静默去重。随后原子追加measurement、唯一conversion snapshot、行决定、outcome pointer、batch派生状态、命令收据、AuditEvent与outbox。重复选择、任一选中行版本漂移、问题未解、无/多规则匹配或故障注入都回滚整条命令，不生成重复measurement/conversion，不改变row/outcome/current事实，未选中行不写。〔§14.3/14.4/14.7；AT-17。〕
+
+**D-ENG-08（跨Owner版本令牌）。** Enrollment、身份摘要、规则revision及其他Owner结果只以公开不可变事实/令牌参与准备和提交前guard；令牌读取失败、归属不符、不完整或漂移时拒绝本次写入并重新准备。D不规定其他Owner的锁实现，不把“最后一次读取成功”当成提交时仍有效，也不把两个Owner事务拼成分布式大事务。〔§14.1/14.4/14.6；模块边界。〕
+
+### 14.13 行决定、批次完成与纠错追加
+
+**D-ENG-09（名单行决定）。** 每个`RosterDraftRowDecision`固定原行版本、教师明确选择的稳定学生/Enrollment候选或排除原因、匹配依据版本、from/to、command及服务器时间。姓名近似、人数相同或客户端隐藏问题码均不能自动确认。重复学号、同一学生多行、名单外成员分别形成finding；处理finding不删除原行。发布snapshot前重新验证确认行一一映射且无重复稳定身份。〔§14.2/14.8；AT-15。〕
+
+**D-ENG-10（耐力行决定）。** 教师确认保存原始文本、明确解释后的整数秒、项目/性别/年级/日期、规则revision和源位置；`4.30`只有在教师提交明确含义后才可能进入选中集合。纠错追加新measurement/conversion及原因、操作者、前版引用，旧measurement、旧conversion和OCR原文不覆盖。新规则发布不回贴旧conversion。〔§14.3/14.7/14.9；AT-17。〕
+
+**D-ENG-11（完成状态为派生事实）。** Batch状态只能由同一Owner根据完整源行集合、技术attempt、行决定和正式提交结果派生：存在未终局行即不得`COMPLETED`；名单还需current snapshot指向本命令成功版本，耐力还需所有应确认行有measurement或带原因排除。部分成功保持`PARTIALLY_CONFIRMED`，技术attempt失败保持技术状态；UI红点、OCR成功、已处理数等摘要不能直接写终态。相同输入重算应得到同一状态，来源异常则保持不可确认而非默认空。〔§14.5；AT-15/17。〕
+
+### 14.14 综合名单准备清单、发布保护与可重建缓存
+
+**D-ENG-12（投影准备清单）。** `CourseAssessmentRosterProjection`每次准备都固定course/semester、current roster snapshot及完整确认分母、正式成员scope revision与完整成员ID集合，并为每名成员收集identity、endurance、B审核、申请、A统计及批次前Z-E当前状态的公开事实ID/source token。清单保存Owner完成标记、游标/分片完成证据、归属和重复检查结果；只比较两个截断列表彼此相等不能证明完整。H只引用批次前`P4Z.E.SettlementVersion`公开状态与blocker token，不定义E字段，也不消费同批17-E新增。〔§14.6；AT-15；P4Z.E §4.3（批次前接受版本）。〕
+
+**D-ENG-13（受保护发布）。** 准备后发布前重新核对Roster/成员scope、全部Owner token和投影前驱均未变化；任何来源失败、UNKNOWN、缺成员、重复成员、跨课程事实、旧投影或token漂移都拒绝把候选切为current。通过时只原子追加D自己的projection manifest/cache版本并更新current pointer；不写回任何来源Owner。另一任务已先发布时前驱CAS失败，重试重新准备；原命令已成功则返回原projection身份，不能把旧版本切回current。〔§14.6/14.7；AT-15。〕
+
+**D-ENG-14（缓存和导出不是权威事实）。** 物化投影可从manifest与Owner公开事实重建；缓存丢失不得删除snapshot、measurement或来源历史。读取旧缓存时必须返回其原source token和生成版本，不能贴上新时间冒充当前；无法证明当前完整性时显示“核对中/暂不可确认”。导出绑定projection ID、source manifest digest、生成时间和访问角色，来源变化后生成新导出；学生输出继续排除conversion、最终成绩、等级和排名。〔§14.6/14.7；§15.8；AT-15。〕
+
+### 14.15 故障恢复与可观测边界
+
+**D-ENG-15（恢复判据）。** 崩溃恢复只依据已提交命令收据、snapshot/measurement事实、current pointer、outbox状态和追加审计判断：收据存在且原子集完整时重放原结果；收据不存在或原子集不完整时不得猜测成功，先按Owner一致性检查恢复/告警。外部OCR完成但D事务未提交时只可重新构造草稿候选；已提交教师决定或正式事实绝不由provider回调覆盖。outbox重复投递以事件ID去重，不把通知成功当业务提交成功。〔§14.4/14.7；AT-15/17。〕
+
+**D-ENG-16（有限证据与未执行项）。** 本增量的确定性模型只覆盖命令重放/digest冲突、前驱冲突、OCR陈旧回调、名单/耐力原子失败、完成状态及投影完整性/token漂移等固定场景；它不证明真实数据库锁序、跨Owner提交、500行容量、OCR准确率、媒体安全、权限、恢复、并发或产品性能。DDL、Contract、Migration、真实数据及同批Z-E均未执行；四项PENDING和canonical UNKNOWN不因模型通过关闭。〔§14.1～14.15；手册§4/9；AT-15/17。〕
+
+正例：同一名单发布command在原事务成功后重试，返回同一snapshot/finding；综合名单准备含完整成员清单且全部token在提交点未变，才可发布新projection。反例：同command改变行集合、旧OCR覆盖教师决定、耐力三行中一行失败仍提交两行、两个截断列表一起漏人、来源读取失败被当空集合，均必须拒绝且不得产生部分current结果。
+
 ## 15. F：治理、学生数据边界与系统模式
 
 <a id="p4h-f-governance"></a>
@@ -800,6 +944,50 @@ V8.1 权威业务要求：责任教师发布 signed `INT` 最终成绩，**不�
 
 反例：把服务配置下放分管理员；管理员查看原图并点击通过；AI 故障默认通过；OCR 直接写正式名单/用时；恢复服务后覆盖教师结果；动作无版本/操作者/时间。均禁止。
 
+### 15.12 服务配置命令、版本与运行证据
+
+**F-ENG-01（治理命令收据）。** `GovernedServiceCommandReceipt`是治理组件内部逻辑记录，按service purpose与规范化组织/业务scope绑定command、actor、角色、完整稳定请求、expected service/current revision及原结果。请求身份在可信服务端边界由purpose、scope、provider/model非敏感标识、策略版本、secret reference身份和目标启用状态规范化派生，不信任调用方自报digest；权限检查先于原结果读取。同一actor/scope/command只有完整请求相同才返回原revision，内容变化返回冲突，不回显secret、不重新探测服务。它不是Contract类型。〔§15.1/15.3；AT-28。〕
+
+**F-ENG-02（发布原子集）。** 新服务revision只允许总管理员在expected current revision仍匹配时发布；purpose闭集、scope归属、provider/model标识、策略与secret reference必须完整，secret明文、连接凭据、学生材料和自由脚本一律拒绝进入请求快照、普通审计或outbox。Owner内事务原子追加不可变revision、移动current pointer、保存命令原结果及脱敏AuditEvent/outbox；失败不留下半个revision或指针。旧task继续绑定原service/policy/input版本，不因current pointer变化被重贴新配置。〔§15.3；模块边界。〕
+
+**F-ENG-03（状态快照不是健康推断）。** `TechnicalServiceRunStatusSnapshot`固定purpose/scope、采样窗口、最后成功探测、输入任务总量、终局/待处理/失败分列、来源revision、数据完整性和生成时点。来源不全、窗口不一致或指标读取失败时整体标`UNKNOWN/UNAVAILABLE`，不得以空列表、0或最近一次成功冒充当前健康。正确率/召回/OCR错误率另绑定本校样本集身份、标注版本和评估窗口；服务自报置信度、管理员查看数或教师待办量不能替代。普通状态出口只返回脱敏聚合，不含secret、prompt、原媒体、学生标识或教学判断。〔§15.3；GAP-H21。〕
+
+### 15.13 人工模式的范围、任务切换与迟到结果
+
+**F-ENG-04（人工模式窗口）。** `ManualModeCommandReceipt`按purpose及规范化scope绑定command、actor、expected source revision、动作`OPEN/CLOSE`、原因和原窗口结果。每个purpose/scope至多一个open窗口；OPEN使用服务器提交时点，CLOSE只能关闭所引用的当前窗口并追加结束事实，重复完整命令返回原结果，换scope/动作/原因冲突。权限、scope和前驱在写入前重验，原子写窗口、source revision、审计与outbox；失败或no-op不产生窗口。〔§15.4；AT-28。〕
+
+**F-ENG-05（任务归属保护）。** 进入人工模式只为已经通过确定性硬校验且尚未终局的task创建责任教师人工待办，绑定task/attempt、input digest、材料或草稿版本、service/policy revision和manual window revision；管理员、分管理员和非责任教师不能取得教学决定能力。AI/OCR晚到结果必须逐项核对这些身份与current decision revision；窗口结束或服务恢复仅影响尚未判定task，任何教师终局后回调都记为陈旧技术结果而不覆盖、不重开、不重复通知。〔§15.3～15.4；B/D任务边界。〕
+
+### 15.14 系统模式transition与维护区间发布
+
+**F-ENG-06（模式命令身份）。** `SystemModeTransitionReceipt`由`system-mode`拥有，绑定organization、command、actor/权限、from/to、expected mode/source revision、公告的非敏感展示字段及原transition结果；服务端从完整稳定请求派生身份。权限先验，同command完整相同才重放；更改组织、目标模式、前驱或公告内容冲突。预计恢复时间只随公告版本保存，不参与`resumedAt`或计时事实。〔§15.5～15.6。〕
+
+**F-ENG-07（transition原子集）。** `NORMAL → MAINTENANCE`在同一Owner事务以数据库提交时点写transition、创建唯一open `MaintenancePauseFact`、递增source revision、更新current mode/pointer、命令收据、审计和outbox；已有open区间、前驱漂移或任一步失败均无部分写。`MAINTENANCE → NORMAL`锁定当前open区间，以严格晚于`pausedAt`的提交时点追加关闭transition和`resumedAt`，关闭同一interval并递增revision；找不到唯一open区间、目标模式未变或重复不同命令均拒绝。历史transition与closed interval只追加，不覆盖。〔§15.5。〕
+
+**F-ENG-08（规范化读取清单）。** 维护读取返回organization、查询范围、完整有序interval清单、是否含唯一open项、source revision和完整性见证；closed项满足`resumedAt>pausedAt`，按开始时点稳定排序且不得重叠。读取失败、重复transition、多个open、倒序/重叠或分页不完整时fail closed并报告来源异常，消费者不得自行去重后继续。规范化只验证/合并同一事实的重复投递，不把相邻独立维护、预计时间或非维护故障改写成一个历史区间。〔§15.5；G2-15A～15D。〕
+
+**F-ENG-09（消费guard）。** B等消费者以原业务窗口、MaintenancePauseFact清单/revision及已确认非维护故障调整分别准备区间并计算并集；提交Timer/SLA结果前重新校验相同source revision，漂移则重算或拒绝。恢复后从原窗口剩余量续计，不新开完整窗口、不把维护期间算作可用时间，也不把个人离线变成平台故障。错误逾期后才确认故障的补救仍为`P-20260904-04 / BLOCKED_R3`，本增量不撤销或重写终局。〔§7.2～7.5/15.5。〕
+
+### 15.15 学生投影、缓存与全部出口的结构性拒绝
+
+**F-ENG-10（正向白名单投影）。** Backend按ActorContext、学生本人资源范围及用途选择学生专用projection schema，只显式构造项目、整数秒/展示用时、日期/免测、目标、实际计入、剩余量和公开原因；不得先序列化教师/内部完整对象再删除字段。Mapper对嵌套对象、分页、排序/筛选元数据和扩展字段递归执行白名单，出现grade/score/level/rank/conversion/final remark或未知可疑结构即拒绝整个payload并登记Contract/来源不一致，不以null、空串、别名或自由文本掩盖。〔§15.8；AT-18。〕
+
+**F-ENG-11（缓存身份与升级清除）。** 学生缓存键必须包含opaque actor subject、资源scope、projection schema version和source revision；缓存内容仍只能是白名单投影，不能缓存后再依当前角色裁剪。升级发现旧schema、未知workspace、身份切换或清除失败时删除/隔离旧缓存并返回不可用，禁止回退遗留文件、跨账号复用或离线展示旧成绩。服务端权限撤销、source revision变化和登出使相应缓存失效；TTL不是授权。〔§15.8；AT-18。〕
+
+**F-ENG-12（间接出口）。** 通知在创建与读取时双重校验template和ActorContext；含禁止成绩语义的整条学生消息拒绝，不做局部涂抹。导出/下载以不可猜opaque artifact绑定生成者、角色、scope、内容SHA和短期授权，取件时重新鉴权；教师文件不能靠转发URL成为学生出口。深链只定位受保护资源，不携带结果。日志、崩溃报告、分析、审计和outbox只留动作/技术状态/opaque ID，不记录禁止字段、值、通知正文、secret、prompt或原媒体。Mock/fixture必须通过同一schema拒绝检查且不得进入正式构建。〔§15.8；AT-18。〕
+
+### 15.16 取消能力与恢复边界
+
+**F-ENG-13（不存在替代授权）。** 旧`LimitedReviewGrant`、跨教师接管、管理员代审、接管待办及其创建/续期/撤销入口在路由、Use Case和Backend授权三层均必须不存在或明确拒绝；不能更名为临时协作者、故障处理人或课程关闭代理。相同拒绝命令可幂等返回同一拒绝，不产生grant、待办、课程责任迁移或通知。历史判断、opaque actor、课程和审计保留，只读历史不恢复能力。〔§15.9；GAP-H14。〕
+
+**F-ENG-14（恢复不改判）。** 治理/模式恢复先核对不可变revision、command receipt、current pointer、transition/interval序列、task绑定和教师decision revision；缺失或混合恢复点时停止。可重建状态快照和待办projection，但不能重新发出已消费命令、把技术结果改成教学结果、覆盖教师终局、重开人工窗口或用预计恢复时间补造维护结束。真实备份、数据库、媒体、权限和演练由G2/环境工作项另行验证。〔§15.3～15.5；G2-12～15D。〕
+
+### 15.17 F有限模型证据与未执行项
+
+**F-ENG-15。** `WI-0026-H-REMAINING-MODEL-1.0`以固定内存状态验证服务revision/权限/secret拒绝/命令重放、人工模式唯一窗口与迟到结果、维护开闭/前驱/实际区间/revision、学生白名单/旧缓存失败关闭和取消授权拒绝；每个失败用例检查业务状态不变。模型中的权限、时点、Provider、schema与来源保护均为可信桩，不证明真实数据库锁、并发、Secret Manager、AI/OCR、缓存平台、日志管线或安全测试。完整源码、SHA和实际结果随WI交接。
+
+**F-ENG-16。** F工程正文到此逻辑可实现且可检查；P-01/P-03/P-04相关的终局、学校日历及错误逾期补救仍分别`BLOCKED_R3`，GAP-H13仍只登记差异。产品、Contract、数据库、Migration、真实数据、服务探测、权限集成、恢复、部署和性能全部`NOT_EXECUTED`。本节不消费同批Z-G2新增，不宣称其恢复DoD完成。
+
 ## 16. G1：客户端分层说明
 
 <a id="p4h-g1-client-layering"></a>
@@ -867,6 +1055,24 @@ Interface 位于客户端 application/domain 边界，描述“加入课程”�
 ### 16.6 Phase 边界
 
 Phase 4 只确定上述依赖方向、数据边界、错误语义和 Owner 引用，状态均为 `NOT EXECUTED`。Phase 5 先用 G3 形成正式新 Contract/RC；Phase 8 才在 Android/Web 中生成 binding、实现 Repository/Adapter、替换 Mock、接入真实 Backend，并执行网络错误、维护、并发、恢复和 E2E 验证。
+
+### 16.7 请求身份、映射结果与过期响应隔离
+
+**G1-ENG-01（依赖方向可检查）。** 客户端构建图必须使UI/ViewModel只依赖application/domain，Use Case只依赖Repository Interface，具体Repository与API Adapter位于data/infrastructure，generated DTO只在Adapter编译边界可见。任何UI/ViewModel/domain对HTTP client、URL、status或generated DTO的直接import均为构建检查失败；同名Repository不得被误当Backend数据库访问。〔§16.1～16.4。〕
+
+**G1-ENG-02（写请求身份）。** Use Case首次发起写意图时生成/取得稳定command identity，并将ActorContext、资源scope、domain payload和expected revision交Repository；Repository重试、网络恢复或进程内重建必须复用同一identity与完整domain语义。Adapter只映射到已确认Contract字段，不按重试次数改请求、不以新key隐藏不确定结果。超时后先查询/重放原命令；不同内容复用key必须映射为冲突，不能展示假成功。〔§16.2/16.5；B/D/E命令边界。〕
+
+**G1-ENG-03（响应映射闭集）。** Adapter先验证HTTP与payload结构，再穷尽映射required/null、closed enum、服务器时间、版本、原结果和业务错误；HTTP 200但缺required、未知closed set、角色不允许字段或敏感嵌套时返回明确版本/安全错误并阻止缓存/UI。未知错误不得降级为成功、空集合、0、NORMAL或第一个枚举；可扩展字段只有在Contract明确开放且不影响安全/语义时才能忽略。〔§16.2～16.5。〕
+
+**G1-ENG-04（过期响应）。** ViewModel为每个用户意图维护generation/资源身份；切换账号、课程、筛选或新请求后，旧响应即使成功也不得覆盖当前state。取消只停止客户端等待，不代表Backend事务回滚；迟到写响应仍按command identity查询原结果。维护、forbidden、版本漂移、离线和普通网络错误是不同domain状态，只有服务器mode/version证明MAINTENANCE，客户端倒计时或网络失败不能伪造。〔§15.6/16.2。〕
+
+### 16.8 缓存、测试替身与工程验收
+
+**G1-ENG-05（受控缓存）。** Repository缓存项绑定opaque actor、资源scope、domain schema version、source revision、内容SHA和获取时服务器状态；命中仍经当前ActorContext与白名单校验。写命令、权限判断、当前mode、Timer/SLA和结算资格不得由缓存最终裁决。来源版本漂移、身份切换、未知schema或敏感清除失败时fail closed；离线只显示明确允许且带陈旧标记的非敏感历史，不制造current成功。〔§15.8/16.4～16.5。〕
+
+**G1-ENG-06（测试矩阵）。** Phase 8实现前冻结以下验收入口：每个Adapter的合法/缺字段/未知enum/额外敏感字段/时间异常/业务错误fixture；同command丢响应重放与不同内容冲突；旧响应隔离；账号/课程切换清缓存；维护与网络错误分离；学生payload递归无禁止字段。Mock只实现Repository Interface并以测试构建注入，正式构建图发现Mock/fixture、直连HTTP或generated DTO越层即失败。当前只设计这些检查，未运行Android/Web/Backend或E2E。
+
+**G1-ENG-07。** G1工程DoD只冻结层次、映射、缓存、并发显示与测试入口，不选择Contract候选、不生成binding、不修改Android/Web。真实compile、静态依赖、fixture、网络、进程恢复、无障碍和E2E均`NOT_EXECUTED`；同批Z-G2不成为本节输入。
 
 ## 17. G3：Contract 缺口清单
 
@@ -941,6 +1147,22 @@ AT-26“责任教师失效后有限接管”和 AT-27“授权到期/撤销/待�
 
 Phase 5 可先处理“可随新 RC 处理”的差异，但在 GAP-H13、H15～H18 的 Owner 决策前不得把受影响语义定稿。GAP-H19 已由 Z/E 关闭精度问题并并入 GAP-H07，不再作为第五项业务 PENDING。CR-005 必须独立接受；新 RC 必须给出全新完整 SHA，并在 Phase 6/8 只按该 SHA 生成/实现。任何需要发明业务原因、日历或历史 remark 处置的情况都应停止并回到相应 Owner。
 
+### 17.7 缺口账本身份与阶段门禁
+
+**G3-ENG-01（账本行）。** 每个GAP行必须固定gap ID、语义摘要、定义Owner/消费Owner、精确来源版本或完整SHA、受影响operation/schema能力、优先级、阻塞阶段、依赖决定、当前状态和关闭证据。行可追加状态历史但不得复用ID或以改标题覆盖旧结论；同一缺口跨客户端/Backend只保留一行和多个消费者。本文设计名、候选字段和示例错误均不是wire承诺。〔§17.1～17.3。〕
+
+**G3-ENG-02（Contract身份三分）。** G3同时登记仓库设计RC `1.2.0-contract / 667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a`与控制面两个不同的`4.0.1-contract`候选SHA `72174317df23f7030b74a2957f8e75ec669e872e18d39d06e060c95b61f6a7be`、`31f6d3b4d45503f8b4bcb93a83565e1cb957ad4352c036dcde018e15466233ae`；三者用途和证据分开，canonical保持`UNKNOWN`。名称、operation数量或较新时间不能选赢家；Phase 5输入必须由Contract Owner发布唯一新Version+SHA及分发清单。〔根AGENTS；控制面contracts。〕
+
+**G3-ENG-03（可执行与R3分组）。** GAP-H01～H12、H19中已有设计语义的部分可交Contract Owner起草候选，但发布前仍需统一新RC；GAP-H13、H15～H18分别绑定最终成绩备注与P-03/P-02/P-01/P-04，保持`BLOCKED_R3`且不得写确定wire。GAP-H14、H21保持非Contract实现/运行项；GAP-H20作为CR-005独立阻塞Phase 6，不与V8.1新增能力互相冒充关闭。部分可起草不等于Phase 5已解锁。〔§17.3～17.6。〕
+
+### 17.8 Contract Owner交接与关闭证据
+
+**G3-ENG-04。** Contract Owner收到的输入必须包含本清单版本/SHA、追溯矩阵版本/SHA、每个gap的Owner决定状态、三个Contract身份和NOT_EXECUTED清单。对可执行行逐项给出正式operation/schema/error/wire映射或明确不需要Contract变化的理由；对R3行保持占位阻塞而不猜值。发布物须有唯一未复用Version、canonical OpenAPI完整SHA、release/distribution manifest及source commit，不能只回传文件名或“4.0.1”。〔§17.1/17.6；GAP-H20。〕
+
+**G3-ENG-05。** H/Z只在收到唯一发布身份后做只读核验：OpenAPI、release manifest、distribution snapshot字节一致，gap处置表无遗漏，Android/Web/Backend消费目标都指向同一SHA；实际生成、round-trip、未知值拒绝和E2E分别留给Phase 6/8执行证据。任一manifest不一致、同名异SHA、漏gap或R3未决被默认化即拒绝交接。G3只能把行标为`DESIGNED/VERIFIED`，不得把未运行检查标`EXECUTED`。
+
+**G3-ENG-06。** 当前H剩余包完成的是缺口账本工程身份和停止条件；没有修改Contract、选择canonical、关闭GAP-H13/H15～H18或接受CR-005。队列18仍等待Contract Owner，队列03/07/09/12/14及相应Z消费项仍等待正式业务决定。Phase 4保持`IN_PROGRESS`，Phase 5保持`LOCKED`，最终门禁只能由负责人确认。
+
 ## 18. P4-H 整包交付与 Z 审核入口
 
 <a id="p4h-package-report"></a>
@@ -1004,3 +1226,39 @@ Z v9/v10 已按本节所列变化位置完成定向复核并关闭 ISS-019/020/0
 周润基已明确接受H整包及联合汇总为本批次PARTIAL设计交付，原文和对象见[联合汇总§9](p4-design-deltas-v81.md#9-最终接受登记2026-09-07)。被接受H源附件为998行、88804字节，SHA-256 `cb5f01c61784f002ad43947f52f505653821678ecda7cb50d957b4be3ea5126d`。早期REVIEW_READY或待接受描述是历史状态；本次只同步接受/归档元数据，B §1～11及D/F/G1/G3 §14～17设计正文保持不变。
 
 负责人授权周润基侧统一提交六份文档PR，具体边界见[联合汇总§10](p4-design-deltas-v81.md#10-文档归档与-pr-发布授权2026-09-07)。当前仓库版本由Git提交与路径定位，不将源附件SHA冒称新SHA。Phase4 IN_PROGRESS、Phase5 LOCKED，四项PENDING保持；产品、Contract、数据库、Migration及恢复均NOT EXECUTED。
+
+## 19. 负责人决定对齐增量
+
+<a id="p4h-owner-decision-alignment"></a>
+
+### 19.1 决定来源与适用状态
+
+本节只消费负责人决定文档`BNBU-P4-OWNER-DECISIONS-20260907-v1.0`的业务问题答案，原件SHA-256为`c65edff3d13184804130b623ff16e42460b0712f1e4d4bb98ca2199ea18a4034`。P-20260904-01～04从“等待业务选择”更新为`DECISION_ACCEPTED / DESIGN_ALIGNED`；是否已在真实产品、数据库、Contract或环境中执行仍分别为`NOT_EXECUTED`。本文前述“PENDING/未确认/BLOCKED_R3”只保留为历史输入状态，涉及这四项时以本节为当前H设计结论。GAP-H13不在四项决定内，继续保持`BLOCKED_R3`。
+
+### 19.2 P01 审核终局
+
+完成规定检查与必要复核、六类无效依据均不适用且只剩未证实疑虑时，B必须以`VALID`结束本轮，不得继续挂起、再次补证或记录“已证实冒用”。技术超时、对象未完整到账或必要检查未完成不满足该前提，只能保持相应技术待处理/失败事实；若确证重复使用或冒用，仍按第六类判无效。审核有效与分钟实际计入继续分离，管理员不取得教学裁决权，也不新增人脸、GPS或隐藏备注。
+
+### 19.3 P02 普通首次材料时间
+
+H侧消费Z拥有的正式受理事实：普通运动首次正式受理必须满足`acceptedAt < endedAt + 24h`；受理时锁定同一材料批次，全部必需对象的权威传输完成必须满足`completedAt < acceptedAt + 30m`。等于端点即超时，使用服务器完整精度与UTC时刻裁决，客户端倒计时不具权威性。课程关闭、成员移出或收尾不能截断边界前已存在的合法链，但也不能新建运动或恢复完整成员权限。该规则不覆盖游泳15分钟首次受理、游泳离线异常队列或教师退回补证24/72小时专门规则。
+
+### 19.4 P03 学校工作日计时
+
+教师每轮SLA预算为两个完整学校工作日，即172800秒，只在经对应Owner确认且带版本的学校工作日表所覆盖区间内累计；每个被确认工作日按`Asia/Shanghai 00:00`至次日`00:00`计时并保留入队日内时刻。维护只扣除与可计时工作日相交的区间，维护、事故和错误锁定重叠按区间并集去重。日历更新不无声改写既有轮次；范围外日期返回“无法可靠计算”。实际适用学期、工作日表、修订通知和维护责任仍需作为运行输入提供，不能以示例日历或普通周一至周五替代。
+
+### 19.5 P04 错误逾期追加纠错
+
+非维护平台故障在错误逾期终局写入后才确认时，以带事故引用和唯一业务标识的追加纠错恢复本来应有状态或原剩余机会；保留原终局、材料历史和后续合法决定，不删除记录、不直接回滚数据库、不重发完整24/72小时窗口，也不清零已用补证标记。剩余预算从入口真正恢复时继续；事故已恢复但错误终局仍阻断入口的区间继续排除。纠错发布必须核验原记录/轮次版本并保证更正事实、当前有效状态、计时依据和必要审计的一致提交；与后续教师决定、结算或其他纠错冲突时定向复核，不覆盖合法后继。
+
+### 19.6 Contract起始输入与剩余缺口
+
+Phase 5唯一选定起始输入为新仓库`main / 73945754a8dbd490709a0a92fda696febf6433eb`中的`contracts/openapi.yaml`：`1.2.0-contract / RC / 667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a`，原始文件大小450586 bytes，并与`contracts/contract-metadata.json`成对核验。候选A `72174317df23f7030b74a2957f8e75ec669e872e18d39d06e060c95b61f6a7be`仅保留为来源待核验的历史候选；候选B `31f6d3b4d45503f8b4bcb93a83565e1cb957ad4352c036dcde018e15466233ae`保留为旧Backend Contract链的历史candidate；二者均不作为本次生成、绑定、实现或验收输入。
+
+该选择关闭“从哪个精确协议继续”的身份问题，但不关闭`CR-20260901-005`，也不表示1.2.0已覆盖本次新规则或通过跨端兼容验收。GAP-H15～H18的业务决定已接受并在H侧设计对齐，后续由Phase 5在新Version/SHA中表达；GAP-H13的历史remark教师治理读取仍等待对应Owner，GAP-H20继续由CR-005处理。负责人最终Phase 4退出确认、真实日历覆盖、Z侧决定对齐及双方差异复核尚未完成前，Phase 4保持`IN_PROGRESS`、Phase 5保持`LOCKED`。
+
+### 19.7 GAP-H13最终决定与阶段退出
+
+负责人最终决定：所有已认证且当前角色为`TEACHER`的教师均可只读查看历史`FinalGradePublication.remark`；不按原课程责任教师、当前课程成员或治理分组进一步收窄。该读取只作用于历史publication/审计，不允许新增、修改、删除或复制remark到新最终成绩，也不恢复管理员代审或跨教师教学裁决。学生、学生API、通知、导出、缓存、日志和公开页面继续不得取得最终成绩或历史remark。访问必须保留actor、用途、对象和读取时间审计。
+
+据此GAP-H13更新为`DECISION_ACCEPTED / DESIGN_ALIGNED / CLOSED_FOR_PHASE4`。P-01～04、GAP-H15～H18及Contract起始输入均已完成决定对齐；双方最终互审由用户确认为已完成且没有待整改Finding。实际校历数据、CR-005、新Contract发布、产品/数据库/Migration/恢复和E2E属于后续阶段输入或执行，不再作为Phase 4业务决定阻塞。Phase 4设计阶段以`DONE`退出，Phase 5解锁为`READY`；Phase 5仍须从精确`1.2.0-contract / RC / 667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a`开始并发布新的唯一Version/SHA。
