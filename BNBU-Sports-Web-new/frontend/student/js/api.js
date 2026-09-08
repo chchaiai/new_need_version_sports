@@ -5,6 +5,14 @@
 // flow. Password login stays TEACHER/ADMIN-only.
 
 import { currentLocale, tx } from "./i18n.js";
+import {
+  isContractExerciseRecord,
+  isContractStudentProgress,
+  mapContractCourseTargets,
+  mapContractStudentProgressProjection,
+  normalizeContractExerciseRecord,
+  selectContractStudentProgress,
+} from "./phase6b-contract-mapper.js";
 import { validateProofFile } from "./proofs.js";
 import { semesterDisplayName } from "./semester.js";
 
@@ -1472,30 +1480,44 @@ const SERVER_SPORT_LABELS = {
 };
 
 export function mapServerRecord(record, { courseIdBySection = {} } = {}) {
-  const credited = (record.creditedDurationSeconds || 0) / 3600;
-  const actual = (record.actualDurationSeconds || 0) / 3600;
-  const review = record.currentReview;
+  const source = isContractExerciseRecord(record)
+    ? normalizeContractExerciseRecord(record, { courseIdBySection })
+    : record;
+  const credited = source.creditedDurationSeconds == null
+    ? null
+    : Number(source.creditedDurationSeconds) / 3600;
+  const review = source.currentReview;
   const reviewText = review
     ? review.result === "VALID"
-      ? review.publicComment || tx("记录有效，已计入运动时长。", "Record valid; hours credited.")
+      ? review.publicComment || (credited == null
+        ? tx("记录有效，计入情况待服务器确认。", "Record valid; credit status pending from server.")
+        : credited > 0
+          ? tx("记录有效，已计入运动时长。", "Record valid; hours credited.")
+          : tx("记录有效，未计入运动时长。", "Record valid; hours not credited."))
       : review.result === "INVALID"
         ? (review.publicComment ? tx(`未通过：${review.publicComment}`, `Rejected: ${review.publicComment}`) : tx("记录未通过审核。", "Record was rejected."))
-        : tx("记录审核状态异常。", "The record review state is invalid.")
+        : review.processingStage
+          ? tx("记录审核处理中。", "Record review is in progress.")
+          : tx("记录审核状态异常。", "The record review state is invalid.")
     : tx("记录缺少有效审核状态。", "The record has no valid review state.");
-  const label = record.sportName || (SERVER_SPORT_LABELS[record.sportType] ? tx(...SERVER_SPORT_LABELS[record.sportType]) : record.sportType);
-  const proofs = readRecordProofs(record.id);
+  const label = source.sportName || (SERVER_SPORT_LABELS[source.sportType] ? tx(...SERVER_SPORT_LABELS[source.sportType]) : source.sportType);
+  const proofs = readRecordProofs(source.id);
+  const resolvedCourseId = source.courseId
+    || (source.creditType === "COURSE_RELATED" ? (courseIdBySection[source.classSectionId] || null) : null);
   return {
-    id: record.id,
-    enrollmentId: record.enrollmentId,
-    sessionId: record.sessionId,
-    version: record.version,
-    serverStatus: record.status,
+    id: source.id,
+    enrollmentId: source.enrollmentId,
+    sessionId: source.sessionId,
+    version: source.version,
+    serverStatus: source.status,
     reviewResult: review?.result || null,
     reviewReasonCode: review?.reasonCode || null,
     reviewPublicComment: review?.publicComment || null,
-    courseId: record.creditType === "COURSE_RELATED" ? (courseIdBySection[record.classSectionId] || null) : null,
-    taskTitle: record.description || tx("运动打卡", "Exercise check-in"),
-    creditType: record.creditType === "COURSE_RELATED" ? "course" : "general",
+    reviewProcessingStage: review?.processingStage || null,
+    materialVersionId: review?.materialVersionId || null,
+    courseId: resolvedCourseId,
+    taskTitle: source.description || tx("运动打卡", "Exercise check-in"),
+    creditType: source.creditType === "COURSE_RELATED" ? "course" : "general",
     // creditedDurationSeconds is the Backend's authoritative credit. Falling
     // back to the actual duration would be a second, client-side derivation of
     // a value only the server owns (current API). The raw activity time is
@@ -1503,10 +1525,10 @@ export function mapServerRecord(record, { courseIdBySection = {} } = {}) {
     hours: credited,
     // The backend's business day (Beijing). Daily rules are evaluated against
     // this, never against the device date.
-    businessDate: record.businessDate,
+    businessDate: source.businessDate,
     // Timestamps stay in the student's local time; only the daily rules and the
     // teacher/admin portal are pinned to Beijing.
-    submittedAt: formatLocal(record.submittedAt || record.businessDate),
+    submittedAt: formatLocal(source.submittedAt || source.businessDate),
     proofSummary: proofs.length ? "" : tx("凭证已提交", "Proof submitted"),
     proofPhotoCount: proofs.filter((p) => p.type === "image").length,
     proofVideoCount: proofs.filter((p) => p.type === "video").length,
@@ -1514,14 +1536,14 @@ export function mapServerRecord(record, { courseIdBySection = {} } = {}) {
     serverProofsLoaded: false,
     teacherPublicFeedback: reviewText,
     teacherInternalNote: null,
-    note: record.description || "",
+    note: source.description || "",
     remark: "",
     sportType: label,
-    sportCode: String(record.sportType || "").toLowerCase() || "other",
-    customSportName: record.sportType === "OTHER" ? record.sportName || "" : "",
+    sportCode: String(source.sportType || "").toLowerCase() || "other",
+    customSportName: source.sportType === "OTHER" ? source.sportName || "" : "",
     startTime: null,
-    endTime: record.submittedAt,
-    actualDurationSeconds: record.actualDurationSeconds ?? null,
+    endTime: source.submittedAt,
+    actualDurationSeconds: source.actualDurationSeconds ?? null,
   };
 }
 
@@ -1664,8 +1686,16 @@ export function mapClassSectionCheckInTimeWindow(section) {
 }
 
 export function selectCurrentStudentProgress(progressRows, enrollment, section, semester) {
-  if (!enrollment?.id || !section?.id || !semester?.id) return null;
+  if (!enrollment?.id) return null;
+  const contractMatch = selectContractStudentProgress(
+    progressRows,
+    enrollment.id,
+    section?.courseId || null,
+  );
+  if (contractMatch) return contractMatch;
+  if (!section?.id || !semester?.id) return null;
   return progressRows.find((progress) =>
+    !isContractStudentProgress(progress) &&
     progress.enrollmentId === enrollment.id &&
     progress.classSectionId === section.id &&
     progress.semesterId === semester.id,
@@ -1674,6 +1704,9 @@ export function selectCurrentStudentProgress(progressRows, enrollment, section, 
 
 export function mapStudentProgressProjection(progress) {
   if (!progress) return null;
+  if (isContractStudentProgress(progress)) {
+    return mapContractStudentProgressProjection(progress);
+  }
   const courseSeconds = Math.max(0, Number(progress.courseRelated?.validExerciseSeconds) || 0);
   const generalSeconds = Math.max(0, Number(progress.general?.validExerciseSeconds) || 0);
   return {
@@ -1687,7 +1720,9 @@ export function mapStudentProgressProjection(progress) {
   };
 }
 
-export function mapProgressTarget(target, progress = null) {
+export function mapProgressTarget(target, progress = null, contractCourse = null) {
+  const contractTargets = mapContractCourseTargets(contractCourse);
+  if (contractTargets) return contractTargets;
   const courseSeconds = target?.courseTargetSeconds ?? progress?.courseRelated?.targetSeconds;
   const generalSeconds = target?.generalTargetSeconds ?? progress?.general?.targetSeconds;
   const totalSeconds = target?.totalTargetSeconds ?? (
@@ -1987,7 +2022,11 @@ export async function loadApiWorkspace(preloadedIdentity = null) {
   const progressTarget = currentSection
     ? await optionalCapability(getClassProgressTarget(currentSection.id))
     : null;
-  const hourRule = mapProgressTarget(progressTarget, currentStudentProgress);
+  const [proofTodoPage, contractCourse] = await Promise.all([
+    optionalCapability(listOwnProofTodos()),
+    optionalCapability(getOwnCurrentCourseContract()),
+  ]);
+  const hourRule = mapProgressTarget(progressTarget, currentStudentProgress, contractCourse);
   const publishedScore = currentScore?.status === "PUBLISHED" ? currentScore : null;
   const { totalScore, totalDisplay } = mapPublishedScore(publishedScore);
   let memberships;
@@ -2007,16 +2046,15 @@ export async function loadApiWorkspace(preloadedIdentity = null) {
       .filter(Boolean);
   }
   const progressStatus =
-    scoreProgress.qualificationStatus === "QUALIFIED"
+    scoreProgress.progressUnavailable
+      ? scoreProgress.progressRecomputing
+        ? tx("统计正在重算", "Statistics recomputing")
+        : tx("统计暂不可用", "Statistics unavailable")
+      : scoreProgress.qualificationStatus === "QUALIFIED"
       ? tx("已达标", "Qualified")
       : scoreProgress.qualificationStatus === "NOT_QUALIFIED"
         ? tx("进行中", "In progress")
         : tx("已按有效打卡累计", "Summed from valid check-ins");
-
-  const [proofTodoPage, contractCourse] = await Promise.all([
-    optionalCapability(listOwnProofTodos()),
-    optionalCapability(getOwnCurrentCourseContract()),
-  ]);
 
   return {
     workspace: {

@@ -1,18 +1,66 @@
 # 当前进度状态
 
-## 2026-09-08 新版Phase6A本地完成并接受，Phase6整体IN_PROGRESS
+## 2026-09-08 Web R05/R06 用户接受；面向 H/Z 准备 Phase7 交接
+
+- 用户明确“ok，审核通过，我们主要是要交接给phase7的同学”；Phase7负责人H/Z，Reviewer为用户。Web本地修复与交接文件已接受，用户将上传到原PR #11。实际修复交付Commit/合并Commit尚未产生，不以`164201b1ba36154dfbdc346d061f30fd98602902`入场基线冒充。
+- 本次实测学生92/92、Portal226/226，类型检查、确定性生成与构建通过；R05未知计入量贯穿汇总展示，R06固定Schema运行时校验；原复核20输入符合预期。原同事133项及全部关闭陈述保留为历史。[用户接受与日志](handoffs/phase-6b-web-review-evidence/verification.json)。
+- Android来源`333f6dfa42f89cbee9cce387638d05a88a7fdd74`已在PR #12合并main `5800550d369e1c7acf5223773d244689a7cfe0df`。两端Contract保持`1.3.0-contract / RC / 5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed`。
+- [Phase6→Phase7接收包](handoffs/new-req-phase-6-to-phase-7.md)交代固定身份、输入与旧条款、7.0兼容门禁、切片交付和后移责任。H/Z可先读资料；PR #11合并后仍须核验实际基线并完成6C最终验收，才登记Phase6 DONE/Phase7.0 READY。Phase7.0未开始，BE-CR005-COMPAT未运行，7.1尚不可开始。
+- 本次只新增接收/验证记录，已审产品修复字节未再改变；Contract、业务正文、架构正文、Android、Backend与数据库/部署未改。真实后端/E2E/性能未验收，旧API/Mock和Phase8责任继续保留。GitHub由用户操作。
+
+以下记录为各自时点的历史状态，以上更新优先。
+
+## 2026-09-08 Phase6A DONE + Phase6B Web DONE（PR #11 待合并，随后 6C）
+
+### 6A Android（main 已接受）
 
 - Android七步本地计划已完成7/7；用户兼任Owner/架构负责人/人类Reviewer，已在手机查看独立人工审查APK并明确接受第6步，授权本次第7步收尾。GitHub发布待用户操作，未代填交付Commit、PR通过或合并。
 - 当前Android分支`codex/phase6a-contract-mock`，开发基线`2ba9355e38373b8d2350eb8efe4071048337c320`。Phase5协议及其最终分工记录已在该main基线汇合。Contract仍为`1.3.0-contract / RC / 5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed`，来源`f702c590ff10b11f7de038332868c988ab4cec11`，未改版本或状态。
 - Android独立工程实际生成324模型并构建，1156协议用例、255Mapper、71Mock通过；真实模拟器74/74、同APK横屏大字体1/1通过。人工启动器另有模拟器2/2，用户iQOO12Pro人工查看通过；不写真机自动化46/46或完整App验收。
 - 第3～6步15项Android Finding和第7步1项复现入口Finding均关闭，开放Android Finding及新增阻塞Contract CR为0。Phase5发布检查将后移Backend7.0接收人算入门禁的继承工具问题仍单列。另已修复主机入口因当前STATUS正常推进导致旧发布哈希报错：不可变输入继续核验当前字节，仅历史STATUS取固定入场Commit，再运行原校验器；未改Contract断言。正式App旧API/Mock/旧1.2验证绑定与Phase8迁移责任保留。
-- Web Owner甘洛夷报送PR#11（`c3d42be6cd60f8dd1194736e22e861bca2a22cd4`）完成，本次未审查/接受Web。Android与Web分开审查，由用户在两端接受后进行6C汇总。新版Phase6为“Android / Web Contract + Mock验证”，本地第7步不是任务书跨端T07。
-- 整个Phase6继续IN_PROGRESS；Phase7.0等待6C阶段验收。后端实际兼容在7.0落实，未通过不能进7.1。正式App迁移、真实Backend/E2E及所有设备版本未验证；无部署或零Bug承诺。
-- 本步收尾README、状态/交接和证据，并修复主机验证入口的历史状态引用，新增5项回归控制；完整主机/构建重跑并比较产物。所有Android功能源、构建/生成配置和Mock输入与第6步保持原字节。业务正文、Contract、Web、Backend、数据库/infra和历史工作区未改。
+- 入口：[Android阶段交接](handoffs/new-req-phase-6-android.md)、[接收记录](handoffs/new-req-phase-6-android-evidence/acceptance.json)、[原始证据](handoffs/new-req-phase-6-android-evidence/README.md)。
 
-入口：[Android阶段交接](handoffs/new-req-phase-6-android.md)、[接收记录](handoffs/new-req-phase-6-android-evidence/acceptance.json)、[原始证据](handoffs/new-req-phase-6-android-evidence/README.md)。下一步等待用户GitHub操作或另行授权Web审查/6C，本次不继续下一阶段。
+### 6B Web（PR [#11](https://github.com/chchaiai/new_need_version_sports/pull/11)，`e04b0f8`，审查整改完成）
+
+- 分支`codex/phase6b-web`；T01–T08完成；Owner甘洛夷。交接：[phase-6b-web-handoff](handoffs/phase-6b-web-handoff.md)。
+- PR #11审查报告`REQUEST_CHANGES`项R01–R07+G01全部关闭：`loadApiWorkspace` TDZ修复；`processingStage`→processing审核态；`cappedCompletedMinutes`分类完成量；UNAVAILABLE不填零；`creditedMinutes`保持null；两端wire运行时校验；Fixture续传窗口30分钟。
+- 测试：学生smoke **92/92**；Portal `npm test` **133/133**；`npm run typecheck` exit 0。未改Contract字节、业务正文、Android、Backend。
+- Android与Web分开审查；Web待PR #11合并后由用户执行6C跨端汇总。整个Phase6继续IN_PROGRESS；Phase7.0等待6C阶段验收。正式App迁移、真实Backend/E2E未验证；无部署或零Bug承诺。
 
 以下为历史停点，其“Phase6 NOT_STARTED”等状态已由上方当前记录更新；保留原文便于追溯。
+
+## 2026-09-08 Phase6B Web T04–T08 完成（审查前）
+
+- **T04** 学生端：`phase6b-contract-mapper.js` + `api.js` 双轨；smoke **90/90**。
+- **T05** Portal：`phase6b-contract-mapper.ts` + `teacher-data.ts` 双轨；1.3.0 文案；原生 `<select>` → `AppSelect`。
+- **T06** Portal 全量 `npm test`：**130/130**（含 `rendered-html`）。
+- **T07** `phase5gb-contract-revalidation`：**13/13**（`python3`；ADMIN gated 54 项对齐 1.3.0）。
+- **T08** 6B 完成回执：[phase-6b-web-t08-completion](handoffs/phase-6b-web-t08-completion.md)。正式网络迁移仍归 Phase 8。
+
+## 2026-09-08 Phase6B Web T04 学生端运行时 Mapper 完成
+
+- 新增 `frontend/student/js/phase6b-contract-mapper.js`：1.3.0 严格读取（`ExerciseRecord` / `StudentCourseProgress` / `publicReason` / 非法值拒绝）。
+- `api.js`：`mapServerRecord`、`mapStudentProgressProjection`、`selectCurrentStudentProgress`、`mapProgressTarget` 双轨支持 legacy 与 1.3.0 contract wire。
+- `v81-review.js`：支持 `publicReason.code` → 六类固定公开原因；`checkin.js` 文案升至 1.3.0（补证动作已定义，生产后端未就绪前不写）。
+- `student-smoke.mjs`：**90/90 通过**（新增 3 项 phase6b mapper 用例）。未改 Contract、业务正文、Android、Backend。
+
+## 2026-09-08 Phase6B Web T03 fixture 对齐完成
+
+- 分支 `codex/phase6b-web`；基线仍为 `2ba9355` / `1.3.0-contract` / `5c87eeb9…f4a19ed`。
+- 新增 `phase5b-contract-shared-fixtures.ts`：统一 `publishedRule`、`StatisticsCheckpoint`、`MaterialVersion`、`RecordReviewSummary` 等 1.3.0 结构。
+- 学生端与 Portal fixture 已对齐：`StudentCourseProgress`（checkpoint/state）、`ExerciseRecord`（material/review）、`Course`（publishedRule）、邀请预览、`StartExerciseSessionRequest`、审核 union、`CourseCreateRequest.rule` 等。
+- 移除 1.2.0 残留：`finalGrade`、`creditedMinutes`、`studentVisibleReason`、`categories` 顶层进度字段。
+- `npm run typecheck` **通过**；`phase5b-contract-revalidation` + `phase5b-contract-mock` **22/22 通过**。
+- `phase5gb-contract-revalidation`：**NOT_RUN**（测试依赖本机 `python` + PyYAML 解析 OpenAPI，当前环境无 `python` 命令）。
+- 未改 Contract、业务正文、Android、Backend。产品运行时 JS（`api.js` 等）仍待后续 Mapper 迁移任务。
+
+## 2026-09-08 Phase6B Web T01 已接收，T02 绑定升级进行中
+
+- Phase6 入场基线：`2ba9355e38373b8d2350eb8efe4071048337c320`（PR #10 合并后）；独立工作区 `new_need_version_sports-phase6b`，分支 `codex/phase6b-web`；原目录 `new_need_version_sports` 保留不动。
+- Contract：`1.3.0-contract / RC / 5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed`；工作区实测 SHA 一致，dirty state clean（T01 后 T02 有未提交 Web 改动）。
+- 6B Web 负责人：甘洛夷；6A Android、总体架构、6C 汇总：用户。T01 接收回执见 [phase-6b-web-t01-receipt](handoffs/phase-6b-web-t01-receipt.md)。
+- T02 进度：`verify-phase5b-contract.mjs` 与两端 fixture 常量已升至 1.3.0；`phase5b:contract:generate` + `--check` 通过（Portal/Student 生成物一致，14352 行）。**T03 已完成**：fixture/Mock 对齐 1.3.0，`npm run typecheck` 通过。
+- Phase5 通过不代替 Web 本轮验证；正式网络迁移仍归 Phase8；后端未构建不单独阻断 Phase6。
 
 ## 2026-09-08 新版Phase5 DONE，Phase6 READY / NOT_STARTED
 

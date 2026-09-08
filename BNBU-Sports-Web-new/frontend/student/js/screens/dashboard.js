@@ -24,6 +24,9 @@ function homeProgressBar(value, total, height) {
 }
 
 function formatMinutesFromHours(value) {
+  if (value == null || !Number.isFinite(Number(value))) {
+    return tx("暂不可用", "Unavailable");
+  }
   const minutes = Math.round((Number(value) || 0) * 60);
   return tx(`${minutes} 分钟`, `${minutes} min`);
 }
@@ -32,10 +35,13 @@ function categoryMetric({ title, value, target }) {
   const targetText = Number.isFinite(target)
     ? formatMinutesFromHours(target)
     : tx("待后端同步", "Waiting for backend");
+  const valueText = value == null || !Number.isFinite(Number(value))
+    ? tx("暂不可用", "Unavailable")
+    : formatMinutesFromHours(value);
   return `<div class="col">
     <div class="row" style="gap:12px">
       <span class="title-medium text-on-surface grow" style="font-weight:500">${esc(title)}</span>
-      <span class="body-medium text-on-surface" style="font-weight:500">${formatMinutesFromHours(value)} / ${esc(targetText)}</span>
+      <span class="body-medium text-on-surface" style="font-weight:500">${esc(valueText)} / ${esc(targetText)}</span>
     </div>
   </div>`;
 }
@@ -43,7 +49,7 @@ function categoryMetric({ title, value, target }) {
 function derivedProgress(app) {
   const progress = app.state.workspace.progress;
   const rule = app.state.workspace.hourRule;
-  const hasAuthoritativeTotal = Number.isFinite(progress.totalValidHours);
+  const hasAuthoritativeTotal = progress.scoreAvailable && Number.isFinite(progress.totalValidHours);
   const hasAuthoritativeTarget = Number.isFinite(rule.total) && rule.total > 0;
   const totalCompleted = hasAuthoritativeTotal
     ? Math.max(progress.totalValidHours, 0)

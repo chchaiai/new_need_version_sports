@@ -112,9 +112,10 @@ export type Enrollment = {
 };
 
 export type StudentCurrentReview = {
-  result: ReviewResult;
+  result: ReviewResult | null;
   reasonCode: ReviewReasonCode | null;
   publicComment: string | null;
+  processingStage?: string | null;
 };
 
 export type ExerciseRecord = {
@@ -135,7 +136,7 @@ export type ExerciseRecord = {
   studentRemark: string | null;
   actualDurationSeconds: number;
   pausedDurationSeconds: number;
-  creditedDurationSeconds: number;
+  creditedDurationSeconds: number | null;
   status: ExerciseRecordStatus;
   submittedAt: string | null;
   cancelledAt: string | null;

@@ -1,3 +1,4 @@
+import { publishedFixture, recordWithReview, studentCourseFixture } from "./phase6b-test-fixtures.mjs";
 // Smoke test for the current API Web student client.
 // Exercises the framework-free logic modules (i18n, session policy, API
 // projection mapping, proof rules, local store) without a DOM.
@@ -71,7 +72,14 @@ import {
   uploadMediaDraft,
   updateExemptionApplication,
   uploadExemptionApplicationMediaDraft,
+  loadApiWorkspace,
 } from "./js/api.js";
+import {
+  PHASE6B_STUDENT_CONTRACT,
+  assertContractExerciseRecordWire,
+  mapContractStudentProgressProjection,
+  rejectUnknownPublicReasonCode,
+} from "./js/phase6b-contract-mapper.js";
 import { focusFirstInvalidField, userFacingErrorPanel } from "./js/ui.js";
 import { enduranceExemptionTypeForGender, renderEnduranceScoring, renderExemption } from "./js/screens/services.js";
 import { renderAccountDetails, renderProfile } from "./js/screens/profile.js";
@@ -380,9 +388,10 @@ check("local UI preview workspace is labeled and does not invent student scores"
     unreadNoticeCount: () => workspace.notices.filter((notice) => notice.isUnread).length,
     hasActiveEnrollment: () => true,
   });
-  assert.match(html, /630 分钟/u);
+  assert.match(html, /—/u);
   assert.match(html, /1200 分钟/u);
   assert.doesNotMatch(html, />10\.5h</u);
+  assert.doesNotMatch(html, />630 分钟</u);
 });
 
 check("check-in sport icons share one stroke set and keep each activity recognizable", () => {
@@ -491,6 +500,7 @@ check("dashboard keeps the full backend total and never invents a missing target
           course: 14,
           general: 12,
           qualificationStatus: null,
+          scoreAvailable: true,
           status: "已按有效打卡累计",
         },
         hourRule: {
@@ -2193,7 +2203,75 @@ check("v8.1 public reasons keep six bilingual categories and action scopes", () 
   assert.equal(SYSTEM_OVERDUE_REASON.zh, "补证逾期");
   assert.equal(resolvePublicReasonModel({ teacherPublicFeedback: "请补一张原图" }).kind, "unavailable");
   assert.equal(resolvePublicReasonModel({ studentVisibleReason: "材料不清晰\n请补一张原图" }).kind, "teacher");
+  assert.equal(resolvePublicReasonModel({
+    reviewResult: "INVALID",
+    reviewReasonCode: "UNCLEAR_EVIDENCE",
+    reviewPublicComment: "请补一张原图",
+  }).reason?.id, "UnclearEvidence");
+  assert.equal(resolvePublicReasonModel({
+    reviewResult: "INVALID",
+    publicReason: { code: "UNCLEAR_EVIDENCE", label: { zh: "材料不清晰", en: "Unclear evidence" } },
+  }).reason?.id, "UnclearEvidence");
   assert.equal(resolvePublicReasonModel({ reviewResult: "PROOF_OVERDUE_INVALID" }).kind, "systemOverdue");
+});
+
+check("phase6b contract mapper pins 1.3.0 identity and rejects unknown public reason codes", () => {
+  assert.equal(PHASE6B_STUDENT_CONTRACT.version, "1.3.0-contract");
+  assert.equal(
+    PHASE6B_STUDENT_CONTRACT.openapiSha256,
+    "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+  );
+  assert.equal(rejectUnknownPublicReasonCode("UNCLEAR_EVIDENCE"), "UNCLEAR_EVIDENCE");
+  assert.throws(() => rejectUnknownPublicReasonCode("LEGACY_FREE_TEXT"), /CONTRACT_PUBLIC_REASON_INVALID/);
+});
+
+check("phase6b contract progress uses checkpoint totals and never legacy category rows", () => {
+  const progress = publishedFixture("prior-courses/progress/current");
+  assert.deepEqual(mapStudentProgressProjection(progress), {
+    course: 10,
+    general: 599 / 60,
+    rawCourse: 0.5,
+    rawGeneral: 0,
+    rawCountedCourseMinutes: 30,
+    rawCountedGeneralMinutes: 0,
+    totalValidHours: 1199 / 60,
+    qualificationStatus: "NOT_QUALIFIED",
+    scoreAvailable: true,
+    contractState: "CURRENT",
+    unavailableReason: null,
+    displayPercent: 100,
+    targetMet: false,
+    progressUnavailable: false,
+    progressRecomputing: false,
+  });
+  assert.deepEqual(mapContractStudentProgressProjection({ ...progress, state: "UNAVAILABLE", checkpoint: null, unavailableReason: "SOURCE_INCOMPLETE" }), {
+    course: null,
+    general: null,
+    rawCourse: null,
+    rawGeneral: null,
+    rawCountedCourseMinutes: null,
+    rawCountedGeneralMinutes: null,
+    totalValidHours: null,
+    qualificationStatus: null,
+    scoreAvailable: false,
+    contractState: "UNAVAILABLE",
+    unavailableReason: "SOURCE_INCOMPLETE",
+    displayPercent: null,
+    targetMet: null,
+    progressUnavailable: true,
+    progressRecomputing: false,
+  });
+});
+
+check("phase6b contract exercise records keep actual duration and omit invented credited hours", () => {
+  const wire = recordWithReview();
+  wire.actualDurationSeconds = 4020;
+  const mapped = mapServerRecord(wire);
+  assert.equal(mapped.reviewResult, "VALID");
+  assert.equal(mapped.hours, null);
+  assert.equal(mapped.actualDurationSeconds, 4020);
+  assert.equal(mapped.reviewProcessingStage, "VALID");
+  assert.equal(mapped.materialVersionId, wire.currentMaterial.materialVersionId);
 });
 
 check("v8.1 review stages stay separate and do not guess missing wire values", () => {
@@ -2203,9 +2281,92 @@ check("v8.1 review stages stay separate and do not guess missing wire values", (
   assert.equal(reviewStageFromRecord({ reviewResult: "TECHNICAL_PROCESSING" }).zh, "技术处理中");
   assert.equal(reviewStageFromRecord({ reviewResult: "VALID", hours: 1 }).zh, "有效 · 已计入");
   assert.equal(reviewStageFromRecord({ reviewResult: "VALID", hours: 0 }).zh, "有效 · 未计入");
-  assert.equal(reviewStageFromRecord({ reviewResult: null, hours: 1 }).zh, "审核阶段暂不可用");
+  assert.equal(reviewStageFromRecord({ reviewResult: "VALID", hours: null }).zh, "有效 · 计入情况待确认");
+  assert.equal(
+    reviewStageFromRecord({ reviewResult: null, reviewProcessingStage: "TEACHER_REVIEW_REQUIRED" }).zh,
+    "待教师复核",
+  );
   assert.match(checkinScreenSource, /固定公开原因/u);
   assert.match(checkinScreenSource, /reviewStageFromRecord/u);
+});
+
+check("phase6b contract mapper rejects invalid exercise record wire at runtime", () => {
+  const base = recordWithReview();
+  assertContractExerciseRecordWire(base);
+  const rejectedAt = (path, keyword) => (error) => error.name === "ContractWireValidationError" &&
+    error.issues.some((issue) => issue.instancePath === path && issue.keyword === keyword);
+  assert.throws(() => assertContractExerciseRecordWire({ ...base, category: "BOGUS" }), rejectedAt("/category", "enum"));
+  assert.throws(() => assertContractExerciseRecordWire({ ...base, actualDurationSeconds: "1800" }), rejectedAt("/actualDurationSeconds", "type"));
+  assert.throws(() => assertContractExerciseRecordWire({ ...base, unexpectedField: true }), rejectedAt("", "additionalProperties"));
+
+});
+
+check("loadApiWorkspace resolves contract course before progress targets", async () => {
+  clearApiSession();
+  storeAuthSession(authSession("workspace-contract-course"));
+  const originalFetch = globalThis.fetch;
+  const sectionId = "section-1";
+  const courseId = "40000000-0000-4000-8000-000000000001";
+  const enrollmentId = "50000000-0000-4000-8000-000000000003";
+  const semesterId = "semester-1";
+  const page = (data) => ({
+    data,
+    meta: { requestId: "page", pagination: { nextCursor: null, hasMore: false, limit: 50 } },
+  });
+  globalThis.fetch = async (input) => {
+    const url = new URL(String(input), "http://localhost");
+    const path = url.pathname;
+    const search = url.search;
+    if (path === "/api/v1/semesters/current") {
+      return Response.json(page({ id: semesterId, academicYear: "2025-2026", termCode: "1", displayName: "2025-2026-1" }));
+    }
+    if (path === "/api/v1/enrollments") {
+      return Response.json(page([{ id: enrollmentId, classSectionId: sectionId, status: "ACTIVE" }]));
+    }
+    if (path === "/api/v1/class-sections") {
+      return Response.json(page([{ id: sectionId, courseId, semesterId, classCode: "A1", displayName: "体育", status: "ACTIVE", teacherId: "teacher-1" }]));
+    }
+    if (path === `/api/v1/courses/${courseId}`) {
+      return Response.json(page({ id: courseId, courseCode: "PE101", courseName: "体育" }));
+    }
+    if (path === "/api/v1/exercise-records" && search.includes("limit=50")) {
+      return Response.json(page([]));
+    }
+    if (path === "/api/v1/student-scores") return Response.json(page([]));
+    if (path === "/api/v1/student-progress" && search.includes("limit=100")) return Response.json(page([]));
+    if (path === "/api/v1/exercise-sessions/active") return new Response(null, { status: 404 });
+    if (path === "/api/v1/exemption-application-details") return Response.json(page([]));
+    if (path === "/api/v1/activity-certification-applications") return new Response(null, { status: 404 });
+    if (path === "/api/v1/notifications" && search.includes("limit=100")) return Response.json(page([]));
+    if (path === `/api/v1/class-sections/${sectionId}/progress-target`) {
+      return Response.json(page({ totalTargetMinutes: 1200 }));
+    }
+    if (path === "/api/v1/student/course") {
+      const course = studentCourseFixture();
+      course.courseId = courseId;
+      return Response.json(course);
+    }
+    if (path === "/api/v1/student/proof-todos") return Response.json({ items: [] });
+    throw new Error(`Unexpected request: ${path}${search}`);
+  };
+  try {
+    const identity = {
+      me: {
+        user: {
+          primaryEmailMasked: "t***@example.com",
+          emailVerified: true,
+          version: 1,
+        },
+      },
+      profile: { id: "student-1", studentNumber: "20260001", fullName: "测试学生", collegeName: "", administrativeClassName: "" },
+    };
+    const { workspace } = await loadApiWorkspace(identity);
+    assert.equal(workspace.hourRule?.source, "contract-student-course");
+    assert.equal(workspace.courses.length, 1);
+  } finally {
+    globalThis.fetch = originalFetch;
+    clearApiSession();
+  }
 });
 
 check("v8.1 notices keep proof wording and drop only explicit score disclosures", () => {

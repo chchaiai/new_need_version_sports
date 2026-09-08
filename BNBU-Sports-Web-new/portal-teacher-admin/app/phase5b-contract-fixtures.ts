@@ -1,12 +1,24 @@
 import type { components } from "./phase5b-contract.generated";
+import {
+  buildPhase5bCourseStatisticsScope,
+  buildPhase5bMaterialVersion,
+  buildPhase5bPublishedRule,
+  buildPhase5bRecordReviewSummary,
+  buildPhase5bStudentCourseProgress,
+  phase5bCourseRuleConfiguration,
+  phase5bUnclearEvidenceReason,
+} from "./phase5b-contract-shared-fixtures";
 
 type Schema<Name extends keyof components["schemas"]> = components["schemas"][Name];
 
+export const portalPublishedRuleVersionId = "77000000-0000-4000-8000-000000000001";
+export const portalMaterialVersionId = "78000000-0000-4000-8000-000000000001";
+
 export const PHASE5B_CONTRACT = {
-  version: "1.2.0-contract",
+  version: "1.3.0-contract",
   status: "RC",
   publicBasePath: "/api/v1",
-  openapiSha256: "667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a",
+  openapiSha256: "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
 } as const;
 
 export const teacherLoginRequest = {
@@ -93,6 +105,13 @@ export const currentCourse = {
   },
   checkinOpensAt: "2026-08-31T00:00:00Z",
   checkinClosesAt: "2027-01-15T15:59:59Z",
+  closedAt: null,
+  draftRule: null,
+  publishedRule: buildPhase5bPublishedRule(
+    "40000000-0000-4000-8000-000000000001",
+    currentSemester.semesterId,
+    portalPublishedRuleVersionId,
+  ),
   status: "OPEN",
   displayStatus: "ACTIVE",
   joinOpen: true,
@@ -129,6 +148,8 @@ export const exerciseRecord = {
   sessionId: "50000000-0000-4000-8000-000000000002",
   courseId: "40000000-0000-4000-8000-000000000001",
   enrollmentId: "50000000-0000-4000-8000-000000000003",
+  ruleVersionId: portalPublishedRuleVersionId,
+  activityType: "STANDARD",
   student: {
     studentId: "50000000-0000-4000-8000-000000000004",
     studentNumber: "20260001",
@@ -144,31 +165,12 @@ export const exerciseRecord = {
   category: "COURSE_RELATED",
   description: "完成操场慢跑与拉伸训练",
   actualDurationSeconds: 4020,
-  creditedMinutes: 60,
-  media: [
-    {
-      mediaAssetId: "50000000-0000-4000-8000-000000000005",
-      purpose: "RECORD_EVIDENCE",
-      mediaKind: "IMAGE",
-      contentType: "image/jpeg",
-      byteSize: 2048000,
-      checksumSha256: "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
-      durationMilliseconds: null,
-      hasAudio: null,
-      widthPixels: 1600,
-      heightPixels: 1200,
-      status: "BOUND",
-      rejectionCode: null,
-      version: 2,
-    },
-  ],
-  currentReview: {
-    result: "VALID",
-    studentVisibleReason: null,
-    sequenceNumber: 1,
-    updatedAt: "2026-08-31T03:15:00Z",
-    version: 1,
-  },
+  currentMaterial: buildPhase5bMaterialVersion(
+    "50000000-0000-4000-8000-000000000001",
+    "50000000-0000-4000-8000-000000000005",
+    portalMaterialVersionId,
+  ),
+  currentReview: buildPhase5bRecordReviewSummary(portalMaterialVersionId, "VALID"),
   submittedAt: "2026-08-31T03:15:00Z",
 } satisfies Schema<"ExerciseRecord">;
 
@@ -183,67 +185,55 @@ export const emptyExerciseRecordPage = {
 } satisfies Schema<"ExerciseRecordPage">;
 
 export const appendReviewRequest = {
-  result: "INVALID",
-  studentVisibleReason: "凭证不足以确认本次运动内容，请下一业务日期重新完成运动。",
+  action: "INVALID",
+  expectedRoundNo: 1,
   expectedVersion: 1,
+  materialVersionId: portalMaterialVersionId,
+  publicComment: "凭证不足以确认本次运动内容，请下一业务日期重新完成运动。",
+  reasonCode: "UNCLEAR_EVIDENCE",
 } satisfies Schema<"AppendRecordReviewRequest">;
 
 export const appendReviewResponse = {
   reviewId: "60000000-0000-4000-8000-000000000001",
   recordId: "50000000-0000-4000-8000-000000000001",
+  materialVersionId: portalMaterialVersionId,
   sequenceNumber: 2,
+  roundNo: 1,
   fromResult: "VALID",
   result: "INVALID",
-  actorType: "TEACHER",
+  source: "TEACHER",
   reviewer: {
     teacherId: "10000000-0000-4000-8000-000000000001",
     name: "王老师",
   },
-  studentVisibleReason: "凭证不足以确认本次运动内容，请下一业务日期重新完成运动。",
+  publicComment: "凭证不足以确认本次运动内容，请下一业务日期重新完成运动。",
+  publicReason: phase5bUnclearEvidenceReason,
   occurredAt: "2026-08-31T04:20:00Z",
+  correctedReviewId: null,
+  expiryCorrection: null,
 } satisfies Schema<"RecordReview">;
+
+const portalCourseStatisticsScope = buildPhase5bCourseStatisticsScope(currentCourse.courseId);
 
 export const courseProgressPage = {
   items: [
-    {
-      courseId: "40000000-0000-4000-8000-000000000001",
-      enrollmentId: "50000000-0000-4000-8000-000000000003",
-      student: exerciseRecord.student,
-      categories: [
-        {
-          category: "COURSE_RELATED",
-          targetMinutes: 720,
-          validRecordMinutes: 300,
-          activeCertificationMinutes: 60,
-          rawCombinedMinutes: 360,
-          cappedCompletedMinutes: 360,
-          remainingMinutes: 360,
-        },
-        {
-          category: "OTHER",
-          targetMinutes: 480,
-          validRecordMinutes: 180,
-          activeCertificationMinutes: 0,
-          rawCombinedMinutes: 180,
-          cappedCompletedMinutes: 180,
-          remainingMinutes: 300,
-        },
-      ],
-      totalTargetMinutes: 1200,
-      totalCompletedMinutes: 540,
-      completionRatio: 0.45,
-      displayPercent: 45,
-      targetMet: false,
-      newSessionAllowed: true,
-      computedAt: "2026-08-31T04:25:00Z",
-    },
+    buildPhase5bStudentCourseProgress(
+      currentCourse.courseId,
+      exerciseRecord.enrollmentId,
+      exerciseRecord.student,
+      portalPublishedRuleVersionId,
+      [exerciseRecord.recordId],
+      "2026-08-31T04:25:00Z",
+    ),
   ],
   page: emptyCursorPage,
+  scope: portalCourseStatisticsScope,
 } satisfies Schema<"StudentCourseProgressPage">;
 
 export const emptyCourseProgressPage = {
   items: [],
   page: emptyCursorPage,
+  scope: portalCourseStatisticsScope,
 } satisfies Schema<"StudentCourseProgressPage">;
 
 export const adminDashboard = {
@@ -307,6 +297,7 @@ export const adminCurrentCourseDirectory = {
         invalidRecordCount: 5,
         totalCreditedMinutes: 6420,
         averageCreditedMinutes: 200.625,
+        scope: portalCourseStatisticsScope,
       },
     },
   ],

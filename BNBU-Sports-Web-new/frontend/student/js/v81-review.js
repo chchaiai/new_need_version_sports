@@ -1,6 +1,6 @@
 // V8.1 student-facing review, notice, and maintenance projections.
 // Labels follow docs/business/00-overview.md §12.1–12.3 and 10-student-flow.md.
-// These names are display vocabulary, not Contract 1.2.0 wire values.
+// These names are display vocabulary, not Contract 1.3.0 wire values.
 // Free text is never guessed into a fixed category; only an exact catalog
 // label or an explicit system overdue marker becomes a structured reason.
 
@@ -53,6 +53,30 @@ export const SYSTEM_OVERDUE_REASON = {
   en: "Supplementary evidence deadline missed",
 };
 
+export const CONTRACT_PUBLIC_REASON_CODE_TO_ID = Object.freeze({
+  UNCLEAR_EVIDENCE: "UnclearEvidence",
+  MISSING_REQUIRED_EVIDENCE: "MissingRequiredEvidence",
+  EVIDENCE_SESSION_MISMATCH: "EvidenceDoesNotMatchSession",
+  INCONSISTENT_EVIDENCE: "InconsistentEvidence",
+  AUTHENTICITY_REQUIRES_CLARIFICATION: "AuthenticityRequiresClarification",
+  CONFIRMED_REUSE_OR_MISUSE: "ConfirmedReuseOrMisuse",
+});
+
+function catalogReasonFromWireCode(code) {
+  const normalized = String(code || "").trim();
+  if (!normalized) return null;
+  const catalogId = CONTRACT_PUBLIC_REASON_CODE_TO_ID[normalized];
+  if (!catalogId) return null;
+  return PUBLIC_REASON_CATALOG.find((reason) => reason.id === catalogId) || null;
+}
+
+function catalogReasonFromWireLabel(label = {}) {
+  const zh = String(label.zh || "").trim();
+  const en = String(label.en || "").trim();
+  if (!zh && !en) return null;
+  return PUBLIC_REASON_CATALOG.find((reason) => reason.zh === zh || reason.en === en) || null;
+}
+
 export function reasonsForAction(action) {
   return PUBLIC_REASON_CATALOG.filter((reason) => reason.actions.includes(action));
 }
@@ -78,6 +102,7 @@ export const REVIEW_STAGES = {
     final: false,
   },
   TechnicalProcessing: { zh: "技术处理中", en: "Technical processing", final: false },
+  ValidCreditUnknown: { zh: "有效 · 计入情况待确认", en: "Valid · Credit status pending", final: false },
   ValidCredited: { zh: "有效 · 已计入", en: "Valid · Credited", final: true },
   ValidNotCredited: { zh: "有效 · 未计入", en: "Valid · Not credited", final: true },
   Invalid: { zh: "无效", en: "Invalid", final: true },
@@ -85,8 +110,28 @@ export const REVIEW_STAGES = {
 };
 
 export function reviewStageFromRecord(record = {}) {
+  const processingStage = String(record.reviewProcessingStage || "").trim();
+  if (!record.reviewResult && processingStage) {
+    switch (processingStage) {
+      case "MATERIAL_PROCESSING":
+      case "SYSTEM_CHECK_PENDING":
+      case "AI_REVIEW_PENDING":
+        return REVIEW_STAGES.PendingAiCheck;
+      case "TECHNICAL_PROCESSING":
+        return REVIEW_STAGES.TechnicalProcessing;
+      case "TEACHER_REVIEW_REQUIRED":
+        return REVIEW_STAGES.PendingTeacherReview;
+      case "SUPPLEMENT_REQUIRED":
+        return REVIEW_STAGES.PendingStudentSupplement;
+      case "SUPPLEMENT_REVIEW_REQUIRED":
+        return REVIEW_STAGES.SupplementReceivedPendingTeacherReview;
+      default:
+        return REVIEW_STAGES.StageUnavailable;
+    }
+  }
   const raw = String(record.reviewResult || record.reviewStatus || "").trim().toUpperCase();
-  const credited = Number(record.hours) > 0 || Number(record.creditedWholeMinutes) > 0;
+  const creditedKnown = record.hours != null;
+  const credited = creditedKnown && (Number(record.hours) > 0 || Number(record.creditedWholeMinutes) > 0);
   switch (raw) {
     case "PENDING_AI":
     case "PENDINGAICHECK":
@@ -103,6 +148,7 @@ export function reviewStageFromRecord(record = {}) {
     case "TECHNICAL_PROCESSING":
       return REVIEW_STAGES.TechnicalProcessing;
     case "VALID":
+      if (!creditedKnown) return REVIEW_STAGES.ValidCreditUnknown;
       return credited ? REVIEW_STAGES.ValidCredited : REVIEW_STAGES.ValidNotCredited;
     case "INVALID":
     case "PROOF_OVERDUE_INVALID":
@@ -129,6 +175,17 @@ function splitExactReasonAndNote(text) {
 
 export function resolvePublicReasonModel(record = {}) {
   const result = String(record.reviewResult || "").trim().toUpperCase();
+  const wireReason = record.publicReason && typeof record.publicReason === "object"
+    ? catalogReasonFromWireCode(record.publicReason.code) || catalogReasonFromWireLabel(record.publicReason.label)
+    : catalogReasonFromWireCode(record.reviewReasonCode);
+  if (wireReason) {
+    const note = String(record.reviewPublicComment || record.teacherPublicFeedback || "").trim();
+    return {
+      kind: "teacher",
+      reason: wireReason,
+      publicNote: note || null,
+    };
+  }
   const candidates = [
     record.reviewReasonCode,
     record.studentVisibleReason,

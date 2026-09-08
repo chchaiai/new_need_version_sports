@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { AppSelect } from "./app-select";
+import { sumKnownCredits } from "./credit-values";
 import {
   fetchClassProgressTarget,
   fetchClassSections,
@@ -38,7 +39,7 @@ type CourseDashboardRow = {
   totalRecords: number;
   validRecords: number;
   invalidRecords: number;
-  creditedSeconds: number;
+  creditedSeconds: number | null;
   courseTargetSeconds: number | null;
   generalTargetSeconds: number | null;
   checkInWindow: string;
@@ -107,7 +108,8 @@ const demoRows: CourseDashboardRow[] = [
   },
 ];
 
-function durationLabel(locale: AdminLocale, seconds: number) {
+function durationLabel(locale: AdminLocale, seconds: number | null) {
+  if (seconds === null) return locale === "zh" ? "待确认" : "Pending confirmation";
   const hours = seconds / 3600;
   return locale === "zh"
     ? `${hours.toLocaleString("zh-CN", { maximumFractionDigits: 1 })} 小时`
@@ -183,10 +185,7 @@ async function loadRealRows(locale: AdminLocale): Promise<CourseDashboardRow[]> 
         totalRecords: countedRecords.length,
         validRecords: validRecords.length,
         invalidRecords: invalidRecords.length,
-        creditedSeconds: validRecords.reduce(
-          (total, record) => total + record.creditedDurationSeconds,
-          0,
-        ),
+        creditedSeconds: sumKnownCredits(validRecords.map((record) => record.creditedDurationSeconds)),
         courseTargetSeconds: target?.courseTargetSeconds ?? null,
         generalTargetSeconds: target?.generalTargetSeconds ?? null,
         checkInWindow:
@@ -292,7 +291,9 @@ export function AdminCourses({
             {filtered.map((row) => {
               const expanded = expandedId === row.id;
               const tone = row.status === "ACTIVE" ? "green" : row.status === "UPCOMING" ? "orange" : "gray";
-              const averageSeconds = row.activeStudents > 0 ? row.creditedSeconds / row.activeStudents : 0;
+              const averageSeconds = row.creditedSeconds === null
+                ? null
+                : row.activeStudents > 0 ? row.creditedSeconds / row.activeStudents : 0;
               return (
                 <article className={`admin-course-card${expanded ? " is-expanded" : ""}`} key={row.id}>
                   <div className="admin-course-card-head">
