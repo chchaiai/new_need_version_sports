@@ -1,12 +1,12 @@
 # BNBU Sports API Contract
 
-本目录是Android、Web与Backend共同遵守的API边界。当前本地候选为 **`1.3.0-contract / RC`**，公开基路径仍`/api/v1`。本轮含破坏性变更，不能将旧消费者直接混接。
+本目录是Android、Web与Backend共同遵守的API边界。当前已发布协议为 **`1.3.0-contract / RC`**，公开基路径仍`/api/v1`。本轮含破坏性变更，不能将旧消费者直接混接。
 
-OpenAPI SHA-256：`5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed`；157 paths /176 operations /316 schemas /99 errors。第六步技术门禁完成，第七步[最终接收包](validation/step07_handoff/README.md)已准备并核验；用户已审核通过最终交付；完整完成6/7步，剩上传、发布核验与具名交接收口。Phase5整体仍IN_PROGRESS，尚未提交/分发完成。此次接受不将RC改为APPROVED，也不表示Staging获准。
+OpenAPI SHA-256：`5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed`；157 paths /176 operations /316 schemas /99 errors。第六步技术门禁完成，第七步[最终接收包](validation/step07_handoff/README.md)已准备并核验；用户已审核通过最终交付，PR #9已合并且字节核验通过；新版Phase5完成7/7步，Phase6为READY / NOT_STARTED。Android与总体架构、6C汇总由用户负责，Web由甘洛夷负责；实际客户端加载确认属于Phase6 T01，不登记甘洛夷已签收。收尾记录待用户同步GitHub；此次接收不将RC改为APPROVED，也不表示Staging获准。
 
 完整同SHA结果见[最终验证](validation/step06_final/README.md)和[机器结果](validation/step06_final/result.json)：Python/JS/JVM各992例通过，159合法生成模型往返，TS24非法断言、324 Kotlin模型编译、143结构破坏和723有限设计模型通过；生成两次一致，verify/lint/readiness均成功。这些不是真实Backend/OCR/Android应用运行验收。
 
-[CR/GAP处置](validation/step06_final/disposition.json)登记全部21项；[候选分发清单](release-manifest.json)固定原始字节、源/输入及验证材料。候选尚未提交，`sourceCommit=null`；基线HEAD `974587c3778a53803a7959ea0f64677581e239f4`不包含新RC。旧正式输入`1.2.0-contract / RC / 667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a`仍可从该提交及外部快照取回。此前Step2～5 DRAFT只作历史证据，不作当前消费身份。
+[CR/GAP处置](validation/step06_final/disposition.json)登记全部21项；[候选分发清单](release-manifest.json)固定原始字节、源/输入及验证材料。实际协议来源Commit为`f702c590ff10b11f7de038332868c988ab4cec11`，已发布合并基线为`d7e241ebf5293eb0fed42187544fedc73ecef53f`，见[PR #9](https://github.com/chchaiai/new_need_version_sports/pull/9)。原开发基线`974587c3778a53803a7959ea0f64677581e239f4`不包含新RC。旧正式输入`1.2.0-contract / RC / 667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a`仍可从该提交及外部快照取回。此前Step2～5 DRAFT只作历史证据，不作当前消费身份。
 
 生成源按既有registrar→`record_workflow.py`→`course_workflow.py`→`teaching_workflow.py`应用增量；被替代的旧域定义不可单独作为当前协议。只修改源/配置再生成OpenAPI、catalog、metadata，不手改产物或DTO。RC之后任何外部行为变化均按CR和新版本处理。
 
@@ -16,7 +16,7 @@ OpenAPI SHA-256：`5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a1
 
 ## 权威与产物
 
-- 当前候选协议：[openapi.yaml](openapi.yaml)；消费范围服从其Version/Status及上述阶段门禁。
+- 当前已发布协议：[openapi.yaml](openapi.yaml)；消费范围服从其Version/Status及上述阶段门禁。
 - 确定性编写源：`src/*.py`；不得手改生成的 OpenAPI、operation catalog 或 metadata。
 - 全量 Method/Path/operationId/角色/权限索引：[operation-catalog.md](operation-catalog.md)。
 - Use Case 覆盖与阻塞项：[coverage.md](coverage.md)。

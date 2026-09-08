@@ -1,6 +1,6 @@
 # Phase 5 最终接收与 Phase 6 输入包
 
-本包对应新版Phase5「新 API Contract / OpenAPI」第七步。技术材料已准备，**用户已审核通过最终交付，GitHub提交/发布和具名交接尚未完成**；Phase5仍IN_PROGRESS，完整完成6/7步。用户是Contract Owner/Reviewer，Codex是执行与自检方。本包不登记陈昊或任何未参与者通过。
+本包对应新版Phase5「新 API Contract / OpenAPI」第七步。技术交付已审核通过，**PR #9已合并并核验字节，Phase6接收负责人已明确**；新版Phase5完成7/7步，Phase6为READY / NOT_STARTED。本地收尾记录待用户同步GitHub；Web实际加载确认属于Phase6 T01，不登记为已发生。用户是Contract Owner/Reviewer，Codex是执行与自检方。本包不登记陈昊或任何未参与者通过。
 
 ## 1. 唯一接收对象
 
@@ -10,9 +10,9 @@
 - 候选：`1.3.0-contract / RC`；OpenAPI原始SHA-256：`5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed`
 - 规模：157 paths、176 operations、316 schemas、99 errors。
 - 公开路径仍`/api/v1`，本轮不兼容旧协议。两个历史4.0.1候选和各步DRAFT不得作为本轮输入。
-- 候选未提交；基线Commit不包含本轮改动。固定来源Commit必须在用户实际提交后核对，不能猜测，也不能在文件中自引用包含该文件的未来Commit。
+- 已发布来源Commit：`f702c590ff10b11f7de038332868c988ab4cec11`；合并输入基线：`d7e241ebf5293eb0fed42187544fedc73ecef53f`；[PR #9](https://github.com/chchaiai/new_need_version_sports/pull/9)于2026-09-08T04:20:43Z合并。合并文件树与已审核来源完全一致。原基线不包含本轮改动，收尾记录引用实际已有协议提交，不伪造自引用。
 
-[metadata](../../contract-metadata.json)、[release manifest](../../release-manifest.json)及[第六步结果](../step06_final/result.json)必须保持同一OpenAPI SHA。当前远端检查只是入场快照：main仍在上述基线，工作分支尚不存在；不代表随后操作时远端不会变化。
+[metadata](../../contract-metadata.json)、[release manifest](../../release-manifest.json)及[第六步结果](../step06_final/result.json)必须保持同一OpenAPI SHA。合并后已只读核对main为`d7e241ebf5293eb0fed42187544fedc73ecef53f`，其Git文件树与已审核来源一致。该固定提交供后续入场核验；main以后仍可能移动。
 
 ## 2. 需要Reviewer核对的具体内容
 
@@ -40,13 +40,13 @@ Phase2材料中的旧wire、展示词表和尚未实现的按钮不是API权威�
 
 ## 4. Phase 6分发与后续验收
 
-用户已确认负责Phase6 Android开发及总体架构；Web由另一位同事负责，具体接收人待确认。6C两端验收汇总负责人仍待明确，不自动将总体架构职责视为6C签署任命。接收人以release manifest及用户正式确认更新；原Word中的协作名单不自动等于此次任命。用户对当前最终候选的明确接收结论已另行登记；职责及下游接收仍分别记录。
+用户明确确认：Web负责人为甘洛夷，Android开发、总体架构和6C两端结果汇总由用户负责，依据原话登记于release manifest。Phase5按任务书T09交付已发布的跨端验证包；两端实际加载同Version/SHA及各任务Reviewer、可写路径属于Phase6 T01。材料已交给用户用于转交，未代写甘洛夷收到、验证通过或Review结论。
 
 | 目标 | 本次交付 | 接收人及门禁 |
 |---|---|---|
 | 6A Android | 同SHA OpenAPI、源/工具配置、模板与运行支持、fixture、差异/场景表 | 用户本人已确认负责Android及接收，并已审核接受最终候选；实际Gradle工具链生成/编译、Mapper、严格读写和UI Mock；不能直接用Phase5 JVM通过替代 |
-| 6B Web（学生/Portal） | 相同完整协议、TypeScript生成选项、fixture、错误/权限与UI对应 | 由其他Web同事负责，具体接收人待确认；两处实际验证轨的生成、边界、Mapper/Mock及受影响构建 |
-| 6C统一汇总 | A/B同Version/SHA报告、CR分类、Legacy清单 | 汇总人待确认；双方绑定一致且阻塞Contract defect关闭后才可通过6C |
+| 6B Web（学生/Portal） | 相同完整协议、TypeScript生成选项、fixture、错误/权限与UI对应 | 甘洛夷负责，实际接收/加载确认待6B T01；两处实际验证轨的生成、边界、Mapper/Mock及受影响构建 |
+| 6C统一汇总 | A/B同Version/SHA报告、CR分类、Legacy清单 | 用户本人负责汇总；双方绑定一致且阻塞Contract defect关闭后才可通过6C |
 | Backend7.0 | 冻结协议与BE-CR005-COMPAT用例要求 | 人员可按已确认安排在7.0入场落实；选型兼容和CertificationKind等Domain/Database对齐未通过，不得关闭7.0/进入7.1 |
 
 Phase6发现问题：Contract defect返回Phase5走CR/新Version/SHA，两端重验；业务不明确回业务Owner；Legacy issue进入Phase8清单；Client Defect在获准验证轨整改。不得为凑通过改当前RC或引入私有DTO遮蔽协议问题。
@@ -55,10 +55,10 @@ Phase6发现问题：Contract defect返回Phase5走CR/新Version/SHA，两端重
 
 ## 5. 用户GitHub操作及固定提交
 
-当前最终接收已经登记，交接材料重新封存。外部T07已准备用户操作脚本；未登记最终接收、文件/基线漂移或字节不符时拒绝提交。Web具名接收及6C分工仍待明确，可先上传已接收成果供审查和交接，不将上传视为下游签收或Phase5完成。[Web交接说明](WEB_HANDOFF.md)随同上传；真正开工前落实负责人、Reviewer、允许路径和固定来源回执。
+用户已经执行提交、推送、创建PR和合并，Codex只读核验了来源提交、实际合并提交及相同协议字节。[Web交接说明](WEB_HANDOFF.md)随协议发布，甘洛夷具名分工及发布回执在本次文档收尾同步。Phase6真正开工前落实各任务Reviewer、允许路径及实际输入加载记录。
 
 执行顺序：核对指定分支/HEAD/文件清单与SHA → 仅暂存批准清单 → 检查暂存原始字节与空白 → 用户本地commit → 非强制push工作分支 → 用户创建/审核PR → 检查实际PR head、main差异和适用检查 → 用户merge → 只读核验远端合并Commit及RC字节。任何文件或基线变化先诊断，不force push、不覆盖旧仓库。
 
-Commit由Git实际产生后，将完整来源Commit、PR和合并Commit与上述SHA共同登记为发布回执。若需要仓库内记录自身提交，以后续仅文档提交引用先前已含完整协议的提交，不能伪造自引用。发布回执完成前，清单保留未提交/未分发事实。
+Commit由Git实际产生后，将完整来源Commit、PR和合并Commit与上述SHA共同登记为发布回执。若需要仓库内记录自身提交，以后续仅文档提交引用先前已含完整协议的提交，不能伪造自引用。协议发布回执现已完成；甘洛夷的实际加载确认仍待Phase6B T01。
 
-本步不操作GitHub，不进入Phase6实施；当前状态为OWNER_ACCEPTED / UPLOAD_READY_PUBLICATION_AND_DISTRIBUTION_PENDING，不是Phase5 DONE。
+新版Phase5状态为DONE，7/7步完成；Phase6为READY / NOT_STARTED。此结论覆盖交付方已发布协议和验证包，不冒称两端实际加载或产品验收。Codex未代用户执行GitHub写操作；本次发布事实与分工的文档回填尚未提交，之后只由用户同步，不重新发布不同字节的协议。第六步及本目录早期result.json保留各自执行时点，不把历史NOT_OPERATED当作当前发布结论。
