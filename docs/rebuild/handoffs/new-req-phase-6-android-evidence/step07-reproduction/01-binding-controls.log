@@ -1,0 +1,14 @@
+test_changed_model_bytes_are_rejected (__main__.BindingControls.test_changed_model_bytes_are_rejected) ... ok
+test_crlf_conversion_fails_raw_sha_gate (__main__.BindingControls.test_crlf_conversion_fails_raw_sha_gate) ... ok
+test_even_whitespace_change_fails_raw_sha_gate (__main__.BindingControls.test_even_whitespace_change_fails_raw_sha_gate) ... ok
+test_missing_model_is_rejected (__main__.BindingControls.test_missing_model_is_rejected) ... ok
+test_published_identity_is_accepted (__main__.BindingControls.test_published_identity_is_accepted) ... ok
+test_stale_metadata_is_rejected (__main__.BindingControls.test_stale_metadata_is_rejected) ... ok
+test_wrong_generator_is_rejected_before_execution (__main__.BindingControls.test_wrong_generator_is_rejected_before_execution) ... ok
+test_wrong_status_is_rejected (__main__.BindingControls.test_wrong_status_is_rejected) ... ok
+test_wrong_version_is_rejected (__main__.BindingControls.test_wrong_version_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 9.297s
+
+OK

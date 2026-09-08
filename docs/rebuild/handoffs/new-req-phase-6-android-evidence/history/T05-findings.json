@@ -1,0 +1,59 @@
+[
+  {
+    "id": "F6A-05-01",
+    "status": "CLOSED",
+    "problem": "Malformed raw JSON could be mislabeled as network failure.",
+    "fix": "Strict codec translates JSON reader IO failures into invalid response; transport IO remains separate.",
+    "verification": "malformedJsonIsInvalidResponseNotTransport"
+  },
+  {
+    "id": "F6A-05-02",
+    "status": "CLOSED",
+    "problem": "Using the old immutable receipt/serverNow could enable a stale continuation.",
+    "fix": "Refresh mode, eligibility/serverNow and matching current material before checking the strict boundary.",
+    "verification": [
+      "lockedResumeNeedsFreshMatchingCurrentMaterial",
+      "exactTransferDeadlineCannotResume",
+      "alreadyReadyMaterialCannotResume",
+      "receiptManifestMismatchRejected"
+    ]
+  },
+  {
+    "id": "F6A-05-03",
+    "status": "CLOSED",
+    "problem": "Failed release-policy refresh discarded the previous force-upgrade display.",
+    "fix": "Preserve previous policy rows as read-only alongside the explicit error.",
+    "verification": "failedReleaseRefreshKeepsForcedUpgradeVisible"
+  },
+  {
+    "id": "F6A-05-04",
+    "status": "CLOSED",
+    "problem": "An intermediate verification compiled 38 scenarios while six more were added; its end-of-run hashes alone could not establish source stability.",
+    "fix": "Runner now compares entry and exit source hashes; final run made with fixed source throughout.",
+    "verification": "verification-05-final/source-before.json exactly equals result.json sourceFiles"
+  },
+  {
+    "id": "F6A-05-05",
+    "status": "CLOSED",
+    "problem": "New synthetic TECHNICAL_PROCESSING fixture omitted required reviewCaseId/roundNo; strict codec correctly rejected it.",
+    "fix": "Set the existing required case identity and round; retain the incomplete fixture as a required rejection.",
+    "verification": [
+      "technical_processing_never_invalid",
+      "technicalStageWithoutCaseIdentityRejected"
+    ]
+  },
+  {
+    "id": "F6A-05-06",
+    "status": "CLOSED",
+    "problem": "Constructed request schema failures escaped as exceptions before the HTTP error handler.",
+    "fix": "Reject before network and map to explicit LOCAL_INVALID_REQUEST page error.",
+    "verification": "invalidConstructedRequestNeverLeavesDeviceAndBecomesPageError"
+  },
+  {
+    "id": "F6A-05-07",
+    "status": "CLOSED",
+    "problem": "Library default made the first test APK target API26 rather than the app target API35.",
+    "fix": "Declare targetSdk35 alongside minSdk26 and compileSdk35 in the isolated module.",
+    "verification": "final-apk-badging.txt: targetSdkVersion35, sdkVersion26"
+  }
+]

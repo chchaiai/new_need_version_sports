@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Phase6ContractSchemaTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-09-08T08:32:43.915Z" hostname="LAPTOP-PPHQAT6R" time="0.786">
+  <properties/>
+  <testcase name="supplementalSchemaBoundaries" classname="Phase6ContractSchemaTest" time="0.182"/>
+  <testcase name="outboundConstructedDtosAreValidated" classname="Phase6ContractSchemaTest" time="0.104"/>
+  <testcase name="allPublishedFixtures" classname="Phase6ContractSchemaTest" time="0.5"/>
+  <system-out><![CDATA[Generated Kotlin + strict JVM schema boundary: 164/164; roundtrips=127
+Generated Kotlin + strict JVM schema boundary: 992/992; roundtrips=159
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

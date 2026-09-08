@@ -1,0 +1,16 @@
+[
+  {
+    "id": "F6A-04-01",
+    "classification": "CLIENT_MAPPER_DEFECT",
+    "status": "CLOSED_SELF_VERIFIED",
+    "symptom": "Cached/archived dashboard checkpoint could retain CURRENT presentation",
+    "before": "cached-source-before-fix/mapper.json",
+    "failureCases": [
+      "home/CACHED_checkpoint_is_not_current",
+      "home/ARCHIVED_checkpoint_is_not_current"
+    ],
+    "fix": "Pass ViewSource into progress mapping; cached/archived current snapshots render as historical, not current target attainment",
+    "after": "verification-02-final/mapper.json",
+    "contractChanged": false
+  }
+]

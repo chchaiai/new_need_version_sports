@@ -1,0 +1,1484 @@
+{
+  "candidateSha256": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+  "total": 164,
+  "passed": 164,
+  "roundtrips": 127,
+  "cases": [
+    {
+      "name": "phase6/integer/zero",
+      "schema": "SubmitExerciseRecordRequest",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/integer/beyond_double_exact",
+      "schema": "SubmitExerciseRecordRequest",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/integer/int64_max",
+      "schema": "SubmitExerciseRecordRequest",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/integer/negative",
+      "schema": "SubmitExerciseRecordRequest",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: SubmitExerciseRecordRequest: [Error{keyword\u003dminimum, evaluationPath\u003d/oneOf/0/$ref/properties/expectedSessionVersion/minimum, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitOrdinaryExerciseRecordRequest/properties/expectedSessionVersion, instanceLocation\u003d/expectedSessionVersion, error\u003d-1 is less than 0}, Error{keyword\u003dconst, evaluationPath\u003d/oneOf/1/$ref/properties/submissionRoute/const, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitSwimmingExerciseRecordRequest/properties/submissionRoute, instanceLocation\u003d/submissionRoute, error\u003dExpected SWIMMING_TIMELY}, Error{keyword\u003dminimum, evaluationPath\u003d/oneOf/1/$ref/properties/expectedSessionVersion/minimum, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitSwimmingExerciseRecordRequest/properties/expectedSessionVersion, instanceLocation\u003d/expectedSessionVersion, error\u003d-1 is less than 0}, Error{keyword\u003dconst, evaluationPath\u003d/oneOf/2/$ref/properties/submissionRoute/const, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitOfflineSwimmingExerciseRecordRequest/properties/submissionRoute, instanceLocation\u003d/submissionRoute, error\u003dExpected SWIMMING_OFFLINE}, Error{keyword\u003dminimum, evaluationPath\u003d/oneOf/2/$ref/properties/expectedSessionVersion/minimum, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitOfflineSwimmingExerciseRecordRequest/properties/expectedSessionVersion, instanceLocation\u003d/expectedSessionVersion, error\u003d-1 is less than 0}, Error{keyword\u003drequired, evaluationPath\u003d/oneOf/2/$ref/required, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitOfflineSwimmingExerciseRecordRequest, instanceLocation\u003d, error\u003dObject does not have some of the required properties [delayExplanation]}, Error{keyword\u003doneOf, evaluationPath\u003d/oneOf, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitExerciseRecordRequest, instanceLocation\u003d, error\u003dValue does not match against any of the schemas}]"
+    },
+    {
+      "name": "phase6/integer/int64_overflow",
+      "schema": "SubmitExerciseRecordRequest",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: SubmitExerciseRecordRequest: [Error{keyword\u003dformat, evaluationPath\u003d/oneOf/0/$ref/properties/expectedSessionVersion/format, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitOrdinaryExerciseRecordRequest/properties/expectedSessionVersion, instanceLocation\u003d/expectedSessionVersion, error\u003dInteger outside declared OpenAPI int64 range}, Error{keyword\u003dconst, evaluationPath\u003d/oneOf/1/$ref/properties/submissionRoute/const, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitSwimmingExerciseRecordRequest/properties/submissionRoute, instanceLocation\u003d/submissionRoute, error\u003dExpected SWIMMING_TIMELY}, Error{keyword\u003dformat, evaluationPath\u003d/oneOf/1/$ref/properties/expectedSessionVersion/format, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitSwimmingExerciseRecordRequest/properties/expectedSessionVersion, instanceLocation\u003d/expectedSessionVersion, error\u003dInteger outside declared OpenAPI int64 range}, Error{keyword\u003dconst, evaluationPath\u003d/oneOf/2/$ref/properties/submissionRoute/const, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitOfflineSwimmingExerciseRecordRequest/properties/submissionRoute, instanceLocation\u003d/submissionRoute, error\u003dExpected SWIMMING_OFFLINE}, Error{keyword\u003dformat, evaluationPath\u003d/oneOf/2/$ref/properties/expectedSessionVersion/format, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitOfflineSwimmingExerciseRecordRequest/properties/expectedSessionVersion, instanceLocation\u003d/expectedSessionVersion, error\u003dInteger outside declared OpenAPI int64 range}, Error{keyword\u003drequired, evaluationPath\u003d/oneOf/2/$ref/required, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitOfflineSwimmingExerciseRecordRequest, instanceLocation\u003d, error\u003dObject does not have some of the required properties [delayExplanation]}, Error{keyword\u003doneOf, evaluationPath\u003d/oneOf, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitExerciseRecordRequest, instanceLocation\u003d, error\u003dValue does not match against any of the schemas}]"
+    },
+    {
+      "name": "phase6/integer/int64_wrap_to_positive",
+      "schema": "SubmitExerciseRecordRequest",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: SubmitExerciseRecordRequest: [Error{keyword\u003dformat, evaluationPath\u003d/oneOf/0/$ref/properties/expectedSessionVersion/format, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitOrdinaryExerciseRecordRequest/properties/expectedSessionVersion, instanceLocation\u003d/expectedSessionVersion, error\u003dInteger outside declared OpenAPI int64 range}, Error{keyword\u003dconst, evaluationPath\u003d/oneOf/1/$ref/properties/submissionRoute/const, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitSwimmingExerciseRecordRequest/properties/submissionRoute, instanceLocation\u003d/submissionRoute, error\u003dExpected SWIMMING_TIMELY}, Error{keyword\u003dformat, evaluationPath\u003d/oneOf/1/$ref/properties/expectedSessionVersion/format, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitSwimmingExerciseRecordRequest/properties/expectedSessionVersion, instanceLocation\u003d/expectedSessionVersion, error\u003dInteger outside declared OpenAPI int64 range}, Error{keyword\u003dconst, evaluationPath\u003d/oneOf/2/$ref/properties/submissionRoute/const, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitOfflineSwimmingExerciseRecordRequest/properties/submissionRoute, instanceLocation\u003d/submissionRoute, error\u003dExpected SWIMMING_OFFLINE}, Error{keyword\u003dformat, evaluationPath\u003d/oneOf/2/$ref/properties/expectedSessionVersion/format, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitOfflineSwimmingExerciseRecordRequest/properties/expectedSessionVersion, instanceLocation\u003d/expectedSessionVersion, error\u003dInteger outside declared OpenAPI int64 range}, Error{keyword\u003drequired, evaluationPath\u003d/oneOf/2/$ref/required, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitOfflineSwimmingExerciseRecordRequest, instanceLocation\u003d, error\u003dObject does not have some of the required properties [delayExplanation]}, Error{keyword\u003doneOf, evaluationPath\u003d/oneOf, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitExerciseRecordRequest, instanceLocation\u003d, error\u003dValue does not match against any of the schemas}]"
+    },
+    {
+      "name": "phase6/integer/fraction",
+      "schema": "SubmitExerciseRecordRequest",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: SubmitExerciseRecordRequest: [Error{keyword\u003dformat, evaluationPath\u003d/oneOf/0/$ref/properties/expectedSessionVersion/format, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitOrdinaryExerciseRecordRequest/properties/expectedSessionVersion, instanceLocation\u003d/expectedSessionVersion, error\u003dDeclared integer format requires an integral value}, Error{keyword\u003dtype, evaluationPath\u003d/oneOf/0/$ref/properties/expectedSessionVersion/type, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitOrdinaryExerciseRecordRequest/properties/expectedSessionVersion, instanceLocation\u003d/expectedSessionVersion, error\u003dValue is [number] but should be [integer]}, Error{keyword\u003dconst, evaluationPath\u003d/oneOf/1/$ref/properties/submissionRoute/const, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitSwimmingExerciseRecordRequest/properties/submissionRoute, instanceLocation\u003d/submissionRoute, error\u003dExpected SWIMMING_TIMELY}, Error{keyword\u003dformat, evaluationPath\u003d/oneOf/1/$ref/properties/expectedSessionVersion/format, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitSwimmingExerciseRecordRequest/properties/expectedSessionVersion, instanceLocation\u003d/expectedSessionVersion, error\u003dDeclared integer format requires an integral value}, Error{keyword\u003dtype, evaluationPath\u003d/oneOf/1/$ref/properties/expectedSessionVersion/type, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitSwimmingExerciseRecordRequest/properties/expectedSessionVersion, instanceLocation\u003d/expectedSessionVersion, error\u003dValue is [number] but should be [integer]}, Error{keyword\u003dconst, evaluationPath\u003d/oneOf/2/$ref/properties/submissionRoute/const, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitOfflineSwimmingExerciseRecordRequest/properties/submissionRoute, instanceLocation\u003d/submissionRoute, error\u003dExpected SWIMMING_OFFLINE}, Error{keyword\u003dformat, evaluationPath\u003d/oneOf/2/$ref/properties/expectedSessionVersion/format, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitOfflineSwimmingExerciseRecordRequest/properties/expectedSessionVersion, instanceLocation\u003d/expectedSessionVersion, error\u003dDeclared integer format requires an integral value}, Error{keyword\u003dtype, evaluationPath\u003d/oneOf/2/$ref/properties/expectedSessionVersion/type, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitOfflineSwimmingExerciseRecordRequest/properties/expectedSessionVersion, instanceLocation\u003d/expectedSessionVersion, error\u003dValue is [number] but should be [integer]}, Error{keyword\u003drequired, evaluationPath\u003d/oneOf/2/$ref/required, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitOfflineSwimmingExerciseRecordRequest, instanceLocation\u003d, error\u003dObject does not have some of the required properties [delayExplanation]}, Error{keyword\u003doneOf, evaluationPath\u003d/oneOf, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitExerciseRecordRequest, instanceLocation\u003d, error\u003dValue does not match against any of the schemas}]"
+    },
+    {
+      "name": "phase6/integer/boolean",
+      "schema": "SubmitExerciseRecordRequest",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: SubmitExerciseRecordRequest: [Error{keyword\u003dtype, evaluationPath\u003d/oneOf/0/$ref/properties/expectedSessionVersion/type, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitOrdinaryExerciseRecordRequest/properties/expectedSessionVersion, instanceLocation\u003d/expectedSessionVersion, error\u003dValue is [boolean] but should be [integer]}, Error{keyword\u003dconst, evaluationPath\u003d/oneOf/1/$ref/properties/submissionRoute/const, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitSwimmingExerciseRecordRequest/properties/submissionRoute, instanceLocation\u003d/submissionRoute, error\u003dExpected SWIMMING_TIMELY}, Error{keyword\u003dtype, evaluationPath\u003d/oneOf/1/$ref/properties/expectedSessionVersion/type, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitSwimmingExerciseRecordRequest/properties/expectedSessionVersion, instanceLocation\u003d/expectedSessionVersion, error\u003dValue is [boolean] but should be [integer]}, Error{keyword\u003dconst, evaluationPath\u003d/oneOf/2/$ref/properties/submissionRoute/const, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitOfflineSwimmingExerciseRecordRequest/properties/submissionRoute, instanceLocation\u003d/submissionRoute, error\u003dExpected SWIMMING_OFFLINE}, Error{keyword\u003dtype, evaluationPath\u003d/oneOf/2/$ref/properties/expectedSessionVersion/type, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitOfflineSwimmingExerciseRecordRequest/properties/expectedSessionVersion, instanceLocation\u003d/expectedSessionVersion, error\u003dValue is [boolean] but should be [integer]}, Error{keyword\u003drequired, evaluationPath\u003d/oneOf/2/$ref/required, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitOfflineSwimmingExerciseRecordRequest, instanceLocation\u003d, error\u003dObject does not have some of the required properties [delayExplanation]}, Error{keyword\u003doneOf, evaluationPath\u003d/oneOf, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitExerciseRecordRequest, instanceLocation\u003d, error\u003dValue does not match against any of the schemas}]"
+    },
+    {
+      "name": "phase6/array/empty_manifest",
+      "schema": "SubmitExerciseRecordRequest",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: SubmitExerciseRecordRequest: [Error{keyword\u003dminItems, evaluationPath\u003d/oneOf/0/$ref/properties/items/$ref/minItems, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/MaterialManifest, instanceLocation\u003d/items, error\u003dArray has less than 1 items}, Error{keyword\u003dconst, evaluationPath\u003d/oneOf/1/$ref/properties/submissionRoute/const, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitSwimmingExerciseRecordRequest/properties/submissionRoute, instanceLocation\u003d/submissionRoute, error\u003dExpected SWIMMING_TIMELY}, Error{keyword\u003dminItems, evaluationPath\u003d/oneOf/1/$ref/properties/items/$ref/minItems, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/MaterialManifest, instanceLocation\u003d/items, error\u003dArray has less than 1 items}, Error{keyword\u003dconst, evaluationPath\u003d/oneOf/2/$ref/properties/submissionRoute/const, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitOfflineSwimmingExerciseRecordRequest/properties/submissionRoute, instanceLocation\u003d/submissionRoute, error\u003dExpected SWIMMING_OFFLINE}, Error{keyword\u003dminItems, evaluationPath\u003d/oneOf/2/$ref/properties/items/$ref/minItems, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/MaterialManifest, instanceLocation\u003d/items, error\u003dArray has less than 1 items}, Error{keyword\u003drequired, evaluationPath\u003d/oneOf/2/$ref/required, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitOfflineSwimmingExerciseRecordRequest, instanceLocation\u003d, error\u003dObject does not have some of the required properties [delayExplanation]}, Error{keyword\u003doneOf, evaluationPath\u003d/oneOf, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitExerciseRecordRequest, instanceLocation\u003d, error\u003dValue does not match against any of the schemas}]"
+    },
+    {
+      "name": "phase6/array/empty_permissions",
+      "schema": "StudentDashboard",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/null/required_nullable",
+      "schema": "StudentDashboard",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/omission/required_nullable",
+      "schema": "StudentDashboard",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: StudentDashboard: [Error{keyword\u003drequired, evaluationPath\u003d/required, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/StudentDashboard, instanceLocation\u003d, error\u003dObject does not have some of the required properties [course]}]"
+    },
+    {
+      "name": "phase6/optional_default/5",
+      "schema": "CourseInvitationCreateRequest",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/optional_default/120",
+      "schema": "CourseInvitationCreateRequest",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/optional_default/4",
+      "schema": "CourseInvitationCreateRequest",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: CourseInvitationCreateRequest: [Error{keyword\u003dminimum, evaluationPath\u003d/properties/lifetimeMinutes/minimum, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/CourseInvitationCreateRequest/properties/lifetimeMinutes, instanceLocation\u003d/lifetimeMinutes, error\u003d4 is less than 5}]"
+    },
+    {
+      "name": "phase6/optional_default/121",
+      "schema": "CourseInvitationCreateRequest",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: CourseInvitationCreateRequest: [Error{keyword\u003dmaximum, evaluationPath\u003d/properties/lifetimeMinutes/maximum, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/CourseInvitationCreateRequest/properties/lifetimeMinutes, instanceLocation\u003d/lifetimeMinutes, error\u003d121 is greater than 120}]"
+    },
+    {
+      "name": "phase6/optional_default/None",
+      "schema": "CourseInvitationCreateRequest",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: CourseInvitationCreateRequest: [Error{keyword\u003dtype, evaluationPath\u003d/properties/lifetimeMinutes/type, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/CourseInvitationCreateRequest/properties/lifetimeMinutes, instanceLocation\u003d/lifetimeMinutes, error\u003dValue is [null] but should be [integer]}]"
+    },
+    {
+      "name": "phase6/numeric_enum/int/24",
+      "schema": "AppendRecordReviewRequest",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/numeric_enum/int/72",
+      "schema": "AppendRecordReviewRequest",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/numeric_enum/str/24",
+      "schema": "AppendRecordReviewRequest",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: AppendRecordReviewRequest: [Error{keyword\u003dconst, evaluationPath\u003d/oneOf/0/$ref/properties/action/const, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/PassExerciseRecordRequest/properties/action, instanceLocation\u003d/action, error\u003dExpected PASS}, Error{keyword\u003dnull, evaluationPath\u003d/oneOf/0/$ref/additionalProperties, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/PassExerciseRecordRequest/additionalProperties, instanceLocation\u003d/windowHours, error\u003dFalse schema always fails}, Error{keyword\u003dnull, evaluationPath\u003d/oneOf/0/$ref/additionalProperties, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/PassExerciseRecordRequest/additionalProperties, instanceLocation\u003d/reasonCode, error\u003dFalse schema always fails}, Error{keyword\u003dtype, evaluationPath\u003d/oneOf/1/$ref/properties/windowHours/type, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ReturnExerciseRecordRequest/properties/windowHours, instanceLocation\u003d/windowHours, error\u003dValue is [string] but should be [integer]}, Error{keyword\u003denum, evaluationPath\u003d/oneOf/1/$ref/properties/windowHours/enum, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ReturnExerciseRecordRequest/properties/windowHours, instanceLocation\u003d/windowHours, error\u003dExpected any of [24, 72]}, Error{keyword\u003dconst, evaluationPath\u003d/oneOf/2/$ref/properties/action/const, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/InvalidateExerciseRecordRequest/properties/action, instanceLocation\u003d/action, error\u003dExpected INVALID}, Error{keyword\u003dnull, evaluationPath\u003d/oneOf/2/$ref/additionalProperties, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/InvalidateExerciseRecordRequest/additionalProperties, instanceLocation\u003d/windowHours, error\u003dFalse schema always fails}, Error{keyword\u003doneOf, evaluationPath\u003d/oneOf, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/AppendRecordReviewRequest, instanceLocation\u003d, error\u003dValue does not match against any of the schemas}]"
+    },
+    {
+      "name": "phase6/numeric_enum/NoneType/None",
+      "schema": "AppendRecordReviewRequest",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: AppendRecordReviewRequest: [Error{keyword\u003dconst, evaluationPath\u003d/oneOf/0/$ref/properties/action/const, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/PassExerciseRecordRequest/properties/action, instanceLocation\u003d/action, error\u003dExpected PASS}, Error{keyword\u003dnull, evaluationPath\u003d/oneOf/0/$ref/additionalProperties, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/PassExerciseRecordRequest/additionalProperties, instanceLocation\u003d/windowHours, error\u003dFalse schema always fails}, Error{keyword\u003dnull, evaluationPath\u003d/oneOf/0/$ref/additionalProperties, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/PassExerciseRecordRequest/additionalProperties, instanceLocation\u003d/reasonCode, error\u003dFalse schema always fails}, Error{keyword\u003dtype, evaluationPath\u003d/oneOf/1/$ref/properties/windowHours/type, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ReturnExerciseRecordRequest/properties/windowHours, instanceLocation\u003d/windowHours, error\u003dValue is [null] but should be [integer]}, Error{keyword\u003denum, evaluationPath\u003d/oneOf/1/$ref/properties/windowHours/enum, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ReturnExerciseRecordRequest/properties/windowHours, instanceLocation\u003d/windowHours, error\u003dExpected any of [24, 72]}, Error{keyword\u003dconst, evaluationPath\u003d/oneOf/2/$ref/properties/action/const, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/InvalidateExerciseRecordRequest/properties/action, instanceLocation\u003d/action, error\u003dExpected INVALID}, Error{keyword\u003dnull, evaluationPath\u003d/oneOf/2/$ref/additionalProperties, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/InvalidateExerciseRecordRequest/additionalProperties, instanceLocation\u003d/windowHours, error\u003dFalse schema always fails}, Error{keyword\u003doneOf, evaluationPath\u003d/oneOf, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/AppendRecordReviewRequest, instanceLocation\u003d, error\u003dValue does not match against any of the schemas}]"
+    },
+    {
+      "name": "phase6/numeric_enum/int/48",
+      "schema": "AppendRecordReviewRequest",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: AppendRecordReviewRequest: [Error{keyword\u003dconst, evaluationPath\u003d/oneOf/0/$ref/properties/action/const, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/PassExerciseRecordRequest/properties/action, instanceLocation\u003d/action, error\u003dExpected PASS}, Error{keyword\u003dnull, evaluationPath\u003d/oneOf/0/$ref/additionalProperties, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/PassExerciseRecordRequest/additionalProperties, instanceLocation\u003d/windowHours, error\u003dFalse schema always fails}, Error{keyword\u003dnull, evaluationPath\u003d/oneOf/0/$ref/additionalProperties, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/PassExerciseRecordRequest/additionalProperties, instanceLocation\u003d/reasonCode, error\u003dFalse schema always fails}, Error{keyword\u003denum, evaluationPath\u003d/oneOf/1/$ref/properties/windowHours/enum, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ReturnExerciseRecordRequest/properties/windowHours, instanceLocation\u003d/windowHours, error\u003dExpected any of [24, 72]}, Error{keyword\u003dconst, evaluationPath\u003d/oneOf/2/$ref/properties/action/const, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/InvalidateExerciseRecordRequest/properties/action, instanceLocation\u003d/action, error\u003dExpected INVALID}, Error{keyword\u003dnull, evaluationPath\u003d/oneOf/2/$ref/additionalProperties, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/InvalidateExerciseRecordRequest/additionalProperties, instanceLocation\u003d/windowHours, error\u003dFalse schema always fails}, Error{keyword\u003doneOf, evaluationPath\u003d/oneOf, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/AppendRecordReviewRequest, instanceLocation\u003d, error\u003dValue does not match against any of the schemas}]"
+    },
+    {
+      "name": "phase6/date/2024-02-29",
+      "schema": "ExerciseRecord",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/date/2025-02-29",
+      "schema": "ExerciseRecord",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: ExerciseRecord: [Error{keyword\u003dformat, evaluationPath\u003d/properties/businessDate/format, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ExerciseRecord/properties/businessDate, instanceLocation\u003d/businessDate, error\u003d\"2025-02-29\" is not in the valid format (date). Caused by: Text \u00272025-02-29\u0027 could not be parsed: Invalid date \u0027February 29\u0027 as \u00272025\u0027 is not a leap year}]"
+    },
+    {
+      "name": "phase6/date/2026-09-08T00:00:00Z",
+      "schema": "ExerciseRecord",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: ExerciseRecord: [Error{keyword\u003dformat, evaluationPath\u003d/properties/businessDate/format, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ExerciseRecord/properties/businessDate, instanceLocation\u003d/businessDate, error\u003d\"2026-09-08T00:00:00Z\" is not in the valid format (date). Caused by: Text \u00272026-09-08T00:00:00Z\u0027 could not be parsed, unparsed text found at index 10}]"
+    },
+    {
+      "name": "phase6/instant/seconds",
+      "schema": "ExerciseRecord",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/instant/millis",
+      "schema": "ExerciseRecord",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/instant/micros",
+      "schema": "ExerciseRecord",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/instant/nanos",
+      "schema": "ExerciseRecord",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/instant/one_fraction_digit",
+      "schema": "ExerciseRecord",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/instant/two_fraction_digits",
+      "schema": "ExerciseRecord",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/instant/four_fraction_digits",
+      "schema": "ExerciseRecord",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/instant/seven_fraction_digits",
+      "schema": "ExerciseRecord",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/instant/ten_fraction_digits",
+      "schema": "ExerciseRecord",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/instant/long_fraction",
+      "schema": "ExerciseRecord",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/instant/fraction_empty",
+      "schema": "ExerciseRecord",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: ExerciseRecord: [Error{keyword\u003dpattern, evaluationPath\u003d/properties/submittedAt/pattern, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ExerciseRecord/properties/submittedAt, instanceLocation\u003d/submittedAt, error\u003d\"2026-09-08T02:00:00.Z\" does not match regular expression ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z$}, Error{keyword\u003dformat, evaluationPath\u003d/properties/submittedAt/format, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ExerciseRecord/properties/submittedAt, instanceLocation\u003d/submittedAt, error\u003dInvalid RFC3339 date-time}]"
+    },
+    {
+      "name": "phase6/instant/fraction_letters",
+      "schema": "ExerciseRecord",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: ExerciseRecord: [Error{keyword\u003dpattern, evaluationPath\u003d/properties/submittedAt/pattern, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ExerciseRecord/properties/submittedAt, instanceLocation\u003d/submittedAt, error\u003d\"2026-09-08T02:00:00.123xZ\" does not match regular expression ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z$}, Error{keyword\u003dformat, evaluationPath\u003d/properties/submittedAt/format, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ExerciseRecord/properties/submittedAt, instanceLocation\u003d/submittedAt, error\u003dInvalid RFC3339 date-time}]"
+    },
+    {
+      "name": "phase6/instant/trailing_newline",
+      "schema": "ExerciseRecord",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: ExerciseRecord: [Error{keyword\u003dformat, evaluationPath\u003d/properties/submittedAt/format, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ExerciseRecord/properties/submittedAt, instanceLocation\u003d/submittedAt, error\u003dInvalid RFC3339 date-time}]"
+    },
+    {
+      "name": "phase6/instant/hour24",
+      "schema": "ExerciseRecord",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: ExerciseRecord: [Error{keyword\u003dformat, evaluationPath\u003d/properties/submittedAt/format, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ExerciseRecord/properties/submittedAt, instanceLocation\u003d/submittedAt, error\u003dInvalid RFC3339 date-time}]"
+    },
+    {
+      "name": "phase6/instant/second61",
+      "schema": "ExerciseRecord",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: ExerciseRecord: [Error{keyword\u003dformat, evaluationPath\u003d/properties/submittedAt/format, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ExerciseRecord/properties/submittedAt, instanceLocation\u003d/submittedAt, error\u003dInvalid RFC3339 date-time}]"
+    },
+    {
+      "name": "phase6/instant/lowercase_forbidden_by_schema",
+      "schema": "ExerciseRecord",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: ExerciseRecord: [Error{keyword\u003dpattern, evaluationPath\u003d/properties/submittedAt/pattern, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ExerciseRecord/properties/submittedAt, instanceLocation\u003d/submittedAt, error\u003d\"2026-09-08t02:00:00z\" does not match regular expression ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z$}]"
+    },
+    {
+      "name": "phase6/instant/leap_second",
+      "schema": "ExerciseRecord",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/instant/invalid_leap_position",
+      "schema": "ExerciseRecord",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: ExerciseRecord: [Error{keyword\u003dformat, evaluationPath\u003d/properties/submittedAt/format, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ExerciseRecord/properties/submittedAt, instanceLocation\u003d/submittedAt, error\u003dInvalid RFC3339 date-time}]"
+    },
+    {
+      "name": "phase6/instant/missing_zone",
+      "schema": "ExerciseRecord",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: ExerciseRecord: [Error{keyword\u003dpattern, evaluationPath\u003d/properties/submittedAt/pattern, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ExerciseRecord/properties/submittedAt, instanceLocation\u003d/submittedAt, error\u003d\"2026-09-08T02:00:00\" does not match regular expression ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z$}, Error{keyword\u003dformat, evaluationPath\u003d/properties/submittedAt/format, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ExerciseRecord/properties/submittedAt, instanceLocation\u003d/submittedAt, error\u003dInvalid RFC3339 date-time}]"
+    },
+    {
+      "name": "phase6/instant/offset_not_Z",
+      "schema": "ExerciseRecord",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: ExerciseRecord: [Error{keyword\u003dpattern, evaluationPath\u003d/properties/submittedAt/pattern, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ExerciseRecord/properties/submittedAt, instanceLocation\u003d/submittedAt, error\u003d\"2026-09-08T10:00:00+08:00\" does not match regular expression ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z$}]"
+    },
+    {
+      "name": "phase6/instant/invalid_calendar",
+      "schema": "ExerciseRecord",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: ExerciseRecord: [Error{keyword\u003dformat, evaluationPath\u003d/properties/submittedAt/format, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ExerciseRecord/properties/submittedAt, instanceLocation\u003d/submittedAt, error\u003dInvalid RFC3339 date-time}]"
+    },
+    {
+      "name": "phase6/student_unknown/finalGrade",
+      "schema": "StudentDashboard",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: StudentDashboard: [Error{keyword\u003dnull, evaluationPath\u003d/additionalProperties, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/StudentDashboard/additionalProperties, instanceLocation\u003d/finalGrade, error\u003dFalse schema always fails}]"
+    },
+    {
+      "name": "phase6/student_unknown/remark",
+      "schema": "StudentDashboard",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: StudentDashboard: [Error{keyword\u003dnull, evaluationPath\u003d/additionalProperties, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/StudentDashboard/additionalProperties, instanceLocation\u003d/remark, error\u003dFalse schema always fails}]"
+    },
+    {
+      "name": "phase6/student_unknown/rank",
+      "schema": "StudentDashboard",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: StudentDashboard: [Error{keyword\u003dnull, evaluationPath\u003d/additionalProperties, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/StudentDashboard/additionalProperties, instanceLocation\u003d/rank, error\u003dFalse schema always fails}]"
+    },
+    {
+      "name": "phase6/error_code/INVALID_REQUEST",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/INVALID_CURSOR",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/AUTHENTICATION_REQUIRED",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/INVALID_CREDENTIALS",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/TOKEN_EXPIRED",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/CHALLENGE_EXPIRED",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/ACCOUNT_DISABLED",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/FIRST_PASSWORD_CHANGE_REQUIRED",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/FORBIDDEN",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/RESOURCE_NOT_FOUND",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/IDEMPOTENCY_KEY_REUSED",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/VERSION_CONFLICT",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/VALIDATION_FAILED",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/PAYLOAD_TOO_LARGE",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/UNSUPPORTED_MEDIA_TYPE",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/RATE_LIMITED",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/SYSTEM_MAINTENANCE",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/DEPENDENCY_UNAVAILABLE",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/INTERNAL_ERROR",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/EMAIL_ALREADY_IN_USE",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/LOGIN_NAME_ALREADY_IN_USE",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/STUDENT_NUMBER_ALREADY_IN_USE",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/EMPLOYEE_ID_ALREADY_IN_USE",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/ACCOUNT_DELETION_BLOCKED",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/ADMIN_RESPONSIBILITY_BLOCKED",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/INVITATION_INVALID",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/COURSE_ALREADY_JOINED",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/ENROLLMENT_NOT_ACTIVE",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/COURSE_NOT_OPEN",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/COURSE_TARGET_TOTAL_INVALID",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/SEMESTER_COMBINATION_EXISTS",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/SEMESTER_NOT_UPCOMING",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/SEMESTER_NOT_CURRENT",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/SEMESTER_START_DATE_NOT_REACHED",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/ROSTER_SOURCE_INVALID",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/ROSTER_ROW_LIMIT_EXCEEDED",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/ROSTER_FINDING_ALREADY_RESOLVED",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/ROSTER_SNAPSHOT_NOT_IN_COURSE",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/SESSION_ALREADY_ACTIVE",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/SESSION_TRANSITION_INVALID",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/CHECKIN_WINDOW_CLOSED",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/MEDIA_NOT_VERIFIED",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/MEDIA_OWNERSHIP_MISMATCH",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/MEDIA_LIMIT_EXCEEDED",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/MEDIA_CONTENT_INVALID",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/MEDIA_ALREADY_BOUND",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/RECORD_DESCRIPTION_INVALID",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/REVIEW_RESULT_UNCHANGED",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/ENDURANCE_OUTCOME_EXEMPT",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/ENDURANCE_RULE_TABLE_INVALID",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/APPLICATION_EVIDENCE_LIMIT_EXCEEDED",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/APPLICATION_TRANSITION_INVALID",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/APPLICATION_SUPPLEMENT_NOT_ALLOWED",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/CERTIFICATION_CREDIT_INVALID",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/FINAL_GRADE_VALUE_INVALID",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/FEEDBACK_TRANSITION_INVALID",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/HELP_ARTICLE_TRANSITION_INVALID",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/HELP_ARTICLE_PUBLICATION_INCOMPLETE",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/SYSTEM_MODE_UNCHANGED",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/MAINTENANCE_ANNOUNCEMENT_REQUIRED",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/AUDIT_DATE_RANGE_INVALID",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/AUDIT_ARCHIVE_NOT_READY",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/FIRST_MATERIAL_DEADLINE_MISSED",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/FIRST_MATERIAL_ALREADY_ACCEPTED",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/MATERIAL_BATCH_CONFLICT",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/MATERIAL_NOT_READY",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/MATERIAL_TRANSFER_DEADLINE_MISSED",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/SUPPLEMENT_NOT_ALLOWED",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/SUPPLEMENT_DEADLINE_MISSED",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/REVIEW_ACTION_NOT_ALLOWED",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/REVIEW_PRECONDITION_UNSATISFIED",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/CORRECTION_CONFLICT",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/COURSE_RULES_LOCKED",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/COURSE_NOT_PUBLISHED",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/COURSE_PLAN_INFEASIBLE",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/COURSE_PLAN_UNAVAILABLE",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/COURSE_PLAN_STALE",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/INVITATION_FLOW_EXPIRED",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/INVITATION_FLOW_TERMINATED",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/INVITATION_FLOW_MISMATCH",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/MAKEUP_NOT_ALLOWED",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/STATISTICS_UNAVAILABLE",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/SETTLEMENT_BLOCKED",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/SETTLEMENT_SOURCE_STALE",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/SETTLEMENT_SOURCE_UNAVAILABLE",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/SETTLEMENT_CORRECTION_INVALID",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/SEMESTER_SETTLEMENT_BLOCKED",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/TEACHING_SOURCE_INVALID",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/TEACHING_SOURCE_NOT_READY",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/TEACHING_BATCH_NOT_REVIEWABLE",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/TEACHING_ROW_UNRESOLVED",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/TEACHING_DUPLICATE_IDENTITY",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/TEACHING_SOURCE_STALE",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/TEACHING_SOURCE_UNAVAILABLE",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/ENDURANCE_CONVERSION_UNAVAILABLE",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/TECHNICAL_SERVICE_REFERENCE_INVALID",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/TECHNICAL_SERVICE_VALIDATION_REQUIRED",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/MANUAL_WINDOW_CONFLICT",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/PROJECTION_NOT_READY",
+      "schema": "ErrorCode",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_code/unknown",
+      "schema": "ErrorCode",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: ErrorCode: [Error{keyword\u003denum, evaluationPath\u003d/enum, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ErrorCode, instanceLocation\u003d, error\u003dExpected any of [INVALID_REQUEST, INVALID_CURSOR, AUTHENTICATION_REQUIRED, INVALID_CREDENTIALS, TOKEN_EXPIRED, CHALLENGE_EXPIRED, ACCOUNT_DISABLED, FIRST_PASSWORD_CHANGE_REQUIRED, FORBIDDEN, RESOURCE_NOT_FOUND, IDEMPOTENCY_KEY_REUSED, VERSION_CONFLICT, VALIDATION_FAILED, PAYLOAD_TOO_LARGE, UNSUPPORTED_MEDIA_TYPE, RATE_LIMITED, SYSTEM_MAINTENANCE, DEPENDENCY_UNAVAILABLE, INTERNAL_ERROR, EMAIL_ALREADY_IN_USE, LOGIN_NAME_ALREADY_IN_USE, STUDENT_NUMBER_ALREADY_IN_USE, EMPLOYEE_ID_ALREADY_IN_USE, ACCOUNT_DELETION_BLOCKED, ADMIN_RESPONSIBILITY_BLOCKED, INVITATION_INVALID, COURSE_ALREADY_JOINED, ENROLLMENT_NOT_ACTIVE, COURSE_NOT_OPEN, COURSE_TARGET_TOTAL_INVALID, SEMESTER_COMBINATION_EXISTS, SEMESTER_NOT_UPCOMING, SEMESTER_NOT_CURRENT, SEMESTER_START_DATE_NOT_REACHED, ROSTER_SOURCE_INVALID, ROSTER_ROW_LIMIT_EXCEEDED, ROSTER_FINDING_ALREADY_RESOLVED, ROSTER_SNAPSHOT_NOT_IN_COURSE, SESSION_ALREADY_ACTIVE, SESSION_TRANSITION_INVALID, CHECKIN_WINDOW_CLOSED, MEDIA_NOT_VERIFIED, MEDIA_OWNERSHIP_MISMATCH, MEDIA_LIMIT_EXCEEDED, MEDIA_CONTENT_INVALID, MEDIA_ALREADY_BOUND, RECORD_DESCRIPTION_INVALID, REVIEW_RESULT_UNCHANGED, ENDURANCE_OUTCOME_EXEMPT, ENDURANCE_RULE_TABLE_INVALID, APPLICATION_EVIDENCE_LIMIT_EXCEEDED, APPLICATION_TRANSITION_INVALID, APPLICATION_SUPPLEMENT_NOT_ALLOWED, CERTIFICATION_CREDIT_INVALID, FINAL_GRADE_VALUE_INVALID, FEEDBACK_TRANSITION_INVALID, HELP_ARTICLE_TRANSITION_INVALID, HELP_ARTICLE_PUBLICATION_INCOMPLETE, SYSTEM_MODE_UNCHANGED, MAINTENANCE_ANNOUNCEMENT_REQUIRED, AUDIT_DATE_RANGE_INVALID, AUDIT_ARCHIVE_NOT_READY, FIRST_MATERIAL_DEADLINE_MISSED, FIRST_MATERIAL_ALREADY_ACCEPTED, MATERIAL_BATCH_CONFLICT, MATERIAL_NOT_READY, MATERIAL_TRANSFER_DEADLINE_MISSED, SUPPLEMENT_NOT_ALLOWED, SUPPLEMENT_DEADLINE_MISSED, REVIEW_ACTION_NOT_ALLOWED, REVIEW_PRECONDITION_UNSATISFIED, CORRECTION_CONFLICT, COURSE_RULES_LOCKED, COURSE_NOT_PUBLISHED, COURSE_PLAN_INFEASIBLE, COURSE_PLAN_UNAVAILABLE, COURSE_PLAN_STALE, INVITATION_FLOW_EXPIRED, INVITATION_FLOW_TERMINATED, INVITATION_FLOW_MISMATCH, MAKEUP_NOT_ALLOWED, STATISTICS_UNAVAILABLE, SETTLEMENT_BLOCKED, SETTLEMENT_SOURCE_STALE, SETTLEMENT_SOURCE_UNAVAILABLE, SETTLEMENT_CORRECTION_INVALID, SEMESTER_SETTLEMENT_BLOCKED, TEACHING_SOURCE_INVALID, TEACHING_SOURCE_NOT_READY, TEACHING_BATCH_NOT_REVIEWABLE, TEACHING_ROW_UNRESOLVED, TEACHING_DUPLICATE_IDENTITY, TEACHING_SOURCE_STALE, TEACHING_SOURCE_UNAVAILABLE, ENDURANCE_CONVERSION_UNAVAILABLE, TECHNICAL_SERVICE_REFERENCE_INVALID, TECHNICAL_SERVICE_VALIDATION_REQUIRED, MANUAL_WINDOW_CONFLICT, PROJECTION_NOT_READY]}]"
+    },
+    {
+      "name": "phase6/error_code/wrong_case",
+      "schema": "ErrorCode",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: ErrorCode: [Error{keyword\u003denum, evaluationPath\u003d/enum, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ErrorCode, instanceLocation\u003d, error\u003dExpected any of [INVALID_REQUEST, INVALID_CURSOR, AUTHENTICATION_REQUIRED, INVALID_CREDENTIALS, TOKEN_EXPIRED, CHALLENGE_EXPIRED, ACCOUNT_DISABLED, FIRST_PASSWORD_CHANGE_REQUIRED, FORBIDDEN, RESOURCE_NOT_FOUND, IDEMPOTENCY_KEY_REUSED, VERSION_CONFLICT, VALIDATION_FAILED, PAYLOAD_TOO_LARGE, UNSUPPORTED_MEDIA_TYPE, RATE_LIMITED, SYSTEM_MAINTENANCE, DEPENDENCY_UNAVAILABLE, INTERNAL_ERROR, EMAIL_ALREADY_IN_USE, LOGIN_NAME_ALREADY_IN_USE, STUDENT_NUMBER_ALREADY_IN_USE, EMPLOYEE_ID_ALREADY_IN_USE, ACCOUNT_DELETION_BLOCKED, ADMIN_RESPONSIBILITY_BLOCKED, INVITATION_INVALID, COURSE_ALREADY_JOINED, ENROLLMENT_NOT_ACTIVE, COURSE_NOT_OPEN, COURSE_TARGET_TOTAL_INVALID, SEMESTER_COMBINATION_EXISTS, SEMESTER_NOT_UPCOMING, SEMESTER_NOT_CURRENT, SEMESTER_START_DATE_NOT_REACHED, ROSTER_SOURCE_INVALID, ROSTER_ROW_LIMIT_EXCEEDED, ROSTER_FINDING_ALREADY_RESOLVED, ROSTER_SNAPSHOT_NOT_IN_COURSE, SESSION_ALREADY_ACTIVE, SESSION_TRANSITION_INVALID, CHECKIN_WINDOW_CLOSED, MEDIA_NOT_VERIFIED, MEDIA_OWNERSHIP_MISMATCH, MEDIA_LIMIT_EXCEEDED, MEDIA_CONTENT_INVALID, MEDIA_ALREADY_BOUND, RECORD_DESCRIPTION_INVALID, REVIEW_RESULT_UNCHANGED, ENDURANCE_OUTCOME_EXEMPT, ENDURANCE_RULE_TABLE_INVALID, APPLICATION_EVIDENCE_LIMIT_EXCEEDED, APPLICATION_TRANSITION_INVALID, APPLICATION_SUPPLEMENT_NOT_ALLOWED, CERTIFICATION_CREDIT_INVALID, FINAL_GRADE_VALUE_INVALID, FEEDBACK_TRANSITION_INVALID, HELP_ARTICLE_TRANSITION_INVALID, HELP_ARTICLE_PUBLICATION_INCOMPLETE, SYSTEM_MODE_UNCHANGED, MAINTENANCE_ANNOUNCEMENT_REQUIRED, AUDIT_DATE_RANGE_INVALID, AUDIT_ARCHIVE_NOT_READY, FIRST_MATERIAL_DEADLINE_MISSED, FIRST_MATERIAL_ALREADY_ACCEPTED, MATERIAL_BATCH_CONFLICT, MATERIAL_NOT_READY, MATERIAL_TRANSFER_DEADLINE_MISSED, SUPPLEMENT_NOT_ALLOWED, SUPPLEMENT_DEADLINE_MISSED, REVIEW_ACTION_NOT_ALLOWED, REVIEW_PRECONDITION_UNSATISFIED, CORRECTION_CONFLICT, COURSE_RULES_LOCKED, COURSE_NOT_PUBLISHED, COURSE_PLAN_INFEASIBLE, COURSE_PLAN_UNAVAILABLE, COURSE_PLAN_STALE, INVITATION_FLOW_EXPIRED, INVITATION_FLOW_TERMINATED, INVITATION_FLOW_MISMATCH, MAKEUP_NOT_ALLOWED, STATISTICS_UNAVAILABLE, SETTLEMENT_BLOCKED, SETTLEMENT_SOURCE_STALE, SETTLEMENT_SOURCE_UNAVAILABLE, SETTLEMENT_CORRECTION_INVALID, SEMESTER_SETTLEMENT_BLOCKED, TEACHING_SOURCE_INVALID, TEACHING_SOURCE_NOT_READY, TEACHING_BATCH_NOT_REVIEWABLE, TEACHING_ROW_UNRESOLVED, TEACHING_DUPLICATE_IDENTITY, TEACHING_SOURCE_STALE, TEACHING_SOURCE_UNAVAILABLE, ENDURANCE_CONVERSION_UNAVAILABLE, TECHNICAL_SERVICE_REFERENCE_INVALID, TECHNICAL_SERVICE_VALIDATION_REQUIRED, MANUAL_WINDOW_CONFLICT, PROJECTION_NOT_READY]}]"
+    },
+    {
+      "name": "phase6/error_code/null",
+      "schema": "ErrorCode",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: ErrorCode: [Error{keyword\u003dtype, evaluationPath\u003d/type, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ErrorCode, instanceLocation\u003d, error\u003dValue is [null] but should be [string]}, Error{keyword\u003denum, evaluationPath\u003d/enum, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ErrorCode, instanceLocation\u003d, error\u003dExpected any of [INVALID_REQUEST, INVALID_CURSOR, AUTHENTICATION_REQUIRED, INVALID_CREDENTIALS, TOKEN_EXPIRED, CHALLENGE_EXPIRED, ACCOUNT_DISABLED, FIRST_PASSWORD_CHANGE_REQUIRED, FORBIDDEN, RESOURCE_NOT_FOUND, IDEMPOTENCY_KEY_REUSED, VERSION_CONFLICT, VALIDATION_FAILED, PAYLOAD_TOO_LARGE, UNSUPPORTED_MEDIA_TYPE, RATE_LIMITED, SYSTEM_MAINTENANCE, DEPENDENCY_UNAVAILABLE, INTERNAL_ERROR, EMAIL_ALREADY_IN_USE, LOGIN_NAME_ALREADY_IN_USE, STUDENT_NUMBER_ALREADY_IN_USE, EMPLOYEE_ID_ALREADY_IN_USE, ACCOUNT_DELETION_BLOCKED, ADMIN_RESPONSIBILITY_BLOCKED, INVITATION_INVALID, COURSE_ALREADY_JOINED, ENROLLMENT_NOT_ACTIVE, COURSE_NOT_OPEN, COURSE_TARGET_TOTAL_INVALID, SEMESTER_COMBINATION_EXISTS, SEMESTER_NOT_UPCOMING, SEMESTER_NOT_CURRENT, SEMESTER_START_DATE_NOT_REACHED, ROSTER_SOURCE_INVALID, ROSTER_ROW_LIMIT_EXCEEDED, ROSTER_FINDING_ALREADY_RESOLVED, ROSTER_SNAPSHOT_NOT_IN_COURSE, SESSION_ALREADY_ACTIVE, SESSION_TRANSITION_INVALID, CHECKIN_WINDOW_CLOSED, MEDIA_NOT_VERIFIED, MEDIA_OWNERSHIP_MISMATCH, MEDIA_LIMIT_EXCEEDED, MEDIA_CONTENT_INVALID, MEDIA_ALREADY_BOUND, RECORD_DESCRIPTION_INVALID, REVIEW_RESULT_UNCHANGED, ENDURANCE_OUTCOME_EXEMPT, ENDURANCE_RULE_TABLE_INVALID, APPLICATION_EVIDENCE_LIMIT_EXCEEDED, APPLICATION_TRANSITION_INVALID, APPLICATION_SUPPLEMENT_NOT_ALLOWED, CERTIFICATION_CREDIT_INVALID, FINAL_GRADE_VALUE_INVALID, FEEDBACK_TRANSITION_INVALID, HELP_ARTICLE_TRANSITION_INVALID, HELP_ARTICLE_PUBLICATION_INCOMPLETE, SYSTEM_MODE_UNCHANGED, MAINTENANCE_ANNOUNCEMENT_REQUIRED, AUDIT_DATE_RANGE_INVALID, AUDIT_ARCHIVE_NOT_READY, FIRST_MATERIAL_DEADLINE_MISSED, FIRST_MATERIAL_ALREADY_ACCEPTED, MATERIAL_BATCH_CONFLICT, MATERIAL_NOT_READY, MATERIAL_TRANSFER_DEADLINE_MISSED, SUPPLEMENT_NOT_ALLOWED, SUPPLEMENT_DEADLINE_MISSED, REVIEW_ACTION_NOT_ALLOWED, REVIEW_PRECONDITION_UNSATISFIED, CORRECTION_CONFLICT, COURSE_RULES_LOCKED, COURSE_NOT_PUBLISHED, COURSE_PLAN_INFEASIBLE, COURSE_PLAN_UNAVAILABLE, COURSE_PLAN_STALE, INVITATION_FLOW_EXPIRED, INVITATION_FLOW_TERMINATED, INVITATION_FLOW_MISMATCH, MAKEUP_NOT_ALLOWED, STATISTICS_UNAVAILABLE, SETTLEMENT_BLOCKED, SETTLEMENT_SOURCE_STALE, SETTLEMENT_SOURCE_UNAVAILABLE, SETTLEMENT_CORRECTION_INVALID, SEMESTER_SETTLEMENT_BLOCKED, TEACHING_SOURCE_INVALID, TEACHING_SOURCE_NOT_READY, TEACHING_BATCH_NOT_REVIEWABLE, TEACHING_ROW_UNRESOLVED, TEACHING_DUPLICATE_IDENTITY, TEACHING_SOURCE_STALE, TEACHING_SOURCE_UNAVAILABLE, ENDURANCE_CONVERSION_UNAVAILABLE, TECHNICAL_SERVICE_REFERENCE_INVALID, TECHNICAL_SERVICE_VALIDATION_REQUIRED, MANUAL_WINDOW_CONFLICT, PROJECTION_NOT_READY]}]"
+    },
+    {
+      "name": "phase6/error_code/number",
+      "schema": "ErrorCode",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: ErrorCode: [Error{keyword\u003dtype, evaluationPath\u003d/type, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ErrorCode, instanceLocation\u003d, error\u003dValue is [integer] but should be [string]}, Error{keyword\u003denum, evaluationPath\u003d/enum, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ErrorCode, instanceLocation\u003d, error\u003dExpected any of [INVALID_REQUEST, INVALID_CURSOR, AUTHENTICATION_REQUIRED, INVALID_CREDENTIALS, TOKEN_EXPIRED, CHALLENGE_EXPIRED, ACCOUNT_DISABLED, FIRST_PASSWORD_CHANGE_REQUIRED, FORBIDDEN, RESOURCE_NOT_FOUND, IDEMPOTENCY_KEY_REUSED, VERSION_CONFLICT, VALIDATION_FAILED, PAYLOAD_TOO_LARGE, UNSUPPORTED_MEDIA_TYPE, RATE_LIMITED, SYSTEM_MAINTENANCE, DEPENDENCY_UNAVAILABLE, INTERNAL_ERROR, EMAIL_ALREADY_IN_USE, LOGIN_NAME_ALREADY_IN_USE, STUDENT_NUMBER_ALREADY_IN_USE, EMPLOYEE_ID_ALREADY_IN_USE, ACCOUNT_DELETION_BLOCKED, ADMIN_RESPONSIBILITY_BLOCKED, INVITATION_INVALID, COURSE_ALREADY_JOINED, ENROLLMENT_NOT_ACTIVE, COURSE_NOT_OPEN, COURSE_TARGET_TOTAL_INVALID, SEMESTER_COMBINATION_EXISTS, SEMESTER_NOT_UPCOMING, SEMESTER_NOT_CURRENT, SEMESTER_START_DATE_NOT_REACHED, ROSTER_SOURCE_INVALID, ROSTER_ROW_LIMIT_EXCEEDED, ROSTER_FINDING_ALREADY_RESOLVED, ROSTER_SNAPSHOT_NOT_IN_COURSE, SESSION_ALREADY_ACTIVE, SESSION_TRANSITION_INVALID, CHECKIN_WINDOW_CLOSED, MEDIA_NOT_VERIFIED, MEDIA_OWNERSHIP_MISMATCH, MEDIA_LIMIT_EXCEEDED, MEDIA_CONTENT_INVALID, MEDIA_ALREADY_BOUND, RECORD_DESCRIPTION_INVALID, REVIEW_RESULT_UNCHANGED, ENDURANCE_OUTCOME_EXEMPT, ENDURANCE_RULE_TABLE_INVALID, APPLICATION_EVIDENCE_LIMIT_EXCEEDED, APPLICATION_TRANSITION_INVALID, APPLICATION_SUPPLEMENT_NOT_ALLOWED, CERTIFICATION_CREDIT_INVALID, FINAL_GRADE_VALUE_INVALID, FEEDBACK_TRANSITION_INVALID, HELP_ARTICLE_TRANSITION_INVALID, HELP_ARTICLE_PUBLICATION_INCOMPLETE, SYSTEM_MODE_UNCHANGED, MAINTENANCE_ANNOUNCEMENT_REQUIRED, AUDIT_DATE_RANGE_INVALID, AUDIT_ARCHIVE_NOT_READY, FIRST_MATERIAL_DEADLINE_MISSED, FIRST_MATERIAL_ALREADY_ACCEPTED, MATERIAL_BATCH_CONFLICT, MATERIAL_NOT_READY, MATERIAL_TRANSFER_DEADLINE_MISSED, SUPPLEMENT_NOT_ALLOWED, SUPPLEMENT_DEADLINE_MISSED, REVIEW_ACTION_NOT_ALLOWED, REVIEW_PRECONDITION_UNSATISFIED, CORRECTION_CONFLICT, COURSE_RULES_LOCKED, COURSE_NOT_PUBLISHED, COURSE_PLAN_INFEASIBLE, COURSE_PLAN_UNAVAILABLE, COURSE_PLAN_STALE, INVITATION_FLOW_EXPIRED, INVITATION_FLOW_TERMINATED, INVITATION_FLOW_MISMATCH, MAKEUP_NOT_ALLOWED, STATISTICS_UNAVAILABLE, SETTLEMENT_BLOCKED, SETTLEMENT_SOURCE_STALE, SETTLEMENT_SOURCE_UNAVAILABLE, SETTLEMENT_CORRECTION_INVALID, SEMESTER_SETTLEMENT_BLOCKED, TEACHING_SOURCE_INVALID, TEACHING_SOURCE_NOT_READY, TEACHING_BATCH_NOT_REVIEWABLE, TEACHING_ROW_UNRESOLVED, TEACHING_DUPLICATE_IDENTITY, TEACHING_SOURCE_STALE, TEACHING_SOURCE_UNAVAILABLE, ENDURANCE_CONVERSION_UNAVAILABLE, TECHNICAL_SERVICE_REFERENCE_INVALID, TECHNICAL_SERVICE_VALIDATION_REQUIRED, MANUAL_WINDOW_CONFLICT, PROJECTION_NOT_READY]}]"
+    },
+    {
+      "name": "phase6/error_envelope/FORBIDDEN",
+      "schema": "ErrorEnvelope",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_envelope/TOKEN_EXPIRED",
+      "schema": "ErrorEnvelope",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_envelope/SYSTEM_MAINTENANCE",
+      "schema": "ErrorEnvelope",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_envelope/DEPENDENCY_UNAVAILABLE",
+      "schema": "ErrorEnvelope",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_envelope/FIRST_PASSWORD_CHANGE_REQUIRED",
+      "schema": "ErrorEnvelope",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_details/empty_arrays",
+      "schema": "ErrorEnvelope",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_details/int32_max",
+      "schema": "ErrorEnvelope",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "phase6/error_details/int32_overflow",
+      "schema": "ErrorEnvelope",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: ErrorEnvelope: [Error{keyword\u003dformat, evaluationPath\u003d/properties/details/anyOf/0/$ref/properties/retryAfterSeconds/anyOf/0/format, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ErrorDetails/properties/retryAfterSeconds/anyOf/0, instanceLocation\u003d/details/retryAfterSeconds, error\u003dInteger outside declared OpenAPI int32 range}, Error{keyword\u003dtype, evaluationPath\u003d/properties/details/anyOf/0/$ref/properties/retryAfterSeconds/anyOf/1/type, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ErrorDetails/properties/retryAfterSeconds/anyOf/1, instanceLocation\u003d/details/retryAfterSeconds, error\u003dValue is [integer] but should be [null]}, Error{keyword\u003danyOf, evaluationPath\u003d/properties/details/anyOf/0/$ref/properties/retryAfterSeconds/anyOf, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ErrorDetails/properties/retryAfterSeconds, instanceLocation\u003d/details/retryAfterSeconds, error\u003dValue does not match against any of the schemas}, Error{keyword\u003dtype, evaluationPath\u003d/properties/details/anyOf/1/type, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ErrorEnvelope/properties/details/anyOf/1, instanceLocation\u003d/details, error\u003dValue is [object] but should be [null]}, Error{keyword\u003danyOf, evaluationPath\u003d/properties/details/anyOf, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ErrorEnvelope/properties/details, instanceLocation\u003d/details, error\u003dValue does not match against any of the schemas}]"
+    },
+    {
+      "name": "phase6/error_details/negative_retry",
+      "schema": "ErrorEnvelope",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: ErrorEnvelope: [Error{keyword\u003dminimum, evaluationPath\u003d/properties/details/anyOf/0/$ref/properties/retryAfterSeconds/anyOf/0/minimum, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ErrorDetails/properties/retryAfterSeconds/anyOf/0, instanceLocation\u003d/details/retryAfterSeconds, error\u003d-1 is less than 0}, Error{keyword\u003dtype, evaluationPath\u003d/properties/details/anyOf/0/$ref/properties/retryAfterSeconds/anyOf/1/type, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ErrorDetails/properties/retryAfterSeconds/anyOf/1, instanceLocation\u003d/details/retryAfterSeconds, error\u003dValue is [integer] but should be [null]}, Error{keyword\u003danyOf, evaluationPath\u003d/properties/details/anyOf/0/$ref/properties/retryAfterSeconds/anyOf, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ErrorDetails/properties/retryAfterSeconds, instanceLocation\u003d/details/retryAfterSeconds, error\u003dValue does not match against any of the schemas}, Error{keyword\u003dtype, evaluationPath\u003d/properties/details/anyOf/1/type, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ErrorEnvelope/properties/details/anyOf/1, instanceLocation\u003d/details, error\u003dValue is [object] but should be [null]}, Error{keyword\u003danyOf, evaluationPath\u003d/properties/details/anyOf, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ErrorEnvelope/properties/details, instanceLocation\u003d/details, error\u003dValue does not match against any of the schemas}]"
+    },
+    {
+      "name": "phase6/error_details/int64_overflow",
+      "schema": "ErrorEnvelope",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: ErrorEnvelope: [Error{keyword\u003dformat, evaluationPath\u003d/properties/details/anyOf/0/$ref/properties/currentVersion/anyOf/0/format, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ErrorDetails/properties/currentVersion/anyOf/0, instanceLocation\u003d/details/currentVersion, error\u003dInteger outside declared OpenAPI int64 range}, Error{keyword\u003dtype, evaluationPath\u003d/properties/details/anyOf/0/$ref/properties/currentVersion/anyOf/1/type, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ErrorDetails/properties/currentVersion/anyOf/1, instanceLocation\u003d/details/currentVersion, error\u003dValue is [integer] but should be [null]}, Error{keyword\u003danyOf, evaluationPath\u003d/properties/details/anyOf/0/$ref/properties/currentVersion/anyOf, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ErrorDetails/properties/currentVersion, instanceLocation\u003d/details/currentVersion, error\u003dValue does not match against any of the schemas}, Error{keyword\u003dtype, evaluationPath\u003d/properties/details/anyOf/1/type, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ErrorEnvelope/properties/details/anyOf/1, instanceLocation\u003d/details, error\u003dValue is [object] but should be [null]}, Error{keyword\u003danyOf, evaluationPath\u003d/properties/details/anyOf, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ErrorEnvelope/properties/details, instanceLocation\u003d/details, error\u003dValue does not match against any of the schemas}]"
+    },
+    {
+      "name": "phase6/error_details/unknown_field",
+      "schema": "ErrorEnvelope",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: ErrorEnvelope: [Error{keyword\u003dnull, evaluationPath\u003d/properties/details/anyOf/0/$ref/additionalProperties, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ErrorDetails/additionalProperties, instanceLocation\u003d/details/unknown, error\u003dFalse schema always fails}, Error{keyword\u003dtype, evaluationPath\u003d/properties/details/anyOf/1/type, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ErrorEnvelope/properties/details/anyOf/1, instanceLocation\u003d/details, error\u003dValue is [object] but should be [null]}, Error{keyword\u003danyOf, evaluationPath\u003d/properties/details/anyOf, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ErrorEnvelope/properties/details, instanceLocation\u003d/details, error\u003dValue does not match against any of the schemas}]"
+    },
+    {
+      "name": "phase6/error_envelope/missing_required_details",
+      "schema": "ErrorEnvelope",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: ErrorEnvelope: [Error{keyword\u003drequired, evaluationPath\u003d/required, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ErrorEnvelope, instanceLocation\u003d, error\u003dObject does not have some of the required properties [details]}]"
+    }
+  ]
+}

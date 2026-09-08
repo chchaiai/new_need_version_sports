@@ -1,0 +1,7 @@
+Starting: Intent { cmp=edu.bnbu.phase6.manualreview/.ReviewActivity }
+Status: ok
+LaunchState: COLD
+Activity: edu.bnbu.phase6.manualreview/.ReviewActivity
+TotalTime: 5042
+WaitTime: 5046
+Complete

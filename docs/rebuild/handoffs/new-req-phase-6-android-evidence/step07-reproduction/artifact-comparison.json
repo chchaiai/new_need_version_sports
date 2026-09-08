@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "aarZipEntriesIdentical": true,
+  "apkZipEntriesIdentical": true,
+  "originalResultSha256": "71d985c4e73980df5a83455e7c8013a13963ee67275c28a79938e026e5faa90a",
+  "newResultSha256": "7de71de8e39d3321b8e54cd9699d65619b4784209ca555b711f8be094853b1e3",
+  "artifacts": {
+    "contract-validation-debug.aar": {
+      "originalSha256": "108a0020306fb42cd7b603b0aaec4f9b6d62911e216bd14cd4ceefb4b8458987",
+      "newSha256": "108a0020306fb42cd7b603b0aaec4f9b6d62911e216bd14cd4ceefb4b8458987",
+      "rawBytesIdentical": true,
+      "zipEntriesIdentical": true
+    },
+    "contract-validation-debug-androidTest.apk": {
+      "originalSha256": "ddbe0bca890646a81d485b50d6191a3199f9f1beaceb6dd78e01e677740b2e3d",
+      "newSha256": "ddbe0bca890646a81d485b50d6191a3199f9f1beaceb6dd78e01e677740b2e3d",
+      "rawBytesIdentical": true,
+      "zipEntriesIdentical": true
+    }
+  },
+  "conclusion": "Android package contents identical; existing device acceptance retained. Host tooling independently revalidated; no new device run claimed."
+}

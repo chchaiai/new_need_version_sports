@@ -1,0 +1,33 @@
+{
+  "acceptedBuildResultSha256": "71d985c4e73980df5a83455e7c8013a13963ee67275c28a79938e026e5faa90a",
+  "compiledAndroidSources": "BYTE_IDENTICAL_TO_ACCEPTED_STEP6",
+  "changes": [
+    {
+      "path": "BNBU-ANDROID/contract-validation/README.md",
+      "beforeSha256": "c2f81d89e090d1b745cecfef0d2483ce2abc7a8f276f752c1f61a078c94d8d73",
+      "afterSha256": "daa9ff911762c2949c4f0d11b90c904b98dc03d1cb72ad2d9300db1972ccf17a",
+      "classification": "DOCUMENTATION_ONLY"
+    },
+    {
+      "path": "BNBU-ANDROID/tools/phase6/run_step02.py",
+      "beforeSha256": "ba8bb2795391c6ce93d405e94eb595823d7193ee8164f2e08d279d0221904446",
+      "afterSha256": "44c3c6593ed68ea5462f23ff7562f2f48cf64981d79de39b94c777a8a0983d3c",
+      "classification": "HOST_VERIFICATION_TOOLING"
+    },
+    {
+      "path": "BNBU-ANDROID/tools/phase6/published_input_seal.py",
+      "beforeSha256": null,
+      "afterSha256": "6dad54a4ea5b09d8f5130498c792c534a72e84a9829707849cc269b6287c49c1",
+      "classification": "HOST_VERIFICATION_TOOLING"
+    },
+    {
+      "path": "BNBU-ANDROID/tools/phase6/test_published_input_seal.py",
+      "beforeSha256": null,
+      "afterSha256": "8d571a0c406bb7474bbab3f86b5bff2be9ee9912c7fb4408daba287063e9c860",
+      "classification": "HOST_VERIFICATION_TOOLING"
+    }
+  ],
+  "originalSnapshot": "phase6a-final-evidence.zip/tested-source",
+  "sourceGate": "UNCHANGED; new reproduction has its own exact source seal",
+  "reproductionResultSha256": "7de71de8e39d3321b8e54cd9699d65619b4784209ca555b711f8be094853b1e3"
+}

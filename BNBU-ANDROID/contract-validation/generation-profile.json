@@ -1,0 +1,12 @@
+{
+  "profile": "phase6-lossless-date-wire-v1",
+  "dateLibrary": "string",
+  "rationale": "The published schema and RFC3339 allow variable fractional seconds. Preserve the original date/date-time string without timezone conversion, fractional padding or nanosecond truncation. Validate format strictly before decoding and after encoding. Domain/display time conversion is a later Mapper responsibility.",
+  "publishedRecipe": "contracts/validation/step06_final/reproduce.py",
+  "unchanged": ["Contract Version/Status/SHA", "generator 7.24.0", "both generator libraries", "26 selected wrappers", "published templates", "all non-date mappings"],
+  "finding": "F6A-03-01",
+  "references": [
+    "https://www.rfc-editor.org/rfc/rfc3339.html#section-5.6",
+    "https://openapi-generator.tech/docs/generators/kotlin/"
+  ]
+}

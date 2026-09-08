@@ -1,0 +1,1201 @@
+{
+  "file": "phase6a-final-evidence.zip",
+  "sha256": "e9b4282fea8978c65530c97c39abd721b61f42b91a8caa3367004886543229bb",
+  "bytes": 64288760,
+  "localPath": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T07\\phase6a-final-evidence.zip",
+  "distribution": "Separate owner-held evidence attachment, not uploaded by this step",
+  "files": {
+    "T06/audit.json": {
+      "sha256": "8f493d84d8826f588de021f59da1f636d6750c6a3f8ac08e5b7d57cdeb70882d",
+      "bytes": 23639
+    },
+    "T06/audit_step06.py": {
+      "sha256": "f6db8753941884372df07973c8263c0543eefca3a52554a4112ffc4334c772e5",
+      "bytes": 15355
+    },
+    "T06/build-05-cache-semantics/01-binding-controls.log": {
+      "sha256": "1204cdcd1c47d497d640e1921734e5123ff99013781cbf965ba35f92b5643868",
+      "bytes": 1088
+    },
+    "T06/build-05-cache-semantics/02-published-input-seal.log": {
+      "sha256": "583c3533adb1d36b35262a7a4c7709eb9e60c55cf2c80aef43d528a99171ded1",
+      "bytes": 133
+    },
+    "T06/build-05-cache-semantics/03-android-build-and-tests.log": {
+      "sha256": "484e6cb8e14ae27114e7a902eae7248243917d5ed64efe6f59e9b3a81049fe50",
+      "bytes": 6636
+    },
+    "T06/build-05-cache-semantics/04-diff-whitespace.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "T06/build-05-cache-semantics/05-working-tree.log": {
+      "sha256": "042f3c3912606a96a0a9f6e6900e9e6326747be09655cecc25e4a04a9b2498a5",
+      "bytes": 96
+    },
+    "T06/build-05-cache-semantics/commands.json": {
+      "sha256": "188a3000d24172267c31870dca3353e3778caf180503cdb9c1ec992dbba5293a",
+      "bytes": 2561
+    },
+    "T06/build-05-cache-semantics/contract-validation-debug-androidTest.apk": {
+      "sha256": "ddbe0bca890646a81d485b50d6191a3199f9f1beaceb6dd78e01e677740b2e3d",
+      "bytes": 11372870
+    },
+    "T06/build-05-cache-semantics/contract-validation-debug.aar": {
+      "sha256": "108a0020306fb42cd7b603b0aaec4f9b6d62911e216bd14cd4ceefb4b8458987",
+      "bytes": 1352898
+    },
+    "T06/build-05-cache-semantics/full-schema.json": {
+      "sha256": "b9a1e2fb98b780a277a7ff44fade1387d58a373ee1e02f0f5a04166aa3b4841e",
+      "bytes": 882535
+    },
+    "T06/build-05-cache-semantics/generation-first/base-models.config.json": {
+      "sha256": "5bbc58431ce5386fb5ffd272faad94f4f7b631110f3dccde571d12e5ea05a2d8",
+      "bytes": 18243
+    },
+    "T06/build-05-cache-semantics/generation-first/base-models.log": {
+      "sha256": "e6662733fc44a88c2607ec15554476ecd0cb45c73380f02235caea3f98ed6788",
+      "bytes": 262901
+    },
+    "T06/build-05-cache-semantics/generation-first/commands.json": {
+      "sha256": "3a35db67b55d932e1b7b08583e232c6738d3d5c202571dcc6c4ce14049c07448",
+      "bytes": 1075
+    },
+    "T06/build-05-cache-semantics/generation-first/model-manifest.json": {
+      "sha256": "673dc38512e1ef8241a985010314c84d6f2723637d2cb8e7187a295867d2c4c2",
+      "bytes": 32011
+    },
+    "T06/build-05-cache-semantics/generation-first/selected-wrappers.config.json": {
+      "sha256": "c9b731a1bc0da0f0ae07b695104efb4ed500f75684dd8dacdaf92a3ffecb4669",
+      "bytes": 19192
+    },
+    "T06/build-05-cache-semantics/generation-first/selected-wrappers.log": {
+      "sha256": "f4aa5af5e38936f7efeac2cba809e2f38e12e1f4e07c1fececa7291f56678099",
+      "bytes": 76828
+    },
+    "T06/build-05-cache-semantics/generation-result.json": {
+      "sha256": "7fe53ff9f2739a2770bc9f0bc5244326286629180af4bec171f8299438166760",
+      "bytes": 69263
+    },
+    "T06/build-05-cache-semantics/generation-second/base-models.config.json": {
+      "sha256": "d771b9122336448447e4a49c03de4bad4f5b4960968db121fddd6eacc0f9cd46",
+      "bytes": 18244
+    },
+    "T06/build-05-cache-semantics/generation-second/base-models.log": {
+      "sha256": "f68112f2494e8ea338d1cc271dfa9e28ebded0da0094d5d38240eea7f154c819",
+      "bytes": 263573
+    },
+    "T06/build-05-cache-semantics/generation-second/commands.json": {
+      "sha256": "16cb2db39549e31a68b1be707a445c862886f2c699de5e5b54fe260d90047ccb",
+      "bytes": 1077
+    },
+    "T06/build-05-cache-semantics/generation-second/model-manifest.json": {
+      "sha256": "673dc38512e1ef8241a985010314c84d6f2723637d2cb8e7187a295867d2c4c2",
+      "bytes": 32011
+    },
+    "T06/build-05-cache-semantics/generation-second/selected-wrappers.config.json": {
+      "sha256": "c49bf56f4a81825ce89fc707373726d3e8b88a07ff2e48ad4b9eb36ed3967209",
+      "bytes": 19193
+    },
+    "T06/build-05-cache-semantics/generation-second/selected-wrappers.log": {
+      "sha256": "62c16d750a56d03fd13013315dc1f6b1721a98b6e82dfd117806c93989c904a4",
+      "bytes": 76900
+    },
+    "T06/build-05-cache-semantics/junit/TEST-Phase6ContractSchemaTest.xml": {
+      "sha256": "2879c8aad73369309f1e29c86ae70d5d0ab118dfd917c9d3ecc5297b7ef9b7a0",
+      "bytes": 765
+    },
+    "T06/build-05-cache-semantics/junit/TEST-Phase6ContractSmokeTest.xml": {
+      "sha256": "c17ccb62bc30556742dc2f9c36080fc0fced36aa611fca097b224822614c0ac7",
+      "bytes": 509
+    },
+    "T06/build-05-cache-semantics/junit/TEST-Phase6MapperTest.xml": {
+      "sha256": "6d87eb558af2e5a3b4ef7af7e7769cf8f5140164ec3d57da809d7be191b005cb",
+      "bytes": 35459
+    },
+    "T06/build-05-cache-semantics/junit/TEST-Phase6MockBoundaryTest.xml": {
+      "sha256": "7a1191173362ed5ae51720498454c337be17e75f122cd9796e065faf6b10d075",
+      "bytes": 3197
+    },
+    "T06/build-05-cache-semantics/junit/TEST-Phase6MockTest.xml": {
+      "sha256": "0089cb6e2617fc2292de628b1b4c68c744b1bc28c03bc4f1e3c672b4e2e2d69a",
+      "bytes": 5338
+    },
+    "T06/build-05-cache-semantics/junit/binary/output-events.bin": {
+      "sha256": "f5cf4220802507b97a8432588d27f7df7f39c412ae59a3c1a48b32716e6eab6c",
+      "bytes": 269
+    },
+    "T06/build-05-cache-semantics/junit/binary/results-generic.bin": {
+      "sha256": "526dc62f51841fe5335d0a45a5d650b9df9c70991aa248e17b1a66cd48aea55e",
+      "bytes": 57546
+    },
+    "T06/build-05-cache-semantics/mapper-coverage.json": {
+      "sha256": "487a17cc348bc5be82e794b91f82c230467625a65e497bcd31a5c7778366c230",
+      "bytes": 38640
+    },
+    "T06/build-05-cache-semantics/mapper.json": {
+      "sha256": "d60107f20e2527d5b37e024769fb29c8e450ed9764a9dfbbf08897c0bb9f7708",
+      "bytes": 25134
+    },
+    "T06/build-05-cache-semantics/mock-coverage.json": {
+      "sha256": "cbb62b3083390feab1381bc0602dbcc77a9c73c7bc4144df061ad2c931d13808",
+      "bytes": 1482
+    },
+    "T06/build-05-cache-semantics/mock-input.json": {
+      "sha256": "892df0a954c1b771f7e1a474ba6b62ea3bc56c60a6ff4f3d6de78e232b1eaf6d",
+      "bytes": 2356220
+    },
+    "T06/build-05-cache-semantics/mock-plan.json": {
+      "sha256": "9b8fd5a5463cfb52e1fb583128f0e66bce6a4d4a3cfb60d2103d872e262a8318",
+      "bytes": 488
+    },
+    "T06/build-05-cache-semantics/mock.json": {
+      "sha256": "818af848bd7941a2f03a32a9b0daf42b06fdb1342f5a3fb231b19d278e0cad7e",
+      "bytes": 18251
+    },
+    "T06/build-05-cache-semantics/result.json": {
+      "sha256": "71d985c4e73980df5a83455e7c8013a13963ee67275c28a79938e026e5faa90a",
+      "bytes": 15383
+    },
+    "T06/build-05-cache-semantics/schema-coverage.json": {
+      "sha256": "c80760d2c9c8bd5fcbef1fc71acc2007512dd8fe336a9340e535bd0417fff2aa",
+      "bytes": 43130
+    },
+    "T06/build-05-cache-semantics/schema-input.json": {
+      "sha256": "2f6e55a0d54e7b7e8696a9f8b003f46d593e3e5541fc76c32fba2a58bfd58c8c",
+      "bytes": 2268571
+    },
+    "T06/build-05-cache-semantics/schema-plan.json": {
+      "sha256": "14c88e22c3320925870f7cd105eb4e9895121dfc8a7b01b32a80fde3b958df7f",
+      "bytes": 4944
+    },
+    "T06/build-05-cache-semantics/smoke-input.json": {
+      "sha256": "526dc25775de8b267e95b7aeee9c4f6917c0f9f0205ba3a46ae527deecf340a7",
+      "bytes": 1256144
+    },
+    "T06/build-05-cache-semantics/source-before.json": {
+      "sha256": "22e2274e37b21fc467d4b9b55a1baa254b424506cb33c655768a2471ceb04062",
+      "bytes": 6810
+    },
+    "T06/build-05-cache-semantics/strict-smoke.json": {
+      "sha256": "6a46baf193471a418d81dbe662699022cc3fc6340a8213c4707f077761648f14",
+      "bytes": 18491
+    },
+    "T06/build-05-cache-semantics/supplemental-input.json": {
+      "sha256": "19087d7d6804066f3be5e9f6228cf7d04533c837399f952560efb637e2e2ba93",
+      "bytes": 1362644
+    },
+    "T06/build-05-cache-semantics/supplemental-schema.json": {
+      "sha256": "0d90478665d92e1c576a144f1925df2b1d376a338d9c28b0f5419a6d05ed3425",
+      "bytes": 87335
+    },
+    "T06/cleanup.json": {
+      "sha256": "60a0027b75690deefbb80cbfda29b5ec8bb0a70506b7fca59e220a523d5ac1ba",
+      "bytes": 389
+    },
+    "T06/device-full-02-final/01-boot.log": {
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+      "bytes": 3
+    },
+    "T06/device-full-02-final/02-install.log": {
+      "sha256": "c4aa470acafcf8576c15b0f0b5ae7e852d1ec5413372d0e6a9272e788e1306d3",
+      "bytes": 38
+    },
+    "T06/device-full-02-final/03-installed-path.log": {
+      "sha256": "d793a215ac1291648b2d3665158b782856749cf9d200d8338a2dd70adc1110fd",
+      "bytes": 121
+    },
+    "T06/device-full-02-final/04-pull-installed.log": {
+      "sha256": "41e4775046b13f03845090b285838eed875dc90c75005a40ce106ae58affb2a2",
+      "bytes": 177
+    },
+    "T06/device-full-02-final/05-instrumentation.log": {
+      "sha256": "666c49266c16b54c2d1dec222ca535d9acbf08e23c4736d12ef7e04b37e7b453",
+      "bytes": 47108
+    },
+    "T06/device-full-02-final/06-runtime-errors.log": {
+      "sha256": "dff9a192ddd216a702f0bc64523aac52f4563e04192c23571ef0562385a7d6e5",
+      "bytes": 56534
+    },
+    "T06/device-full-02-final/07-pull-device-evidence.log": {
+      "sha256": "5aca0620ee598a31019f64651ca0516cfc97ba1195a4702b8f96e375c49dc547",
+      "bytes": 149
+    },
+    "T06/device-full-02-final/commands.json": {
+      "sha256": "cc7e27e49a21dfe724af4c23adbf6e93d0b01b772ab437c4bd5eaaef91fda8ad",
+      "bytes": 6632
+    },
+    "T06/device-full-02-final/device-files/account_deletion_retains_facts.png": {
+      "sha256": "44ddf55900501423f1fb264080a1327d08d701bdf35d50ba723cd0c657947277",
+      "bytes": 57102
+    },
+    "T06/device-full-02-final/device-files/account_student_verified_email.png": {
+      "sha256": "1481542944be045e75baeef6779e766ca81403f9f014a0c21aa173b5ed907871",
+      "bytes": 61654
+    },
+    "T06/device-full-02-final/device-files/application_explicit_exemption_kind.png": {
+      "sha256": "2fbd49f49891709f8f76657f6acade72648b5cdbd6963609f02e34cb43c42101",
+      "bytes": 74956
+    },
+    "T06/device-full-02-final/device-files/applications_empty.png": {
+      "sha256": "637ce920d33b5708459f33032bd57ef4483ed3c916b1e3cd9b6f7342f053172f",
+      "bytes": 43942
+    },
+    "T06/device-full-02-final/device-files/archived_record_is_read_only.png": {
+      "sha256": "37f5eea46dd26fbd9cee896999d2631a40bca582121bf4a46522f0ef090dc2f6",
+      "bytes": 146108
+    },
+    "T06/device-full-02-final/device-files/dashboard_unjoined.png": {
+      "sha256": "ba4375e3dfd9559da71389f111e81cc084a7148f38be642688cc527760ba540a",
+      "bytes": 57249
+    },
+    "T06/device-full-02-final/device-files/endurance_exempt.png": {
+      "sha256": "577049a240dfe1fae551fb082b68c565c30f45c0408d70e87e146133da9d679e",
+      "bytes": 66285
+    },
+    "T06/device-full-02-final/device-files/endurance_raw_measured.png": {
+      "sha256": "7b09beff38ddf1350542561caea547e4f2b5e9dc32f194db84c93cc13fe7483c",
+      "bytes": 76279
+    },
+    "T06/device-full-02-final/device-files/feedback_detail_deleted_email.png": {
+      "sha256": "cc89d6bd638120887e198d4843a3a300c117524ee55db03b4284a00cd8785738",
+      "bytes": 51694
+    },
+    "T06/device-full-02-final/device-files/feedback_empty.png": {
+      "sha256": "4dbbc48a688cd3fdf49c315e8be0ec44f49a45fe884193c446da129ec30080f5",
+      "bytes": 46114
+    },
+    "T06/device-full-02-final/device-files/first_material_before_deadline.png": {
+      "sha256": "53598d93969b3fe65da34b14f8c39420a912c8df5a34e36538e7e0ecbd40c9cf",
+      "bytes": 86870
+    },
+    "T06/device-full-02-final/device-files/first_material_cached_cannot_write.png": {
+      "sha256": "64281d25723d6e55e4271d47685f85a6f0d7712c2304d5bfa009fe29626a9653",
+      "bytes": 83264
+    },
+    "T06/device-full-02-final/device-files/first_material_exact_deadline_closed.png": {
+      "sha256": "c832af88c8bf067a0e9c2ad0f0c77796a8f9779d765fcbb795b362786666b44e",
+      "bytes": 78170
+    },
+    "T06/device-full-02-final/device-files/first_receipt_alone_cannot_resume.png": {
+      "sha256": "53c5987fc96eb78756dea668d038607963b915873a092e33eb62caa1054c93ce",
+      "bytes": 86577
+    },
+    "T06/device-full-02-final/device-files/help_cached_read_only.png": {
+      "sha256": "183c07b71c935adbd55256f3a853ae4b2aa59eb198e590e071e27291422c1c58",
+      "bytes": 58232
+    },
+    "T06/device-full-02-final/device-files/help_public.png": {
+      "sha256": "a2345f60f687f01065ce6163f3c982b50cea66f96a1d64f7cfdfa070f0c9af1b",
+      "bytes": 52749
+    },
+    "T06/device-full-02-final/device-files/http_error_AUTHENTICATION_REQUIRED.png": {
+      "sha256": "67d46e84877c5f171c4bfb9a952df76f0bcab249ad0bd265cc56ad52fe544866",
+      "bytes": 71021
+    },
+    "T06/device-full-02-final/device-files/http_error_DEPENDENCY_UNAVAILABLE.png": {
+      "sha256": "6477fcf43889c17d4bbb64c83dd70fb6236f42eefc578747cebc86925aa7839f",
+      "bytes": 65228
+    },
+    "T06/device-full-02-final/device-files/http_error_FORBIDDEN.png": {
+      "sha256": "1c16afb9d5e3ed8868a2e34cbfa89db0a5ffdc2a6085b783f0cb259c35aaee5d",
+      "bytes": 52381
+    },
+    "T06/device-full-02-final/device-files/http_error_INTERNAL_ERROR.png": {
+      "sha256": "e60b7e5be041c40bd590fd3b178d38c39c5f7128009075280b5c4663b3f2666f",
+      "bytes": 62728
+    },
+    "T06/device-full-02-final/device-files/http_error_SYSTEM_MAINTENANCE.png": {
+      "sha256": "53ad91df9941b6b772043efd1b7b5fb05b92d8daa48e5ae6eaada2c1a02cabc7",
+      "bytes": 57287
+    },
+    "T06/device-full-02-final/device-files/http_error_TOKEN_EXPIRED.png": {
+      "sha256": "0442494be9f6eb10e571832edb8295920b00bc1544ca716abdde448c00a30d35",
+      "bytes": 69506
+    },
+    "T06/device-full-02-final/device-files/invitation_active_new_registration.png": {
+      "sha256": "24dee3482baf0ab75fa57f266c101f428cdc04b7ca576942a652badd6e9220e7",
+      "bytes": 70466
+    },
+    "T06/device-full-02-final/device-files/invitation_expired_new_flow_blocked.png": {
+      "sha256": "a212e53f990de97405648fef18bf86edc2fb6d522b94d43d2fd81a80f1d2d4a9",
+      "bytes": 66379
+    },
+    "T06/device-full-02-final/device-files/invitation_join_closed.png": {
+      "sha256": "28352a1b254eb87f8094da57a1d3de23362330fb4c52c3450db00aa3f8c6fc22",
+      "bytes": 68587
+    },
+    "T06/device-full-02-final/device-files/loading.png": {
+      "sha256": "1f78ba5f434a22eeb1a7943c4d1c4f71610483e4327f57cb94e4a559b5987d8b",
+      "bytes": 38003
+    },
+    "T06/device-full-02-final/device-files/maintenance_estimate_does_not_unlock.png": {
+      "sha256": "d5616877c81bd8806e266aca9b383ee29ecf2fa53ebd53db17dab69b9255c337",
+      "bytes": 79910
+    },
+    "T06/device-full-02-final/device-files/notifications_empty.png": {
+      "sha256": "e5e3e5197e4f1faab60c672ee88449b4bca67b1e73b29ddb0a07b63707e6c4f4",
+      "bytes": 44936
+    },
+    "T06/device-full-02-final/device-files/notifications_explicit_target.png": {
+      "sha256": "4d6aa5f3032506aff20a92a1d90e9652dce92e59199570d375c900402330660b",
+      "bytes": 54146
+    },
+    "T06/device-full-02-final/device-files/progress_1199_is_not_target_met.png": {
+      "sha256": "8fa86e79f3d9e1535593f58d571ce1b8d7c2e8bc7413feb415eec769c080777f",
+      "bytes": 80736
+    },
+    "T06/device-full-02-final/device-files/progress_cached_is_read_only.png": {
+      "sha256": "db8bb8a7ce32a76bb8f3b86d0caf6f00de6c1d115964aa921f7e4ecde9925964",
+      "bytes": 90776
+    },
+    "T06/device-full-02-final/device-files/progress_recomputing_keeps_old_checkpoint.png": {
+      "sha256": "ab8e00d1c328d0482718c4a688ef8803273f9aa3cc53dc84c390d6a5c13b38c9",
+      "bytes": 93983
+    },
+    "T06/device-full-02-final/device-files/progress_unavailable_is_not_zero.png": {
+      "sha256": "0beadcc59daab012098c0afd0ad298c7b2277794dd24346f1e0188f438b09b21",
+      "bytes": 62410
+    },
+    "T06/device-full-02-final/device-files/record_await_supplement.png": {
+      "sha256": "c191aefd16b60d0a2282658d8378be60943e375f3e623cb8d736ba7d50f7c739",
+      "bytes": 149334
+    },
+    "T06/device-full-02-final/device-files/record_pending_material.png": {
+      "sha256": "036a3e77161223e836a55120e8dcf29f3f202098c73746ad2fb17e1dcd90c4f2",
+      "bytes": 96825
+    },
+    "T06/device-full-02-final/device-files/record_round2.png": {
+      "sha256": "fac14a4380f17dd84adb9dd3a7c6909eff6f013f42a4a340fc52694e17090fb2",
+      "bytes": 159904
+    },
+    "T06/device-full-02-final/device-files/record_teacher_round1.png": {
+      "sha256": "93c8efc6b59f9456645758968557b97f79d939cf2ef177994109d2ab766ef985",
+      "bytes": 118889
+    },
+    "T06/device-full-02-final/device-files/record_valid.png": {
+      "sha256": "85a186b395b8bc46651079eaa54b4e922dd707e2cf4019e74d7f5ed04e6a29f5",
+      "bytes": 122843
+    },
+    "T06/device-full-02-final/device-files/records_cursor_exact.png": {
+      "sha256": "2f7ab0cf95889015f76fea1f31706adccc1bc98e4c904e2bac698bf294b4f5bc",
+      "bytes": 98355
+    },
+    "T06/device-full-02-final/device-files/records_empty_only_typed_200.png": {
+      "sha256": "54fca5113194be423db715c0e69b452c12c820a03fea8fd9a258d0b7ab6ab301",
+      "bytes": 43310
+    },
+    "T06/device-full-02-final/device-files/release_forced_upgrade.png": {
+      "sha256": "b8fcf95cb0c9d9029f810be57f115c41aa119d0363352d3af94b695a95044f30",
+      "bytes": 53813
+    },
+    "T06/device-full-02-final/device-files/retry-after.png": {
+      "sha256": "35d6cba74f865b9f9126bdbaf37a01e99fdbe01a7b67ff4a9e02d41abf53b4d1",
+      "bytes": 58942
+    },
+    "T06/device-full-02-final/device-files/retry-before.png": {
+      "sha256": "e43be963e7d1b9c5e817c9beed6f793020251b22388b31acc76e223f228acfac",
+      "bytes": 65247
+    },
+    "T06/device-full-02-final/device-files/schema-input.json": {
+      "sha256": "2f6e55a0d54e7b7e8696a9f8b003f46d593e3e5541fc76c32fba2a58bfd58c8c",
+      "bytes": 2268571
+    },
+    "T06/device-full-02-final/device-files/schema-result.json": {
+      "sha256": "d2d36e02e41bb55dffbf3ce890ab17831f224258fd43d7cf9afefc428e88dab5",
+      "bytes": 882238
+    },
+    "T06/device-full-02-final/device-files/session_restore_server_seconds.png": {
+      "sha256": "de9a6b7def2ef959d7ccba01b9df2b1fde0b76cb43e91805d000496096ad6186",
+      "bytes": 73422
+    },
+    "T06/device-full-02-final/device-files/supplement_timer_paused.png": {
+      "sha256": "53626876373e5455b52dd20ee0d58f48465ad78a2179be40a5453bced9613739",
+      "bytes": 129854
+    },
+    "T06/device-full-02-final/device-files/supplement_timer_unavailable.png": {
+      "sha256": "7fd729a911d72758c4a870fc8f3bbf55462819bfa83c397c5b02b8b3d01eab15",
+      "bytes": 125439
+    },
+    "T06/device-full-02-final/device-files/supplemental-input.json": {
+      "sha256": "19087d7d6804066f3be5e9f6228cf7d04533c837399f952560efb637e2e2ba93",
+      "bytes": 1362644
+    },
+    "T06/device-full-02-final/device-files/supplemental-result.json": {
+      "sha256": "635f6cbb50907e334fef99cd4000d3b9d88e7b606787012367225174834f68e4",
+      "bytes": 87038
+    },
+    "T06/device-full-02-final/device-files/technical_processing_never_invalid.png": {
+      "sha256": "6191c490bff98063963ecb83af4de42bee0a166211ec7828cbf558d92be6004e",
+      "bytes": 96930
+    },
+    "T06/device-full-02-final/device.json": {
+      "sha256": "af124b38cfce1867def51929efa87b3cb38e38a4aef085467f3d3e89b8dfc78a",
+      "bytes": 457
+    },
+    "T06/device-full-02-final/display.log": {
+      "sha256": "3f7189edd4a9581e83852e569ec69f497395017aec06f8022126805128a89330",
+      "bytes": 26
+    },
+    "T06/device-full-02-final/installed-test.apk": {
+      "sha256": "ddbe0bca890646a81d485b50d6191a3199f9f1beaceb6dd78e01e677740b2e3d",
+      "bytes": 11372870
+    },
+    "T06/device-full-02-final/junit.xml": {
+      "sha256": "517e13c2f69e085715b1f77cc03efd93713976f9446010fd1fe65f9fff5b84d9",
+      "bytes": 7626
+    },
+    "T06/device-full-02-final/page-size.log": {
+      "sha256": "0cf3b033a9e93a0bc41f772e408f46e947755926bd81e15a470ae9b14f697653",
+      "bytes": 7
+    },
+    "T06/device-full-02-final/property-ro.build.fingerprint.log": {
+      "sha256": "fbd84618c40b0af46f30c48925fd7af1f5bcb41f2357a3308bc37941bff036e9",
+      "bytes": 82
+    },
+    "T06/device-full-02-final/property-ro.build.version.codename.log": {
+      "sha256": "3b98592ee38aeb7ecddaab710819a5e9721840a8b5acd5f176aeb1a0ffbfb930",
+      "bytes": 5
+    },
+    "T06/device-full-02-final/property-ro.build.version.release.log": {
+      "sha256": "5b677464f4941a4c274964d723bf47e3cd7cdcb5d53379a3b7176f0c456cf9a0",
+      "bytes": 4
+    },
+    "T06/device-full-02-final/property-ro.build.version.sdk.log": {
+      "sha256": "a77b54178e2066fdc29229d4c0b59051caedc92e918e037928e185d39ad86316",
+      "bytes": 4
+    },
+    "T06/device-full-02-final/property-ro.kernel.qemu.log": {
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+      "bytes": 3
+    },
+    "T06/device-full-02-final/property-ro.product.cpu.abi.log": {
+      "sha256": "73639484b8886a56b085ee97e76ead4218da03db9c2e5c88dd656c06bca60243",
+      "bytes": 8
+    },
+    "T06/device-full-02-final/property-ro.product.model.log": {
+      "sha256": "bf00b0f6e3351f4e64aa3373a03e0558242abb43da3438be83d03a1cbc6e2089",
+      "bytes": 22
+    },
+    "T06/device-full-02-final/result.json": {
+      "sha256": "d1d39d08e71806cedb7943902ae51ea6accac9e05601d3914555296f8ec638d2",
+      "bytes": 67522
+    },
+    "T06/device-full-02-final/source-before.json": {
+      "sha256": "638763b549f835e69d7359b1b4e9630d9e1a6d284922cf748040b33c70561e9b",
+      "bytes": 6704
+    },
+    "T06/device-landscape-font2-final/01-boot.log": {
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+      "bytes": 3
+    },
+    "T06/device-landscape-font2-final/02-install.log": {
+      "sha256": "c4aa470acafcf8576c15b0f0b5ae7e852d1ec5413372d0e6a9272e788e1306d3",
+      "bytes": 38
+    },
+    "T06/device-landscape-font2-final/03-installed-path.log": {
+      "sha256": "f78f082f4b914292bbc3bc4d0342abcafac47596b31dc3122b1f2bd3616182a2",
+      "bytes": 121
+    },
+    "T06/device-landscape-font2-final/04-pull-installed.log": {
+      "sha256": "2dccebcb8238acfe745b51ee86fbf83401f8b360ef378811c79b75ba00de29bc",
+      "bytes": 177
+    },
+    "T06/device-landscape-font2-final/05-instrumentation.log": {
+      "sha256": "7a820cbc3edae7fec85fb0e47377626b360d10b2e3960900d7dbabf67d59a40a",
+      "bytes": 738
+    },
+    "T06/device-landscape-font2-final/06-runtime-errors.log": {
+      "sha256": "da9e7b7bf779bb1012b3416ed5b34f9613c782bb671042808c77c50aaf1975eb",
+      "bytes": 56935
+    },
+    "T06/device-landscape-font2-final/07-pull-device-evidence.log": {
+      "sha256": "a173797a2141ac150981441ace6c3f0ce18da4a9538116cde64bdeca5eba7cc8",
+      "bytes": 149
+    },
+    "T06/device-landscape-font2-final/commands.json": {
+      "sha256": "533a18ca85f39529a40a28c497d3415e3270f674f66d1a3ab4217053870f326c",
+      "bytes": 6583
+    },
+    "T06/device-landscape-font2-final/device-files/account_deletion_retains_facts.png": {
+      "sha256": "44ddf55900501423f1fb264080a1327d08d701bdf35d50ba723cd0c657947277",
+      "bytes": 57102
+    },
+    "T06/device-landscape-font2-final/device-files/account_student_verified_email.png": {
+      "sha256": "1481542944be045e75baeef6779e766ca81403f9f014a0c21aa173b5ed907871",
+      "bytes": 61654
+    },
+    "T06/device-landscape-font2-final/device-files/application_explicit_exemption_kind.png": {
+      "sha256": "2fbd49f49891709f8f76657f6acade72648b5cdbd6963609f02e34cb43c42101",
+      "bytes": 74956
+    },
+    "T06/device-landscape-font2-final/device-files/applications_empty.png": {
+      "sha256": "637ce920d33b5708459f33032bd57ef4483ed3c916b1e3cd9b6f7342f053172f",
+      "bytes": 43942
+    },
+    "T06/device-landscape-font2-final/device-files/archived_record_is_read_only.png": {
+      "sha256": "37f5eea46dd26fbd9cee896999d2631a40bca582121bf4a46522f0ef090dc2f6",
+      "bytes": 146108
+    },
+    "T06/device-landscape-font2-final/device-files/dashboard_unjoined.png": {
+      "sha256": "ba4375e3dfd9559da71389f111e81cc084a7148f38be642688cc527760ba540a",
+      "bytes": 57249
+    },
+    "T06/device-landscape-font2-final/device-files/endurance_exempt.png": {
+      "sha256": "577049a240dfe1fae551fb082b68c565c30f45c0408d70e87e146133da9d679e",
+      "bytes": 66285
+    },
+    "T06/device-landscape-font2-final/device-files/endurance_raw_measured.png": {
+      "sha256": "7b09beff38ddf1350542561caea547e4f2b5e9dc32f194db84c93cc13fe7483c",
+      "bytes": 76279
+    },
+    "T06/device-landscape-font2-final/device-files/feedback_detail_deleted_email.png": {
+      "sha256": "cc89d6bd638120887e198d4843a3a300c117524ee55db03b4284a00cd8785738",
+      "bytes": 51694
+    },
+    "T06/device-landscape-font2-final/device-files/feedback_empty.png": {
+      "sha256": "4dbbc48a688cd3fdf49c315e8be0ec44f49a45fe884193c446da129ec30080f5",
+      "bytes": 46114
+    },
+    "T06/device-landscape-font2-final/device-files/first_material_before_deadline.png": {
+      "sha256": "53598d93969b3fe65da34b14f8c39420a912c8df5a34e36538e7e0ecbd40c9cf",
+      "bytes": 86870
+    },
+    "T06/device-landscape-font2-final/device-files/first_material_cached_cannot_write.png": {
+      "sha256": "64281d25723d6e55e4271d47685f85a6f0d7712c2304d5bfa009fe29626a9653",
+      "bytes": 83264
+    },
+    "T06/device-landscape-font2-final/device-files/first_material_exact_deadline_closed.png": {
+      "sha256": "c832af88c8bf067a0e9c2ad0f0c77796a8f9779d765fcbb795b362786666b44e",
+      "bytes": 78170
+    },
+    "T06/device-landscape-font2-final/device-files/first_receipt_alone_cannot_resume.png": {
+      "sha256": "53c5987fc96eb78756dea668d038607963b915873a092e33eb62caa1054c93ce",
+      "bytes": 86577
+    },
+    "T06/device-landscape-font2-final/device-files/help_cached_read_only.png": {
+      "sha256": "183c07b71c935adbd55256f3a853ae4b2aa59eb198e590e071e27291422c1c58",
+      "bytes": 58232
+    },
+    "T06/device-landscape-font2-final/device-files/help_public.png": {
+      "sha256": "a2345f60f687f01065ce6163f3c982b50cea66f96a1d64f7cfdfa070f0c9af1b",
+      "bytes": 52749
+    },
+    "T06/device-landscape-font2-final/device-files/http_error_AUTHENTICATION_REQUIRED.png": {
+      "sha256": "67d46e84877c5f171c4bfb9a952df76f0bcab249ad0bd265cc56ad52fe544866",
+      "bytes": 71021
+    },
+    "T06/device-landscape-font2-final/device-files/http_error_DEPENDENCY_UNAVAILABLE.png": {
+      "sha256": "6477fcf43889c17d4bbb64c83dd70fb6236f42eefc578747cebc86925aa7839f",
+      "bytes": 65228
+    },
+    "T06/device-landscape-font2-final/device-files/http_error_FORBIDDEN.png": {
+      "sha256": "1c16afb9d5e3ed8868a2e34cbfa89db0a5ffdc2a6085b783f0cb259c35aaee5d",
+      "bytes": 52381
+    },
+    "T06/device-landscape-font2-final/device-files/http_error_INTERNAL_ERROR.png": {
+      "sha256": "e60b7e5be041c40bd590fd3b178d38c39c5f7128009075280b5c4663b3f2666f",
+      "bytes": 62728
+    },
+    "T06/device-landscape-font2-final/device-files/http_error_SYSTEM_MAINTENANCE.png": {
+      "sha256": "53ad91df9941b6b772043efd1b7b5fb05b92d8daa48e5ae6eaada2c1a02cabc7",
+      "bytes": 57287
+    },
+    "T06/device-landscape-font2-final/device-files/http_error_TOKEN_EXPIRED.png": {
+      "sha256": "0442494be9f6eb10e571832edb8295920b00bc1544ca716abdde448c00a30d35",
+      "bytes": 69506
+    },
+    "T06/device-landscape-font2-final/device-files/invitation_active_new_registration.png": {
+      "sha256": "24dee3482baf0ab75fa57f266c101f428cdc04b7ca576942a652badd6e9220e7",
+      "bytes": 70466
+    },
+    "T06/device-landscape-font2-final/device-files/invitation_expired_new_flow_blocked.png": {
+      "sha256": "a212e53f990de97405648fef18bf86edc2fb6d522b94d43d2fd81a80f1d2d4a9",
+      "bytes": 66379
+    },
+    "T06/device-landscape-font2-final/device-files/invitation_join_closed.png": {
+      "sha256": "28352a1b254eb87f8094da57a1d3de23362330fb4c52c3450db00aa3f8c6fc22",
+      "bytes": 68587
+    },
+    "T06/device-landscape-font2-final/device-files/loading.png": {
+      "sha256": "1f78ba5f434a22eeb1a7943c4d1c4f71610483e4327f57cb94e4a559b5987d8b",
+      "bytes": 38003
+    },
+    "T06/device-landscape-font2-final/device-files/maintenance_estimate_does_not_unlock.png": {
+      "sha256": "d5616877c81bd8806e266aca9b383ee29ecf2fa53ebd53db17dab69b9255c337",
+      "bytes": 79910
+    },
+    "T06/device-landscape-font2-final/device-files/notifications_empty.png": {
+      "sha256": "e5e3e5197e4f1faab60c672ee88449b4bca67b1e73b29ddb0a07b63707e6c4f4",
+      "bytes": 44936
+    },
+    "T06/device-landscape-font2-final/device-files/notifications_explicit_target.png": {
+      "sha256": "4d6aa5f3032506aff20a92a1d90e9652dce92e59199570d375c900402330660b",
+      "bytes": 54146
+    },
+    "T06/device-landscape-font2-final/device-files/progress_1199_is_not_target_met.png": {
+      "sha256": "8fa86e79f3d9e1535593f58d571ce1b8d7c2e8bc7413feb415eec769c080777f",
+      "bytes": 80736
+    },
+    "T06/device-landscape-font2-final/device-files/progress_cached_is_read_only.png": {
+      "sha256": "db8bb8a7ce32a76bb8f3b86d0caf6f00de6c1d115964aa921f7e4ecde9925964",
+      "bytes": 90776
+    },
+    "T06/device-landscape-font2-final/device-files/progress_recomputing_keeps_old_checkpoint.png": {
+      "sha256": "ab8e00d1c328d0482718c4a688ef8803273f9aa3cc53dc84c390d6a5c13b38c9",
+      "bytes": 93983
+    },
+    "T06/device-landscape-font2-final/device-files/progress_unavailable_is_not_zero.png": {
+      "sha256": "0beadcc59daab012098c0afd0ad298c7b2277794dd24346f1e0188f438b09b21",
+      "bytes": 62410
+    },
+    "T06/device-landscape-font2-final/device-files/record_await_supplement.png": {
+      "sha256": "c191aefd16b60d0a2282658d8378be60943e375f3e623cb8d736ba7d50f7c739",
+      "bytes": 149334
+    },
+    "T06/device-landscape-font2-final/device-files/record_pending_material.png": {
+      "sha256": "036a3e77161223e836a55120e8dcf29f3f202098c73746ad2fb17e1dcd90c4f2",
+      "bytes": 96825
+    },
+    "T06/device-landscape-font2-final/device-files/record_round2.png": {
+      "sha256": "fac14a4380f17dd84adb9dd3a7c6909eff6f013f42a4a340fc52694e17090fb2",
+      "bytes": 159904
+    },
+    "T06/device-landscape-font2-final/device-files/record_teacher_round1.png": {
+      "sha256": "93c8efc6b59f9456645758968557b97f79d939cf2ef177994109d2ab766ef985",
+      "bytes": 118889
+    },
+    "T06/device-landscape-font2-final/device-files/record_valid.png": {
+      "sha256": "85a186b395b8bc46651079eaa54b4e922dd707e2cf4019e74d7f5ed04e6a29f5",
+      "bytes": 122843
+    },
+    "T06/device-landscape-font2-final/device-files/records_cursor_exact.png": {
+      "sha256": "2f7ab0cf95889015f76fea1f31706adccc1bc98e4c904e2bac698bf294b4f5bc",
+      "bytes": 98355
+    },
+    "T06/device-landscape-font2-final/device-files/records_empty_only_typed_200.png": {
+      "sha256": "54fca5113194be423db715c0e69b452c12c820a03fea8fd9a258d0b7ab6ab301",
+      "bytes": 43310
+    },
+    "T06/device-landscape-font2-final/device-files/release_forced_upgrade.png": {
+      "sha256": "b8fcf95cb0c9d9029f810be57f115c41aa119d0363352d3af94b695a95044f30",
+      "bytes": 53813
+    },
+    "T06/device-landscape-font2-final/device-files/retry-after.png": {
+      "sha256": "d9891f59b91de00db5f805f51748168fa3d978ef819c702685707e3aecb15b42",
+      "bytes": 78097
+    },
+    "T06/device-landscape-font2-final/device-files/retry-before.png": {
+      "sha256": "393714d71fc94665f51e7f21d2b1fbe2bcabaac118596e4859b263d7ff36e06a",
+      "bytes": 96397
+    },
+    "T06/device-landscape-font2-final/device-files/schema-input.json": {
+      "sha256": "2f6e55a0d54e7b7e8696a9f8b003f46d593e3e5541fc76c32fba2a58bfd58c8c",
+      "bytes": 2268571
+    },
+    "T06/device-landscape-font2-final/device-files/schema-result.json": {
+      "sha256": "d2d36e02e41bb55dffbf3ce890ab17831f224258fd43d7cf9afefc428e88dab5",
+      "bytes": 882238
+    },
+    "T06/device-landscape-font2-final/device-files/session_restore_server_seconds.png": {
+      "sha256": "de9a6b7def2ef959d7ccba01b9df2b1fde0b76cb43e91805d000496096ad6186",
+      "bytes": 73422
+    },
+    "T06/device-landscape-font2-final/device-files/supplement_timer_paused.png": {
+      "sha256": "53626876373e5455b52dd20ee0d58f48465ad78a2179be40a5453bced9613739",
+      "bytes": 129854
+    },
+    "T06/device-landscape-font2-final/device-files/supplement_timer_unavailable.png": {
+      "sha256": "7fd729a911d72758c4a870fc8f3bbf55462819bfa83c397c5b02b8b3d01eab15",
+      "bytes": 125439
+    },
+    "T06/device-landscape-font2-final/device-files/supplemental-input.json": {
+      "sha256": "19087d7d6804066f3be5e9f6228cf7d04533c837399f952560efb637e2e2ba93",
+      "bytes": 1362644
+    },
+    "T06/device-landscape-font2-final/device-files/supplemental-result.json": {
+      "sha256": "635f6cbb50907e334fef99cd4000d3b9d88e7b606787012367225174834f68e4",
+      "bytes": 87038
+    },
+    "T06/device-landscape-font2-final/device-files/technical_processing_never_invalid.png": {
+      "sha256": "6191c490bff98063963ecb83af4de42bee0a166211ec7828cbf558d92be6004e",
+      "bytes": 96930
+    },
+    "T06/device-landscape-font2-final/device.json": {
+      "sha256": "af124b38cfce1867def51929efa87b3cb38e38a4aef085467f3d3e89b8dfc78a",
+      "bytes": 457
+    },
+    "T06/device-landscape-font2-final/display.log": {
+      "sha256": "3f7189edd4a9581e83852e569ec69f497395017aec06f8022126805128a89330",
+      "bytes": 26
+    },
+    "T06/device-landscape-font2-final/installed-test.apk": {
+      "sha256": "ddbe0bca890646a81d485b50d6191a3199f9f1beaceb6dd78e01e677740b2e3d",
+      "bytes": 11372870
+    },
+    "T06/device-landscape-font2-final/junit.xml": {
+      "sha256": "c6cf4892512bfff79a05a95e290837489df095ab0e9c93bde5146dfc83f6d9f2",
+      "bytes": 203
+    },
+    "T06/device-landscape-font2-final/page-size.log": {
+      "sha256": "0cf3b033a9e93a0bc41f772e408f46e947755926bd81e15a470ae9b14f697653",
+      "bytes": 7
+    },
+    "T06/device-landscape-font2-final/property-ro.build.fingerprint.log": {
+      "sha256": "fbd84618c40b0af46f30c48925fd7af1f5bcb41f2357a3308bc37941bff036e9",
+      "bytes": 82
+    },
+    "T06/device-landscape-font2-final/property-ro.build.version.codename.log": {
+      "sha256": "3b98592ee38aeb7ecddaab710819a5e9721840a8b5acd5f176aeb1a0ffbfb930",
+      "bytes": 5
+    },
+    "T06/device-landscape-font2-final/property-ro.build.version.release.log": {
+      "sha256": "5b677464f4941a4c274964d723bf47e3cd7cdcb5d53379a3b7176f0c456cf9a0",
+      "bytes": 4
+    },
+    "T06/device-landscape-font2-final/property-ro.build.version.sdk.log": {
+      "sha256": "a77b54178e2066fdc29229d4c0b59051caedc92e918e037928e185d39ad86316",
+      "bytes": 4
+    },
+    "T06/device-landscape-font2-final/property-ro.kernel.qemu.log": {
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+      "bytes": 3
+    },
+    "T06/device-landscape-font2-final/property-ro.product.cpu.abi.log": {
+      "sha256": "73639484b8886a56b085ee97e76ead4218da03db9c2e5c88dd656c06bca60243",
+      "bytes": 8
+    },
+    "T06/device-landscape-font2-final/property-ro.product.model.log": {
+      "sha256": "bf00b0f6e3351f4e64aa3373a03e0558242abb43da3438be83d03a1cbc6e2089",
+      "bytes": 22
+    },
+    "T06/device-landscape-font2-final/result.json": {
+      "sha256": "6f89ea1f39f284591ea9f6c087003b1eb19dff77d241dfce032978930d02e0cd",
+      "bytes": 15653
+    },
+    "T06/device-landscape-font2-final/source-before.json": {
+      "sha256": "638763b549f835e69d7359b1b4e9630d9e1a6d284922cf748040b33c70561e9b",
+      "bytes": 6704
+    },
+    "T06/manual-review/BNBU-Phase6-ManualReview-debug.apk": {
+      "sha256": "f1045c441b95fd83806f3be65406b14cb3afe78328d7e41a7b96ae014e944814",
+      "bytes": 10416635
+    },
+    "T06/manual-review/apk-signature.log": {
+      "sha256": "b9c6879e48d25a9786d2beb8a15738c06edce7d06f2722dd860894618592bd09",
+      "bytes": 351
+    },
+    "T06/manual-review/app/build.gradle.kts": {
+      "sha256": "54c25b2cb020cc59d3c0a2d1cca61c0a094a8ab5a2e37325dc282710e3a56a9a",
+      "bytes": 2447
+    },
+    "T06/manual-review/app/libs/contract-validation.aar": {
+      "sha256": "108a0020306fb42cd7b603b0aaec4f9b6d62911e216bd14cd4ceefb4b8458987",
+      "bytes": 1352898
+    },
+    "T06/manual-review/app/libs/jmail-2.1.0.jar": {
+      "sha256": "7789f9e86aa02a9c308a650c4e44e17cc4b6caac7f43e261701b0ceefdd4ead4",
+      "bytes": 44132
+    },
+    "T06/manual-review/app/libs/json-schema-1.9.1.jar": {
+      "sha256": "9f448b1142e9805f91f926e709206f1402f11a75da4dee729d98c77194030285",
+      "bytes": 211006
+    },
+    "T06/manual-review/app/src/androidTest/java/DeviceCapture.kt": {
+      "sha256": "39ed3093fcfb03b4a531882fb164ad7852b2cd3f0e842374f806a400f5916d69",
+      "bytes": 1921
+    },
+    "T06/manual-review/app/src/androidTest/java/ManualReviewTest.kt": {
+      "sha256": "a70122e83498fae9124e12ca27884faa7043fea193376686c09c9aba27a3cb4c",
+      "bytes": 3065
+    },
+    "T06/manual-review/app/src/main/AndroidManifest.xml": {
+      "sha256": "43ccd9dc203f59d48fd4886f678167a707e87f1bc35083e91bb3c4ea5430a2a3",
+      "bytes": 658
+    },
+    "T06/manual-review/app/src/main/assets/guide.json": {
+      "sha256": "4fe6b96d412fefaf0214e6c50e533586a559d0456b8c00f1cf2bd4432d02c4fb",
+      "bytes": 20717
+    },
+    "T06/manual-review/app/src/main/assets/identity.json": {
+      "sha256": "692203ea9cde718451ee0be256cdf17186842c0b25a792e497077f4d9a75288d",
+      "bytes": 4532
+    },
+    "T06/manual-review/app/src/main/assets/mock-input.json": {
+      "sha256": "892df0a954c1b771f7e1a474ba6b62ea3bc56c60a6ff4f3d6de78e232b1eaf6d",
+      "bytes": 2356220
+    },
+    "T06/manual-review/app/src/main/java/ContractRuntimeProbe.java": {
+      "sha256": "9bd68818a5ca37c425c1ffb511b28ff06020ad7a6d27c40686de3c4ba1226377",
+      "bytes": 12050
+    },
+    "T06/manual-review/app/src/main/java/MockCases.kt": {
+      "sha256": "dfaa5010c6e57a5485f1de505c59c9e5a056da914d8fafe11d6c4a85fadc7343",
+      "bytes": 13313
+    },
+    "T06/manual-review/app/src/main/java/MockScenarioHarness.kt": {
+      "sha256": "719e2e833db682e77a4e50e401bda0fbd6991fd14b067452d50b90ddf767cf4f",
+      "bytes": 2222
+    },
+    "T06/manual-review/app/src/main/java/Phase6FormatEvaluatorFactory.java": {
+      "sha256": "d4ffe40072e829ad3fb36ac9faaee46bf7d9e72fcf3ffb80f9a4815da7c71512",
+      "bytes": 2122
+    },
+    "T06/manual-review/app/src/main/java/ReviewActivity.kt": {
+      "sha256": "122b6550248a13700b8237a663604b805c84c2612d912e8f94e26039debd953f",
+      "bytes": 13627
+    },
+    "T06/manual-review/app/src/main/java/StrictMockCodec.kt": {
+      "sha256": "8a55ddf2172b41d978308ee025c888dbca64cfa96b58277c69f24bfd085ac705",
+      "bytes": 3733
+    },
+    "T06/manual-review/app/src/main/res/values/styles.xml": {
+      "sha256": "33b075de496f0d0c9c84dbd7e0a9eba996d4b0494400b659b963927c4cb11df5",
+      "bytes": 235
+    },
+    "T06/manual-review/build-01.log": {
+      "sha256": "1eeeca02b84c32300bc6761f10870283e428b681c6206afee20c6a69c36b1c6d",
+      "bytes": 4437
+    },
+    "T06/manual-review/build-02.log": {
+      "sha256": "9d373577b2c3c2ab804a49dad984a9ef6ff288ba0bad206490fef47e1cb4b0ea",
+      "bytes": 4259
+    },
+    "T06/manual-review/build.gradle.kts": {
+      "sha256": "61cd8e15a65a3ded440013250aa5c2bbc875158d0cf2db2e8fc5185ec3c69105",
+      "bytes": 217
+    },
+    "T06/manual-review/delivery.json": {
+      "sha256": "8a2cb6cfd83268469467f1b31c4d7b5f7377e359ba1bcdb243789ca486c770c4",
+      "bytes": 4596
+    },
+    "T06/manual-review/device-01/boot.log": {
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+      "bytes": 3
+    },
+    "T06/manual-review/device-01/commands.json": {
+      "sha256": "1ae6ce0f6484129c7204c134c550fee5504de3b8af3075d0f5e48a82751df081",
+      "bytes": 2646
+    },
+    "T06/manual-review/device-01/disable-data.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "T06/manual-review/device-01/disable-wifi.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "T06/manual-review/device-01/install-app.log": {
+      "sha256": "c4aa470acafcf8576c15b0f0b5ae7e852d1ec5413372d0e6a9272e788e1306d3",
+      "bytes": 38
+    },
+    "T06/manual-review/device-01/install-tests.log": {
+      "sha256": "c4aa470acafcf8576c15b0f0b5ae7e852d1ec5413372d0e6a9272e788e1306d3",
+      "bytes": 38
+    },
+    "T06/manual-review/device-01/installed.apk": {
+      "sha256": "f1045c441b95fd83806f3be65406b14cb3afe78328d7e41a7b96ae014e944814",
+      "bytes": 10416635
+    },
+    "T06/manual-review/device-01/instrumentation.log": {
+      "sha256": "e0ab03cec48ee2e2a0c218c3506a4ae6a3758b99197cf7e7b341d7f7e856463b",
+      "bytes": 1496
+    },
+    "T06/manual-review/device-01/package-path.log": {
+      "sha256": "98528251282be9d9edef84bd86fa89011b0336aa9199965d586613482fbfa120",
+      "bytes": 109
+    },
+    "T06/manual-review/device-01/pull-installed.log": {
+      "sha256": "d7c972d10e833860a55594570fcee0b8e36222d9a628fd251f74c7e5539026a7",
+      "bytes": 165
+    },
+    "T06/manual-review/device-01/result.json": {
+      "sha256": "4d014478be026ac7bf23b3e8478b3d9054853a563404d0912e59673c0beb9be7",
+      "bytes": 3180
+    },
+    "T06/manual-review/device-01/screenshots.log": {
+      "sha256": "b4461b88b42ffe39f952ebe53b67dcc769ee9cb8b4363cbaf703ca5d7d36e0eb",
+      "bytes": 135
+    },
+    "T06/manual-review/device-01/screenshots/manual-cached-progress.png": {
+      "sha256": "6a714ded80e242bf02e0de44e1f1098defbbd250233726617497119ddd5cad94",
+      "bytes": 147160
+    },
+    "T06/manual-review/device-01/screenshots/manual-expected-help.png": {
+      "sha256": "18c54e84988034d6f69dd3945a9f411109f0a00e5898ad0b5cf3219abf00e0a5",
+      "bytes": 269847
+    },
+    "T06/manual-review/device-01/screenshots/manual-first-screen.png": {
+      "sha256": "1bd7111c4ab88ca876750fcad19a97f51b31ec4a69fd14bbcba4f15702f60097",
+      "bytes": 116601
+    },
+    "T06/manual-review/device-01/screenshots/manual-retry-after.png": {
+      "sha256": "dffd198b1a437bcbd5b004ab0c0242e2163007eb3b18506294d84ff99bafb58b",
+      "bytes": 119488
+    },
+    "T06/manual-review/device-01/screenshots/manual-retry-before.png": {
+      "sha256": "16d48fc97cf5a2552838ca439d5ae3589cd97485c39db1c80334227b1e37fa6f",
+      "bytes": 125283
+    },
+    "T06/manual-review/device-01/wait-device.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "T06/manual-review/emulator-error.log": {
+      "sha256": "b6eaeacb382b7c62d87f5577e442ba03e94d6c5e94ed6b0b8ab42c99c677cbb8",
+      "bytes": 41
+    },
+    "T06/manual-review/emulator-out.log": {
+      "sha256": "1465c91de7b4e080068b2936682f6391000112ea1378d25a4965b329595bb9cf",
+      "bytes": 9719
+    },
+    "T06/manual-review/emulator-pid.txt": {
+      "sha256": "3b9922cbd37c307b9dd1802893d08caf64c4a405377fa29706738ccdd9cc5f36",
+      "bytes": 7
+    },
+    "T06/manual-review/emulator-shutdown.log": {
+      "sha256": "483d31d727a891b284fe65f3b042180f0dcf884ee845c457e261de7a6e891804",
+      "bytes": 39
+    },
+    "T06/manual-review/gradle.properties": {
+      "sha256": "1b8bb263791571896a03bbff7b73ff8ce8bc73de9fd69fc5e04749af7b428905",
+      "bytes": 100
+    },
+    "T06/manual-review/inputs.json": {
+      "sha256": "692203ea9cde718451ee0be256cdf17186842c0b25a792e497077f4d9a75288d",
+      "bytes": 4532
+    },
+    "T06/manual-review/launcher-first-screen.png": {
+      "sha256": "5e354d34b6854e5fca71ea8779af4abde8b9878461e3fa2c62018ab162675dcf",
+      "bytes": 128390
+    },
+    "T06/manual-review/launcher-start.log": {
+      "sha256": "e4f8c42633148f36a21c139720e04ff1d9546298462612f8894421ad283734bd",
+      "bytes": 201
+    },
+    "T06/manual-review/make_guide.py": {
+      "sha256": "75fb9c72e02472165f6339e09c03f901ea27174933ad03e3e9011f8a58ad630f",
+      "bytes": 11774
+    },
+    "T06/manual-review/package_review.py": {
+      "sha256": "33082f24d0bcb92260cc7d67051be7e5ef7df71da974c5b9cc4cb4adcbe9e9ec",
+      "bytes": 2541
+    },
+    "T06/manual-review/prepare.py": {
+      "sha256": "59098d205ee4019eb84c05119c622ed66b5f7d5562121cca4b66cbd5febb38ef",
+      "bytes": 2261
+    },
+    "T06/manual-review/settings.gradle.kts": {
+      "sha256": "d47d7849429450104d6befa09110d30a5aff6119584f11e333482e1bd9466ca1",
+      "bytes": 287
+    },
+    "T06/manual-review/verify_device.py": {
+      "sha256": "b45fc80c41b40d617dcdc28d68b3742b13484c5fb1ac89160e71b7b098fbb679",
+      "bytes": 2869
+    },
+    "T06/manual-review/真机人工审查步骤.html": {
+      "sha256": "11a67c13c9aa4620660d97662f13533005b4add2fd7c6d089ed11dc8617cecfa",
+      "bytes": 20035
+    },
+    "T06/review.html": {
+      "sha256": "94a7bbaf4841b8c3d179536f3b06880dc74e0a4f2ffbcd4d92d69803dcd13d58",
+      "bytes": 5972
+    },
+    "T06/visual-review.json": {
+      "sha256": "7f7059c53bb82e8a256f231f9aedcb985cae39cf1258b3d4815322755c08aadd",
+      "bytes": 3392
+    },
+    "tested-source/BNBU-ANDROID/contract-validation/.gitignore": {
+      "sha256": "020c2606e8ed484089c2083e0be438b9d0736bee1558a6b76af0d58bd23f69cf",
+      "bytes": 8
+    },
+    "tested-source/BNBU-ANDROID/contract-validation/README.md": {
+      "sha256": "c2f81d89e090d1b745cecfef0d2483ce2abc7a8f276f752c1f61a078c94d8d73",
+      "bytes": 11702
+    },
+    "tested-source/BNBU-ANDROID/contract-validation/build.gradle.kts": {
+      "sha256": "4203f66f95f2844375e542a78d0a373fb6761ed99819347532f7a4e8e47de7a0",
+      "bytes": 8190
+    },
+    "tested-source/BNBU-ANDROID/contract-validation/contract-lock.json": {
+      "sha256": "86fc757c5da6a368945dbe8d8dc02e19774b29a782accd628d2f68eb567f60f3",
+      "bytes": 1546
+    },
+    "tested-source/BNBU-ANDROID/contract-validation/generation-profile.json": {
+      "sha256": "55d04907ecf679563e4e34733657f4018f17977f7a21de47ebd0d056150a2d74",
+      "bytes": 817
+    },
+    "tested-source/BNBU-ANDROID/contract-validation/src/androidTest/AndroidManifest.xml": {
+      "sha256": "08dcb73591184873b6f4c13989617c0136947a67f45fb9fb4a32cb748da47e69",
+      "bytes": 250
+    },
+    "tested-source/BNBU-ANDROID/contract-validation/src/androidTest/java/DeviceCapture.kt": {
+      "sha256": "39ed3093fcfb03b4a531882fb164ad7852b2cd3f0e842374f806a400f5916d69",
+      "bytes": 1921
+    },
+    "tested-source/BNBU-ANDROID/contract-validation/src/androidTest/java/Phase6DeviceBoundaryTest.kt": {
+      "sha256": "f26a41042053a02cec631722fe5fd562aff10cc3de5c179f2a86a94d54689b42",
+      "bytes": 123
+    },
+    "tested-source/BNBU-ANDROID/contract-validation/src/androidTest/java/Phase6DeviceSchemaTest.kt": {
+      "sha256": "a3f598b170d54b219d49c1d6f65167a126fe66aa2d8f16e677fb2d33ab74d70d",
+      "bytes": 1370
+    },
+    "tested-source/BNBU-ANDROID/contract-validation/src/androidTest/java/Phase6MockRetryUiTest.kt": {
+      "sha256": "c0ba341c6866abc97b19576d122938493cb833c28f734ce562ee1a7ab7c31398",
+      "bytes": 1894
+    },
+    "tested-source/BNBU-ANDROID/contract-validation/src/androidTest/java/Phase6MockUiTest.kt": {
+      "sha256": "f5f810078303ccbdb3876f974477f4ea0724a796a72b8a251ce3a31be8de8ccb",
+      "bytes": 2811
+    },
+    "tested-source/BNBU-ANDROID/contract-validation/src/androidTest/res/values/styles.xml": {
+      "sha256": "8b8f7877765850b112c9b16b3f9822badb81d21dd02e3dcda1d7b8d25f99b372",
+      "bytes": 328
+    },
+    "tested-source/BNBU-ANDROID/contract-validation/src/main/AndroidManifest.xml": {
+      "sha256": "343d5be1ac17cdd45d1a2f2ddc616c509290e655869125a9422a96d88aa66066",
+      "bytes": 72
+    },
+    "tested-source/BNBU-ANDROID/contract-validation/src/main/java/edu/bnbu/student/contractvalidation/StudentActions.kt": {
+      "sha256": "e8f2959489529cd8d9fd8cb6403cedbc075501ae80a262a46fa858b4e068b335",
+      "bytes": 6158
+    },
+    "tested-source/BNBU-ANDROID/contract-validation/src/main/java/edu/bnbu/student/contractvalidation/StudentInformation.kt": {
+      "sha256": "84e9ea9055831c38ee83b29e211d5b9148127ce37dfd0e6c37c0e9f9eb015198",
+      "bytes": 6851
+    },
+    "tested-source/BNBU-ANDROID/contract-validation/src/main/java/edu/bnbu/student/contractvalidation/StudentProgress.kt": {
+      "sha256": "cbf27ae005c1ec58e4faa012da08ac8ab2618f0336885be8642af2ae3eb74866",
+      "bytes": 4955
+    },
+    "tested-source/BNBU-ANDROID/contract-validation/src/main/java/edu/bnbu/student/contractvalidation/StudentRecord.kt": {
+      "sha256": "368f54bd29f6ea39b4726c109f2e53d8f82082254bf7154e523d0006b2442ad6",
+      "bytes": 6100
+    },
+    "tested-source/BNBU-ANDROID/contract-validation/src/main/java/edu/bnbu/student/contractvalidation/StudentServices.kt": {
+      "sha256": "3e21a2419c93d25aa3b5c87751ccdbfaa0fd24713b2d9aa64f58bfe16914c1d6",
+      "bytes": 3257
+    },
+    "tested-source/BNBU-ANDROID/contract-validation/src/main/java/edu/bnbu/student/contractvalidation/StudentTime.kt": {
+      "sha256": "d246aed51d48ae31563a893fdc9bae4b0d3f47c32c88b55714183009a0b93bae",
+      "bytes": 2206
+    },
+    "tested-source/BNBU-ANDROID/contract-validation/src/main/java/edu/bnbu/student/contractvalidation/WireDateTime.java": {
+      "sha256": "cbdbd97df8666f0a090f171919c8ad56c7462db73e6dfb44b054c351c7f4984d",
+      "bytes": 2459
+    },
+    "tested-source/BNBU-ANDROID/contract-validation/src/main/java/edu/bnbu/student/contractvalidation/mock/ContractHttp.kt": {
+      "sha256": "04bfaccd6eda1821c808723d778567fd5cfa4baa8ea8291c7a79cef6a57cf1e1",
+      "bytes": 4534
+    },
+    "tested-source/BNBU-ANDROID/contract-validation/src/main/java/edu/bnbu/student/contractvalidation/mock/ContractMockScreen.kt": {
+      "sha256": "e687bdef75377d9e9c9a96bb5769ed61fc32971f88c9bd823da8e6f83c3f446d",
+      "bytes": 2563
+    },
+    "tested-source/BNBU-ANDROID/contract-validation/src/main/java/edu/bnbu/student/contractvalidation/mock/MockPresentation.kt": {
+      "sha256": "7a8fea982e95f4d0cac02643b635ff788c0d6fd9a119f15e22f346ca3ffdc25d",
+      "bytes": 13367
+    },
+    "tested-source/BNBU-ANDROID/contract-validation/src/main/java/edu/bnbu/student/contractvalidation/mock/MockScreenController.kt": {
+      "sha256": "122bcc88504660f050e350f3ef0c503469021c01c945fdb72fe13457d58c8ad6",
+      "bytes": 7698
+    },
+    "tested-source/BNBU-ANDROID/contract-validation/src/mockShared/java/MockCases.kt": {
+      "sha256": "dfaa5010c6e57a5485f1de505c59c9e5a056da914d8fafe11d6c4a85fadc7343",
+      "bytes": 13313
+    },
+    "tested-source/BNBU-ANDROID/contract-validation/src/mockShared/java/MockScenarioHarness.kt": {
+      "sha256": "719e2e833db682e77a4e50e401bda0fbd6991fd14b067452d50b90ddf767cf4f",
+      "bytes": 2222
+    },
+    "tested-source/BNBU-ANDROID/contract-validation/src/mockShared/java/SharedMockBoundaryTests.kt": {
+      "sha256": "f709c0f7de93b32127749593976aff713f50918b77370a6d6af880b262e23fc8",
+      "bytes": 13541
+    },
+    "tested-source/BNBU-ANDROID/contract-validation/src/mockShared/java/StrictMockCodec.kt": {
+      "sha256": "8a55ddf2172b41d978308ee025c888dbca64cfa96b58277c69f24bfd085ac705",
+      "bytes": 3733
+    },
+    "tested-source/BNBU-ANDROID/contract-validation/src/test/java/MapperWire.kt": {
+      "sha256": "a3a8db39c28ead5fcfb84a300d22cb627e9f97b414dc64af600d7b87e143820b",
+      "bytes": 5505
+    },
+    "tested-source/BNBU-ANDROID/contract-validation/src/test/java/Phase6ContractSchemaTest.java": {
+      "sha256": "d961369b911278b977721e43d2c23939116c25ea18b55298c41c71ab0365c687",
+      "bytes": 4355
+    },
+    "tested-source/BNBU-ANDROID/contract-validation/src/test/java/Phase6ContractSmokeTest.java": {
+      "sha256": "c84b668c29944bcbbf8421a4f385a3499687e0e6ba6d7e5b2579bfe2b959306f",
+      "bytes": 1932
+    },
+    "tested-source/BNBU-ANDROID/contract-validation/src/test/java/Phase6FormatEvaluatorFactory.java": {
+      "sha256": "d4ffe40072e829ad3fb36ac9faaee46bf7d9e72fcf3ffb80f9a4815da7c71512",
+      "bytes": 2122
+    },
+    "tested-source/BNBU-ANDROID/contract-validation/src/test/java/Phase6MapperTest.kt": {
+      "sha256": "076ac97bcbc89ef38d3d179df1c952d14b6c77e36f72afb45563de1960e130dd",
+      "bytes": 44621
+    },
+    "tested-source/BNBU-ANDROID/contract-validation/src/test/java/Phase6MockBoundaryTest.kt": {
+      "sha256": "d34acd441376728c5b52274c78b499cf9d9b48a3506b9a06bba0e0e9afbb7431",
+      "bytes": 113
+    },
+    "tested-source/BNBU-ANDROID/contract-validation/src/test/java/Phase6MockTest.kt": {
+      "sha256": "10a974eaa21bef1e127e8c3737d111c0a8a35dc5a1e935b3804d4f7408e7387b",
+      "bytes": 1482
+    },
+    "tested-source/BNBU-ANDROID/settings.gradle.kts": {
+      "sha256": "121003e52b60356ed896a8ef36f498ecdd2a67bb9de41f8fcf8501c1cf670028",
+      "bytes": 370
+    },
+    "tested-source/BNBU-ANDROID/tools/phase6/contract_entry.py": {
+      "sha256": "6355055149f43cf7d6da225814b933279206a88bed3b3c0d9ce4ca9e793fe976",
+      "bytes": 14300
+    },
+    "tested-source/BNBU-ANDROID/tools/phase6/mapper_coverage.py": {
+      "sha256": "a8c9fd6fa014e5c948914e96bf2af3d8ba5a40588d1957786ddfb7c0aded94a7",
+      "bytes": 5118
+    },
+    "tested-source/BNBU-ANDROID/tools/phase6/mock_coverage.py": {
+      "sha256": "a19bf7dbf93995ec6fc5a240af6a3693f2edbc29e0a9c0776f5fa35f74590728",
+      "bytes": 3116
+    },
+    "tested-source/BNBU-ANDROID/tools/phase6/mock_suite.py": {
+      "sha256": "23c7b93ee4fc39ad98b3d07989a4d808f6bf4fe11029d7426b1f1df4f8b2973c",
+      "bytes": 3298
+    },
+    "tested-source/BNBU-ANDROID/tools/phase6/run_step02.py": {
+      "sha256": "ba8bb2795391c6ce93d405e94eb595823d7193ee8164f2e08d279d0221904446",
+      "bytes": 9534
+    },
+    "tested-source/BNBU-ANDROID/tools/phase6/run_step03.py": {
+      "sha256": "536b630575c623109f5bd5584df7b28a9d41d6ed2c055c0957ccf100985e885c",
+      "bytes": 175
+    },
+    "tested-source/BNBU-ANDROID/tools/phase6/run_step04.py": {
+      "sha256": "f88d161a8567dce950b0ae7f5bda4b1a155c170f603c6c59e46311d5051c850a",
+      "bytes": 184
+    },
+    "tested-source/BNBU-ANDROID/tools/phase6/run_step05.py": {
+      "sha256": "6229762ba2b0ae2c332c14d5ba71c4137ab3933cc77612af05df50368b2ca811",
+      "bytes": 167
+    },
+    "tested-source/BNBU-ANDROID/tools/phase6/run_step06.py": {
+      "sha256": "5eed83ba2530e815f59d8ded32efac5f5bb758f198f4cf8ee6672428ac0f879a",
+      "bytes": 7761
+    },
+    "tested-source/BNBU-ANDROID/tools/phase6/schema_coverage.py": {
+      "sha256": "a70c46e82218e7b7a40d0845a1a6986479bbb4f217079105d24b275588c68431",
+      "bytes": 5939
+    },
+    "tested-source/BNBU-ANDROID/tools/phase6/schema_suite.py": {
+      "sha256": "36a9b5a6dfe49be08033a2be9f3cb0808caa90c7e05751b8e7d3a1c94a93a231",
+      "bytes": 8966
+    },
+    "tested-source/BNBU-ANDROID/tools/phase6/test_entry.py": {
+      "sha256": "c2ecce13f0aad207e061a644272e316d3c56041edbd8e128436f9d5a2f8c359c",
+      "bytes": 3646
+    }
+  }
+}

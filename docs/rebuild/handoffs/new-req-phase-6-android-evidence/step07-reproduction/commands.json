@@ -1,0 +1,93 @@
+[
+  {
+    "name": "01-binding-controls",
+    "command": [
+      "D:\\DT\\soprts\\start4\\07_phase5_execution\\.venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "D:\\DT\\soprts\\start4\\repos\\phase6-android\\BNBU-ANDROID\\tools\\phase6\\test_entry.py"
+    ],
+    "cwd": "D:\\DT\\soprts\\start4\\repos\\phase6-android\\BNBU-ANDROID",
+    "startedAt": "2026-09-08T10:47:07.242956+00:00",
+    "finishedAt": "2026-09-08T10:47:16.911193+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "01b-published-seal-controls",
+    "command": [
+      "D:\\DT\\soprts\\start4\\07_phase5_execution\\.venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "D:\\DT\\soprts\\start4\\repos\\phase6-android\\BNBU-ANDROID\\tools\\phase6\\test_published_input_seal.py"
+    ],
+    "cwd": "D:\\DT\\soprts\\start4\\repos\\phase6-android\\BNBU-ANDROID",
+    "startedAt": "2026-09-08T10:47:16.912747+00:00",
+    "finishedAt": "2026-09-08T10:47:21.456179+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "02-published-input-seal",
+    "command": [
+      "D:\\DT\\soprts\\start4\\07_phase5_execution\\.venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "D:\\DT\\soprts\\start4\\repos\\phase6-android\\BNBU-ANDROID\\tools\\phase6\\published_input_seal.py",
+      "--evidence",
+      "D:\\DT\\soprts\\start4\\08_phase6_execution\\T07\\verification-02-final\\phase5-input-seal"
+    ],
+    "cwd": "D:\\DT\\soprts\\start4\\repos\\phase6-android",
+    "startedAt": "2026-09-08T10:47:21.457255+00:00",
+    "finishedAt": "2026-09-08T10:47:25.351804+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "03-android-build-and-tests",
+    "command": [
+      "D:\\DT\\soprts\\start4\\repos\\phase6-android\\BNBU-ANDROID\\gradlew.bat",
+      ":contract-validation:assembleDebug",
+      ":contract-validation:testDebugUnitTest",
+      "--offline",
+      "--console=plain",
+      "--rerun-tasks",
+      "-Pphase6FullValidation=true",
+      "-Pphase6MapperValidation=true",
+      "-Pphase6MockValidation=true",
+      "-Pphase6Python=D:\\DT\\soprts\\start4\\07_phase5_execution\\.venv\\Scripts\\python.exe",
+      "-Pphase6GeneratorJar=D:\\DT\\soprts\\start4\\07_phase5_execution\\tooling\\openapi-generator-cli-7.24.0.jar",
+      "-Pphase6RuntimeDir=D:\\DT\\soprts\\start4\\07_phase5_execution\\T06\\tools",
+      ":contract-validation:assembleDebugAndroidTest"
+    ],
+    "cwd": "D:\\DT\\soprts\\start4\\repos\\phase6-android\\BNBU-ANDROID",
+    "startedAt": "2026-09-08T10:47:25.353805+00:00",
+    "finishedAt": "2026-09-08T10:48:35.152624+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "04-diff-whitespace",
+    "command": [
+      "git",
+      "--no-pager",
+      "diff",
+      "--check"
+    ],
+    "cwd": "D:\\DT\\soprts\\start4\\repos\\phase6-android",
+    "startedAt": "2026-09-08T10:48:35.849612+00:00",
+    "finishedAt": "2026-09-08T10:48:35.996909+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "05-working-tree",
+    "command": [
+      "git",
+      "status",
+      "--short"
+    ],
+    "cwd": "D:\\DT\\soprts\\start4\\repos\\phase6-android",
+    "startedAt": "2026-09-08T10:48:35.997911+00:00",
+    "finishedAt": "2026-09-08T10:48:36.116297+00:00",
+    "exitCode": 0
+  }
+]
