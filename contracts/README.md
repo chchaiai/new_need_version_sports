@@ -1,12 +1,22 @@
 # BNBU Sports API Contract
 
-本目录是 Android、Web 与 Backend 唯一共同遵守的 API 边界。公开基路径固定为 `/api/v1`，仓库 Contract 版本为 `1.2.0-contract`。
+本目录是Android、Web与Backend共同遵守的API边界。当前本地候选为 **`1.3.0-contract / RC`**，公开基路径仍`/api/v1`。本轮含破坏性变更，不能将旧消费者直接混接。
 
-当前状态：`RC`。已确认 Use Case、公共规范、角色权限、错误、上传与幂等边界可用于 Mock 和 Backend 实现；尚未达到 `APPROVED`，不得据此声称已允许进入 Staging。
+OpenAPI SHA-256：`5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed`；157 paths /176 operations /316 schemas /99 errors。第六步技术门禁完成，第七步[最终接收包](validation/step07_handoff/README.md)已准备并核验；用户已审核通过最终交付；完整完成6/7步，剩上传、发布核验与具名交接收口。Phase5整体仍IN_PROGRESS，尚未提交/分发完成。此次接受不将RC改为APPROVED，也不表示Staging获准。
+
+完整同SHA结果见[最终验证](validation/step06_final/README.md)和[机器结果](validation/step06_final/result.json)：Python/JS/JVM各992例通过，159合法生成模型往返，TS24非法断言、324 Kotlin模型编译、143结构破坏和723有限设计模型通过；生成两次一致，verify/lint/readiness均成功。这些不是真实Backend/OCR/Android应用运行验收。
+
+[CR/GAP处置](validation/step06_final/disposition.json)登记全部21项；[候选分发清单](release-manifest.json)固定原始字节、源/输入及验证材料。候选尚未提交，`sourceCommit=null`；基线HEAD `974587c3778a53803a7959ea0f64677581e239f4`不包含新RC。旧正式输入`1.2.0-contract / RC / 667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a`仍可从该提交及外部快照取回。此前Step2～5 DRAFT只作历史证据，不作当前消费身份。
+
+生成源按既有registrar→`record_workflow.py`→`course_workflow.py`→`teaching_workflow.py`应用增量；被替代的旧域定义不可单独作为当前协议。只修改源/配置再生成OpenAPI、catalog、metadata，不手改产物或DTO。RC之后任何外部行为变化均按CR和新版本处理。
+
+用户兼任Contract Owner/Reviewer，Codex执行与自检；最终接收已由用户明确回复，原话及固定SHA见分发清单。历史步骤的待审查记录保留原时点事实。Phase6完成Android/Web固定同SHA的Contract+Mock验证和6C；正式产品网络迁移按Phase8。Backend7.0完成选型兼容及CertificationKind等Domain/Database对齐，未通过不得进入7.1，不单独阻断5/6。真实校历、权限、事务、OCR质量、缓存/通知/恢复/E2E仍是后续验收。GitHub由用户操作。
+
+以下Phase5C、5C.2和其中旧Phase7称谓为历史路线；最新状态见[新版Phase5交接](../docs/rebuild/handoffs/new-req-phase-5.md)。
 
 ## 权威与产物
 
-- 可消费的唯一协议：[openapi.yaml](openapi.yaml)。
+- 当前候选协议：[openapi.yaml](openapi.yaml)；消费范围服从其Version/Status及上述阶段门禁。
 - 确定性编写源：`src/*.py`；不得手改生成的 OpenAPI、operation catalog 或 metadata。
 - 全量 Method/Path/operationId/角色/权限索引：[operation-catalog.md](operation-catalog.md)。
 - Use Case 覆盖与阻塞项：[coverage.md](coverage.md)。
@@ -113,8 +123,10 @@ OpenAPI / Contract DTO
 python -m pip install -r contracts/requirements.txt
 python contracts/scripts/build_contract.py
 python contracts/scripts/verify_contract.py
-npx --yes @redocly/cli@latest lint contracts/openapi.yaml --config contracts/redocly.yaml
+npx --yes @redocly/cli@2.51.2 lint contracts/openapi.yaml --config contracts/redocly.yaml
 python contracts/scripts/check_rc_readiness.py
 ```
 
-生成、结构验证、Redocly lint 和 RC readiness 当前都必须通过。任一失败都表示下游不能重新生成或加载本版本。
+生成、结构验证与Redocly lint必须通过。RC发布时readiness也必须通过；当前DRAFT运行该命令应退出1并明确阻止发布，不修改脚本让DRAFT冒充RC。该结果记录为BLOCKED，不写readiness PASS。隔离审查生成不等于正式下游加载。
+
+新增discriminator完整性检查已接入verify_contract.py，原有规则断言保留。固定依赖、同输入的TypeScript/JavaScript/Kotlin验证及复现命令见[第二步验证说明](validation/step02_discriminators/README.md)。最终RC必须在完整协议范围完成后重跑最终门禁。

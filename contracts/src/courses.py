@@ -718,7 +718,7 @@ def _register_course_operations(registry: ContractRegistry) -> None:
         parameters=[path_parameter("courseId")],
         resource_scope="RESPONSIBLE_TEACHER",
         idempotent=True,
-        error_codes=["COURSE_TARGET_TOTAL_INVALID", "COURSE_TARGET_BELOW_ACTIVE_CREDIT", "VERSION_CONFLICT"],
+        error_codes=["COURSE_TARGET_TOTAL_INVALID", "VERSION_CONFLICT"],
     )
     registry.add(
         method="put",
@@ -733,7 +733,7 @@ def _register_course_operations(registry: ContractRegistry) -> None:
         parameters=[path_parameter("courseId")],
         resource_scope="RESPONSIBLE_TEACHER",
         idempotent=True,
-        error_codes=["COURSE_NOT_OPEN", "COURSE_TARGET_TOTAL_INVALID", "COURSE_TARGET_BELOW_ACTIVE_CREDIT", "VERSION_CONFLICT"],
+        error_codes=["COURSE_NOT_OPEN", "COURSE_TARGET_TOTAL_INVALID", "VERSION_CONFLICT"],
     )
     registry.add(
         method="post",
@@ -748,7 +748,7 @@ def _register_course_operations(registry: ContractRegistry) -> None:
         parameters=[path_parameter("courseId")],
         resource_scope="RESPONSIBLE_TEACHER",
         idempotent=True,
-        error_codes=["COURSE_NOT_OPEN", "COURSE_CLOSE_BLOCKED", "VERSION_CONFLICT"],
+        error_codes=["COURSE_NOT_OPEN", "VERSION_CONFLICT"],
     )
     registry.add(
         method="get",

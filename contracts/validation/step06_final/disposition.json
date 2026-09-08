@@ -1,0 +1,1303 @@
+{
+  "candidateVersion": "1.3.0-contract",
+  "candidateStatus": "RC",
+  "candidateSha256": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+  "localImplementationOwner": "Codex executes and self-checks; user is Contract Owner/Reviewer",
+  "humanFinalReview": "PENDING_STEP_7",
+  "phase5": "IN_PROGRESS",
+  "totalGaps": 21,
+  "gaps": [
+    {
+      "gap": "GAP-H01",
+      "disposition": "IMPLEMENTED_LOCAL_PROTOCOL",
+      "summary": "实际分钟、联合选择和来源",
+      "source": "AT-09–14",
+      "changeRequest": "CR-20260908-002",
+      "operations": [
+        {
+          "operationId": "listCheckpointRecordCredits",
+          "method": "GET",
+          "path": "/statistics/checkpoints/{checkpointId}/records",
+          "errors": [
+            "STATISTICS_UNAVAILABLE",
+            "RESOURCE_NOT_FOUND",
+            "INVALID_CURSOR",
+            "FIRST_PASSWORD_CHANGE_REQUIRED",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        },
+        {
+          "operationId": "getOwnCourseProgress",
+          "method": "GET",
+          "path": "/student/progress",
+          "errors": [
+            "STATISTICS_UNAVAILABLE",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        }
+      ],
+      "schemas": [
+        "ProgressTotals",
+        "RecordCreditDetail"
+      ],
+      "evidenceSuite": "prior-courses",
+      "phase5Evidence": "reproduce.py + final same-SHA result.json; structural/mutation and schema/JS/generated-model checks, not real service evidence",
+      "humanFinalReview": "PENDING_STEP_7",
+      "subsequentOwner": "Backend Owner/Reviewer; Phase6 Android/Web Owners; named recipients confirmed at Step7/phase entry",
+      "runtimeAcceptance": "Phase7 implementation, Phase8 binding, Phase9 integration/recovery; NOT_RUN"
+    },
+    {
+      "gap": "GAP-H02",
+      "disposition": "IMPLEMENTED_LOCAL_PROTOCOL",
+      "summary": "处理阶段、轮次、审核队列",
+      "source": "AT-01–04",
+      "changeRequest": "CR-20260908-001",
+      "operations": [
+        {
+          "operationId": "listTeacherReviewQueue",
+          "method": "GET",
+          "path": "/courses/{courseId}/review-queue",
+          "errors": [
+            "RESOURCE_NOT_FOUND",
+            "INVALID_CURSOR",
+            "FIRST_PASSWORD_CHANGE_REQUIRED",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        },
+        {
+          "operationId": "appendExerciseRecordReview",
+          "method": "POST",
+          "path": "/courses/{courseId}/exercise-records/{recordId}/reviews",
+          "errors": [
+            "VERSION_CONFLICT",
+            "REVIEW_ACTION_NOT_ALLOWED",
+            "REVIEW_PRECONDITION_UNSATISFIED",
+            "INVALID_REQUEST",
+            "RESOURCE_NOT_FOUND",
+            "FIRST_PASSWORD_CHANGE_REQUIRED",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "IDEMPOTENCY_KEY_REUSED",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        }
+      ],
+      "schemas": [
+        "ExerciseRecord"
+      ],
+      "evidenceSuite": "prior-workflow",
+      "phase5Evidence": "reproduce.py + final same-SHA result.json; structural/mutation and schema/JS/generated-model checks, not real service evidence",
+      "humanFinalReview": "PENDING_STEP_7",
+      "subsequentOwner": "Backend Owner/Reviewer; Phase6 Android/Web Owners; named recipients confirmed at Step7/phase entry",
+      "runtimeAcceptance": "Phase7 implementation, Phase8 binding, Phase9 integration/recovery; NOT_RUN"
+    },
+    {
+      "gap": "GAP-H03",
+      "disposition": "IMPLEMENTED_LOCAL_PROTOCOL",
+      "summary": "六类原因、公开说明、系统逾期",
+      "source": "AT-01–04",
+      "changeRequest": "CR-20260908-001",
+      "operations": [
+        {
+          "operationId": "appendExerciseRecordReview",
+          "method": "POST",
+          "path": "/courses/{courseId}/exercise-records/{recordId}/reviews",
+          "errors": [
+            "VERSION_CONFLICT",
+            "REVIEW_ACTION_NOT_ALLOWED",
+            "REVIEW_PRECONDITION_UNSATISFIED",
+            "INVALID_REQUEST",
+            "RESOURCE_NOT_FOUND",
+            "FIRST_PASSWORD_CHANGE_REQUIRED",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "IDEMPOTENCY_KEY_REUSED",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        },
+        {
+          "operationId": "listExerciseRecordReviews",
+          "method": "GET",
+          "path": "/exercise-records/{recordId}/reviews",
+          "errors": [
+            "RESOURCE_NOT_FOUND",
+            "INVALID_CURSOR",
+            "FIRST_PASSWORD_CHANGE_REQUIRED",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        }
+      ],
+      "schemas": [
+        "AppendRecordReviewRequest"
+      ],
+      "evidenceSuite": "prior-workflow",
+      "phase5Evidence": "reproduce.py + final same-SHA result.json; structural/mutation and schema/JS/generated-model checks, not real service evidence",
+      "humanFinalReview": "PENDING_STEP_7",
+      "subsequentOwner": "Backend Owner/Reviewer; Phase6 Android/Web Owners; named recipients confirmed at Step7/phase entry",
+      "runtimeAcceptance": "Phase7 implementation, Phase8 binding, Phase9 integration/recovery; NOT_RUN"
+    },
+    {
+      "gap": "GAP-H04",
+      "disposition": "IMPLEMENTED_LOCAL_PROTOCOL",
+      "summary": "材料版本、锁批、游泳与一次补证",
+      "source": "AT-04–08/19–21",
+      "changeRequest": "CR-20260908-001",
+      "operations": [
+        {
+          "operationId": "submitExerciseRecord",
+          "method": "POST",
+          "path": "/exercise-sessions/{sessionId}/record",
+          "errors": [
+            "SESSION_TRANSITION_INVALID",
+            "VERSION_CONFLICT",
+            "FIRST_MATERIAL_DEADLINE_MISSED",
+            "FIRST_MATERIAL_ALREADY_ACCEPTED",
+            "MATERIAL_BATCH_CONFLICT",
+            "MEDIA_NOT_VERIFIED",
+            "MEDIA_OWNERSHIP_MISMATCH",
+            "MEDIA_ALREADY_BOUND",
+            "MEDIA_LIMIT_EXCEEDED",
+            "MEDIA_CONTENT_INVALID",
+            "RECORD_DESCRIPTION_INVALID",
+            "INVALID_REQUEST",
+            "RESOURCE_NOT_FOUND",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "IDEMPOTENCY_KEY_REUSED",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        },
+        {
+          "operationId": "submitExerciseRecordSupplement",
+          "method": "POST",
+          "path": "/exercise-records/{recordId}/supplements",
+          "errors": [
+            "VERSION_CONFLICT",
+            "SUPPLEMENT_NOT_ALLOWED",
+            "SUPPLEMENT_DEADLINE_MISSED",
+            "MEDIA_NOT_VERIFIED",
+            "MEDIA_OWNERSHIP_MISMATCH",
+            "MEDIA_ALREADY_BOUND",
+            "MEDIA_CONTENT_INVALID",
+            "MEDIA_LIMIT_EXCEEDED",
+            "INVALID_REQUEST",
+            "RESOURCE_NOT_FOUND",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "IDEMPOTENCY_KEY_REUSED",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        },
+        {
+          "operationId": "completeExerciseRecordMaterial",
+          "method": "POST",
+          "path": "/exercise-records/{recordId}/materials/{materialVersionId}/completion",
+          "errors": [
+            "VERSION_CONFLICT",
+            "MATERIAL_BATCH_CONFLICT",
+            "MATERIAL_NOT_READY",
+            "MATERIAL_TRANSFER_DEADLINE_MISSED",
+            "MEDIA_OWNERSHIP_MISMATCH",
+            "MEDIA_CONTENT_INVALID",
+            "MEDIA_LIMIT_EXCEEDED",
+            "INVALID_REQUEST",
+            "RESOURCE_NOT_FOUND",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "IDEMPOTENCY_KEY_REUSED",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        }
+      ],
+      "schemas": [
+        "MaterialVersion",
+        "SubmitExerciseRecordRequest"
+      ],
+      "evidenceSuite": "prior-workflow",
+      "phase5Evidence": "reproduce.py + final same-SHA result.json; structural/mutation and schema/JS/generated-model checks, not real service evidence",
+      "humanFinalReview": "PENDING_STEP_7",
+      "subsequentOwner": "Backend Owner/Reviewer; Phase6 Android/Web Owners; named recipients confirmed at Step7/phase entry",
+      "runtimeAcceptance": "Phase7 implementation, Phase8 binding, Phase9 integration/recovery; NOT_RUN"
+    },
+    {
+      "gap": "GAP-H05",
+      "disposition": "IMPLEMENTED_LOCAL_PROTOCOL",
+      "summary": "维护暂停、学生剩余量、教师SLA",
+      "source": "H §7/15.5",
+      "changeRequest": "CR-20260908-001",
+      "operations": [
+        {
+          "operationId": "getCourseExerciseRecord",
+          "method": "GET",
+          "path": "/courses/{courseId}/exercise-records/{recordId}",
+          "errors": [
+            "RESOURCE_NOT_FOUND",
+            "FIRST_PASSWORD_CHANGE_REQUIRED",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        },
+        {
+          "operationId": "getOwnExerciseRecord",
+          "method": "GET",
+          "path": "/student/exercise-records/{recordId}",
+          "errors": [
+            "RESOURCE_NOT_FOUND",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        }
+      ],
+      "schemas": [
+        "TimerPause",
+        "SupplementTimerView"
+      ],
+      "evidenceSuite": "prior-workflow",
+      "phase5Evidence": "reproduce.py + final same-SHA result.json; structural/mutation and schema/JS/generated-model checks, not real service evidence",
+      "humanFinalReview": "PENDING_STEP_7",
+      "subsequentOwner": "Backend Owner/Reviewer; Phase6 Android/Web Owners; named recipients confirmed at Step7/phase entry",
+      "runtimeAcceptance": "Phase7 implementation, Phase8 binding, Phase9 integration/recovery; NOT_RUN"
+    },
+    {
+      "gap": "GAP-H06",
+      "disposition": "IMPLEMENTED_LOCAL_PROTOCOL",
+      "summary": "模板、规则冻结、发布可完成性",
+      "source": "AT-22",
+      "changeRequest": "CR-20260908-002",
+      "operations": [
+        {
+          "operationId": "publishRuleTemplateVersion",
+          "method": "POST",
+          "path": "/admin/rule-template-versions",
+          "errors": [
+            "FIRST_PASSWORD_CHANGE_REQUIRED",
+            "VERSION_CONFLICT",
+            "INVALID_REQUEST",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "IDEMPOTENCY_KEY_REUSED",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        },
+        {
+          "operationId": "prepareCoursePublication",
+          "method": "POST",
+          "path": "/courses/{courseId}/publication-plan",
+          "errors": [
+            "COURSE_RULES_LOCKED",
+            "VERSION_CONFLICT",
+            "COURSE_PLAN_UNAVAILABLE",
+            "INVALID_REQUEST",
+            "RESOURCE_NOT_FOUND",
+            "FIRST_PASSWORD_CHANGE_REQUIRED",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "IDEMPOTENCY_KEY_REUSED",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        },
+        {
+          "operationId": "publishCourse",
+          "method": "POST",
+          "path": "/courses/{courseId}/publication",
+          "errors": [
+            "COURSE_RULES_LOCKED",
+            "COURSE_PLAN_INFEASIBLE",
+            "COURSE_PLAN_UNAVAILABLE",
+            "COURSE_PLAN_STALE",
+            "VERSION_CONFLICT",
+            "INVALID_REQUEST",
+            "RESOURCE_NOT_FOUND",
+            "FIRST_PASSWORD_CHANGE_REQUIRED",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "IDEMPOTENCY_KEY_REUSED",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        }
+      ],
+      "schemas": [
+        "CourseRuleVersion",
+        "RuleTemplateVersion"
+      ],
+      "evidenceSuite": "prior-courses",
+      "phase5Evidence": "reproduce.py + final same-SHA result.json; structural/mutation and schema/JS/generated-model checks, not real service evidence",
+      "humanFinalReview": "PENDING_STEP_7",
+      "subsequentOwner": "Backend Owner/Reviewer; Phase6 Android/Web Owners; named recipients confirmed at Step7/phase entry",
+      "runtimeAcceptance": "Phase7 implementation, Phase8 binding, Phase9 integration/recovery; NOT_RUN"
+    },
+    {
+      "gap": "GAP-H07",
+      "disposition": "IMPLEMENTED_LOCAL_PROTOCOL",
+      "summary": "邀请登记、固定宽限与严格端点",
+      "source": "AT-16",
+      "changeRequest": "CR-20260908-002",
+      "operations": [
+        {
+          "operationId": "registerExistingInvitationFlow",
+          "method": "POST",
+          "path": "/course-invitations/{invitationCode}/existing-student-flows",
+          "errors": [
+            "INVITATION_INVALID",
+            "INVITATION_FLOW_EXPIRED",
+            "INVITATION_FLOW_TERMINATED",
+            "VERSION_CONFLICT",
+            "INVALID_REQUEST",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "IDEMPOTENCY_KEY_REUSED",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        },
+        {
+          "operationId": "registerNewInvitationFlow",
+          "method": "POST",
+          "path": "/course-invitations/{invitationCode}/new-student-flows",
+          "errors": [
+            "INVITATION_INVALID",
+            "INVITATION_FLOW_EXPIRED",
+            "INVITATION_FLOW_TERMINATED",
+            "INVITATION_FLOW_MISMATCH",
+            "INVALID_CREDENTIALS",
+            "INVALID_REQUEST",
+            "SYSTEM_MAINTENANCE",
+            "IDEMPOTENCY_KEY_REUSED",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        },
+        {
+          "operationId": "joinCourseByInvitation",
+          "method": "POST",
+          "path": "/course-invitations/{invitationCode}/join",
+          "errors": [
+            "INVITATION_INVALID",
+            "INVITATION_FLOW_EXPIRED",
+            "INVITATION_FLOW_TERMINATED",
+            "INVITATION_FLOW_MISMATCH",
+            "COURSE_ALREADY_JOINED",
+            "VERSION_CONFLICT",
+            "INVALID_REQUEST",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "IDEMPOTENCY_KEY_REUSED",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        }
+      ],
+      "schemas": [
+        "CourseInvitation"
+      ],
+      "evidenceSuite": "prior-courses",
+      "phase5Evidence": "reproduce.py + final same-SHA result.json; structural/mutation and schema/JS/generated-model checks, not real service evidence",
+      "humanFinalReview": "PENDING_STEP_7",
+      "subsequentOwner": "Backend Owner/Reviewer; Phase6 Android/Web Owners; named recipients confirmed at Step7/phase entry",
+      "runtimeAcceptance": "Phase7 implementation, Phase8 binding, Phase9 integration/recovery; NOT_RUN"
+    },
+    {
+      "gap": "GAP-H08",
+      "disposition": "IMPLEMENTED_LOCAL_PROTOCOL",
+      "summary": "纸图草稿、身份确认、完整名单发布",
+      "source": "AT-15",
+      "changeRequest": "CR-20260908-003",
+      "operations": [
+        {
+          "operationId": "createRosterBatch",
+          "method": "POST",
+          "path": "/courses/{courseId}/roster-import-batches",
+          "errors": [
+            "COURSE_NOT_OPEN",
+            "TEACHING_SOURCE_INVALID",
+            "TEACHING_SOURCE_NOT_READY",
+            "ROSTER_ROW_LIMIT_EXCEEDED",
+            "PAYLOAD_TOO_LARGE",
+            "VERSION_CONFLICT",
+            "INVALID_REQUEST",
+            "RESOURCE_NOT_FOUND",
+            "FIRST_PASSWORD_CHANGE_REQUIRED",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "IDEMPOTENCY_KEY_REUSED",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        },
+        {
+          "operationId": "resolveRosterDraftRow",
+          "method": "POST",
+          "path": "/courses/{courseId}/roster-import-batches/{batchId}/rows/{rowId}/decision",
+          "errors": [
+            "TEACHING_BATCH_NOT_REVIEWABLE",
+            "TEACHING_ROW_UNRESOLVED",
+            "TEACHING_DUPLICATE_IDENTITY",
+            "TEACHING_SOURCE_STALE",
+            "TEACHING_SOURCE_UNAVAILABLE",
+            "VERSION_CONFLICT",
+            "INVALID_REQUEST",
+            "RESOURCE_NOT_FOUND",
+            "FIRST_PASSWORD_CHANGE_REQUIRED",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "IDEMPOTENCY_KEY_REUSED",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        },
+        {
+          "operationId": "publishRosterBatch",
+          "method": "POST",
+          "path": "/courses/{courseId}/roster-import-batches/{batchId}/publication",
+          "errors": [
+            "TEACHING_BATCH_NOT_REVIEWABLE",
+            "TEACHING_ROW_UNRESOLVED",
+            "TEACHING_DUPLICATE_IDENTITY",
+            "TEACHING_SOURCE_STALE",
+            "TEACHING_SOURCE_UNAVAILABLE",
+            "VERSION_CONFLICT",
+            "ROSTER_ROW_LIMIT_EXCEEDED",
+            "INVALID_REQUEST",
+            "RESOURCE_NOT_FOUND",
+            "FIRST_PASSWORD_CHANGE_REQUIRED",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "IDEMPOTENCY_KEY_REUSED",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        },
+        {
+          "operationId": "listAssessmentRosterRows",
+          "method": "GET",
+          "path": "/courses/{courseId}/assessment-roster/{projectionId}/rows",
+          "errors": [
+            "PROJECTION_NOT_READY",
+            "TEACHING_SOURCE_UNAVAILABLE",
+            "RESOURCE_NOT_FOUND",
+            "INVALID_CURSOR",
+            "FIRST_PASSWORD_CHANGE_REQUIRED",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        }
+      ],
+      "schemas": [
+        "RosterDraftRow"
+      ],
+      "evidenceSuite": "checks",
+      "phase5Evidence": "reproduce.py + final same-SHA result.json; structural/mutation and schema/JS/generated-model checks, not real service evidence",
+      "humanFinalReview": "PENDING_STEP_7",
+      "subsequentOwner": "Backend Owner/Reviewer; Phase6 Android/Web Owners; named recipients confirmed at Step7/phase entry",
+      "runtimeAcceptance": "Phase7 implementation, Phase8 binding, Phase9 integration/recovery; NOT_RUN"
+    },
+    {
+      "gap": "GAP-H09",
+      "disposition": "IMPLEMENTED_LOCAL_PROTOCOL",
+      "summary": "耐力OCR歧义与原子选中行确认",
+      "source": "AT-17",
+      "changeRequest": "CR-20260908-003",
+      "operations": [
+        {
+          "operationId": "createEnduranceBatch",
+          "method": "POST",
+          "path": "/courses/{courseId}/endurance-capture-batches",
+          "errors": [
+            "COURSE_NOT_OPEN",
+            "TEACHING_SOURCE_INVALID",
+            "TEACHING_SOURCE_NOT_READY",
+            "PAYLOAD_TOO_LARGE",
+            "VERSION_CONFLICT",
+            "INVALID_REQUEST",
+            "RESOURCE_NOT_FOUND",
+            "FIRST_PASSWORD_CHANGE_REQUIRED",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "IDEMPOTENCY_KEY_REUSED",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        },
+        {
+          "operationId": "resolveEnduranceDraftRow",
+          "method": "POST",
+          "path": "/courses/{courseId}/endurance-capture-batches/{batchId}/rows/{rowId}/decision",
+          "errors": [
+            "TEACHING_BATCH_NOT_REVIEWABLE",
+            "TEACHING_ROW_UNRESOLVED",
+            "TEACHING_DUPLICATE_IDENTITY",
+            "TEACHING_SOURCE_STALE",
+            "TEACHING_SOURCE_UNAVAILABLE",
+            "VERSION_CONFLICT",
+            "INVALID_REQUEST",
+            "RESOURCE_NOT_FOUND",
+            "FIRST_PASSWORD_CHANGE_REQUIRED",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "IDEMPOTENCY_KEY_REUSED",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        },
+        {
+          "operationId": "confirmEnduranceDraftRows",
+          "method": "POST",
+          "path": "/courses/{courseId}/endurance-capture-batches/{batchId}/confirmation",
+          "errors": [
+            "TEACHING_BATCH_NOT_REVIEWABLE",
+            "TEACHING_ROW_UNRESOLVED",
+            "TEACHING_DUPLICATE_IDENTITY",
+            "TEACHING_SOURCE_STALE",
+            "TEACHING_SOURCE_UNAVAILABLE",
+            "VERSION_CONFLICT",
+            "ENDURANCE_CONVERSION_UNAVAILABLE",
+            "ENDURANCE_OUTCOME_EXEMPT",
+            "INVALID_REQUEST",
+            "RESOURCE_NOT_FOUND",
+            "FIRST_PASSWORD_CHANGE_REQUIRED",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "IDEMPOTENCY_KEY_REUSED",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        }
+      ],
+      "schemas": [
+        "ResolvedEnduranceValues"
+      ],
+      "evidenceSuite": "checks",
+      "phase5Evidence": "reproduce.py + final same-SHA result.json; structural/mutation and schema/JS/generated-model checks, not real service evidence",
+      "humanFinalReview": "PENDING_STEP_7",
+      "subsequentOwner": "Backend Owner/Reviewer; Phase6 Android/Web Owners; named recipients confirmed at Step7/phase entry",
+      "runtimeAcceptance": "Phase7 implementation, Phase8 binding, Phase9 integration/recovery; NOT_RUN"
+    },
+    {
+      "gap": "GAP-H10",
+      "disposition": "IMPLEMENTED_LOCAL_PROTOCOL",
+      "summary": "SUPER服务治理、脱敏状态、人工模式",
+      "source": "AT-28",
+      "changeRequest": "CR-20260908-003",
+      "operations": [
+        {
+          "operationId": "publishTechnicalServiceRevision",
+          "method": "POST",
+          "path": "/admin/technical-service-revisions",
+          "errors": [
+            "TECHNICAL_SERVICE_REFERENCE_INVALID",
+            "TECHNICAL_SERVICE_VALIDATION_REQUIRED",
+            "VERSION_CONFLICT",
+            "FIRST_PASSWORD_CHANGE_REQUIRED",
+            "INVALID_REQUEST",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "IDEMPOTENCY_KEY_REUSED",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        },
+        {
+          "operationId": "getTechnicalServiceRunStatus",
+          "method": "GET",
+          "path": "/admin/technical-service-status",
+          "errors": [
+            "FIRST_PASSWORD_CHANGE_REQUIRED",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        },
+        {
+          "operationId": "openManualModeWindow",
+          "method": "POST",
+          "path": "/admin/manual-mode-windows",
+          "errors": [
+            "MANUAL_WINDOW_CONFLICT",
+            "VERSION_CONFLICT",
+            "FIRST_PASSWORD_CHANGE_REQUIRED",
+            "INVALID_REQUEST",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "IDEMPOTENCY_KEY_REUSED",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        }
+      ],
+      "schemas": [
+        "TechnicalServiceRunStatus",
+        "ManualModeWindow"
+      ],
+      "evidenceSuite": "checks",
+      "phase5Evidence": "reproduce.py + final same-SHA result.json; structural/mutation and schema/JS/generated-model checks, not real service evidence",
+      "humanFinalReview": "PENDING_STEP_7",
+      "subsequentOwner": "Backend Owner/Reviewer; Phase6 Android/Web Owners; named recipients confirmed at Step7/phase entry",
+      "runtimeAcceptance": "Phase7 implementation, Phase8 binding, Phase9 integration/recovery; NOT_RUN"
+    },
+    {
+      "gap": "GAP-H11",
+      "disposition": "IMPLEMENTED_LOCAL_PROTOCOL",
+      "summary": "关闭不阻塞原链、完整来源结算及纠错历史",
+      "source": "AT-23–25",
+      "changeRequest": "CR-20260908-002",
+      "operations": [
+        {
+          "operationId": "closeCourse",
+          "method": "POST",
+          "path": "/courses/{courseId}/closure",
+          "errors": [
+            "COURSE_NOT_OPEN",
+            "VERSION_CONFLICT",
+            "INVALID_REQUEST",
+            "RESOURCE_NOT_FOUND",
+            "FIRST_PASSWORD_CHANGE_REQUIRED",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "IDEMPOTENCY_KEY_REUSED",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        },
+        {
+          "operationId": "prepareCourseSettlement",
+          "method": "POST",
+          "path": "/courses/{courseId}/settlement-preparations",
+          "errors": [
+            "SETTLEMENT_SOURCE_UNAVAILABLE",
+            "SETTLEMENT_CORRECTION_INVALID",
+            "VERSION_CONFLICT",
+            "INVALID_REQUEST",
+            "RESOURCE_NOT_FOUND",
+            "FIRST_PASSWORD_CHANGE_REQUIRED",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "IDEMPOTENCY_KEY_REUSED",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        },
+        {
+          "operationId": "confirmCourseSettlement",
+          "method": "POST",
+          "path": "/courses/{courseId}/settlements",
+          "errors": [
+            "SETTLEMENT_BLOCKED",
+            "SETTLEMENT_SOURCE_STALE",
+            "SETTLEMENT_SOURCE_UNAVAILABLE",
+            "SETTLEMENT_CORRECTION_INVALID",
+            "INVALID_REQUEST",
+            "RESOURCE_NOT_FOUND",
+            "FIRST_PASSWORD_CHANGE_REQUIRED",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "IDEMPOTENCY_KEY_REUSED",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        },
+        {
+          "operationId": "listCourseSettlements",
+          "method": "GET",
+          "path": "/courses/{courseId}/settlements",
+          "errors": [
+            "RESOURCE_NOT_FOUND",
+            "INVALID_CURSOR",
+            "FIRST_PASSWORD_CHANGE_REQUIRED",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        }
+      ],
+      "schemas": [
+        "SettlementBlocker",
+        "SettlementReportVersion"
+      ],
+      "evidenceSuite": "prior-courses",
+      "phase5Evidence": "reproduce.py + final same-SHA result.json; structural/mutation and schema/JS/generated-model checks, not real service evidence",
+      "humanFinalReview": "PENDING_STEP_7",
+      "subsequentOwner": "Backend Owner/Reviewer; Phase6 Android/Web Owners; named recipients confirmed at Step7/phase entry",
+      "runtimeAcceptance": "Phase7 implementation, Phase8 binding, Phase9 integration/recovery; NOT_RUN"
+    },
+    {
+      "gap": "GAP-H12",
+      "disposition": "IMPLEMENTED_LOCAL_PROTOCOL",
+      "summary": "学生所有出口无成绩、等级、排名",
+      "source": "AT-18",
+      "changeRequest": "CR-20260908-003",
+      "operations": [
+        {
+          "operationId": "getStudentDashboard",
+          "method": "GET",
+          "path": "/student/dashboard",
+          "errors": [
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        },
+        {
+          "operationId": "getOwnEnduranceOutcome",
+          "method": "GET",
+          "path": "/student/endurance-outcome",
+          "errors": [
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        },
+        {
+          "operationId": "listOwnStudentNotifications",
+          "method": "GET",
+          "path": "/student/notifications",
+          "errors": [
+            "INVALID_CURSOR",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        }
+      ],
+      "schemas": [
+        "StudentEnduranceOutcome"
+      ],
+      "evidenceSuite": "checks",
+      "phase5Evidence": "reproduce.py + final same-SHA result.json; structural/mutation and schema/JS/generated-model checks, not real service evidence",
+      "humanFinalReview": "PENDING_STEP_7",
+      "subsequentOwner": "Backend Owner/Reviewer; Phase6 Android/Web Owners; named recipients confirmed at Step7/phase entry",
+      "runtimeAcceptance": "Phase7 implementation, Phase8 binding, Phase9 integration/recovery; NOT_RUN"
+    },
+    {
+      "gap": "GAP-H13",
+      "disposition": "IMPLEMENTED_LOCAL_PROTOCOL",
+      "summary": "新grade无备注、所有当前教师只读历史",
+      "source": "H §19.7/BD-20260904-02",
+      "changeRequest": "CR-20260908-003",
+      "operations": [
+        {
+          "operationId": "publishFinalGrade",
+          "method": "POST",
+          "path": "/courses/{courseId}/members/{enrollmentId}/final-grade-publications",
+          "errors": [
+            "FINAL_GRADE_VALUE_INVALID",
+            "VERSION_CONFLICT",
+            "INVALID_REQUEST",
+            "RESOURCE_NOT_FOUND",
+            "FIRST_PASSWORD_CHANGE_REQUIRED",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "IDEMPOTENCY_KEY_REUSED",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        },
+        {
+          "operationId": "listHistoricalFinalGradeRemarks",
+          "method": "GET",
+          "path": "/teacher/historical-final-grade-remarks",
+          "errors": [
+            "TEACHING_SOURCE_UNAVAILABLE",
+            "INVALID_CURSOR",
+            "FIRST_PASSWORD_CHANGE_REQUIRED",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        }
+      ],
+      "schemas": [
+        "HistoricalFinalGradeRemark"
+      ],
+      "evidenceSuite": "checks",
+      "phase5Evidence": "reproduce.py + final same-SHA result.json; structural/mutation and schema/JS/generated-model checks, not real service evidence",
+      "humanFinalReview": "PENDING_STEP_7",
+      "subsequentOwner": "Backend Owner/Reviewer; Phase6 Android/Web Owners; named recipients confirmed at Step7/phase entry",
+      "runtimeAcceptance": "Phase7 implementation, Phase8 binding, Phase9 integration/recovery; NOT_RUN"
+    },
+    {
+      "gap": "GAP-H14",
+      "disposition": "NO_NEW_API_BY_ACCEPTED_DECISION",
+      "summary": "不新增已取消的接管、代审或有限授权API",
+      "source": "AT-26/27/BD-20260904-02",
+      "changeRequest": "CR-20260908-003",
+      "operations": [],
+      "schemas": [],
+      "evidenceSuite": "checks",
+      "phase5Evidence": "reproduce.py + final same-SHA result.json; structural/mutation and schema/JS/generated-model checks, not real service evidence",
+      "humanFinalReview": "PENDING_STEP_7",
+      "subsequentOwner": "Backend Owner/Reviewer; Phase6 Android/Web Owners; named recipients confirmed at Step7/phase entry",
+      "runtimeAcceptance": "Phase7 authorization + Phase8 old client cleanup + Phase9 denial/no side-effects; no grant, delegation, admin/cross-teacher review or hidden renaming. NOT_RUN"
+    },
+    {
+      "gap": "GAP-H15",
+      "disposition": "IMPLEMENTED_LOCAL_PROTOCOL",
+      "summary": "已接受P-03，学校日历及计时投影",
+      "source": "P-20260904-03",
+      "changeRequest": "CR-20260908-001",
+      "operations": [
+        {
+          "operationId": "getCourseExerciseRecord",
+          "method": "GET",
+          "path": "/courses/{courseId}/exercise-records/{recordId}",
+          "errors": [
+            "RESOURCE_NOT_FOUND",
+            "FIRST_PASSWORD_CHANGE_REQUIRED",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        }
+      ],
+      "schemas": [
+        "SchoolCalendarReference"
+      ],
+      "evidenceSuite": "prior-workflow",
+      "phase5Evidence": "reproduce.py + final same-SHA result.json; structural/mutation and schema/JS/generated-model checks, not real service evidence",
+      "humanFinalReview": "PENDING_STEP_7",
+      "subsequentOwner": "Backend Owner/Reviewer; Phase6 Android/Web Owners; named recipients confirmed at Step7/phase entry",
+      "runtimeAcceptance": "Business/calendar Owner provides authoritative real school calendar; Backend Owner verifies coverage and counted-day boundaries in Phase7; NOT_RUN"
+    },
+    {
+      "gap": "GAP-H16",
+      "disposition": "IMPLEMENTED_LOCAL_PROTOCOL",
+      "summary": "已接受P-02，首次24小时及同批30分钟原链",
+      "source": "P-20260904-02",
+      "changeRequest": "CR-20260908-001",
+      "operations": [
+        {
+          "operationId": "getFirstMaterialEligibility",
+          "method": "GET",
+          "path": "/exercise-sessions/{sessionId}/material-eligibility",
+          "errors": [
+            "SESSION_TRANSITION_INVALID",
+            "RESOURCE_NOT_FOUND",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        },
+        {
+          "operationId": "submitExerciseRecord",
+          "method": "POST",
+          "path": "/exercise-sessions/{sessionId}/record",
+          "errors": [
+            "SESSION_TRANSITION_INVALID",
+            "VERSION_CONFLICT",
+            "FIRST_MATERIAL_DEADLINE_MISSED",
+            "FIRST_MATERIAL_ALREADY_ACCEPTED",
+            "MATERIAL_BATCH_CONFLICT",
+            "MEDIA_NOT_VERIFIED",
+            "MEDIA_OWNERSHIP_MISMATCH",
+            "MEDIA_ALREADY_BOUND",
+            "MEDIA_LIMIT_EXCEEDED",
+            "MEDIA_CONTENT_INVALID",
+            "RECORD_DESCRIPTION_INVALID",
+            "INVALID_REQUEST",
+            "RESOURCE_NOT_FOUND",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "IDEMPOTENCY_KEY_REUSED",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        },
+        {
+          "operationId": "renewRecordUploadAuthorization",
+          "method": "POST",
+          "path": "/media-assets/{mediaAssetId}/record-upload-authorization",
+          "errors": [
+            "VERSION_CONFLICT",
+            "MATERIAL_BATCH_CONFLICT",
+            "MATERIAL_TRANSFER_DEADLINE_MISSED",
+            "MEDIA_OWNERSHIP_MISMATCH",
+            "INVALID_REQUEST",
+            "RESOURCE_NOT_FOUND",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "IDEMPOTENCY_KEY_REUSED",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        }
+      ],
+      "schemas": [
+        "FirstMaterialEligibility"
+      ],
+      "evidenceSuite": "prior-workflow",
+      "phase5Evidence": "reproduce.py + final same-SHA result.json; structural/mutation and schema/JS/generated-model checks, not real service evidence",
+      "humanFinalReview": "PENDING_STEP_7",
+      "subsequentOwner": "Backend Owner/Reviewer; Phase6 Android/Web Owners; named recipients confirmed at Step7/phase entry",
+      "runtimeAcceptance": "Phase7 implementation, Phase8 binding, Phase9 integration/recovery; NOT_RUN"
+    },
+    {
+      "gap": "GAP-H17",
+      "disposition": "IMPLEMENTED_LOCAL_PROTOCOL",
+      "summary": "已接受P-01，检查完成且仅疑虑时通过",
+      "source": "P-20260904-01",
+      "changeRequest": "CR-20260908-001",
+      "operations": [
+        {
+          "operationId": "appendExerciseRecordReview",
+          "method": "POST",
+          "path": "/courses/{courseId}/exercise-records/{recordId}/reviews",
+          "errors": [
+            "VERSION_CONFLICT",
+            "REVIEW_ACTION_NOT_ALLOWED",
+            "REVIEW_PRECONDITION_UNSATISFIED",
+            "INVALID_REQUEST",
+            "RESOURCE_NOT_FOUND",
+            "FIRST_PASSWORD_CHANGE_REQUIRED",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "IDEMPOTENCY_KEY_REUSED",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        }
+      ],
+      "schemas": [
+        "PassExerciseRecordRequest"
+      ],
+      "evidenceSuite": "prior-workflow",
+      "phase5Evidence": "reproduce.py + final same-SHA result.json; structural/mutation and schema/JS/generated-model checks, not real service evidence",
+      "humanFinalReview": "PENDING_STEP_7",
+      "subsequentOwner": "Backend Owner/Reviewer; Phase6 Android/Web Owners; named recipients confirmed at Step7/phase entry",
+      "runtimeAcceptance": "Phase7 implementation, Phase8 binding, Phase9 integration/recovery; NOT_RUN"
+    },
+    {
+      "gap": "GAP-H18",
+      "disposition": "IMPLEMENTED_LOCAL_PROTOCOL",
+      "summary": "已接受P-04，确认故障后追加有限纠错",
+      "source": "P-20260904-04",
+      "changeRequest": "CR-20260908-001",
+      "operations": [
+        {
+          "operationId": "correctExerciseRecordReview",
+          "method": "POST",
+          "path": "/courses/{courseId}/exercise-records/{recordId}/review-corrections",
+          "errors": [
+            "VERSION_CONFLICT",
+            "CORRECTION_CONFLICT",
+            "REVIEW_ACTION_NOT_ALLOWED",
+            "REVIEW_PRECONDITION_UNSATISFIED",
+            "REVIEW_RESULT_UNCHANGED",
+            "INVALID_REQUEST",
+            "RESOURCE_NOT_FOUND",
+            "FIRST_PASSWORD_CHANGE_REQUIRED",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "IDEMPOTENCY_KEY_REUSED",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        }
+      ],
+      "schemas": [
+        "CorrectExerciseRecordReviewRequest"
+      ],
+      "evidenceSuite": "prior-workflow",
+      "phase5Evidence": "reproduce.py + final same-SHA result.json; structural/mutation and schema/JS/generated-model checks, not real service evidence",
+      "humanFinalReview": "PENDING_STEP_7",
+      "subsequentOwner": "Backend Owner/Reviewer; Phase6 Android/Web Owners; named recipients confirmed at Step7/phase entry",
+      "runtimeAcceptance": "Phase7 implementation, Phase8 binding, Phase9 integration/recovery; NOT_RUN"
+    },
+    {
+      "gap": "GAP-H19",
+      "disposition": "MERGED_INTO_H07_IMPLEMENTED",
+      "summary": "邀请端点精度并入H07",
+      "source": "AT-16",
+      "changeRequest": "CR-20260908-002",
+      "operations": [
+        {
+          "operationId": "registerExistingInvitationFlow",
+          "method": "POST",
+          "path": "/course-invitations/{invitationCode}/existing-student-flows",
+          "errors": [
+            "INVITATION_INVALID",
+            "INVITATION_FLOW_EXPIRED",
+            "INVITATION_FLOW_TERMINATED",
+            "VERSION_CONFLICT",
+            "INVALID_REQUEST",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "IDEMPOTENCY_KEY_REUSED",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        },
+        {
+          "operationId": "registerNewInvitationFlow",
+          "method": "POST",
+          "path": "/course-invitations/{invitationCode}/new-student-flows",
+          "errors": [
+            "INVITATION_INVALID",
+            "INVITATION_FLOW_EXPIRED",
+            "INVITATION_FLOW_TERMINATED",
+            "INVITATION_FLOW_MISMATCH",
+            "INVALID_CREDENTIALS",
+            "INVALID_REQUEST",
+            "SYSTEM_MAINTENANCE",
+            "IDEMPOTENCY_KEY_REUSED",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        }
+      ],
+      "schemas": [],
+      "evidenceSuite": "prior-courses",
+      "phase5Evidence": "reproduce.py + final same-SHA result.json; structural/mutation and schema/JS/generated-model checks, not real service evidence",
+      "humanFinalReview": "PENDING_STEP_7",
+      "subsequentOwner": "Backend Owner/Reviewer; Phase6 Android/Web Owners; named recipients confirmed at Step7/phase entry",
+      "runtimeAcceptance": "Phase7 implementation, Phase8 binding, Phase9 integration/recovery; NOT_RUN"
+    },
+    {
+      "gap": "GAP-H20",
+      "disposition": "IMPLEMENTED_LOCAL_PROTOCOL",
+      "summary": "原三组七分支显式mapping",
+      "source": "CR-20260901-005",
+      "changeRequest": "CR-20260901-005",
+      "operations": [
+        {
+          "operationId": "createStudentApplication",
+          "method": "POST",
+          "path": "/student/applications",
+          "errors": [
+            "ENROLLMENT_NOT_ACTIVE",
+            "MEDIA_NOT_VERIFIED",
+            "MEDIA_OWNERSHIP_MISMATCH",
+            "MEDIA_ALREADY_BOUND",
+            "APPLICATION_EVIDENCE_LIMIT_EXCEEDED",
+            "MEDIA_CONTENT_INVALID",
+            "INVALID_REQUEST",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "IDEMPOTENCY_KEY_REUSED",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        },
+        {
+          "operationId": "reviseEnduranceRuleTable",
+          "method": "POST",
+          "path": "/admin/endurance-rule-tables/{ruleTableId}/revisions",
+          "errors": [
+            "ENDURANCE_RULE_TABLE_INVALID",
+            "VERSION_CONFLICT",
+            "INVALID_REQUEST",
+            "RESOURCE_NOT_FOUND",
+            "FIRST_PASSWORD_CHANGE_REQUIRED",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "IDEMPOTENCY_KEY_REUSED",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        },
+        {
+          "operationId": "switchSystemMode",
+          "method": "POST",
+          "path": "/admin/system-mode/transitions",
+          "errors": [
+            "SYSTEM_MODE_UNCHANGED",
+            "MAINTENANCE_ANNOUNCEMENT_REQUIRED",
+            "VERSION_CONFLICT",
+            "INVALID_REQUEST",
+            "FIRST_PASSWORD_CHANGE_REQUIRED",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "IDEMPOTENCY_KEY_REUSED",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        }
+      ],
+      "schemas": [
+        "CreateStudentApplicationRequest",
+        "ReviseEnduranceRuleTableRequest",
+        "SwitchSystemModeRequest"
+      ],
+      "evidenceSuite": "old-mapping",
+      "phase5Evidence": "reproduce.py + final same-SHA result.json; structural/mutation and schema/JS/generated-model checks, not real service evidence",
+      "humanFinalReview": "PENDING_STEP_7",
+      "subsequentOwner": "Backend Owner/Reviewer; Phase6 Android/Web Owners; named recipients confirmed at Step7/phase entry",
+      "runtimeAcceptance": "Phase7 implementation, Phase8 binding, Phase9 integration/recovery; NOT_RUN"
+    },
+    {
+      "gap": "GAP-H21",
+      "disposition": "RUNTIME_EVIDENCE_DEFERRED_NOT_RUN",
+      "summary": "真实AI/OCR质量、性能、恢复证据后续验收",
+      "source": "H §15.3/管理员 §19.3",
+      "changeRequest": "CR-20260908-003",
+      "operations": [
+        {
+          "operationId": "getTechnicalServiceRunStatus",
+          "method": "GET",
+          "path": "/admin/technical-service-status",
+          "errors": [
+            "FIRST_PASSWORD_CHANGE_REQUIRED",
+            "AUTHENTICATION_REQUIRED",
+            "FORBIDDEN",
+            "SYSTEM_MAINTENANCE",
+            "RATE_LIMITED",
+            "DEPENDENCY_UNAVAILABLE",
+            "INTERNAL_ERROR"
+          ]
+        }
+      ],
+      "schemas": [],
+      "evidenceSuite": "checks",
+      "phase5Evidence": "reproduce.py + final same-SHA result.json; structural/mutation and schema/JS/generated-model checks, not real service evidence",
+      "humanFinalReview": "PENDING_STEP_7",
+      "subsequentOwner": "Backend Owner/Reviewer; Phase6 Android/Web Owners; named recipients confirmed at Step7/phase entry",
+      "runtimeAcceptance": "Technical service/evaluation Owner uses real school samples and performance/recovery evidence in Phase7–9; no synthetic/schema result is AI quality evidence. NOT_RUN"
+    }
+  ],
+  "taskGuideMap": {
+    "T01": "Step1 baseline recorded",
+    "T02": "Steps2–5 CR/use-case to operation mappings",
+    "T03": "Steps2–5 DTO and boundary",
+    "T04": "Steps3–5 permission/error plus Step6 global regression",
+    "T05": "Steps3–5 idempotency/upload plus Step6 regression",
+    "T06": "Step2 mapping plus Step6 six-group check and generated runtime",
+    "T07": "Step6 new RC candidate",
+    "T08": "Step6 automated gates; human final review pending Step7",
+    "T09": "NOT_STARTED_STEP_7"
+  },
+  "blockingBusinessDecisions": [],
+  "deferredBackendGate": {
+    "id": "BE-CR005-COMPAT",
+    "state": "NOT_RUN_SCHEDULED_PHASE_7_0",
+    "owner": "Backend Owner and Reviewer; user tracks assignment at phase entry",
+    "condition": "Must pass chosen Backend generator/adapter against final RC, including required/null/omission/enums/union/unknown-field/roundtrip. Domain/Database alignment including CertificationKind before closing7.0/entering7.1. Does not by itself block5/6."
+  },
+  "phase2Followups": {
+    "FCM cleanup": "Phase8",
+    "privacy/seven states/accessibility": "Phase10",
+    "release evidence": "Phase11"
+  }
+}

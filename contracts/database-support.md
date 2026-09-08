@@ -1,5 +1,12 @@
 # Contract 查询与 Phase 3 数据设计支持审计
 
+> 第五步补充：名单/耐力源批次、immutable原文/行决定/attempt绑定、selected rows原子measurement+唯一conversion、综合名单完整Owner来源/导出身份、技术配置/secret reference/真实评估/人工窗口与历史remark读取审计需要Phase7按Phase4 H-D/F实现。新grade无remark但历史不删除；禁止猜测回填缺失来源/日期，学生投影/通知/缓存/日志不得回退旧成绩。当前仅Contract，无DDL、Migration、鉴权、真实事务/OCR或恢复执行。见[第五步CR](change-requests/CR-20260908-003-teaching-governance-privacy.md)。
+
+> 第四步补充：旧目标revision任意切换、Record每日唯一、0/60/120 credit与直接求和view不再支撑当前协议。新结构需求引用已接受Phase4 Z-A/E：不可变模板/课程规则、来源集合令牌/选择检查点/完整明细/前驱、服务器邀请流程和绑定回执、具名补练窗口、完整结算清单/原内容/历史报告版本。数据库必须通过各Owner共同来源保护并原子发布，不能把普通两次查询当持锁证明。当前只交付Contract；实际DDL、Provider能力、索引/性能、数据库并发和恢复均NOT_EXECUTED。现有数据不得猜测回填，沿G2先盘点/决定。[第四步CR](change-requests/CR-20260908-002-statistics-invitation-settlement.md)。
+
+
+> 以下是旧Contract的历史数据库支持审计。第三步新增的材料版本/锁定批次、ReviewCase/轮次、补证计时、校历来源和追加纠错，追溯到已接受Phase4 H-B/F与Z-C最终设计；本次只表达API边界，未执行数据库、Migration或恢复。实际持久化与事务验证由Phase7完成，不能将旧审计的COVERED套到新结构。[当前CR](change-requests/CR-20260908-001-material-review-timing.md)。
+
 本文件只判断 [Phase 3 Domain 与数据库设计](../docs/architecture/phase-3-domain-and-database-design.md)是否能支持当前 Contract 的查询和事务语义；它不是 migration、PostgreSQL、Backend 或性能实测证据。
 
 | Contract 能力族 | Phase 3 设计支撑 | 结论 |

@@ -25,9 +25,14 @@ from courses import register_courses  # noqa: E402
 from exercise import register_exercise  # noqa: E402
 from identity import register_identity  # noqa: E402
 from services import register_services  # noqa: E402
+from record_workflow import NEW_ERRORS, POLICY, REASONS  # noqa: E402
+from course_workflow import (register_course_workflow, NEW_ERRORS as COURSE_ERRORS,
+                             RETIRED_ERRORS, POLICY as COURSE_POLICY)  # noqa: E402
 
 
-CONTRACT_VERSION = "1.2.0-contract"
+from teaching_workflow import register_teaching_workflow, NEW_ERRORS as TEACHING_ERRORS, POLICY as TEACHING_POLICY
+
+CONTRACT_VERSION = "1.3.0-contract"
 CONTRACT_STATUS = "RC"
 PUBLIC_BASE_PATH = "/api/v1"
 
@@ -58,6 +63,11 @@ TAG_DESCRIPTIONS = {
 
 
 def assemble() -> tuple[dict[str, Any], ContractRegistry]:
+    # CR-20260908-001 retires the one-Record-per-day rejection (counting limits are separate).
+    ERROR_CATALOG.pop("DAILY_RECORD_ALREADY_EXISTS", None)
+    ERROR_CATALOG.update({code: {"status": status, "description": description} for code, (status, description) in NEW_ERRORS.items()})
+    ERROR_CATALOG.update({code: {"status": status, "description": description} for code, (status, description) in COURSE_ERRORS.items()})
+    ERROR_CATALOG.update({code: {"status": status, "description": description} for code, (status, description) in TEACHING_ERRORS.items()})
     schemas: dict[str, dict[str, Any]] = {}
     registry = ContractRegistry()
     register_common_schemas(schemas)
@@ -67,6 +77,11 @@ def assemble() -> tuple[dict[str, Any], ContractRegistry]:
     register_applications(schemas, registry)
     register_services(schemas, registry)
     register_admin(schemas, registry)
+    register_course_workflow(schemas, registry)
+    register_teaching_workflow(schemas, registry)
+    for code in RETIRED_ERRORS:
+        ERROR_CATALOG.pop(code, None)
+    schemas["ErrorCode"]["enum"] = list(ERROR_CATALOG)
 
     spec: dict[str, Any] = {
         "openapi": "3.1.0",
@@ -132,6 +147,14 @@ def assemble() -> tuple[dict[str, Any], ContractRegistry]:
                 "LOCKED": "Production-release baseline.",
             },
             "changePolicy": "Once the Contract enters RC, every later change requires a recorded Change Request and a Contract version increment.",
+            "phase5Compatibility": {
+                "previousVersion": "1.2.0-contract",
+                "previousOpenapiSha256": "667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a",
+                "breaking": True,
+                "publicBasePath": PUBLIC_BASE_PATH,
+                "versionPolicy": "Owner-confirmed repository release-line increment; retaining /api/v1 and the minor version line does not imply backward compatibility.",
+                "consumerPolicy": "Phase 6 consumers must reload the same accepted Version/Status/SHA, regenerate and validate. Backend compatibility is mandatory in Phase 7.0 before business implementation. Old consumers must not mix protocol bytes.",
+            },
             "businessAuthority": [
                 "docs/business/00-overview.md",
                 "docs/business/10-student-flow.md",
@@ -160,6 +183,11 @@ def assemble() -> tuple[dict[str, Any], ContractRegistry]:
                 "CR-20260831-012",
                 "CR-20260901-002",
                 "CR-20260901-003",
+                "CR-20260901-005",
+                "CR-20260908-001",
+                "CR-20260908-002",
+                "CR-20260908-003",
+                "CR-20260908-004",
             ],
         },
         "x-public-conventions": {
@@ -193,7 +221,9 @@ def assemble() -> tuple[dict[str, Any], ContractRegistry]:
         },
         "x-upload-policies": {
             "RECORD_EVIDENCE": {
-                "flow": ["ALLOCATE", "DIRECT_UPLOAD", "FINALIZE_AND_PROBE", "BIND_ON_RECORD_SUBMISSION"],
+                "flow": ["ALLOCATE", "LOCK_FIRST_MANIFEST", "DIRECT_UPLOAD_SAME_BATCH", "FINALIZE_AND_PROBE", "CONFIRM_COMPLETE_MATERIAL"],
+                "supplementFlow": ["CHECK_ORIGINAL_SUPPLEMENT_WINDOW", "ALLOCATE_OR_REUSE_ORIGINAL_ASSETS", "DIRECT_UPLOAD", "FINALIZE_AND_PROBE", "ATOMIC_ACCEPT_VERSION_2_BEFORE_EFFECTIVE_DUE"],
+                "countScope": "Each current material version including reused original assets; never sum both historical versions.",
                 "image": {
                     "contentTypes": ["image/jpeg", "image/png"],
                     "maximumCount": 6,
@@ -218,7 +248,7 @@ def assemble() -> tuple[dict[str, Any], ContractRegistry]:
                 "aggregateScope": "Initial submission plus every supplement for the same application.",
             },
             "ROSTER_SOURCE": {
-                "flow": ["ALLOCATE", "DIRECT_UPLOAD", "IMPORT_AND_PARSE"],
+                "flow": ["ALLOCATE", "DIRECT_UPLOAD", "VERIFY_SOURCE", "PARSE_OR_OCR_DRAFT", "TEACHER_CONFIRM_ROWS", "ATOMIC_PUBLISH_SNAPSHOT"],
                 "contentTypes": [
                     "text/csv",
                     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -226,9 +256,15 @@ def assemble() -> tuple[dict[str, Any], ContractRegistry]:
                 "maximumBytes": 100 * 1024 * 1024,
                 "dataRowMaximum": 500,
                 "rowCounting": "Header excluded; invalid and duplicate data rows included.",
-                "retention": "Temporary source discarded after parsing; formal snapshot stores normalized facts only.",
+                "retention": "Retain immutable source identity, raw positions/text and teacher decisions; paper originals remain restricted to authorized teacher review/history. Parsing alone never authorizes deletion. Cleanup follows the accepted retention policy without inventing a new duration.",
+                "paperContentTypes": ["image/jpeg", "image/png"],
+                "sourceFormats": ["XLSX", "CSV", "PAPER_SCAN"],
             },
         },
+        "x-record-workflow": POLICY,
+        "x-course-workflow": COURSE_POLICY,
+        "x-teaching-workflow": TEACHING_POLICY,
+        "x-review-reasons": {code: {"label": {"zh": zh, "en": en}, "teacherActions": actions} for code, (zh, en, actions) in REASONS.items()},
         "x-error-catalog": ERROR_CATALOG,
     }
     return spec, registry

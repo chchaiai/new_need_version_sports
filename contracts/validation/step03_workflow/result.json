@@ -1,0 +1,56 @@
+{
+  "status": "STEP_3_LOCAL_IMPLEMENTATION_AND_TARGETED_CHECKS_DONE",
+  "phase": "New Phase5 API Contract / OpenAPI",
+  "completedMainSteps": 3,
+  "remainingMainSteps": 4,
+  "nextStep": "STOP_BEFORE_STEP_4",
+  "owner": "用户",
+  "reviewer": "用户",
+  "reviewStatus": "USER_AUTHORIZED_IMPLEMENTATION_FINAL_CANDIDATE_REVIEW_PENDING",
+  "head": "974587c3778a53803a7959ea0f64677581e239f4",
+  "candidateUncommitted": true,
+  "contract": {
+    "contractVersion": "1.3.0-contract.phase5-step03.1",
+    "contractStatus": "DRAFT",
+    "publicBasePath": "/api/v1",
+    "openapiSha256": "2569c529c4ce332b25d6cc66b281b52c31cf160db5e46181ad552838cdb0df87",
+    "pathCount": 117,
+    "operationCount": 129,
+    "errorCodeCount": 75
+  },
+  "schemaCount": 226,
+  "schemaCasesPerRuntime": 223,
+  "schemaRuntimes": [
+    "Python jsonschema",
+    "JavaScript Ajv"
+  ],
+  "newIntegrityMutationsRejected": 21,
+  "finiteTimingModelCases": 38,
+  "calendar": "SYNTHETIC_TEST_ONLY",
+  "typeScriptPositiveFixtures": 17,
+  "typeScriptNegativeDiscriminatorAssertions": 9,
+  "kotlinGeneratedModelsCompiled": 249,
+  "oldCR005Regression": {
+    "schemaCases": 59,
+    "javascriptCases": 59,
+    "kotlinCases": 59,
+    "integrityMutations": 39,
+    "wireBranches": 7
+  },
+  "deterministicBuilds": 2,
+  "lint": "PASS_NO_WARNINGS",
+  "verify": "PASS",
+  "rcReadiness": "EXPECTED_BLOCKED_DRAFT_EXIT_1_NOT_RC_PASS",
+  "newAndroidUnionRuntime": "PENDING_STEP6_CANDIDATE_GATE_AND_PHASE6_CONSUMER_VALIDATION",
+  "backend": "NOT_RUN_PHASE7_0_TOOL_COMPATIBILITY_AND_PHASE7_RUNTIME",
+  "realUploadDatabaseConcurrencyCalendarRecoveryE2E": "NOT_RUN",
+  "github": "NOT_OPERATED_USER_CONTROLLED",
+  "rawEvidence": "D:\\DT\\soprts\\start4\\07_phase5_execution\\T03\\verification-03",
+  "entryEvidence": "D:\\DT\\soprts\\start4\\07_phase5_execution\\T03\\entry.json",
+  "businessSync": "User explicitly authorized exact four-file P01-P04 synchronization; no new business decision",
+  "failuresPreserved": [
+    "Initial old verifier KeyError on nullable result",
+    "Initial unused reason component lint warning",
+    "verification-01 TypeScript default makes optional windowHours required"
+  ]
+}

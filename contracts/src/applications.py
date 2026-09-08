@@ -67,7 +67,13 @@ def _register_application_schemas(schemas: dict[str, Schema]) -> None:
     )
     schemas["CreateStudentApplicationRequest"] = {
         "oneOf": [ref("CreateExemptionApplicationRequest"), ref("CreateCertificationApplicationRequest")],
-        "discriminator": {"propertyName": "applicationType"},
+        "discriminator": {
+            "propertyName": "applicationType",
+            "mapping": {
+                "EXEMPTION": "#/components/schemas/CreateExemptionApplicationRequest",
+                "CERTIFICATION": "#/components/schemas/CreateCertificationApplicationRequest",
+            },
+        },
     }
     schemas["SupplementApplicationRequest"] = object_schema(
         {
@@ -331,7 +337,14 @@ def _register_endurance_schemas(schemas: dict[str, Schema]) -> None:
                     ref("UpdateEnduranceRuleIntervalChange"),
                     ref("DeleteEnduranceRuleIntervalChange"),
                 ],
-                "discriminator": {"propertyName": "action"},
+                "discriminator": {
+                    "propertyName": "action",
+                    "mapping": {
+                        "ADD": "#/components/schemas/AddEnduranceRuleIntervalChange",
+                        "UPDATE": "#/components/schemas/UpdateEnduranceRuleIntervalChange",
+                        "DELETE": "#/components/schemas/DeleteEnduranceRuleIntervalChange",
+                    },
+                },
             },
         },
         ["expectedVersion", "change"],

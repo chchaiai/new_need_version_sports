@@ -1,0 +1,17 @@
+{
+  "status": "PASS",
+  "candidateSha256": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+  "casesUnchangedFromExecutedStep6": 992,
+  "studentPages": 41,
+  "acceptanceScenarios": 28,
+  "businessDecisions": 12,
+  "actualStep6EvidenceHashes": "PASS",
+  "studentOperationRoles": "PASS",
+  "cancelledDelegationNotRestored": "PASS",
+  "protocolNotRegeneratedOrModifiedThisStep": true,
+  "humanFinalReview": "ACCEPTED",
+  "humanReviewSource": "contracts/release-manifest.json; recorded user decision, not granted by this check",
+  "github": "NOT_OPERATED",
+  "step7": "OWNER_ACCEPTED_UPLOAD_READY_PUBLICATION_AND_DISTRIBUTION_PENDING",
+  "checkedAtUTC": "2026-09-08T04:00:22.562885+00:00"
+}

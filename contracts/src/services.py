@@ -303,7 +303,13 @@ def _register_mode_and_notification_schemas(schemas: dict[str, Schema]) -> None:
     )
     schemas["SwitchSystemModeRequest"] = {
         "oneOf": [ref("EnterMaintenanceRequest"), ref("ReturnNormalRequest")],
-        "discriminator": {"propertyName": "targetMode"},
+        "discriminator": {
+            "propertyName": "targetMode",
+            "mapping": {
+                "MAINTENANCE": "#/components/schemas/EnterMaintenanceRequest",
+                "NORMAL": "#/components/schemas/ReturnNormalRequest",
+            },
+        },
     }
     schemas["SystemModeSwitchResult"] = object_schema(
         {"current": ref("SystemMode"), "transition": ref("SystemModeTransition")},
@@ -331,8 +337,9 @@ def _register_mode_and_notification_schemas(schemas: dict[str, Schema]) -> None:
             "targetId": nullable(UUID),
             "createdAt": INSTANT,
             "readAt": nullable(INSTANT),
+            "reviewContext": nullable(ref("ReviewNotificationContext")),
         },
-        ["notificationId", "notificationType", "title", "body", "targetRoute", "targetId", "createdAt", "readAt"],
+        ["notificationId", "notificationType", "title", "body", "targetRoute", "targetId", "createdAt", "readAt", "reviewContext"],
         description="No delivered/pushed/failed state or external-channel status exists. Target navigation never bypasses target authorization.",
     )
     add_paged_schema(schemas, "NotificationPage", "Notification")

@@ -1,0 +1,364 @@
+{
+  "candidateSha256": "bb57149dd3a28926ae3d9daa5345353b5529c03fc13c6ba2e338851c1924159c",
+  "generatedFiles": {
+    "openapi.yaml": "bb57149dd3a28926ae3d9daa5345353b5529c03fc13c6ba2e338851c1924159c",
+    "operation-catalog.md": "d3e843abd1d0b30d188f126f8c5b00217abff255f2531214fe78d9e8ed626d41",
+    "contract-metadata.json": "e34e5fa9c50ab6c9f3bb80ea4878e91573c199db3f91fcefc1395fd58e4b46d2"
+  },
+  "commands": [
+    {
+      "name": "01-build",
+      "command": [
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\.venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\DT\\soprts\\start4\\repos\\phase5-contract\\contracts\\scripts\\build_contract.py"
+      ],
+      "cwd": "D:\\DT\\soprts\\start4\\repos\\phase5-contract",
+      "startedAt": "2026-09-08T02:52:38.503164+00:00",
+      "exitCode": 0,
+      "expectedExit": 0
+    },
+    {
+      "name": "02-repeat-build",
+      "command": [
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\.venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\DT\\soprts\\start4\\repos\\phase5-contract\\contracts\\scripts\\build_contract.py"
+      ],
+      "cwd": "D:\\DT\\soprts\\start4\\repos\\phase5-contract",
+      "startedAt": "2026-09-08T02:52:40.030703+00:00",
+      "exitCode": 0,
+      "expectedExit": 0
+    },
+    {
+      "name": "03-verify",
+      "command": [
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\.venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\DT\\soprts\\start4\\repos\\phase5-contract\\contracts\\scripts\\verify_contract.py"
+      ],
+      "cwd": "D:\\DT\\soprts\\start4\\repos\\phase5-contract",
+      "startedAt": "2026-09-08T02:52:41.640444+00:00",
+      "exitCode": 0,
+      "expectedExit": 0
+    },
+    {
+      "name": "04-readiness",
+      "command": [
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\.venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\DT\\soprts\\start4\\repos\\phase5-contract\\contracts\\scripts\\check_rc_readiness.py"
+      ],
+      "cwd": "D:\\DT\\soprts\\start4\\repos\\phase5-contract",
+      "startedAt": "2026-09-08T02:52:45.649124+00:00",
+      "exitCode": 1,
+      "expectedExit": 1
+    },
+    {
+      "name": "05-workflow-cases",
+      "command": [
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\.venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\DT\\soprts\\start4\\repos\\phase5-contract\\contracts\\validation\\step05_teaching\\run_checks.py",
+        "--spec",
+        "D:\\DT\\soprts\\start4\\repos\\phase5-contract\\contracts\\openapi.yaml",
+        "--output",
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\T05\\verification-03\\checks"
+      ],
+      "cwd": "D:\\DT\\soprts\\start4\\repos\\phase5-contract",
+      "startedAt": "2026-09-08T02:52:45.804076+00:00",
+      "exitCode": 0,
+      "expectedExit": 0
+    },
+    {
+      "name": "05a-step04-regression",
+      "command": [
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\.venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\DT\\soprts\\start4\\repos\\phase5-contract\\contracts\\validation\\step04_courses\\run_checks.py",
+        "--spec",
+        "D:\\DT\\soprts\\start4\\repos\\phase5-contract\\contracts\\openapi.yaml",
+        "--output",
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\T05\\verification-03\\prior-courses"
+      ],
+      "cwd": "D:\\DT\\soprts\\start4\\repos\\phase5-contract",
+      "startedAt": "2026-09-08T02:52:50.123879+00:00",
+      "exitCode": 0,
+      "expectedExit": 0
+    },
+    {
+      "name": "05a2-step04-js",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "D:\\DT\\soprts\\start4\\repos\\phase5-contract\\contracts\\validation\\step04_courses\\runtime_web.cjs",
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\T05\\verification-03\\prior-courses\\runtime-input.json",
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\T02_completion\\tools",
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\T05\\verification-03\\prior-courses\\web-result.json"
+      ],
+      "cwd": "D:\\DT\\soprts\\start4\\repos\\phase5-contract",
+      "startedAt": "2026-09-08T02:52:54.663431+00:00",
+      "exitCode": 0,
+      "expectedExit": 0
+    },
+    {
+      "name": "05b-step03-regression",
+      "command": [
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\.venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\DT\\soprts\\start4\\repos\\phase5-contract\\contracts\\validation\\step03_workflow\\run_checks.py",
+        "--spec",
+        "D:\\DT\\soprts\\start4\\repos\\phase5-contract\\contracts\\openapi.yaml",
+        "--output",
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\T05\\verification-03\\prior-workflow"
+      ],
+      "cwd": "D:\\DT\\soprts\\start4\\repos\\phase5-contract",
+      "startedAt": "2026-09-08T02:52:55.158522+00:00",
+      "exitCode": 0,
+      "expectedExit": 0
+    },
+    {
+      "name": "05c-step03-js",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "D:\\DT\\soprts\\start4\\repos\\phase5-contract\\contracts\\validation\\step03_workflow\\runtime_web.cjs",
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\T05\\verification-03\\prior-workflow\\runtime-input.json",
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\T02_completion\\tools",
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\T05\\verification-03\\prior-workflow\\web-result.json"
+      ],
+      "cwd": "D:\\DT\\soprts\\start4\\repos\\phase5-contract",
+      "startedAt": "2026-09-08T02:52:58.927952+00:00",
+      "exitCode": 0,
+      "expectedExit": 0
+    },
+    {
+      "name": "06-old-mapping-regression",
+      "command": [
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\.venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\DT\\soprts\\start4\\repos\\phase5-contract\\contracts\\validation\\step02_discriminators\\run_checks.py",
+        "--spec",
+        "D:\\DT\\soprts\\start4\\repos\\phase5-contract\\contracts\\openapi.yaml",
+        "--baseline",
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\T02_implementation\\baseline\\contracts\\openapi.yaml",
+        "--output",
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\T05\\verification-03\\old-mapping"
+      ],
+      "cwd": "D:\\DT\\soprts\\start4\\repos\\phase5-contract",
+      "startedAt": "2026-09-08T02:52:59.629695+00:00",
+      "exitCode": 0,
+      "expectedExit": 0
+    },
+    {
+      "name": "07-workflow-js",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "D:\\DT\\soprts\\start4\\repos\\phase5-contract\\contracts\\validation\\step05_teaching\\runtime_web.cjs",
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\T05\\verification-03\\checks\\runtime-input.json",
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\T02_completion\\tools",
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\T05\\verification-03\\checks\\web-result.json"
+      ],
+      "cwd": "D:\\DT\\soprts\\start4\\repos\\phase5-contract",
+      "startedAt": "2026-09-08T02:53:05.120711+00:00",
+      "exitCode": 0,
+      "expectedExit": 0
+    },
+    {
+      "name": "08-old-mapping-js",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "D:\\DT\\soprts\\start4\\repos\\phase5-contract\\contracts\\validation\\step02_discriminators\\runtime_web.cjs",
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\T05\\verification-03\\old-mapping\\runtime-input.json",
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\T02_completion\\tools",
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\T05\\verification-03\\old-mapping\\web-result.json"
+      ],
+      "cwd": "D:\\DT\\soprts\\start4\\repos\\phase5-contract",
+      "startedAt": "2026-09-08T02:53:05.858343+00:00",
+      "exitCode": 0,
+      "expectedExit": 0
+    },
+    {
+      "name": "09-typescript-generate",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\tooling\\node_modules\\openapi-typescript\\bin\\cli.js",
+        "D:\\DT\\soprts\\start4\\repos\\phase5-contract\\contracts\\openapi.yaml",
+        "--default-non-nullable",
+        "false",
+        "--output",
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\T05\\verification-03\\api.d.ts"
+      ],
+      "cwd": "D:\\DT\\soprts\\start4\\repos\\phase5-contract",
+      "startedAt": "2026-09-08T02:53:06.184793+00:00",
+      "exitCode": 0,
+      "expectedExit": 0
+    },
+    {
+      "name": "10-typescript-compile",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\tooling\\node_modules\\typescript\\bin\\tsc",
+        "--strict",
+        "--target",
+        "ES2022",
+        "--module",
+        "commonjs",
+        "--outDir",
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\T05\\verification-03\\ts",
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\T05\\verification-03\\typed-fixtures.ts"
+      ],
+      "cwd": "D:\\DT\\soprts\\start4\\repos\\phase5-contract",
+      "startedAt": "2026-09-08T02:53:07.885354+00:00",
+      "exitCode": 0,
+      "expectedExit": 0
+    },
+    {
+      "name": "11-typescript-wire",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\T05\\verification-03\\ts\\typed-fixtures.js"
+      ],
+      "cwd": "D:\\DT\\soprts\\start4\\repos\\phase5-contract",
+      "startedAt": "2026-09-08T02:53:09.513016+00:00",
+      "exitCode": 0,
+      "expectedExit": 0
+    },
+    {
+      "name": "12-base-models",
+      "command": [
+        "C:\\Program Files\\Android\\Android Studio\\jbr\\bin\\java.exe",
+        "-jar",
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\tooling\\openapi-generator-cli-7.24.0.jar",
+        "generate",
+        "-c",
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\T05\\verification-03\\base-models.config.json"
+      ],
+      "cwd": "D:\\DT\\soprts\\start4\\repos\\phase5-contract",
+      "startedAt": "2026-09-08T02:53:09.618475+00:00",
+      "exitCode": 0,
+      "expectedExit": 0
+    },
+    {
+      "name": "12-selected-wrappers",
+      "command": [
+        "C:\\Program Files\\Android\\Android Studio\\jbr\\bin\\java.exe",
+        "-jar",
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\tooling\\openapi-generator-cli-7.24.0.jar",
+        "generate",
+        "-c",
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\T05\\verification-03\\selected-wrappers.config.json"
+      ],
+      "cwd": "D:\\DT\\soprts\\start4\\repos\\phase5-contract",
+      "startedAt": "2026-09-08T02:53:15.250546+00:00",
+      "exitCode": 0,
+      "expectedExit": 0
+    },
+    {
+      "name": "13-kotlin-compile",
+      "command": [
+        "C:\\Program Files\\Android\\Android Studio\\jbr\\bin\\java.exe",
+        "-cp",
+        "C:\\Users\\32631\\.gradle\\caches\\modules-2\\files-2.1\\org.jetbrains.kotlin\\kotlin-compiler-embeddable\\2.0.21\\79346ed53db48b18312a472602eb5c057070c54d\\kotlin-compiler-embeddable-2.0.21.jar;C:\\Users\\32631\\.gradle\\caches\\modules-2\\files-2.1\\org.jetbrains.kotlin\\kotlin-stdlib\\2.0.21\\618b539767b4899b4660a83006e052b63f1db551\\kotlin-stdlib-2.0.21.jar;C:\\Users\\32631\\.gradle\\caches\\modules-2\\files-2.1\\org.jetbrains.kotlin\\kotlin-script-runtime\\2.0.21\\c9b044380ad41f89aa89aa896c2d32a8c0b2129d\\kotlin-script-runtime-2.0.21.jar;C:\\Users\\32631\\.gradle\\caches\\modules-2\\files-2.1\\org.jetbrains.kotlin\\kotlin-reflect\\1.6.10\\1cbe9c92c12a94eea200d23c2bbaedaf3daf5132\\kotlin-reflect-1.6.10.jar;C:\\Users\\32631\\.gradle\\caches\\modules-2\\files-2.1\\org.jetbrains.intellij.deps\\trove4j\\1.0.20200330\\3afb14d5f9ceb459d724e907a21145e8ff394f02\\trove4j-1.0.20200330.jar;C:\\Users\\32631\\.gradle\\caches\\modules-2\\files-2.1\\org.jetbrains.kotlinx\\kotlinx-coroutines-core-jvm\\1.6.4\\2c997cd1c0ef33f3e751d3831929aeff1390cb30\\kotlinx-coroutines-core-jvm-1.6.4.jar;C:\\Users\\32631\\.gradle\\caches\\modules-2\\files-2.1\\org.jetbrains\\annotations\\13.0\\919f0dfe192fb4e063e7dacadee7f8bb9a2672a9\\annotations-13.0.jar",
+        "org.jetbrains.kotlin.cli.jvm.K2JVMCompiler",
+        "@D:\\DT\\soprts\\start4\\07_phase5_execution\\T05\\verification-03\\compile.args"
+      ],
+      "cwd": "D:\\DT\\soprts\\start4\\repos\\phase5-contract",
+      "startedAt": "2026-09-08T02:53:22.713889+00:00",
+      "exitCode": 0,
+      "expectedExit": 0
+    },
+    {
+      "name": "14-old-jvm-probe-compile",
+      "command": [
+        "C:\\Program Files\\Android\\Android Studio\\jbr\\bin\\javac.exe",
+        "-encoding",
+        "UTF-8",
+        "--release",
+        "17",
+        "-cp",
+        "C:\\Users\\32631\\.gradle\\caches\\modules-2\\files-2.1\\org.jetbrains.kotlin\\kotlin-stdlib\\2.0.21\\618b539767b4899b4660a83006e052b63f1db551\\kotlin-stdlib-2.0.21.jar;C:\\Users\\32631\\.gradle\\caches\\modules-2\\files-2.1\\com.google.code.gson\\gson\\2.11.0\\527175ca6d81050b53bdd4c457a6d6e017626b0e\\gson-2.11.0.jar;C:\\Users\\32631\\.gradle\\caches\\modules-2\\files-2.1\\org.jetbrains\\annotations\\13.0\\919f0dfe192fb4e063e7dacadee7f8bb9a2672a9\\annotations-13.0.jar;D:\\DT\\soprts\\start4\\07_phase5_execution\\T05\\verification-03\\models.jar",
+        "-d",
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\T05\\verification-03\\jvm-classes",
+        "D:\\DT\\soprts\\start4\\repos\\phase5-contract\\contracts\\validation\\step02_discriminators\\kotlin\\ClosedFieldGuardFactory.java",
+        "D:\\DT\\soprts\\start4\\repos\\phase5-contract\\contracts\\validation\\step02_discriminators\\kotlin\\RunCases.java"
+      ],
+      "cwd": "D:\\DT\\soprts\\start4\\repos\\phase5-contract",
+      "startedAt": "2026-09-08T02:53:43.733688+00:00",
+      "exitCode": 0,
+      "expectedExit": 0
+    },
+    {
+      "name": "15-old-kotlin-runtime",
+      "command": [
+        "C:\\Program Files\\Android\\Android Studio\\jbr\\bin\\java.exe",
+        "-cp",
+        "C:\\Users\\32631\\.gradle\\caches\\modules-2\\files-2.1\\org.jetbrains.kotlin\\kotlin-stdlib\\2.0.21\\618b539767b4899b4660a83006e052b63f1db551\\kotlin-stdlib-2.0.21.jar;C:\\Users\\32631\\.gradle\\caches\\modules-2\\files-2.1\\com.google.code.gson\\gson\\2.11.0\\527175ca6d81050b53bdd4c457a6d6e017626b0e\\gson-2.11.0.jar;C:\\Users\\32631\\.gradle\\caches\\modules-2\\files-2.1\\org.jetbrains\\annotations\\13.0\\919f0dfe192fb4e063e7dacadee7f8bb9a2672a9\\annotations-13.0.jar;D:\\DT\\soprts\\start4\\07_phase5_execution\\T05\\verification-03\\models.jar;D:\\DT\\soprts\\start4\\07_phase5_execution\\T05\\verification-03\\jvm-classes",
+        "RunCases",
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\T05\\verification-03\\old-mapping\\runtime-input.json",
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\T05\\verification-03\\old-mapping\\kotlin-result.json"
+      ],
+      "cwd": "D:\\DT\\soprts\\start4\\repos\\phase5-contract",
+      "startedAt": "2026-09-08T02:53:45.063971+00:00",
+      "exitCode": 0,
+      "expectedExit": 0
+    },
+    {
+      "name": "16-lint",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "D:\\DT\\soprts\\start4\\07_phase5_execution\\tooling\\node_modules\\@redocly\\cli\\bin\\cli.js",
+        "lint",
+        "D:\\DT\\soprts\\start4\\repos\\phase5-contract\\contracts\\openapi.yaml",
+        "--config",
+        "D:\\DT\\soprts\\start4\\repos\\phase5-contract\\contracts\\redocly.yaml"
+      ],
+      "cwd": "D:\\DT\\soprts\\start4\\repos\\phase5-contract",
+      "startedAt": "2026-09-08T02:53:45.607310+00:00",
+      "exitCode": 0,
+      "expectedExit": 0
+    }
+  ],
+  "allExpectedExits": true,
+  "kotlinModelsCompiled": 357,
+  "step02SelectedWrapperModels": 14,
+  "step05TypeScriptLegalFixtures": 58,
+  "step05TypeScriptNegativeAssertions": 9,
+  "priorStep03KotlinUnionRuntime": "PENDING_STEP6_CANDIDATE_GATE_AND_PHASE6_CONSUMER_VALIDATION",
+  "rcReadiness": "EXPECTED_BLOCKED_DRAFT",
+  "backend": "NOT_RUN_PHASE7_0_COMPATIBILITY_AND_PHASE7_RUNTIME",
+  "newModelAndroidRuntime": "PENDING_STEP6_CANDIDATE_GATE_AND_PHASE6_CONSUMER_VALIDATION",
+  "priorWorkflowReport": "prior-workflow/python-result.json",
+  "schemaReport": "checks/python-result.json",
+  "javascriptReport": "checks/web-result.json",
+  "schemaCases": 273,
+  "schemaPassed": 273,
+  "javascriptCases": 273,
+  "javascriptPassed": 273,
+  "structuralMutations": 34,
+  "mutationsRejected": 34,
+  "finiteDesignModels": 248,
+  "finiteDesignModelsPassed": 248,
+  "studentReachableSchemaCount": 117,
+  "priorStep04Report": "prior-courses/python-result.json",
+  "localEvidenceDirectory": "D:\\DT\\soprts\\start4\\07_phase5_execution\\T05\\verification-03",
+  "limitations": [
+    "No real Backend/auth/database/OCR quality/upload/cache/notification delivery/export runtime/E2E execution",
+    "New Android runtime compatibility remains Step6 candidate gate and Phase6; model compilation alone is insufficient",
+    "DRAFT only; no RC release, commit, push, PR, merge or deployment"
+  ]
+}

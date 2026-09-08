@@ -1,0 +1,18 @@
+{
+  "generatorVersion": "7.24.0",
+  "jarSha256": "4b83ccc6fd43056c8c631cd0195e5100bd0550912502527bab09ac76152dab0c",
+  "templates": [
+    {
+      "entry": "kotlin-client/data_class.mustache",
+      "originalSha256": "f29c1fa9e6f3428a45bc9d3b8f7261a23ae9b969a08a898f3fb2d445ffcf1932",
+      "patchedSha256": "64978f12e395a0e3ec41a7b74ceb925f7a05014f36f93c866384144c4913a89c",
+      "changes": "Four enum validation comparisons use the schema numeric type accessor instead of unconditional asString; all other template bytes unchanged."
+    },
+    {
+      "entry": "kotlin-client/oneof_class.mustache",
+      "originalSha256": "579fbcbb7b504e58988670786eeddb9242efec2af4a2c7df5c0ddab710937ae4",
+      "patchedSha256": "23b72d43ca7901fb69480c23de37629b75423783e134ac813871f0e8da64ffba",
+      "changes": "Two branch-adapter declarations use getAdapter so registered schema/presence/scalar guards are respected. No branch selection or wire type change."
+    }
+  ]
+}

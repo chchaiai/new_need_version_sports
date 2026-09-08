@@ -1,0 +1,563 @@
+{
+  "manifestPurpose": "OWNER_ACCEPTED_RC_NOT_YET_PUBLISHED",
+  "version": "1.3.0-contract",
+  "status": "RC",
+  "publicBasePath": "/api/v1",
+  "openapiSha256": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+  "breaking": true,
+  "versionDecision": {
+    "owner": "user",
+    "confirmation": "确认按此版本策略",
+    "policy": "Repository minor-line increment with breaking changes; /api/v1 unchanged"
+  },
+  "repository": "https://github.com/chchaiai/new_need_version_sports.git",
+  "workingBranch": "codex/phase5-contract-v81",
+  "baselineCommit": "974587c3778a53803a7959ea0f64677581e239f4",
+  "sourceCommit": null,
+  "sourceCommitStatus": "UNCOMMITTED_WORKTREE_DO_NOT_SUBSTITUTE_BASELINE_HEAD",
+  "humanFinalReview": "ACCEPTED",
+  "github": "NOT_OPERATED",
+  "phase5": "IN_PROGRESS",
+  "stepsCompleted": 6,
+  "stepsRemaining": 1,
+  "previousCanonical": {
+    "version": "1.2.0-contract",
+    "status": "RC",
+    "openapiSha256": "667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a",
+    "commit": "974587c3778a53803a7959ea0f64677581e239f4",
+    "path": "contracts/openapi.yaml",
+    "rollbackPolicy": "Use original Git bytes and the matching old consumer version; never overwrite the new RC using old Version/SHA. Downstream adoption is separate."
+  },
+  "implementedChangeRequests": [
+    {
+      "id": "CR-20260901-005",
+      "path": "contracts/change-requests/CR-20260901-005-explicit-discriminator-mappings.md",
+      "status": "IMPLEMENTED_TECHNICALLY_VERIFIED_OWNER_ACCEPTED_PUBLICATION_PENDING"
+    },
+    {
+      "id": "CR-20260908-001",
+      "path": "contracts/change-requests/CR-20260908-001-material-review-timing.md",
+      "status": "IMPLEMENTED_TECHNICALLY_VERIFIED_OWNER_ACCEPTED_PUBLICATION_PENDING"
+    },
+    {
+      "id": "CR-20260908-002",
+      "path": "contracts/change-requests/CR-20260908-002-statistics-invitation-settlement.md",
+      "status": "IMPLEMENTED_TECHNICALLY_VERIFIED_OWNER_ACCEPTED_PUBLICATION_PENDING"
+    },
+    {
+      "id": "CR-20260908-003",
+      "path": "contracts/change-requests/CR-20260908-003-teaching-governance-privacy.md",
+      "status": "IMPLEMENTED_TECHNICALLY_VERIFIED_OWNER_ACCEPTED_PUBLICATION_PENDING"
+    },
+    {
+      "id": "CR-20260908-004",
+      "path": "contracts/change-requests/CR-20260908-004-rc-consolidation.md",
+      "status": "IMPLEMENTED_TECHNICALLY_VERIFIED_OWNER_ACCEPTED_PUBLICATION_PENDING"
+    }
+  ],
+  "authorityInputs": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "12f5751094c5d002512e74fa3d72224cb1da354e6ae75392d6aa1d1b61558167"
+    },
+    {
+      "path": "docs/business/00-overview.md",
+      "sha256": "1543dee27dbed628a1fce0db235834cd95fade1a762e6307e96771bf5049eb20"
+    },
+    {
+      "path": "docs/business/10-student-flow.md",
+      "sha256": "64572b5af5470330932f69fbb924c3753e1d84931333b5aedf67f7991ce7eeb9"
+    },
+    {
+      "path": "docs/business/20-teacher-flow.md",
+      "sha256": "0af653545785462240601053bd0dafd8ad0c95b3e045e5c0295b147c0cbe7326"
+    },
+    {
+      "path": "docs/business/30-admin-flow.md",
+      "sha256": "ec352dcf737f0d3095d62f969b7f107d796356de72796160d972a55baed3a938"
+    },
+    {
+      "path": "docs/business/README.md",
+      "sha256": "374f9aa281fa84c8d362a5f475059379ef437ad7e41314fe2601ada0c6d567e1"
+    },
+    {
+      "path": "docs/architecture/new-requirements/p4-design-deltas-v81.md",
+      "sha256": "a6e9947014e73ec63d510d3adb52c6d1e06a9b6d0010f901494cb03a93fd8d5f"
+    },
+    {
+      "path": "docs/architecture/new-requirements/p4-design-huang-v81.md",
+      "sha256": "e29e2aef7b374a26050fe9c99cc5ad3a1e091f448dd96b03392ec8915c8a7509"
+    },
+    {
+      "path": "docs/architecture/new-requirements/p4-design-zhou-v81.md",
+      "sha256": "d0dd08c8bb99d17c3084fe965550cd6eca03a350a4f17924ddd8f8f7b4d9dc6a"
+    },
+    {
+      "path": "docs/architecture/new-requirements/p4-migration-note.md",
+      "sha256": "065a513e11cc0f852e8e2940baa32e188cb2eb215d16c8039eff471473a31bd7"
+    },
+    {
+      "path": "docs/architecture/new-requirements/p4-traceability-matrix-v81.md",
+      "sha256": "6fb2d4c76aa7495876d48392dde526568f2ac98fcfb7df892718d8e674ecd677"
+    }
+  ],
+  "generationAndValidationInputs": [
+    {
+      "path": "contracts/redocly.yaml",
+      "sha256": "d1975721e66d31867600f099bf1dadecaf73a0aa6f04f5bd068c36dbae4731a1"
+    },
+    {
+      "path": "contracts/scripts/build_contract.py",
+      "sha256": "8d1f4a5fbbb210793ff63ad77a71b4d6f67225722dc3f08e69809d273110fb54"
+    },
+    {
+      "path": "contracts/scripts/check_rc_readiness.py",
+      "sha256": "b3c3899c81770071aec28b90f247de474c22b068051cb3abec18f96d7fa2f4f8"
+    },
+    {
+      "path": "contracts/scripts/verify_contract.py",
+      "sha256": "996a6f3d00e63ceb1cb570c8511c6ae0ce161e53ecf9eefc1389ad6703b38970"
+    },
+    {
+      "path": "contracts/src/admin.py",
+      "sha256": "22fb612f59485cd571197a340b3e2e2030071b6645b6d70f22a2d688386050d1"
+    },
+    {
+      "path": "contracts/src/applications.py",
+      "sha256": "86b440335bc26ac2528bdb82bc1fd57ecfb9d3d793776ac929a3fa1c8169edea"
+    },
+    {
+      "path": "contracts/src/common.py",
+      "sha256": "ecc8286e7f83977d9fe1a7f4fb54f1948336aba9eedb21c0317f8f1ea0a3e6d5"
+    },
+    {
+      "path": "contracts/src/course_workflow.py",
+      "sha256": "488090f812c7c9e40db6b787da9ce4f1387a37ab27e466c78e25c6e690d42b37"
+    },
+    {
+      "path": "contracts/src/courses.py",
+      "sha256": "7d9c3f57634a25e92dc39430aebc0d40937d2c606f4faf1a6a059f2d6b533a41"
+    },
+    {
+      "path": "contracts/src/exercise.py",
+      "sha256": "fd1cd033bb6855b864b2b6574cce7f95c90b9f102c708528069e0943adf8712f"
+    },
+    {
+      "path": "contracts/src/identity.py",
+      "sha256": "0ead576f7f4402dba459b35f3cc7cba963c673a305ab1b20683376bf5459577a"
+    },
+    {
+      "path": "contracts/src/record_workflow.py",
+      "sha256": "3880a51aacd440159cc694133873c0e0884bacd8043b069655599143b5dde77a"
+    },
+    {
+      "path": "contracts/src/services.py",
+      "sha256": "ddaccc0226b0691191b224424c857ef50a0f987b12dd7c1f6c11dd3ca2e943b4"
+    },
+    {
+      "path": "contracts/src/teaching_workflow.py",
+      "sha256": "38038e0679389702c5ec070b8ab7256fa492a58919ad59724f034731609cbf01"
+    },
+    {
+      "path": "contracts/validation/step02_discriminators/check_discriminators.py",
+      "sha256": "eb29c2b0409e2eb6d97599c5e5e6b354f3e768f005e217cb43a9bb3cd63bb9aa"
+    },
+    {
+      "path": "contracts/validation/step02_discriminators/kotlin/ClosedFieldGuardFactory.java",
+      "sha256": "5b4ba80c3e85fcfd09ac95e1f3ea52087750685f467470c330b10ab1cc62f7b9"
+    },
+    {
+      "path": "contracts/validation/step02_discriminators/kotlin/RunCases.java",
+      "sha256": "314d36f2aa6ac17adeb61c8de373378992e23f28a0d071639b91df2e57a36717"
+    },
+    {
+      "path": "contracts/validation/step02_discriminators/prepare_candidate.py",
+      "sha256": "92368b5f093e652ec0d21d0222c11ae673aa3f849d94eb8e9899c4fc73d94a15"
+    },
+    {
+      "path": "contracts/validation/step02_discriminators/reproduce.py",
+      "sha256": "a460fffa0555c8f729804ff84c631fd21d94c28ce6a76b6cab1513ea4133861e"
+    },
+    {
+      "path": "contracts/validation/step02_discriminators/run_checks.py",
+      "sha256": "7bfe111af096f997359ce70623acbcf931f4256a13a158dc2b5d69c1e0019ab8"
+    },
+    {
+      "path": "contracts/validation/step02_discriminators/runtime_web.cjs",
+      "sha256": "c3c3cb1cd16801f3f67cb0513f98e9386592d0e32e00672cb5b9bb4b0a1d2da7"
+    },
+    {
+      "path": "contracts/validation/step03_workflow/check_workflow.py",
+      "sha256": "07c8f5278781808ca6c79bc040eedd26037484fefc3ff8977c11247ac3a7c9db"
+    },
+    {
+      "path": "contracts/validation/step03_workflow/fixtures.py",
+      "sha256": "9ae8f8ab0b567382431b56c0a09b3fce3ab2607ad33e1689af712cc26efb2b36"
+    },
+    {
+      "path": "contracts/validation/step03_workflow/reproduce.py",
+      "sha256": "8177ec4a9b629fa2280dbd962b6b6bf282d48db90735c57095348ca4609e0247"
+    },
+    {
+      "path": "contracts/validation/step03_workflow/run_checks.py",
+      "sha256": "40fba8d8567cb4bc8793e243c1c7b8372a488f1c9cdd00cd217d4b60ede16e6a"
+    },
+    {
+      "path": "contracts/validation/step03_workflow/runtime_web.cjs",
+      "sha256": "e6843bababd14d20b6026883c95fe78dd95ba41125e33005c1932f488b84c6ef"
+    },
+    {
+      "path": "contracts/validation/step03_workflow/timing_cases.py",
+      "sha256": "322867ac8223e545795a13a5dcd22e8ad6e0299c485f45870a6430015197c1d5"
+    },
+    {
+      "path": "contracts/validation/step04_courses/accepted_selection_reference.py",
+      "sha256": "3dea65c0ad1fc5425e7127684ed3b7b780855748cd2739648e88c53f695257d8"
+    },
+    {
+      "path": "contracts/validation/step04_courses/check_courses.py",
+      "sha256": "951fca0fe4b7ddd4bfd34f919969fa57898713b7baf14b67e43b4a9fc56ea07c"
+    },
+    {
+      "path": "contracts/validation/step04_courses/fixtures.py",
+      "sha256": "fd814ea32e3a44906326cf17c803748f3380da3cb6c8c7dd177d2912984a16d3"
+    },
+    {
+      "path": "contracts/validation/step04_courses/model_cases.py",
+      "sha256": "a885eed9de9b250ba1b89536534a32f3c3be9db25de65265c1f3bf5d3e7e4155"
+    },
+    {
+      "path": "contracts/validation/step04_courses/reproduce.py",
+      "sha256": "c844c1bacf3dfb23a432df7e4c5b8e813ad9b7c6900c2e6608354f4f496064bd"
+    },
+    {
+      "path": "contracts/validation/step04_courses/run_checks.py",
+      "sha256": "ed8b0a0124a7be5820231ed7152dec2d5af8f838bc79df307fb1c0f516215c6a"
+    },
+    {
+      "path": "contracts/validation/step04_courses/runtime_web.cjs",
+      "sha256": "2e00659bc746609153de02a0ddff9e9fea86bb772c244463e8451bd14585a54d"
+    },
+    {
+      "path": "contracts/validation/step05_teaching/check_teaching.py",
+      "sha256": "db0b699bd507413b068849941677f9276076ed7dfc51ea43f7f1bdc007bb1228"
+    },
+    {
+      "path": "contracts/validation/step05_teaching/fixtures.py",
+      "sha256": "1e15aba917e69bbf4b4f96f9cdc78aa154878e2498fd3005c429fa934be74f12"
+    },
+    {
+      "path": "contracts/validation/step05_teaching/model_cases.py",
+      "sha256": "6e111b9701c2ee02b035c6dac1aca890f578418892e53b6e63c870317a61d946"
+    },
+    {
+      "path": "contracts/validation/step05_teaching/reproduce.py",
+      "sha256": "bbce88977d2851c7865e1e4da5f1cf537b1c5ce30fe3ea8f68f5ac4c80de9ca2"
+    },
+    {
+      "path": "contracts/validation/step05_teaching/run_checks.py",
+      "sha256": "2e623e9f531ff51d5d302ee7362f4d22e01661d6cccdc73fd8b281fcca694014"
+    },
+    {
+      "path": "contracts/validation/step05_teaching/runtime_web.cjs",
+      "sha256": "16698b9e78f689e0ee39c015fd2ced3f893479586a2f469f053030ae05f8d1cd"
+    },
+    {
+      "path": "contracts/validation/step06_final/check_final.py",
+      "sha256": "7d57f1493c0c92854ce4c84c20ebb17720d762d1e1fb3c2d4654921ae369c7d7"
+    },
+    {
+      "path": "contracts/validation/step06_final/generator_support.py",
+      "sha256": "10457ec20282249c3aaaa1a411e5847332abd26aec98c2fe6aaafe2a15dfdfe2"
+    },
+    {
+      "path": "contracts/validation/step06_final/jvm/ContractRuntimeProbe.java",
+      "sha256": "6005131729ad860b4d0c3dadb201a5b0dbd64ca0d7544d0add990d64568ad316"
+    },
+    {
+      "path": "contracts/validation/step06_final/reproduce.py",
+      "sha256": "9ba96a09723224fb722bb247ead049e0c4a3a9844a950a919aa8d2987d0890ae"
+    },
+    {
+      "path": "contracts/validation/step06_final/runtime-dependencies.json",
+      "sha256": "ec265367c8f79b64d2ab5acfe66d146e60dd6e60cac8d26f083035bf78bb7308"
+    },
+    {
+      "path": "contracts/validation/step06_final/template-manifest.json",
+      "sha256": "00d6b413e97610124f6b359abc6ed38ffc32df15dd96a36cec9dc51b216b1944"
+    },
+    {
+      "path": "contracts/validation/step06_final/templates/data_class.mustache",
+      "sha256": "64978f12e395a0e3ec41a7b74ceb925f7a05014f36f93c866384144c4913a89c"
+    },
+    {
+      "path": "contracts/validation/step06_final/templates/oneof_class.mustache",
+      "sha256": "23b72d43ca7901fb69480c23de37629b75423783e134ac813871f0e8da64ffba"
+    },
+    {
+      "path": "contracts/validation/step06_final/verify_release.py",
+      "sha256": "1881a547fd1c2a90ea59302913a7f71687eed6acc54c9620882113608dec8de2"
+    },
+    {
+      "path": "contracts/validation/step07_handoff/build_handoff.py",
+      "sha256": "ef532ce55a20d0016997df210e0e4ac47ba6b18b0be8ef63a6cc258c6aa7d61a"
+    },
+    {
+      "path": "contracts/validation/step07_handoff/check_handoff.py",
+      "sha256": "a85c1f4795e109fe2095b23f293992cfa3cfd396b7027d18ce3f5a1b7982cab4"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "contracts/README.md",
+      "sha256": "8257b78c1c64b5b0a6c17e319cc91a64079de126b5ca9bb807e1eb22241c7a4a"
+    },
+    {
+      "path": "contracts/change-requests/CR-20260831-001-active-session-empty-state.md",
+      "sha256": "e7c2c17b0d84ec91ef39092580c5ee9c6a3724b7851a3f9c009097f0bd7c0b6f"
+    },
+    {
+      "path": "contracts/change-requests/CR-20260831-002-media-finalization-rejection-channel.md",
+      "sha256": "d770489aaafbb0cf80f708d58fa5d4fafdca0b33d92cbc197285f9465f3f464e"
+    },
+    {
+      "path": "contracts/change-requests/CR-20260831-003-student-dashboard-profile-projection.md",
+      "sha256": "e279d6410212cbb91f3b9d6867987e690006316d46a434ec140560d6f462549e"
+    },
+    {
+      "path": "contracts/change-requests/CR-20260831-004-invitation-preview-terminal-state-channel.md",
+      "sha256": "e14e1caa8603e9da6334c888457692b640753638e8dc030ba402b07503f5fa06"
+    },
+    {
+      "path": "contracts/change-requests/CR-20260831-005-direct-upload-http-method.md",
+      "sha256": "a21cf3a639498bc90535188e512d4fb4a74f4cc32073f33b6623d9ca1609402d"
+    },
+    {
+      "path": "contracts/change-requests/CR-20260831-006-teacher-invitation-management-read.md",
+      "sha256": "e0ce9de4d677094a1a68d65a8de9ad2d05cdf0e8c0860ae3d13cb5a0539aa592"
+    },
+    {
+      "path": "contracts/change-requests/CR-20260831-007-semester-management-summary.md",
+      "sha256": "7d884fedc65f21a5ccff3069567e3ba68f8d2abe2c81a597d90b5aff80eab01d"
+    },
+    {
+      "path": "contracts/change-requests/CR-20260831-008-admin-feedback-summary.md",
+      "sha256": "8e156efa285e4232fbeb53e49a659d94ab9964e24b4318f8ccbdcf3fe1727ec8"
+    },
+    {
+      "path": "contracts/change-requests/CR-20260831-009-admin-help-center-summary.md",
+      "sha256": "39a4d62e54e8a8d8c534084a7ca7948f5baa20074c97d5ed497def18342fd58a"
+    },
+    {
+      "path": "contracts/change-requests/CR-20260831-010-sub-admin-governance-summary.md",
+      "sha256": "e8f3847459cfd18c77a3a61ff1da90c7deedeb952cb7666de662122c6ceae523"
+    },
+    {
+      "path": "contracts/change-requests/CR-20260831-011-current-semester-absence-channel.md",
+      "sha256": "0a9a4d2d162081ba74de38ffa8e68ec641a4aa3dd060e0d2c4f461c54773a0f1"
+    },
+    {
+      "path": "contracts/change-requests/CR-20260831-012-create-course-semester-error-semantics.md",
+      "sha256": "b3986e9ac56da20eaaa819099976e1a6c06a5bf353b5fa280ab15c34d5cda95b"
+    },
+    {
+      "path": "contracts/change-requests/CR-20260901-001-android-media-finalization-codegen.md",
+      "sha256": "5876e06901f1ec306b5f0767f06421f0bfb181e681d77ec7659f6be5c96941ca"
+    },
+    {
+      "path": "contracts/change-requests/CR-20260901-002-password-contract.md",
+      "sha256": "b6c28fba4c12415f228be07a0525931305f9b2e9ef2f53dd28bf808d1e2b0a8e"
+    },
+    {
+      "path": "contracts/change-requests/CR-20260901-003-certification-kind-round-trip.md",
+      "sha256": "1d851fb35775a67cc28a0fe6f350c3d1724c6901560571e348161b2b9281e3bc"
+    },
+    {
+      "path": "contracts/change-requests/CR-20260901-004-student-dashboard-no-current-semester.md",
+      "sha256": "4442cb7a913a8f30bfd4ae54d64fa0f59ef3548c0238158f339d84a23639effb"
+    },
+    {
+      "path": "contracts/change-requests/CR-20260901-005-explicit-discriminator-mappings.md",
+      "sha256": "cf2350d620c462e00e5f8781d0b5038b35d90c8a4ce4958149cd5d5906da9778"
+    },
+    {
+      "path": "contracts/change-requests/CR-20260908-001-material-review-timing.md",
+      "sha256": "cda5615d2bcfab6d9f407825e0b9389f62a14667372b45190d6a231cc9cc46f4"
+    },
+    {
+      "path": "contracts/change-requests/CR-20260908-002-statistics-invitation-settlement.md",
+      "sha256": "4aa139e799b9c5c6108a07934363243b03ad53847e22b3e8734819fe9b645af1"
+    },
+    {
+      "path": "contracts/change-requests/CR-20260908-003-teaching-governance-privacy.md",
+      "sha256": "dab9bf95a3286ca1669dc875b5a51dad3d173aa1e85ada53ba29224877979d58"
+    },
+    {
+      "path": "contracts/change-requests/CR-20260908-004-rc-consolidation.md",
+      "sha256": "1e0068bf6464c2f8af51ded7808ba0ddda7621ebc29ceb4dc59b74ae0dce76ef"
+    },
+    {
+      "path": "contracts/change-requests/README.md",
+      "sha256": "917de54bcff9d62a5b4faf55675ed99a1653296616939380598148089299bb01"
+    },
+    {
+      "path": "contracts/contract-metadata.json",
+      "sha256": "c1b4d6cef5b70dde8aa96b62abafdb215b4724cf305356ff285d6c57022400b2"
+    },
+    {
+      "path": "contracts/coverage.md",
+      "sha256": "504602e5a5d2b7cccf86151398e956a594bcc392d65a5a933c4d54514d8bebbf"
+    },
+    {
+      "path": "contracts/database-support.md",
+      "sha256": "7089bc3fe6e80cef5aef4190fbb852130e87b8696c851acc416fd43a299be745"
+    },
+    {
+      "path": "contracts/openapi.yaml",
+      "sha256": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed"
+    },
+    {
+      "path": "contracts/operation-catalog.md",
+      "sha256": "6192a73d081fc61829f6b8dcab1372f9a539048f87e70d50c72f11c49926ccb2"
+    },
+    {
+      "path": "contracts/validation/step06_final/README.md",
+      "sha256": "5fcff80041c2209ce224147a9b27d29b48d88c2caba2a15298448dc4ae4133f2"
+    },
+    {
+      "path": "contracts/validation/step06_final/disposition.json",
+      "sha256": "465943b4607f9a3c18c3d73c5c22c4a8ad45a4247cae184511f093741492b7cb"
+    },
+    {
+      "path": "contracts/validation/step06_final/result.json",
+      "sha256": "10b1c2d6ab8e015c18237a69e301b395f0ec0379a66060439cc21f0fd4d099df"
+    },
+    {
+      "path": "contracts/validation/step07_handoff/README.md",
+      "sha256": "5e7c2fd668acfc7bbe06d66bf4f46141689381a64e1609cbd8e1bab546b55e2e"
+    },
+    {
+      "path": "contracts/validation/step07_handoff/WEB_HANDOFF.md",
+      "sha256": "3ab6e4dd1bffcb648da644d93d9e80140ff3a243b7309df14f67e1a0c0a2702f"
+    },
+    {
+      "path": "contracts/validation/step07_handoff/build-result.json",
+      "sha256": "29058d085a2b854d43ec2871fb86aad90d305d7145666448bcea098ade49280c"
+    },
+    {
+      "path": "contracts/validation/step07_handoff/contract-diff.json",
+      "sha256": "870f0fcae27ff0a621b169ea2124396f569d926934fbfeb5c2496d46ff2f8b6b"
+    },
+    {
+      "path": "contracts/validation/step07_handoff/fixtures.json",
+      "sha256": "d3c2a37f4bad298f383b70579a3e5d22e5e117cd0cee238beb6b6d336dc0deef"
+    },
+    {
+      "path": "contracts/validation/step07_handoff/result.json",
+      "sha256": "abf49e5551e6de1fab0f5a9ea1f12734885a7cf5d9ee8b9e090b8c0bb9b28d8f"
+    },
+    {
+      "path": "contracts/validation/step07_handoff/traceability.json",
+      "sha256": "63ac101ba71874c1dcae6762c9cc78eccdb7d2ad19d4e67c4e199bf06e7cb434"
+    },
+    {
+      "path": "docs/rebuild/STATUS.md",
+      "sha256": "4ae0524495db8df10b263ff40b3ad9fc0eeaa189315d5f4f81fd0c4c39ea5119"
+    },
+    {
+      "path": "docs/rebuild/handoffs/new-req-phase-5.md",
+      "sha256": "63f10477a7984f89128d9210abb783724d2ad692ea40122dcb4d876195b8e956"
+    }
+  ],
+  "distribution": [
+    {
+      "target": "Phase6A Android",
+      "recipient": "用户本人",
+      "state": "OWNER_ACCEPTED_CANDIDATE_PUBLISHED_INPUT_RECEIPT_PENDING",
+      "requiredVersion": "1.3.0-contract",
+      "requiredStatus": "RC",
+      "requiredOpenapiSha256": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+      "condition": "Regenerate, strict serialization/nullable/union validation, Mock and affected app build against these exact bytes.",
+      "assignmentEvidence": "用户确认：phase6中的安卓端开发和总体架构也是由我操作的。"
+    },
+    {
+      "target": "Phase6B Web",
+      "recipient": null,
+      "state": "PENDING_STEP_7_ASSIGNMENT_AND_ACCEPTANCE",
+      "requiredVersion": "1.3.0-contract",
+      "requiredStatus": "RC",
+      "requiredOpenapiSha256": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+      "condition": "Student/Portal generated types, strict JSON boundary, Mock and affected build on these exact bytes.",
+      "assignmentNote": "用户确认Web由其他同事开发；具体接收人尚未提供。"
+    },
+    {
+      "target": "Phase6C Consolidation",
+      "recipient": null,
+      "state": "PENDING_STEP_7_ASSIGNMENT_AND_ACCEPTANCE",
+      "requiredVersion": "1.3.0-contract",
+      "requiredStatus": "RC",
+      "requiredOpenapiSha256": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+      "condition": "Verify A/B reports and identical input identity; Contract defect returns via CR/new Version/SHA."
+    },
+    {
+      "target": "Phase7.0 Backend",
+      "recipient": null,
+      "state": "PENDING_STEP_7_ASSIGNMENT_AND_ACCEPTANCE",
+      "requiredVersion": "1.3.0-contract",
+      "requiredStatus": "RC",
+      "requiredOpenapiSha256": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+      "condition": "After stack selection, verify BE-CR005-COMPAT and Domain/Database alignment before closing7.0/starting7.1. NOT_RUN."
+    }
+  ],
+  "notRun": [
+    "Candidate Git commit/push/PR/merge/remote identity verification",
+    "Actual Android/Web app integration",
+    "Backend generator/adapter compatibility (scheduled7.0)",
+    "Real authorization/calendar/database/transaction/object-storage/OCR/cache/notification/recovery/performance/E2E"
+  ],
+  "step7Status": "OWNER_ACCEPTED_UPLOAD_READY_PUBLICATION_AND_DISTRIBUTION_PENDING",
+  "handoffPackage": {
+    "entry": "contracts/validation/step07_handoff/README.md",
+    "verification": "contracts/validation/step07_handoff/result.json",
+    "humanFinalReview": "ACCEPTED",
+    "phase6Recipients": "ANDROID_ASSIGNED_WEB_AND_CONSOLIDATION_RECIPIENTS_PENDING",
+    "sourceCommit": "PENDING_ACTUAL_USER_COMMIT",
+    "pullRequest": "NOT_CREATED",
+    "githubWrites": "NOT_OPERATED",
+    "webInstructions": "contracts/validation/step07_handoff/WEB_HANDOFF.md"
+  },
+  "phase6ArchitectureOwner": {
+    "person": "用户本人",
+    "evidence": "用户确认：phase6中的安卓端开发和总体架构也是由我操作的。",
+    "consolidationAssignment": "PHASE6C_RESPONSIBLE_PERSON_PENDING_EXPLICIT_CONFIRMATION"
+  },
+  "humanFinalReviewRecord": {
+    "decision": "ACCEPTED",
+    "reviewer": "用户本人",
+    "roles": [
+      "Contract Owner",
+      "Reviewer"
+    ],
+    "source": "USER_MESSAGE_IN_CURRENT_CONVERSATION",
+    "verbatim": "最终交付是否正确落实决定  审核通过，可以开始准备上传和交接",
+    "recordedAtUTC": "2026-09-08T03:59:39.874816+00:00",
+    "candidateVersion": "1.3.0-contract",
+    "candidateStatus": "RC",
+    "candidateSha256": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+    "reviewedManifestSha256": "4cbf1d62043dc855026824bde0d3948bc3be60ff2099597a5e8a6906cfdefe76",
+    "reviewedFileListSha256": "f3d9b904e64834773261be4bc40a925da940c788a969ca16f5b0137d8ed68516",
+    "scope": "Final Phase5 delivery faithfully implements the accepted decisions; prepare upload and handoff.",
+    "exclusions": [
+      "Not a claim of independent third-party review",
+      "Not GitHub publication or consumer receipt",
+      "Not Phase6 implementation or product acceptance"
+    ]
+  },
+  "publicationPreparation": {
+    "uploadAuthorizedByUser": true,
+    "githubOperator": "user",
+    "recipientNamesBlockUpload": false,
+    "phase5ClosureRequiresPublicationAndDistribution": true,
+    "sourceCommitReceipt": "Record actual source and merge commits after user operations; do not invent a self-referential commit."
+  }
+}

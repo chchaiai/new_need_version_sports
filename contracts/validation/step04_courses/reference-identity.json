@@ -1,0 +1,7 @@
+{
+  "source": "docs/architecture/new-requirements/p4-design-zhou-v81.md",
+  "sourceSha256": "d0dd08c8bb99d17c3084fe965550cd6eca03a350a4f17924ddd8f8f7b4d9dc6a",
+  "section": "A-08",
+  "extractedUtf8Sha256": "3dea65c0ad1fc5425e7127684ed3b7b780855748cd2739648e88c53f695257d8",
+  "scope": "Accepted design finite-model reference only, no backend implementation"
+}
