@@ -1,0 +1,171 @@
+{
+  "recordedAt": "2026-09-08T16:25:55.902526+00:00",
+  "status": "USER_ACCEPTED_TECHNICAL_GATE_PENDING_PUBLICATION",
+  "phase": "Phase 6 Android / Web Contract + Mock validation; 6C consolidation",
+  "baselineCommit": "93d18fd317e0f622bf306b8707ea1d92d23322dd",
+  "branch": "codex/phase6c-progress-consistency",
+  "acceptedCodeFiles": [
+    {
+      "path": "BNBU-Sports-Web-new/frontend/student/js/phase6b-contract-mapper.js",
+      "sha256": "42563b74564f47ef574160cc29cd78b1db322a8d65387324542a7a9407a0532c"
+    },
+    {
+      "path": "BNBU-Sports-Web-new/portal-teacher-admin/tests/phase6b-wire.test.mjs",
+      "sha256": "9baa500c43aa35475665c0dc84b546cfbbfb2e76968711a72daab1bf82556c0a"
+    }
+  ],
+  "contract": {
+    "version": "1.3.0-contract",
+    "status": "RC",
+    "sha256": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+    "sourceCommit": "f702c590ff10b11f7de038332868c988ab4cec11"
+  },
+  "acceptance": {
+    "reviewer": "用户本人",
+    "builder": "Codex",
+    "independentHumanReviewer": false,
+    "quote": "好的，审核通过，准备交接收尾",
+    "source": "User message in current conversation"
+  },
+  "priorWeb": {
+    "pr": 11,
+    "merged": true,
+    "sourceCommit": "ef9c6312411ce6198d406665945d99be4c6e7082",
+    "mergeCommit": "93d18fd317e0f622bf306b8707ea1d92d23322dd",
+    "sourceAndMergeTree": "5f97c758f9bf9c0210204d44426f6d436afc4800"
+  },
+  "android": {
+    "sourceCommit": "333f6dfa42f89cbee9cce387638d05a88a7fdd74",
+    "mergeCommit": "5800550d369e1c7acf5223773d244689a7cfe0df",
+    "sourceUnchanged": true,
+    "evidenceReused": true,
+    "deviceRerun": false
+  },
+  "findings": [
+    {
+      "id": "6C-WEB-PROGRESS-01",
+      "classification": "CLIENT_DEFECT",
+      "status": "CLOSED_USER_ACCEPTED",
+      "rules": [
+        "checkpoint owner matches outer DTO",
+        "category arithmetic and totals agree"
+      ]
+    }
+  ],
+  "blockingContractCRs": 0,
+  "tests": {
+    "focused": 107,
+    "student": 92,
+    "portal": 247,
+    "addedRegressionCases": 21,
+    "note": "Focused cases are included in the Portal total."
+  },
+  "logs": [
+    {
+      "path": "focused.log.json",
+      "sha256": "2b98a0e8028354bba74fc10fe127f517c948a2291ef1692e3e112a5710e23291",
+      "originalLogSha256": "4d75cff57a18c40c92b26118f65c642b048d68a3499e434145b1bb1908b0ac91",
+      "command": {
+        "command": [
+          "node",
+          "--import",
+          "tsx",
+          "--test",
+          "tests/phase6b-wire.test.mjs"
+        ],
+        "cwd": "D:\\DT\\soprts\\start4\\repos\\phase6b-r05-r06-repair\\BNBU-Sports-Web-new\\portal-teacher-admin",
+        "startedAt": "2026-09-08T16:19:09.152467+00:00",
+        "finishedAt": "2026-09-08T16:19:09.619128+00:00",
+        "exitCode": 0,
+        "adaptation": null
+      }
+    },
+    {
+      "path": "student.log.json",
+      "sha256": "5fa1af1234b3f7d3144febe46fb774b0f2bf4a658fce134f88eac504c3251886",
+      "originalLogSha256": "2abb04bf0296a64e1c4a07345b6b7b93dd83451887308cc284800f44a0986bef",
+      "command": {
+        "command": [
+          "npm.cmd",
+          "run",
+          "test:student"
+        ],
+        "cwd": "D:\\DT\\soprts\\start4\\repos\\phase6b-r05-r06-repair\\BNBU-Sports-Web-new",
+        "startedAt": "2026-09-08T16:19:19.094768+00:00",
+        "finishedAt": "2026-09-08T16:19:19.853136+00:00",
+        "exitCode": 0,
+        "adaptation": null
+      }
+    },
+    {
+      "path": "typecheck.log.json",
+      "sha256": "be5788d38cd6800b859e927598ae57d83309758cf7a06a5ecde009cfd597dc13",
+      "originalLogSha256": "207f695ebb680a32607dc4895d242aa4c1ca106c7326af39fb43cec2bc806f22",
+      "command": {
+        "command": [
+          "npm.cmd",
+          "run",
+          "typecheck"
+        ],
+        "cwd": "D:\\DT\\soprts\\start4\\repos\\phase6b-r05-r06-repair\\BNBU-Sports-Web-new\\portal-teacher-admin",
+        "startedAt": "2026-09-08T16:19:19.336439+00:00",
+        "finishedAt": "2026-09-08T16:19:31.722862+00:00",
+        "exitCode": 0,
+        "adaptation": null
+      }
+    },
+    {
+      "path": "portal.log.json",
+      "sha256": "ce56aa40a977c5b373a7f5aa26f2033164a9cf0c7bb9cd2f4299c4f07eae66e8",
+      "originalLogSha256": "eb978f88a6f438a82dfe5464c86f8985bf6540e12a360604dd0233b635e8fa02",
+      "command": {
+        "command": [
+          "npm.cmd",
+          "test"
+        ],
+        "cwd": "D:\\DT\\soprts\\start4\\repos\\phase6b-r05-r06-repair\\BNBU-Sports-Web-new\\portal-teacher-admin",
+        "startedAt": "2026-09-08T16:19:19.602154+00:00",
+        "finishedAt": "2026-09-08T16:19:29.641873+00:00",
+        "exitCode": 0,
+        "adaptation": "Review-only preload maps python3 to the existing Python runtime."
+      }
+    }
+  ],
+  "consolidation": {
+    "path": "consolidation.json",
+    "sha256": "05ce5e85a1764e03373a2e68c6d32c22dbc6641f4f6dd65fffee73d0e9d1d2db",
+    "unions": 59,
+    "actualWebRuntimeCases": 54,
+    "progress": 3,
+    "allPassed": true
+  },
+  "preFixEvidence": {
+    "path": "pre-fix-progress.json",
+    "sha256": "93a4aab3275707b0ea9981aa866622470c0ffed974576272f8ca17861cf8d6fb"
+  },
+  "diagnostics": [
+    "New RECOMPUTING/UNAVAILABLE test inputs omitted or used invalid unavailableReason values. Replaced with published complete Phase 5 fixtures; no product validation was relaxed."
+  ],
+  "publication": {
+    "state": "PENDING_USER_GITHUB_ACTION",
+    "deliveryCommit": null,
+    "mergeCommit": null,
+    "gate": "Containing new PR merged, actual delivery/merge commit and reviewed bytes verified. Then Phase6 DONE / Phase7.0 READY; record actual Git identities in Phase7 intake."
+  },
+  "phase7": {
+    "owners": [
+      "H",
+      "Z"
+    ],
+    "reviewer": "用户本人",
+    "received": false,
+    "started": false,
+    "compatibility": "BE-CR005-COMPAT NOT_RUN; required before 7.0 closes and 7.1 starts"
+  },
+  "limitations": [
+    "No new Android/device run; accepted unchanged evidence reused.",
+    "No production client migration, real Backend/E2E, database/migration, deployment or performance acceptance.",
+    "Legacy API/Mock and Phase8 responsibility retained.",
+    "Web build chunk-size warning retained; Windows Python alias recorded in command evidence."
+  ]
+}

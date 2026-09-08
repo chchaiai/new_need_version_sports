@@ -1,0 +1,312 @@
+{
+  "mergedCommit": "93d18fd317e0f622bf306b8707ea1d92d23322dd",
+  "reviewedSource": "ef9c6312411ce6198d406665945d99be4c6e7082",
+  "tree": "5f97c758f9bf9c0210204d44426f6d436afc4800",
+  "contractSha256": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+  "scope": "Minimal cross-client progress comparison; current Web execution versus accepted unchanged Android tests and source, no product edits.",
+  "rows": [
+    {
+      "scenario": "control",
+      "payload": {
+        "courseId": "00000000-0000-4000-8000-000000000001",
+        "enrollmentId": "00000000-0000-4000-8000-000000000001",
+        "student": {
+          "studentId": "00000000-0000-4000-8000-000000000001",
+          "studentNumber": "20260001",
+          "name": "测试学生",
+          "gender": "FEMALE",
+          "gradeYear": 1,
+          "college": null,
+          "major": null,
+          "administrativeClass": null,
+          "studentStatus": "ACTIVE"
+        },
+        "state": "CURRENT",
+        "checkpoint": {
+          "checkpointId": "00000000-0000-4000-8000-000000000001",
+          "courseId": "00000000-0000-4000-8000-000000000001",
+          "enrollmentId": "00000000-0000-4000-8000-000000000001",
+          "sources": {
+            "ruleVersionId": "00000000-0000-4000-8000-000000000001",
+            "recordFactSetVersion": "r1",
+            "reviewCandidateSetVersion": "b1",
+            "certificationSetVersion": "c1",
+            "membershipScopeVersion": "m1",
+            "previousCheckpointId": null
+          },
+          "policyVersion": "P4Z-A-08-v1",
+          "totals": {
+            "categories": [
+              {
+                "category": "COURSE_RELATED",
+                "targetMinutes": 600,
+                "activeCertificationMinutes": 570,
+                "countedCertificationMinutes": 570,
+                "countedRecordMinutes": 30,
+                "cappedCompletedMinutes": 600,
+                "remainingMinutes": 0
+              },
+              {
+                "category": "OTHER",
+                "targetMinutes": 600,
+                "activeCertificationMinutes": 599,
+                "countedCertificationMinutes": 599,
+                "countedRecordMinutes": 0,
+                "cappedCompletedMinutes": 599,
+                "remainingMinutes": 1
+              }
+            ],
+            "totalTargetMinutes": 1200,
+            "totalCompletedMinutes": 1199,
+            "completionRatio": 0.9991666666666666,
+            "displayPercent": 100,
+            "targetMet": false,
+            "actualDurationSeconds": 5400,
+            "countedRecordMinutes": 30,
+            "countedCertificationMinutes": 1169,
+            "invalidActualMinutes": 0,
+            "validUncountedEligibleMinutes": 30,
+            "validFormulaExcludedMinutes": 30,
+            "pendingRecordCount": 0
+          },
+          "selectedRecordIds": [
+            "00000000-0000-4000-8000-000000000001"
+          ],
+          "computedAt": "2026-09-07T02:00:00.000000001Z"
+        },
+        "unavailableReason": null,
+        "observedAt": "2026-09-07T02:00:00.000000001Z"
+      },
+      "schemaValid": true,
+      "web": {
+        "accepted": true,
+        "projection": {
+          "course": 10,
+          "general": 9.983333333333333,
+          "rawCourse": 0.5,
+          "rawGeneral": 0,
+          "rawCountedCourseMinutes": 30,
+          "rawCountedGeneralMinutes": 0,
+          "totalValidHours": 19.983333333333334,
+          "qualificationStatus": "NOT_QUALIFIED",
+          "scoreAvailable": true,
+          "contractState": "CURRENT",
+          "unavailableReason": null,
+          "displayPercent": 100,
+          "targetMet": false,
+          "progressUnavailable": false,
+          "progressRecomputing": false
+        }
+      },
+      "android": {
+        "case": "progress/1199_percent100_is_not_target_met",
+        "recordedStatus": "PASS",
+        "expectedOutcome": "ACCEPT",
+        "evidenceReused": true,
+        "deviceRerun": false
+      }
+    },
+    {
+      "scenario": "identity",
+      "payload": {
+        "courseId": "00000000-0000-4000-8000-000000000001",
+        "enrollmentId": "00000000-0000-4000-8000-000000000001",
+        "student": {
+          "studentId": "00000000-0000-4000-8000-000000000001",
+          "studentNumber": "20260001",
+          "name": "测试学生",
+          "gender": "FEMALE",
+          "gradeYear": 1,
+          "college": null,
+          "major": null,
+          "administrativeClass": null,
+          "studentStatus": "ACTIVE"
+        },
+        "state": "CURRENT",
+        "checkpoint": {
+          "checkpointId": "00000000-0000-4000-8000-000000000001",
+          "courseId": "00000000-0000-4000-8000-000000000001",
+          "enrollmentId": "00000000-0000-4000-8000-000000000002",
+          "sources": {
+            "ruleVersionId": "00000000-0000-4000-8000-000000000001",
+            "recordFactSetVersion": "r1",
+            "reviewCandidateSetVersion": "b1",
+            "certificationSetVersion": "c1",
+            "membershipScopeVersion": "m1",
+            "previousCheckpointId": null
+          },
+          "policyVersion": "P4Z-A-08-v1",
+          "totals": {
+            "categories": [
+              {
+                "category": "COURSE_RELATED",
+                "targetMinutes": 600,
+                "activeCertificationMinutes": 570,
+                "countedCertificationMinutes": 570,
+                "countedRecordMinutes": 30,
+                "cappedCompletedMinutes": 600,
+                "remainingMinutes": 0
+              },
+              {
+                "category": "OTHER",
+                "targetMinutes": 600,
+                "activeCertificationMinutes": 599,
+                "countedCertificationMinutes": 599,
+                "countedRecordMinutes": 0,
+                "cappedCompletedMinutes": 599,
+                "remainingMinutes": 1
+              }
+            ],
+            "totalTargetMinutes": 1200,
+            "totalCompletedMinutes": 1199,
+            "completionRatio": 0.9991666666666666,
+            "displayPercent": 100,
+            "targetMet": false,
+            "actualDurationSeconds": 5400,
+            "countedRecordMinutes": 30,
+            "countedCertificationMinutes": 1169,
+            "invalidActualMinutes": 0,
+            "validUncountedEligibleMinutes": 30,
+            "validFormulaExcludedMinutes": 30,
+            "pendingRecordCount": 0
+          },
+          "selectedRecordIds": [
+            "00000000-0000-4000-8000-000000000001"
+          ],
+          "computedAt": "2026-09-07T02:00:00.000000001Z"
+        },
+        "unavailableReason": null,
+        "observedAt": "2026-09-07T02:00:00.000000001Z"
+      },
+      "schemaValid": true,
+      "web": {
+        "accepted": true,
+        "projection": {
+          "course": 10,
+          "general": 9.983333333333333,
+          "rawCourse": 0.5,
+          "rawGeneral": 0,
+          "rawCountedCourseMinutes": 30,
+          "rawCountedGeneralMinutes": 0,
+          "totalValidHours": 19.983333333333334,
+          "qualificationStatus": "NOT_QUALIFIED",
+          "scoreAvailable": true,
+          "contractState": "CURRENT",
+          "unavailableReason": null,
+          "displayPercent": 100,
+          "targetMet": false,
+          "progressUnavailable": false,
+          "progressRecomputing": false
+        }
+      },
+      "android": {
+        "case": "progress/reject_identity",
+        "recordedStatus": "PASS",
+        "expectedOutcome": "REJECT",
+        "evidenceReused": true,
+        "deviceRerun": false
+      }
+    },
+    {
+      "scenario": "category_sum",
+      "payload": {
+        "courseId": "00000000-0000-4000-8000-000000000001",
+        "enrollmentId": "00000000-0000-4000-8000-000000000001",
+        "student": {
+          "studentId": "00000000-0000-4000-8000-000000000001",
+          "studentNumber": "20260001",
+          "name": "测试学生",
+          "gender": "FEMALE",
+          "gradeYear": 1,
+          "college": null,
+          "major": null,
+          "administrativeClass": null,
+          "studentStatus": "ACTIVE"
+        },
+        "state": "CURRENT",
+        "checkpoint": {
+          "checkpointId": "00000000-0000-4000-8000-000000000001",
+          "courseId": "00000000-0000-4000-8000-000000000001",
+          "enrollmentId": "00000000-0000-4000-8000-000000000001",
+          "sources": {
+            "ruleVersionId": "00000000-0000-4000-8000-000000000001",
+            "recordFactSetVersion": "r1",
+            "reviewCandidateSetVersion": "b1",
+            "certificationSetVersion": "c1",
+            "membershipScopeVersion": "m1",
+            "previousCheckpointId": null
+          },
+          "policyVersion": "P4Z-A-08-v1",
+          "totals": {
+            "categories": [
+              {
+                "category": "COURSE_RELATED",
+                "targetMinutes": 600,
+                "activeCertificationMinutes": 570,
+                "countedCertificationMinutes": 570,
+                "countedRecordMinutes": 30,
+                "cappedCompletedMinutes": 600,
+                "remainingMinutes": 0
+              },
+              {
+                "category": "OTHER",
+                "targetMinutes": 600,
+                "activeCertificationMinutes": 599,
+                "countedCertificationMinutes": 599,
+                "countedRecordMinutes": 0,
+                "cappedCompletedMinutes": 599,
+                "remainingMinutes": 2
+              }
+            ],
+            "totalTargetMinutes": 1200,
+            "totalCompletedMinutes": 1199,
+            "completionRatio": 0.9991666666666666,
+            "displayPercent": 100,
+            "targetMet": false,
+            "actualDurationSeconds": 5400,
+            "countedRecordMinutes": 30,
+            "countedCertificationMinutes": 1169,
+            "invalidActualMinutes": 0,
+            "validUncountedEligibleMinutes": 30,
+            "validFormulaExcludedMinutes": 30,
+            "pendingRecordCount": 0
+          },
+          "selectedRecordIds": [
+            "00000000-0000-4000-8000-000000000001"
+          ],
+          "computedAt": "2026-09-07T02:00:00.000000001Z"
+        },
+        "unavailableReason": null,
+        "observedAt": "2026-09-07T02:00:00.000000001Z"
+      },
+      "schemaValid": true,
+      "web": {
+        "accepted": true,
+        "projection": {
+          "course": 10,
+          "general": 9.983333333333333,
+          "rawCourse": 0.5,
+          "rawGeneral": 0,
+          "rawCountedCourseMinutes": 30,
+          "rawCountedGeneralMinutes": 0,
+          "totalValidHours": 19.983333333333334,
+          "qualificationStatus": "NOT_QUALIFIED",
+          "scoreAvailable": true,
+          "contractState": "CURRENT",
+          "unavailableReason": null,
+          "displayPercent": 100,
+          "targetMet": false,
+          "progressUnavailable": false,
+          "progressRecomputing": false
+        }
+      },
+      "android": {
+        "case": "progress/reject_category_sum",
+        "recordedStatus": "PASS",
+        "expectedOutcome": "REJECT",
+        "evidenceReused": true,
+        "deviceRerun": false
+      }
+    }
+  ]
+}

@@ -116,9 +116,49 @@ export function normalizeContractExerciseRecord(record, { courseIdBySection = {}
   };
 }
 
+function requireConsistentProgress(condition, rule) {
+  if (condition) return;
+  const error = new Error(`CONTRACT_PROGRESS_INCONSISTENT:${rule}`);
+  error.name = "ContractProgressConsistencyError";
+  throw error;
+}
+
+function assertContractStudentProgress(progress) {
+  assertContractWire("StudentCourseProgress", progress);
+  const checkpoint = progress.checkpoint;
+  if (checkpoint === null) return;
+
+  // Match Android's checkpoint ownership and source-sum checks, including
+  // historical checkpoints carried by RECOMPUTING. Never repair server values.
+  requireConsistentProgress(
+    checkpoint.courseId.toLowerCase() === progress.courseId.toLowerCase() &&
+    checkpoint.enrollmentId.toLowerCase() === progress.enrollmentId.toLowerCase(),
+    "CHECKPOINT_OWNER",
+  );
+  const totals = checkpoint.totals;
+  for (const category of totals.categories) {
+    requireConsistentProgress(
+      category.cappedCompletedMinutes === category.countedRecordMinutes + category.countedCertificationMinutes &&
+      category.remainingMinutes === category.targetMinutes - category.cappedCompletedMinutes,
+      "CATEGORY_TOTALS",
+    );
+  }
+  for (const [categoryField, totalField] of [
+    ["targetMinutes", "totalTargetMinutes"],
+    ["cappedCompletedMinutes", "totalCompletedMinutes"],
+    ["countedRecordMinutes", "countedRecordMinutes"],
+    ["countedCertificationMinutes", "countedCertificationMinutes"],
+  ]) {
+    requireConsistentProgress(
+      totals.categories.reduce((sum, category) => sum + category[categoryField], 0) === totals[totalField],
+      "PROGRESS_TOTALS",
+    );
+  }
+}
+
 export function mapContractStudentProgressProjection(progress) {
   if (!isContractStudentProgress(progress)) return null;
-  assertContractWire("StudentCourseProgress", progress);
+  assertContractStudentProgress(progress);
   const state = progress.state;
 
   if (state === "UNAVAILABLE") {
@@ -176,7 +216,7 @@ export function selectContractStudentProgress(progressRows, enrollmentId, course
   if (!enrollmentId || !courseId) return null;
   const rows = Array.isArray(progressRows) ? progressRows : [];
   for (const progress of rows) {
-    if (isContractStudentProgress(progress)) assertContractWire("StudentCourseProgress", progress);
+    if (isContractStudentProgress(progress)) assertContractStudentProgress(progress);
   }
   return rows.find((progress) =>
     isContractStudentProgress(progress) &&

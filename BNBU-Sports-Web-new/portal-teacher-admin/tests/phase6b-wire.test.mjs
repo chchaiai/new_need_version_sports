@@ -97,6 +97,90 @@ test("progress and course input boundaries reject incomplete DTOs instead of def
   assert.throws(() => mapContractCourseTargets(course), isWireError);
 });
 
+const progressMutations = [
+  ["checkpoint enrollment differs", (p) => p.checkpoint.enrollmentId = "00000000-0000-4000-8000-000000000002"],
+  ["checkpoint course differs", (p) => p.checkpoint.courseId = "00000000-0000-4000-8000-000000000002"],
+  ["remaining minutes contradict completion", (p) => p.checkpoint.totals.categories[1].remainingMinutes = 2],
+  ["category sources contradict completion", (p) => p.checkpoint.totals.categories[0].countedRecordMinutes = 29],
+  ["completed total contradicts categories", (p) => p.checkpoint.totals.totalCompletedMinutes = 1198],
+  ["record total contradicts categories", (p) => p.checkpoint.totals.countedRecordMinutes = 29],
+  ["certification total contradicts categories", (p) => p.checkpoint.totals.countedCertificationMinutes = 1168],
+  ["category targets do not total 1200", (p) => {
+    p.checkpoint.totals.categories[1].targetMinutes = 601;
+    p.checkpoint.totals.categories[1].remainingMinutes = 2;
+  }],
+];
+for (const state of ["CURRENT", "RECOMPUTING"]) {
+  for (const [name, mutate] of progressMutations) {
+    test(`progress ${state} rejects inconsistent input: ${name}`, () => {
+      const value = publishedFixture(state === "CURRENT"
+        ? "prior-courses/progress/current" : "prior-courses/progress/recomputing_old_checkpoint");
+      mutate(value);
+      const before = JSON.stringify(value);
+      // These fields are individually schema-valid; their relationship is invalid.
+      assertContractWire("StudentCourseProgress", value);
+      const isConsistencyError = (error) => error.name === "ContractProgressConsistencyError" &&
+        error.message.startsWith("CONTRACT_PROGRESS_INCONSISTENT:");
+      assert.throws(() => mapStudentProgressProjection(value), isConsistencyError);
+      assert.throws(() => selectContractStudentProgress([value], value.enrollmentId, value.courseId), isConsistencyError);
+      assert.equal(JSON.stringify(value), before, "reject without correcting or replacing input values");
+    });
+  }
+}
+
+test("consistent 1200-minute progress remains qualified", () => {
+  const value = publishedFixture("prior-courses/progress/current");
+  const totals = value.checkpoint.totals;
+  Object.assign(totals.categories[1], {
+    activeCertificationMinutes: 600, countedCertificationMinutes: 600,
+    cappedCompletedMinutes: 600, remainingMinutes: 0,
+  });
+  Object.assign(totals, {
+    totalCompletedMinutes: 1200, completionRatio: 1, targetMet: true, countedCertificationMinutes: 1170,
+  });
+  const before = JSON.stringify(value);
+  const result = mapStudentProgressProjection(value);
+  assert.equal(result.targetMet, true);
+  assert.equal(result.totalValidHours, 20);
+  assert.equal(result.qualificationStatus, "QUALIFIED");
+  assert.equal(selectContractStudentProgress([value], value.enrollmentId, value.courseId), value);
+  assert.equal(JSON.stringify(value), before);
+});
+
+test("consistent progress accepts either category order and equivalent UUID casing", () => {
+  const value = publishedFixture("prior-courses/progress/current");
+  value.courseId = "abcdef01-0000-4000-8000-000000000001";
+  value.enrollmentId = "abcdef02-0000-4000-8000-000000000001";
+  value.checkpoint.courseId = value.courseId.toUpperCase();
+  value.checkpoint.enrollmentId = value.enrollmentId.toUpperCase();
+  value.checkpoint.totals.categories.reverse();
+  const before = JSON.stringify(value);
+  const result = mapStudentProgressProjection(value);
+  assert.equal(result.course, 10);
+  assert.equal(result.general, 599 / 60);
+  assert.equal(result.displayPercent, 100);
+  assert.equal(result.targetMet, false);
+  assert.equal(selectContractStudentProgress([value], value.enrollmentId, value.courseId), value);
+  assert.equal(JSON.stringify(value), before);
+});
+
+for (const [state, hasCheckpoint] of [["RECOMPUTING", true], ["RECOMPUTING", false], ["UNAVAILABLE", false]]) {
+  test(`consistent ${state}, checkpoint=${hasCheckpoint}, preserves unavailable presentation`, () => {
+    const value = publishedFixture(state === "UNAVAILABLE"
+      ? "prior-courses/progress/no_zero_fallback" : "prior-courses/progress/recomputing_old_checkpoint");
+    if (!hasCheckpoint) value.checkpoint = null;
+    const before = JSON.stringify(value);
+    const result = mapStudentProgressProjection(value);
+    assert.equal(result.contractState, state);
+    assert.equal(result.scoreAvailable, false);
+    assert.equal(result.totalValidHours, null);
+    assert.equal(result.targetMet, null);
+    assert.equal(result.progressRecomputing, state === "RECOMPUTING");
+    assert.equal(selectContractStudentProgress([value], value.enrollmentId, value.courseId), value);
+    assert.equal(JSON.stringify(value), before);
+  });
+}
+
 test("generated runtime artifact works as a native browser module without dynamic compilation", async () => {
   const code = readFileSync(new URL("../../frontend/student/js/contract/validators.generated.js", import.meta.url), "utf8");
   assert.doesNotMatch(code, /\beval\s*\(|new Function\s*\(/);
