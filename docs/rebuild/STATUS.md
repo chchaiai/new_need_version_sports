@@ -1,20 +1,23 @@
 # 当前进度状态
 
-## 2026-09-08 Phase6A DONE + Phase6B Web 审查整改完成（6B DONE，待复核后 6C）
+## 2026-09-08 Phase6A DONE + Phase6B Web DONE（PR #11 待合并，随后 6C）
 
-- **6A Android**：七步本地计划 7/7 完成；用户已在手机查看独立人工审查 APK 并接受。分支 `codex/phase6a-contract-mock`；1156 协议用例、255 Mapper、71 Mock 通过；模拟器 74/74。入口：[Android 阶段交接](handoffs/new-req-phase-6-android.md)。
-- **6B Web 审查整改（R01–R07 + G01）**：针对 PR #11 审查报告 `REQUEST_CHANGES` 全部关闭。
-  - **R01** `loadApiWorkspace`：先取得 `contractCourse` 再调用 `mapProgressTarget`；smoke 新增工作区加载用例。
-  - **R02** 未终局审核：`processingStage` 映射为 `processing` 审核态（Portal + Student）；不再抛 `LOCAL_REVIEW_PROJECTION_STATE_MISMATCH`。
-  - **R03** 进度分类完成量：使用 `cappedCompletedMinutes`；`countedRecordMinutes` 单列保留。
-  - **R04** UNAVAILABLE/RECOMPUTING：返回 `null` + `progressUnavailable`；dashboard 展示“暂不可用/正在重算”。
-  - **R05** 计入未知：`creditedDurationSeconds`/`creditedMinutes` 保持 `null`；学生端 VALID 无 hours 显示“计入情况待确认”。
-  - **R06** 运行时 wire 校验：两端 `assertContractExerciseRecordWire` 拒绝非法 category/类型/未知字段。
-  - **R07** 共享 Fixture：`transferDueAt` 修正为 acceptedAt+30min（`03:45:00Z`）。
-  - **G01** `STATUS.md` 已与 main Android 段落合并。
-- **测试**：学生 smoke、Portal `npm test`（含 phase5gb）、`npm run typecheck` 待本轮执行记录。
-- **Contract**：`1.3.0-contract / RC / 5c87eeb9…f4a19ed`；未改 Contract 字节、业务正文、Android、Backend。
-- **下一步**：用户复核 PR #11 新 Commit → 合并 → 6C 跨端汇总。
+### 6A Android（main 已接受）
+
+- Android七步本地计划已完成7/7；用户兼任Owner/架构负责人/人类Reviewer，已在手机查看独立人工审查APK并明确接受第6步，授权本次第7步收尾。GitHub发布待用户操作，未代填交付Commit、PR通过或合并。
+- 当前Android分支`codex/phase6a-contract-mock`，开发基线`2ba9355e38373b8d2350eb8efe4071048337c320`。Phase5协议及其最终分工记录已在该main基线汇合。Contract仍为`1.3.0-contract / RC / 5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed`，来源`f702c590ff10b11f7de038332868c988ab4cec11`，未改版本或状态。
+- Android独立工程实际生成324模型并构建，1156协议用例、255Mapper、71Mock通过；真实模拟器74/74、同APK横屏大字体1/1通过。人工启动器另有模拟器2/2，用户iQOO12Pro人工查看通过；不写真机自动化46/46或完整App验收。
+- 第3～6步15项Android Finding和第7步1项复现入口Finding均关闭，开放Android Finding及新增阻塞Contract CR为0。Phase5发布检查将后移Backend7.0接收人算入门禁的继承工具问题仍单列。另已修复主机入口因当前STATUS正常推进导致旧发布哈希报错：不可变输入继续核验当前字节，仅历史STATUS取固定入场Commit，再运行原校验器；未改Contract断言。正式App旧API/Mock/旧1.2验证绑定与Phase8迁移责任保留。
+- 入口：[Android阶段交接](handoffs/new-req-phase-6-android.md)、[接收记录](handoffs/new-req-phase-6-android-evidence/acceptance.json)、[原始证据](handoffs/new-req-phase-6-android-evidence/README.md)。
+
+### 6B Web（PR [#11](https://github.com/chchaiai/new_need_version_sports/pull/11)，`e04b0f8`，审查整改完成）
+
+- 分支`codex/phase6b-web`；T01–T08完成；Owner甘洛夷。交接：[phase-6b-web-handoff](handoffs/phase-6b-web-handoff.md)。
+- PR #11审查报告`REQUEST_CHANGES`项R01–R07+G01全部关闭：`loadApiWorkspace` TDZ修复；`processingStage`→processing审核态；`cappedCompletedMinutes`分类完成量；UNAVAILABLE不填零；`creditedMinutes`保持null；两端wire运行时校验；Fixture续传窗口30分钟。
+- 测试：学生smoke **92/92**；Portal `npm test` **133/133**；`npm run typecheck` exit 0。未改Contract字节、业务正文、Android、Backend。
+- Android与Web分开审查；Web待PR #11合并后由用户执行6C跨端汇总。整个Phase6继续IN_PROGRESS；Phase7.0等待6C阶段验收。正式App迁移、真实Backend/E2E未验证；无部署或零Bug承诺。
+
+以下为历史停点，其“Phase6 NOT_STARTED”等状态已由上方当前记录更新；保留原文便于追溯。
 
 ## 2026-09-08 Phase6B Web T04–T08 完成（审查前）
 
@@ -22,7 +25,7 @@
 - **T05** Portal：`phase6b-contract-mapper.ts` + `teacher-data.ts` 双轨；1.3.0 文案；原生 `<select>` → `AppSelect`。
 - **T06** Portal 全量 `npm test`：**130/130**（含 `rendered-html`）。
 - **T07** `phase5gb-contract-revalidation`：**13/13**（`python3`；ADMIN gated 54 项对齐 1.3.0）。
-- **T08** 6B 完成回执：[phase-6b-web-t08-completion](handoffs/phase-6b-web-t08-completion.md)。正式网络迁移仍归 Phase 8；6C 待 Android 同 SHA 报告。
+- **T08** 6B 完成回执：[phase-6b-web-t08-completion](handoffs/phase-6b-web-t08-completion.md)。正式网络迁移仍归 Phase 8。
 
 ## 2026-09-08 Phase6B Web T04 学生端运行时 Mapper 完成
 

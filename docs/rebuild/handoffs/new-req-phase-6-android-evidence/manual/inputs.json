@@ -1,0 +1,65 @@
+{
+  "contract": {
+    "version": "1.3.0-contract",
+    "status": "RC",
+    "sha256": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+    "sourceCommit": "f702c590ff10b11f7de038332868c988ab4cec11",
+    "entryCommit": "2ba9355e38373b8d2350eb8efe4071048337c320",
+    "modelPackage": "bnbu.cr005.review",
+    "scope": "Validation-only, not formal app runtime migration",
+    "inputs": {
+      "contracts/contract-metadata.json": "c1b4d6cef5b70dde8aa96b62abafdb215b4724cf305356ff285d6c57022400b2",
+      "contracts/validation/step06_final/reproduce.py": "9ba96a09723224fb722bb247ead049e0c4a3a9844a950a919aa8d2987d0890ae",
+      "contracts/validation/step06_final/generator_support.py": "10457ec20282249c3aaaa1a411e5847332abd26aec98c2fe6aaafe2a15dfdfe2",
+      "contracts/validation/step06_final/jvm/ContractRuntimeProbe.java": "6005131729ad860b4d0c3dadb201a5b0dbd64ca0d7544d0add990d64568ad316",
+      "contracts/validation/step06_final/template-manifest.json": "00d6b413e97610124f6b359abc6ed38ffc32df15dd96a36cec9dc51b216b1944",
+      "contracts/validation/step06_final/runtime-dependencies.json": "ec265367c8f79b64d2ab5acfe66d146e60dd6e60cac8d26f083035bf78bb7308",
+      "contracts/validation/step06_final/templates/data_class.mustache": "64978f12e395a0e3ec41a7b74ceb925f7a05014f36f93c866384144c4913a89c",
+      "contracts/validation/step06_final/templates/oneof_class.mustache": "23b72d43ca7901fb69480c23de37629b75423783e134ac813871f0e8da64ffba",
+      "contracts/validation/step07_handoff/fixtures.json": "d3c2a37f4bad298f383b70579a3e5d22e5e117cd0cee238beb6b6d336dc0deef"
+    }
+  },
+  "reviewBuild": "manual-review-1",
+  "baselineResultSha256": "71d985c4e73980df5a83455e7c8013a13963ee67275c28a79938e026e5faa90a",
+  "baselineApkSha256": "ddbe0bca890646a81d485b50d6191a3199f9f1beaceb6dd78e01e677740b2e3d",
+  "baselineAarSha256": "108a0020306fb42cd7b603b0aaec4f9b6d62911e216bd14cd4ceefb4b8458987",
+  "inputs": {
+    "app/libs/contract-validation.aar": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\build-05-cache-semantics\\contract-validation-debug.aar",
+      "sha256": "108a0020306fb42cd7b603b0aaec4f9b6d62911e216bd14cd4ceefb4b8458987"
+    },
+    "app/src/main/java/MockCases.kt": {
+      "source": "D:\\DT\\soprts\\start4\\repos\\phase6-android\\BNBU-ANDROID\\contract-validation\\src\\mockShared\\java\\MockCases.kt",
+      "sha256": "dfaa5010c6e57a5485f1de505c59c9e5a056da914d8fafe11d6c4a85fadc7343"
+    },
+    "app/src/main/java/MockScenarioHarness.kt": {
+      "source": "D:\\DT\\soprts\\start4\\repos\\phase6-android\\BNBU-ANDROID\\contract-validation\\src\\mockShared\\java\\MockScenarioHarness.kt",
+      "sha256": "719e2e833db682e77a4e50e401bda0fbd6991fd14b067452d50b90ddf767cf4f"
+    },
+    "app/src/main/java/StrictMockCodec.kt": {
+      "source": "D:\\DT\\soprts\\start4\\repos\\phase6-android\\BNBU-ANDROID\\contract-validation\\src\\mockShared\\java\\StrictMockCodec.kt",
+      "sha256": "8a55ddf2172b41d978308ee025c888dbca64cfa96b58277c69f24bfd085ac705"
+    },
+    "app/src/main/java/ContractRuntimeProbe.java": {
+      "source": "D:\\DT\\soprts\\start4\\repos\\phase6-android\\BNBU-ANDROID\\contract-validation\\build\\generated\\phase6\\probe\\ContractRuntimeProbe.java",
+      "sha256": "9bd68818a5ca37c425c1ffb511b28ff06020ad7a6d27c40686de3c4ba1226377"
+    },
+    "app/src/main/java/Phase6FormatEvaluatorFactory.java": {
+      "source": "D:\\DT\\soprts\\start4\\repos\\phase6-android\\BNBU-ANDROID\\contract-validation\\build\\generated\\phase6\\mock-device-support\\Phase6FormatEvaluatorFactory.java",
+      "sha256": "d4ffe40072e829ad3fb36ac9faaee46bf7d9e72fcf3ffb80f9a4815da7c71512"
+    },
+    "app/src/main/assets/mock-input.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\build-05-cache-semantics\\mock-input.json",
+      "sha256": "892df0a954c1b771f7e1a474ba6b62ea3bc56c60a6ff4f3d6de78e232b1eaf6d"
+    },
+    "app/libs/json-schema-1.9.1.jar": {
+      "source": "D:\\DT\\soprts\\start4\\07_phase5_execution\\T06\\tools\\json-schema-1.9.1.jar",
+      "sha256": "9f448b1142e9805f91f926e709206f1402f11a75da4dee729d98c77194030285"
+    },
+    "app/libs/jmail-2.1.0.jar": {
+      "source": "D:\\DT\\soprts\\start4\\07_phase5_execution\\T06\\tools\\jmail-2.1.0.jar",
+      "sha256": "7789f9e86aa02a9c308a650c4e44e17cc4b6caac7f43e261701b0ceefdd4ead4"
+    }
+  },
+  "scope": "Human review launcher; sealed validation AAR, shared Mock chain and fixtures copied without modification"
+}

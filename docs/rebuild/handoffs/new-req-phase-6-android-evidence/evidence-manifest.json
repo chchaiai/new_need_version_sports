@@ -1,0 +1,425 @@
+{
+  "scope": "Selected original reports and logs, copied byte-for-byte; raw binaries, inputs and screenshots in separate archive",
+  "files": {
+    "device/01-boot.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-full-02-final\\01-boot.log",
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+      "bytes": 3
+    },
+    "device/02-install.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-full-02-final\\02-install.log",
+      "sha256": "c4aa470acafcf8576c15b0f0b5ae7e852d1ec5413372d0e6a9272e788e1306d3",
+      "bytes": 38
+    },
+    "device/03-installed-path.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-full-02-final\\03-installed-path.log",
+      "sha256": "d793a215ac1291648b2d3665158b782856749cf9d200d8338a2dd70adc1110fd",
+      "bytes": 121
+    },
+    "device/04-pull-installed.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-full-02-final\\04-pull-installed.log",
+      "sha256": "41e4775046b13f03845090b285838eed875dc90c75005a40ce106ae58affb2a2",
+      "bytes": 177
+    },
+    "device/05-instrumentation.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-full-02-final\\05-instrumentation.log",
+      "sha256": "666c49266c16b54c2d1dec222ca535d9acbf08e23c4736d12ef7e04b37e7b453",
+      "bytes": 47108
+    },
+    "device/06-runtime-errors.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-full-02-final\\06-runtime-errors.log",
+      "sha256": "dff9a192ddd216a702f0bc64523aac52f4563e04192c23571ef0562385a7d6e5",
+      "bytes": 56534
+    },
+    "device/07-pull-device-evidence.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-full-02-final\\07-pull-device-evidence.log",
+      "sha256": "5aca0620ee598a31019f64651ca0516cfc97ba1195a4702b8f96e375c49dc547",
+      "bytes": 149
+    },
+    "device/commands.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-full-02-final\\commands.json",
+      "sha256": "cc7e27e49a21dfe724af4c23adbf6e93d0b01b772ab437c4bd5eaaef91fda8ad",
+      "bytes": 6632
+    },
+    "device/device-files/schema-result.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-full-02-final\\device-files\\schema-result.json",
+      "sha256": "d2d36e02e41bb55dffbf3ce890ab17831f224258fd43d7cf9afefc428e88dab5",
+      "bytes": 882238
+    },
+    "device/device-files/supplemental-result.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-full-02-final\\device-files\\supplemental-result.json",
+      "sha256": "635f6cbb50907e334fef99cd4000d3b9d88e7b606787012367225174834f68e4",
+      "bytes": 87038
+    },
+    "device/device.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-full-02-final\\device.json",
+      "sha256": "af124b38cfce1867def51929efa87b3cb38e38a4aef085467f3d3e89b8dfc78a",
+      "bytes": 457
+    },
+    "device/display.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-full-02-final\\display.log",
+      "sha256": "3f7189edd4a9581e83852e569ec69f497395017aec06f8022126805128a89330",
+      "bytes": 26
+    },
+    "device/junit.xml": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-full-02-final\\junit.xml",
+      "sha256": "517e13c2f69e085715b1f77cc03efd93713976f9446010fd1fe65f9fff5b84d9",
+      "bytes": 7626
+    },
+    "device/page-size.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-full-02-final\\page-size.log",
+      "sha256": "0cf3b033a9e93a0bc41f772e408f46e947755926bd81e15a470ae9b14f697653",
+      "bytes": 7
+    },
+    "device/property-ro.build.fingerprint.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-full-02-final\\property-ro.build.fingerprint.log",
+      "sha256": "fbd84618c40b0af46f30c48925fd7af1f5bcb41f2357a3308bc37941bff036e9",
+      "bytes": 82
+    },
+    "device/property-ro.build.version.codename.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-full-02-final\\property-ro.build.version.codename.log",
+      "sha256": "3b98592ee38aeb7ecddaab710819a5e9721840a8b5acd5f176aeb1a0ffbfb930",
+      "bytes": 5
+    },
+    "device/property-ro.build.version.release.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-full-02-final\\property-ro.build.version.release.log",
+      "sha256": "5b677464f4941a4c274964d723bf47e3cd7cdcb5d53379a3b7176f0c456cf9a0",
+      "bytes": 4
+    },
+    "device/property-ro.build.version.sdk.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-full-02-final\\property-ro.build.version.sdk.log",
+      "sha256": "a77b54178e2066fdc29229d4c0b59051caedc92e918e037928e185d39ad86316",
+      "bytes": 4
+    },
+    "device/property-ro.kernel.qemu.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-full-02-final\\property-ro.kernel.qemu.log",
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+      "bytes": 3
+    },
+    "device/property-ro.product.cpu.abi.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-full-02-final\\property-ro.product.cpu.abi.log",
+      "sha256": "73639484b8886a56b085ee97e76ead4218da03db9c2e5c88dd656c06bca60243",
+      "bytes": 8
+    },
+    "device/property-ro.product.model.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-full-02-final\\property-ro.product.model.log",
+      "sha256": "bf00b0f6e3351f4e64aa3373a03e0558242abb43da3438be83d03a1cbc6e2089",
+      "bytes": 22
+    },
+    "device/result.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-full-02-final\\result.json",
+      "sha256": "d1d39d08e71806cedb7943902ae51ea6accac9e05601d3914555296f8ec638d2",
+      "bytes": 67522
+    },
+    "device/source-before.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-full-02-final\\source-before.json",
+      "sha256": "638763b549f835e69d7359b1b4e9630d9e1a6d284922cf748040b33c70561e9b",
+      "bytes": 6704
+    },
+    "history/T03-findings.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T03\\findings.json",
+      "sha256": "fa4f01ab82bcbfc7319d61e6c69ef03f318a15f4e63f4a9ea19b5cf685c80431",
+      "bytes": 1022
+    },
+    "history/T04-findings.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T04\\findings.json",
+      "sha256": "1b5f041280d5aa55c78afc5d1dd5e1719a1bb0156d23d93c8a4713e2ff9c54c0",
+      "bytes": 620
+    },
+    "history/T05-findings.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T05\\findings.json",
+      "sha256": "1721c15f2a02ce91091c2db76b0c0bd322ec6cf0cb22a49eb7bf5c20cf2c2f5c",
+      "bytes": 2631
+    },
+    "host/01-binding-controls.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\build-05-cache-semantics\\01-binding-controls.log",
+      "sha256": "1204cdcd1c47d497d640e1921734e5123ff99013781cbf965ba35f92b5643868",
+      "bytes": 1088
+    },
+    "host/02-published-input-seal.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\build-05-cache-semantics\\02-published-input-seal.log",
+      "sha256": "583c3533adb1d36b35262a7a4c7709eb9e60c55cf2c80aef43d528a99171ded1",
+      "bytes": 133
+    },
+    "host/03-android-build-and-tests.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\build-05-cache-semantics\\03-android-build-and-tests.log",
+      "sha256": "484e6cb8e14ae27114e7a902eae7248243917d5ed64efe6f59e9b3a81049fe50",
+      "bytes": 6636
+    },
+    "host/04-diff-whitespace.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\build-05-cache-semantics\\04-diff-whitespace.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "host/05-working-tree.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\build-05-cache-semantics\\05-working-tree.log",
+      "sha256": "042f3c3912606a96a0a9f6e6900e9e6326747be09655cecc25e4a04a9b2498a5",
+      "bytes": 96
+    },
+    "host/commands.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\build-05-cache-semantics\\commands.json",
+      "sha256": "188a3000d24172267c31870dca3353e3778caf180503cdb9c1ec992dbba5293a",
+      "bytes": 2561
+    },
+    "host/full-schema.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\build-05-cache-semantics\\full-schema.json",
+      "sha256": "b9a1e2fb98b780a277a7ff44fade1387d58a373ee1e02f0f5a04166aa3b4841e",
+      "bytes": 882535
+    },
+    "host/generation-result.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\build-05-cache-semantics\\generation-result.json",
+      "sha256": "7fe53ff9f2739a2770bc9f0bc5244326286629180af4bec171f8299438166760",
+      "bytes": 69263
+    },
+    "host/junit/TEST-Phase6ContractSchemaTest.xml": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\build-05-cache-semantics\\junit\\TEST-Phase6ContractSchemaTest.xml",
+      "sha256": "2879c8aad73369309f1e29c86ae70d5d0ab118dfd917c9d3ecc5297b7ef9b7a0",
+      "bytes": 765
+    },
+    "host/junit/TEST-Phase6ContractSmokeTest.xml": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\build-05-cache-semantics\\junit\\TEST-Phase6ContractSmokeTest.xml",
+      "sha256": "c17ccb62bc30556742dc2f9c36080fc0fced36aa611fca097b224822614c0ac7",
+      "bytes": 509
+    },
+    "host/junit/TEST-Phase6MapperTest.xml": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\build-05-cache-semantics\\junit\\TEST-Phase6MapperTest.xml",
+      "sha256": "6d87eb558af2e5a3b4ef7af7e7769cf8f5140164ec3d57da809d7be191b005cb",
+      "bytes": 35459
+    },
+    "host/junit/TEST-Phase6MockBoundaryTest.xml": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\build-05-cache-semantics\\junit\\TEST-Phase6MockBoundaryTest.xml",
+      "sha256": "7a1191173362ed5ae51720498454c337be17e75f122cd9796e065faf6b10d075",
+      "bytes": 3197
+    },
+    "host/junit/TEST-Phase6MockTest.xml": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\build-05-cache-semantics\\junit\\TEST-Phase6MockTest.xml",
+      "sha256": "0089cb6e2617fc2292de628b1b4c68c744b1bc28c03bc4f1e3c672b4e2e2d69a",
+      "bytes": 5338
+    },
+    "host/mapper-coverage.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\build-05-cache-semantics\\mapper-coverage.json",
+      "sha256": "487a17cc348bc5be82e794b91f82c230467625a65e497bcd31a5c7778366c230",
+      "bytes": 38640
+    },
+    "host/mapper.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\build-05-cache-semantics\\mapper.json",
+      "sha256": "d60107f20e2527d5b37e024769fb29c8e450ed9764a9dfbbf08897c0bb9f7708",
+      "bytes": 25134
+    },
+    "host/mock-coverage.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\build-05-cache-semantics\\mock-coverage.json",
+      "sha256": "cbb62b3083390feab1381bc0602dbcc77a9c73c7bc4144df061ad2c931d13808",
+      "bytes": 1482
+    },
+    "host/mock-plan.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\build-05-cache-semantics\\mock-plan.json",
+      "sha256": "9b8fd5a5463cfb52e1fb583128f0e66bce6a4d4a3cfb60d2103d872e262a8318",
+      "bytes": 488
+    },
+    "host/mock.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\build-05-cache-semantics\\mock.json",
+      "sha256": "818af848bd7941a2f03a32a9b0daf42b06fdb1342f5a3fb231b19d278e0cad7e",
+      "bytes": 18251
+    },
+    "host/result.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\build-05-cache-semantics\\result.json",
+      "sha256": "71d985c4e73980df5a83455e7c8013a13963ee67275c28a79938e026e5faa90a",
+      "bytes": 15383
+    },
+    "host/schema-coverage.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\build-05-cache-semantics\\schema-coverage.json",
+      "sha256": "c80760d2c9c8bd5fcbef1fc71acc2007512dd8fe336a9340e535bd0417fff2aa",
+      "bytes": 43130
+    },
+    "host/schema-plan.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\build-05-cache-semantics\\schema-plan.json",
+      "sha256": "14c88e22c3320925870f7cd105eb4e9895121dfc8a7b01b32a80fde3b958df7f",
+      "bytes": 4944
+    },
+    "host/source-before.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\build-05-cache-semantics\\source-before.json",
+      "sha256": "22e2274e37b21fc467d4b9b55a1baa254b424506cb33c655768a2471ceb04062",
+      "bytes": 6810
+    },
+    "host/strict-smoke.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\build-05-cache-semantics\\strict-smoke.json",
+      "sha256": "6a46baf193471a418d81dbe662699022cc3fc6340a8213c4707f077761648f14",
+      "bytes": 18491
+    },
+    "host/supplemental-schema.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\build-05-cache-semantics\\supplemental-schema.json",
+      "sha256": "0d90478665d92e1c576a144f1925df2b1d376a338d9c28b0f5419a6d05ed3425",
+      "bytes": 87335
+    },
+    "manual/apk-signature.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\manual-review\\apk-signature.log",
+      "sha256": "b9c6879e48d25a9786d2beb8a15738c06edce7d06f2722dd860894618592bd09",
+      "bytes": 351
+    },
+    "manual/build-02.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\manual-review\\build-02.log",
+      "sha256": "9d373577b2c3c2ab804a49dad984a9ef6ff288ba0bad206490fef47e1cb4b0ea",
+      "bytes": 4259
+    },
+    "manual/delivery.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\manual-review\\delivery.json",
+      "sha256": "8a2cb6cfd83268469467f1b31c4d7b5f7377e359ba1bcdb243789ca486c770c4",
+      "bytes": 4596
+    },
+    "manual/device-01/commands.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\manual-review\\device-01\\commands.json",
+      "sha256": "1ae6ce0f6484129c7204c134c550fee5504de3b8af3075d0f5e48a82751df081",
+      "bytes": 2646
+    },
+    "manual/device-01/instrumentation.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\manual-review\\device-01\\instrumentation.log",
+      "sha256": "e0ab03cec48ee2e2a0c218c3506a4ae6a3758b99197cf7e7b341d7f7e856463b",
+      "bytes": 1496
+    },
+    "manual/device-01/result.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\manual-review\\device-01\\result.json",
+      "sha256": "4d014478be026ac7bf23b3e8478b3d9054853a563404d0912e59673c0beb9be7",
+      "bytes": 3180
+    },
+    "manual/inputs.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\manual-review\\inputs.json",
+      "sha256": "692203ea9cde718451ee0be256cdf17186842c0b25a792e497077f4d9a75288d",
+      "bytes": 4532
+    },
+    "manual/launcher-start.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\manual-review\\launcher-start.log",
+      "sha256": "e4f8c42633148f36a21c139720e04ff1d9546298462612f8894421ad283734bd",
+      "bytes": 201
+    },
+    "step06/audit.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\audit.json",
+      "sha256": "8f493d84d8826f588de021f59da1f636d6750c6a3f8ac08e5b7d57cdeb70882d",
+      "bytes": 23639
+    },
+    "step06/cleanup.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\cleanup.json",
+      "sha256": "60a0027b75690deefbb80cbfda29b5ec8bb0a70506b7fca59e220a523d5ac1ba",
+      "bytes": 389
+    },
+    "step06/visual-review.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\visual-review.json",
+      "sha256": "7f7059c53bb82e8a256f231f9aedcb985cae39cf1258b3d4815322755c08aadd",
+      "bytes": 3392
+    },
+    "stress/01-boot.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-landscape-font2-final\\01-boot.log",
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+      "bytes": 3
+    },
+    "stress/02-install.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-landscape-font2-final\\02-install.log",
+      "sha256": "c4aa470acafcf8576c15b0f0b5ae7e852d1ec5413372d0e6a9272e788e1306d3",
+      "bytes": 38
+    },
+    "stress/03-installed-path.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-landscape-font2-final\\03-installed-path.log",
+      "sha256": "f78f082f4b914292bbc3bc4d0342abcafac47596b31dc3122b1f2bd3616182a2",
+      "bytes": 121
+    },
+    "stress/04-pull-installed.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-landscape-font2-final\\04-pull-installed.log",
+      "sha256": "2dccebcb8238acfe745b51ee86fbf83401f8b360ef378811c79b75ba00de29bc",
+      "bytes": 177
+    },
+    "stress/05-instrumentation.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-landscape-font2-final\\05-instrumentation.log",
+      "sha256": "7a820cbc3edae7fec85fb0e47377626b360d10b2e3960900d7dbabf67d59a40a",
+      "bytes": 738
+    },
+    "stress/06-runtime-errors.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-landscape-font2-final\\06-runtime-errors.log",
+      "sha256": "da9e7b7bf779bb1012b3416ed5b34f9613c782bb671042808c77c50aaf1975eb",
+      "bytes": 56935
+    },
+    "stress/07-pull-device-evidence.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-landscape-font2-final\\07-pull-device-evidence.log",
+      "sha256": "a173797a2141ac150981441ace6c3f0ce18da4a9538116cde64bdeca5eba7cc8",
+      "bytes": 149
+    },
+    "stress/commands.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-landscape-font2-final\\commands.json",
+      "sha256": "533a18ca85f39529a40a28c497d3415e3270f674f66d1a3ab4217053870f326c",
+      "bytes": 6583
+    },
+    "stress/device-files/schema-result.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-landscape-font2-final\\device-files\\schema-result.json",
+      "sha256": "d2d36e02e41bb55dffbf3ce890ab17831f224258fd43d7cf9afefc428e88dab5",
+      "bytes": 882238
+    },
+    "stress/device-files/supplemental-result.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-landscape-font2-final\\device-files\\supplemental-result.json",
+      "sha256": "635f6cbb50907e334fef99cd4000d3b9d88e7b606787012367225174834f68e4",
+      "bytes": 87038
+    },
+    "stress/device.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-landscape-font2-final\\device.json",
+      "sha256": "af124b38cfce1867def51929efa87b3cb38e38a4aef085467f3d3e89b8dfc78a",
+      "bytes": 457
+    },
+    "stress/display.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-landscape-font2-final\\display.log",
+      "sha256": "3f7189edd4a9581e83852e569ec69f497395017aec06f8022126805128a89330",
+      "bytes": 26
+    },
+    "stress/junit.xml": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-landscape-font2-final\\junit.xml",
+      "sha256": "c6cf4892512bfff79a05a95e290837489df095ab0e9c93bde5146dfc83f6d9f2",
+      "bytes": 203
+    },
+    "stress/page-size.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-landscape-font2-final\\page-size.log",
+      "sha256": "0cf3b033a9e93a0bc41f772e408f46e947755926bd81e15a470ae9b14f697653",
+      "bytes": 7
+    },
+    "stress/property-ro.build.fingerprint.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-landscape-font2-final\\property-ro.build.fingerprint.log",
+      "sha256": "fbd84618c40b0af46f30c48925fd7af1f5bcb41f2357a3308bc37941bff036e9",
+      "bytes": 82
+    },
+    "stress/property-ro.build.version.codename.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-landscape-font2-final\\property-ro.build.version.codename.log",
+      "sha256": "3b98592ee38aeb7ecddaab710819a5e9721840a8b5acd5f176aeb1a0ffbfb930",
+      "bytes": 5
+    },
+    "stress/property-ro.build.version.release.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-landscape-font2-final\\property-ro.build.version.release.log",
+      "sha256": "5b677464f4941a4c274964d723bf47e3cd7cdcb5d53379a3b7176f0c456cf9a0",
+      "bytes": 4
+    },
+    "stress/property-ro.build.version.sdk.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-landscape-font2-final\\property-ro.build.version.sdk.log",
+      "sha256": "a77b54178e2066fdc29229d4c0b59051caedc92e918e037928e185d39ad86316",
+      "bytes": 4
+    },
+    "stress/property-ro.kernel.qemu.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-landscape-font2-final\\property-ro.kernel.qemu.log",
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+      "bytes": 3
+    },
+    "stress/property-ro.product.cpu.abi.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-landscape-font2-final\\property-ro.product.cpu.abi.log",
+      "sha256": "73639484b8886a56b085ee97e76ead4218da03db9c2e5c88dd656c06bca60243",
+      "bytes": 8
+    },
+    "stress/property-ro.product.model.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-landscape-font2-final\\property-ro.product.model.log",
+      "sha256": "bf00b0f6e3351f4e64aa3373a03e0558242abb43da3438be83d03a1cbc6e2089",
+      "bytes": 22
+    },
+    "stress/result.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-landscape-font2-final\\result.json",
+      "sha256": "6f89ea1f39f284591ea9f6c087003b1eb19dff77d241dfce032978930d02e0cd",
+      "bytes": 15653
+    },
+    "stress/source-before.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-landscape-font2-final\\source-before.json",
+      "sha256": "638763b549f835e69d7359b1b4e9630d9e1a6d284922cf748040b33c70561e9b",
+      "bytes": 6704
+    }
+  }
+}

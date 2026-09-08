@@ -1,0 +1,77 @@
+[
+  {
+    "name": "01-binding-controls",
+    "command": [
+      "D:\\DT\\soprts\\start4\\07_phase5_execution\\.venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "D:\\DT\\soprts\\start4\\repos\\phase6-android\\BNBU-ANDROID\\tools\\phase6\\test_entry.py"
+    ],
+    "cwd": "D:\\DT\\soprts\\start4\\repos\\phase6-android\\BNBU-ANDROID",
+    "startedAt": "2026-09-08T08:31:30.652423+00:00",
+    "finishedAt": "2026-09-08T08:31:40.859649+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "02-published-input-seal",
+    "command": [
+      "D:\\DT\\soprts\\start4\\07_phase5_execution\\.venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "D:\\DT\\soprts\\start4\\repos\\phase6-android\\contracts\\validation\\step06_final\\verify_release.py"
+    ],
+    "cwd": "D:\\DT\\soprts\\start4\\repos\\phase6-android",
+    "startedAt": "2026-09-08T08:31:40.859649+00:00",
+    "finishedAt": "2026-09-08T08:31:43.024687+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "03-android-build-and-tests",
+    "command": [
+      "D:\\DT\\soprts\\start4\\repos\\phase6-android\\BNBU-ANDROID\\gradlew.bat",
+      ":contract-validation:assembleDebug",
+      ":contract-validation:testDebugUnitTest",
+      "--offline",
+      "--console=plain",
+      "--rerun-tasks",
+      "-Pphase6FullValidation=true",
+      "-Pphase6MapperValidation=true",
+      "-Pphase6MockValidation=true",
+      "-Pphase6Python=D:\\DT\\soprts\\start4\\07_phase5_execution\\.venv\\Scripts\\python.exe",
+      "-Pphase6GeneratorJar=D:\\DT\\soprts\\start4\\07_phase5_execution\\tooling\\openapi-generator-cli-7.24.0.jar",
+      "-Pphase6RuntimeDir=D:\\DT\\soprts\\start4\\07_phase5_execution\\T06\\tools",
+      ":contract-validation:assembleDebugAndroidTest"
+    ],
+    "cwd": "D:\\DT\\soprts\\start4\\repos\\phase6-android\\BNBU-ANDROID",
+    "startedAt": "2026-09-08T08:31:43.026210+00:00",
+    "finishedAt": "2026-09-08T08:32:48.355895+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "04-diff-whitespace",
+    "command": [
+      "git",
+      "--no-pager",
+      "diff",
+      "--check"
+    ],
+    "cwd": "D:\\DT\\soprts\\start4\\repos\\phase6-android",
+    "startedAt": "2026-09-08T08:32:49.078067+00:00",
+    "finishedAt": "2026-09-08T08:32:49.196112+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "05-working-tree",
+    "command": [
+      "git",
+      "status",
+      "--short"
+    ],
+    "cwd": "D:\\DT\\soprts\\start4\\repos\\phase6-android",
+    "startedAt": "2026-09-08T08:32:49.196112+00:00",
+    "finishedAt": "2026-09-08T08:32:49.305958+00:00",
+    "exitCode": 0
+  }
+]

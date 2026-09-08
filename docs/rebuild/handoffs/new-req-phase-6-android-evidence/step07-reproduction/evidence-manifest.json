@@ -1,0 +1,94 @@
+{
+  "files": {
+    "result.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T07\\verification-02-final\\result.json",
+      "sha256": "7de71de8e39d3321b8e54cd9699d65619b4784209ca555b711f8be094853b1e3",
+      "bytes": 16295
+    },
+    "commands.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T07\\verification-02-final\\commands.json",
+      "sha256": "29ea20cd8c780eb1cabbf7d4df05f7db6e5a0c75fc4d81ee94a309663a666c49",
+      "bytes": 3186
+    },
+    "01-binding-controls.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T07\\verification-02-final\\01-binding-controls.log",
+      "sha256": "72f0c4653c40748457846ac679265ce2002e9276cf2fb11b329be9dc52ae855e",
+      "bytes": 1088
+    },
+    "01b-published-seal-controls.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T07\\verification-02-final\\01b-published-seal-controls.log",
+      "sha256": "4375b1cb36610caceda0d5ece9f19f920727b2b2a354059583b101d95dcddcbd",
+      "bytes": 631
+    },
+    "02-published-input-seal.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T07\\verification-02-final\\02-published-input-seal.log",
+      "sha256": "db451dc0680462f9b93cbb9fb5f9b3830dd16d5c35add539cf5b61a2c0fa6280",
+      "bytes": 258
+    },
+    "03-android-build-and-tests.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T07\\verification-02-final\\03-android-build-and-tests.log",
+      "sha256": "4ec071e530c76589606f3396c069a9c35ac88e45400edd1c2066fbe4c2a94a38",
+      "bytes": 6636
+    },
+    "04-diff-whitespace.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T07\\verification-02-final\\04-diff-whitespace.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "05-working-tree.log": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T07\\verification-02-final\\05-working-tree.log",
+      "sha256": "249dc5d7a3ff80aa097532ef861761b2b505796366d9f59fdb30f3d97593455b",
+      "bytes": 233
+    },
+    "source-before.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T07\\verification-02-final\\source-before.json",
+      "sha256": "4ef36970d9eb1a06c6fe3ac4ab582c7ef89de3b4e0b5007d5358bb1718e090a2",
+      "bytes": 7061
+    },
+    "mock-coverage.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T07\\verification-02-final\\mock-coverage.json",
+      "sha256": "cbb62b3083390feab1381bc0602dbcc77a9c73c7bc4144df061ad2c931d13808",
+      "bytes": 1482
+    },
+    "mapper-coverage.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T07\\verification-02-final\\mapper-coverage.json",
+      "sha256": "487a17cc348bc5be82e794b91f82c230467625a65e497bcd31a5c7778366c230",
+      "bytes": 38640
+    },
+    "schema-coverage.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T07\\verification-02-final\\schema-coverage.json",
+      "sha256": "c80760d2c9c8bd5fcbef1fc71acc2007512dd8fe336a9340e535bd0417fff2aa",
+      "bytes": 43130
+    },
+    "phase5-input-seal/snapshot-manifest.json": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T07\\verification-02-final\\phase5-input-seal\\snapshot-manifest.json",
+      "sha256": "7a6deabe6d8a925f5cfa0769f3eb4d3d4efc31963d0bd7390e7ea13406c17656",
+      "bytes": 13752
+    },
+    "junit/TEST-Phase6ContractSchemaTest.xml": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T07\\verification-02-final\\junit\\TEST-Phase6ContractSchemaTest.xml",
+      "sha256": "ac29ab1c68d71005498e99959036180b542633a7a14923863721c6c31e22905c",
+      "bytes": 767
+    },
+    "junit/TEST-Phase6ContractSmokeTest.xml": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T07\\verification-02-final\\junit\\TEST-Phase6ContractSmokeTest.xml",
+      "sha256": "23f750abff4663fe1bc22ff7e1450c6b55264d5761baf3ab6bbcafc760d493a8",
+      "bytes": 508
+    },
+    "junit/TEST-Phase6MapperTest.xml": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T07\\verification-02-final\\junit\\TEST-Phase6MapperTest.xml",
+      "sha256": "2d92322234070b3a0e94a37e09490632e3d27c17676080b1c3e5d5f1a260d7f7",
+      "bytes": 35474
+    },
+    "junit/TEST-Phase6MockBoundaryTest.xml": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T07\\verification-02-final\\junit\\TEST-Phase6MockBoundaryTest.xml",
+      "sha256": "b69465e4fb87d7c28969be852f0b15b8391b137bbf9babb5d5628585b22d7793",
+      "bytes": 3195
+    },
+    "junit/TEST-Phase6MockTest.xml": {
+      "source": "D:\\DT\\soprts\\start4\\08_phase6_execution\\T07\\verification-02-final\\junit\\TEST-Phase6MockTest.xml",
+      "sha256": "58940583f4737a83a8fbef780cfc3b780d08244de0d32c6fc43552461c483047",
+      "bytes": 5334
+    }
+  }
+}

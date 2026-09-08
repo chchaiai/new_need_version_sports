@@ -1,0 +1,120 @@
+[
+  {
+    "name": "wait-device",
+    "args": [
+      "wait-for-device"
+    ],
+    "exitCode": 0,
+    "seconds": 0.07489609718322754
+  },
+  {
+    "name": "boot",
+    "args": [
+      "shell",
+      "getprop",
+      "sys.boot_completed"
+    ],
+    "exitCode": 0,
+    "seconds": 0.17503118515014648
+  },
+  {
+    "name": "boot",
+    "args": [
+      "shell",
+      "getprop",
+      "sys.boot_completed"
+    ],
+    "exitCode": 0,
+    "seconds": 0.3530590534210205
+  },
+  {
+    "name": "disable-wifi",
+    "args": [
+      "shell",
+      "svc",
+      "wifi",
+      "disable"
+    ],
+    "exitCode": 0,
+    "seconds": 0.3906421661376953
+  },
+  {
+    "name": "disable-data",
+    "args": [
+      "shell",
+      "svc",
+      "data",
+      "disable"
+    ],
+    "exitCode": 0,
+    "seconds": 0.3108952045440674
+  },
+  {
+    "name": "install-app",
+    "args": [
+      "install",
+      "-r",
+      "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\manual-review\\app\\build\\outputs\\apk\\debug\\app-debug.apk"
+    ],
+    "exitCode": 0,
+    "seconds": 9.737945556640625
+  },
+  {
+    "name": "install-tests",
+    "args": [
+      "install",
+      "-r",
+      "-t",
+      "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\manual-review\\app\\build\\outputs\\apk\\androidTest\\debug\\app-debug-androidTest.apk"
+    ],
+    "exitCode": 0,
+    "seconds": 2.089604377746582
+  },
+  {
+    "name": "package-path",
+    "args": [
+      "shell",
+      "pm",
+      "path",
+      "edu.bnbu.phase6.manualreview"
+    ],
+    "exitCode": 0,
+    "seconds": 0.41429924964904785
+  },
+  {
+    "name": "pull-installed",
+    "args": [
+      "pull",
+      "/data/app/~~aKH4qEP49cFB4NJZK04Z2g==/edu.bnbu.phase6.manualreview-cSelj2FBb2wBdxi1w5ST0w==/base.apk",
+      "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\manual-review\\device-01\\installed.apk"
+    ],
+    "exitCode": 0,
+    "seconds": 0.573744535446167
+  },
+  {
+    "name": "instrumentation",
+    "args": [
+      "shell",
+      "am",
+      "instrument",
+      "-w",
+      "-r",
+      "-e",
+      "class",
+      "edu.bnbu.phase6.manualreview.ManualReviewTest",
+      "edu.bnbu.phase6.manualreview.test/androidx.test.runner.AndroidJUnitRunner"
+    ],
+    "exitCode": 0,
+    "seconds": 126.28930115699768
+  },
+  {
+    "name": "screenshots",
+    "args": [
+      "pull",
+      "/sdcard/Android/data/edu.bnbu.phase6.manualreview/files/phase6-device",
+      "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\manual-review\\device-01\\screenshots"
+    ],
+    "exitCode": 0,
+    "seconds": 0.19201183319091797
+  }
+]

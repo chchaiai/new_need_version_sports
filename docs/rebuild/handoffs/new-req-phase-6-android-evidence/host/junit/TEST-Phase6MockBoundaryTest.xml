@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Phase6MockBoundaryTest" tests="27" skipped="0" failures="0" errors="0" timestamp="2026-09-08T08:32:38.632Z" hostname="LAPTOP-PPHQAT6R" time="2.355">
+  <properties/>
+  <testcase name="concatenatedJsonRejected" classname="Phase6MockBoundaryTest" time="0.449"/>
+  <testcase name="alreadyReadyMaterialCannotResume" classname="Phase6MockBoundaryTest" time="0.097"/>
+  <testcase name="forbiddenStudentGradeRejected" classname="Phase6MockBoundaryTest" time="0.067"/>
+  <testcase name="receiptManifestMismatchRejected" classname="Phase6MockBoundaryTest" time="0.102"/>
+  <testcase name="generatedSupplementPost201WaitsForServerReceipt" classname="Phase6MockBoundaryTest" time="0.092"/>
+  <testcase name="freshNormalIsRequiredToRecoverFromMaintenance" classname="Phase6MockBoundaryTest" time="0.077"/>
+  <testcase name="nonUtf8Rejected" classname="Phase6MockBoundaryTest" time="0.081"/>
+  <testcase name="unexpected204IsNotEmpty" classname="Phase6MockBoundaryTest" time="0.064"/>
+  <testcase name="transportFailureCannotBecomeMaintenanceOrEmpty" classname="Phase6MockBoundaryTest" time="0.065"/>
+  <testcase name="technicalStageWithoutCaseIdentityRejected" classname="Phase6MockBoundaryTest" time="0.055"/>
+  <testcase name="redirectIsNotFollowed" classname="Phase6MockBoundaryTest" time="0.076"/>
+  <testcase name="htmlSuccessIsNotEmpty" classname="Phase6MockBoundaryTest" time="0.065"/>
+  <testcase name="staleResponseCannotOverwriteNewScreenAndLoadingIsObservable" classname="Phase6MockBoundaryTest" time="0.084"/>
+  <testcase name="supplement409RequiresRefreshAndNeverAutoResubmits" classname="Phase6MockBoundaryTest" time="0.078"/>
+  <testcase name="notificationDisclosureIsNotRendered" classname="Phase6MockBoundaryTest" time="0.072"/>
+  <testcase name="failedReleaseRefreshKeepsForcedUpgradeVisible" classname="Phase6MockBoundaryTest" time="0.078"/>
+  <testcase name="lockedResumeNeedsFreshMatchingCurrentMaterial" classname="Phase6MockBoundaryTest" time="0.084"/>
+  <testcase name="malformedJsonIsInvalidResponseNotTransport" classname="Phase6MockBoundaryTest" time="0.069"/>
+  <testcase name="missingRequiredNullableRejected" classname="Phase6MockBoundaryTest" time="0.073"/>
+  <testcase name="unknownEnumRejected" classname="Phase6MockBoundaryTest" time="0.069"/>
+  <testcase name="duplicateJsonMembersRejected" classname="Phase6MockBoundaryTest" time="0.066"/>
+  <testcase name="invalidationDisablesPreviouslyAvailableWrite" classname="Phase6MockBoundaryTest" time="0.08"/>
+  <testcase name="literalLoopbackOnly" classname="Phase6MockBoundaryTest" time="0.055"/>
+  <testcase name="staleSupplementCommandDoesNotSendPost" classname="Phase6MockBoundaryTest" time="0.064"/>
+  <testcase name="cachedReceiptCannotTriggerAnyResumeRead" classname="Phase6MockBoundaryTest" time="0.061"/>
+  <testcase name="exactTransferDeadlineCannotResume" classname="Phase6MockBoundaryTest" time="0.075"/>
+  <testcase name="invalidConstructedRequestNeverLeavesDeviceAndBecomesPageError" classname="Phase6MockBoundaryTest" time="0.051"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

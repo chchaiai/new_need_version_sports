@@ -1,0 +1,27 @@
+[
+  {
+    "id": "F6A-03-01",
+    "classification": "CLIENT_VALIDATION_COMPATIBILITY_DEFECT",
+    "status": "CLOSED_SELF_VERIFIED",
+    "symptoms": [
+      ".1Z was rewritten to .100Z",
+      "10-digit fractional seconds were incorrectly rejected"
+    ],
+    "before": "supplemental-first-result.json",
+    "fix": "Source generation profile dateLibrary=string with matching nullable aliases; strict RFC3339 validation; exact roundtrip assertions unchanged",
+    "after": "verification-01/supplemental-schema.json",
+    "contractChanged": false
+  },
+  {
+    "id": "F6A-03-02",
+    "classification": "CLIENT_VALIDATION_DEFECT",
+    "status": "CLOSED_SELF_VERIFIED",
+    "symptoms": [
+      "9223372036854775808 and 18446744073709551617 accepted as int64 before DTO coercion"
+    ],
+    "before": "int64-before-fix-result.json",
+    "fix": "Exact int32/int64 format bounds before decoding and after encoding; no floating conversion",
+    "after": "verification-01/supplemental-schema.json",
+    "contractChanged": false
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "contractSha256": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+  "inputSha256": "892df0a954c1b771f7e1a474ba6b62ea3bc56c60a6ff4f3d6de78e232b1eaf6d",
+  "operationCount": 176,
+  "fixtureSha256": "d3c2a37f4bad298f383b70579a3e5d22e5e117cd0cee238beb6b6d336dc0deef",
+  "formatAdapterSha256": "d4ffe40072e829ad3fb36ac9faaee46bf7d9e72fcf3ffb80f9a4815da7c71512",
+  "transport": "literal 127.0.0.1 MockWebServer only",
+  "deviceStatus": "BUILD_ONLY_STEP5_EXECUTE_STEP6"
+}

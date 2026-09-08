@@ -1,0 +1,85 @@
+{
+  "reviewer": "ASSISTANT_VISUAL_SELF_CHECK; human review remains pending",
+  "findings": "Headers and relevant statuses readable; cached/recomputing labels distinct; readonly/empty/maintenance/resume boundaries visible; Retry transitions to normal; landscape font2 button visible and clickable. Long content scrolls below viewport.",
+  "scope": "Representative visual inspection, not a pixel-by-pixel review of all 47 screenshots",
+  "screenshots": [
+    {
+      "path": "device-full-02-final/device-files/loading.png",
+      "sha256": "1f78ba5f434a22eeb1a7943c4d1c4f71610483e4327f57cb94e4a559b5987d8b",
+      "width": 2400,
+      "height": 1080
+    },
+    {
+      "path": "device-full-02-final/device-files/progress_cached_is_read_only.png",
+      "sha256": "db8bb8a7ce32a76bb8f3b86d0caf6f00de6c1d115964aa921f7e4ecde9925964",
+      "width": 1080,
+      "height": 2400
+    },
+    {
+      "path": "device-full-02-final/device-files/progress_recomputing_keeps_old_checkpoint.png",
+      "sha256": "ab8e00d1c328d0482718c4a688ef8803273f9aa3cc53dc84c390d6a5c13b38c9",
+      "width": 1080,
+      "height": 2400
+    },
+    {
+      "path": "device-full-02-final/device-files/progress_1199_is_not_target_met.png",
+      "sha256": "8fa86e79f3d9e1535593f58d571ce1b8d7c2e8bc7413feb415eec769c080777f",
+      "width": 1080,
+      "height": 2400
+    },
+    {
+      "path": "device-full-02-final/device-files/maintenance_estimate_does_not_unlock.png",
+      "sha256": "d5616877c81bd8806e266aca9b383ee29ecf2fa53ebd53db17dab69b9255c337",
+      "width": 1080,
+      "height": 2400
+    },
+    {
+      "path": "device-full-02-final/device-files/first_receipt_alone_cannot_resume.png",
+      "sha256": "53c5987fc96eb78756dea668d038607963b915873a092e33eb62caa1054c93ce",
+      "width": 1080,
+      "height": 2400
+    },
+    {
+      "path": "device-full-02-final/device-files/http_error_FORBIDDEN.png",
+      "sha256": "1c16afb9d5e3ed8868a2e34cbfa89db0a5ffdc2a6085b783f0cb259c35aaee5d",
+      "width": 1080,
+      "height": 2400
+    },
+    {
+      "path": "device-full-02-final/device-files/records_empty_only_typed_200.png",
+      "sha256": "54fca5113194be423db715c0e69b452c12c820a03fea8fd9a258d0b7ab6ab301",
+      "width": 1080,
+      "height": 2400
+    },
+    {
+      "path": "device-full-02-final/device-files/archived_record_is_read_only.png",
+      "sha256": "37f5eea46dd26fbd9cee896999d2631a40bca582121bf4a46522f0ef090dc2f6",
+      "width": 1080,
+      "height": 2400
+    },
+    {
+      "path": "device-full-02-final/device-files/retry-before.png",
+      "sha256": "e43be963e7d1b9c5e817c9beed6f793020251b22388b31acc76e223f228acfac",
+      "width": 1080,
+      "height": 2400
+    },
+    {
+      "path": "device-full-02-final/device-files/retry-after.png",
+      "sha256": "35d6cba74f865b9f9126bdbaf37a01e99fdbe01a7b67ff4a9e02d41abf53b4d1",
+      "width": 1080,
+      "height": 2400
+    },
+    {
+      "path": "device-landscape-font2-final/device-files/retry-before.png",
+      "sha256": "393714d71fc94665f51e7f21d2b1fbe2bcabaac118596e4859b263d7ff36e06a",
+      "width": 2400,
+      "height": 1080
+    },
+    {
+      "path": "device-landscape-font2-final/device-files/retry-after.png",
+      "sha256": "d9891f59b91de00db5f805f51748168fa3d978ef819c702685707e3aecb15b42",
+      "width": 2400,
+      "height": 1080
+    }
+  ]
+}
