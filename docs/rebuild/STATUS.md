@@ -1,5 +1,16 @@
 # 当前进度状态
 
+## 2026-09-09 Phase6C 技术验收通过；修复与Phase7接收记录待同一PR发布
+
+- 用户已明确“好的，审核通过，准备交接收尾”。6C进度Client Defect `6C-WEB-PROGRESS-01` 关闭；新增阻塞Contract CR为0。用户兼任Android/架构/Contract Owner、6C汇总和人类Reviewer，Web Owner甘洛夷；Phase7 Owner H/Z，Reviewer用户。
+- PR #11真实来源 `ef9c6312411ce6198d406665945d99be4c6e7082` 已合并main `93d18fd317e0f622bf306b8707ea1d92d23322dd`，两者文件树相同；Android与已接受来源 `333f6dfa42f89cbee9cce387638d05a88a7fdd74` 无差异。本轮 `codex/phase6c-progress-consistency` 另建PR，不继续使用PR #11。
+- 已审Web修复：学生92/92、Portal247/247（含定向107和新增21项）、类型/生成一致性/构建通过。6C逐例对应：三组原union59/59、当前Web校验器54/54、进度3/3，与未变Android已接受证据一致；未重跑设备，不将Mock、协议用例当成真实后端测试。
+- 唯一Contract保持 `1.3.0-contract / RC / 5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed`。本次无业务/协议/架构/Android/Backend/数据库或部署改动；产品改动仅此前已审Web Mapper及测试。
+- **当前本地验收已通过，发布待用户操作。** 本轮修复和收尾记录合并到main并核验实际交付/合并SHA及已审字节后，Phase6 DONE / Phase7.0 READY 条件生效；H/Z尚未实际接收，7.0尚未开始。实际未来SHA取Git/PR记录并由7.0入场回填，不为填写未来SHA再补纯文档PR。
+- [6C验收与证据](handoffs/new-req-phase-6c.md)、[H/Z后端接收包](handoffs/new-req-phase-6-to-phase-7.md)已更新。7.0仍须人类确认技术栈/Owner/路径并通过BE-CR005-COMPAT及CertificationKind等Domain/Database对齐；7.1不能跳过。正式客户端旧API/Mock迁移留Phase8，真实Backend/E2E/恢复/性能和上线验收继续后移。
+
+以下为历史记录，上方状态和6C交接优先。
+
 ## 2026-09-08 Web R05/R06 用户接受；面向 H/Z 准备 Phase7 交接
 
 - 用户明确“ok，审核通过，我们主要是要交接给phase7的同学”；Phase7负责人H/Z，Reviewer为用户。Web本地修复与交接文件已接受，用户将上传到原PR #11。实际修复交付Commit/合并Commit尚未产生，不以`164201b1ba36154dfbdc346d061f30fd98602902`入场基线冒充。

@@ -1,0 +1,1057 @@
+{
+  "status": "PASS",
+  "recordedAt": "2026-09-08T16:23:50.699Z",
+  "repository": "D:\\DT\\soprts\\start4\\repos\\phase6b-r05-r06-repair\\",
+  "contractSha256": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+  "tools": {
+    "node": "v24.14.1",
+    "ajv": "8.17.1",
+    "ajvFormats": "3.0.1"
+  },
+  "scope": "Three original discriminator groups using installed Web validation dependencies and fixed corpus; actual Web progress mapper. Android is accepted unchanged evidence, not rerun. JSON/schema validation is not production networking or E2E.",
+  "inputs": [
+    {
+      "path": "contracts/openapi.yaml",
+      "sha256": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed"
+    },
+    {
+      "path": "contracts/validation/step07_handoff/fixtures.json",
+      "sha256": "d3c2a37f4bad298f383b70579a3e5d22e5e117cd0cee238beb6b6d336dc0deef"
+    },
+    {
+      "path": "docs/rebuild/handoffs/new-req-phase-6-android-evidence/host/full-schema.json",
+      "sha256": "b9a1e2fb98b780a277a7ff44fade1387d58a373ee1e02f0f5a04166aa3b4841e"
+    },
+    {
+      "path": "docs/rebuild/handoffs/new-req-phase-6-android-evidence/host/mapper.json",
+      "sha256": "d60107f20e2527d5b37e024769fb29c8e450ed9764a9dfbbf08897c0bb9f7708"
+    },
+    {
+      "path": "BNBU-Sports-Web-new/frontend/student/js/phase6b-contract-mapper.js",
+      "sha256": "42563b74564f47ef574160cc29cd78b1db322a8d65387324542a7a9407a0532c"
+    },
+    {
+      "path": "BNBU-Sports-Web-new/frontend/student/js/contract/wire.js",
+      "sha256": "f91efba3f554c81c615d5776993295945bfca59029525bc502d6fb84b075a4e2"
+    },
+    {
+      "path": "BNBU-Sports-Web-new/frontend/student/js/contract/validators.generated.js",
+      "sha256": "3942ca91648d4161ba37b5c06897c86e7e09a11e26bc480fe6a1b761c8307c20"
+    },
+    {
+      "path": "BNBU-Sports-Web-new/portal-teacher-admin/tests/phase6b-wire.test.mjs",
+      "sha256": "9baa500c43aa35475665c0dc84b546cfbbfb2e76968711a72daab1bf82556c0a"
+    },
+    {
+      "path": "BNBU-Sports-Web-new/portal-teacher-admin/package-lock.json",
+      "sha256": "098fa46c64098debbfb034ef3e93a4e035995d4c970f362299d99e4cf6555627"
+    },
+    {
+      "path": "docs/rebuild/handoffs/new-req-phase-6c-evidence/consolidate.mjs",
+      "sha256": "f0605ec176f5f3c2d8e77dfd89397d9bb230bc2fd02d68f216e975d30528e52e"
+    }
+  ],
+  "unionCount": 59,
+  "unionPassed": 59,
+  "legalBranches": 7,
+  "runtimeCaseCount": 54,
+  "runtimeCasePassed": 54,
+  "progressCount": 3,
+  "progressPassed": 3,
+  "unions": [
+    {
+      "name": "old-mapping/EXEMPTION/legal",
+      "schema": "CreateStudentApplicationRequest",
+      "expectedValid": true,
+      "webActualValid": true,
+      "androidRecordedValid": true,
+      "validJsonRoundtrip": true,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/EXEMPTION/unknown",
+      "schema": "CreateStudentApplicationRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/EXEMPTION/schema_name",
+      "schema": "CreateStudentApplicationRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/EXEMPTION/null",
+      "schema": "CreateStudentApplicationRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/EXEMPTION/numeric",
+      "schema": "CreateStudentApplicationRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/EXEMPTION/missing",
+      "schema": "CreateStudentApplicationRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/EXEMPTION/extra_field",
+      "schema": "CreateStudentApplicationRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/EXEMPTION/wrong_branch_shape",
+      "schema": "CreateStudentApplicationRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/CERTIFICATION/legal",
+      "schema": "CreateStudentApplicationRequest",
+      "expectedValid": true,
+      "webActualValid": true,
+      "androidRecordedValid": true,
+      "validJsonRoundtrip": true,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/CERTIFICATION/unknown",
+      "schema": "CreateStudentApplicationRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/CERTIFICATION/schema_name",
+      "schema": "CreateStudentApplicationRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/CERTIFICATION/null",
+      "schema": "CreateStudentApplicationRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/CERTIFICATION/numeric",
+      "schema": "CreateStudentApplicationRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/CERTIFICATION/missing",
+      "schema": "CreateStudentApplicationRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/CERTIFICATION/extra_field",
+      "schema": "CreateStudentApplicationRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/CERTIFICATION/wrong_branch_shape",
+      "schema": "CreateStudentApplicationRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/ADD/legal",
+      "schema": "ReviseEnduranceRuleTableRequest",
+      "expectedValid": true,
+      "webActualValid": true,
+      "androidRecordedValid": true,
+      "validJsonRoundtrip": true,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/ADD/unknown",
+      "schema": "ReviseEnduranceRuleTableRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/ADD/schema_name",
+      "schema": "ReviseEnduranceRuleTableRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/ADD/null",
+      "schema": "ReviseEnduranceRuleTableRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/ADD/numeric",
+      "schema": "ReviseEnduranceRuleTableRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/ADD/missing",
+      "schema": "ReviseEnduranceRuleTableRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/ADD/extra_field",
+      "schema": "ReviseEnduranceRuleTableRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/ADD/wrong_branch_shape",
+      "schema": "ReviseEnduranceRuleTableRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/UPDATE/legal",
+      "schema": "ReviseEnduranceRuleTableRequest",
+      "expectedValid": true,
+      "webActualValid": true,
+      "androidRecordedValid": true,
+      "validJsonRoundtrip": true,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/UPDATE/unknown",
+      "schema": "ReviseEnduranceRuleTableRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/UPDATE/schema_name",
+      "schema": "ReviseEnduranceRuleTableRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/UPDATE/null",
+      "schema": "ReviseEnduranceRuleTableRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/UPDATE/numeric",
+      "schema": "ReviseEnduranceRuleTableRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/UPDATE/missing",
+      "schema": "ReviseEnduranceRuleTableRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/UPDATE/extra_field",
+      "schema": "ReviseEnduranceRuleTableRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/UPDATE/wrong_branch_shape",
+      "schema": "ReviseEnduranceRuleTableRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/DELETE/legal",
+      "schema": "ReviseEnduranceRuleTableRequest",
+      "expectedValid": true,
+      "webActualValid": true,
+      "androidRecordedValid": true,
+      "validJsonRoundtrip": true,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/DELETE/unknown",
+      "schema": "ReviseEnduranceRuleTableRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/DELETE/schema_name",
+      "schema": "ReviseEnduranceRuleTableRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/DELETE/null",
+      "schema": "ReviseEnduranceRuleTableRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/DELETE/numeric",
+      "schema": "ReviseEnduranceRuleTableRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/DELETE/missing",
+      "schema": "ReviseEnduranceRuleTableRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/DELETE/extra_field",
+      "schema": "ReviseEnduranceRuleTableRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/DELETE/wrong_branch_shape",
+      "schema": "ReviseEnduranceRuleTableRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/MAINTENANCE/legal",
+      "schema": "SwitchSystemModeRequest",
+      "expectedValid": true,
+      "webActualValid": true,
+      "androidRecordedValid": true,
+      "validJsonRoundtrip": true,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/MAINTENANCE/unknown",
+      "schema": "SwitchSystemModeRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/MAINTENANCE/schema_name",
+      "schema": "SwitchSystemModeRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/MAINTENANCE/null",
+      "schema": "SwitchSystemModeRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/MAINTENANCE/numeric",
+      "schema": "SwitchSystemModeRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/MAINTENANCE/missing",
+      "schema": "SwitchSystemModeRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/MAINTENANCE/extra_field",
+      "schema": "SwitchSystemModeRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/MAINTENANCE/wrong_branch_shape",
+      "schema": "SwitchSystemModeRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/NORMAL/legal",
+      "schema": "SwitchSystemModeRequest",
+      "expectedValid": true,
+      "webActualValid": true,
+      "androidRecordedValid": true,
+      "validJsonRoundtrip": true,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/NORMAL/unknown",
+      "schema": "SwitchSystemModeRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/NORMAL/schema_name",
+      "schema": "SwitchSystemModeRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/NORMAL/null",
+      "schema": "SwitchSystemModeRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/NORMAL/numeric",
+      "schema": "SwitchSystemModeRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/NORMAL/missing",
+      "schema": "SwitchSystemModeRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/NORMAL/extra_field",
+      "schema": "SwitchSystemModeRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/NORMAL/wrong_branch_shape",
+      "schema": "SwitchSystemModeRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/CERTIFICATION/nested_or_envelope_extra",
+      "schema": "CreateStudentApplicationRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/MAINTENANCE/nested_or_envelope_extra",
+      "schema": "SwitchSystemModeRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/ADD/nested_or_envelope_extra",
+      "schema": "ReviseEnduranceRuleTableRequest",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "validJsonRoundtrip": false,
+      "passed": true
+    }
+  ],
+  "runtimeCases": [
+    {
+      "name": "prior-workflow/review/pending_material",
+      "schema": "RecordReviewSummary",
+      "expectedValid": true,
+      "webActualValid": true,
+      "androidRecordedValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/review/teacher_round1",
+      "schema": "RecordReviewSummary",
+      "expectedValid": true,
+      "webActualValid": true,
+      "androidRecordedValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/review/await_supplement",
+      "schema": "RecordReviewSummary",
+      "expectedValid": true,
+      "webActualValid": true,
+      "androidRecordedValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/review/round2",
+      "schema": "RecordReviewSummary",
+      "expectedValid": true,
+      "webActualValid": true,
+      "androidRecordedValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/review/valid",
+      "schema": "RecordReviewSummary",
+      "expectedValid": true,
+      "webActualValid": true,
+      "androidRecordedValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/record/full_pending_response",
+      "schema": "ExerciseRecord",
+      "expectedValid": true,
+      "webActualValid": true,
+      "androidRecordedValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/reason/fixed_labels",
+      "schema": "PublicReviewReason",
+      "expectedValid": true,
+      "webActualValid": true,
+      "androidRecordedValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/pending_looks_valid",
+      "schema": "RecordReviewSummary",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/pending_looks_invalid",
+      "schema": "RecordReviewSummary",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/valid_missing_result",
+      "schema": "RecordReviewSummary",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/reason_wrong_translation",
+      "schema": "PublicReviewReason",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/record/full_pending_response/missing/recordId",
+      "schema": "ExerciseRecord",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/record/full_pending_response/missing/sessionId",
+      "schema": "ExerciseRecord",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/record/full_pending_response/missing/courseId",
+      "schema": "ExerciseRecord",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/record/full_pending_response/missing/enrollmentId",
+      "schema": "ExerciseRecord",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/record/full_pending_response/missing/student",
+      "schema": "ExerciseRecord",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/record/full_pending_response/missing/businessDate",
+      "schema": "ExerciseRecord",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/record/full_pending_response/missing/category",
+      "schema": "ExerciseRecord",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/record/full_pending_response/missing/description",
+      "schema": "ExerciseRecord",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/record/full_pending_response/missing/activityType",
+      "schema": "ExerciseRecord",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/record/full_pending_response/missing/actualDurationSeconds",
+      "schema": "ExerciseRecord",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/record/full_pending_response/missing/currentMaterial",
+      "schema": "ExerciseRecord",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/record/full_pending_response/missing/currentReview",
+      "schema": "ExerciseRecord",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/record/full_pending_response/missing/submittedAt",
+      "schema": "ExerciseRecord",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/record/full_pending_response/missing/ruleVersionId",
+      "schema": "ExerciseRecord",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/record/full_pending_response/extra",
+      "schema": "ExerciseRecord",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/current",
+      "schema": "StudentCourseProgress",
+      "expectedValid": true,
+      "webActualValid": true,
+      "androidRecordedValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/recomputing_old_checkpoint",
+      "schema": "StudentCourseProgress",
+      "expectedValid": true,
+      "webActualValid": true,
+      "androidRecordedValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/no_zero_fallback",
+      "schema": "StudentCourseProgress",
+      "expectedValid": true,
+      "webActualValid": true,
+      "androidRecordedValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/unavailable_with_zero_checkpoint",
+      "schema": "StudentCourseProgress",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/current/missing/courseId",
+      "schema": "StudentCourseProgress",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/current/missing/enrollmentId",
+      "schema": "StudentCourseProgress",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/current/missing/student",
+      "schema": "StudentCourseProgress",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/current/missing/state",
+      "schema": "StudentCourseProgress",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/current/missing/checkpoint",
+      "schema": "StudentCourseProgress",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/current/missing/unavailableReason",
+      "schema": "StudentCourseProgress",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/current/missing/observedAt",
+      "schema": "StudentCourseProgress",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/current/extra",
+      "schema": "StudentCourseProgress",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/recomputing_old_checkpoint/missing/courseId",
+      "schema": "StudentCourseProgress",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/recomputing_old_checkpoint/missing/enrollmentId",
+      "schema": "StudentCourseProgress",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/recomputing_old_checkpoint/missing/student",
+      "schema": "StudentCourseProgress",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/recomputing_old_checkpoint/missing/state",
+      "schema": "StudentCourseProgress",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/recomputing_old_checkpoint/missing/checkpoint",
+      "schema": "StudentCourseProgress",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/recomputing_old_checkpoint/missing/unavailableReason",
+      "schema": "StudentCourseProgress",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/recomputing_old_checkpoint/missing/observedAt",
+      "schema": "StudentCourseProgress",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/recomputing_old_checkpoint/extra",
+      "schema": "StudentCourseProgress",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/no_zero_fallback/missing/courseId",
+      "schema": "StudentCourseProgress",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/no_zero_fallback/missing/enrollmentId",
+      "schema": "StudentCourseProgress",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/no_zero_fallback/missing/student",
+      "schema": "StudentCourseProgress",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/no_zero_fallback/missing/state",
+      "schema": "StudentCourseProgress",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/no_zero_fallback/missing/checkpoint",
+      "schema": "StudentCourseProgress",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/no_zero_fallback/missing/unavailableReason",
+      "schema": "StudentCourseProgress",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/no_zero_fallback/missing/observedAt",
+      "schema": "StudentCourseProgress",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/no_zero_fallback/extra",
+      "schema": "StudentCourseProgress",
+      "expectedValid": false,
+      "webActualValid": false,
+      "androidRecordedValid": false,
+      "passed": true
+    }
+  ],
+  "progress": [
+    {
+      "name": "current",
+      "expectedAccepted": true,
+      "webAccepted": true,
+      "errorName": null,
+      "androidCase": "progress/1199_percent100_is_not_target_met",
+      "androidRecordedStatus": "PASS",
+      "passed": true
+    },
+    {
+      "name": "wrong_enrollment",
+      "expectedAccepted": false,
+      "webAccepted": false,
+      "errorName": "ContractProgressConsistencyError",
+      "androidCase": "progress/reject_identity",
+      "androidRecordedStatus": "PASS",
+      "passed": true
+    },
+    {
+      "name": "wrong_remaining",
+      "expectedAccepted": false,
+      "webAccepted": false,
+      "errorName": "ContractProgressConsistencyError",
+      "androidCase": "progress/reject_category_sum",
+      "androidRecordedStatus": "PASS",
+      "passed": true
+    }
+  ]
+}
