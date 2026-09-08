@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from record_workflow import register_workflow_schemas, register_workflow_operations
+
 from common import (
     INSTANT,
     LOCAL_DATE,
@@ -215,92 +217,7 @@ def register_exercise(schemas: dict[str, Schema], registry: ContractRegistry) ->
         description="Short-lived authorized read URL; it must not be persisted as a business fact.",
     )
 
-    schemas["RecordReviewSummary"] = object_schema(
-        {
-            "result": string_schema(enum=["VALID", "INVALID"]),
-            "studentVisibleReason": nullable(string_schema(min_length=1)),
-            "sequenceNumber": integer_schema(minimum=0),
-            "updatedAt": INSTANT,
-            "version": VERSION,
-        },
-        ["result", "studentVisibleReason", "sequenceNumber", "updatedAt", "version"],
-    )
-    schemas["ExerciseRecord"] = object_schema(
-        {
-            "recordId": UUID,
-            "sessionId": UUID,
-            "courseId": UUID,
-            "enrollmentId": UUID,
-            "student": ref("StudentSummary"),
-            "businessDate": LOCAL_DATE,
-            "category": ref("ExerciseCategory"),
-            "description": string_schema(min_length=1, max_length=200),
-            "actualDurationSeconds": integer_schema(minimum=0),
-            "creditedMinutes": {"type": "integer", "format": "int32", "enum": [0, 60, 120]},
-            "media": array_of(ref("MediaAsset"), min_items=1, max_items=7),
-            "currentReview": ref("RecordReviewSummary"),
-            "submittedAt": INSTANT,
-        },
-        [
-            "recordId",
-            "sessionId",
-            "courseId",
-            "enrollmentId",
-            "student",
-            "businessDate",
-            "category",
-            "description",
-            "actualDurationSeconds",
-            "creditedMinutes",
-            "media",
-            "currentReview",
-            "submittedAt",
-        ],
-        description="Immutable exercise facts plus a separate current review projection. INVALID never rewrites creditedMinutes.",
-    )
-    schemas["SubmitExerciseRecordRequest"] = object_schema(
-        {
-            "category": ref("ExerciseCategory"),
-            "description": string_schema(min_length=1, max_length=200),
-            "mediaAssetIds": array_of(UUID, min_items=1, max_items=7),
-        },
-        ["category", "description", "mediaAssetIds"],
-        description="Does not accept actual duration, credited minutes, business date, review result, or formal timestamps.",
-    )
-    add_paged_schema(schemas, "ExerciseRecordPage", "ExerciseRecord")
-    schemas["RecordReview"] = object_schema(
-        {
-            "reviewId": UUID,
-            "recordId": UUID,
-            "sequenceNumber": integer_schema(minimum=0),
-            "fromResult": nullable(string_schema(enum=["VALID", "INVALID"])),
-            "result": string_schema(enum=["VALID", "INVALID"]),
-            "actorType": string_schema(enum=["SYSTEM", "TEACHER"]),
-            "reviewer": nullable(ref("TeacherSummary")),
-            "studentVisibleReason": nullable(string_schema(min_length=1)),
-            "occurredAt": INSTANT,
-        },
-        [
-            "reviewId",
-            "recordId",
-            "sequenceNumber",
-            "fromResult",
-            "result",
-            "actorType",
-            "reviewer",
-            "studentVisibleReason",
-            "occurredAt",
-        ],
-    )
-    add_paged_schema(schemas, "RecordReviewPage", "RecordReview")
-    schemas["AppendRecordReviewRequest"] = object_schema(
-        {
-            "result": string_schema(enum=["VALID", "INVALID"]),
-            "studentVisibleReason": string_schema(min_length=1),
-            "expectedVersion": VERSION,
-        },
-        ["result", "studentVisibleReason", "expectedVersion"],
-    )
+    register_workflow_schemas(schemas)
 
     schemas["ProgressCategory"] = object_schema(
         {
@@ -355,7 +272,7 @@ def register_exercise(schemas: dict[str, Schema], registry: ContractRegistry) ->
 
     _register_session_operations(registry)
     _register_media_operations(registry)
-    _register_record_operations(registry)
+    register_workflow_operations(registry)
     _register_statistics_operations(registry)
 
 
@@ -390,7 +307,6 @@ def _register_session_operations(registry: ContractRegistry) -> None:
             "COURSE_NOT_OPEN",
             "SESSION_ALREADY_ACTIVE",
             "CHECKIN_WINDOW_CLOSED",
-            "COURSE_TARGET_ALREADY_MET",
         ],
     )
     registry.add(
@@ -434,14 +350,14 @@ def _register_media_operations(registry: ContractRegistry) -> None:
         operation_id="allocateMediaAsset",
         tag="Media evidence",
         summary="Allocate a purpose-bound evidence upload",
-        description="Allocates a short-lived upload for record evidence or application evidence. Declared metadata is preflight only; Backend content probing remains authoritative.",
+        description="Allocates a short-lived upload for record evidence or application evidence. Declared metadata is preflight only; Backend content probing remains authoritative. For RECORD_EVIDENCE, require the owned legal Session, including original historical-chain scope after closure/removal. If a Record exists, new assets are allowed only for its currently open original supplementary opportunity; first locked-batch continuation uses renewRecordUploadAuthorization instead. Closed/expired supplementary entry cannot be bypassed through media allocation. Application policies are unchanged.",
         roles=["STUDENT"],
         success_schema="MediaAllocation",
         success_status=201,
         request_schema="MediaAllocationRequest",
         resource_scope="SELF_AND_DECLARED_PURPOSE",
         idempotent=True,
-        error_codes=["MEDIA_LIMIT_EXCEEDED", "PAYLOAD_TOO_LARGE", "UNSUPPORTED_MEDIA_TYPE"],
+        error_codes=["MEDIA_LIMIT_EXCEEDED", "PAYLOAD_TOO_LARGE", "UNSUPPORTED_MEDIA_TYPE", "SUPPLEMENT_NOT_ALLOWED", "SUPPLEMENT_DEADLINE_MISSED", "MATERIAL_BATCH_CONFLICT"],
     )
     registry.add(
         method="post",
@@ -452,7 +368,7 @@ def _register_media_operations(registry: ContractRegistry) -> None:
         description=(
             "Reads authoritative object metadata and content, computes checksum, and verifies MIME, size, image/video "
             "structure, video duration, and audio. Expected outcomes use one 200 MediaFinalizationResult channel: VERIFIED, "
-            "REJECTED with a stable rejectionCode, or EXPIRED with MEDIA_ALLOCATION_EXPIRED."
+            "REJECTED with a stable rejectionCode, or EXPIRED with MEDIA_ALLOCATION_EXPIRED. For locked record material, use authoritative object-completion time and immutable checksum; delayed probing must not mark proven on-time bytes expired merely because a URL or the HTTP call is now late. This operation verifies assets only; completeExerciseRecordMaterial or submitExerciseRecordSupplement atomically publishes business readiness. Original historical-chain authorization applies, and new writes cannot bypass a closed supplementary entry."
         ),
         roles=["STUDENT"],
         success_schema="MediaFinalizationResult",
@@ -475,119 +391,6 @@ def _register_media_operations(registry: ContractRegistry) -> None:
         resource_scope="MEDIA_OWNER_OR_RESPONSIBLE_TEACHER",
         natural_idempotency="No business fact is changed; each response is an independently expiring authorization.",
         error_codes=["MEDIA_OWNERSHIP_MISMATCH", "DEPENDENCY_UNAVAILABLE"],
-    )
-
-
-def _register_record_operations(registry: ContractRegistry) -> None:
-    registry.add(
-        method="post",
-        path="/exercise-sessions/{sessionId}/record",
-        operation_id="submitExerciseRecord",
-        tag="Exercise records",
-        summary="Submit a formal exercise record",
-        description="Atomically creates the immutable Record, binds verified evidence, derives actual duration/business date/0-60-120 credited minutes from the completed Session, and creates the initial SYSTEM VALID review. No draft, pending-review, resubmission, or attempt state is created.",
-        roles=["STUDENT"],
-        success_schema="ExerciseRecord",
-        success_status=201,
-        request_schema="SubmitExerciseRecordRequest",
-        parameters=[path_parameter("sessionId")],
-        resource_scope="SESSION_OWNER",
-        idempotent=True,
-        error_codes=[
-            "SESSION_TRANSITION_INVALID",
-            "DAILY_RECORD_ALREADY_EXISTS",
-            "MEDIA_NOT_VERIFIED",
-            "MEDIA_OWNERSHIP_MISMATCH",
-            "MEDIA_ALREADY_BOUND",
-            "MEDIA_LIMIT_EXCEEDED",
-            "MEDIA_CONTENT_INVALID",
-            "RECORD_DESCRIPTION_INVALID",
-        ],
-    )
-    registry.add(
-        method="get",
-        path="/student/exercise-records",
-        operation_id="listOwnExerciseRecords",
-        tag="Exercise records",
-        summary="List the student's exercise records",
-        description="Lists immutable records from newest to oldest with the separate current review projection.",
-        roles=["STUDENT"],
-        success_schema="ExerciseRecordPage",
-        parameters=[
-            query_parameter("courseId", UUID),
-            query_parameter("reviewResult", string_schema(enum=["VALID", "INVALID"])),
-            *cursor_parameters(default_limit=20, maximum_limit=100),
-        ],
-        resource_scope="SELF",
-    )
-    registry.add(
-        method="get",
-        path="/student/exercise-records/{recordId}",
-        operation_id="getOwnExerciseRecord",
-        tag="Exercise records",
-        summary="Get the student's exercise record",
-        description="Returns one formal record owned by the authenticated student.",
-        roles=["STUDENT"],
-        success_schema="ExerciseRecord",
-        parameters=[path_parameter("recordId")],
-        resource_scope="SELF",
-    )
-    registry.add(
-        method="get",
-        path="/courses/{courseId}/exercise-records",
-        operation_id="listCourseExerciseRecords",
-        tag="Exercise records",
-        summary="List exercise records for a teacher-owned course",
-        description="Lists only records in the responsible teacher's course and exposes no internal storage metadata.",
-        roles=["TEACHER"],
-        success_schema="ExerciseRecordPage",
-        parameters=[
-            path_parameter("courseId"),
-            query_parameter("studentId", UUID),
-            query_parameter("reviewResult", string_schema(enum=["VALID", "INVALID"])),
-            *cursor_parameters(default_limit=20, maximum_limit=100),
-        ],
-        resource_scope="RESPONSIBLE_TEACHER",
-    )
-    registry.add(
-        method="get",
-        path="/courses/{courseId}/exercise-records/{recordId}",
-        operation_id="getCourseExerciseRecord",
-        tag="Exercise records",
-        summary="Get an exercise record for review",
-        description="Returns a record only when it belongs to the responsible teacher's course.",
-        roles=["TEACHER"],
-        success_schema="ExerciseRecord",
-        parameters=[path_parameter("courseId"), path_parameter("recordId")],
-        resource_scope="RESPONSIBLE_TEACHER",
-    )
-    registry.add(
-        method="post",
-        path="/courses/{courseId}/exercise-records/{recordId}/reviews",
-        operation_id="appendExerciseRecordReview",
-        tag="Exercise records",
-        summary="Append a teacher review result",
-        description="Appends a student-visible VALID or INVALID decision that must change the current result. It never changes the Record, media, actual duration, credited minutes, or daily submission slot.",
-        roles=["TEACHER"],
-        success_schema="RecordReview",
-        success_status=201,
-        request_schema="AppendRecordReviewRequest",
-        parameters=[path_parameter("courseId"), path_parameter("recordId")],
-        resource_scope="RESPONSIBLE_TEACHER",
-        idempotent=True,
-        error_codes=["REVIEW_RESULT_UNCHANGED", "VERSION_CONFLICT"],
-    )
-    registry.add(
-        method="get",
-        path="/exercise-records/{recordId}/reviews",
-        operation_id="listExerciseRecordReviews",
-        tag="Exercise records",
-        summary="List append-only review history",
-        description="Students may read their own record history; the responsible teacher may read course history.",
-        roles=["STUDENT", "TEACHER"],
-        success_schema="RecordReviewPage",
-        parameters=[path_parameter("recordId"), *cursor_parameters(default_limit=20, maximum_limit=100)],
-        resource_scope="RECORD_OWNER_OR_RESPONSIBLE_TEACHER",
     )
 
 

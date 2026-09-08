@@ -1,5 +1,85 @@
 # 当前进度状态
 
+## 2026-09-08 新版Phase5第七步最终接收通过，准备上传与交接
+
+- 状态：PARTIAL / OWNER_ACCEPTED_UPLOAD_READY；完整完成6/7步，第七步剩用户GitHub提交/PR/合并、固定提交及字节核验、具名交接。Phase5仍IN_PROGRESS，不启动Phase6。
+- 用户兼任Contract Owner/Reviewer，已明确回复：“最终交付是否正确落实决定  审核通过，可以开始准备上传和交接”。Codex如实登记及执行自检，不登记陈昊或其他第三方Review。接收原话及所审SHA见分发清单。
+- 已接受候选为`1.3.0-contract / RC / 5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed`；157 paths /176 operations /316 schemas /99 errors。此次只登记接收、准备上传及Web交接，协议/生成源、业务与架构输入字节保持不变；RC不提升为APPROVED。
+- 分支`codex/phase5-contract-v81`、HEAD`974587c3778a53803a7959ea0f64677581e239f4`；当前候选尚未提交，不能将基线HEAD当成来源提交。本轮只读远端检查main仍同基线，Phase5分支尚不存在；该观察为本轮快照，用户上传前脚本再次核对。暂存区为空，未stage/commit/push/merge/部署。
+- [接收入口](../../contracts/validation/step07_handoff/README.md)、[Web交接说明](../../contracts/validation/step07_handoff/WEB_HANDOFF.md)、[分发清单](../../contracts/release-manifest.json)已备齐。差异包含56新增、1移除、35直接变化和17引用schema影响；12个BD、28个AT、41个Phase2学生页面、21个GAP及固定992例均有对应。
+- 第六步同SHA的992协议例/159生成模型往返/324Kotlin模型编译/143结构破坏/723有限模型证据逐项核验哈希。本轮只重跑接收/交接一致性及上传预检，不重复运行协议字节和生成源未变化的全套测试。
+- Android开发及总体架构由用户负责；Web由其他同事负责，具体接收人待确认；6C汇总负责人待明确。Backend7.0人员在阶段入场落实。未具名项不伪造任命；上传可先进行，Phase5最终关闭仍须发布与交接收口。
+- 产品Android/Web、Backend/DB/Migration/infra及旧仓库未改。现有旧API/Mock/占位未迁移，未新增产品Mock/TODO/空接口。真实客户端集成、鉴权/校历/来源/事务/存储/OCR/缓存通知/恢复/性能/E2E仍NOT_RUN。发布与接收不等于产品上线验收。
+
+以下第六步及更早记录为各自历史停点。
+
+## 2026-09-08 新版Phase5第六步本地完成（整体IN_PROGRESS）
+
+- 已完成6/7步，剩1步；第六步“固定新RC并完成最终协议门禁”完成后停止，第七步尚未开始。用户兼任Contract Owner/Reviewer，Codex执行与自检；GitHub由用户操作，未代签人类最终Review。
+- 用户确认版本策略：`1.3.0-contract / RC / 5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed`，公开路径仍`/api/v1`，但与旧协议不兼容。157 paths /176 operations /316 schemas /99 errors。基线HEAD仍`974587c3778a53803a7959ea0f64677581e239f4`，分支`codex/phase5-contract-v81`；候选尚未提交，不把该HEAD写成新RC来源提交。
+- 统一第2～5步CR和21项GAP处置；同步名单源的全局/旧上传描述与已接受的保留、确认流程。完成三组新增union及全部六组映射检查；从生成配置和可追溯模板修复nullable/数字布尔枚举/省略字段问题，未手改生成DTO或放宽协议。
+- 最终同SHA证据在`07_phase5_execution/T06/verification-04-rc`：两次生成一致，verify/lint/RC readiness全部exit0；Python/JS各992/992，143项结构破坏均检出，723有限设计模型通过；TS159合法/24非法断言与往返，324个Kotlin模型编译；JVM992/992，其中159合法样例实际生成模型往返保持字段和值。
+- F06-01～03技术Finding均CLOSED_SELF_VERIFIED；人类最终Review、候选source commit、Phase6具名接收人及GitHub发布待第七步。RC readiness只是一项检查，不代表整个Phase5已接收或允许Staging。
+- 本步业务/Phase4架构输入字节保留，产品Android/Web/Backend、DB/Migration/infra、旧仓库未改；未stage/commit/push/merge/部署。无新增业务规则；Contract描述/版本和生成验证方案有变化。无新增产品Mock/TODO/空接口，现有旧API消费者未迁移。
+- Phase6仍须实际Android/Web Contract+Mock验证及6C；Backend7.0必须完成选型兼容与CertificationKind等Domain/Database对齐，未通过不得关闭7.0/进入7.1。真实鉴权、校历、数据来源、并发事务、AI/OCR质量、缓存通知、恢复/性能/E2E均NOT_RUN；不以协议用例冒充产品可用或零Bug。
+
+证据：[验证入口](../../contracts/validation/step06_final/README.md)、[同SHA结果](../../contracts/validation/step06_final/result.json)、[CR/GAP](../../contracts/validation/step06_final/disposition.json)、[候选分发清单](../../contracts/release-manifest.json)。下一步仅在用户授权第七步后做最终Review与接收材料、具名分发及用户GitHub操作；本步不自行开始。
+
+以下各步骤的版本、计数、停点和待办属于历史，以本节及当前metadata为准。
+
+## 2026-09-08 新版Phase5第五步本地完成（整体IN_PROGRESS）
+
+- 本地完成5/7步，剩2步；5.1名单→5.2耐力OCR→5.3技术治理→5.4学生全出口/历史备注已经完成，现停止，不进入第六步。用户兼任Owner/Reviewer，Codex执行/自检，未代签独立Review；GitHub仍由用户操作。
+- 工作目录`start4/repos/phase5-contract`；分支`codex/phase5-contract-v81`，HEAD仍`974587c3778a53803a7959ea0f64677581e239f4`，没有commit/push/merge/部署。未提交候选`1.3.0-contract.phase5-step05.1 / DRAFT / bb57149dd3a28926ae3d9daa5345353b5529c03fc13c6ba2e338851c1924159c`，157 paths /176 operations /316 schemas /99 errors。
+- 完成用途/课程绑定来源、名单纸图草稿与显式身份确认、完整snapshot发布和综合名单/导出；耐力4.30歧义保留、明确日期/秒数、所有选中行及来源前驱预检后原子确认、原文/纠错历史保留。仅SUPER治理AI/OCR配置与人工窗口，无新增分管理员或跨教师代审权限，真实探测与缺来源分开。
+- 学生只取原始耐力与学时，移除最终成绩入口及转换分/等级/排名/remark，通知拆专用安全DTO；缓存、通知、下载、日志等全出口约束进入Contract。新grade无remark；历史remarks保留，仅全体已认证当前TEACHER只读并审计，不按原责任人/成员/分组收窄。用户明确授权两份业务正文同步已有H13，无新增业务决定，其余业务/Phase4设计字节保留。
+- 最终验证`07_phase5_execution/T05/verification-03`：生成两次/verify/lint通过；Python/JS各273例、34结构破坏、248有限设计模型；TS58合法/9非法断言与往返，357 Kotlin模型编译。第4步436例/39变体/437模型，第3步224例/21变体/38计时，原CR-00559例/39变体和JS/JVM回归通过。
+- DRAFT readiness exit1仅因DRAFT，为EXPECTED_BLOCKED。新Android模型运行拒绝待第六步候选门禁/Phase6，编译不等于运行验证；Backend7.0兼容及Phase7鉴权/来源/真实学校样本/事务，Phase9缓存通知/恢复/E2E均NOT_RUN。没有产品Mock/TODO/空接口新增；现有旧API/消费者未迁移，不宣称产品已运行。
+- 最后完整编译前发现耐力batch误带名单专属null-only字段，已在源定义删除并重生成；未手改DTO。早期测试输入/路径失败及修复记录保留，不将旧SHA证据挪作当前结论。
+
+证据：[本步CR](../../contracts/change-requests/CR-20260908-003-teaching-governance-privacy.md)、[验证入口](../../contracts/validation/step05_teaching/README.md)、[机器结果](../../contracts/validation/step05_teaching/result.json)。第六步须用户下一条授权，并按原计划处理最终唯一Version/Status/SHA及候选门禁；最终Review接收仍在第六～七步，不提前宣布Phase5 DONE。
+
+以下停点/版本/计数为历史，以本节和当前metadata为准。
+
+## 2026-09-08 新版 Phase5 第四步本地完成（整体IN_PROGRESS）
+
+- 用户授权“开始第4步”，4.1统计/规则模板→4.2邀请→4.3关闭结算已完成；本地累计4/7步，剩3步。现停止，不进入第五步。用户兼任Owner/Reviewer，Codex执行/自检，未代签独立Review；GitHub由用户操作。
+- 工作目录`start4/repos/phase5-contract`，分支`codex/phase5-contract-v81`，HEAD仍`974587c3778a53803a7959ea0f64677581e239f4`。候选`1.3.0-contract.phase5-step04.1 / DRAFT / 90e7bbb0af1988e1212a631c775d5d6a3e80e59f7da9b79a05f09da8f276a06b`，132 paths /146 operations /261 schemas /87 errors，尚未提交。
+- 统计绑定不可变规则、完整来源/前驱及检查点，m/q/a分开，三分列和1199未达标保持；课程发布前精确可完成性校验、发布后锁定，达标/日周名额不阻止真实运动。模板仅SUPER发布，无新增分管理员权限。
+- 邀请默认30分钟、5～120可选，原服务器流程固定一次10分钟宽限、两个严格端点、撤销/关闭立即终止未完流。预览只读；新学生明确开始时登记匿名流程，邮箱身份在最终入班验证，不收紧成到期前必须完成OTP。
+- 课程关闭不被待办阻塞，只阻止新起点；原合法未首次受理和锁批传输均保留并阻塞结算。具名补练仅原7天收尾；完整Owner/成员/检查点原内容/前驱在共同保护下冻结报告，纠错追加历史版本，学期归档检查完整课程集合。
+- 源重复生成/verify/lint通过；Python/JS各436例、39变体、437有限模型；TS43合法/9非法断言与往返、290 Kotlin模型编译。第三步224例/21变体/38计时和CR-00559例/39变体回归通过。最终证据`07_phase5_execution/T04/verification-03`。
+- DRAFT readiness exit1为EXPECTED_BLOCKED，不能写RC PASS。新增Android运行兼容待第六步/Phase6，Backend7.0选型兼容及Phase7真实来源/身份/校历/事务、Phase9恢复/E2E未运行；前端产品、DB/Migration/部署/GitHub未操作。
+- 本步未改四份业务正文或架构输入，保留第三步字节；仅Contract源/生成物/验证/说明和既有状态交接变化。没有产品Mock/TODO/空接口；原项目旧API引用尚待后续迁移。
+
+证据：[CR](../../contracts/change-requests/CR-20260908-002-statistics-invitation-settlement.md)、[验证入口](../../contracts/validation/step04_courses/README.md)、[机器结果](../../contracts/validation/step04_courses/result.json)。下方第三/二步停点为历史，以本节为准。
+
+## 2026-09-08 新版 Phase5 第三步本地完成（整体IN_PROGRESS）
+
+- 用户授权整步第三步，并明确允许四份业务正文仅同步已接受P-01～04；没有新增业务选择。用户兼任Contract Owner/Reviewer，Codex执行/自检；最终成果Review/RC接收仍待第六～七步，不代签陈昊。
+- 本地已完成3/7个主步骤，剩余4步。第三步3.1～3.4完成；当前停止，不进入第四步。GitHub由用户操作，未commit/push/merge/部署。
+- 工作区`start4/repos/phase5-contract`，分支`codex/phase5-contract-v81`，HEAD仍为`974587c3778a53803a7959ea0f64677581e239f4`；候选是未提交字节。
+- 当前`1.3.0-contract.phase5-step03.1 / DRAFT / 2569c529c4ce332b25d6cc66b281b52c31cf160db5e46181ad552838cdb0df87`；117 paths、129 operations、226 schemas、75 errors。第二步候选及原1.2.0 RC有独立不可变快照，不混用身份。
+- 完成材料首次受理/原链/同批续传、处理阶段/六类动作/公开原因、一次补证、学校SLA/暂停/追加纠错读取。旧立即VALID、自由文本判断和固定0/60/120 Record字段由本CR替代；完整统计、邀请结算和治理隐私继续第四/五步。
+- 源两次生成一致，verify/lint通过；Python与JavaScript各223例，21项变体、38项计时模型通过；TypeScript17合法/9非法断言与往返通过，249个Kotlin生成模型编译，CR-005旧七分支59例及39变体回归通过。
+- DRAFT readiness实际exit1为EXPECTED_BLOCKED，未放宽门禁。新增Android联合类型运行验证留第六步候选门禁及Phase6；Backend选型兼容在7.0、实际状态机/数据/权限/校历在Phase7、恢复/E2E在Phase9，均未伪称运行通过。
+- [CR](../../contracts/change-requests/CR-20260908-001-material-review-timing.md)、[验证入口](../../contracts/validation/step03_workflow/README.md)、[机器结果](../../contracts/validation/step03_workflow/result.json)。仅相关Contract/验证/状态交接和获准四份业务正文有变化；架构、产品、DB/Migration/infra、旧仓库未改。
+
+
+## 2026-09-08 新版 Phase 5 第二步本地完成（整体IN_PROGRESS）
+
+- 用户确认三处源映射修复、Android包装模型/校验方案及后端验收按新版Phase7.0执行，并授权继续完成第二步。用户兼任Contract Owner和Reviewer；Codex执行/验证/整改。接受记录归档用户实际对话，不表示用户亲自运行测试；陈昊此前“待审查”为历史，没有登记其通过。
+- 按7个主步骤统计，本地执行已完成2步，剩余5步。第二步改动及本次结果现交用户查看；当前停止，不进入第三步，不提前登记最终Phase5接收。每步完成后等待下一步确认，GitHub仍由用户操作。
+- Git根目录`start4/repos/phase5-contract`，分支`codex/phase5-contract-v81`，HEAD仍为`974587c3778a53803a7959ea0f64677581e239f4`，tree基线`07b1af351a2c63079a9097b6a554932722e3f62d`。本轮为未提交工作区变更，HEAD不包含新候选。
+- 新工作候选：`1.2.1-contract.phase5-step02.1 / DRAFT`；SHA-256：`1df0e8a1b50b3b4c0cfa128064e8da714f949c761eec9aae9e9e64179d374b27`。只落实CR-005三处mapping，其他新版协议工作仍待完成；不得作为最终RC消费。旧`1.2.0-contract / RC / 667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a`保留于固定Git提交及外部baseline快照。
+- 实际源补丁与接受的SHA一致，其他业务源保持；两次独立构建与工作区三产物一致。verify通过，mapping完整性已接入原verify；JSON Schema新旧各59/59、39项破坏变体全部检出、TypeScript七合法/28非法断言及往返通过、Kotlin196模型编译通过、JavaScript/Kotlin运行时各59/59和七次往返通过、lint通过。
+- RC readiness实际exit 1，唯一原因是DRAFT不可发布，记录为EXPECTED_BLOCKED而非PASS；原门禁未放宽。最终RC在第六～七步统一定稿、检查及接收。
+- Phase6完成两端验证轨与Consolidation；Phase8迁移正式网络链路。后端`BE-CR005-COMPAT`为NOT_RUN/SCHEDULED_PHASE_7_0，选型后由Backend Owner/Reviewer执行、用户跟踪，未通过不得关闭7.0或进入7.1；不单独阻断Phase5/6，实际协议缺陷仍阻塞适用阶段。
+- 修改仅相关contracts源/配置/生成物/CR/说明/验证材料，以及本页、handoff与外部证据。业务正文、架构正文、正式Android/Web/Backend、数据库、infra、旧仓库未改。未commit/push/merge/部署。
+- [本步验证说明](../../contracts/validation/step02_discriminators/README.md)与[机器结果](../../contracts/validation/step02_discriminators/implementation-result.json)记录真实范围及限制；[Phase5交接](handoffs/new-req-phase-5.md)给出第三步前置。
+
+以下为此前各轮记录，发生冲突时按上方最新固定基线和阶段记录判断。
+
 > 本轮修复候选：`PR8-DOC-FIX-01 / PATCH_PREPARED / OWNER_REVIEW_PENDING`。仅补齐既有合法Session在首次材料受理前遇关闭/移出的P-02分支，并校准交付SHA。原阶段退出及H/Z接受记录属于下述来源提交；不表示本候选已获新一轮互审或负责人验收。当前候选不得直接作为Phase 5正式开工基线；验收及远端提交后再核验。来源：`25bc20dcf19ac4646a16a1e27f076ac360e27da0`；本轮证据见`docs/rebuild/handoffs/phase-4-final-alignment-review.md`。
 
 > 更新时间：2026-09-07
@@ -100,7 +180,7 @@
 | UI / 用户流程 | Android 学生端、Web 学生端、教师 / 管理员 Portal 已有页面和交互代码 | 本轮新增需求对应的入口、页面、Loading / Empty / Error 与权限反馈尚未设计 |
 | Domain / 数据库 | [领域与数据库设计](../architecture/phase-3-domain-and-database-design.md) 继续作为旧基线；P4-Z/H 增量已补状态机、不变量、事实归属、事务/并发、统计/材料/结算与迁移恢复边界 | 当前仍只有设计，没有新 Backend 的真实表、Migration、环境盘点、数据库执行或恢复演练 |
 | Backend 架构 | [架构职责](../architecture/backend-architecture.md)、[模块边界](../architecture/backend-module-boundaries.md)、[依赖规则](../architecture/backend-dependency-rules.md) 继续有效；P4-H/Z 已给出新需求的模块 Owner 和跨模块保护边界 | Contract 与 PENDING 门禁未关闭；最小 Composition Root、模块实现和可执行架构测试尚未建立 |
-| API Contract | `1.2.0-contract` / `RC`，`/api/v1`，109 paths / 121 operations / 193 schemas / 66 errors；[metadata](../../contracts/contract-metadata.json) 与实际文件 SHA 一致；P4-H §17 已汇总新需求差异 | [CR-20260901-005](../../contracts/change-requests/CR-20260901-005-explicit-discriminator-mappings.md) 仍 PROPOSED/BLOCKING；GAP-H13、H15～H18 等受业务决定约束，未发布新 Version/SHA |
+| API Contract | 当前工作候选`1.2.1-contract.phase5-step02.1 / DRAFT`，规模109/121/193/66；[metadata](../../contracts/contract-metadata.json)与实际SHA一致；旧1.2.0 RC字节保留 | [CR-005](../../contracts/change-requests/CR-20260901-005-explicit-discriminator-mappings.md)协议修复已实施；Phase5其余需求、最终RC、Phase6/7消费验收仍待完成，候选未发布 |
 | Android | 已有 Kotlin 客户端、旧接口清单、隔离的 DTO 生成和 Contract / Mock 验证；[已有验证记录](handoffs/phase-5g-a-android-affected-contract-revalidation.md) 包含 341/341 单测通过、构建通过 | 正式绑定仍为 `3.0.0-contract`，网络链路尚未迁移至新 Contract；没有本仓库真实 Backend 接入和真机 E2E 验收 |
 | Web | 已有学生端与 Portal；[已有验证记录](handoffs/phase-5g-b-web-affected-contract-revalidation.md) 包含 affected 13/13、Portal 125/125、Student smoke 79/79、类型检查、构建和浏览器检查 | Portal 正式快照仍为 `3.0.0-web-snapshot`；验证绑定未替换正式旧 API / DTO，演示数据与 BACKEND_REQUIRED 边界仍存在 |
 | Backend 实现 | [实现目录](../../BNBU-Sports-Backend/README.md) 的 Git 跟踪内容只有 README | 无可启动服务、真实认证、Use Case、PostgreSQL 持久化或 COS 接入 |
@@ -108,7 +188,7 @@
 
 Android / Web 测试数字是历史验证记录，不是本次重新执行的结果。当前状态依据文件、元数据与交接证据核对；文档、静态检查、Mock 和真实运行验收必须分别记录。
 
-## Contract 当前基线与阻塞
+## 历史 Contract 基线与阻塞（当前以页首为准）
 
 ```text
 Version: 1.2.0-contract

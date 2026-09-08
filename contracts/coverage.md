@@ -1,4 +1,38 @@
-# Phase 5C.2 Use Case 覆盖矩阵
+# 新版Phase5最终候选覆盖与历史矩阵
+
+当前 `1.3.0-contract / RC / 5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed`；本地6/7步完成，剩第七步接收/发布。Phase5仍IN_PROGRESS。21项均有下表及[机器处置](validation/step06_final/disposition.json)；所有本轮协议实现仍待用户对最终候选Review，不冒充后续运行验收。
+
+| GAP | 当前协议/决定处置 | 用例来源 | 后续 |
+|---|---|---|---|
+| GAP-H01 | 实际分钟、联合选择和来源；`IMPLEMENTED_LOCAL_PROTOCOL` | AT-09–14 / prior-courses | Phase6生成/Mock，Phase7～9真实实现 |
+| GAP-H02 | 处理阶段、轮次、审核队列；`IMPLEMENTED_LOCAL_PROTOCOL` | AT-01–04 / prior-workflow | Phase6生成/Mock，Phase7～9真实实现 |
+| GAP-H03 | 六类原因、公开说明、系统逾期；`IMPLEMENTED_LOCAL_PROTOCOL` | AT-01–04 / prior-workflow | Phase6生成/Mock，Phase7～9真实实现 |
+| GAP-H04 | 材料版本、锁批、游泳与一次补证；`IMPLEMENTED_LOCAL_PROTOCOL` | AT-04–08/19–21 / prior-workflow | Phase6生成/Mock，Phase7～9真实实现 |
+| GAP-H05 | 维护暂停、学生剩余量、教师SLA；`IMPLEMENTED_LOCAL_PROTOCOL` | H §7/15.5 / prior-workflow | Phase6生成/Mock，Phase7～9真实实现 |
+| GAP-H06 | 模板、规则冻结、发布可完成性；`IMPLEMENTED_LOCAL_PROTOCOL` | AT-22 / prior-courses | Phase6生成/Mock，Phase7～9真实实现 |
+| GAP-H07 | 邀请登记、固定宽限与严格端点；`IMPLEMENTED_LOCAL_PROTOCOL` | AT-16 / prior-courses | Phase6生成/Mock，Phase7～9真实实现 |
+| GAP-H08 | 纸图草稿、身份确认、完整名单发布；`IMPLEMENTED_LOCAL_PROTOCOL` | AT-15 / checks | Phase6生成/Mock，Phase7～9真实实现 |
+| GAP-H09 | 耐力OCR歧义与原子选中行确认；`IMPLEMENTED_LOCAL_PROTOCOL` | AT-17 / checks | Phase6生成/Mock，Phase7～9真实实现 |
+| GAP-H10 | SUPER服务治理、脱敏状态、人工模式；`IMPLEMENTED_LOCAL_PROTOCOL` | AT-28 / checks | Phase6生成/Mock，Phase7～9真实实现 |
+| GAP-H11 | 关闭不阻塞原链、完整来源结算及纠错历史；`IMPLEMENTED_LOCAL_PROTOCOL` | AT-23–25 / prior-courses | Phase6生成/Mock，Phase7～9真实实现 |
+| GAP-H12 | 学生所有出口无成绩、等级、排名；`IMPLEMENTED_LOCAL_PROTOCOL` | AT-18 / checks | Phase6生成/Mock，Phase7～9真实实现 |
+| GAP-H13 | 新grade无备注、所有当前教师只读历史；`IMPLEMENTED_LOCAL_PROTOCOL` | H §19.7/BD-20260904-02 / checks | Phase6生成/Mock，Phase7～9真实实现 |
+| GAP-H14 | 不新增已取消的接管、代审或有限授权API；`NO_NEW_API_BY_ACCEPTED_DECISION` | AT-26/27/BD-20260904-02 / checks | 后续授权拒绝/无副作用 |
+| GAP-H15 | 已接受P-03，学校日历及计时投影；`IMPLEMENTED_LOCAL_PROTOCOL` | P-20260904-03 / prior-workflow | Phase6生成/Mock，Phase7～9真实实现 |
+| GAP-H16 | 已接受P-02，首次24小时及同批30分钟原链；`IMPLEMENTED_LOCAL_PROTOCOL` | P-20260904-02 / prior-workflow | Phase6生成/Mock，Phase7～9真实实现 |
+| GAP-H17 | 已接受P-01，检查完成且仅疑虑时通过；`IMPLEMENTED_LOCAL_PROTOCOL` | P-20260904-01 / prior-workflow | Phase6生成/Mock，Phase7～9真实实现 |
+| GAP-H18 | 已接受P-04，确认故障后追加有限纠错；`IMPLEMENTED_LOCAL_PROTOCOL` | P-20260904-04 / prior-workflow | Phase6生成/Mock，Phase7～9真实实现 |
+| GAP-H19 | 邀请端点精度并入H07；`MERGED_INTO_H07_IMPLEMENTED` | AT-16 / prior-courses | Phase6生成/Mock，Phase7～9真实实现 |
+| GAP-H20 | 原三组七分支显式mapping；`IMPLEMENTED_LOCAL_PROTOCOL` | CR-20260901-005 / old-mapping | Phase6生成/Mock，Phase7～9真实实现 |
+| GAP-H21 | 真实AI/OCR质量、性能、恢复证据后续验收；`RUNTIME_EVIDENCE_DEFERRED_NOT_RUN` | H §15.3/管理员 §19.3 / checks | Phase7～9真实样本/质量/恢复 |
+
+[最终验证入口](validation/step06_final/README.md)：同SHA Python/JS/JVM各992例，159生成模型往返、24非法TS断言、324 Kotlin模型编译、143结构破坏、723有限模型通过。源/产物、verify/lint/readiness通过。完整method/path/operationId/schema/error在机器处置及[operation catalog](operation-catalog.md)，CR解释行为差异。
+
+任务书T01基线已核验；T02～06落实于第二～五步并在第六步回归；T07新RC候选和T08自动验证本地完成；T08最终人工Review/T09跨端接收留第七步。H14不造已取消API，H21不把schema/合成证据当真实质量。Backend兼容在7.0，未通过不得进入7.1。Phase2遗留FCM归8，七状态/隐私/无障碍归10，发布证据归11。
+
+以下历史表中的默认VALID、学生成绩、remark等旧能力已被本轮CR替代或移除，只用于追溯。当前协议以新RC和页首对应关系为准。
+
+## Phase 5C.2 历史覆盖矩阵（1.2.0 RC）
 
 > Contract：`1.2.0-contract` · 状态：`RC` · 公开基路径：`/api/v1`
 
@@ -33,7 +67,7 @@
 | 分管理员 | SUPER 全局账号摘要、列表/详情、建立临时 credential、编辑非 credential 资料、启停、删除；本人注销复用本人身份 Use Case | `listSubAdmins`, `getSubAdmin`, `createSubAdmin`, `updateSubAdmin`, `setSubAdminState`, `deleteSubAdmin`, `deleteOwnAccount` | COVERED；创建后 `mustChangePassword=true`；普通 update 不接受任何 password/credential 字段；summary 为 total/active，固定八项权限仍由 closed enum 表达 |
 | 概览与发布策略 | ACTIVE/PENDING 均稳定的学生本人资料、无 current 教师空态、管理员角色概览，Android/Web 发布策略 | `getStudentDashboard`, `getTeacherDashboard`, `getAdminDashboard`, `getAppReleasePolicy` | COVERED；教师无 current 时 nullable semester + current-work counts 0 |
 
-## RC 覆盖结论
+## 历史1.2.0 RC覆盖结论
 
 `P4-DECISION-05` 已确认：教师账号删除不以责任教师交接为前置，且管理员不得修改或转移责任教师、管理课程或改写课程事实。因此 Contract 不建立交接 Endpoint；`deleteTeacherAccount` 只删除当前账号资料并让既有课程/历史继续引用 opaque non-login subject。
 

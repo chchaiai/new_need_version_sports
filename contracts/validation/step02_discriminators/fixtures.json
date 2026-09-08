@@ -1,0 +1,111 @@
+[
+  {
+    "schema": "CreateStudentApplicationRequest",
+    "branch": "CreateExemptionApplicationRequest",
+    "property": "applicationType",
+    "wire": "EXEMPTION",
+    "payload": {
+      "applicationType": "EXEMPTION",
+      "courseId": "00000000-0000-4000-8000-000000000001",
+      "evidenceAssetIds": [
+        "00000000-0000-4000-8000-000000000002"
+      ]
+    }
+  },
+  {
+    "schema": "CreateStudentApplicationRequest",
+    "branch": "CreateCertificationApplicationRequest",
+    "property": "applicationType",
+    "wire": "CERTIFICATION",
+    "payload": {
+      "applicationType": "CERTIFICATION",
+      "courseId": "00000000-0000-4000-8000-000000000001",
+      "certification": {
+        "certificationKind": "SCHOOL_TEAM",
+        "organizationOrTeamName": "BNBU Example Organization",
+        "validFrom": "2026-09-01",
+        "validTo": "2027-08-31"
+      },
+      "evidenceAssetIds": [
+        "00000000-0000-4000-8000-000000000002"
+      ]
+    }
+  },
+  {
+    "schema": "ReviseEnduranceRuleTableRequest",
+    "branch": "AddEnduranceRuleIntervalChange",
+    "property": "action",
+    "wire": "ADD",
+    "payload": {
+      "expectedVersion": 1,
+      "change": {
+        "action": "ADD",
+        "lowerSeconds": 0,
+        "upperSeconds": 120,
+        "score": 100,
+        "level": "EXCELLENT",
+        "remark": null
+      }
+    }
+  },
+  {
+    "schema": "ReviseEnduranceRuleTableRequest",
+    "branch": "UpdateEnduranceRuleIntervalChange",
+    "property": "action",
+    "wire": "UPDATE",
+    "payload": {
+      "expectedVersion": 1,
+      "change": {
+        "action": "UPDATE",
+        "lowerSeconds": 0,
+        "upperSeconds": 120,
+        "score": 100,
+        "level": "EXCELLENT",
+        "remark": null,
+        "intervalId": "00000000-0000-4000-8000-000000000001"
+      }
+    }
+  },
+  {
+    "schema": "ReviseEnduranceRuleTableRequest",
+    "branch": "DeleteEnduranceRuleIntervalChange",
+    "property": "action",
+    "wire": "DELETE",
+    "payload": {
+      "expectedVersion": 1,
+      "change": {
+        "action": "DELETE",
+        "intervalId": "00000000-0000-4000-8000-000000000001"
+      }
+    }
+  },
+  {
+    "schema": "SwitchSystemModeRequest",
+    "branch": "EnterMaintenanceRequest",
+    "property": "targetMode",
+    "wire": "MAINTENANCE",
+    "payload": {
+      "targetMode": "MAINTENANCE",
+      "reason": "Synthetic CR005 fixture",
+      "expectedVersion": 1,
+      "announcement": {
+        "titleZh": "测试维护",
+        "titleEn": "Test maintenance",
+        "bodyZh": "合成验证样例",
+        "bodyEn": "Synthetic fixture",
+        "estimatedRecoveryAt": "2026-09-08T02:00:00Z"
+      }
+    }
+  },
+  {
+    "schema": "SwitchSystemModeRequest",
+    "branch": "ReturnNormalRequest",
+    "property": "targetMode",
+    "wire": "NORMAL",
+    "payload": {
+      "targetMode": "NORMAL",
+      "reason": "Synthetic CR005 fixture",
+      "expectedVersion": 1
+    }
+  }
+]

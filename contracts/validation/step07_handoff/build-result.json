@@ -1,0 +1,37 @@
+{
+  "version": "1.3.0-contract",
+  "status": "RC",
+  "candidateSha256": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+  "baselineCommit": "974587c3778a53803a7959ea0f64677581e239f4",
+  "baselineSha256": "667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a",
+  "operationCounts": {
+    "ADDED": 56,
+    "REMOVED": 1,
+    "DIRECTLY_CHANGED": 35,
+    "REFERENCED_SCHEMA_CHANGED": 17,
+    "UNCHANGED": 68
+  },
+  "changedSchemaCount": 156,
+  "acceptanceScenarioCount": 28,
+  "studentPageCount": 41,
+  "businessDecisionCount": 12,
+  "fixtureCount": 992,
+  "positiveFixtures": 159,
+  "outputFiles": [
+    {
+      "path": "contract-diff.json",
+      "sha256": "870f0fcae27ff0a621b169ea2124396f569d926934fbfeb5c2496d46ff2f8b6b",
+      "bytes": 1110471
+    },
+    {
+      "path": "fixtures.json",
+      "sha256": "d3c2a37f4bad298f383b70579a3e5d22e5e117cd0cee238beb6b6d336dc0deef",
+      "bytes": 1025948
+    },
+    {
+      "path": "traceability.json",
+      "sha256": "63ac101ba71874c1dcae6762c9cc78eccdb7d2ad19d4e67c4e199bf06e7cb434",
+      "bytes": 98646
+    }
+  ]
+}

@@ -1,0 +1,2619 @@
+{
+  "version": "1.3.0-contract",
+  "status": "RC",
+  "candidateSha256": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+  "baselineCommit": "974587c3778a53803a7959ea0f64677581e239f4",
+  "baselineSha256": "667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a",
+  "sourcePolicy": "Four business bodies are authority; Phase4 matrix §8 overrides historical pending/delegation text. Phase2 UI requirements do not grant extra API permissions.",
+  "gapsSource": "contracts/validation/step06_final/disposition.json",
+  "businessDecisions": [
+    {
+      "decision": "BD-20260903-01",
+      "at": [
+        "AT-01",
+        "AT-02",
+        "AT-03",
+        "AT-04"
+      ],
+      "status": "EXISTING_ACCEPTED_SCOPE_LATEST_BD0904_AND_P01_04_OVERRIDE_HISTORY"
+    },
+    {
+      "decision": "BD-20260903-02",
+      "at": [
+        "AT-18"
+      ],
+      "status": "EXISTING_ACCEPTED_SCOPE_LATEST_BD0904_AND_P01_04_OVERRIDE_HISTORY"
+    },
+    {
+      "decision": "BD-20260903-03",
+      "at": [
+        "AT-15"
+      ],
+      "status": "EXISTING_ACCEPTED_SCOPE_LATEST_BD0904_AND_P01_04_OVERRIDE_HISTORY"
+    },
+    {
+      "decision": "BD-20260903-04",
+      "at": [
+        "AT-16"
+      ],
+      "status": "EXISTING_ACCEPTED_SCOPE_LATEST_BD0904_AND_P01_04_OVERRIDE_HISTORY"
+    },
+    {
+      "decision": "BD-20260903-05",
+      "at": [
+        "AT-17"
+      ],
+      "status": "EXISTING_ACCEPTED_SCOPE_LATEST_BD0904_AND_P01_04_OVERRIDE_HISTORY"
+    },
+    {
+      "decision": "BD-20260903-06",
+      "at": [
+        "AT-04",
+        "AT-05",
+        "AT-06",
+        "AT-07",
+        "AT-08",
+        "AT-20"
+      ],
+      "status": "EXISTING_ACCEPTED_SCOPE_LATEST_BD0904_AND_P01_04_OVERRIDE_HISTORY"
+    },
+    {
+      "decision": "BD-20260903-07",
+      "at": [
+        "AT-19",
+        "AT-20",
+        "AT-21"
+      ],
+      "status": "EXISTING_ACCEPTED_SCOPE_LATEST_BD0904_AND_P01_04_OVERRIDE_HISTORY"
+    },
+    {
+      "decision": "BD-20260903-08",
+      "at": [
+        "AT-09",
+        "AT-10",
+        "AT-11",
+        "AT-12",
+        "AT-13",
+        "AT-14",
+        "AT-22"
+      ],
+      "status": "EXISTING_ACCEPTED_SCOPE_LATEST_BD0904_AND_P01_04_OVERRIDE_HISTORY"
+    },
+    {
+      "decision": "BD-20260903-09",
+      "at": [
+        "AT-23",
+        "AT-24",
+        "AT-25"
+      ],
+      "status": "EXISTING_ACCEPTED_SCOPE_LATEST_BD0904_AND_P01_04_OVERRIDE_HISTORY"
+    },
+    {
+      "decision": "BD-20260903-10",
+      "at": [
+        "AT-22",
+        "AT-28"
+      ],
+      "status": "EXISTING_ACCEPTED_SCOPE_LATEST_BD0904_AND_P01_04_OVERRIDE_HISTORY"
+    },
+    {
+      "decision": "BD-20260904-01",
+      "at": [
+        "AT-02",
+        "AT-05",
+        "AT-06",
+        "AT-07",
+        "AT-20"
+      ],
+      "status": "EXISTING_ACCEPTED"
+    },
+    {
+      "decision": "BD-20260904-02",
+      "at": [
+        "AT-05",
+        "AT-06",
+        "AT-07",
+        "AT-08",
+        "AT-18",
+        "AT-23",
+        "AT-24",
+        "AT-25",
+        "AT-26",
+        "AT-27"
+      ],
+      "status": "EXISTING_ACCEPTED_CANCELS_AT26_27_CAPABILITY"
+    }
+  ],
+  "acceptanceScenarios": [
+    {
+      "at": "AT-01",
+      "source": "docs/rebuild/handoffs/2026-09-04-teacher-first-business-update.md#7-开发验收场景清单尚未执行",
+      "scenario": "普通合格提交",
+      "originalAssertionHistorical": "先检查/AI，自动有效；教师不必再点通过",
+      "currentDisposition": "CONTRACT_EXPRESSED_RUNTIME_SCENARIO_NOT_RUN",
+      "gaps": [
+        "GAP-H02"
+      ],
+      "changeRequests": [
+        "CR-20260908-001"
+      ],
+      "operationIds": [
+        "appendExerciseRecordReview",
+        "listTeacherReviewQueue"
+      ],
+      "schemaNames": [
+        "AppendRecordReviewRequest",
+        "CursorPage",
+        "ExerciseCategory",
+        "ExerciseRecord",
+        "ExpiryCorrectionFact",
+        "InvalidateExerciseRecordRequest",
+        "LocalizedText",
+        "MaterialManifest",
+        "MaterialManifestItem",
+        "MaterialVersion",
+        "PassExerciseRecordRequest",
+        "PublicReviewReason",
+        "RecordReview",
+        "RecordReviewSummary",
+        "ReturnExerciseRecordRequest",
+        "ReviewActionReceipt",
+        "ReviewProcessingStage",
+        "ReviewResult",
+        "SchoolCalendarReference",
+        "StudentSummary",
+        "SupplementTimerView",
+        "TeacherReviewQueueItem",
+        "TeacherReviewQueuePage",
+        "TeacherReviewSla",
+        "TeacherSummary",
+        "TimerPause"
+      ],
+      "legalSchemaExamples": [
+        "prior-workflow/pass/valid",
+        "prior-workflow/return/default24",
+        "prior-workflow/return/72",
+        "prior-workflow/invalid/confirmed",
+        "prior-workflow/material/first_locked",
+        "prior-workflow/material/supplement_ready",
+        "prior-workflow/timer/active",
+        "prior-workflow/timer/paused",
+        "prior-workflow/timer/unavailable",
+        "prior-workflow/timer/accepted",
+        "prior-workflow/sla/available",
+        "prior-workflow/sla/paused",
+        "prior-workflow/sla/missing_calendar",
+        "prior-workflow/review/pending_material",
+        "prior-workflow/review/teacher_round1",
+        "prior-workflow/review/await_supplement",
+        "prior-workflow/review/round2",
+        "prior-workflow/review/valid",
+        "prior-workflow/record/full_pending_response",
+        "prior-workflow/queue/teacher_only",
+        "prior-workflow/correction/original_remainder",
+        "prior-workflow/event/return_not_invalid",
+        "prior-workflow/event/expiry",
+        "prior-workflow/event/fault_correction",
+        "prior-workflow/reason/fixed_labels"
+      ],
+      "evidenceSuites": [
+        "prior-workflow"
+      ],
+      "laterVerification": "Phase6 complete UI Mock; Phase7–9 real state machine/authorization/concurrency/media/recovery. AT26/27 only test cancelled-capability rejection; P01–04 and H13 latest decisions override older assertions."
+    },
+    {
+      "at": "AT-02",
+      "source": "docs/rebuild/handoffs/2026-09-04-teacher-first-business-update.md#7-开发验收场景清单尚未执行",
+      "scenario": "AI 不确定或疑似重复",
+      "originalAssertionHistorical": "教师待办去重展示原因，不直接判作弊",
+      "currentDisposition": "CONTRACT_EXPRESSED_RUNTIME_SCENARIO_NOT_RUN",
+      "gaps": [
+        "GAP-H02",
+        "GAP-H03",
+        "GAP-H17"
+      ],
+      "changeRequests": [
+        "CR-20260908-001"
+      ],
+      "operationIds": [
+        "appendExerciseRecordReview",
+        "listExerciseRecordReviews",
+        "listTeacherReviewQueue"
+      ],
+      "schemaNames": [
+        "AppendRecordReviewRequest",
+        "CursorPage",
+        "ExerciseCategory",
+        "ExerciseRecord",
+        "ExpiryCorrectionFact",
+        "InvalidateExerciseRecordRequest",
+        "LocalizedText",
+        "MaterialManifest",
+        "MaterialManifestItem",
+        "MaterialVersion",
+        "PassExerciseRecordRequest",
+        "PublicReviewReason",
+        "RecordReview",
+        "RecordReviewPage",
+        "RecordReviewSummary",
+        "ReturnExerciseRecordRequest",
+        "ReviewActionReceipt",
+        "ReviewProcessingStage",
+        "ReviewResult",
+        "SchoolCalendarReference",
+        "StudentSummary",
+        "SupplementTimerView",
+        "TeacherReviewQueueItem",
+        "TeacherReviewQueuePage",
+        "TeacherReviewSla",
+        "TeacherSummary",
+        "TimerPause"
+      ],
+      "legalSchemaExamples": [
+        "prior-workflow/pass/valid",
+        "prior-workflow/return/default24",
+        "prior-workflow/return/72",
+        "prior-workflow/invalid/confirmed",
+        "prior-workflow/material/first_locked",
+        "prior-workflow/material/supplement_ready",
+        "prior-workflow/timer/active",
+        "prior-workflow/timer/paused",
+        "prior-workflow/timer/unavailable",
+        "prior-workflow/timer/accepted",
+        "prior-workflow/sla/available",
+        "prior-workflow/sla/paused",
+        "prior-workflow/sla/missing_calendar",
+        "prior-workflow/review/pending_material",
+        "prior-workflow/review/teacher_round1",
+        "prior-workflow/review/await_supplement",
+        "prior-workflow/review/round2",
+        "prior-workflow/review/valid",
+        "prior-workflow/record/full_pending_response",
+        "prior-workflow/queue/teacher_only",
+        "prior-workflow/correction/original_remainder",
+        "prior-workflow/event/return_not_invalid",
+        "prior-workflow/event/expiry",
+        "prior-workflow/event/fault_correction",
+        "prior-workflow/reason/fixed_labels"
+      ],
+      "evidenceSuites": [
+        "prior-workflow"
+      ],
+      "laterVerification": "Phase6 complete UI Mock; Phase7–9 real state machine/authorization/concurrency/media/recovery. AT26/27 only test cancelled-capability rejection; P01–04 and H13 latest decisions override older assertions."
+    },
+    {
+      "at": "AT-03",
+      "source": "docs/rebuild/handoffs/2026-09-04-teacher-first-business-update.md#7-开发验收场景清单尚未执行",
+      "scenario": "AI 超时与重复回调",
+      "originalAssertionHistorical": "技术状态，不假成功；重复不计两次，旧回调不覆盖教师",
+      "currentDisposition": "CONTRACT_EXPRESSED_RUNTIME_SCENARIO_NOT_RUN",
+      "gaps": [
+        "GAP-H02",
+        "GAP-H10",
+        "GAP-H21"
+      ],
+      "changeRequests": [
+        "CR-20260908-001",
+        "CR-20260908-003"
+      ],
+      "operationIds": [
+        "appendExerciseRecordReview",
+        "getTechnicalServiceRunStatus",
+        "listTeacherReviewQueue",
+        "openManualModeWindow",
+        "publishTechnicalServiceRevision"
+      ],
+      "schemaNames": [
+        "AppendRecordReviewRequest",
+        "CursorPage",
+        "ExerciseCategory",
+        "ExerciseRecord",
+        "ExpiryCorrectionFact",
+        "InvalidateExerciseRecordRequest",
+        "LocalizedText",
+        "ManualModeWindow",
+        "MaterialManifest",
+        "MaterialManifestItem",
+        "MaterialVersion",
+        "OpenManualModeRequest",
+        "PassExerciseRecordRequest",
+        "PublicReviewReason",
+        "RecordReview",
+        "RecordReviewSummary",
+        "ReturnExerciseRecordRequest",
+        "ReviewActionReceipt",
+        "ReviewProcessingStage",
+        "ReviewResult",
+        "SchoolCalendarReference",
+        "StudentSummary",
+        "SupplementTimerView",
+        "TeacherReviewQueueItem",
+        "TeacherReviewQueuePage",
+        "TeacherReviewSla",
+        "TeacherSummary",
+        "TechnicalProbe",
+        "TechnicalQualityEvidence",
+        "TechnicalServiceRevision",
+        "TechnicalServiceRevisionRequest",
+        "TechnicalServiceRunStatus",
+        "TechnicalServiceScope",
+        "TechnicalTaskCounts",
+        "TimerPause"
+      ],
+      "legalSchemaExamples": [
+        "prior-workflow/pass/valid",
+        "prior-workflow/return/default24",
+        "prior-workflow/return/72",
+        "prior-workflow/invalid/confirmed",
+        "prior-workflow/material/first_locked",
+        "prior-workflow/material/supplement_ready",
+        "prior-workflow/timer/active",
+        "prior-workflow/timer/paused",
+        "prior-workflow/timer/unavailable",
+        "prior-workflow/timer/accepted",
+        "prior-workflow/sla/available",
+        "prior-workflow/sla/paused",
+        "prior-workflow/sla/missing_calendar",
+        "prior-workflow/review/pending_material",
+        "prior-workflow/review/teacher_round1",
+        "prior-workflow/review/await_supplement",
+        "prior-workflow/review/round2",
+        "prior-workflow/review/valid",
+        "prior-workflow/record/full_pending_response",
+        "prior-workflow/queue/teacher_only",
+        "prior-workflow/correction/original_remainder",
+        "prior-workflow/event/return_not_invalid",
+        "prior-workflow/event/expiry",
+        "prior-workflow/event/fault_correction",
+        "prior-workflow/reason/fixed_labels",
+        "checks/wire/TechnicalServiceScope",
+        "checks/wire/TechnicalServiceRevisionRequest",
+        "checks/wire/TechnicalServiceRevision",
+        "checks/wire/TechnicalTaskCounts",
+        "checks/wire/TechnicalQualityEvidence",
+        "checks/wire/TechnicalServiceRunStatus",
+        "checks/wire/OpenManualModeRequest",
+        "checks/wire/ManualModeWindow",
+        "checks/service/ROSTER_OCR",
+        "checks/service/ENDURANCE_OCR",
+        "checks/service/vlm_evidence_reference",
+        "checks/service/available",
+        "checks/service/course_scope",
+        "checks/manual/closed"
+      ],
+      "evidenceSuites": [
+        "checks",
+        "prior-workflow"
+      ],
+      "laterVerification": "Phase6 complete UI Mock; Phase7–9 real state machine/authorization/concurrency/media/recovery. AT26/27 only test cancelled-capability rejection; P01–04 and H13 latest decisions override older assertions."
+    },
+    {
+      "at": "AT-04",
+      "source": "docs/rebuild/handoffs/2026-09-04-teacher-first-business-update.md#7-开发验收场景清单尚未执行",
+      "scenario": "补证与回调竞态",
+      "originalAssertionHistorical": "绑定正确材料版本，旧包/旧结果不得覆盖新包",
+      "currentDisposition": "CONTRACT_EXPRESSED_RUNTIME_SCENARIO_NOT_RUN",
+      "gaps": [
+        "GAP-H02",
+        "GAP-H04"
+      ],
+      "changeRequests": [
+        "CR-20260908-001"
+      ],
+      "operationIds": [
+        "appendExerciseRecordReview",
+        "completeExerciseRecordMaterial",
+        "listTeacherReviewQueue",
+        "submitExerciseRecord",
+        "submitExerciseRecordSupplement"
+      ],
+      "schemaNames": [
+        "AppendRecordReviewRequest",
+        "CompleteRecordMaterialRequest",
+        "CursorPage",
+        "ExerciseCategory",
+        "ExerciseRecord",
+        "ExpiryCorrectionFact",
+        "FirstMaterialAcceptance",
+        "InvalidateExerciseRecordRequest",
+        "LocalizedText",
+        "MaterialCompletionReceipt",
+        "MaterialManifest",
+        "MaterialManifestItem",
+        "MaterialVersion",
+        "PassExerciseRecordRequest",
+        "PublicReviewReason",
+        "RecordReview",
+        "RecordReviewSummary",
+        "ReturnExerciseRecordRequest",
+        "ReviewActionReceipt",
+        "ReviewProcessingStage",
+        "ReviewResult",
+        "SchoolCalendarReference",
+        "StudentSummary",
+        "SubmitExerciseRecordRequest",
+        "SubmitOfflineSwimmingExerciseRecordRequest",
+        "SubmitOrdinaryExerciseRecordRequest",
+        "SubmitSwimmingExerciseRecordRequest",
+        "SupplementAcceptanceReceipt",
+        "SupplementRecordMaterialRequest",
+        "SupplementTimerView",
+        "TeacherReviewQueueItem",
+        "TeacherReviewQueuePage",
+        "TeacherReviewSla",
+        "TeacherSummary",
+        "TimerPause"
+      ],
+      "legalSchemaExamples": [
+        "prior-workflow/ordinary/valid",
+        "prior-workflow/swimming/valid",
+        "prior-workflow/offline/valid",
+        "prior-workflow/pass/valid",
+        "prior-workflow/return/default24",
+        "prior-workflow/return/72",
+        "prior-workflow/invalid/confirmed",
+        "prior-workflow/supplement/valid",
+        "prior-workflow/completion/normal",
+        "prior-workflow/material/first_locked",
+        "prior-workflow/material/supplement_ready",
+        "prior-workflow/timer/active",
+        "prior-workflow/timer/paused",
+        "prior-workflow/timer/unavailable",
+        "prior-workflow/timer/accepted",
+        "prior-workflow/sla/available",
+        "prior-workflow/sla/paused",
+        "prior-workflow/sla/missing_calendar",
+        "prior-workflow/review/pending_material",
+        "prior-workflow/review/teacher_round1",
+        "prior-workflow/review/await_supplement",
+        "prior-workflow/review/round2",
+        "prior-workflow/review/valid",
+        "prior-workflow/record/full_pending_response",
+        "prior-workflow/receipt/first",
+        "prior-workflow/receipt/completion",
+        "prior-workflow/receipt/supplement",
+        "prior-workflow/queue/teacher_only",
+        "prior-workflow/correction/original_remainder",
+        "prior-workflow/event/return_not_invalid",
+        "prior-workflow/event/expiry",
+        "prior-workflow/event/fault_correction",
+        "prior-workflow/reason/fixed_labels"
+      ],
+      "evidenceSuites": [
+        "prior-workflow"
+      ],
+      "laterVerification": "Phase6 complete UI Mock; Phase7–9 real state machine/authorization/concurrency/media/recovery. AT26/27 only test cancelled-capability rejection; P01–04 and H13 latest decisions override older assertions."
+    },
+    {
+      "at": "AT-05",
+      "source": "docs/rebuild/handoffs/2026-09-04-teacher-first-business-update.md#7-开发验收场景清单尚未执行",
+      "scenario": "教师首次退回",
+      "originalAssertionHistorical": "选择 24/72 小时总窗口，公开原因和准确截止",
+      "currentDisposition": "CONTRACT_EXPRESSED_RUNTIME_SCENARIO_NOT_RUN",
+      "gaps": [
+        "GAP-H03",
+        "GAP-H04",
+        "GAP-H05"
+      ],
+      "changeRequests": [
+        "CR-20260908-001"
+      ],
+      "operationIds": [
+        "appendExerciseRecordReview",
+        "completeExerciseRecordMaterial",
+        "getCourseExerciseRecord",
+        "getOwnExerciseRecord",
+        "listExerciseRecordReviews",
+        "submitExerciseRecord",
+        "submitExerciseRecordSupplement"
+      ],
+      "schemaNames": [
+        "AppendRecordReviewRequest",
+        "CompleteRecordMaterialRequest",
+        "CursorPage",
+        "ExerciseCategory",
+        "ExerciseRecord",
+        "ExpiryCorrectionFact",
+        "FirstMaterialAcceptance",
+        "InvalidateExerciseRecordRequest",
+        "LocalizedText",
+        "MaterialCompletionReceipt",
+        "MaterialManifest",
+        "MaterialManifestItem",
+        "MaterialVersion",
+        "PassExerciseRecordRequest",
+        "PublicReviewReason",
+        "RecordReview",
+        "RecordReviewPage",
+        "RecordReviewSummary",
+        "ReturnExerciseRecordRequest",
+        "ReviewActionReceipt",
+        "ReviewProcessingStage",
+        "ReviewResult",
+        "SchoolCalendarReference",
+        "StudentSummary",
+        "SubmitExerciseRecordRequest",
+        "SubmitOfflineSwimmingExerciseRecordRequest",
+        "SubmitOrdinaryExerciseRecordRequest",
+        "SubmitSwimmingExerciseRecordRequest",
+        "SupplementAcceptanceReceipt",
+        "SupplementRecordMaterialRequest",
+        "SupplementTimerView",
+        "TeacherReviewSla",
+        "TeacherSummary",
+        "TimerPause"
+      ],
+      "legalSchemaExamples": [
+        "prior-workflow/ordinary/valid",
+        "prior-workflow/swimming/valid",
+        "prior-workflow/offline/valid",
+        "prior-workflow/pass/valid",
+        "prior-workflow/return/default24",
+        "prior-workflow/return/72",
+        "prior-workflow/invalid/confirmed",
+        "prior-workflow/supplement/valid",
+        "prior-workflow/completion/normal",
+        "prior-workflow/material/first_locked",
+        "prior-workflow/material/supplement_ready",
+        "prior-workflow/timer/active",
+        "prior-workflow/timer/paused",
+        "prior-workflow/timer/unavailable",
+        "prior-workflow/timer/accepted",
+        "prior-workflow/sla/available",
+        "prior-workflow/sla/paused",
+        "prior-workflow/sla/missing_calendar",
+        "prior-workflow/review/pending_material",
+        "prior-workflow/review/teacher_round1",
+        "prior-workflow/review/await_supplement",
+        "prior-workflow/review/round2",
+        "prior-workflow/review/valid",
+        "prior-workflow/record/full_pending_response",
+        "prior-workflow/receipt/first",
+        "prior-workflow/receipt/completion",
+        "prior-workflow/receipt/supplement",
+        "prior-workflow/correction/original_remainder",
+        "prior-workflow/event/return_not_invalid",
+        "prior-workflow/event/expiry",
+        "prior-workflow/event/fault_correction",
+        "prior-workflow/reason/fixed_labels"
+      ],
+      "evidenceSuites": [
+        "prior-workflow"
+      ],
+      "laterVerification": "Phase6 complete UI Mock; Phase7–9 real state machine/authorization/concurrency/media/recovery. AT26/27 only test cancelled-capability rejection; P01–04 and H13 latest decisions override older assertions."
+    },
+    {
+      "at": "AT-06",
+      "source": "docs/rebuild/handoffs/2026-09-04-teacher-first-business-update.md#7-开发验收场景清单尚未执行",
+      "scenario": "到期未补证 / 到期前已受理",
+      "originalAssertionHistorical": "前者系统追加逾期无效；后者继续等复核，不因迟审过期",
+      "currentDisposition": "CONTRACT_EXPRESSED_RUNTIME_SCENARIO_NOT_RUN",
+      "gaps": [
+        "GAP-H03",
+        "GAP-H04",
+        "GAP-H05"
+      ],
+      "changeRequests": [
+        "CR-20260908-001"
+      ],
+      "operationIds": [
+        "appendExerciseRecordReview",
+        "completeExerciseRecordMaterial",
+        "getCourseExerciseRecord",
+        "getOwnExerciseRecord",
+        "listExerciseRecordReviews",
+        "submitExerciseRecord",
+        "submitExerciseRecordSupplement"
+      ],
+      "schemaNames": [
+        "AppendRecordReviewRequest",
+        "CompleteRecordMaterialRequest",
+        "CursorPage",
+        "ExerciseCategory",
+        "ExerciseRecord",
+        "ExpiryCorrectionFact",
+        "FirstMaterialAcceptance",
+        "InvalidateExerciseRecordRequest",
+        "LocalizedText",
+        "MaterialCompletionReceipt",
+        "MaterialManifest",
+        "MaterialManifestItem",
+        "MaterialVersion",
+        "PassExerciseRecordRequest",
+        "PublicReviewReason",
+        "RecordReview",
+        "RecordReviewPage",
+        "RecordReviewSummary",
+        "ReturnExerciseRecordRequest",
+        "ReviewActionReceipt",
+        "ReviewProcessingStage",
+        "ReviewResult",
+        "SchoolCalendarReference",
+        "StudentSummary",
+        "SubmitExerciseRecordRequest",
+        "SubmitOfflineSwimmingExerciseRecordRequest",
+        "SubmitOrdinaryExerciseRecordRequest",
+        "SubmitSwimmingExerciseRecordRequest",
+        "SupplementAcceptanceReceipt",
+        "SupplementRecordMaterialRequest",
+        "SupplementTimerView",
+        "TeacherReviewSla",
+        "TeacherSummary",
+        "TimerPause"
+      ],
+      "legalSchemaExamples": [
+        "prior-workflow/ordinary/valid",
+        "prior-workflow/swimming/valid",
+        "prior-workflow/offline/valid",
+        "prior-workflow/pass/valid",
+        "prior-workflow/return/default24",
+        "prior-workflow/return/72",
+        "prior-workflow/invalid/confirmed",
+        "prior-workflow/supplement/valid",
+        "prior-workflow/completion/normal",
+        "prior-workflow/material/first_locked",
+        "prior-workflow/material/supplement_ready",
+        "prior-workflow/timer/active",
+        "prior-workflow/timer/paused",
+        "prior-workflow/timer/unavailable",
+        "prior-workflow/timer/accepted",
+        "prior-workflow/sla/available",
+        "prior-workflow/sla/paused",
+        "prior-workflow/sla/missing_calendar",
+        "prior-workflow/review/pending_material",
+        "prior-workflow/review/teacher_round1",
+        "prior-workflow/review/await_supplement",
+        "prior-workflow/review/round2",
+        "prior-workflow/review/valid",
+        "prior-workflow/record/full_pending_response",
+        "prior-workflow/receipt/first",
+        "prior-workflow/receipt/completion",
+        "prior-workflow/receipt/supplement",
+        "prior-workflow/correction/original_remainder",
+        "prior-workflow/event/return_not_invalid",
+        "prior-workflow/event/expiry",
+        "prior-workflow/event/fault_correction",
+        "prior-workflow/reason/fixed_labels"
+      ],
+      "evidenceSuites": [
+        "prior-workflow"
+      ],
+      "laterVerification": "Phase6 complete UI Mock; Phase7–9 real state machine/authorization/concurrency/media/recovery. AT26/27 only test cancelled-capability rejection; P01–04 and H13 latest decisions override older assertions."
+    },
+    {
+      "at": "AT-07",
+      "source": "docs/rebuild/handoffs/2026-09-04-teacher-first-business-update.md#7-开发验收场景清单尚未执行",
+      "scenario": "再次退回或重试补证请求",
+      "originalAssertionHistorical": "不产生第二轮材料或重复次数；网络重试幂等",
+      "currentDisposition": "CONTRACT_EXPRESSED_RUNTIME_SCENARIO_NOT_RUN",
+      "gaps": [
+        "GAP-H03",
+        "GAP-H04",
+        "GAP-H17"
+      ],
+      "changeRequests": [
+        "CR-20260908-001"
+      ],
+      "operationIds": [
+        "appendExerciseRecordReview",
+        "completeExerciseRecordMaterial",
+        "listExerciseRecordReviews",
+        "submitExerciseRecord",
+        "submitExerciseRecordSupplement"
+      ],
+      "schemaNames": [
+        "AppendRecordReviewRequest",
+        "CompleteRecordMaterialRequest",
+        "CursorPage",
+        "ExerciseCategory",
+        "ExpiryCorrectionFact",
+        "FirstMaterialAcceptance",
+        "InvalidateExerciseRecordRequest",
+        "LocalizedText",
+        "MaterialCompletionReceipt",
+        "MaterialManifest",
+        "MaterialManifestItem",
+        "MaterialVersion",
+        "PassExerciseRecordRequest",
+        "PublicReviewReason",
+        "RecordReview",
+        "RecordReviewPage",
+        "RecordReviewSummary",
+        "ReturnExerciseRecordRequest",
+        "ReviewActionReceipt",
+        "ReviewProcessingStage",
+        "ReviewResult",
+        "SchoolCalendarReference",
+        "SubmitExerciseRecordRequest",
+        "SubmitOfflineSwimmingExerciseRecordRequest",
+        "SubmitOrdinaryExerciseRecordRequest",
+        "SubmitSwimmingExerciseRecordRequest",
+        "SupplementAcceptanceReceipt",
+        "SupplementRecordMaterialRequest",
+        "SupplementTimerView",
+        "TeacherReviewSla",
+        "TeacherSummary",
+        "TimerPause"
+      ],
+      "legalSchemaExamples": [
+        "prior-workflow/ordinary/valid",
+        "prior-workflow/swimming/valid",
+        "prior-workflow/offline/valid",
+        "prior-workflow/pass/valid",
+        "prior-workflow/return/default24",
+        "prior-workflow/return/72",
+        "prior-workflow/invalid/confirmed",
+        "prior-workflow/supplement/valid",
+        "prior-workflow/completion/normal",
+        "prior-workflow/material/first_locked",
+        "prior-workflow/material/supplement_ready",
+        "prior-workflow/timer/active",
+        "prior-workflow/timer/paused",
+        "prior-workflow/timer/unavailable",
+        "prior-workflow/timer/accepted",
+        "prior-workflow/sla/available",
+        "prior-workflow/sla/paused",
+        "prior-workflow/sla/missing_calendar",
+        "prior-workflow/review/pending_material",
+        "prior-workflow/review/teacher_round1",
+        "prior-workflow/review/await_supplement",
+        "prior-workflow/review/round2",
+        "prior-workflow/review/valid",
+        "prior-workflow/receipt/first",
+        "prior-workflow/receipt/completion",
+        "prior-workflow/receipt/supplement",
+        "prior-workflow/correction/original_remainder",
+        "prior-workflow/event/return_not_invalid",
+        "prior-workflow/event/expiry",
+        "prior-workflow/event/fault_correction",
+        "prior-workflow/reason/fixed_labels"
+      ],
+      "evidenceSuites": [
+        "prior-workflow"
+      ],
+      "laterVerification": "Phase6 complete UI Mock; Phase7–9 real state machine/authorization/concurrency/media/recovery. AT26/27 only test cancelled-capability rejection; P01–04 and H13 latest decisions override older assertions."
+    },
+    {
+      "at": "AT-08",
+      "source": "docs/rebuild/handoffs/2026-09-04-teacher-first-business-update.md#7-开发验收场景清单尚未执行",
+      "scenario": "平台故障与个人离线",
+      "originalAssertionHistorical": "受影响时段去重顺延；个人离线不冒充平台故障",
+      "currentDisposition": "CONTRACT_EXPRESSED_RUNTIME_SCENARIO_NOT_RUN",
+      "gaps": [
+        "GAP-H05",
+        "GAP-H15",
+        "GAP-H18"
+      ],
+      "changeRequests": [
+        "CR-20260908-001"
+      ],
+      "operationIds": [
+        "correctExerciseRecordReview",
+        "getCourseExerciseRecord",
+        "getOwnExerciseRecord"
+      ],
+      "schemaNames": [
+        "CorrectExerciseRecordInvalidRequest",
+        "CorrectExerciseRecordReviewRequest",
+        "CorrectExerciseRecordValidRequest",
+        "ExerciseCategory",
+        "ExerciseRecord",
+        "ExpiryCorrectionFact",
+        "LocalizedText",
+        "MaterialManifest",
+        "MaterialManifestItem",
+        "MaterialVersion",
+        "PublicReviewReason",
+        "RecordReview",
+        "RecordReviewSummary",
+        "ReviewActionReceipt",
+        "ReviewProcessingStage",
+        "ReviewResult",
+        "SchoolCalendarReference",
+        "StudentSummary",
+        "SupplementTimerView",
+        "TeacherReviewSla",
+        "TeacherSummary",
+        "TimerPause"
+      ],
+      "legalSchemaExamples": [
+        "prior-workflow/correct/valid",
+        "prior-workflow/correct/invalid",
+        "prior-workflow/material/first_locked",
+        "prior-workflow/material/supplement_ready",
+        "prior-workflow/timer/active",
+        "prior-workflow/timer/paused",
+        "prior-workflow/timer/unavailable",
+        "prior-workflow/timer/accepted",
+        "prior-workflow/sla/available",
+        "prior-workflow/sla/paused",
+        "prior-workflow/sla/missing_calendar",
+        "prior-workflow/review/pending_material",
+        "prior-workflow/review/teacher_round1",
+        "prior-workflow/review/await_supplement",
+        "prior-workflow/review/round2",
+        "prior-workflow/review/valid",
+        "prior-workflow/record/full_pending_response",
+        "prior-workflow/correction/original_remainder",
+        "prior-workflow/event/return_not_invalid",
+        "prior-workflow/event/expiry",
+        "prior-workflow/event/fault_correction",
+        "prior-workflow/reason/fixed_labels"
+      ],
+      "evidenceSuites": [
+        "prior-workflow"
+      ],
+      "laterVerification": "Phase6 complete UI Mock; Phase7–9 real state machine/authorization/concurrency/media/recovery. AT26/27 only test cancelled-capability rejection; P01–04 and H13 latest decisions override older assertions."
+    },
+    {
+      "at": "AT-09",
+      "source": "docs/rebuild/handoffs/2026-09-04-teacher-first-business-update.md#7-开发验收场景清单尚未执行",
+      "scenario": "默认门槛 29:59 / 30:00 / 45:59 / 90:00",
+      "originalAssertionHistorical": "可计分别为 0 / 30 / 45 / 60 分钟",
+      "currentDisposition": "CONTRACT_EXPRESSED_RUNTIME_SCENARIO_NOT_RUN",
+      "gaps": [
+        "GAP-H01"
+      ],
+      "changeRequests": [
+        "CR-20260908-002"
+      ],
+      "operationIds": [
+        "getOwnCourseProgress",
+        "listCheckpointRecordCredits"
+      ],
+      "schemaNames": [
+        "CursorPage",
+        "ExerciseCategory",
+        "LocalizedText",
+        "ProgressCategory",
+        "ProgressSourceVersions",
+        "ProgressTotals",
+        "RecordCreditDetail",
+        "RecordCreditDetailPage",
+        "RecordCreditExplanation",
+        "ReviewResult",
+        "StatisticsCheckpoint",
+        "StudentCourseProgress",
+        "StudentSummary"
+      ],
+      "legalSchemaExamples": [
+        "prior-courses/progress/1199_is_not_met",
+        "prior-courses/checkpoint/immutable",
+        "prior-courses/record/partial_category_cap",
+        "prior-courses/record/pending_not_invalid",
+        "prior-courses/progress/current",
+        "prior-courses/progress/recomputing_old_checkpoint",
+        "prior-courses/progress/no_zero_fallback"
+      ],
+      "evidenceSuites": [
+        "prior-courses"
+      ],
+      "laterVerification": "Phase6 complete UI Mock; Phase7–9 real state machine/authorization/concurrency/media/recovery. AT26/27 only test cancelled-capability rejection; P01–04 and H13 latest decisions override older assertions."
+    },
+    {
+      "at": "AT-10",
+      "source": "docs/rebuild/handoffs/2026-09-04-teacher-first-business-update.md#7-开发验收场景清单尚未执行",
+      "scenario": "同日两条各 30 / 60 分钟",
+      "originalAssertionHistorical": "都保留，最多一条计入；选择满足全部约束的最佳组合",
+      "currentDisposition": "CONTRACT_EXPRESSED_RUNTIME_SCENARIO_NOT_RUN",
+      "gaps": [
+        "GAP-H01"
+      ],
+      "changeRequests": [
+        "CR-20260908-002"
+      ],
+      "operationIds": [
+        "getOwnCourseProgress",
+        "listCheckpointRecordCredits"
+      ],
+      "schemaNames": [
+        "CursorPage",
+        "ExerciseCategory",
+        "LocalizedText",
+        "ProgressCategory",
+        "ProgressSourceVersions",
+        "ProgressTotals",
+        "RecordCreditDetail",
+        "RecordCreditDetailPage",
+        "RecordCreditExplanation",
+        "ReviewResult",
+        "StatisticsCheckpoint",
+        "StudentCourseProgress",
+        "StudentSummary"
+      ],
+      "legalSchemaExamples": [
+        "prior-courses/progress/1199_is_not_met",
+        "prior-courses/checkpoint/immutable",
+        "prior-courses/record/partial_category_cap",
+        "prior-courses/record/pending_not_invalid",
+        "prior-courses/progress/current",
+        "prior-courses/progress/recomputing_old_checkpoint",
+        "prior-courses/progress/no_zero_fallback"
+      ],
+      "evidenceSuites": [
+        "prior-courses"
+      ],
+      "laterVerification": "Phase6 complete UI Mock; Phase7–9 real state machine/authorization/concurrency/media/recovery. AT26/27 only test cancelled-capability rejection; P01–04 and H13 latest decisions override older assertions."
+    },
+    {
+      "at": "AT-11",
+      "source": "docs/rebuild/handoffs/2026-09-04-teacher-first-business-update.md#7-开发验收场景清单尚未执行",
+      "scenario": "周内第四条、跨午夜、跨周补证",
+      "originalAssertionHistorical": "默认周上限三条；均按服务器开始业务日期归属",
+      "currentDisposition": "CONTRACT_EXPRESSED_RUNTIME_SCENARIO_NOT_RUN",
+      "gaps": [
+        "GAP-H01"
+      ],
+      "changeRequests": [
+        "CR-20260908-002"
+      ],
+      "operationIds": [
+        "getOwnCourseProgress",
+        "listCheckpointRecordCredits"
+      ],
+      "schemaNames": [
+        "CursorPage",
+        "ExerciseCategory",
+        "LocalizedText",
+        "ProgressCategory",
+        "ProgressSourceVersions",
+        "ProgressTotals",
+        "RecordCreditDetail",
+        "RecordCreditDetailPage",
+        "RecordCreditExplanation",
+        "ReviewResult",
+        "StatisticsCheckpoint",
+        "StudentCourseProgress",
+        "StudentSummary"
+      ],
+      "legalSchemaExamples": [
+        "prior-courses/progress/1199_is_not_met",
+        "prior-courses/checkpoint/immutable",
+        "prior-courses/record/partial_category_cap",
+        "prior-courses/record/pending_not_invalid",
+        "prior-courses/progress/current",
+        "prior-courses/progress/recomputing_old_checkpoint",
+        "prior-courses/progress/no_zero_fallback"
+      ],
+      "evidenceSuites": [
+        "prior-courses"
+      ],
+      "laterVerification": "Phase6 complete UI Mock; Phase7–9 real state machine/authorization/concurrency/media/recovery. AT26/27 only test cancelled-capability rejection; P01–04 and H13 latest decisions override older assertions."
+    },
+    {
+      "at": "AT-12",
+      "source": "docs/rebuild/handoffs/2026-09-04-teacher-first-business-update.md#7-开发验收场景清单尚未执行",
+      "scenario": "达到 1,200 分钟后新运动",
+      "originalAssertionHistorical": "允许真实记录，额外部分未计入且不标无效",
+      "currentDisposition": "CONTRACT_EXPRESSED_RUNTIME_SCENARIO_NOT_RUN",
+      "gaps": [
+        "GAP-H01"
+      ],
+      "changeRequests": [
+        "CR-20260908-002"
+      ],
+      "operationIds": [
+        "getOwnCourseProgress",
+        "listCheckpointRecordCredits"
+      ],
+      "schemaNames": [
+        "CursorPage",
+        "ExerciseCategory",
+        "LocalizedText",
+        "ProgressCategory",
+        "ProgressSourceVersions",
+        "ProgressTotals",
+        "RecordCreditDetail",
+        "RecordCreditDetailPage",
+        "RecordCreditExplanation",
+        "ReviewResult",
+        "StatisticsCheckpoint",
+        "StudentCourseProgress",
+        "StudentSummary"
+      ],
+      "legalSchemaExamples": [
+        "prior-courses/progress/1199_is_not_met",
+        "prior-courses/checkpoint/immutable",
+        "prior-courses/record/partial_category_cap",
+        "prior-courses/record/pending_not_invalid",
+        "prior-courses/progress/current",
+        "prior-courses/progress/recomputing_old_checkpoint",
+        "prior-courses/progress/no_zero_fallback"
+      ],
+      "evidenceSuites": [
+        "prior-courses"
+      ],
+      "laterVerification": "Phase6 complete UI Mock; Phase7–9 real state machine/authorization/concurrency/media/recovery. AT26/27 only test cancelled-capability rejection; P01–04 and H13 latest decisions override older assertions."
+    },
+    {
+      "at": "AT-13",
+      "source": "docs/rebuild/handoffs/2026-09-04-teacher-first-business-update.md#7-开发验收场景清单尚未执行",
+      "scenario": "旧 30 分钟记录补证通过，已有更优 60 分钟组合",
+      "originalAssertionHistorical": "总进度不下降；不机械用早记录挤掉优记录",
+      "currentDisposition": "CONTRACT_EXPRESSED_RUNTIME_SCENARIO_NOT_RUN",
+      "gaps": [
+        "GAP-H01"
+      ],
+      "changeRequests": [
+        "CR-20260908-002"
+      ],
+      "operationIds": [
+        "getOwnCourseProgress",
+        "listCheckpointRecordCredits"
+      ],
+      "schemaNames": [
+        "CursorPage",
+        "ExerciseCategory",
+        "LocalizedText",
+        "ProgressCategory",
+        "ProgressSourceVersions",
+        "ProgressTotals",
+        "RecordCreditDetail",
+        "RecordCreditDetailPage",
+        "RecordCreditExplanation",
+        "ReviewResult",
+        "StatisticsCheckpoint",
+        "StudentCourseProgress",
+        "StudentSummary"
+      ],
+      "legalSchemaExamples": [
+        "prior-courses/progress/1199_is_not_met",
+        "prior-courses/checkpoint/immutable",
+        "prior-courses/record/partial_category_cap",
+        "prior-courses/record/pending_not_invalid",
+        "prior-courses/progress/current",
+        "prior-courses/progress/recomputing_old_checkpoint",
+        "prior-courses/progress/no_zero_fallback"
+      ],
+      "evidenceSuites": [
+        "prior-courses"
+      ],
+      "laterVerification": "Phase6 complete UI Mock; Phase7–9 real state machine/authorization/concurrency/media/recovery. AT26/27 only test cancelled-capability rejection; P01–04 and H13 latest decisions override older assertions."
+    },
+    {
+      "at": "AT-14",
+      "source": "docs/rebuild/handoffs/2026-09-04-teacher-first-business-update.md#7-开发验收场景清单尚未执行",
+      "scenario": "两类封顶、认证新增/撤销与学生移出",
+      "originalAssertionHistorical": "按学生、类别、成员统计范围计算，认证不占日/周名额",
+      "currentDisposition": "CONTRACT_EXPRESSED_RUNTIME_SCENARIO_NOT_RUN",
+      "gaps": [
+        "GAP-H01",
+        "GAP-H11"
+      ],
+      "changeRequests": [
+        "CR-20260908-002"
+      ],
+      "operationIds": [
+        "closeCourse",
+        "confirmCourseSettlement",
+        "getOwnCourseProgress",
+        "listCheckpointRecordCredits",
+        "listCourseSettlements",
+        "prepareCourseSettlement"
+      ],
+      "schemaNames": [
+        "ConfirmSettlementRequest",
+        "Course",
+        "CourseAllowedInterval",
+        "CourseCloseRequest",
+        "CourseRuleConfiguration",
+        "CourseRuleVersion",
+        "CourseTargets",
+        "CursorPage",
+        "ExerciseCategory",
+        "LocalizedText",
+        "ProgressCategory",
+        "ProgressSourceVersions",
+        "ProgressTotals",
+        "RecordCreditDetail",
+        "RecordCreditDetailPage",
+        "RecordCreditExplanation",
+        "ReviewResult",
+        "RuleTemplateVersion",
+        "SemesterStatus",
+        "SemesterSummary",
+        "SettlementBlocker",
+        "SettlementPreparation",
+        "SettlementPreparationRequest",
+        "SettlementReportVersion",
+        "SettlementReportVersionPage",
+        "SettlementSourceReference",
+        "StatisticsCheckpoint",
+        "StudentCourseProgress",
+        "StudentSummary",
+        "TeacherSummary",
+        "TermType"
+      ],
+      "legalSchemaExamples": [
+        "prior-courses/template/fixed",
+        "prior-courses/draft/defaults",
+        "prior-courses/draft/30/2",
+        "prior-courses/draft/30/3",
+        "prior-courses/draft/30/4",
+        "prior-courses/draft/45/2",
+        "prior-courses/draft/45/3",
+        "prior-courses/draft/45/4",
+        "prior-courses/draft/60/2",
+        "prior-courses/draft/60/3",
+        "prior-courses/draft/60/4",
+        "prior-courses/rule/frozen",
+        "prior-courses/progress/1199_is_not_met",
+        "prior-courses/checkpoint/immutable",
+        "prior-courses/record/partial_category_cap",
+        "prior-courses/record/pending_not_invalid",
+        "prior-courses/progress/current",
+        "prior-courses/progress/recomputing_old_checkpoint",
+        "prior-courses/progress/no_zero_fallback",
+        "prior-courses/settlement/prepare",
+        "prior-courses/settlement/correction_prepare",
+        "prior-courses/settlement/ready",
+        "prior-courses/settlement/blocked/FIRST_MATERIAL_PENDING",
+        "prior-courses/settlement/blocked/LOCKED_TRANSFER_PENDING",
+        "prior-courses/settlement/blocked/SUPPLEMENT_WINDOW_ACTIVE",
+        "prior-courses/settlement/unavailable",
+        "prior-courses/settlement/confirm",
+        "prior-courses/report/initial",
+        "prior-courses/report/correction"
+      ],
+      "evidenceSuites": [
+        "prior-courses"
+      ],
+      "laterVerification": "Phase6 complete UI Mock; Phase7–9 real state machine/authorization/concurrency/media/recovery. AT26/27 only test cancelled-capability rejection; P01–04 and H13 latest decisions override older assertions."
+    },
+    {
+      "at": "AT-15",
+      "source": "docs/rebuild/handoffs/2026-09-04-teacher-first-business-update.md#7-开发验收场景清单尚未执行",
+      "scenario": "名单人数相等但学号不同、重号、名单外学生",
+      "originalAssertionHistorical": "不假报全匹配，不自动合并/移出；未确认分母不显示 100%",
+      "currentDisposition": "CONTRACT_EXPRESSED_RUNTIME_SCENARIO_NOT_RUN",
+      "gaps": [
+        "GAP-H08"
+      ],
+      "changeRequests": [
+        "CR-20260908-003"
+      ],
+      "operationIds": [
+        "createRosterBatch",
+        "listAssessmentRosterRows",
+        "publishRosterBatch",
+        "resolveRosterDraftRow"
+      ],
+      "schemaNames": [
+        "AssessmentRosterRow",
+        "AssessmentRosterRowPage",
+        "CourseSettlementSummary",
+        "CreateTeachingBatchRequest",
+        "CursorPage",
+        "DraftIdentityCandidate",
+        "ExerciseCategory",
+        "ExtractionAttemptSummary",
+        "LocalizedText",
+        "ProgressCategory",
+        "ProgressSourceVersions",
+        "ProgressTotals",
+        "PublishRosterBatchRequest",
+        "ResolveRosterDraftRowRequest",
+        "RosterBatchPublication",
+        "RosterDraftRow",
+        "RosterIdentityConfirmation",
+        "RosterImportBatch",
+        "RosterSnapshot",
+        "StatisticsCheckpoint",
+        "StudentCourseProgress",
+        "StudentEnduranceOutcome",
+        "StudentSummary",
+        "TeachingBatchCounts",
+        "TeachingDraftIssue",
+        "TeachingSourceAsset",
+        "TeachingSourcePosition",
+        "TeachingSourceReference"
+      ],
+      "legalSchemaExamples": [
+        "prior-courses/progress/1199_is_not_met",
+        "prior-courses/checkpoint/immutable",
+        "prior-courses/progress/current",
+        "prior-courses/progress/recomputing_old_checkpoint",
+        "prior-courses/progress/no_zero_fallback",
+        "checks/wire/TeachingSourceAsset",
+        "checks/wire/CreateTeachingBatchRequest",
+        "checks/wire/ExtractionAttemptSummary",
+        "checks/wire/RosterImportBatch",
+        "checks/wire/RosterDraftRow",
+        "checks/wire/ResolveRosterDraftRowRequest",
+        "checks/wire/PublishRosterBatchRequest",
+        "checks/wire/RosterBatchPublication",
+        "checks/wire/StudentEnduranceOutcome",
+        "checks/wire/AssessmentRosterRow",
+        "checks/wire/RosterSnapshot",
+        "checks/roster/CONFIRMED",
+        "checks/roster/EXCLUDED",
+        "checks/roster/exclusion",
+        "checks/student/raw_measured",
+        "checks/student/exempt"
+      ],
+      "evidenceSuites": [
+        "checks"
+      ],
+      "laterVerification": "Phase6 complete UI Mock; Phase7–9 real state machine/authorization/concurrency/media/recovery. AT26/27 only test cancelled-capability rejection; P01–04 and H13 latest decisions override older assertions."
+    },
+    {
+      "at": "AT-16",
+      "source": "docs/rebuild/handoffs/2026-09-04-teacher-first-business-update.md#7-开发验收场景清单尚未执行",
+      "scenario": "邀请自然到期、宽限、撤销",
+      "originalAssertionHistorical": "新流程拒绝；已登记流程仅一次 10 分钟；撤销立即失效",
+      "currentDisposition": "CONTRACT_EXPRESSED_RUNTIME_SCENARIO_NOT_RUN",
+      "gaps": [
+        "GAP-H07",
+        "GAP-H19"
+      ],
+      "changeRequests": [
+        "CR-20260908-002"
+      ],
+      "operationIds": [
+        "joinCourseByInvitation",
+        "registerExistingInvitationFlow",
+        "registerNewInvitationFlow"
+      ],
+      "schemaNames": [
+        "CourseInvitation",
+        "Enrollment",
+        "ExistingStudentJoinRequest",
+        "InvitationCourseSummary",
+        "InvitationRegistrationFlow",
+        "NewInvitationFlowAuthorization",
+        "RegisterExistingInvitationFlowRequest",
+        "RegisterNewInvitationFlowRequest",
+        "SemesterStatus",
+        "SemesterSummary",
+        "StudentSummary",
+        "TeacherSummary",
+        "TermType"
+      ],
+      "legalSchemaExamples": [
+        "prior-courses/flow/existing",
+        "prior-courses/flow/new_before_email_verification",
+        "prior-courses/join/existing"
+      ],
+      "evidenceSuites": [
+        "prior-courses"
+      ],
+      "laterVerification": "Phase6 complete UI Mock; Phase7–9 real state machine/authorization/concurrency/media/recovery. AT26/27 only test cancelled-capability rejection; P01–04 and H13 latest decisions override older assertions."
+    },
+    {
+      "at": "AT-17",
+      "source": "docs/rebuild/handoffs/2026-09-04-teacher-first-business-update.md#7-开发验收场景清单尚未执行",
+      "scenario": "OCR 手写 4.30、错行、只确认部分",
+      "originalAssertionHistorical": "歧义须核对，正式行经确认，剩余继续待处理",
+      "currentDisposition": "CONTRACT_EXPRESSED_RUNTIME_SCENARIO_NOT_RUN",
+      "gaps": [
+        "GAP-H09"
+      ],
+      "changeRequests": [
+        "CR-20260908-003"
+      ],
+      "operationIds": [
+        "confirmEnduranceDraftRows",
+        "createEnduranceBatch",
+        "resolveEnduranceDraftRow"
+      ],
+      "schemaNames": [
+        "ConfirmEnduranceRowsRequest",
+        "CreateTeachingBatchRequest",
+        "DraftIdentityCandidate",
+        "EnduranceCaptureBatch",
+        "EnduranceConversion",
+        "EnduranceDraftRow",
+        "EnduranceMeasurement",
+        "EnduranceRowsConfirmation",
+        "EnduranceSelectedRow",
+        "ExtractionAttemptSummary",
+        "LocalizedText",
+        "ResolveEnduranceDraftRowRequest",
+        "ResolvedEnduranceValues",
+        "TeacherSummary",
+        "TeachingBatchCounts",
+        "TeachingDraftIssue",
+        "TeachingSourceAsset",
+        "TeachingSourcePosition",
+        "TeachingSourceReference"
+      ],
+      "legalSchemaExamples": [
+        "checks/wire/TeachingSourceAsset",
+        "checks/wire/CreateTeachingBatchRequest",
+        "checks/wire/ExtractionAttemptSummary",
+        "checks/wire/EnduranceCaptureBatch",
+        "checks/wire/ResolvedEnduranceValues",
+        "checks/wire/EnduranceDraftRow",
+        "checks/wire/ResolveEnduranceDraftRowRequest",
+        "checks/wire/ConfirmEnduranceRowsRequest",
+        "checks/wire/EnduranceMeasurement",
+        "checks/wire/EnduranceRowsConfirmation",
+        "checks/time/integer",
+        "checks/endurance/ready",
+        "checks/endurance/confirmed"
+      ],
+      "evidenceSuites": [
+        "checks"
+      ],
+      "laterVerification": "Phase6 complete UI Mock; Phase7–9 real state machine/authorization/concurrency/media/recovery. AT26/27 only test cancelled-capability rejection; P01–04 and H13 latest decisions override older assertions."
+    },
+    {
+      "at": "AT-18",
+      "source": "docs/rebuild/handoffs/2026-09-04-teacher-first-business-update.md#7-开发验收场景清单尚未执行",
+      "scenario": "学生旧页面/API/通知/导出/缓存",
+      "originalAssertionHistorical": "仅本人数据，无最终分数、换算分、等级、排名和含分数备注",
+      "currentDisposition": "CONTRACT_EXPRESSED_RUNTIME_SCENARIO_NOT_RUN",
+      "gaps": [
+        "GAP-H12",
+        "GAP-H13"
+      ],
+      "changeRequests": [
+        "CR-20260908-003"
+      ],
+      "operationIds": [
+        "getOwnEnduranceOutcome",
+        "getStudentDashboard",
+        "listHistoricalFinalGradeRemarks",
+        "listOwnStudentNotifications",
+        "publishFinalGrade"
+      ],
+      "schemaNames": [
+        "ActorRole",
+        "AdminKind",
+        "AdminPermission",
+        "CourseAllowedInterval",
+        "CourseRuleVersion",
+        "CurrentActor",
+        "CursorPage",
+        "ExerciseCategory",
+        "FinalGradePublication",
+        "HistoricalFinalGradeRemark",
+        "HistoricalFinalGradeRemarkPage",
+        "LocalizedText",
+        "ProgressCategory",
+        "ProgressSourceVersions",
+        "ProgressTotals",
+        "PublicReviewReason",
+        "PublishFinalGradeRequest",
+        "ReviewNotificationContext",
+        "ReviewProcessingStage",
+        "RuleTemplateVersion",
+        "SemesterStatus",
+        "SemesterSummary",
+        "StatisticsCheckpoint",
+        "StudentCourse",
+        "StudentCourseProgress",
+        "StudentCourseTargets",
+        "StudentDashboard",
+        "StudentEnduranceOutcome",
+        "StudentNotification",
+        "StudentNotificationPage",
+        "StudentSummary",
+        "TeacherSummary",
+        "TermType"
+      ],
+      "legalSchemaExamples": [
+        "prior-workflow/notice/shared_reason",
+        "prior-workflow/reason/fixed_labels",
+        "prior-courses/template/fixed",
+        "prior-courses/rule/frozen",
+        "prior-courses/progress/1199_is_not_met",
+        "prior-courses/checkpoint/immutable",
+        "prior-courses/progress/current",
+        "prior-courses/progress/recomputing_old_checkpoint",
+        "prior-courses/progress/no_zero_fallback",
+        "checks/wire/StudentEnduranceOutcome",
+        "checks/wire/HistoricalFinalGradeRemark",
+        "checks/wire/StudentNotification",
+        "checks/wire/PublishFinalGradeRequest",
+        "checks/wire/FinalGradePublication",
+        "checks/wire/StudentDashboard",
+        "checks/student/raw_measured",
+        "checks/student/exempt",
+        "checks/grade/signed/-1000",
+        "checks/grade/signed/0",
+        "checks/grade/signed/101",
+        "checks/grade/signed/2147483647",
+        "checks/grade/signed/-2147483648",
+        "checks/history/remark"
+      ],
+      "evidenceSuites": [
+        "checks"
+      ],
+      "laterVerification": "Phase6 complete UI Mock; Phase7–9 real state machine/authorization/concurrency/media/recovery. AT26/27 only test cancelled-capability rejection; P01–04 and H13 latest decisions override older assertions."
+    },
+    {
+      "at": "AT-19",
+      "source": "docs/rebuild/handoffs/2026-09-04-teacher-first-business-update.md#7-开发验收场景清单尚未执行",
+      "scenario": "游泳缺前照、15 分钟受理、续传、完全离线",
+      "originalAssertionHistorical": "不补造前照；执行 15/30/24 规则，延迟交人工",
+      "currentDisposition": "CONTRACT_EXPRESSED_RUNTIME_SCENARIO_NOT_RUN",
+      "gaps": [
+        "GAP-H04",
+        "GAP-H16"
+      ],
+      "changeRequests": [
+        "CR-20260908-001"
+      ],
+      "operationIds": [
+        "completeExerciseRecordMaterial",
+        "getFirstMaterialEligibility",
+        "renewRecordUploadAuthorization",
+        "submitExerciseRecord",
+        "submitExerciseRecordSupplement"
+      ],
+      "schemaNames": [
+        "CompleteRecordMaterialRequest",
+        "DirectUploadHttpMethod",
+        "ExerciseCategory",
+        "FirstMaterialAcceptance",
+        "FirstMaterialEligibility",
+        "LocalizedText",
+        "MaterialCompletionReceipt",
+        "MaterialManifest",
+        "MaterialManifestItem",
+        "MaterialVersion",
+        "PublicReviewReason",
+        "RecordReviewSummary",
+        "RecordUploadAuthorization",
+        "RecordUploadAuthorizationRequest",
+        "ReviewProcessingStage",
+        "ReviewResult",
+        "SchoolCalendarReference",
+        "SubmitExerciseRecordRequest",
+        "SubmitOfflineSwimmingExerciseRecordRequest",
+        "SubmitOrdinaryExerciseRecordRequest",
+        "SubmitSwimmingExerciseRecordRequest",
+        "SupplementAcceptanceReceipt",
+        "SupplementRecordMaterialRequest",
+        "SupplementTimerView",
+        "TeacherReviewSla",
+        "TimerPause"
+      ],
+      "legalSchemaExamples": [
+        "prior-workflow/ordinary/valid",
+        "prior-workflow/swimming/valid",
+        "prior-workflow/offline/valid",
+        "prior-workflow/supplement/valid",
+        "prior-workflow/completion/normal",
+        "prior-workflow/upload/renew",
+        "prior-workflow/material/first_locked",
+        "prior-workflow/material/supplement_ready",
+        "prior-workflow/timer/active",
+        "prior-workflow/timer/paused",
+        "prior-workflow/timer/unavailable",
+        "prior-workflow/timer/accepted",
+        "prior-workflow/sla/available",
+        "prior-workflow/sla/paused",
+        "prior-workflow/sla/missing_calendar",
+        "prior-workflow/review/pending_material",
+        "prior-workflow/review/teacher_round1",
+        "prior-workflow/review/await_supplement",
+        "prior-workflow/review/round2",
+        "prior-workflow/review/valid",
+        "prior-workflow/receipt/first",
+        "prior-workflow/receipt/completion",
+        "prior-workflow/receipt/supplement",
+        "prior-workflow/reason/fixed_labels"
+      ],
+      "evidenceSuites": [
+        "prior-workflow"
+      ],
+      "laterVerification": "Phase6 complete UI Mock; Phase7–9 real state machine/authorization/concurrency/media/recovery. AT26/27 only test cancelled-capability rejection; P01–04 and H13 latest decisions override older assertions."
+    },
+    {
+      "at": "AT-20",
+      "source": "docs/rebuild/handoffs/2026-09-04-teacher-first-business-update.md#7-开发验收场景清单尚未执行",
+      "scenario": "游泳记录已退回补证",
+      "originalAssertionHistorical": "使用 24/72 小时补证期限，不再套结束后 15 分钟",
+      "currentDisposition": "CONTRACT_EXPRESSED_RUNTIME_SCENARIO_NOT_RUN",
+      "gaps": [
+        "GAP-H04",
+        "GAP-H05"
+      ],
+      "changeRequests": [
+        "CR-20260908-001"
+      ],
+      "operationIds": [
+        "completeExerciseRecordMaterial",
+        "getCourseExerciseRecord",
+        "getOwnExerciseRecord",
+        "submitExerciseRecord",
+        "submitExerciseRecordSupplement"
+      ],
+      "schemaNames": [
+        "CompleteRecordMaterialRequest",
+        "ExerciseCategory",
+        "ExerciseRecord",
+        "FirstMaterialAcceptance",
+        "LocalizedText",
+        "MaterialCompletionReceipt",
+        "MaterialManifest",
+        "MaterialManifestItem",
+        "MaterialVersion",
+        "PublicReviewReason",
+        "RecordReviewSummary",
+        "ReviewProcessingStage",
+        "ReviewResult",
+        "SchoolCalendarReference",
+        "StudentSummary",
+        "SubmitExerciseRecordRequest",
+        "SubmitOfflineSwimmingExerciseRecordRequest",
+        "SubmitOrdinaryExerciseRecordRequest",
+        "SubmitSwimmingExerciseRecordRequest",
+        "SupplementAcceptanceReceipt",
+        "SupplementRecordMaterialRequest",
+        "SupplementTimerView",
+        "TeacherReviewSla",
+        "TimerPause"
+      ],
+      "legalSchemaExamples": [
+        "prior-workflow/ordinary/valid",
+        "prior-workflow/swimming/valid",
+        "prior-workflow/offline/valid",
+        "prior-workflow/supplement/valid",
+        "prior-workflow/completion/normal",
+        "prior-workflow/material/first_locked",
+        "prior-workflow/material/supplement_ready",
+        "prior-workflow/timer/active",
+        "prior-workflow/timer/paused",
+        "prior-workflow/timer/unavailable",
+        "prior-workflow/timer/accepted",
+        "prior-workflow/sla/available",
+        "prior-workflow/sla/paused",
+        "prior-workflow/sla/missing_calendar",
+        "prior-workflow/review/pending_material",
+        "prior-workflow/review/teacher_round1",
+        "prior-workflow/review/await_supplement",
+        "prior-workflow/review/round2",
+        "prior-workflow/review/valid",
+        "prior-workflow/record/full_pending_response",
+        "prior-workflow/receipt/first",
+        "prior-workflow/receipt/completion",
+        "prior-workflow/receipt/supplement",
+        "prior-workflow/reason/fixed_labels"
+      ],
+      "evidenceSuites": [
+        "prior-workflow"
+      ],
+      "laterVerification": "Phase6 complete UI Mock; Phase7–9 real state machine/authorization/concurrency/media/recovery. AT26/27 only test cancelled-capability rejection; P01–04 and H13 latest decisions override older assertions."
+    },
+    {
+      "at": "AT-21",
+      "source": "docs/rebuild/handoffs/2026-09-04-teacher-first-business-update.md#7-开发验收场景清单尚未执行",
+      "scenario": "每版第七张图、第二视频，或申请第四张图",
+      "originalAssertionHistorical": "相应包拒绝，不把运动与免测/认证上限混用",
+      "currentDisposition": "CONTRACT_EXPRESSED_RUNTIME_SCENARIO_NOT_RUN",
+      "gaps": [
+        "GAP-H04"
+      ],
+      "changeRequests": [
+        "CR-20260908-001"
+      ],
+      "operationIds": [
+        "allocateMediaAsset",
+        "completeExerciseRecordMaterial",
+        "createStudentApplication",
+        "submitExerciseRecord",
+        "submitExerciseRecordSupplement",
+        "supplementStudentApplication"
+      ],
+      "schemaNames": [
+        "ApplicationDecision",
+        "ApplicationMediaAllocationRequest",
+        "ApplicationStatus",
+        "ApplicationType",
+        "CertificationCredit",
+        "CertificationDetails",
+        "CertificationKind",
+        "CompleteRecordMaterialRequest",
+        "CreateCertificationApplicationRequest",
+        "CreateExemptionApplicationRequest",
+        "CreateStudentApplicationRequest",
+        "DirectUploadHttpMethod",
+        "ExerciseCategory",
+        "FirstMaterialAcceptance",
+        "LocalizedText",
+        "MaterialCompletionReceipt",
+        "MaterialManifest",
+        "MaterialManifestItem",
+        "MaterialVersion",
+        "MediaAllocation",
+        "MediaAllocationRequest",
+        "MediaAsset",
+        "MediaFinalizationRejectionCode",
+        "MediaPurpose",
+        "PublicReviewReason",
+        "RecordImageMediaAllocationRequest",
+        "RecordReviewSummary",
+        "RecordVideoMediaAllocationRequest",
+        "ReviewProcessingStage",
+        "ReviewResult",
+        "SchoolCalendarReference",
+        "StudentApplication",
+        "StudentSummary",
+        "SubmitExerciseRecordRequest",
+        "SubmitOfflineSwimmingExerciseRecordRequest",
+        "SubmitOrdinaryExerciseRecordRequest",
+        "SubmitSwimmingExerciseRecordRequest",
+        "SupplementAcceptanceReceipt",
+        "SupplementApplicationRequest",
+        "SupplementRecordMaterialRequest",
+        "SupplementTimerView",
+        "TeacherReviewSla",
+        "TeacherSummary",
+        "TimerPause"
+      ],
+      "legalSchemaExamples": [
+        "old-mapping/EXEMPTION/legal",
+        "old-mapping/CERTIFICATION/legal",
+        "prior-workflow/ordinary/valid",
+        "prior-workflow/swimming/valid",
+        "prior-workflow/offline/valid",
+        "prior-workflow/supplement/valid",
+        "prior-workflow/completion/normal",
+        "prior-workflow/material/first_locked",
+        "prior-workflow/material/supplement_ready",
+        "prior-workflow/timer/active",
+        "prior-workflow/timer/paused",
+        "prior-workflow/timer/unavailable",
+        "prior-workflow/timer/accepted",
+        "prior-workflow/sla/available",
+        "prior-workflow/sla/paused",
+        "prior-workflow/sla/missing_calendar",
+        "prior-workflow/review/pending_material",
+        "prior-workflow/review/teacher_round1",
+        "prior-workflow/review/await_supplement",
+        "prior-workflow/review/round2",
+        "prior-workflow/review/valid",
+        "prior-workflow/receipt/first",
+        "prior-workflow/receipt/completion",
+        "prior-workflow/receipt/supplement",
+        "prior-workflow/reason/fixed_labels"
+      ],
+      "evidenceSuites": [
+        "prior-workflow"
+      ],
+      "laterVerification": "Phase6 complete UI Mock; Phase7–9 real state machine/authorization/concurrency/media/recovery. AT26/27 only test cancelled-capability rejection; P01–04 and H13 latest decisions override older assertions."
+    },
+    {
+      "at": "AT-22",
+      "source": "docs/rebuild/handoffs/2026-09-04-teacher-first-business-update.md#7-开发验收场景清单尚未执行",
+      "scenario": "不可完成课程参数或发布后改公式",
+      "originalAssertionHistorical": "前者阻止发布，后者拒绝；名称/说明仍按权限可编辑",
+      "currentDisposition": "CONTRACT_EXPRESSED_RUNTIME_SCENARIO_NOT_RUN",
+      "gaps": [
+        "GAP-H06"
+      ],
+      "changeRequests": [
+        "CR-20260908-002"
+      ],
+      "operationIds": [
+        "prepareCoursePublication",
+        "publishCourse",
+        "publishRuleTemplateVersion"
+      ],
+      "schemaNames": [
+        "Course",
+        "CourseAllowedInterval",
+        "CoursePlanEvidence",
+        "CoursePlanRequest",
+        "CourseRuleConfiguration",
+        "CourseRuleVersion",
+        "CourseTargets",
+        "LocalizedText",
+        "PublishCourseRequest",
+        "RuleTemplatePublishRequest",
+        "RuleTemplateVersion",
+        "SemesterStatus",
+        "SemesterSummary",
+        "TeacherSummary",
+        "TermType"
+      ],
+      "legalSchemaExamples": [
+        "prior-courses/template/publish",
+        "prior-courses/template/fixed",
+        "prior-courses/draft/defaults",
+        "prior-courses/draft/30/2",
+        "prior-courses/draft/30/3",
+        "prior-courses/draft/30/4",
+        "prior-courses/draft/45/2",
+        "prior-courses/draft/45/3",
+        "prior-courses/draft/45/4",
+        "prior-courses/draft/60/2",
+        "prior-courses/draft/60/3",
+        "prior-courses/draft/60/4",
+        "prior-courses/rule/frozen",
+        "prior-courses/plan/feasible",
+        "prior-courses/plan/proven_impossible",
+        "prior-courses/plan/unknown",
+        "prior-courses/course/publish"
+      ],
+      "evidenceSuites": [
+        "prior-courses"
+      ],
+      "laterVerification": "Phase6 complete UI Mock; Phase7–9 real state machine/authorization/concurrency/media/recovery. AT26/27 only test cancelled-capability rejection; P01–04 and H13 latest decisions override older assertions."
+    },
+    {
+      "at": "AT-23",
+      "source": "docs/rebuild/handoffs/2026-09-04-teacher-first-business-update.md#7-开发验收场景清单尚未执行",
+      "scenario": "期末有待办、有效补证或技术故障",
+      "originalAssertionHistorical": "展示阻塞、延后结算，不能批量无效或自动延长补练",
+      "currentDisposition": "CONTRACT_EXPRESSED_RUNTIME_SCENARIO_NOT_RUN",
+      "gaps": [
+        "GAP-H11",
+        "GAP-H18"
+      ],
+      "changeRequests": [
+        "CR-20260908-001",
+        "CR-20260908-002"
+      ],
+      "operationIds": [
+        "closeCourse",
+        "confirmCourseSettlement",
+        "correctExerciseRecordReview",
+        "listCourseSettlements",
+        "prepareCourseSettlement"
+      ],
+      "schemaNames": [
+        "ConfirmSettlementRequest",
+        "CorrectExerciseRecordInvalidRequest",
+        "CorrectExerciseRecordReviewRequest",
+        "CorrectExerciseRecordValidRequest",
+        "Course",
+        "CourseAllowedInterval",
+        "CourseCloseRequest",
+        "CourseRuleConfiguration",
+        "CourseRuleVersion",
+        "CourseTargets",
+        "CursorPage",
+        "ExpiryCorrectionFact",
+        "LocalizedText",
+        "PublicReviewReason",
+        "RecordReview",
+        "RecordReviewSummary",
+        "ReviewActionReceipt",
+        "ReviewProcessingStage",
+        "ReviewResult",
+        "RuleTemplateVersion",
+        "SchoolCalendarReference",
+        "SemesterStatus",
+        "SemesterSummary",
+        "SettlementBlocker",
+        "SettlementPreparation",
+        "SettlementPreparationRequest",
+        "SettlementReportVersion",
+        "SettlementReportVersionPage",
+        "SettlementSourceReference",
+        "SupplementTimerView",
+        "TeacherReviewSla",
+        "TeacherSummary",
+        "TermType",
+        "TimerPause"
+      ],
+      "legalSchemaExamples": [
+        "prior-workflow/correct/valid",
+        "prior-workflow/correct/invalid",
+        "prior-workflow/timer/active",
+        "prior-workflow/timer/paused",
+        "prior-workflow/timer/unavailable",
+        "prior-workflow/timer/accepted",
+        "prior-workflow/sla/available",
+        "prior-workflow/sla/paused",
+        "prior-workflow/sla/missing_calendar",
+        "prior-workflow/review/pending_material",
+        "prior-workflow/review/teacher_round1",
+        "prior-workflow/review/await_supplement",
+        "prior-workflow/review/round2",
+        "prior-workflow/review/valid",
+        "prior-workflow/correction/original_remainder",
+        "prior-workflow/event/return_not_invalid",
+        "prior-workflow/event/expiry",
+        "prior-workflow/event/fault_correction",
+        "prior-workflow/reason/fixed_labels",
+        "prior-courses/template/fixed",
+        "prior-courses/draft/defaults",
+        "prior-courses/draft/30/2",
+        "prior-courses/draft/30/3",
+        "prior-courses/draft/30/4",
+        "prior-courses/draft/45/2",
+        "prior-courses/draft/45/3",
+        "prior-courses/draft/45/4",
+        "prior-courses/draft/60/2",
+        "prior-courses/draft/60/3",
+        "prior-courses/draft/60/4",
+        "prior-courses/rule/frozen",
+        "prior-courses/settlement/prepare",
+        "prior-courses/settlement/correction_prepare",
+        "prior-courses/settlement/ready",
+        "prior-courses/settlement/blocked/FIRST_MATERIAL_PENDING",
+        "prior-courses/settlement/blocked/LOCKED_TRANSFER_PENDING",
+        "prior-courses/settlement/blocked/SUPPLEMENT_WINDOW_ACTIVE",
+        "prior-courses/settlement/unavailable",
+        "prior-courses/settlement/confirm",
+        "prior-courses/report/initial",
+        "prior-courses/report/correction"
+      ],
+      "evidenceSuites": [
+        "prior-courses",
+        "prior-workflow"
+      ],
+      "laterVerification": "Phase6 complete UI Mock; Phase7–9 real state machine/authorization/concurrency/media/recovery. AT26/27 only test cancelled-capability rejection; P01–04 and H13 latest decisions override older assertions."
+    },
+    {
+      "at": "AT-24",
+      "source": "docs/rebuild/handoffs/2026-09-04-teacher-first-business-update.md#7-开发验收场景清单尚未执行",
+      "scenario": "关闭课程/移出成员后原有待办",
+      "originalAssertionHistorical": "不吞掉待办；不允许新运动，原授权/期限内的处理仍可继续",
+      "currentDisposition": "CONTRACT_EXPRESSED_RUNTIME_SCENARIO_NOT_RUN",
+      "gaps": [
+        "GAP-H11",
+        "GAP-H16"
+      ],
+      "changeRequests": [
+        "CR-20260908-001",
+        "CR-20260908-002"
+      ],
+      "operationIds": [
+        "closeCourse",
+        "confirmCourseSettlement",
+        "getFirstMaterialEligibility",
+        "listCourseSettlements",
+        "prepareCourseSettlement",
+        "renewRecordUploadAuthorization",
+        "submitExerciseRecord"
+      ],
+      "schemaNames": [
+        "ConfirmSettlementRequest",
+        "Course",
+        "CourseAllowedInterval",
+        "CourseCloseRequest",
+        "CourseRuleConfiguration",
+        "CourseRuleVersion",
+        "CourseTargets",
+        "CursorPage",
+        "DirectUploadHttpMethod",
+        "ExerciseCategory",
+        "FirstMaterialAcceptance",
+        "FirstMaterialEligibility",
+        "LocalizedText",
+        "MaterialManifest",
+        "MaterialManifestItem",
+        "MaterialVersion",
+        "RecordUploadAuthorization",
+        "RecordUploadAuthorizationRequest",
+        "RuleTemplateVersion",
+        "SemesterStatus",
+        "SemesterSummary",
+        "SettlementBlocker",
+        "SettlementPreparation",
+        "SettlementPreparationRequest",
+        "SettlementReportVersion",
+        "SettlementReportVersionPage",
+        "SettlementSourceReference",
+        "SubmitExerciseRecordRequest",
+        "SubmitOfflineSwimmingExerciseRecordRequest",
+        "SubmitOrdinaryExerciseRecordRequest",
+        "SubmitSwimmingExerciseRecordRequest",
+        "TeacherSummary",
+        "TermType"
+      ],
+      "legalSchemaExamples": [
+        "prior-workflow/ordinary/valid",
+        "prior-workflow/swimming/valid",
+        "prior-workflow/offline/valid",
+        "prior-workflow/upload/renew",
+        "prior-workflow/material/first_locked",
+        "prior-workflow/material/supplement_ready",
+        "prior-workflow/receipt/first",
+        "prior-courses/template/fixed",
+        "prior-courses/draft/defaults",
+        "prior-courses/draft/30/2",
+        "prior-courses/draft/30/3",
+        "prior-courses/draft/30/4",
+        "prior-courses/draft/45/2",
+        "prior-courses/draft/45/3",
+        "prior-courses/draft/45/4",
+        "prior-courses/draft/60/2",
+        "prior-courses/draft/60/3",
+        "prior-courses/draft/60/4",
+        "prior-courses/rule/frozen",
+        "prior-courses/settlement/prepare",
+        "prior-courses/settlement/correction_prepare",
+        "prior-courses/settlement/ready",
+        "prior-courses/settlement/blocked/FIRST_MATERIAL_PENDING",
+        "prior-courses/settlement/blocked/LOCKED_TRANSFER_PENDING",
+        "prior-courses/settlement/blocked/SUPPLEMENT_WINDOW_ACTIVE",
+        "prior-courses/settlement/unavailable",
+        "prior-courses/settlement/confirm",
+        "prior-courses/report/initial",
+        "prior-courses/report/correction"
+      ],
+      "evidenceSuites": [
+        "prior-courses",
+        "prior-workflow"
+      ],
+      "laterVerification": "Phase6 complete UI Mock; Phase7–9 real state machine/authorization/concurrency/media/recovery. AT26/27 only test cancelled-capability rejection; P01–04 and H13 latest decisions override older assertions."
+    },
+    {
+      "at": "AT-25",
+      "source": "docs/rebuild/handoffs/2026-09-04-teacher-first-business-update.md#7-开发验收场景清单尚未执行",
+      "scenario": "归档后事实纠错",
+      "originalAssertionHistorical": "追加判断与新版报告，不开放新运动或第二轮补证",
+      "currentDisposition": "CONTRACT_EXPRESSED_RUNTIME_SCENARIO_NOT_RUN",
+      "gaps": [
+        "GAP-H11",
+        "GAP-H13",
+        "GAP-H18"
+      ],
+      "changeRequests": [
+        "CR-20260908-001",
+        "CR-20260908-002",
+        "CR-20260908-003"
+      ],
+      "operationIds": [
+        "closeCourse",
+        "confirmCourseSettlement",
+        "correctExerciseRecordReview",
+        "listCourseSettlements",
+        "listHistoricalFinalGradeRemarks",
+        "prepareCourseSettlement",
+        "publishFinalGrade"
+      ],
+      "schemaNames": [
+        "ConfirmSettlementRequest",
+        "CorrectExerciseRecordInvalidRequest",
+        "CorrectExerciseRecordReviewRequest",
+        "CorrectExerciseRecordValidRequest",
+        "Course",
+        "CourseAllowedInterval",
+        "CourseCloseRequest",
+        "CourseRuleConfiguration",
+        "CourseRuleVersion",
+        "CourseTargets",
+        "CursorPage",
+        "ExpiryCorrectionFact",
+        "FinalGradePublication",
+        "HistoricalFinalGradeRemark",
+        "HistoricalFinalGradeRemarkPage",
+        "LocalizedText",
+        "PublicReviewReason",
+        "PublishFinalGradeRequest",
+        "RecordReview",
+        "RecordReviewSummary",
+        "ReviewActionReceipt",
+        "ReviewProcessingStage",
+        "ReviewResult",
+        "RuleTemplateVersion",
+        "SchoolCalendarReference",
+        "SemesterStatus",
+        "SemesterSummary",
+        "SettlementBlocker",
+        "SettlementPreparation",
+        "SettlementPreparationRequest",
+        "SettlementReportVersion",
+        "SettlementReportVersionPage",
+        "SettlementSourceReference",
+        "SupplementTimerView",
+        "TeacherReviewSla",
+        "TeacherSummary",
+        "TermType",
+        "TimerPause"
+      ],
+      "legalSchemaExamples": [
+        "prior-workflow/correct/valid",
+        "prior-workflow/correct/invalid",
+        "prior-workflow/timer/active",
+        "prior-workflow/timer/paused",
+        "prior-workflow/timer/unavailable",
+        "prior-workflow/timer/accepted",
+        "prior-workflow/sla/available",
+        "prior-workflow/sla/paused",
+        "prior-workflow/sla/missing_calendar",
+        "prior-workflow/review/pending_material",
+        "prior-workflow/review/teacher_round1",
+        "prior-workflow/review/await_supplement",
+        "prior-workflow/review/round2",
+        "prior-workflow/review/valid",
+        "prior-workflow/correction/original_remainder",
+        "prior-workflow/event/return_not_invalid",
+        "prior-workflow/event/expiry",
+        "prior-workflow/event/fault_correction",
+        "prior-workflow/reason/fixed_labels",
+        "prior-courses/template/fixed",
+        "prior-courses/draft/defaults",
+        "prior-courses/draft/30/2",
+        "prior-courses/draft/30/3",
+        "prior-courses/draft/30/4",
+        "prior-courses/draft/45/2",
+        "prior-courses/draft/45/3",
+        "prior-courses/draft/45/4",
+        "prior-courses/draft/60/2",
+        "prior-courses/draft/60/3",
+        "prior-courses/draft/60/4",
+        "prior-courses/rule/frozen",
+        "prior-courses/settlement/prepare",
+        "prior-courses/settlement/correction_prepare",
+        "prior-courses/settlement/ready",
+        "prior-courses/settlement/blocked/FIRST_MATERIAL_PENDING",
+        "prior-courses/settlement/blocked/LOCKED_TRANSFER_PENDING",
+        "prior-courses/settlement/blocked/SUPPLEMENT_WINDOW_ACTIVE",
+        "prior-courses/settlement/unavailable",
+        "prior-courses/settlement/confirm",
+        "prior-courses/report/initial",
+        "prior-courses/report/correction",
+        "checks/wire/HistoricalFinalGradeRemark",
+        "checks/wire/PublishFinalGradeRequest",
+        "checks/wire/FinalGradePublication",
+        "checks/grade/signed/-1000",
+        "checks/grade/signed/0",
+        "checks/grade/signed/101",
+        "checks/grade/signed/2147483647",
+        "checks/grade/signed/-2147483648",
+        "checks/history/remark"
+      ],
+      "evidenceSuites": [
+        "checks",
+        "prior-courses",
+        "prior-workflow"
+      ],
+      "laterVerification": "Phase6 complete UI Mock; Phase7–9 real state machine/authorization/concurrency/media/recovery. AT26/27 only test cancelled-capability rejection; P01–04 and H13 latest decisions override older assertions."
+    },
+    {
+      "at": "AT-26",
+      "source": "docs/rebuild/handoffs/2026-09-04-teacher-first-business-update.md#7-开发验收场景清单尚未执行",
+      "scenario": "责任教师失效后有限接管",
+      "originalAssertionHistorical": "仅明确记录及期限内有效；无课程/成员/成绩等越权动作",
+      "currentDisposition": "SUPERSEDED_NO_DELEGATION_API_VERIFY_DENIAL_LATER",
+      "gaps": [
+        "GAP-H14"
+      ],
+      "changeRequests": [
+        "CR-20260908-003"
+      ],
+      "operationIds": [],
+      "schemaNames": [],
+      "legalSchemaExamples": [],
+      "evidenceSuites": [
+        "checks"
+      ],
+      "laterVerification": "Phase6 complete UI Mock; Phase7–9 real state machine/authorization/concurrency/media/recovery. AT26/27 only test cancelled-capability rejection; P01–04 and H13 latest decisions override older assertions."
+    },
+    {
+      "at": "AT-27",
+      "source": "docs/rebuild/handoffs/2026-09-04-teacher-first-business-update.md#7-开发验收场景清单尚未执行",
+      "scenario": "授权到期/撤销/待办清空、旧页面提交",
+      "originalAssertionHistorical": "权限失效立即拒绝，不自动续期，不覆盖旧责任教师",
+      "currentDisposition": "SUPERSEDED_NO_DELEGATION_API_VERIFY_DENIAL_LATER",
+      "gaps": [
+        "GAP-H14"
+      ],
+      "changeRequests": [
+        "CR-20260908-003"
+      ],
+      "operationIds": [],
+      "schemaNames": [],
+      "legalSchemaExamples": [],
+      "evidenceSuites": [
+        "checks"
+      ],
+      "laterVerification": "Phase6 complete UI Mock; Phase7–9 real state machine/authorization/concurrency/media/recovery. AT26/27 only test cancelled-capability rejection; P01–04 and H13 latest decisions override older assertions."
+    },
+    {
+      "at": "AT-28",
+      "source": "docs/rebuild/handoffs/2026-09-04-teacher-first-business-update.md#7-开发验收场景清单尚未执行",
+      "scenario": "总管理员/分管理员配置服务、教师普通审核",
+      "originalAssertionHistorical": "专属权限不下放；管理员不能代审；全部实际动作留痕",
+      "currentDisposition": "CONTRACT_EXPRESSED_RUNTIME_SCENARIO_NOT_RUN",
+      "gaps": [
+        "GAP-H10",
+        "GAP-H21"
+      ],
+      "changeRequests": [
+        "CR-20260908-003"
+      ],
+      "operationIds": [
+        "getTechnicalServiceRunStatus",
+        "openManualModeWindow",
+        "publishTechnicalServiceRevision"
+      ],
+      "schemaNames": [
+        "ManualModeWindow",
+        "OpenManualModeRequest",
+        "TechnicalProbe",
+        "TechnicalQualityEvidence",
+        "TechnicalServiceRevision",
+        "TechnicalServiceRevisionRequest",
+        "TechnicalServiceRunStatus",
+        "TechnicalServiceScope",
+        "TechnicalTaskCounts"
+      ],
+      "legalSchemaExamples": [
+        "checks/wire/TechnicalServiceScope",
+        "checks/wire/TechnicalServiceRevisionRequest",
+        "checks/wire/TechnicalServiceRevision",
+        "checks/wire/TechnicalTaskCounts",
+        "checks/wire/TechnicalQualityEvidence",
+        "checks/wire/TechnicalServiceRunStatus",
+        "checks/wire/OpenManualModeRequest",
+        "checks/wire/ManualModeWindow",
+        "checks/service/ROSTER_OCR",
+        "checks/service/ENDURANCE_OCR",
+        "checks/service/vlm_evidence_reference",
+        "checks/service/available",
+        "checks/service/course_scope",
+        "checks/manual/closed"
+      ],
+      "evidenceSuites": [
+        "checks"
+      ],
+      "laterVerification": "Phase6 complete UI Mock; Phase7–9 real state machine/authorization/concurrency/media/recovery. AT26/27 only test cancelled-capability rejection; P01–04 and H13 latest decisions override older assertions."
+    }
+  ],
+  "studentPages": [
+    {
+      "page": "PAGE-STU-001",
+      "title": "启动与中断恢复",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "getCurrentActor",
+        "getSystemMode",
+        "getOwnActiveExerciseSession"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-002",
+      "title": "系统维护",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "getSystemMode",
+        "getOwnExerciseRecord"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-003",
+      "title": "首次隐私同意",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [],
+      "disposition": "LOCAL_PRESENTATION_OR_EXISTING_SCHOOL_PROCESS_NO_NEW_API",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-004",
+      "title": "登录前课程引导",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [],
+      "disposition": "LOCAL_PRESENTATION_OR_EXISTING_SCHOOL_PROCESS_NO_NEW_API",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-005",
+      "title": "登录方式选择",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "requestAuthChallenge",
+        "createStudentSession"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-006",
+      "title": "邮箱验证码登录",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "requestAuthChallenge",
+        "createStudentSession"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-007",
+      "title": "登录前隐私政策",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [],
+      "disposition": "LOCAL_PRESENTATION_OR_EXISTING_SCHOOL_PROCESS_NO_NEW_API",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-008",
+      "title": "身份恢复申请",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [],
+      "disposition": "LOCAL_PRESENTATION_OR_EXISTING_SCHOOL_PROCESS_NO_NEW_API",
+      "note": "PAGE-STU-008 follows student business §5.3 school/administrator identity verification; no new online recovery submission/approval API is invented. Shared getCourse must honor actual operation roles, not imply student permission."
+    },
+    {
+      "page": "PAGE-STU-009",
+      "title": "强制邮箱绑定",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "requestAuthChallenge",
+        "registerStudentAndJoinCourse"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-010",
+      "title": "入班后引导",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "getOwnCurrentCourse"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-020",
+      "title": "首页",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "getStudentDashboard",
+        "getOwnCourseProgress"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-021",
+      "title": "课程",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "getOwnCurrentCourse"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "PAGE-STU-008 follows student business §5.3 school/administrator identity verification; no new online recovery submission/approval API is invented. Shared getCourse must honor actual operation roles, not imply student permission."
+    },
+    {
+      "page": "PAGE-STU-022",
+      "title": "打卡",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "startExerciseSession",
+        "getOwnActiveExerciseSession"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-023",
+      "title": "记录与进度",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "getOwnCourseProgress",
+        "listOwnExerciseRecords",
+        "listCheckpointRecordCredits"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-024",
+      "title": "我的",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "getCurrentActor"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-025",
+      "title": "站内通知",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "listOwnStudentNotifications",
+        "getOwnStudentUnreadNotificationCount",
+        "markOwnStudentNotificationRead"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-030",
+      "title": "登录前扫码",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "previewCourseInvitation",
+        "registerNewInvitationFlow"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-031",
+      "title": "登录前邀请确认",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "previewCourseInvitation",
+        "registerNewInvitationFlow",
+        "registerStudentAndJoinCourse"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-032",
+      "title": "登录后扫码",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "previewCourseInvitation",
+        "registerExistingInvitationFlow"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-033",
+      "title": "输入邀请码",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "previewCourseInvitation"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-034",
+      "title": "入班确认",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "previewCourseInvitation",
+        "joinCourseByInvitation"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-035",
+      "title": "入班结果",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "joinCourseByInvitation",
+        "registerStudentAndJoinCourse",
+        "getOwnCurrentCourse"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-040",
+      "title": "运动会话",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "getOwnActiveExerciseSession",
+        "startExerciseSession",
+        "getExerciseSession",
+        "pauseExerciseSession",
+        "resumeExerciseSession",
+        "completeExerciseSession"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-041",
+      "title": "证据采集",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "allocateMediaAsset",
+        "finalizeMediaAsset"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-042",
+      "title": "提交与中断恢复",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "getFirstMaterialEligibility",
+        "submitExerciseRecord",
+        "listRecordMaterials",
+        "getRecordMaterial",
+        "completeExerciseRecordMaterial",
+        "renewRecordUploadAuthorization"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-043",
+      "title": "游泳延迟说明",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "submitExerciseRecord"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-050",
+      "title": "打卡记录列表",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "listOwnExerciseRecords"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-051",
+      "title": "打卡记录详情",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "getOwnExerciseRecord",
+        "listExerciseRecordReviews",
+        "getRecordMaterial",
+        "listCheckpointRecordCredits"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-052",
+      "title": "原始耐力结果",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "getOwnEnduranceOutcome"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-060",
+      "title": "一次补充任务",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "getOwnExerciseRecord",
+        "submitExerciseRecordSupplement"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-061",
+      "title": "补充材料已接收",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "getOwnExerciseRecord",
+        "getRecordMaterial"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-070",
+      "title": "免测/认证",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "createStudentApplication",
+        "listOwnApplications",
+        "getOwnApplication",
+        "supplementStudentApplication"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-080",
+      "title": "账户信息",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "getCurrentActor"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-081",
+      "title": "设置",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "logoutCurrentSession",
+        "logoutAllSessions"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-082",
+      "title": "账户注销",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "getOwnAccountDeletionImpact",
+        "deleteOwnAccount"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-083",
+      "title": "已验证邮箱",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "requestAuthChallenge",
+        "changeOwnVerifiedEmail"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-084",
+      "title": "帮助中心",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "listPublishedHelpArticles",
+        "getPublishedHelpArticle"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-085",
+      "title": "反馈",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "createFeedback",
+        "listOwnFeedback",
+        "getOwnFeedback"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-086",
+      "title": "关于",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "getAppReleasePolicy"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-087",
+      "title": "更新日志",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [],
+      "disposition": "LOCAL_PRESENTATION_OR_EXISTING_SCHOOL_PROCESS_NO_NEW_API",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-088",
+      "title": "隐私政策",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [],
+      "disposition": "LOCAL_PRESENTATION_OR_EXISTING_SCHOOL_PROCESS_NO_NEW_API",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    }
+  ],
+  "sevenStates": [
+    "NORMAL",
+    "LOADING",
+    "EMPTY",
+    "ERROR",
+    "FORBIDDEN",
+    "MAINTENANCE",
+    "RESUME"
+  ],
+  "stateSource": "docs/rebuild/phase-2/android/p2a-student-ui/state-matrix.md",
+  "stateBoundary": "Do not infer MAINTENANCE from transport failure or INVALID from technical state; no default-empty on failure. Actual seven-state UI Mock in6, devices/accessibility in10.",
+  "webInput": "docs/rebuild/handoffs/2026-09-05-web-v81-align.md",
+  "webBoundary": "Former display-only return/supplement, review stages, locked-batch continuation, SLA, template/OCR/technical governance now have RC mappings; actual Web binding and complete Mock remain Phase6. Cancelled delegation stays absent.",
+  "unexecuted": [
+    "Phase6 A/B actual app/Mapper/Mock and6C",
+    "Backend7.0 compatibility",
+    "Phase7 actual backend/DB/calendar",
+    "Phase8 legacy/FCM migration",
+    "Phase9 E2E/recovery/OCR quality",
+    "Phase10 privacy/seven-state/accessibility",
+    "Phase11 release evidence"
+  ]
+}

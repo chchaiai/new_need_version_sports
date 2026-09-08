@@ -1,0 +1,22 @@
+[
+  {
+    "file": "json-schema-1.9.1.pom",
+    "source": "https://repo.maven.apache.org/maven2/dev/harrel/json-schema/1.9.1/json-schema-1.9.1.pom",
+    "sha256": "5c3fd81b7ef77050c7a5b4ba7b4825a51ee54ba0595c94f4955d8eeee0f1ef9d"
+  },
+  {
+    "file": "json-schema-1.9.1.jar",
+    "source": "https://repo.maven.apache.org/maven2/dev/harrel/json-schema/1.9.1/json-schema-1.9.1.jar",
+    "sha256": "9f448b1142e9805f91f926e709206f1402f11a75da4dee729d98c77194030285"
+  },
+  {
+    "file": "jmail-2.1.0.pom",
+    "source": "https://repo.maven.apache.org/maven2/com/sanctionco/jmail/jmail/2.1.0/jmail-2.1.0.pom",
+    "sha256": "b06e306d917b9d1554f5fc92e8e31786edfc1191c1f908c53f95d64cc7e8aa6c"
+  },
+  {
+    "file": "jmail-2.1.0.jar",
+    "source": "https://repo.maven.apache.org/maven2/com/sanctionco/jmail/jmail/2.1.0/jmail-2.1.0.jar",
+    "sha256": "7789f9e86aa02a9c308a650c4e44e17cc4b6caac7f43e261701b0ceefdd4ead4"
+  }
+]

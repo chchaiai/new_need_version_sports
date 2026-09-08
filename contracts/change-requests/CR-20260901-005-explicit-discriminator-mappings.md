@@ -1,15 +1,17 @@
 # CR-20260901-005：Explicit Discriminator Mappings
 
-- 状态：`PROPOSED`
-- 阻塞级别：`BLOCKING`（Phase 5 Final Gate / Phase 6.0 Backend Foundation）
+- 状态：`IMPLEMENTED`（2026-09-08 已接受修复落实于本步DRAFT；Phase6及Phase7.0消费验收分别待执行）
+- 当前路线：新版 Phase 5「新 API Contract / OpenAPI」；消费验证按第7节分阶段验收。原 Phase 5 Final Gate / Phase 6.0 Backend Foundation 为历史编号。
 - 来源：Phase 5 Final Gate 对 Phase 5G-B discriminator finding 的独立复核
 - 提交人：Phase 5 Final Gate Review
 - Contract 当前版本：`1.2.0-contract` / `RC`
 - Contract 当前 SHA-256：`667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a`
-- Contract 目标版本：`TBD`；接受后必须生成不同于当前基线的新 Version / SHA，禁止原地覆盖
+- 本步目标版本：`1.2.1-contract.phase5-step02.1 / DRAFT`；最终新RC在新版Phase5第六步统一确定。必须使用不同于旧RC的Version/SHA，禁止沿用旧身份覆盖。
 - 业务权威与决定编号：不新增业务决定；保持既有 `applicationType`、`action`、`targetMode` wire closed-set 语义
 
 ## 1. 变更原因与 Use Case
+
+下述原始缺陷、提案与2026-09-01审批记录保留为历史依据；其中“PROPOSED”“接受前”和旧阶段编号按第7节最新接受记录理解。
 
 当前 OpenAPI 在三处 `oneOf` 上声明了 discriminator，但没有声明 explicit `mapping`：
 
@@ -103,3 +105,44 @@ SwitchSystemModeRequest:
 - 2026-09-01：Phase 5G-B 将 application discriminator 生成结果记录为 `CLIENT_DEFECT-5GB-02`，由 Student wire adapter 隔离，并要求后续解决或确认。
 - 2026-09-01：Phase 5 Final Gate 独立扫描当前 OpenAPI 的全部 discriminator，确认相同模式共有三组；现场 `openapi-typescript --check` 与 affected tests 通过，但 generated declarations 仍使用 schema-name literal。
 - 2026-09-01：Phase 5 Final Gate 结论为 `PROPOSED / BLOCKING`。本记录不等于接受或实施，OpenAPI、metadata、Version、SHA 和客户端/Backend 均未修改。
+
+## 7. 2026-09-08 接受与新版路线对齐
+
+### 7.1 真实决定来源及分工
+
+本轮用户在当前项目对话中依次确认：第一项按建议从源修复并核对七个对应关系、无额外变更及实际生成结果；第二项采用所述Android包装模型与校验方案；后端按新版Phase7.0验证，不单独阻断Phase5/6。随后对齐用户兼任Contract Owner与Reviewer、Codex执行/验证/整改，并明确“好的，开始继续完成第二步”。本段归档用户的实际接受与执行授权，不表示用户亲自运行了测试，也不代签其他人的审查。
+
+- Contract Owner / Reviewer：用户本人；执行与验证：Codex。
+- 陈昊此前“待审查”为历史状态，没有将其写成审查通过。
+- 接受对象为三处最小源补丁，SHA-256：`9574cec5e6bb5b3fb4e0279e71bf71e51777fb9d73419527a7a5ca1466fe0511`。
+- 原审查实验为 `0.0.0-cr005-review.1 / DRAFT`，SHA-256：`7558d01afb7dbb1380a0ecafaa0a8632bba8b5dced018e77a6335e2e027bcc72`。该实验身份保留，不改写历史证据。
+- 本轮在工作分支实施为独立DRAFT版本；只有三处mapping及版本、状态、接受CR列表等治理元数据变化。不修改业务字段、值、接口、权限或规则。
+
+### 7.2 验收分工与仍须执行的门禁
+
+| 验收项 | 执行阶段 / 责任 | 必须留下的证据与门禁 |
+|---|---|---|
+| 三处协议修复 | Phase5第二步；Codex执行、用户接收 | 实际源补丁一致；七种映射、分支const/required/null/引用一致；新DRAFT确定性生成；结构、类型及正反例验证 |
+| 最终RC | Phase5第六～七步；Contract Owner / Reviewer | 完整Phase5范围、新Version/SHA、verify/lint/readiness及最终Review；本步DRAFT不代替最终RC |
+| Android/Web验证轨 | Phase6A/6B/6C；各端Owner与Reviewer入场落实 | 固定同一最终Version/SHA，生成、序列化、未知值拒绝、Mapper/Mock及受影响构建；阻塞协议CR关闭后才通过6C |
+| BE-CR005-COMPAT | Phase7.0；Backend Owner执行、对应Reviewer复核，具体人员在入场落实；用户作为总负责人跟踪 | 选定真实技术栈后，先用其生成/映射方案验证冻结协议；七合法分支和非法输入拒绝、往返及内部命令映射有证据。未通过不得关闭7.0或进入7.1及后续业务切片 |
+| 正式客户端网络迁移 | Phase8；对应客户端Owner | 按已可用后端切片迁移正式绑定并验证真实调用；不能用Phase5探针或Phase6 Mock代替 |
+
+BE-CR005-COMPAT当前为 `NOT_RUN / SCHEDULED_PHASE_7_0`。保留其测试要求和追溯关系，不能记PASS或隐去；不为通过该项临时选择后端技术栈。依据为新版Phase6任务书“Backend技术栈确定后，再对所选生成/消费工具验证冻结协议兼容性”及Phase7的7.0“先验证所选工具兼容冻结Contract”。本节按用户确认的新版路线落实原第5.5条，保留其他验证要求，不把旧编号直接套用到新版阶段。
+
+如后端兼容失败：工具/适配器问题在对应后端任务整改；确为Contract缺陷则返回Phase5走CR、升版、重新分发并让受影响端重验。真实协议缺陷继续阻塞其适用阶段，不能借后端延期绕过。
+
+### 7.3 Android方案边界
+
+接受使用固定7.24.0生成器、14个相关wrapper模型及其余182个原模板模型，并由同协议驱动闭集字段/判别值guard的方案进行本阶段验证。生成文件不手改，源、模板、组合清单和工具版本可追溯。guard不等于完整JSON Schema验证器；正式客户端集成和更广的输入约束仍须Phase6/8按各自范围验证。
+
+旧失败记录保留；本轮结果必须来自实际已修改候选。当前[第二步验证入口](../validation/step02_discriminators/README.md)与[Phase5交接](../../docs/rebuild/handoffs/new-req-phase-5.md)负责记录实施身份和后续结果。`IMPLEMENTED`只表示本步协议修复已落实，不表示整个Phase5、客户端或后端验收完成。
+
+### 7.4 本步实施结果
+
+- 当前候选：`1.2.1-contract.phase5-step02.1 / DRAFT`；OpenAPI SHA-256：`1df0e8a1b50b3b4c0cfa128064e8da714f949c761eec9aae9e9e64179d374b27`。
+- 实际源patch与被接受的SHA一致，其他业务源不变；两次独立构建与工作区OpenAPI/catalog/metadata三产物字节相同。治理元数据新增本CR，版本与状态已区分旧RC。
+- 结构verify及lint通过；JSON Schema新旧各59/59，39项映射破坏检查全部检出；TypeScript七合法/28非法类型断言及七次往返通过；Kotlin196模型编译通过，JavaScript和Kotlin/JVM各59/59、七次往返通过。
+- RC readiness实际退出1，唯一原因是当前DRAFT不可发布；本步不将其记为PASS，不放宽门禁。第六步新RC须重验。
+- 工作基线仍是`974587c3778a53803a7959ea0f64677581e239f4`，当前候选尚未commit/push，不冒充已发布版本。完整结果见[本步机器记录](../validation/step02_discriminators/implementation-result.json)。
+- 新版Phase5第二步本地范围完成；Phase5整体仍IN_PROGRESS，Phase6/7后续验收和最终阶段接收没有提前发生。

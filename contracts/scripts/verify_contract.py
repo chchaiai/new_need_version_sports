@@ -4,6 +4,7 @@ from copy import deepcopy
 import hashlib
 import json
 import re
+import sys
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -23,6 +24,18 @@ from build_contract import (
     render_catalog,
 )
 from common import ERROR_CATALOG
+
+# Reuse the same read-only integrity gate exercised by the CR-005 mutation suite.
+sys.path.insert(0, str(CONTRACT_ROOT / "validation" / "step02_discriminators"))
+from check_discriminators import integrity_errors  # noqa: E402
+sys.path.insert(0, str(CONTRACT_ROOT / "validation" / "step03_workflow"))
+from check_workflow import integrity_errors as workflow_integrity_errors  # noqa: E402
+sys.path.insert(0, str(CONTRACT_ROOT / "validation" / "step04_courses"))
+from check_courses import integrity_errors as course_integrity_errors  # noqa: E402
+sys.path.insert(0, str(CONTRACT_ROOT / "validation" / "step05_teaching"))
+from check_teaching import integrity_errors as teaching_integrity_errors  # noqa: E402
+sys.path.insert(0, str(CONTRACT_ROOT / "validation" / "step06_final"))
+from check_final import integrity_errors as final_integrity_errors  # noqa: E402
 
 
 HTTP_METHODS = {"get", "post", "put", "patch", "delete"}
@@ -490,9 +503,9 @@ def verify_public_rules(check: Verification, spec: dict[str, Any]) -> None:
         "Session state machine",
     )
     check.equal(
-        set(schema_property(spec, "RecordReviewSummary", "result")["enum"]),
-        {"VALID", "INVALID"},
-        "Record review state",
+        schema_property(spec, "RecordReviewSummary", "result"),
+        {"anyOf": [{"$ref": "#/components/schemas/ReviewResult"}, {"type": "null"}]},
+        "CR-20260908-001 separates null pending result from terminal VALID/INVALID",
     )
     check.equal(set(schemas["ApplicationStatus"]["enum"]), {"SUBMITTED", "SUPPLEMENT_REQUIRED", "APPROVED", "REJECTED"}, "Application state")
     check.equal(set(schemas["TeacherSummary"]["properties"]), {"teacherId", "name"}, "Student-visible teacher fields")
@@ -564,9 +577,10 @@ def verify_public_rules(check: Verification, spec: dict[str, Any]) -> None:
     check.equal(len(schemas["MediaAsset"].get("allOf", [])), 3, "MediaAsset status/rejection invariants")
 
     check.equal(schema_property(spec, "CourseTargets", "totalTargetMinutes").get("const"), 1200, "20-hour target")
-    check.equal(schema_property(spec, "ExerciseRecord", "creditedMinutes").get("enum"), [0, 60, 120], "Credited-minute values")
-    check.equal(schema_property(spec, "SubmitExerciseRecordRequest", "description").get("maxLength"), 200, "Record description length")
-    check.equal(schema_property(spec, "SubmitExerciseRecordRequest", "mediaAssetIds").get("maxItems"), 7, "Record aggregate media count")
+    check.check("creditedMinutes" not in schemas["ExerciseRecord"]["properties"], "CR-20260908-001 retires automatic 0/60/120 credit; step4 owns the new statistics projection")
+    for name in ["SubmitOrdinaryExerciseRecordRequest", "SubmitSwimmingExerciseRecordRequest", "SubmitOfflineSwimmingExerciseRecordRequest"]:
+        check.equal(schema_property(spec, name, "description").get("maxLength"), 200, "Record description length: " + name)
+    check.equal(schemas["MaterialManifest"].get("maxItems"), 7, "Record aggregate media count per version")
     check.equal(schema_property(spec, "RecordImageMediaAllocationRequest", "declaredByteSize").get("maximum"), 10 * 1024 * 1024, "Record image size")
     check.equal(schema_property(spec, "RecordVideoMediaAllocationRequest", "declaredByteSize").get("maximum"), 100 * 1024 * 1024, "Record video size")
     check.equal(schema_property(spec, "ApplicationMediaAllocationRequest", "declaredByteSize").get("maximum"), 10 * 1024 * 1024, "Application image size")
@@ -584,7 +598,8 @@ def verify_public_rules(check: Verification, spec: dict[str, Any]) -> None:
     check.equal(schema_property(spec, "PublishFinalGradeRequest", "gradeValue").get("format"), "int32", "Final grade representation")
     check.check("minimum" not in schema_property(spec, "PublishFinalGradeRequest", "gradeValue"), "Final grade must not add a minimum")
     check.check("maximum" not in schema_property(spec, "PublishFinalGradeRequest", "gradeValue"), "Final grade must not add a maximum")
-    check.equal(schema_property(spec, "PublishFinalGradeRequest", "remark")["anyOf"][0].get("maxLength"), 50, "Final-grade remark length")
+    check.check("remark" not in schemas["PublishFinalGradeRequest"]["properties"], "New final-grade remark is forbidden, including null")
+    check.equal(schema_property(spec, "HistoricalFinalGradeRemark", "remark")["anyOf"][0].get("maxLength"), 50, "Preserved historical remark length")
 
     operations = {operation["operationId"]: operation for _, _, operation in iter_operations(spec)}
     check.equal(operations["getCourse"]["x-roles"], ["TEACHER"], "Teacher course-detail role boundary")
@@ -726,7 +741,11 @@ def verify_password_contract_cr(check: Verification, spec: dict[str, Any]) -> No
         )
         check.check("403" in operation["responses"], f"{operation_id}: missing 403 response for first-password gate")
 
-    expected_admin_gated = PASSWORD_NEW_ADMIN_GATE_OPERATION_IDS | PASSWORD_EXISTING_ADMIN_GATE_OPERATION_IDS
+    expected_admin_gated = PASSWORD_NEW_ADMIN_GATE_OPERATION_IDS | PASSWORD_EXISTING_ADMIN_GATE_OPERATION_IDS | {
+        "listPublishedRuleTemplates", "publishRuleTemplateVersion", "listSemesterSettlementSummaries",
+        "publishTechnicalServiceRevision", "listTechnicalServiceRevisions", "getTechnicalServiceRunStatus",
+        "openManualModeWindow", "listManualModeWindows", "closeManualModeWindow",
+    }  # CR-20260908-002 adds exactly these three protected Admin operations.
     actual_admin_gated = {
         operation_id
         for operation_id, operation in operations.items()
@@ -990,10 +1009,11 @@ def verify_rejected_dashboard_cr_and_consolidation(check: Verification, spec: di
         not {"CR-20260901-001", "CR-20260901-004"}.intersection(accepted_change_requests),
         "Rejected CRs must not enter accepted Contract governance",
     )
-    check.equal(len(spec["paths"]), 109, "Final Contract path count")
-    check.equal(len(list(iter_operations(spec))), 121, "Final Contract operation count")
-    check.equal(len(schemas), 193, "Final Contract schema count")
-    check.equal(len(spec["x-error-catalog"]), 66, "Final Contract error count")
+    # CR-20260908-002: +15 paths/+17 operations/+35 schemas/+15 errors, -3 obsolete errors.
+    check.equal(len(spec["paths"]), 157, "Step05 Contract path count")
+    check.equal(len(list(iter_operations(spec))), 176, "Step05 Contract operation count")
+    check.equal(len(schemas), 316, "Step05 Contract schema count")
+    check.equal(len(spec["x-error-catalog"]), 99, "Step05 Contract error count")
 
 
 def main() -> None:
@@ -1011,6 +1031,15 @@ def main() -> None:
     verify_password_contract_cr(check, spec)
     verify_certification_contract_cr(check, spec)
     verify_rejected_dashboard_cr_and_consolidation(check, spec)
+    check.errors.extend(f"CR-005: {problem}" for problem in integrity_errors(spec))
+    check.errors.extend(f"CR-20260908-001: {problem}" for problem in workflow_integrity_errors(spec))
+    check.errors.extend(f"CR-20260908-002: {problem}" for problem in course_integrity_errors(spec))
+    check.errors.extend(f"CR-20260908-003: {problem}" for problem in teaching_integrity_errors(spec))
+    check.errors.extend(f"CR-20260908-004: {problem}" for problem in final_integrity_errors(spec))
+    check.check(
+        "CR-20260901-005" in spec["x-contract-governance"]["acceptedPhase5ChangeRequests"],
+        "Implemented discriminator repair must record accepted CR-20260901-005",
+    )
 
     if check.errors:
         print(f"Contract verification FAILED with {len(check.errors)} problem(s):")
