@@ -1,15 +1,15 @@
 # 当前进度状态
 
-## 2026-09-08 新版Phase5第七步最终接收通过，准备上传与交接
+## 2026-09-08 新版Phase5 DONE，Phase6 READY / NOT_STARTED
 
-- 状态：PARTIAL / OWNER_ACCEPTED_UPLOAD_READY；完整完成6/7步，第七步剩用户GitHub提交/PR/合并、固定提交及字节核验、具名交接。Phase5仍IN_PROGRESS，不启动Phase6。
-- 用户兼任Contract Owner/Reviewer，已明确回复：“最终交付是否正确落实决定  审核通过，可以开始准备上传和交接”。Codex如实登记及执行自检，不登记陈昊或其他第三方Review。接收原话及所审SHA见分发清单。
-- 已接受候选为`1.3.0-contract / RC / 5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed`；157 paths /176 operations /316 schemas /99 errors。此次只登记接收、准备上传及Web交接，协议/生成源、业务与架构输入字节保持不变；RC不提升为APPROVED。
-- 分支`codex/phase5-contract-v81`、HEAD`974587c3778a53803a7959ea0f64677581e239f4`；当前候选尚未提交，不能将基线HEAD当成来源提交。本轮只读远端检查main仍同基线，Phase5分支尚不存在；该观察为本轮快照，用户上传前脚本再次核对。暂存区为空，未stage/commit/push/merge/部署。
-- [接收入口](../../contracts/validation/step07_handoff/README.md)、[Web交接说明](../../contracts/validation/step07_handoff/WEB_HANDOFF.md)、[分发清单](../../contracts/release-manifest.json)已备齐。差异包含56新增、1移除、35直接变化和17引用schema影响；12个BD、28个AT、41个Phase2学生页面、21个GAP及固定992例均有对应。
-- 第六步同SHA的992协议例/159生成模型往返/324Kotlin模型编译/143结构破坏/723有限模型证据逐项核验哈希。本轮只重跑接收/交接一致性及上传预检，不重复运行协议字节和生成源未变化的全套测试。
-- Android开发及总体架构由用户负责；Web由其他同事负责，具体接收人待确认；6C汇总负责人待明确。Backend7.0人员在阶段入场落实。未具名项不伪造任命；上传可先进行，Phase5最终关闭仍须发布与交接收口。
-- 产品Android/Web、Backend/DB/Migration/infra及旧仓库未改。现有旧API/Mock/占位未迁移，未新增产品Mock/TODO/空接口。真实客户端集成、鉴权/校历/来源/事务/存储/OCR/缓存通知/恢复/性能/E2E仍NOT_RUN。发布与接收不等于产品上线验收。
+- 新版Phase5「新 API Contract / OpenAPI」完成7/7步。用户已作为Contract Owner/Reviewer审核接受，协议及验证包已通过PR #9发布，合并后文件树与已审核来源一致；本地最终状态/分工回填待用户同步GitHub，不改变已发布协议身份。
+- 实际来源Commit：`f702c590ff10b11f7de038332868c988ab4cec11`；已发布合并输入基线：`d7e241ebf5293eb0fed42187544fedc73ecef53f`；[PR #9](https://github.com/chchaiai/new_need_version_sports/pull/9)于2026-09-08T04:20:43Z合并。开发基线`974587c3778a53803a7959ea0f64677581e239f4`只用于历史对比，不能作新RC输入。
+- Contract：`1.3.0-contract / RC / 5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed`；157 paths /176 operations /316 schemas /99 errors。公开路径仍`/api/v1`，有破坏性变更。RC未提升为APPROVED，未授权部署。
+- 最新明确分工：6A Android开发、总体架构及6C验收结果汇总由用户负责；6B Web负责人为甘洛夷。未代填Web接收、Review或实际加载结果。Phase5任务书T09交付跨端验证包；两端实际加载确认、逐任务Reviewer与可写路径属于Phase6 T01，不额外加作Phase5技术门禁。Backend7.0人员及选型兼容在该阶段入场落实，未通过不得进入7.1。
+- [最终接收入口](../../contracts/validation/step07_handoff/README.md)、[Web交接要求](../../contracts/validation/step07_handoff/WEB_HANDOFF.md)、[发布与分发清单](../../contracts/release-manifest.json)固定来源、版本、SHA、差异和后续责任。12个BD、28个AT、41个Phase2学生页面、21个GAP及992固定协议用例均有对应。
+- 既有同SHA验证：Python/JS/JVM各992例通过，159实际生成模型往返，324Kotlin模型编译、143结构破坏、723有限设计模型通过；生成/verify/lint/readiness均通过。GitHub该PR没有运行CI，不写CI PASS。本次只回填发布事实/分工并检查范围、哈希、链接，不重复执行字节和源未变化的全套协议测试。
+- 本次仅六份文档/清单回填；OpenAPI、生成源、验证代码、既有结果与业务/Phase4架构输入均保持原字节。产品Android/Web、Backend、DB/Migration/infra未改；现有旧API/Mock/占位未迁移，未新增产品Mock/TODO/空接口。
+- Phase6实施尚未开始。实际Android/Web工程加载与Mock验证、真实后端鉴权/校历/来源/事务/存储/OCR/缓存通知/恢复/性能/E2E均由后续阶段完成，不因Phase5 DONE提前通过。GitHub提交/推送/PR/合并继续由用户操作。
 
 以下第六步及更早记录为各自历史停点。
 

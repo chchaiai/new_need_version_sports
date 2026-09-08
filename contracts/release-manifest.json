@@ -1,5 +1,5 @@
 {
-  "manifestPurpose": "OWNER_ACCEPTED_RC_NOT_YET_PUBLISHED",
+  "manifestPurpose": "PUBLISHED_RC_PHASE5_DONE_PHASE6_INPUT",
   "version": "1.3.0-contract",
   "status": "RC",
   "publicBasePath": "/api/v1",
@@ -13,13 +13,13 @@
   "repository": "https://github.com/chchaiai/new_need_version_sports.git",
   "workingBranch": "codex/phase5-contract-v81",
   "baselineCommit": "974587c3778a53803a7959ea0f64677581e239f4",
-  "sourceCommit": null,
-  "sourceCommitStatus": "UNCOMMITTED_WORKTREE_DO_NOT_SUBSTITUTE_BASELINE_HEAD",
+  "sourceCommit": "f702c590ff10b11f7de038332868c988ab4cec11",
+  "sourceCommitStatus": "FIXED_PROTOCOL_SOURCE_MERGED_AND_BYTE_VERIFIED",
   "humanFinalReview": "ACCEPTED",
-  "github": "NOT_OPERATED",
-  "phase5": "IN_PROGRESS",
-  "stepsCompleted": 6,
-  "stepsRemaining": 1,
+  "github": "USER_PUBLISHED_AND_MERGED_VERIFIED",
+  "phase5": "DONE",
+  "stepsCompleted": 7,
+  "stepsRemaining": 0,
   "previousCanonical": {
     "version": "1.2.0-contract",
     "status": "RC",
@@ -32,27 +32,27 @@
     {
       "id": "CR-20260901-005",
       "path": "contracts/change-requests/CR-20260901-005-explicit-discriminator-mappings.md",
-      "status": "IMPLEMENTED_TECHNICALLY_VERIFIED_OWNER_ACCEPTED_PUBLICATION_PENDING"
+      "status": "IMPLEMENTED_TECHNICALLY_VERIFIED_OWNER_ACCEPTED_PUBLISHED"
     },
     {
       "id": "CR-20260908-001",
       "path": "contracts/change-requests/CR-20260908-001-material-review-timing.md",
-      "status": "IMPLEMENTED_TECHNICALLY_VERIFIED_OWNER_ACCEPTED_PUBLICATION_PENDING"
+      "status": "IMPLEMENTED_TECHNICALLY_VERIFIED_OWNER_ACCEPTED_PUBLISHED"
     },
     {
       "id": "CR-20260908-002",
       "path": "contracts/change-requests/CR-20260908-002-statistics-invitation-settlement.md",
-      "status": "IMPLEMENTED_TECHNICALLY_VERIFIED_OWNER_ACCEPTED_PUBLICATION_PENDING"
+      "status": "IMPLEMENTED_TECHNICALLY_VERIFIED_OWNER_ACCEPTED_PUBLISHED"
     },
     {
       "id": "CR-20260908-003",
       "path": "contracts/change-requests/CR-20260908-003-teaching-governance-privacy.md",
-      "status": "IMPLEMENTED_TECHNICALLY_VERIFIED_OWNER_ACCEPTED_PUBLICATION_PENDING"
+      "status": "IMPLEMENTED_TECHNICALLY_VERIFIED_OWNER_ACCEPTED_PUBLISHED"
     },
     {
       "id": "CR-20260908-004",
       "path": "contracts/change-requests/CR-20260908-004-rc-consolidation.md",
-      "status": "IMPLEMENTED_TECHNICALLY_VERIFIED_OWNER_ACCEPTED_PUBLICATION_PENDING"
+      "status": "IMPLEMENTED_TECHNICALLY_VERIFIED_OWNER_ACCEPTED_PUBLISHED"
     }
   ],
   "authorityInputs": [
@@ -310,7 +310,7 @@
   "artifacts": [
     {
       "path": "contracts/README.md",
-      "sha256": "8257b78c1c64b5b0a6c17e319cc91a64079de126b5ca9bb807e1eb22241c7a4a"
+      "sha256": "3b8e2e7d72c9fc015f2de0469c46009bc7f7f5ed5096fc13dc47ccabd43e3e92"
     },
     {
       "path": "contracts/change-requests/CR-20260831-001-active-session-empty-state.md",
@@ -434,11 +434,11 @@
     },
     {
       "path": "contracts/validation/step07_handoff/README.md",
-      "sha256": "5e7c2fd668acfc7bbe06d66bf4f46141689381a64e1609cbd8e1bab546b55e2e"
+      "sha256": "e1bef7dfadacd8407267e62d81cb91fea396b6aba399bdc83761e6a7c4f9ed75"
     },
     {
       "path": "contracts/validation/step07_handoff/WEB_HANDOFF.md",
-      "sha256": "3ab6e4dd1bffcb648da644d93d9e80140ff3a243b7309df14f67e1a0c0a2702f"
+      "sha256": "da9bad2a3261ad262a4e3e0902abbc60c5ff21a9c06e46d5e3c579f3415e2dbc"
     },
     {
       "path": "contracts/validation/step07_handoff/build-result.json",
@@ -462,18 +462,18 @@
     },
     {
       "path": "docs/rebuild/STATUS.md",
-      "sha256": "4ae0524495db8df10b263ff40b3ad9fc0eeaa189315d5f4f81fd0c4c39ea5119"
+      "sha256": "4704d0326d87da3e4f1236b6784abf0f5e79eddb5d407ba511bcd5d583f798e1"
     },
     {
       "path": "docs/rebuild/handoffs/new-req-phase-5.md",
-      "sha256": "63f10477a7984f89128d9210abb783724d2ad692ea40122dcb4d876195b8e956"
+      "sha256": "4d819267aa396eb61fb012caf5d7476cd6a80983835a09d704d7ae25103bd1a1"
     }
   ],
   "distribution": [
     {
       "target": "Phase6A Android",
       "recipient": "用户本人",
-      "state": "OWNER_ACCEPTED_CANDIDATE_PUBLISHED_INPUT_RECEIPT_PENDING",
+      "state": "ASSIGNED_PUBLISHED_INPUT_ACTUAL_LOADING_DUE_PHASE6A_T01",
       "requiredVersion": "1.3.0-contract",
       "requiredStatus": "RC",
       "requiredOpenapiSha256": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
@@ -482,27 +482,28 @@
     },
     {
       "target": "Phase6B Web",
-      "recipient": null,
-      "state": "PENDING_STEP_7_ASSIGNMENT_AND_ACCEPTANCE",
+      "recipient": "甘洛夷",
+      "state": "ASSIGNED_PUBLISHED_PACKAGE_ACTUAL_LOADING_DUE_PHASE6B_T01",
       "requiredVersion": "1.3.0-contract",
       "requiredStatus": "RC",
       "requiredOpenapiSha256": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
       "condition": "Student/Portal generated types, strict JSON boundary, Mock and affected build on these exact bytes.",
-      "assignmentNote": "用户确认Web由其他同事开发；具体接收人尚未提供。"
+      "assignmentNote": "用户明确确认：web端的负责人是甘洛夷；未登记甘洛夷实际接收或Review通过。"
     },
     {
       "target": "Phase6C Consolidation",
-      "recipient": null,
-      "state": "PENDING_STEP_7_ASSIGNMENT_AND_ACCEPTANCE",
+      "recipient": "用户本人",
+      "state": "ASSIGNED_CONSOLIDATION_REPORTS_DUE_PHASE6C",
       "requiredVersion": "1.3.0-contract",
       "requiredStatus": "RC",
       "requiredOpenapiSha256": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
-      "condition": "Verify A/B reports and identical input identity; Contract defect returns via CR/new Version/SHA."
+      "condition": "Verify A/B reports and identical input identity; Contract defect returns via CR/new Version/SHA.",
+      "assignmentEvidence": "用户确认：6C 的 Android/Web 验收结果汇总由我负责"
     },
     {
       "target": "Phase7.0 Backend",
       "recipient": null,
-      "state": "PENDING_STEP_7_ASSIGNMENT_AND_ACCEPTANCE",
+      "state": "SCHEDULED_ASSIGNMENT_AND_COMPATIBILITY_AT_PHASE7_0",
       "requiredVersion": "1.3.0-contract",
       "requiredStatus": "RC",
       "requiredOpenapiSha256": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
@@ -510,26 +511,26 @@
     }
   ],
   "notRun": [
-    "Candidate Git commit/push/PR/merge/remote identity verification",
     "Actual Android/Web app integration",
     "Backend generator/adapter compatibility (scheduled7.0)",
     "Real authorization/calendar/database/transaction/object-storage/OCR/cache/notification/recovery/performance/E2E"
   ],
-  "step7Status": "OWNER_ACCEPTED_UPLOAD_READY_PUBLICATION_AND_DISTRIBUTION_PENDING",
+  "step7Status": "DONE_PUBLISHED_PACKAGE_AND_ASSIGNED_HANDOFF_TARGETS",
   "handoffPackage": {
     "entry": "contracts/validation/step07_handoff/README.md",
     "verification": "contracts/validation/step07_handoff/result.json",
     "humanFinalReview": "ACCEPTED",
-    "phase6Recipients": "ANDROID_ASSIGNED_WEB_AND_CONSOLIDATION_RECIPIENTS_PENDING",
-    "sourceCommit": "PENDING_ACTUAL_USER_COMMIT",
-    "pullRequest": "NOT_CREATED",
-    "githubWrites": "NOT_OPERATED",
-    "webInstructions": "contracts/validation/step07_handoff/WEB_HANDOFF.md"
+    "phase6Recipients": "ALL_ASSIGNED_ACTUAL_LOADING_DUE_PHASE6_T01",
+    "sourceCommit": "f702c590ff10b11f7de038332868c988ab4cec11",
+    "pullRequest": "https://github.com/chchaiai/new_need_version_sports/pull/9",
+    "githubWrites": "USER_EXECUTED; ASSISTANT_READ_ONLY_VERIFIED",
+    "webInstructions": "contracts/validation/step07_handoff/WEB_HANDOFF.md",
+    "mergeCommit": "d7e241ebf5293eb0fed42187544fedc73ecef53f"
   },
   "phase6ArchitectureOwner": {
     "person": "用户本人",
     "evidence": "用户确认：phase6中的安卓端开发和总体架构也是由我操作的。",
-    "consolidationAssignment": "PHASE6C_RESPONSIBLE_PERSON_PENDING_EXPLICIT_CONFIRMATION"
+    "consolidationAssignment": "USER_EXPLICITLY_CONFIRMED"
   },
   "humanFinalReviewRecord": {
     "decision": "ACCEPTED",
@@ -558,6 +559,40 @@
     "githubOperator": "user",
     "recipientNamesBlockUpload": false,
     "phase5ClosureRequiresPublicationAndDistribution": true,
-    "sourceCommitReceipt": "Record actual source and merge commits after user operations; do not invent a self-referential commit."
+    "sourceCommitReceipt": "Record actual source and merge commits after user operations; do not invent a self-referential commit.",
+    "distributionCompletionGate": "Published validation package and named Phase6 responsibility; actual loading confirmation is Phase6 T01."
+  },
+  "mergeCommit": "d7e241ebf5293eb0fed42187544fedc73ecef53f",
+  "pullRequest": "https://github.com/chchaiai/new_need_version_sports/pull/9",
+  "phase6": "READY_NOT_STARTED",
+  "phase6AssignmentRecord": {
+    "source": "USER_MESSAGE_IN_CURRENT_CONVERSATION",
+    "verbatim": "web端的负责人是甘洛夷\n6C 的 Android/Web 验收结果汇总由我负责",
+    "recordedAtUTC": "2026-09-08T04:29:05.992033+00:00",
+    "webOwner": "甘洛夷",
+    "androidOwner": "用户本人",
+    "architectureOwner": "用户本人",
+    "consolidationOwner": "用户本人",
+    "webAcknowledgement": "NOT_REPORTED; confirm actual input loading at Phase6B T01",
+    "phase6TaskReviewers": "Specify per work item at Phase6 entry"
+  },
+  "publicationVerification": {
+    "pr": "https://github.com/chchaiai/new_need_version_sports/pull/9",
+    "merged": true,
+    "mergeParents": [
+      "974587c3778a53803a7959ea0f64677581e239f4",
+      "f702c590ff10b11f7de038332868c988ab4cec11"
+    ],
+    "mergedTreeSha": "8e3ad03b7053dc36c6cd390e53a989926610eaf3",
+    "reviewedSourceTreeSha": "8e3ad03b7053dc36c6cd390e53a989926610eaf3",
+    "result": "ALL_MERGED_FILE_BYTES_IDENTICAL_TO_REVIEWED_SOURCE",
+    "openapiSha256": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+    "method": "Read remote main ref, merged PR and Git commit tree; compare exact Git tree with locally verified source and raw OpenAPI SHA-256."
+  },
+  "phase5CompletionBasis": {
+    "phase5": "Phase5 task book T09 and Definition of Done: reviewed/generated/validated RC and downstream package published with assigned recipients.",
+    "phase6Entry": "Actual same-Version/SHA loading and per-task Reviewer/write paths belong to Phase6 T01.",
+    "webActualReceipt": "NOT_REPORTED; do not substitute assignment for receipt.",
+    "metadataSync": "LOCAL_FINAL_RECORDS_PENDING_USER_GIT_SYNC; protocol input remains published at mergeCommit."
   }
 }

@@ -1,6 +1,6 @@
 # Phase 6B Web 接收与验证要求
 
-本文件随新版 Phase 5「新 API Contract / OpenAPI」上传。Contract Owner/Reviewer 已在本轮对话中审核通过最终交付；Phase 5 的发布回执及具名分发仍待完成。本文件不表示 Web 已接收，也不启动 Web 修改任务。
+本文件随新版 Phase 5「新 API Contract / OpenAPI」上传。Contract Owner/Reviewer 已审核通过最终交付，PR #9已合并并核验协议字节。Web负责人已明确为甘洛夷；Android、总体架构和6C汇总由用户负责。Phase5交付方工作完成，本文件不表示Web已实际加载，也不启动Web修改任务。
 
 ## 输入身份与接收回执
 
@@ -9,10 +9,10 @@
 - Contract：`1.3.0-contract / RC`，公开路径 `/api/v1`，不兼容旧协议。
 - OpenAPI 路径：`contracts/openapi.yaml`
 - 原始 SHA-256：`5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed`
-- 含本轮成果的完整来源 Commit、PR、最终合并 Commit：由实际上传/合并后的发布回执补充，当前不预填。`974587c3778a53803a7959ea0f64677581e239f4` 是旧基线，不含本轮成果。
-- Android 与总体架构负责人：用户本人。Web 具名接收人及 6C 汇总负责人待确认，不沿用历史协作名单自动任命。
+- 来源Commit：`f702c590ff10b11f7de038332868c988ab4cec11`；已发布合并基线：`d7e241ebf5293eb0fed42187544fedc73ecef53f`；[PR #9](https://github.com/chchaiai/new_need_version_sports/pull/9)。`974587c3778a53803a7959ea0f64677581e239f4`是旧开发基线，不含本轮成果。
+- 已确认分工：6A Android及总体架构由用户负责；6B Web由甘洛夷负责；6C两端结果汇总由用户负责。具体小任务Reviewer及可写路径在Phase6 T01确认；甘洛夷实际加载/接收结果尚未提供。
 
-先接收资料。正式开工前，由负责人提供发布回执并确认 Web 工作分支、Owner/Reviewer、允许修改路径和首个小任务。Web 在独立干净工作区核对完整 Commit、Version/Status/SHA、dirty state，回复具名接收回执；不覆盖旧目录，不将历史 phase-5a/5b 编号当作新版 Phase 6。
+先接收资料。发布回执已提供；正式开工前，由负责人确认Web工作分支、具体小任务Owner/Reviewer、允许修改路径和首个小任务。Web 在独立干净工作区核对完整 Commit、Version/Status/SHA、dirty state，回复具名接收回执；不覆盖旧目录，不将历史 phase-5a/5b 编号当作新版 Phase 6。
 
 回执填写：接收人／日期、固定来源与工作基线 Commit、Version／Status／实测 SHA、负责学生端与 Portal 的范围、Reviewer、分支及可写路径、当前阻塞。尚未明确的项如实写待确认。
 
