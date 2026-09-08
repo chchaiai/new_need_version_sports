@@ -1,6 +1,11 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
+import React from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import { CheckinAuditSummary } from "../app/checkin-audit-summary.tsx";
+import { sumKnownCredits } from "../app/credit-values.ts";
+import { recordWithReview } from "../../frontend/student/phase6b-test-fixtures.mjs";
 
 import {
   applyAttendanceAuditState,
@@ -17,6 +22,51 @@ import {
 } from "../app/teacher-data.ts";
 
 const record = (auditStatus, creditedMinutes) => ({ auditStatus, creditedMinutes });
+
+for (const [name, values] of [
+  ["all unknown", [null]], ["partially unknown", [60, null]],
+  ["missing", [undefined]], ["invalid negative", [-1]], ["non-finite", [NaN]],
+]) {
+  test(`credit summary preserves unknown values: ${name}`, () => {
+    const summary = deriveAuditSummary(values.map((value) => record("valid", value)), 1200);
+    assert.equal(summary.creditState, "UNAVAILABLE");
+    for (const key of ["validMinutes", "remainingMinutes", "exceededMinutes", "hasReachedTarget", "progressPercent"]) {
+      assert.equal(summary[key], null, key);
+    }
+    assert.equal(sumKnownCredits(values), null);
+    const html = renderToStaticMarkup(React.createElement(CheckinAuditSummary, { summary, requiredMinutes: 1200 }));
+    assert.match(html, /待确认/);
+    assert.doesNotMatch(html, /role="progressbar"|aria-valuenow|还差|已达到|0\.0/);
+  });
+}
+
+test("unknown credit survives the Contract mapper, aggregate and rendered view", () => {
+  const mapped = mapExerciseRecordToCheckin(recordWithReview());
+  assert.equal(mapped.creditedMinutes, null);
+  assert.equal(mapped.approvedHours, null);
+  const summary = deriveAuditSummary([mapped], 1200);
+  const html = renderToStaticMarkup(React.createElement(CheckinAuditSummary, { summary, requiredMinutes: 1200 }));
+  assert.equal(summary.validCount, 1);
+  assert.equal(summary.creditState, "UNAVAILABLE");
+  assert.match(html, /待确认/);
+  assert.doesNotMatch(html, /还差|0\.0 小时|aria-valuenow/);
+});
+
+test("known zero, known positive and an unavailable target stay distinct", () => {
+  const zero = deriveAuditSummary([record("valid", 0)], 1200);
+  assert.equal(zero.creditState, "KNOWN");
+  assert.equal(zero.validMinutes, 0);
+  assert.equal(zero.remainingMinutes, 1200);
+  const positive = deriveAuditSummary([record("valid", 60), record("valid", 120)], 1200);
+  assert.equal(positive.validMinutes, 180);
+  assert.equal(positive.remainingMinutes, 1020);
+  assert.equal(positive.progressPercent, 15);
+  assert.equal(sumKnownCredits([0, 60, 120]), 180);
+  const html = renderToStaticMarkup(React.createElement(CheckinAuditSummary, { summary: positive, requiredMinutes: 1200 }));
+  assert.match(html, /aria-valuenow="180"/);
+  assert.match(html, /还差 17\.0 小时/);
+  assert.equal(deriveAuditSummary([record("valid", 60)], null).hasReachedTarget, null);
+});
 
 function reviewApiMock(recordId, state, onValid) {
   const calls = [];

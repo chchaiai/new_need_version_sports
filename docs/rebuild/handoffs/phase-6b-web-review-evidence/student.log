@@ -1,0 +1,98 @@
+
+> test:student
+> node frontend/student/student-smoke.mjs
+
+ok - student persists the complete versioned refresh session
+ok - student rejects malformed or refresh-expired persisted sessions
+ok - temporary student startup failure preserves the persisted session
+ok - disabled student account clears the persisted session
+ok - i18n resolves zh by default and en after switch
+ok - semester presentation preserves the administrator-managed name
+ok - student login keeps real-account testing and gates local UI preview
+ok - local UI preview workspace is labeled and does not invent student scores
+ok - check-in sport icons share one stroke set and keep each activity recognizable
+ok - time window evaluator blocks unavailable policy
+ok - class check-in window preserves the teacher's backend values without fixed fallbacks
+ok - server progress and teacher targets map seconds to real student hours
+ok - dashboard keeps the full backend total and never invents a missing target
+ok - system mode opens only for an explicit NORMAL projection
+ok - dashboard progress state follows active membership
+ok - course detail omits related exercise records
+ok - session timing: pause/resume, 2h cap, credited hours
+ok - profile mirrors the Android account-card hierarchy and instant service navigation stays scoped
+ok - exemption form mirrors Android fields and accepted Contract limits
+ok - exemption detail mirrors the Android information hierarchy
+ok - course and independent exercise descriptions are both required
+ok - account details show gender and endurance exemption distance follows it
+ok - live camera duration uses the measured recording interval
+ok - help categories stay aligned with the published projection
+ok - help Markdown renders formatting while escaping administrator HTML
+ok - published help API requests the current-language non-paginated projection
+ok - daily submission observation follows the Beijing business day
+ok - daily client observation never hard-blocks a backend-authorized submission
+ok - hourText matches Kotlin Double.hourText()
+ok - time window blocks excluded dates and passed deadlines
+ok - proof rules follow the exact current API media allowlist
+ok - check-in proof UI follows the Android preview-then-delete flow
+ok - check-in stages follow the Android information hierarchy
+ok - a student can preview and delete one local proof before submission
+ok - /me mapping uses the current API masked email and verification fields
+ok - student membership state is ACTIVE only while enrolled, otherwise PENDING
+ok - a submitted record is valid on arrival and credits the server's hours
+ok - submission summary never invents credited hours from the local timer
+ok - a teacher's INVALID verdict reaches the student verbatim
+ok - published scores read finalScore/baseScore and never invent a zero
+ok - cross-device record media maps from the authoritative evidence context
+ok - authenticated API base stays same-origin and ignores query or persisted overrides
+ok - only explicit loopback MinIO URLs with valid ports use the same-origin proxy
+ok - object upload ETag normalization fails closed on a missing value
+ok - confirmed Session evidence stays locked while PROCESSING or FAILED
+ok - unconfirmed capture remains deletable and AVAILABLE evidence remains locked
+ok - proof preview deletion uses the shared lock and fake local +60 is removed
+ok - public runtime config loads before the student application
+ok - user-facing errors cover status families without exposing raw server text
+ok - structured client routes remove query values and dynamic identifiers
+ok - error panel string compatibility never renders the supplied raw string
+ok - major Student backend failures and binding fields use the shared safe UI
+ok - managed email binding opens the Android-aligned change form directly
+ok - a missing object-store ETag stops before media confirmation
+ok - current score requires an exact semester and uses backend total-only qualification
+ok - student cursor lists collect every page from meta.pagination.nextCursor
+ok - student cursor lists reject repeated cursors instead of looping
+ok - student cursor lists stop after the defensive page limit
+ok - 401 refresh retries one student mutation with the same Idempotency-Key
+ok - ambiguous student refresh failure keeps the session and reuses its intent key
+ok - terminal student refresh rejection clears the local session
+ok - logout wins a race with refresh and stale tokens cannot return
+ok - active-session conflict fails closed without implicit cancellation
+ok - new QR student enters real email binding before protected workspace calls
+ok - student account deletion uses the exact two-stage API flow and clears local auth only after a valid terminal result
+ok - student account deletion keeps local auth when the Backend terminal proof is incomplete
+ok - student deletion re-authentication failure is never refreshed or replayed
+ok - invalid access token is terminal and is not refreshed
+ok - student account deletion strictly validates challenge data and keeps success requestId
+ok - deletion cleanup removes only the current account's durable workspace
+ok - account cleanup releases nested transient Blob URLs
+ok - Student form primitives focus the first invalid control and endurance view hides scores
+ok - feedback transport sends only the frozen privacy-bounded fields
+ok - exemption transport creates, uploads, associates, and submits one current draft
+ok - structured exemption projection keeps subtype, immutable media references, and review status
+ok - student target reads use authenticated same-origin backend routes
+ok - organization certification cards use only the signed-in student's backend applications
+ok - organization certification and recognition reads use authenticated backend routes
+ok - student account deletion UI requires explanation, OTP, and final confirmation
+ok - store self-heals corrupted keys and drops legacy synthetic overlay fields
+ok - exercise session round-trips through the store per account
+ok - v8 contract-wired student pages keep grace non-refreshable and show server proof todos
+ok - v8.1 public reasons keep six bilingual categories and action scopes
+ok - phase6b contract mapper pins 1.3.0 identity and rejects unknown public reason codes
+ok - phase6b contract progress uses checkpoint totals and never legacy category rows
+ok - phase6b contract exercise records keep actual duration and omit invented credited hours
+ok - v8.1 review stages stay separate and do not guess missing wire values
+ok - phase6b contract mapper rejects invalid exercise record wire at runtime
+ok - loadApiWorkspace resolves contract course before progress targets
+ok - v8.1 notices keep proof wording and drop only explicit score disclosures
+ok - v8.1 official notification targetRoute survives mapping into notice visibility and navigation
+ok - v8.1 maintenance page shows paused proof timing or an unavailable state
+
+student smoke checks passed checks=92

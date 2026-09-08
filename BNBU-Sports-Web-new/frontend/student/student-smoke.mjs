@@ -1,3 +1,4 @@
+import { publishedFixture, recordWithReview, studentCourseFixture } from "./phase6b-test-fixtures.mjs";
 // Smoke test for the current API Web student client.
 // Exercises the framework-free logic modules (i18n, session policy, API
 // projection mapping, proof rules, local store) without a DOM.
@@ -2225,52 +2226,25 @@ check("phase6b contract mapper pins 1.3.0 identity and rejects unknown public re
 });
 
 check("phase6b contract progress uses checkpoint totals and never legacy category rows", () => {
-  const progress = {
-    courseId: "73000000-0000-4000-8000-000000000001",
-    enrollmentId: "73000000-0000-4000-8000-000000000003",
-    student: { studentNumber: "20260001" },
-    state: "CURRENT",
-    observedAt: "2026-09-01T00:20:00Z",
-    unavailableReason: null,
-    checkpoint: {
-      totals: {
-        categories: [
-          { category: "COURSE_RELATED", targetMinutes: 720, countedRecordMinutes: 300, cappedCompletedMinutes: 360, countedCertificationMinutes: 60, activeCertificationMinutes: 60, remainingMinutes: 360 },
-          { category: "OTHER", targetMinutes: 480, countedRecordMinutes: 180, cappedCompletedMinutes: 180, countedCertificationMinutes: 0, activeCertificationMinutes: 0, remainingMinutes: 300 },
-        ],
-        totalCompletedMinutes: 540,
-        displayPercent: 45,
-        targetMet: false,
-        totalTargetMinutes: 1200,
-        completionRatio: 0.45,
-        countedRecordMinutes: 480,
-        countedCertificationMinutes: 60,
-        actualDurationSeconds: 32400,
-        invalidActualMinutes: 0,
-        pendingRecordCount: 0,
-        validFormulaExcludedMinutes: 0,
-        validUncountedEligibleMinutes: 0,
-      },
-    },
-  };
+  const progress = publishedFixture("prior-courses/progress/current");
   assert.deepEqual(mapStudentProgressProjection(progress), {
-    course: 6,
-    general: 3,
-    rawCourse: 5,
-    rawGeneral: 3,
-    rawCountedCourseMinutes: 300,
-    rawCountedGeneralMinutes: 180,
-    totalValidHours: 9,
+    course: 10,
+    general: 599 / 60,
+    rawCourse: 0.5,
+    rawGeneral: 0,
+    rawCountedCourseMinutes: 30,
+    rawCountedGeneralMinutes: 0,
+    totalValidHours: 1199 / 60,
     qualificationStatus: "NOT_QUALIFIED",
     scoreAvailable: true,
     contractState: "CURRENT",
     unavailableReason: null,
-    displayPercent: 45,
+    displayPercent: 100,
     targetMet: false,
     progressUnavailable: false,
     progressRecomputing: false,
   });
-  assert.deepEqual(mapContractStudentProgressProjection({ ...progress, state: "UNAVAILABLE", unavailableReason: "SOURCE_INCOMPLETE" }), {
+  assert.deepEqual(mapContractStudentProgressProjection({ ...progress, state: "UNAVAILABLE", checkpoint: null, unavailableReason: "SOURCE_INCOMPLETE" }), {
     course: null,
     general: null,
     rawCourse: null,
@@ -2290,58 +2264,14 @@ check("phase6b contract progress uses checkpoint totals and never legacy categor
 });
 
 check("phase6b contract exercise records keep actual duration and omit invented credited hours", () => {
-  const mapped = mapServerRecord({
-    recordId: "50000000-0000-4000-8000-000000000001",
-    sessionId: "50000000-0000-4000-8000-000000000002",
-    courseId: "40000000-0000-4000-8000-000000000001",
-    enrollmentId: "50000000-0000-4000-8000-000000000003",
-    ruleVersionId: "77000000-0000-4000-8000-000000000001",
-    activityType: "STANDARD",
-    businessDate: "2026-08-31",
-    category: "COURSE_RELATED",
-    description: "完成操场慢跑与拉伸训练",
-    actualDurationSeconds: 4020,
-    submittedAt: "2026-08-31T03:15:00Z",
-    currentMaterial: {
-      materialVersionId: "78000000-0000-4000-8000-000000000001",
-      recordId: "50000000-0000-4000-8000-000000000001",
-      batchId: "78000000-0000-4000-8000-000000000002",
-      acceptedAt: "2026-08-31T03:15:00Z",
-      items: [{
-        mediaAssetId: "50000000-0000-4000-8000-000000000005",
-        checksumSha256: "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
-        phase: "GENERAL",
-        position: 1,
-      }],
-      previousMaterialVersionId: null,
-      readiness: "READY",
-      returnActionId: null,
-      transferCompletedAt: "2026-08-31T03:14:00Z",
-      transferDueAt: "2026-08-31T03:45:00Z",
-      version: 1,
-      versionNo: 1,
-    },
-    currentReview: {
-      materialVersionId: "78000000-0000-4000-8000-000000000001",
-      processingStage: "VALID",
-      publicComment: null,
-      publicReason: null,
-      result: "VALID",
-      reviewCaseId: "78000000-0000-4000-8000-000000000003",
-      roundNo: 1,
-      sequenceNumber: 1,
-      supplementReturnUsed: false,
-      supplementTimer: null,
-      teacherSla: null,
-      updatedAt: "2026-08-31T03:15:00Z",
-      version: 1,
-    },
-  }, { courseIdBySection: { "section-1": "40000000-0000-4000-8000-000000000001" } });
+  const wire = recordWithReview();
+  wire.actualDurationSeconds = 4020;
+  const mapped = mapServerRecord(wire);
   assert.equal(mapped.reviewResult, "VALID");
   assert.equal(mapped.hours, null);
   assert.equal(mapped.actualDurationSeconds, 4020);
   assert.equal(mapped.reviewProcessingStage, "VALID");
-  assert.equal(mapped.materialVersionId, "78000000-0000-4000-8000-000000000001");
+  assert.equal(mapped.materialVersionId, wire.currentMaterial.materialVersionId);
 });
 
 check("v8.1 review stages stay separate and do not guess missing wire values", () => {
@@ -2361,51 +2291,14 @@ check("v8.1 review stages stay separate and do not guess missing wire values", (
 });
 
 check("phase6b contract mapper rejects invalid exercise record wire at runtime", () => {
-  const base = {
-    recordId: "50000000-0000-4000-8000-000000000001",
-    sessionId: "50000000-0000-4000-8000-000000000002",
-    courseId: "40000000-0000-4000-8000-000000000001",
-    enrollmentId: "50000000-0000-4000-8000-000000000003",
-    ruleVersionId: "77000000-0000-4000-8000-000000000001",
-    activityType: "STANDARD",
-    businessDate: "2026-08-31",
-    category: "COURSE_RELATED",
-    description: "完成操场慢跑与拉伸训练",
-    actualDurationSeconds: 4020,
-    submittedAt: "2026-08-31T03:15:00Z",
-    currentMaterial: {
-      materialVersionId: "78000000-0000-4000-8000-000000000001",
-      recordId: "50000000-0000-4000-8000-000000000001",
-      batchId: "78000000-0000-4000-8000-000000000002",
-      acceptedAt: "2026-08-31T03:15:00Z",
-      items: [],
-      previousMaterialVersionId: null,
-      readiness: "READY",
-      returnActionId: null,
-      transferCompletedAt: "2026-08-31T03:14:00Z",
-      transferDueAt: "2026-08-31T03:45:00Z",
-      version: 1,
-      versionNo: 1,
-    },
-    currentReview: {
-      materialVersionId: "78000000-0000-4000-8000-000000000001",
-      processingStage: "VALID",
-      publicComment: null,
-      publicReason: null,
-      result: "VALID",
-      reviewCaseId: "78000000-0000-4000-8000-000000000003",
-      roundNo: 1,
-      sequenceNumber: 1,
-      supplementReturnUsed: false,
-      supplementTimer: null,
-      teacherSla: null,
-      updatedAt: "2026-08-31T03:15:00Z",
-      version: 1,
-    },
-  };
-  assert.throws(() => assertContractExerciseRecordWire({ ...base, category: "BOGUS" }), /INVALID:category/);
-  assert.throws(() => assertContractExerciseRecordWire({ ...base, actualDurationSeconds: "1800" }), /INVALID:actualDurationSeconds/);
-  assert.throws(() => assertContractExerciseRecordWire({ ...base, unexpectedField: true }), /UNKNOWN_FIELD/);
+  const base = recordWithReview();
+  assertContractExerciseRecordWire(base);
+  const rejectedAt = (path, keyword) => (error) => error.name === "ContractWireValidationError" &&
+    error.issues.some((issue) => issue.instancePath === path && issue.keyword === keyword);
+  assert.throws(() => assertContractExerciseRecordWire({ ...base, category: "BOGUS" }), rejectedAt("/category", "enum"));
+  assert.throws(() => assertContractExerciseRecordWire({ ...base, actualDurationSeconds: "1800" }), rejectedAt("/actualDurationSeconds", "type"));
+  assert.throws(() => assertContractExerciseRecordWire({ ...base, unexpectedField: true }), rejectedAt("", "additionalProperties"));
+
 });
 
 check("loadApiWorkspace resolves contract course before progress targets", async () => {
@@ -2449,14 +2342,9 @@ check("loadApiWorkspace resolves contract course before progress targets", async
       return Response.json(page({ totalTargetMinutes: 1200 }));
     }
     if (path === "/api/v1/student/course") {
-      return Response.json({
-        courseId,
-        publishedRule: {
-          ruleVersionId: "77000000-0000-4000-8000-000000000001",
-          courseRelatedTargetMinutes: 720,
-          otherTargetMinutes: 480,
-        },
-      });
+      const course = studentCourseFixture();
+      course.courseId = courseId;
+      return Response.json(course);
     }
     if (path === "/api/v1/student/proof-todos") return Response.json({ items: [] });
     throw new Error(`Unexpected request: ${path}${search}`);

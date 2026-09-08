@@ -1,3 +1,4 @@
+import { recordWithReview } from "../../frontend/student/phase6b-test-fixtures.mjs";
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -40,14 +41,7 @@ test("phase6b portal mapper normalizes contract exercise records without invente
 });
 
 test("phase6b portal mapper keeps in-progress reviews as processing audit status", () => {
-  const inProgress = {
-    ...exerciseRecord,
-    currentReview: {
-      ...buildPhase5bRecordReviewSummary(portalMaterialVersionId, "VALID"),
-      result: null,
-      processingStage: "TEACHER_REVIEW_REQUIRED",
-    },
-  };
+  const inProgress = recordWithReview("prior-workflow/review/teacher_round1");
   const checkin = mapExerciseRecordToCheckin(inProgress);
   assert.equal(checkin.auditStatus, "processing");
 });
@@ -55,15 +49,15 @@ test("phase6b portal mapper keeps in-progress reviews as processing audit status
 test("phase6b portal mapper rejects invalid contract wire at runtime", () => {
   assert.throws(
     () => assertContractExerciseRecordWire({ ...exerciseRecord, category: "BOGUS" }),
-    /CONTRACT_EXERCISE_RECORD_INVALID:category:BOGUS/,
+    (error) => error.name === "ContractWireValidationError" && error.issues.some((issue) => issue.instancePath === "/category" && issue.keyword === "enum"),
   );
   assert.throws(
     () => assertContractExerciseRecordWire({ ...exerciseRecord, actualDurationSeconds: "1800" }),
-    /CONTRACT_EXERCISE_RECORD_INVALID:actualDurationSeconds:1800/,
+    (error) => error.name === "ContractWireValidationError" && error.issues.some((issue) => issue.instancePath === "/actualDurationSeconds" && issue.keyword === "type"),
   );
   assert.throws(
     () => assertContractExerciseRecordWire({ ...exerciseRecord, unexpectedField: true }),
-    /CONTRACT_EXERCISE_RECORD_UNKNOWN_FIELD:unexpectedField/,
+    (error) => error.name === "ContractWireValidationError" && error.issues.some((issue) => issue.keyword === "additionalProperties"),
   );
 });
 

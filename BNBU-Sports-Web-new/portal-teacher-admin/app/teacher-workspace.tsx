@@ -1,5 +1,7 @@
 "use client";
 
+import { CheckinAuditSummary } from "./checkin-audit-summary";
+
 import {
   ChevronLeft,
   CircleAlert,
@@ -44,7 +46,6 @@ import {
   applyAttendanceAuditState,
   deriveAuditSummary,
   toCreditedDurationHours,
-  type AttendanceAuditSummary,
   type AuditStatus,
 } from "./checkin-audit";
 import {
@@ -219,7 +220,7 @@ type CheckinRecord = {
   durationMinutes: number;
   creditedMinutes: number | null;
   originalHours: number;
-  approvedHours: number;
+  approvedHours: number | null;
   description: string;
   submittedAt: string;
   status: "有效" | "已调整" | "系统抵扣";
@@ -744,10 +745,6 @@ function actualDurationLabel(record: CheckinRecord) {
   return `${remainingMinutes} 分`;
 }
 
-function attendanceHoursLabel(minutes: number) {
-  return (Math.max(0, minutes) / 60).toFixed(1);
-}
-
 function singleRecordCreditedDurationLabel(minutes: number | null) {
   if (minutes == null) return "待确认";
   const creditedHours = toCreditedDurationHours(minutes);
@@ -854,55 +851,6 @@ function AuditStatusSelector({
         </>
       )}
     </div>
-  );
-}
-
-function CheckinAuditSummary({
-  summary,
-  requiredMinutes,
-}: {
-  summary: AttendanceAuditSummary;
-  requiredMinutes: number;
-}) {
-  const validHours = attendanceHoursLabel(summary.validMinutes);
-  const remainingHours = attendanceHoursLabel(summary.remainingMinutes);
-  const exceededHours = attendanceHoursLabel(summary.exceededMinutes);
-
-  return (
-    <section className="checkin-audit-summary" aria-label="打卡审核汇总">
-      <div className="audit-summary-progress">
-        <div className="audit-summary-heading">
-          <div>
-            <span>有效时长</span>
-            <strong>
-              {validHours}
-              <small> / {attendanceHoursLabel(requiredMinutes)} 小时</small>
-            </strong>
-          </div>
-            <span className="audit-overall-status is-complete">有效学时汇总</span>
-        </div>
-        <div
-          className="audit-progress-track"
-          role="progressbar"
-          aria-label="有效打卡时长进度"
-          aria-valuemin={0}
-          aria-valuemax={requiredMinutes}
-          aria-valuenow={Math.min(summary.validMinutes, requiredMinutes)}
-        >
-          <span style={{ width: `${summary.progressPercent}%` }} />
-        </div>
-        <div className="audit-progress-note">
-          <span>
-            {summary.hasReachedTarget
-              ? summary.exceededMinutes > 0
-                ? `已超出目标 ${exceededHours} 小时`
-                : "已达到教师设置的学时目标"
-              : `还差 ${remainingHours} 小时`}
-          </span>
-          <span>有效 {summary.validCount} · 无效 {summary.invalidCount}</span>
-        </div>
-      </div>
-    </section>
   );
 }
 
@@ -1788,10 +1736,10 @@ export function TeacherWorkspace({
   const selectedCheckinCourse = courses.find(
     (course) => course.id === selectedCheckinStudent?.courseId,
   );
-  const selectedCheckinRequiredMinutes =
-    ((selectedCheckinCourse?.courseTarget ?? 0) +
-      (selectedCheckinCourse?.otherTarget ?? 0)) *
-    60;
+  const selectedCheckinRequiredMinutes = selectedCheckinCourse &&
+    Number.isFinite(selectedCheckinCourse.courseTarget) && Number.isFinite(selectedCheckinCourse.otherTarget)
+    ? (selectedCheckinCourse.courseTarget + selectedCheckinCourse.otherTarget) * 60
+    : null;
   const selectedStudentCheckins = useMemo(
     () =>
       checkinStudentId === null

@@ -1,3 +1,5 @@
+import { assertContractWire, isContractExerciseRecord } from "../../frontend/student/js/contract/wire.js";
+
 // Phase 6B: strict read adapters for Contract 1.3.0 / RC wire shapes on Portal.
 // Normalizes official ExerciseRecord into the legacy teacher-api projection input.
 // Does not invent credited minutes, grades, or legacy 1.2.0-only fields.
@@ -11,23 +13,6 @@ export const PHASE6B_PORTAL_CONTRACT = Object.freeze({
   openapiSha256: "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
 });
 
-const EXERCISE_RECORD_WIRE_KEYS = new Set([
-  "recordId",
-  "sessionId",
-  "courseId",
-  "enrollmentId",
-  "ruleVersionId",
-  "activityType",
-  "student",
-  "businessDate",
-  "category",
-  "description",
-  "actualDurationSeconds",
-  "currentMaterial",
-  "currentReview",
-  "submittedAt",
-]);
-
 const OFFICIAL_PUBLIC_REASON_CODES = new Set([
   "UNCLEAR_EVIDENCE",
   "MISSING_REQUIRED_EVIDENCE",
@@ -36,21 +21,6 @@ const OFFICIAL_PUBLIC_REASON_CODES = new Set([
   "AUTHENTICITY_REQUIRES_CLARIFICATION",
   "CONFIRMED_REUSE_OR_MISUSE",
   "SUPPLEMENT_DEADLINE_MISSED",
-]);
-
-const OFFICIAL_EXERCISE_CATEGORIES = new Set(["COURSE_RELATED", "OTHER"]);
-const OFFICIAL_ACTIVITY_TYPES = new Set(["STANDARD", "SWIMMING"]);
-const OFFICIAL_REVIEW_RESULTS = new Set(["VALID", "INVALID"]);
-const OFFICIAL_PROCESSING_STAGES = new Set([
-  "MATERIAL_PROCESSING",
-  "SYSTEM_CHECK_PENDING",
-  "AI_REVIEW_PENDING",
-  "TECHNICAL_PROCESSING",
-  "TEACHER_REVIEW_REQUIRED",
-  "SUPPLEMENT_REQUIRED",
-  "SUPPLEMENT_REVIEW_REQUIRED",
-  "VALID",
-  "INVALID",
 ]);
 
 const PUBLIC_REASON_WIRE_LABELS: Record<string, string> = {
@@ -74,59 +44,10 @@ export const PUBLIC_REASON_ID_TO_WIRE = Object.freeze({
 
 type UnknownRecord = Record<string, unknown>;
 
-function assertPlainObject(value: unknown, code: string) {
-  if (!value || typeof value !== "object" || Array.isArray(value)) {
-    throw new Error(code);
-  }
-}
+export { isContractExerciseRecord };
 
 export function assertContractExerciseRecordWire(record: unknown): UnknownRecord {
-  assertPlainObject(record, "CONTRACT_EXERCISE_RECORD_INVALID:NOT_OBJECT");
-  const wire = record as UnknownRecord;
-  for (const key of Object.keys(wire)) {
-    if (!EXERCISE_RECORD_WIRE_KEYS.has(key)) {
-      throw new Error(`CONTRACT_EXERCISE_RECORD_UNKNOWN_FIELD:${key}`);
-    }
-  }
-  if (typeof wire.recordId !== "string" || !wire.recordId.trim()) {
-    throw new Error("CONTRACT_EXERCISE_RECORD_INVALID:recordId");
-  }
-  if (!OFFICIAL_EXERCISE_CATEGORIES.has(String(wire.category || "").trim())) {
-    throw new Error(`CONTRACT_EXERCISE_RECORD_INVALID:category:${wire.category}`);
-  }
-  if (!OFFICIAL_ACTIVITY_TYPES.has(String(wire.activityType || "").trim())) {
-    throw new Error(`CONTRACT_EXERCISE_RECORD_INVALID:activityType:${wire.activityType}`);
-  }
-  if (!Number.isFinite(wire.actualDurationSeconds)) {
-    throw new Error(
-      `CONTRACT_EXERCISE_RECORD_INVALID:actualDurationSeconds:${wire.actualDurationSeconds}`,
-    );
-  }
-  assertPlainObject(wire.currentMaterial, "CONTRACT_EXERCISE_RECORD_INVALID:currentMaterial");
-  assertPlainObject(wire.currentReview, "CONTRACT_EXERCISE_RECORD_INVALID:currentReview");
-  const review = wire.currentReview as UnknownRecord;
-  const stage = String(review.processingStage || "").trim();
-  if (!OFFICIAL_PROCESSING_STAGES.has(stage)) {
-    throw new Error(`CONTRACT_REVIEW_STAGE_INVALID:${stage}`);
-  }
-  if (review.result != null && review.result !== "") {
-    const result = String(review.result).trim();
-    if (!OFFICIAL_REVIEW_RESULTS.has(result)) {
-      throw new Error(`CONTRACT_REVIEW_RESULT_INVALID:${result}`);
-    }
-  }
-  readContractPublicReason(review);
-  return wire;
-}
-
-export function isContractExerciseRecord(record: unknown): boolean {
-  return Boolean(
-    record &&
-    typeof record === "object" &&
-    typeof (record as UnknownRecord).recordId === "string" &&
-    (record as UnknownRecord).currentMaterial &&
-    typeof (record as UnknownRecord).currentMaterial === "object",
-  );
+  return assertContractWire("ExerciseRecord", record) as UnknownRecord;
 }
 
 export function rejectUnknownPublicReasonCode(code: string | null | undefined): string | null {
@@ -141,7 +62,7 @@ export function rejectUnknownPublicReasonCode(code: string | null | undefined): 
 export function readContractPublicReason(review: UnknownRecord = {}) {
   const publicReason = review.publicReason;
   if (publicReason && typeof publicReason === "object") {
-    const reason = publicReason as UnknownRecord;
+    const reason = assertContractWire("PublicReviewReason", publicReason) as UnknownRecord;
     const code = rejectUnknownPublicReasonCode(
       typeof reason.code === "string" ? reason.code : null,
     );

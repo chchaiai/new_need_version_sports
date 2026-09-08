@@ -1,0 +1,255 @@
+{
+  "status": "USER_ACCEPTED_LOCAL_REPAIR_PENDING_PUBLICATION",
+  "recordedAt": "2026-09-08T15:35:13.143883+00:00",
+  "baselineCommit": "164201b1ba36154dfbdc346d061f30fd98602902",
+  "contract": {
+    "version": "1.3.0-contract",
+    "status": "RC",
+    "sha256": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+    "unchanged": true
+  },
+  "acceptance": {
+    "reviewer": "用户本人",
+    "builder": "Codex",
+    "source": "User messages in current conversation",
+    "quote": "ok，审核通过，我们主要是要交接给phase7的同学",
+    "scope": "R05/R06 repair and supplied Web handoff; not GitHub merge, 6C final acceptance or Backend validation"
+  },
+  "phase7Assignment": {
+    "owners": [
+      "H",
+      "Z"
+    ],
+    "reviewer": "用户本人",
+    "quote": "负责人是H和Z，reviewer依旧是我",
+    "perTaskOwner": "H/Z specify one owner per work item"
+  },
+  "repairTests": {
+    "student": 92,
+    "portal": 226,
+    "typecheck": "PASS",
+    "build": "PASS",
+    "generatedOutputCheck": "PASS",
+    "originalProbeInputs": 20,
+    "inputValidityIndependentPythonCheck": "PASS",
+    "scopeAndWhitespace": "PASS",
+    "documentLink": "PASS",
+    "commands": {
+      "student": {
+        "command": [
+          "npm.cmd",
+          "run",
+          "test:student"
+        ],
+        "cwd": "D:\\DT\\soprts\\start4\\repos\\phase6b-r05-r06-repair\\BNBU-Sports-Web-new",
+        "startedAt": "2026-09-08T15:22:58.749922+00:00",
+        "finishedAt": "2026-09-08T15:22:59.498577+00:00",
+        "exitCode": 0,
+        "adaptation": null
+      },
+      "typecheck": {
+        "command": [
+          "npm.cmd",
+          "run",
+          "typecheck"
+        ],
+        "cwd": "D:\\DT\\soprts\\start4\\repos\\phase6b-r05-r06-repair\\BNBU-Sports-Web-new\\portal-teacher-admin",
+        "startedAt": "2026-09-08T15:22:35.964350+00:00",
+        "finishedAt": "2026-09-08T15:22:58.232668+00:00",
+        "exitCode": 0,
+        "adaptation": null
+      },
+      "portal": {
+        "command": [
+          "npm.cmd",
+          "test"
+        ],
+        "cwd": "D:\\DT\\soprts\\start4\\repos\\phase6b-r05-r06-repair\\BNBU-Sports-Web-new\\portal-teacher-admin",
+        "startedAt": "2026-09-08T15:22:36.189160+00:00",
+        "finishedAt": "2026-09-08T15:22:58.042138+00:00",
+        "exitCode": 0,
+        "adaptation": "Review-only preload maps python3 to existing Python; product and tests unchanged for this environment adaptation."
+      }
+    }
+  },
+  "regression": {
+    "contractSha256": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+    "originalInputs": 20,
+    "validInputs": 8,
+    "invalidInputs": 12,
+    "allExpectationsPassed": true,
+    "unknownCreditsPreserved": true,
+    "workspaceLoadPassed": true,
+    "transferWindowMinutes": 30
+  },
+  "logFiles": [
+    {
+      "path": "student.log",
+      "sha256": "2abb04bf0296a64e1c4a07345b6b7b93dd83451887308cc284800f44a0986bef",
+      "command": {
+        "command": [
+          "npm.cmd",
+          "run",
+          "test:student"
+        ],
+        "cwd": "D:\\DT\\soprts\\start4\\repos\\phase6b-r05-r06-repair\\BNBU-Sports-Web-new",
+        "startedAt": "2026-09-08T15:22:58.749922+00:00",
+        "finishedAt": "2026-09-08T15:22:59.498577+00:00",
+        "exitCode": 0,
+        "adaptation": null
+      }
+    },
+    {
+      "path": "portal.log.json",
+      "sha256": "5ce37454c2eb3f84dc7c03bb6350ed1fc7576cfefedc6bbac894b5a4e6836c47",
+      "command": {
+        "command": [
+          "npm.cmd",
+          "test"
+        ],
+        "cwd": "D:\\DT\\soprts\\start4\\repos\\phase6b-r05-r06-repair\\BNBU-Sports-Web-new\\portal-teacher-admin",
+        "startedAt": "2026-09-08T15:22:36.189160+00:00",
+        "finishedAt": "2026-09-08T15:22:58.042138+00:00",
+        "exitCode": 0,
+        "adaptation": "Review-only preload maps python3 to existing Python; product and tests unchanged for this environment adaptation."
+      },
+      "originalLogSha256": "adb9ecd26dee85f65fffcc0ea57e683a4436d04585c837eb36c1a1c26e87e41d",
+      "storage": "JSON-escaped original UTF-8 text; decode text and UTF-8 encode to reproduce raw log bytes without trimming terminal output."
+    },
+    {
+      "path": "typecheck.log",
+      "sha256": "207f695ebb680a32607dc4895d242aa4c1ca106c7326af39fb43cec2bc806f22",
+      "command": {
+        "command": [
+          "npm.cmd",
+          "run",
+          "typecheck"
+        ],
+        "cwd": "D:\\DT\\soprts\\start4\\repos\\phase6b-r05-r06-repair\\BNBU-Sports-Web-new\\portal-teacher-admin",
+        "startedAt": "2026-09-08T15:22:35.964350+00:00",
+        "finishedAt": "2026-09-08T15:22:58.232668+00:00",
+        "exitCode": 0,
+        "adaptation": null
+      }
+    }
+  ],
+  "reviewedFiles": [
+    {
+      "path": "BNBU-Sports-Web-new/frontend/student/js/contract/README.md",
+      "sha256": "47728bd2ad9bd189a445afabf7a766aa4c27c053764e0178b7b5166fabf96af4",
+      "bytes": 2225
+    },
+    {
+      "path": "BNBU-Sports-Web-new/frontend/student/js/contract/validators.generated.js",
+      "sha256": "3942ca91648d4161ba37b5c06897c86e7e09a11e26bc480fe6a1b761c8307c20",
+      "bytes": 360256
+    },
+    {
+      "path": "BNBU-Sports-Web-new/frontend/student/js/contract/wire.d.ts",
+      "sha256": "a4dd7a33473eaab188112ebd84516c90b0d0eb6dedc4d5952a3388bc1f622dd3",
+      "bytes": 341
+    },
+    {
+      "path": "BNBU-Sports-Web-new/frontend/student/js/contract/wire.js",
+      "sha256": "f91efba3f554c81c615d5776993295945bfca59029525bc502d6fb84b075a4e2",
+      "bytes": 1794
+    },
+    {
+      "path": "BNBU-Sports-Web-new/frontend/student/js/phase6b-contract-mapper.js",
+      "sha256": "0cd7aeb9fcea0ba2e00e4d017a61ef5a7e33547469b2d3f10a0817cdf219b4cd",
+      "bytes": 7134
+    },
+    {
+      "path": "BNBU-Sports-Web-new/frontend/student/phase6b-test-fixtures.mjs",
+      "sha256": "98632d2652236f905fb172e846807f203b32152f1e00acad04ca6da63eec3f17",
+      "bytes": 2485
+    },
+    {
+      "path": "BNBU-Sports-Web-new/frontend/student/student-smoke.mjs",
+      "sha256": "6bda685dcb9046f54dc172bfce6387b287eabcf3df15ddfd5ff321d0cdb47e5f",
+      "bytes": 105479
+    },
+    {
+      "path": "BNBU-Sports-Web-new/portal-teacher-admin/app/admin-courses.tsx",
+      "sha256": "1653f4d68f78c53b1788706d302819efb69cadf30a4f729ad335ab5557b7aff7",
+      "bytes": 16394
+    },
+    {
+      "path": "BNBU-Sports-Web-new/portal-teacher-admin/app/checkin-audit-summary.tsx",
+      "sha256": "a4fb0cebca6e4dd52b7e2989be84611b909d7c24a97dfbc7ca073f821ed934b0",
+      "bytes": 2254
+    },
+    {
+      "path": "BNBU-Sports-Web-new/portal-teacher-admin/app/checkin-audit.ts",
+      "sha256": "586c7c8179ae5a4bf1577429cb6b873bd70102a02cce6f9da72c462de8ec0a00",
+      "bytes": 3221
+    },
+    {
+      "path": "BNBU-Sports-Web-new/portal-teacher-admin/app/credit-values.ts",
+      "sha256": "0980a180b1dbd8c2122037d9078fd8280045dcbeabd55e097977c8ff72a84d3d",
+      "bytes": 387
+    },
+    {
+      "path": "BNBU-Sports-Web-new/portal-teacher-admin/app/phase6b-contract-mapper.ts",
+      "sha256": "77e98a32a3e837eb6c9e4aac0ea0f89990957d941899baee7b1865be15e44ed5",
+      "bytes": 6643
+    },
+    {
+      "path": "BNBU-Sports-Web-new/portal-teacher-admin/app/teacher-data.ts",
+      "sha256": "b7c8070e559e52788dc552ad7cdf40ac9f32b80bbd12e5c5adc174c1da93b261",
+      "bytes": 34716
+    },
+    {
+      "path": "BNBU-Sports-Web-new/portal-teacher-admin/app/teacher-workspace.tsx",
+      "sha256": "706c46e7c72f262cbad3905948132e46425509d6296169c4eeb84b1b2fcc6121",
+      "bytes": 212131
+    },
+    {
+      "path": "BNBU-Sports-Web-new/portal-teacher-admin/package-lock.json",
+      "sha256": "098fa46c64098debbfb034ef3e93a4e035995d4c970f362299d99e4cf6555627",
+      "bytes": 369284
+    },
+    {
+      "path": "BNBU-Sports-Web-new/portal-teacher-admin/package.json",
+      "sha256": "ecee55530e21e89ba7b03039fb3d2feafa56a7dc405646cc6a7cf202a6aa515e",
+      "bytes": 3387
+    },
+    {
+      "path": "BNBU-Sports-Web-new/portal-teacher-admin/scripts/generate-phase6b-validators.mjs",
+      "sha256": "a3baaa04ca3e18c45431015735749eb8dff4bfe231c38920c92e2d24a5e44c91",
+      "bytes": 2968
+    },
+    {
+      "path": "BNBU-Sports-Web-new/portal-teacher-admin/tests/checkin-audit.test.mjs",
+      "sha256": "6d37d99c5a331118bf8413311659b675ad2a11ee93449ee8cbe84a672f7e2338",
+      "bytes": 12916
+    },
+    {
+      "path": "BNBU-Sports-Web-new/portal-teacher-admin/tests/phase6b-contract-mapper.test.mjs",
+      "sha256": "92953dd2f103229c34591af68f6c1a7cb2c593fa48b78b5ea93f1fb21b88c2dc",
+      "bytes": 4125
+    },
+    {
+      "path": "BNBU-Sports-Web-new/portal-teacher-admin/tests/phase6b-wire.test.mjs",
+      "sha256": "06df843fa691248c76299f3c3419964013f80fb11a5c26f1ea9760e020964267",
+      "bytes": 5984
+    },
+    {
+      "path": "docs/rebuild/handoffs/phase-6b-web-handoff.md",
+      "sha256": "5ccfd7bed25ab25108e412043ca1d2b85c714f67f0f98d6918e5dd3e4782af4f",
+      "bytes": 9632
+    }
+  ],
+  "reviewedManifestSha256": "daa065ba4e24643175d8c3024ce60a556f533f2cb9ce1ff896e23fa5b229e478",
+  "limitations": [
+    "No browser manual pass, real backend, E2E, deployment or performance acceptance.",
+    "Build succeeds with a chunk-size warning (>500 kB).",
+    "Portal inherited python3 test uses the recorded review-only Windows interpreter alias.",
+    "Legacy API/Mock scope remains scheduled for Phase 8; no new product Mock/TODO/empty endpoint.",
+    "GitHub publication and 6C final acceptance remain pending; Backend7.0 compatibility NOT_RUN."
+  ],
+  "diagnostics": [
+    "Initial targeted strict-validation runs found incomplete old test DTOs and outdated error assertions; repaired fixtures/expectations, not schema.",
+    "Original empty-workspace probe returned data:[] for singleton StudentCourse; rejection preserved in original-stub-results.json, missing-course response corrected to 404 only in the synthetic probe."
+  ]
+}

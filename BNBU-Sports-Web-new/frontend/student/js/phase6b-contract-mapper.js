@@ -1,3 +1,5 @@
+import { assertContractWire, isContractExerciseRecord, isContractStudentProgress } from "./contract/wire.js";
+
 // Phase 6B: strict read adapters for Contract 1.3.0 / RC wire shapes.
 // Maps official DTO fields into the existing student workspace projection.
 // Does not invent credit minutes, grades, or legacy 1.2.0-only fields.
@@ -9,23 +11,6 @@ export const PHASE6B_STUDENT_CONTRACT = Object.freeze({
   openapiSha256: "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
 });
 
-const EXERCISE_RECORD_WIRE_KEYS = new Set([
-  "recordId",
-  "sessionId",
-  "courseId",
-  "enrollmentId",
-  "ruleVersionId",
-  "activityType",
-  "student",
-  "businessDate",
-  "category",
-  "description",
-  "actualDurationSeconds",
-  "currentMaterial",
-  "currentReview",
-  "submittedAt",
-]);
-
 const OFFICIAL_PUBLIC_REASON_CODES = new Set([
   "UNCLEAR_EVIDENCE",
   "MISSING_REQUIRED_EVIDENCE",
@@ -36,83 +21,10 @@ const OFFICIAL_PUBLIC_REASON_CODES = new Set([
   "SUPPLEMENT_DEADLINE_MISSED",
 ]);
 
-const OFFICIAL_PROGRESS_STATES = new Set(["CURRENT", "RECOMPUTING", "UNAVAILABLE"]);
-
-const OFFICIAL_REVIEW_RESULTS = new Set(["VALID", "INVALID"]);
-
-const OFFICIAL_EXERCISE_CATEGORIES = new Set(["COURSE_RELATED", "OTHER"]);
-
-const OFFICIAL_ACTIVITY_TYPES = new Set(["STANDARD", "SWIMMING"]);
-
-const OFFICIAL_PROCESSING_STAGES = new Set([
-  "MATERIAL_PROCESSING",
-  "SYSTEM_CHECK_PENDING",
-  "AI_REVIEW_PENDING",
-  "TECHNICAL_PROCESSING",
-  "TEACHER_REVIEW_REQUIRED",
-  "SUPPLEMENT_REQUIRED",
-  "SUPPLEMENT_REVIEW_REQUIRED",
-  "VALID",
-  "INVALID",
-]);
-
-function assertPlainObject(value, code) {
-  if (!value || typeof value !== "object" || Array.isArray(value)) {
-    throw new Error(code);
-  }
-}
+export { isContractExerciseRecord, isContractStudentProgress };
 
 export function assertContractExerciseRecordWire(record) {
-  assertPlainObject(record, "CONTRACT_EXERCISE_RECORD_INVALID:NOT_OBJECT");
-  for (const key of Object.keys(record)) {
-    if (!EXERCISE_RECORD_WIRE_KEYS.has(key)) {
-      throw new Error(`CONTRACT_EXERCISE_RECORD_UNKNOWN_FIELD:${key}`);
-    }
-  }
-  if (typeof record.recordId !== "string" || !record.recordId.trim()) {
-    throw new Error("CONTRACT_EXERCISE_RECORD_INVALID:recordId");
-  }
-  if (!OFFICIAL_EXERCISE_CATEGORIES.has(String(record.category || "").trim())) {
-    throw new Error(`CONTRACT_EXERCISE_RECORD_INVALID:category:${record.category}`);
-  }
-  if (!OFFICIAL_ACTIVITY_TYPES.has(String(record.activityType || "").trim())) {
-    throw new Error(`CONTRACT_EXERCISE_RECORD_INVALID:activityType:${record.activityType}`);
-  }
-  if (!Number.isFinite(record.actualDurationSeconds)) {
-    throw new Error(`CONTRACT_EXERCISE_RECORD_INVALID:actualDurationSeconds:${record.actualDurationSeconds}`);
-  }
-  assertPlainObject(record.currentMaterial, "CONTRACT_EXERCISE_RECORD_INVALID:currentMaterial");
-  assertPlainObject(record.currentReview, "CONTRACT_EXERCISE_RECORD_INVALID:currentReview");
-  const stage = String(record.currentReview.processingStage || "").trim();
-  if (!OFFICIAL_PROCESSING_STAGES.has(stage)) {
-    throw new Error(`CONTRACT_REVIEW_STAGE_INVALID:${stage}`);
-  }
-  if (record.currentReview.result != null && record.currentReview.result !== "") {
-    readContractReviewResult(record.currentReview);
-  }
-  readContractPublicReason(record.currentReview);
-  return record;
-}
-
-export function isContractExerciseRecord(record) {
-  return Boolean(
-    record &&
-    typeof record === "object" &&
-    typeof record.recordId === "string" &&
-    record.currentMaterial &&
-    typeof record.currentMaterial === "object",
-  );
-}
-
-export function isContractStudentProgress(progress) {
-  return Boolean(
-    progress &&
-    typeof progress === "object" &&
-    typeof progress.state === "string" &&
-    typeof progress.observedAt === "string" &&
-    typeof progress.courseId === "string" &&
-    typeof progress.enrollmentId === "string",
-  );
+  return assertContractWire("ExerciseRecord", record);
 }
 
 export function rejectUnknownPublicReasonCode(code) {
@@ -126,6 +38,7 @@ export function rejectUnknownPublicReasonCode(code) {
 
 export function readContractPublicReason(review = {}) {
   if (review.publicReason && typeof review.publicReason === "object") {
+    assertContractWire("PublicReviewReason", review.publicReason);
     const code = rejectUnknownPublicReasonCode(review.publicReason.code);
     return {
       code,
@@ -143,12 +56,8 @@ export function readContractPublicReason(review = {}) {
 }
 
 export function readContractReviewResult(review = {}) {
-  const result = review.result == null ? null : String(review.result).trim();
-  if (result === null || result === "") return null;
-  if (!OFFICIAL_REVIEW_RESULTS.has(result)) {
-    throw new Error(`CONTRACT_REVIEW_RESULT_INVALID:${result}`);
-  }
-  return result;
+  assertContractWire("RecordReviewSummary", review);
+  return review.result;
 }
 
 function unavailableProgressProjection(state, unavailableReason = null) {
@@ -209,10 +118,8 @@ export function normalizeContractExerciseRecord(record, { courseIdBySection = {}
 
 export function mapContractStudentProgressProjection(progress) {
   if (!isContractStudentProgress(progress)) return null;
-  const state = String(progress.state || "").trim();
-  if (!OFFICIAL_PROGRESS_STATES.has(state)) {
-    throw new Error(`CONTRACT_PROGRESS_STATE_INVALID:${state}`);
-  }
+  assertContractWire("StudentCourseProgress", progress);
+  const state = progress.state;
 
   if (state === "UNAVAILABLE") {
     return unavailableProgressProjection(state, progress.unavailableReason ?? null);
@@ -222,10 +129,6 @@ export function mapContractStudentProgressProjection(progress) {
   }
 
   const totals = progress.checkpoint?.totals;
-  if (!totals || !Array.isArray(totals.categories)) {
-    return unavailableProgressProjection("RECOMPUTING", progress.unavailableReason ?? null);
-  }
-
   const courseCategory = totals.categories.find((item) => item.category === "COURSE_RELATED");
   const otherCategory = totals.categories.find((item) => item.category === "OTHER");
   const courseHours = Math.max(0, Number(courseCategory?.cappedCompletedMinutes) || 0) / 60;
@@ -254,8 +157,9 @@ export function mapContractStudentProgressProjection(progress) {
 }
 
 export function mapContractCourseTargets(studentCourse) {
-  const rule = studentCourse?.publishedRule;
-  if (!rule) return null;
+  if (studentCourse == null) return null;
+  assertContractWire("StudentCourse", studentCourse);
+  const rule = studentCourse.publishedRule;
   const toHours = (minutes) => Math.max(0, Number(minutes) || 0) / 60;
   return {
     total: toHours((Number(rule.courseRelatedTargetMinutes) || 0) + (Number(rule.otherTargetMinutes) || 0)),
@@ -270,7 +174,11 @@ export function mapContractCourseTargets(studentCourse) {
 
 export function selectContractStudentProgress(progressRows, enrollmentId, courseId) {
   if (!enrollmentId || !courseId) return null;
-  return (Array.isArray(progressRows) ? progressRows : []).find((progress) =>
+  const rows = Array.isArray(progressRows) ? progressRows : [];
+  for (const progress of rows) {
+    if (isContractStudentProgress(progress)) assertContractWire("StudentCourseProgress", progress);
+  }
+  return rows.find((progress) =>
     isContractStudentProgress(progress) &&
     progress.enrollmentId === enrollmentId &&
     progress.courseId === courseId,

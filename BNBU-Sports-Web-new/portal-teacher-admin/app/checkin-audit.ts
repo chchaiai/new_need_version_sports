@@ -1,3 +1,5 @@
+import { sumKnownCredits } from "./credit-values";
+
 export type AuditStatus = "valid" | "invalid" | "processing";
 
 export interface AttendanceAuditState {
@@ -27,16 +29,27 @@ export function applyAttendanceAuditState<
   };
 }
 
-export interface AttendanceAuditSummary {
+interface AuditCounts {
   validCount: number;
   invalidCount: number;
   pendingCount: number;
+}
+
+export type AttendanceAuditSummary = AuditCounts & ({
+  creditState: "KNOWN";
   validMinutes: number;
   remainingMinutes: number;
   exceededMinutes: number;
   hasReachedTarget: boolean;
   progressPercent: number;
-}
+} | {
+  creditState: "UNAVAILABLE";
+  validMinutes: null;
+  remainingMinutes: null;
+  exceededMinutes: null;
+  hasReachedTarget: null;
+  progressPercent: null;
+});
 
 export type CreditedDurationHours = 0 | 1 | 2;
 
@@ -50,13 +63,12 @@ export function toCreditedDurationHours(
 
 export function deriveAuditSummary(
   records: readonly AuditableAttendanceRecord[],
-  requiredMinutes: number,
+  requiredMinutes: number | null,
 ): AttendanceAuditSummary {
   const totals = records.reduce(
     (summary, record) => {
       if (record.auditStatus === "valid") {
         summary.validCount += 1;
-        summary.validMinutes += Math.max(0, record.creditedMinutes ?? 0);
       } else if (record.auditStatus === "invalid") {
         summary.invalidCount += 1;
       } else if (record.auditStatus === "processing") {
@@ -64,19 +76,35 @@ export function deriveAuditSummary(
       }
       return summary;
     },
-    { validCount: 0, invalidCount: 0, pendingCount: 0, validMinutes: 0 },
+    { validCount: 0, invalidCount: 0, pendingCount: 0 },
   );
 
-  const normalizedTarget = Math.max(0, requiredMinutes);
-  const remainingMinutes = Math.max(0, normalizedTarget - totals.validMinutes);
-  const exceededMinutes = Math.max(0, totals.validMinutes - normalizedTarget);
-  const hasReachedTarget = totals.validMinutes >= normalizedTarget;
+  const validMinutes = sumKnownCredits(
+    records.filter((record) => record.auditStatus === "valid").map((record) => record.creditedMinutes),
+  );
+  if (validMinutes === null || requiredMinutes === null || !Number.isFinite(requiredMinutes) || requiredMinutes < 0) {
+    return {
+      ...totals,
+      creditState: "UNAVAILABLE",
+      validMinutes: null,
+      remainingMinutes: null,
+      exceededMinutes: null,
+      hasReachedTarget: null,
+      progressPercent: null,
+    };
+  }
+  const normalizedTarget = requiredMinutes;
+  const remainingMinutes = Math.max(0, normalizedTarget - validMinutes);
+  const exceededMinutes = Math.max(0, validMinutes - normalizedTarget);
+  const hasReachedTarget = validMinutes >= normalizedTarget;
   const progressPercent = normalizedTarget === 0
     ? 100
-    : Math.min(100, (totals.validMinutes / normalizedTarget) * 100);
+    : Math.min(100, (validMinutes / normalizedTarget) * 100);
 
   return {
     ...totals,
+    creditState: "KNOWN",
+    validMinutes,
     remainingMinutes,
     exceededMinutes,
     hasReachedTarget,

@@ -614,7 +614,7 @@ export type TeacherCheckinView = {
   durationMinutes: number;
   creditedMinutes: number | null;
   originalHours: number;
-  approvedHours: number;
+  approvedHours: number | null;
   description: string;
   submittedAt: string;
   status: "有效" | "已调整" | "系统抵扣";
@@ -937,7 +937,7 @@ export function mapExerciseRecordToCheckin(
     approvedHours:
       normalized.creditedDurationSeconds != null
         ? Math.max(0, normalized.creditedDurationSeconds) / 3600
-        : 0,
+        : null,
     description: normalized.description ?? "",
     // The backend's business day is authoritative for "which day this counts
     // as"; the UTC date of the timestamp can fall on the previous day.
