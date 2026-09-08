@@ -71,9 +71,11 @@ import {
   uploadMediaDraft,
   updateExemptionApplication,
   uploadExemptionApplicationMediaDraft,
+  loadApiWorkspace,
 } from "./js/api.js";
 import {
   PHASE6B_STUDENT_CONTRACT,
+  assertContractExerciseRecordWire,
   mapContractStudentProgressProjection,
   rejectUnknownPublicReasonCode,
 } from "./js/phase6b-contract-mapper.js";
@@ -385,9 +387,10 @@ check("local UI preview workspace is labeled and does not invent student scores"
     unreadNoticeCount: () => workspace.notices.filter((notice) => notice.isUnread).length,
     hasActiveEnrollment: () => true,
   });
-  assert.match(html, /630 分钟/u);
+  assert.match(html, /—/u);
   assert.match(html, /1200 分钟/u);
   assert.doesNotMatch(html, />10\.5h</u);
+  assert.doesNotMatch(html, />630 分钟</u);
 });
 
 check("check-in sport icons share one stroke set and keep each activity recognizable", () => {
@@ -496,6 +499,7 @@ check("dashboard keeps the full backend total and never invents a missing target
           course: 14,
           general: 12,
           qualificationStatus: null,
+          scoreAvailable: true,
           status: "已按有效打卡累计",
         },
         hourRule: {
@@ -2250,10 +2254,12 @@ check("phase6b contract progress uses checkpoint totals and never legacy categor
     },
   };
   assert.deepEqual(mapStudentProgressProjection(progress), {
-    course: 5,
+    course: 6,
     general: 3,
     rawCourse: 5,
     rawGeneral: 3,
+    rawCountedCourseMinutes: 300,
+    rawCountedGeneralMinutes: 180,
     totalValidHours: 9,
     qualificationStatus: "NOT_QUALIFIED",
     scoreAvailable: true,
@@ -2261,12 +2267,16 @@ check("phase6b contract progress uses checkpoint totals and never legacy categor
     unavailableReason: null,
     displayPercent: 45,
     targetMet: false,
+    progressUnavailable: false,
+    progressRecomputing: false,
   });
   assert.deepEqual(mapContractStudentProgressProjection({ ...progress, state: "UNAVAILABLE", unavailableReason: "SOURCE_INCOMPLETE" }), {
-    course: 0,
-    general: 0,
-    rawCourse: 0,
-    rawGeneral: 0,
+    course: null,
+    general: null,
+    rawCourse: null,
+    rawGeneral: null,
+    rawCountedCourseMinutes: null,
+    rawCountedGeneralMinutes: null,
     totalValidHours: null,
     qualificationStatus: null,
     scoreAvailable: false,
@@ -2274,6 +2284,8 @@ check("phase6b contract progress uses checkpoint totals and never legacy categor
     unavailableReason: "SOURCE_INCOMPLETE",
     displayPercent: null,
     targetMet: null,
+    progressUnavailable: true,
+    progressRecomputing: false,
   });
 });
 
@@ -2305,7 +2317,7 @@ check("phase6b contract exercise records keep actual duration and omit invented 
       readiness: "READY",
       returnActionId: null,
       transferCompletedAt: "2026-08-31T03:14:00Z",
-      transferDueAt: "2026-08-31T04:15:00Z",
+      transferDueAt: "2026-08-31T03:45:00Z",
       version: 1,
       versionNo: 1,
     },
@@ -2339,9 +2351,134 @@ check("v8.1 review stages stay separate and do not guess missing wire values", (
   assert.equal(reviewStageFromRecord({ reviewResult: "TECHNICAL_PROCESSING" }).zh, "技术处理中");
   assert.equal(reviewStageFromRecord({ reviewResult: "VALID", hours: 1 }).zh, "有效 · 已计入");
   assert.equal(reviewStageFromRecord({ reviewResult: "VALID", hours: 0 }).zh, "有效 · 未计入");
-  assert.equal(reviewStageFromRecord({ reviewResult: null, hours: 1 }).zh, "审核阶段暂不可用");
+  assert.equal(reviewStageFromRecord({ reviewResult: "VALID", hours: null }).zh, "有效 · 计入情况待确认");
+  assert.equal(
+    reviewStageFromRecord({ reviewResult: null, reviewProcessingStage: "TEACHER_REVIEW_REQUIRED" }).zh,
+    "待教师复核",
+  );
   assert.match(checkinScreenSource, /固定公开原因/u);
   assert.match(checkinScreenSource, /reviewStageFromRecord/u);
+});
+
+check("phase6b contract mapper rejects invalid exercise record wire at runtime", () => {
+  const base = {
+    recordId: "50000000-0000-4000-8000-000000000001",
+    sessionId: "50000000-0000-4000-8000-000000000002",
+    courseId: "40000000-0000-4000-8000-000000000001",
+    enrollmentId: "50000000-0000-4000-8000-000000000003",
+    ruleVersionId: "77000000-0000-4000-8000-000000000001",
+    activityType: "STANDARD",
+    businessDate: "2026-08-31",
+    category: "COURSE_RELATED",
+    description: "完成操场慢跑与拉伸训练",
+    actualDurationSeconds: 4020,
+    submittedAt: "2026-08-31T03:15:00Z",
+    currentMaterial: {
+      materialVersionId: "78000000-0000-4000-8000-000000000001",
+      recordId: "50000000-0000-4000-8000-000000000001",
+      batchId: "78000000-0000-4000-8000-000000000002",
+      acceptedAt: "2026-08-31T03:15:00Z",
+      items: [],
+      previousMaterialVersionId: null,
+      readiness: "READY",
+      returnActionId: null,
+      transferCompletedAt: "2026-08-31T03:14:00Z",
+      transferDueAt: "2026-08-31T03:45:00Z",
+      version: 1,
+      versionNo: 1,
+    },
+    currentReview: {
+      materialVersionId: "78000000-0000-4000-8000-000000000001",
+      processingStage: "VALID",
+      publicComment: null,
+      publicReason: null,
+      result: "VALID",
+      reviewCaseId: "78000000-0000-4000-8000-000000000003",
+      roundNo: 1,
+      sequenceNumber: 1,
+      supplementReturnUsed: false,
+      supplementTimer: null,
+      teacherSla: null,
+      updatedAt: "2026-08-31T03:15:00Z",
+      version: 1,
+    },
+  };
+  assert.throws(() => assertContractExerciseRecordWire({ ...base, category: "BOGUS" }), /INVALID:category/);
+  assert.throws(() => assertContractExerciseRecordWire({ ...base, actualDurationSeconds: "1800" }), /INVALID:actualDurationSeconds/);
+  assert.throws(() => assertContractExerciseRecordWire({ ...base, unexpectedField: true }), /UNKNOWN_FIELD/);
+});
+
+check("loadApiWorkspace resolves contract course before progress targets", async () => {
+  clearApiSession();
+  storeAuthSession(authSession("workspace-contract-course"));
+  const originalFetch = globalThis.fetch;
+  const sectionId = "section-1";
+  const courseId = "40000000-0000-4000-8000-000000000001";
+  const enrollmentId = "50000000-0000-4000-8000-000000000003";
+  const semesterId = "semester-1";
+  const page = (data) => ({
+    data,
+    meta: { requestId: "page", pagination: { nextCursor: null, hasMore: false, limit: 50 } },
+  });
+  globalThis.fetch = async (input) => {
+    const url = new URL(String(input), "http://localhost");
+    const path = url.pathname;
+    const search = url.search;
+    if (path === "/api/v1/semesters/current") {
+      return Response.json(page({ id: semesterId, academicYear: "2025-2026", termCode: "1", displayName: "2025-2026-1" }));
+    }
+    if (path === "/api/v1/enrollments") {
+      return Response.json(page([{ id: enrollmentId, classSectionId: sectionId, status: "ACTIVE" }]));
+    }
+    if (path === "/api/v1/class-sections") {
+      return Response.json(page([{ id: sectionId, courseId, semesterId, classCode: "A1", displayName: "体育", status: "ACTIVE", teacherId: "teacher-1" }]));
+    }
+    if (path === `/api/v1/courses/${courseId}`) {
+      return Response.json(page({ id: courseId, courseCode: "PE101", courseName: "体育" }));
+    }
+    if (path === "/api/v1/exercise-records" && search.includes("limit=50")) {
+      return Response.json(page([]));
+    }
+    if (path === "/api/v1/student-scores") return Response.json(page([]));
+    if (path === "/api/v1/student-progress" && search.includes("limit=100")) return Response.json(page([]));
+    if (path === "/api/v1/exercise-sessions/active") return new Response(null, { status: 404 });
+    if (path === "/api/v1/exemption-application-details") return Response.json(page([]));
+    if (path === "/api/v1/activity-certification-applications") return new Response(null, { status: 404 });
+    if (path === "/api/v1/notifications" && search.includes("limit=100")) return Response.json(page([]));
+    if (path === `/api/v1/class-sections/${sectionId}/progress-target`) {
+      return Response.json(page({ totalTargetMinutes: 1200 }));
+    }
+    if (path === "/api/v1/student/course") {
+      return Response.json({
+        courseId,
+        publishedRule: {
+          ruleVersionId: "77000000-0000-4000-8000-000000000001",
+          courseRelatedTargetMinutes: 720,
+          otherTargetMinutes: 480,
+        },
+      });
+    }
+    if (path === "/api/v1/student/proof-todos") return Response.json({ items: [] });
+    throw new Error(`Unexpected request: ${path}${search}`);
+  };
+  try {
+    const identity = {
+      me: {
+        user: {
+          primaryEmailMasked: "t***@example.com",
+          emailVerified: true,
+          version: 1,
+        },
+      },
+      profile: { id: "student-1", studentNumber: "20260001", fullName: "测试学生", collegeName: "", administrativeClassName: "" },
+    };
+    const { workspace } = await loadApiWorkspace(identity);
+    assert.equal(workspace.hourRule?.source, "contract-student-course");
+    assert.equal(workspace.courses.length, 1);
+  } finally {
+    globalThis.fetch = originalFetch;
+    clearApiSession();
+  }
 });
 
 check("v8.1 notices keep proof wording and drop only explicit score disclosures", () => {

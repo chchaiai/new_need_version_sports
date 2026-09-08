@@ -176,7 +176,7 @@ export function buildPhase5bMaterialVersion(
     readiness: "READY",
     returnActionId: null,
     transferCompletedAt: "2026-08-31T03:14:00Z",
-    transferDueAt: "2026-08-31T04:15:00Z",
+    transferDueAt: "2026-08-31T03:45:00Z",
     version: 1,
     versionNo: 1,
   };

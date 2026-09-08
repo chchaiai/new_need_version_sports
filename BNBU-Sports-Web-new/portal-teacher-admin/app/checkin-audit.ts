@@ -1,4 +1,4 @@
-export type AuditStatus = "valid" | "invalid";
+export type AuditStatus = "valid" | "invalid" | "processing";
 
 export interface AttendanceAuditState {
   auditStatus: AuditStatus;
@@ -7,7 +7,7 @@ export interface AttendanceAuditState {
 }
 
 export interface AuditableAttendanceRecord extends AttendanceAuditState {
-  creditedMinutes: number;
+  creditedMinutes: number | null;
 }
 
 /**
@@ -56,9 +56,11 @@ export function deriveAuditSummary(
     (summary, record) => {
       if (record.auditStatus === "valid") {
         summary.validCount += 1;
-        summary.validMinutes += Math.max(0, record.creditedMinutes);
+        summary.validMinutes += Math.max(0, record.creditedMinutes ?? 0);
       } else if (record.auditStatus === "invalid") {
         summary.invalidCount += 1;
+      } else if (record.auditStatus === "processing") {
+        summary.pendingCount += 1;
       }
       return summary;
     },

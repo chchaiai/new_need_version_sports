@@ -184,7 +184,7 @@ async function loadRealRows(locale: AdminLocale): Promise<CourseDashboardRow[]> 
         validRecords: validRecords.length,
         invalidRecords: invalidRecords.length,
         creditedSeconds: validRecords.reduce(
-          (total, record) => total + record.creditedDurationSeconds,
+          (total, record) => total + (record.creditedDurationSeconds ?? 0),
           0,
         ),
         courseTargetSeconds: target?.courseTargetSeconds ?? null,

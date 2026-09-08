@@ -1,8 +1,21 @@
 # Phase 6B Web T08 完成回传（供 6C 汇总）
 
-## 完成状态：DONE
+## 完成状态：DONE（含审查整改 R01–R07）
 
-Phase 6B Web 在固定 `1.3.0-contract / RC / 5c87eeb9…f4a19ed` 上完成绑定、Fixture、双端运行时 Mapper、Mock/构建门禁。正式网络迁移仍归 Phase 8。
+Phase 6B Web 在固定 `1.3.0-contract / RC / 5c87eeb9…f4a19ed` 上完成绑定、Fixture、双端运行时 Mapper、Mock/构建门禁，并已关闭 PR #11 审查报告全部 Finding。正式网络迁移仍归 Phase 8。
+
+## 审查整改（2026-09-08）
+
+| ID | 状态 | 修复摘要 |
+|---|---|---|
+| R01 | CLOSED | `loadApiWorkspace` 先取 `contractCourse` 再 `mapProgressTarget`；smoke 新增工作区加载用例 |
+| R02 | CLOSED | `processingStage` → `auditStatus: processing`（Portal）；学生端 `reviewProcessingStage` 映射 |
+| R03 | CLOSED | 分类完成量使用 `cappedCompletedMinutes`；`countedRecordMinutes` 单列 |
+| R04 | CLOSED | UNAVAILABLE/RECOMPUTING 返回 `null` + `progressUnavailable`；dashboard 展示暂不可用 |
+| R05 | CLOSED | `creditedDurationSeconds`/`creditedMinutes` 保持 `null`；VALID 无 hours 显示“计入情况待确认” |
+| R06 | CLOSED | 两端 `assertContractExerciseRecordWire` 运行时校验 + 反例测试 |
+| R07 | CLOSED | `transferDueAt` 修正为 acceptedAt+30min（`03:45:00Z`） |
+| G01 | CLOSED | `STATUS.md` 合并 Android 6A 与 Web 6B 段落 |
 
 ## 输入身份
 
@@ -21,9 +34,9 @@ Phase 6B Web 在固定 `1.3.0-contract / RC / 5c87eeb9…f4a19ed` 上完成绑�
 | T01 接收回执 | ✅ | [phase-6b-web-t01-receipt.md](phase-6b-web-t01-receipt.md) |
 | T02 绑定 + 类型生成 | ✅ | `phase5b:contract:generate --check` 两端 14352 行一致 |
 | T03 Fixture/Mock 对齐 | ✅ | typecheck ✅；phase5b mock/revalidation **22/22** |
-| T04 学生端运行时 Mapper | ✅ | student smoke **90/90**；[t04](phase-6b-web-t04-runtime-mapper.md) |
-| T05 Portal 运行时 Mapper | ✅ | portal **130/130**；[t05](phase-6b-web-t05-portal-runtime-mapper.md) |
-| T06 Portal 全量构建测试 | ✅ | `npm test` **130/130**（含 `rendered-html` AppSelect 门禁） |
+| T04 学生端运行时 Mapper | ✅ | student smoke **92/92**；[t04](phase-6b-web-t04-runtime-mapper.md) |
+| T05 Portal 运行时 Mapper | ✅ | portal **133/133**；[t05](phase-6b-web-t05-portal-runtime-mapper.md) |
+| T06 Portal 全量构建测试 | ✅ | `npm test` **133/133**（含 `rendered-html` AppSelect 门禁） |
 | T07 phase5gb + Finding 收口 | ✅ | phase5gb **13/13**；ADMIN gated 清单升至 54 |
 | T08 6B 完成回传 | ✅ | 本文件 |
 
@@ -31,11 +44,11 @@ Phase 6B Web 在固定 `1.3.0-contract / RC / 5c87eeb9…f4a19ed` 上完成绑�
 
 | 范围 | 命令 | 结果 |
 |---|---|---|
-| 学生端 smoke | `npm run test:student` | ✅ 90/90 |
+| 学生端 smoke | `npm run test:student` | ✅ 92/92 |
 | Portal typecheck | `npm run typecheck` | ✅ exit 0 |
-| Portal 全量 | `npm test` | ✅ 130/130 |
-| phase5b contract | mock + revalidation | ✅ 22/22 |
-| phase5gb contract | revalidation | ✅ 13/13 |
+| Portal 全量 | `npm test` | ✅ 133/133 |
+| phase5b contract | mock + revalidation | ✅ 22/22（含于 Portal 133） |
+| phase5gb contract | revalidation | ✅ 13/13（含于 Portal 133） |
 
 ## Finding 最终状态
 
@@ -55,7 +68,7 @@ Phase 6B Web 在固定 `1.3.0-contract / RC / 5c87eeb9…f4a19ed` 上完成绑�
 | 真实后端联调 | Phase 7/8 | Backend 未构建 |
 | 正式 API 网络迁移 | Phase 8 | 本轮仅 Contract+Mock |
 | Teacher Dashboard / Notification Center UI | Phase 8+ | 覆盖矩阵 T01/T07 仍为 MISSING |
-| 6C 汇总结论 | 6C | 待 Android 6A 同 SHA 报告 |
+| 6C 汇总结论 | 6C | 待用户复核 PR #11 后执行；Android 6A 已在 main 接受 |
 
 ## 自检
 

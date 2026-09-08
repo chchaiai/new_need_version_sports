@@ -11,6 +11,23 @@ export const PHASE6B_PORTAL_CONTRACT = Object.freeze({
   openapiSha256: "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
 });
 
+const EXERCISE_RECORD_WIRE_KEYS = new Set([
+  "recordId",
+  "sessionId",
+  "courseId",
+  "enrollmentId",
+  "ruleVersionId",
+  "activityType",
+  "student",
+  "businessDate",
+  "category",
+  "description",
+  "actualDurationSeconds",
+  "currentMaterial",
+  "currentReview",
+  "submittedAt",
+]);
+
 const OFFICIAL_PUBLIC_REASON_CODES = new Set([
   "UNCLEAR_EVIDENCE",
   "MISSING_REQUIRED_EVIDENCE",
@@ -19,6 +36,21 @@ const OFFICIAL_PUBLIC_REASON_CODES = new Set([
   "AUTHENTICITY_REQUIRES_CLARIFICATION",
   "CONFIRMED_REUSE_OR_MISUSE",
   "SUPPLEMENT_DEADLINE_MISSED",
+]);
+
+const OFFICIAL_EXERCISE_CATEGORIES = new Set(["COURSE_RELATED", "OTHER"]);
+const OFFICIAL_ACTIVITY_TYPES = new Set(["STANDARD", "SWIMMING"]);
+const OFFICIAL_REVIEW_RESULTS = new Set(["VALID", "INVALID"]);
+const OFFICIAL_PROCESSING_STAGES = new Set([
+  "MATERIAL_PROCESSING",
+  "SYSTEM_CHECK_PENDING",
+  "AI_REVIEW_PENDING",
+  "TECHNICAL_PROCESSING",
+  "TEACHER_REVIEW_REQUIRED",
+  "SUPPLEMENT_REQUIRED",
+  "SUPPLEMENT_REVIEW_REQUIRED",
+  "VALID",
+  "INVALID",
 ]);
 
 const PUBLIC_REASON_WIRE_LABELS: Record<string, string> = {
@@ -41,6 +73,51 @@ export const PUBLIC_REASON_ID_TO_WIRE = Object.freeze({
 });
 
 type UnknownRecord = Record<string, unknown>;
+
+function assertPlainObject(value: unknown, code: string) {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    throw new Error(code);
+  }
+}
+
+export function assertContractExerciseRecordWire(record: unknown): UnknownRecord {
+  assertPlainObject(record, "CONTRACT_EXERCISE_RECORD_INVALID:NOT_OBJECT");
+  const wire = record as UnknownRecord;
+  for (const key of Object.keys(wire)) {
+    if (!EXERCISE_RECORD_WIRE_KEYS.has(key)) {
+      throw new Error(`CONTRACT_EXERCISE_RECORD_UNKNOWN_FIELD:${key}`);
+    }
+  }
+  if (typeof wire.recordId !== "string" || !wire.recordId.trim()) {
+    throw new Error("CONTRACT_EXERCISE_RECORD_INVALID:recordId");
+  }
+  if (!OFFICIAL_EXERCISE_CATEGORIES.has(String(wire.category || "").trim())) {
+    throw new Error(`CONTRACT_EXERCISE_RECORD_INVALID:category:${wire.category}`);
+  }
+  if (!OFFICIAL_ACTIVITY_TYPES.has(String(wire.activityType || "").trim())) {
+    throw new Error(`CONTRACT_EXERCISE_RECORD_INVALID:activityType:${wire.activityType}`);
+  }
+  if (!Number.isFinite(wire.actualDurationSeconds)) {
+    throw new Error(
+      `CONTRACT_EXERCISE_RECORD_INVALID:actualDurationSeconds:${wire.actualDurationSeconds}`,
+    );
+  }
+  assertPlainObject(wire.currentMaterial, "CONTRACT_EXERCISE_RECORD_INVALID:currentMaterial");
+  assertPlainObject(wire.currentReview, "CONTRACT_EXERCISE_RECORD_INVALID:currentReview");
+  const review = wire.currentReview as UnknownRecord;
+  const stage = String(review.processingStage || "").trim();
+  if (!OFFICIAL_PROCESSING_STAGES.has(stage)) {
+    throw new Error(`CONTRACT_REVIEW_STAGE_INVALID:${stage}`);
+  }
+  if (review.result != null && review.result !== "") {
+    const result = String(review.result).trim();
+    if (!OFFICIAL_REVIEW_RESULTS.has(result)) {
+      throw new Error(`CONTRACT_REVIEW_RESULT_INVALID:${result}`);
+    }
+  }
+  readContractPublicReason(review);
+  return wire;
+}
 
 export function isContractExerciseRecord(record: unknown): boolean {
   return Boolean(
@@ -118,11 +195,12 @@ export function normalizeContractExerciseRecordForTeacher(
   record: UnknownRecord,
   context: { classSectionId?: string; studentId?: string } = {},
 ): ExerciseRecord {
-  const review = (record.currentReview || {}) as UnknownRecord;
+  const wire = assertContractExerciseRecordWire(record);
+  const review = (wire.currentReview || {}) as UnknownRecord;
   const publicReason = readContractPublicReason(review);
   const student =
-    record.student && typeof record.student === "object"
-      ? (record.student as UnknownRecord)
+    wire.student && typeof wire.student === "object"
+      ? (wire.student as UnknownRecord)
       : null;
   const studentId =
     context.studentId ||
@@ -137,37 +215,37 @@ export function normalizeContractExerciseRecordForTeacher(
   }
 
   return {
-    id: String(record.recordId),
+    id: String(wire.recordId),
     organizationId: "",
     semesterId: "",
     studentId,
-    enrollmentId: String(record.enrollmentId || ""),
+    enrollmentId: String(wire.enrollmentId || ""),
     classSectionId: context.classSectionId || "",
-    courseId: String(record.courseId || ""),
+    courseId: String(wire.courseId || ""),
     teacherId: "",
-    sessionId: String(record.sessionId || ""),
-    businessDate: String(record.businessDate || ""),
-    creditType: record.category === "COURSE_RELATED" ? "COURSE_RELATED" : "GENERAL",
-    sportType: record.activityType === "SWIMMING" ? "SWIMMING" : "OTHER",
+    sessionId: String(wire.sessionId || ""),
+    businessDate: String(wire.businessDate || ""),
+    creditType: wire.category === "COURSE_RELATED" ? "COURSE_RELATED" : "GENERAL",
+    sportType: wire.activityType === "SWIMMING" ? "SWIMMING" : "OTHER",
     sportName: null,
-    description: typeof record.description === "string" ? record.description : "",
+    description: typeof wire.description === "string" ? wire.description : "",
     studentRemark: null,
-    actualDurationSeconds: Number(record.actualDurationSeconds || 0),
+    actualDurationSeconds: Number(wire.actualDurationSeconds || 0),
     pausedDurationSeconds: 0,
     // 1.3.0 does not expose per-record credited seconds on ExerciseRecord.
-    creditedDurationSeconds: 0,
+    creditedDurationSeconds: null,
     status: result ? "REVIEWED" : "SUBMITTED",
-    submittedAt: typeof record.submittedAt === "string" ? record.submittedAt : null,
+    submittedAt: typeof wire.submittedAt === "string" ? wire.submittedAt : null,
     cancelledAt: null,
     clientRequestId: "",
-    currentReview: result
-      ? {
-          result: result as "VALID" | "INVALID",
-          reasonCode: mapPublicReasonToLegacyCode(publicReason.code),
-          publicComment:
-            typeof review.publicComment === "string" ? review.publicComment : null,
-        }
-      : null,
+    currentReview: {
+      result: result as "VALID" | "INVALID" | null,
+      reasonCode: mapPublicReasonToLegacyCode(publicReason.code),
+      publicComment:
+        typeof review.publicComment === "string" ? review.publicComment : null,
+      processingStage:
+        typeof review.processingStage === "string" ? review.processingStage : null,
+    },
     version: Number(review.version || 0),
   };
 }

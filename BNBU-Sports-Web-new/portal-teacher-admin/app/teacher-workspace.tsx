@@ -217,7 +217,7 @@ type CheckinRecord = {
   startAt: string;
   endAt: string;
   durationMinutes: number;
-  creditedMinutes: number;
+  creditedMinutes: number | null;
   originalHours: number;
   approvedHours: number;
   description: string;
@@ -748,7 +748,8 @@ function attendanceHoursLabel(minutes: number) {
   return (Math.max(0, minutes) / 60).toFixed(1);
 }
 
-function singleRecordCreditedDurationLabel(minutes: number) {
+function singleRecordCreditedDurationLabel(minutes: number | null) {
+  if (minutes == null) return "待确认";
   const creditedHours = toCreditedDurationHours(minutes);
   return creditedHours === null ? "异常" : `${creditedHours} 小时`;
 }
@@ -775,6 +776,7 @@ function checkinDayLabel(record: CheckinRecord) {
 const auditStatusLabels: Record<AuditStatus, string> = {
   valid: statusLabel("valid", "audit"),
   invalid: statusLabel("invalid", "audit"),
+  processing: statusLabel("processing", "audit"),
 };
 
 // current API lets a teacher append only VALID or INVALID
@@ -5492,7 +5494,13 @@ export function TeacherWorkspace({
               headerContent={
                 <div className="checkin-detail-header-meta">
                   <Badge
-                    tone={selectedRecord.auditStatus === "valid" ? "green" : "red"}
+                    tone={
+                      selectedRecord.auditStatus === "valid"
+                        ? "green"
+                        : selectedRecord.auditStatus === "processing"
+                          ? "amber"
+                          : "red"
+                    }
                   >
                     {auditStatusLabels[selectedRecord.auditStatus]}
                   </Badge>

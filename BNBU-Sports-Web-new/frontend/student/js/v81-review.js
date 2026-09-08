@@ -102,6 +102,7 @@ export const REVIEW_STAGES = {
     final: false,
   },
   TechnicalProcessing: { zh: "技术处理中", en: "Technical processing", final: false },
+  ValidCreditUnknown: { zh: "有效 · 计入情况待确认", en: "Valid · Credit status pending", final: false },
   ValidCredited: { zh: "有效 · 已计入", en: "Valid · Credited", final: true },
   ValidNotCredited: { zh: "有效 · 未计入", en: "Valid · Not credited", final: true },
   Invalid: { zh: "无效", en: "Invalid", final: true },
@@ -109,8 +110,28 @@ export const REVIEW_STAGES = {
 };
 
 export function reviewStageFromRecord(record = {}) {
+  const processingStage = String(record.reviewProcessingStage || "").trim();
+  if (!record.reviewResult && processingStage) {
+    switch (processingStage) {
+      case "MATERIAL_PROCESSING":
+      case "SYSTEM_CHECK_PENDING":
+      case "AI_REVIEW_PENDING":
+        return REVIEW_STAGES.PendingAiCheck;
+      case "TECHNICAL_PROCESSING":
+        return REVIEW_STAGES.TechnicalProcessing;
+      case "TEACHER_REVIEW_REQUIRED":
+        return REVIEW_STAGES.PendingTeacherReview;
+      case "SUPPLEMENT_REQUIRED":
+        return REVIEW_STAGES.PendingStudentSupplement;
+      case "SUPPLEMENT_REVIEW_REQUIRED":
+        return REVIEW_STAGES.SupplementReceivedPendingTeacherReview;
+      default:
+        return REVIEW_STAGES.StageUnavailable;
+    }
+  }
   const raw = String(record.reviewResult || record.reviewStatus || "").trim().toUpperCase();
-  const credited = Number(record.hours) > 0 || Number(record.creditedWholeMinutes) > 0;
+  const creditedKnown = record.hours != null;
+  const credited = creditedKnown && (Number(record.hours) > 0 || Number(record.creditedWholeMinutes) > 0);
   switch (raw) {
     case "PENDING_AI":
     case "PENDINGAICHECK":
@@ -127,6 +148,7 @@ export function reviewStageFromRecord(record = {}) {
     case "TECHNICAL_PROCESSING":
       return REVIEW_STAGES.TechnicalProcessing;
     case "VALID":
+      if (!creditedKnown) return REVIEW_STAGES.ValidCreditUnknown;
       return credited ? REVIEW_STAGES.ValidCredited : REVIEW_STAGES.ValidNotCredited;
     case "INVALID":
     case "PROOF_OVERDUE_INVALID":

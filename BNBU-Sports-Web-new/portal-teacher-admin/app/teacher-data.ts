@@ -612,7 +612,7 @@ export type TeacherCheckinView = {
   startAt: string;
   endAt: string;
   durationMinutes: number;
-  creditedMinutes: number;
+  creditedMinutes: number | null;
   originalHours: number;
   approvedHours: number;
   description: string;
@@ -841,8 +841,8 @@ function reviewToAuditStatus(record: ExerciseRecord): AuditStatus {
   const result = record.currentReview?.result;
   if (result === "VALID") return "valid";
   if (result === "INVALID") return "invalid";
-  // Every submitted record is REVIEWED with a system VALID row. A missing or
-  // unknown review is an invariant breach, never a third display state.
+  const stage = String(record.currentReview?.processingStage || "").trim();
+  if (!result && stage) return "processing";
   throw new ReviewProjectionConsistencyError(record.id);
 }
 
@@ -907,9 +907,10 @@ export function mapExerciseRecordToCheckin(
       })
     : (record as ExerciseRecord);
   const durationMinutes = Math.round((normalized.actualDurationSeconds || 0) / 60);
-  const creditedMinutes = Math.round(
-    (normalized.creditedDurationSeconds || 0) / 60,
-  );
+  const creditedMinutes =
+    normalized.creditedDurationSeconds == null
+      ? null
+      : Math.round(normalized.creditedDurationSeconds / 60);
   const mediaIds = evidenceContext?.mediaIds ?? [];
   const auditStatus = reviewToAuditStatus(normalized);
   const contractReasonLabel = isContractExerciseRecord(record)
@@ -933,7 +934,10 @@ export function mapExerciseRecordToCheckin(
     durationMinutes,
     creditedMinutes,
     originalHours: Math.max(0, normalized.actualDurationSeconds) / 3600,
-    approvedHours: Math.max(0, normalized.creditedDurationSeconds) / 3600,
+    approvedHours:
+      normalized.creditedDurationSeconds != null
+        ? Math.max(0, normalized.creditedDurationSeconds) / 3600
+        : 0,
     description: normalized.description ?? "",
     // The backend's business day is authoritative for "which day this counts
     // as"; the UTC date of the timestamp can fall on the previous day.

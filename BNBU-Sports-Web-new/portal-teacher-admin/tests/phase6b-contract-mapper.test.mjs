@@ -9,6 +9,7 @@ import {
 import { exerciseRecord, portalMaterialVersionId } from "../app/phase5b-contract-fixtures.ts";
 import {
   PHASE6B_PORTAL_CONTRACT,
+  assertContractExerciseRecordWire,
   isContractExerciseRecord,
   normalizeContractExerciseRecordForTeacher,
   publicReasonDisplayLabel,
@@ -29,13 +30,41 @@ test("phase6b portal mapper normalizes contract exercise records without invente
   assert.ok(isContractExerciseRecord(exerciseRecord));
   const normalized = normalizeContractExerciseRecordForTeacher(exerciseRecord);
   assert.equal(normalized.id, exerciseRecord.recordId);
-  assert.equal(normalized.creditedDurationSeconds, 0);
+  assert.equal(normalized.creditedDurationSeconds, null);
   assert.equal(normalized.actualDurationSeconds, exerciseRecord.actualDurationSeconds);
 
   const checkin = mapExerciseRecordToCheckin(exerciseRecord);
-  assert.equal(checkin.creditedMinutes, 0);
+  assert.equal(checkin.creditedMinutes, null);
   assert.equal(checkin.durationMinutes, Math.round(exerciseRecord.actualDurationSeconds / 60));
   assert.equal(checkin.auditStatus, "valid");
+});
+
+test("phase6b portal mapper keeps in-progress reviews as processing audit status", () => {
+  const inProgress = {
+    ...exerciseRecord,
+    currentReview: {
+      ...buildPhase5bRecordReviewSummary(portalMaterialVersionId, "VALID"),
+      result: null,
+      processingStage: "TEACHER_REVIEW_REQUIRED",
+    },
+  };
+  const checkin = mapExerciseRecordToCheckin(inProgress);
+  assert.equal(checkin.auditStatus, "processing");
+});
+
+test("phase6b portal mapper rejects invalid contract wire at runtime", () => {
+  assert.throws(
+    () => assertContractExerciseRecordWire({ ...exerciseRecord, category: "BOGUS" }),
+    /CONTRACT_EXERCISE_RECORD_INVALID:category:BOGUS/,
+  );
+  assert.throws(
+    () => assertContractExerciseRecordWire({ ...exerciseRecord, actualDurationSeconds: "1800" }),
+    /CONTRACT_EXERCISE_RECORD_INVALID:actualDurationSeconds:1800/,
+  );
+  assert.throws(
+    () => assertContractExerciseRecordWire({ ...exerciseRecord, unexpectedField: true }),
+    /CONTRACT_EXERCISE_RECORD_UNKNOWN_FIELD:unexpectedField/,
+  );
 });
 
 test("phase6b portal mapper reads publicReason wire labels for invalid reviews", () => {
@@ -57,4 +86,14 @@ test("phase6b portal mapper reads publicReason wire labels for invalid reviews",
   const checkin = mapExerciseRecordToCheckin(invalidRecord);
   assert.equal(checkin.invalidReason, "材料不清晰");
   assert.equal(checkin.auditStatus, "invalid");
+});
+
+test("phase5b shared material fixture keeps the 30-minute transfer window", () => {
+  const material = buildPhase5bMaterialVersion(
+    exerciseRecord.recordId,
+    exerciseRecord.sessionId,
+    portalMaterialVersionId,
+  );
+  assert.equal(material.acceptedAt, "2026-08-31T03:15:00Z");
+  assert.equal(material.transferDueAt, "2026-08-31T03:45:00Z");
 });

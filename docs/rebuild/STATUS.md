@@ -1,6 +1,22 @@
 # 当前进度状态
 
-## 2026-09-08 Phase6B Web T04–T08 完成（6B DONE，待 6C）
+## 2026-09-08 Phase6A DONE + Phase6B Web 审查整改完成（6B DONE，待复核后 6C）
+
+- **6A Android**：七步本地计划 7/7 完成；用户已在手机查看独立人工审查 APK 并接受。分支 `codex/phase6a-contract-mock`；1156 协议用例、255 Mapper、71 Mock 通过；模拟器 74/74。入口：[Android 阶段交接](handoffs/new-req-phase-6-android.md)。
+- **6B Web 审查整改（R01–R07 + G01）**：针对 PR #11 审查报告 `REQUEST_CHANGES` 全部关闭。
+  - **R01** `loadApiWorkspace`：先取得 `contractCourse` 再调用 `mapProgressTarget`；smoke 新增工作区加载用例。
+  - **R02** 未终局审核：`processingStage` 映射为 `processing` 审核态（Portal + Student）；不再抛 `LOCAL_REVIEW_PROJECTION_STATE_MISMATCH`。
+  - **R03** 进度分类完成量：使用 `cappedCompletedMinutes`；`countedRecordMinutes` 单列保留。
+  - **R04** UNAVAILABLE/RECOMPUTING：返回 `null` + `progressUnavailable`；dashboard 展示“暂不可用/正在重算”。
+  - **R05** 计入未知：`creditedDurationSeconds`/`creditedMinutes` 保持 `null`；学生端 VALID 无 hours 显示“计入情况待确认”。
+  - **R06** 运行时 wire 校验：两端 `assertContractExerciseRecordWire` 拒绝非法 category/类型/未知字段。
+  - **R07** 共享 Fixture：`transferDueAt` 修正为 acceptedAt+30min（`03:45:00Z`）。
+  - **G01** `STATUS.md` 已与 main Android 段落合并。
+- **测试**：学生 smoke、Portal `npm test`（含 phase5gb）、`npm run typecheck` 待本轮执行记录。
+- **Contract**：`1.3.0-contract / RC / 5c87eeb9…f4a19ed`；未改 Contract 字节、业务正文、Android、Backend。
+- **下一步**：用户复核 PR #11 新 Commit → 合并 → 6C 跨端汇总。
+
+## 2026-09-08 Phase6B Web T04–T08 完成（审查前）
 
 - **T04** 学生端：`phase6b-contract-mapper.js` + `api.js` 双轨；smoke **90/90**。
 - **T05** Portal：`phase6b-contract-mapper.ts` + `teacher-data.ts` 双轨；1.3.0 文案；原生 `<select>` → `AppSelect`。

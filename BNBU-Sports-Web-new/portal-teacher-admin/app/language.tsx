@@ -1944,7 +1944,7 @@ const statusSourceLabels: Record<StatusScope, Record<string, string>> = {
     NORMAL: "正常模式",
     MAINTENANCE: "维护模式",
   },
-  audit: { pending: "待审核", valid: "有效", invalid: "无效" },
+  audit: { pending: "待审核", valid: "有效", invalid: "无效", processing: "处理中" },
   grade: {
     NotRecorded: "待录入",
     Recorded: "已录入",

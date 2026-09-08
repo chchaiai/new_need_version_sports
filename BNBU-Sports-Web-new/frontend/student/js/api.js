@@ -1489,10 +1489,16 @@ export function mapServerRecord(record, { courseIdBySection = {} } = {}) {
   const review = source.currentReview;
   const reviewText = review
     ? review.result === "VALID"
-      ? review.publicComment || tx("记录有效，已计入运动时长。", "Record valid; hours credited.")
+      ? review.publicComment || (credited == null
+        ? tx("记录有效，计入情况待服务器确认。", "Record valid; credit status pending from server.")
+        : credited > 0
+          ? tx("记录有效，已计入运动时长。", "Record valid; hours credited.")
+          : tx("记录有效，未计入运动时长。", "Record valid; hours not credited."))
       : review.result === "INVALID"
         ? (review.publicComment ? tx(`未通过：${review.publicComment}`, `Rejected: ${review.publicComment}`) : tx("记录未通过审核。", "Record was rejected."))
-        : tx("记录审核状态异常。", "The record review state is invalid.")
+        : review.processingStage
+          ? tx("记录审核处理中。", "Record review is in progress.")
+          : tx("记录审核状态异常。", "The record review state is invalid.")
     : tx("记录缺少有效审核状态。", "The record has no valid review state.");
   const label = source.sportName || (SERVER_SPORT_LABELS[source.sportType] ? tx(...SERVER_SPORT_LABELS[source.sportType]) : source.sportType);
   const proofs = readRecordProofs(source.id);
@@ -2016,6 +2022,10 @@ export async function loadApiWorkspace(preloadedIdentity = null) {
   const progressTarget = currentSection
     ? await optionalCapability(getClassProgressTarget(currentSection.id))
     : null;
+  const [proofTodoPage, contractCourse] = await Promise.all([
+    optionalCapability(listOwnProofTodos()),
+    optionalCapability(getOwnCurrentCourseContract()),
+  ]);
   const hourRule = mapProgressTarget(progressTarget, currentStudentProgress, contractCourse);
   const publishedScore = currentScore?.status === "PUBLISHED" ? currentScore : null;
   const { totalScore, totalDisplay } = mapPublishedScore(publishedScore);
@@ -2036,16 +2046,15 @@ export async function loadApiWorkspace(preloadedIdentity = null) {
       .filter(Boolean);
   }
   const progressStatus =
-    scoreProgress.qualificationStatus === "QUALIFIED"
+    scoreProgress.progressUnavailable
+      ? scoreProgress.progressRecomputing
+        ? tx("统计正在重算", "Statistics recomputing")
+        : tx("统计暂不可用", "Statistics unavailable")
+      : scoreProgress.qualificationStatus === "QUALIFIED"
       ? tx("已达标", "Qualified")
       : scoreProgress.qualificationStatus === "NOT_QUALIFIED"
         ? tx("进行中", "In progress")
         : tx("已按有效打卡累计", "Summed from valid check-ins");
-
-  const [proofTodoPage, contractCourse] = await Promise.all([
-    optionalCapability(listOwnProofTodos()),
-    optionalCapability(getOwnCurrentCourseContract()),
-  ]);
 
   return {
     workspace: {
