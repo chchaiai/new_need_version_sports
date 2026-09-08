@@ -1,6 +1,13 @@
 import type { components, operations } from "./phase5b-contract.generated";
+import {
+  buildPhase5bPublishedRule,
+  buildPhase5bStudentCourseProgress,
+  invitationPreviewUnavailableReason,
+} from "../../portal-teacher-admin/app/phase5b-contract-shared-fixtures";
 
 type Schema<Name extends keyof components["schemas"]> = components["schemas"][Name];
+
+export const studentPublishedRuleVersionId = "77000000-0000-4000-8000-000000000002";
 
 // openapi-typescript 7.13 infers the schema name as the discriminator literal
 // when no explicit mapping exists. Keep that codegen quirk behind this adapter:
@@ -13,10 +20,10 @@ export type CreateCertificationApplicationWireRequest = Omit<
 };
 
 export const PHASE5B_STUDENT_CONTRACT = {
-  version: "1.2.0-contract",
+  version: "1.3.0-contract",
   status: "RC",
   publicBasePath: "/api/v1",
-  openapiSha256: "667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a",
+  openapiSha256: "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
 } as const;
 
 export const studentActor = {
@@ -70,6 +77,11 @@ export const studentCourse = {
   },
   checkinOpensAt: "2026-08-31T00:00:00Z",
   checkinClosesAt: "2027-01-15T15:59:59Z",
+  publishedRule: buildPhase5bPublishedRule(
+    "73000000-0000-4000-8000-000000000001",
+    studentCurrentSemester.semesterId,
+    studentPublishedRuleVersionId,
+  ),
   targets: {
     courseRelatedTargetMinutes: 720,
     otherTargetMinutes: 480,
@@ -77,38 +89,13 @@ export const studentCourse = {
   },
 } satisfies Schema<"StudentCourse">;
 
-export const activeStudentProgress = {
-  courseId: studentCourse.courseId,
-  enrollmentId: "73000000-0000-4000-8000-000000000003",
-  student: activeStudent,
-  categories: [
-    {
-      category: "COURSE_RELATED",
-      targetMinutes: 720,
-      validRecordMinutes: 300,
-      activeCertificationMinutes: 60,
-      rawCombinedMinutes: 360,
-      cappedCompletedMinutes: 360,
-      remainingMinutes: 360,
-    },
-    {
-      category: "OTHER",
-      targetMinutes: 480,
-      validRecordMinutes: 180,
-      activeCertificationMinutes: 0,
-      rawCombinedMinutes: 180,
-      cappedCompletedMinutes: 180,
-      remainingMinutes: 300,
-    },
-  ],
-  totalTargetMinutes: 1200,
-  totalCompletedMinutes: 540,
-  completionRatio: 0.45,
-  displayPercent: 45,
-  targetMet: false,
-  newSessionAllowed: true,
-  computedAt: "2026-09-01T00:20:00Z",
-} satisfies Schema<"StudentCourseProgress">;
+export const activeStudentProgress = buildPhase5bStudentCourseProgress(
+  studentCourse.courseId,
+  "73000000-0000-4000-8000-000000000003",
+  activeStudent,
+  studentPublishedRuleVersionId,
+  [],
+);
 
 export const activeStudentDashboard = {
   actor: studentActor,
@@ -118,7 +105,6 @@ export const activeStudentDashboard = {
   course: studentCourse,
   progress: activeStudentProgress,
   enduranceOutcome: null,
-  finalGrade: null,
   unreadNotificationCount: 2,
   generatedAt: "2026-09-01T00:20:00Z",
 } satisfies Schema<"StudentDashboard">;
@@ -131,7 +117,6 @@ export const pendingStudentDashboard = {
   course: null,
   progress: null,
   enduranceOutcome: null,
-  finalGrade: null,
   unreadNotificationCount: 0,
   generatedAt: "2026-09-01T00:21:00Z",
 } satisfies Schema<"StudentDashboard">;
@@ -140,6 +125,8 @@ export const activeExerciseSession = {
   sessionId: "74000000-0000-4000-8000-000000000001",
   courseId: studentCourse.courseId,
   enrollmentId: activeStudentProgress.enrollmentId,
+  ruleVersionId: studentPublishedRuleVersionId,
+  makeupAuthorizationId: null,
   status: "ACTIVE",
   startedAt: "2026-09-01T00:00:00Z",
   pausedAt: null,
@@ -152,6 +139,8 @@ export const activeExerciseSession = {
 
 export const startExerciseSessionRequest = {
   courseId: studentCourse.courseId,
+  expectedRuleVersionId: studentPublishedRuleVersionId,
+  makeupAuthorizationId: null,
 } satisfies Schema<"StartExerciseSessionRequest">;
 
 export const idleSessionError = {
@@ -195,6 +184,8 @@ export const invitationPreviews = invitationStatuses.map((status) => ({
   course: invitationCourse,
   expiresAt: "2026-09-30T15:59:59Z",
   status,
+  newRegistrationAllowed: status === "ACTIVE",
+  unavailableReason: invitationPreviewUnavailableReason(status),
 })) satisfies readonly Schema<"CourseInvitationPreview">[];
 
 export const invalidInvitationError = {

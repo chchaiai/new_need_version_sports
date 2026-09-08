@@ -1964,7 +1964,7 @@ export function TeacherWorkspace({
       return;
     }
     setFormError(
-      "当前正式协议 1.2.0 的审核结果只有有效 / 无效，不能写入退回补证。本对话框只用于核对原因和 24/72 小时窗口；下一步需独立 Contract CR，现在不会向服务器发送请求。",
+      "正式协议 1.3.0 已定义退回补证动作。本对话框只用于核对原因和 24/72 小时窗口；生产后端未就绪前不会向服务器发送请求。",
     );
   };
 
@@ -2524,7 +2524,7 @@ export function TeacherWorkspace({
       }
       if (mode !== "demo") {
         setFormError(
-          "当前正式协议 1.2.0 没有教师补录接口。本对话框只用于流程设计，不会向服务器写入。",
+          "当前正式协议 1.3.0 没有教师补录接口。本对话框只用于流程设计，不会向服务器写入。",
         );
         return;
       }
@@ -4684,9 +4684,16 @@ export function TeacherWorkspace({
             <div className="course-target-setting-list">
               <div className="course-target-setting">
                 <label htmlFor="course-published-template">选择已发布模板</label>
-                <select id="course-published-template" disabled aria-describedby="course-published-template-help">
-                  <option>发布后参数锁定，不能改模板</option>
-                </select>
+                <AppSelect
+                  id="course-published-template"
+                  disabled
+                  ariaDescribedBy="course-published-template-help"
+                  value="locked"
+                  options={[
+                    { value: "locked", label: "发布后参数锁定，不能改模板" },
+                  ]}
+                  onChange={() => {}}
+                />
                 <p id="course-published-template-help">已发布课程的门槛与周频次锁定。本轮不接入未发布的运动模板协议。</p>
               </div>
               <div className="course-target-setting">
@@ -5191,7 +5198,7 @@ export function TeacherWorkspace({
                       }
                     />
                     <p className="record-audit-hint">
-                      按整分钟计入、单次最多 60 分钟。当前正式协议 1.2.0 没有教师补录写入接口，正式模式不会向服务器发送请求。
+                      按整分钟计入、单次最多 60 分钟。正式协议 1.3.0 没有教师补录写入接口，生产模式不会向服务器发送请求。
                     </p>
                     <Field label="整分钟计入" required>
                       <input
@@ -5293,7 +5300,7 @@ export function TeacherWorkspace({
           className="checkin-invalid-dialog"
           eyebrow="退回补证（展示设计）"
           title={`将“${selectedReturnRecord.sport}”退回一次补证`}
-          description="必须选择一项适用于退回补证的固定公开原因。可选一句公开补充说明保留原文。当前正式协议 1.2.0 不能写入该动作；核对完成后不会向服务器发送请求。"
+          description="必须选择一项适用于退回补证的固定公开原因。可选一句公开补充说明保留原文。正式协议 1.3.0 已定义退回补证动作，生产后端未就绪前不会向服务器发送请求。"
           close={closeDialog}
           footer={
             <>
@@ -5309,13 +5316,16 @@ export function TeacherWorkspace({
           }
         >
           <Field label="补证窗口" required>
-            <select
+            <AppSelect
               value={form.proofWindowHours ?? "24"}
-              onChange={(event) => updateForm("proofWindowHours", event.target.value)}
-            >
-              <option value="24">24 小时</option>
-              <option value="72">72 小时</option>
-            </select>
+              options={[
+                { value: "24", label: "24 小时" },
+                { value: "72", label: "72 小时" },
+              ]}
+              onChange={(nextValue) =>
+                updateForm("proofWindowHours", String(nextValue ?? "24"))
+              }
+            />
           </Field>
           <div className="invalid-reason-list" role="radiogroup" aria-label="退回补证公开原因">
             {returnForProofReasons.map((reason) => (

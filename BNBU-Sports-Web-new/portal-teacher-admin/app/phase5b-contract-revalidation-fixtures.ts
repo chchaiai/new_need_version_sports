@@ -7,6 +7,7 @@ import {
   exerciseRecord,
   teacherActor,
 } from "./phase5b-contract-fixtures";
+import { phase5bCourseRuleConfiguration } from "./phase5b-contract-shared-fixtures";
 
 type Schema<Name extends keyof components["schemas"]> = components["schemas"][Name];
 
@@ -23,6 +24,7 @@ export const teacherInvitationPage = {
       courseId: currentCourse.courseId,
       displaySuffix: "7K9M",
       status: "ACTIVE",
+      createdAt: "2026-09-01T00:00:00Z",
       expiresAt: "2026-09-30T15:59:59Z",
       revocable: true,
       version: 4,
@@ -32,6 +34,7 @@ export const teacherInvitationPage = {
       courseId: currentCourse.courseId,
       displaySuffix: "2Q4R",
       status: "REVOKED",
+      createdAt: "2026-09-01T00:10:00Z",
       expiresAt: "2026-09-15T15:59:59Z",
       revocable: false,
       version: 6,
@@ -417,11 +420,8 @@ export const currentSemesterNotFoundError = {
 export const createCourseRequest = {
   semesterId: currentSemester.semesterId,
   name: "体育教学 02 班",
-  description: "Phase 5B re-validation",
-  checkinOpensAt: "2026-09-01T00:00:00Z",
-  checkinClosesAt: "2027-01-15T15:59:59Z",
-  courseRelatedTargetMinutes: 720,
-  otherTargetMinutes: 480,
+  description: "Phase 6B re-validation",
+  rule: phase5bCourseRuleConfiguration,
 } satisfies Schema<"CourseCreateRequest">;
 
 export const semesterNotCurrentError = {

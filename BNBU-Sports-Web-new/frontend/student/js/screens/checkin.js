@@ -43,7 +43,7 @@ function proofSubmitPanel(app) {
   if (!todo) return "";
   const ui = checkinState(app);
   const retained = (ui.drafts || []).filter((draft) => draft.url);
-  return `<div class="body-small text-muted" style="margin-top:12px">${tx("当前有一次补证窗口。本页只展示补证流程；正式协议 1.2.0 没有运动记录补证包，不会向服务器写入。", "An open proof window exists. This page only shows the proof flow; Contract 1.2.0 has no exercise-record proof package, so nothing is written to the server.")}</div>
+  return `<div class="body-small text-muted" style="margin-top:12px">${tx("当前有一次补证窗口。本页只展示补证流程；正式协议 1.3.0 已定义退回补证动作，生产后端未就绪前不会向服务器写入。", "An open proof window exists. This page only shows the proof flow; Contract 1.3.0 defines return-for-proof, but nothing is written until production backend is ready.")}</div>
     <button class="outlined-btn pressable" type="button" data-action="checkin.submitProof" ${retained.length && app.isWriteAllowed() ? "" : "disabled"} style="min-height:44px;margin-top:8px">${tx("提交补证", "Submit proof")}</button>`;
 }
 
@@ -2110,7 +2110,7 @@ export const checkinActions = {
     if (!todo?.recordId || !drafts.length) return;
     app.showDialog({
       title: tx("当前不能提交补证", "Cannot submit proof now"),
-      body: tx("当前正式协议 1.2.0 没有运动记录补证包。本页只展示补证流程，不会向服务器发送非正式写入。", "Official Contract 1.2.0 has no exercise-record proof package. This page only shows the flow and will not send an unofficial write."),
+      body: tx("正式协议 1.3.0 已定义退回补证动作。本页只展示补证流程，生产后端未就绪前不会向服务器发送写入。", "Contract 1.3.0 defines return-for-proof. This page only shows the flow and will not write until production backend is ready."),
       buttons: [{ label: tx("我知道了", "Got it"), action: "dialog.close" }],
     });
   },

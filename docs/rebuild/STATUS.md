@@ -1,5 +1,38 @@
 # 当前进度状态
 
+## 2026-09-08 Phase6B Web T04–T08 完成（6B DONE，待 6C）
+
+- **T04** 学生端：`phase6b-contract-mapper.js` + `api.js` 双轨；smoke **90/90**。
+- **T05** Portal：`phase6b-contract-mapper.ts` + `teacher-data.ts` 双轨；1.3.0 文案；原生 `<select>` → `AppSelect`。
+- **T06** Portal 全量 `npm test`：**130/130**（含 `rendered-html`）。
+- **T07** `phase5gb-contract-revalidation`：**13/13**（`python3`；ADMIN gated 54 项对齐 1.3.0）。
+- **T08** 6B 完成回执：[phase-6b-web-t08-completion](handoffs/phase-6b-web-t08-completion.md)。正式网络迁移仍归 Phase 8；6C 待 Android 同 SHA 报告。
+
+## 2026-09-08 Phase6B Web T04 学生端运行时 Mapper 完成
+
+- 新增 `frontend/student/js/phase6b-contract-mapper.js`：1.3.0 严格读取（`ExerciseRecord` / `StudentCourseProgress` / `publicReason` / 非法值拒绝）。
+- `api.js`：`mapServerRecord`、`mapStudentProgressProjection`、`selectCurrentStudentProgress`、`mapProgressTarget` 双轨支持 legacy 与 1.3.0 contract wire。
+- `v81-review.js`：支持 `publicReason.code` → 六类固定公开原因；`checkin.js` 文案升至 1.3.0（补证动作已定义，生产后端未就绪前不写）。
+- `student-smoke.mjs`：**90/90 通过**（新增 3 项 phase6b mapper 用例）。未改 Contract、业务正文、Android、Backend。
+
+## 2026-09-08 Phase6B Web T03 fixture 对齐完成
+
+- 分支 `codex/phase6b-web`；基线仍为 `2ba9355` / `1.3.0-contract` / `5c87eeb9…f4a19ed`。
+- 新增 `phase5b-contract-shared-fixtures.ts`：统一 `publishedRule`、`StatisticsCheckpoint`、`MaterialVersion`、`RecordReviewSummary` 等 1.3.0 结构。
+- 学生端与 Portal fixture 已对齐：`StudentCourseProgress`（checkpoint/state）、`ExerciseRecord`（material/review）、`Course`（publishedRule）、邀请预览、`StartExerciseSessionRequest`、审核 union、`CourseCreateRequest.rule` 等。
+- 移除 1.2.0 残留：`finalGrade`、`creditedMinutes`、`studentVisibleReason`、`categories` 顶层进度字段。
+- `npm run typecheck` **通过**；`phase5b-contract-revalidation` + `phase5b-contract-mock` **22/22 通过**。
+- `phase5gb-contract-revalidation`：**NOT_RUN**（测试依赖本机 `python` + PyYAML 解析 OpenAPI，当前环境无 `python` 命令）。
+- 未改 Contract、业务正文、Android、Backend。产品运行时 JS（`api.js` 等）仍待后续 Mapper 迁移任务。
+
+## 2026-09-08 Phase6B Web T01 已接收，T02 绑定升级进行中
+
+- Phase6 入场基线：`2ba9355e38373b8d2350eb8efe4071048337c320`（PR #10 合并后）；独立工作区 `new_need_version_sports-phase6b`，分支 `codex/phase6b-web`；原目录 `new_need_version_sports` 保留不动。
+- Contract：`1.3.0-contract / RC / 5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed`；工作区实测 SHA 一致，dirty state clean（T01 后 T02 有未提交 Web 改动）。
+- 6B Web 负责人：甘洛夷；6A Android、总体架构、6C 汇总：用户。T01 接收回执见 [phase-6b-web-t01-receipt](handoffs/phase-6b-web-t01-receipt.md)。
+- T02 进度：`verify-phase5b-contract.mjs` 与两端 fixture 常量已升至 1.3.0；`phase5b:contract:generate` + `--check` 通过（Portal/Student 生成物一致，14352 行）。**T03 已完成**：fixture/Mock 对齐 1.3.0，`npm run typecheck` 通过。
+- Phase5 通过不代替 Web 本轮验证；正式网络迁移仍归 Phase8；后端未构建不单独阻断 Phase6。
+
 ## 2026-09-08 新版Phase5 DONE，Phase6 READY / NOT_STARTED
 
 - 新版Phase5「新 API Contract / OpenAPI」完成7/7步。用户已作为Contract Owner/Reviewer审核接受，协议及验证包已通过PR #9发布，合并后文件树与已审核来源一致；本地最终状态/分工回填待用户同步GitHub，不改变已发布协议身份。

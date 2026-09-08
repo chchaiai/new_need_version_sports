@@ -550,14 +550,14 @@ function TeacherMock({ scenario }: { scenario: Phase5bMockScenario }) {
           <div className={styles.recordLayout}>
             <div className={styles.tableWrap}>
               <table>
-                <thead><tr><th>学生</th><th>业务日期</th><th>实际时长</th><th>计入学时</th><th>当前结果</th></tr></thead>
+                <thead><tr><th>学生</th><th>业务日期</th><th>实际时长</th><th>材料版本</th><th>当前结果</th></tr></thead>
                 <tbody>
                   {recordPage.items.map((record) => (
                     <tr key={record.recordId}>
                       <td><strong>{record.student.name}</strong><small>{record.student.studentNumber}</small></td>
                       <td>{record.businessDate}</td>
                       <td>{Math.floor(record.actualDurationSeconds / 60)} 分钟</td>
-                      <td>{record.creditedMinutes} 分钟</td>
+                      <td>{record.currentMaterial.readiness}</td>
                       <td><ContractBadge tone={record.currentReview.result === "VALID" ? "green" : "red"}>{record.currentReview.result}</ContractBadge></td>
                     </tr>
                   ))}
@@ -570,8 +570,8 @@ function TeacherMock({ scenario }: { scenario: Phase5bMockScenario }) {
               <p>{exerciseRecord.description}</p>
               <dl>
                 <div><dt>提交时间</dt><dd>{formatInstant(exerciseRecord.submittedAt)}</dd></div>
-                <div><dt>媒体</dt><dd>{exerciseRecord.media.length} 项 · {exerciseRecord.media[0]?.mediaKind}</dd></div>
-                <div><dt>公开原因</dt><dd>{exerciseRecord.currentReview.studentVisibleReason ?? "无"}</dd></div>
+                <div><dt>材料</dt><dd>{exerciseRecord.currentMaterial.items.length} 项 · {exerciseRecord.currentMaterial.readiness}</dd></div>
+                <div><dt>公开原因</dt><dd>{exerciseRecord.currentReview.publicReason?.label.zh ?? "无"}</dd></div>
               </dl>
             </aside>
           </div>
@@ -587,14 +587,14 @@ function TeacherMock({ scenario }: { scenario: Phase5bMockScenario }) {
           <div className={styles.reviewGrid}>
             <div>
               <p className={styles.eyebrow}>AppendRecordReviewRequest</p>
-              <strong>{appendReviewRequest.result}</strong>
-              <p>{appendReviewRequest.studentVisibleReason}</p>
+              <strong>{appendReviewRequest.action} · {appendReviewRequest.reasonCode}</strong>
+              <p>{appendReviewRequest.publicComment}</p>
               <small>expectedVersion: {appendReviewRequest.expectedVersion}</small>
             </div>
             <div>
               <p className={styles.eyebrow}>201 RecordReview</p>
               <strong>{appendReviewResponse.fromResult} → {appendReviewResponse.result}</strong>
-              <p>序号 {appendReviewResponse.sequenceNumber} · {appendReviewResponse.actorType}</p>
+              <p>序号 {appendReviewResponse.sequenceNumber} · {appendReviewResponse.source}</p>
               <small>{formatInstant(appendReviewResponse.occurredAt)}</small>
             </div>
           </div>
@@ -607,25 +607,28 @@ function TeacherMock({ scenario }: { scenario: Phase5bMockScenario }) {
         ) : progressPage.items.length === 0 ? (
           <EmptyState title="暂无成员进度" detail="Contract 使用 StudentCourseProgressPage.items=[]，不以 0% 假装存在学生。" />
         ) : (
-          progressPage.items.map((progress) => (
+          progressPage.items.map((progress) => {
+            const totals = progress.checkpoint?.totals;
+            return (
             <div className={styles.progressPanel} key={progress.enrollmentId}>
               <div className={styles.progressHeading}>
                 <div><strong>{progress.student.name}</strong><span>{progress.student.studentNumber}</span></div>
-                <b>{progress.displayPercent}%</b>
+                <b>{totals?.displayPercent ?? "—"}%</b>
               </div>
-              <div className={styles.progressTrack}><span style={{ width: `${progress.displayPercent}%` }} /></div>
+              <div className={styles.progressTrack}><span style={{ width: `${totals?.displayPercent ?? 0}%` }} /></div>
               <div className={styles.categoryGrid}>
-                {progress.categories.map((category) => (
+                {(totals?.categories ?? []).map((category) => (
                   <div key={category.category}>
                     <span>{category.category}</span>
                     <strong>{formatMinutes(category.cappedCompletedMinutes)} / {formatMinutes(category.targetMinutes)}</strong>
-                    <small>Record {category.validRecordMinutes} 分钟 · 认证 {category.activeCertificationMinutes} 分钟</small>
+                    <small>Record {category.countedRecordMinutes} 分钟 · 认证 {category.countedCertificationMinutes} 分钟</small>
                   </div>
                 ))}
               </div>
-              <p className={styles.boundaryNote}>业务判断使用 totalCompletedMinutes={progress.totalCompletedMinutes}；displayPercent 只用于显示。</p>
+              <p className={styles.boundaryNote}>业务判断使用 totalCompletedMinutes={totals?.totalCompletedMinutes ?? "—"}；displayPercent 只用于显示。state={progress.state}</p>
             </div>
-          ))
+            );
+          })
         )}
       </ContractCard>
       <TeacherRevalidationMock scenario={scenario} />

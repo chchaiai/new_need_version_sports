@@ -1677,18 +1677,18 @@ const englishText: Record<string, string> = {
   "补充说明不能代替固定分类。": "A supplemental note cannot replace the fixed category.",
   "通过与无效仍可走现有审核接口。退回补证和判无效必须选择 V8.1 六类固定公开原因，可再写一句公开补充说明；不再使用自由文本或其他兜底项。退回补证当前只核对流程，不会向服务器发送非正式写入。":
     "Pass and invalid still use the current review API. Return-for-proof and mark-invalid must use a V8.1 fixed public reason, with an optional original-language public note. Free text and an Other fallback are not used. Return-for-proof currently only checks the flow and does not send an unofficial write.",
-  "按 V8.1 展示通过 / 退回补证 / 无效。退回与判无效必须选择六类固定公开原因；通过与无效仍写入现有接口。退回补证仅作流程设计，正式协议 1.2.0 不会发送写入。":
-    "Show pass / return-for-proof / invalid per V8.1. Return and invalid require one of the six fixed public reasons. Pass and invalid still write the current API. Return-for-proof is flow design only and is not written on Contract 1.2.0.",
+  "按 V8.1 展示通过 / 退回补证 / 无效。退回与判无效必须选择六类固定公开原因；通过与无效仍写入现有接口。退回补证已写入协议 1.3.0，生产后端未就绪前不会发送写入。":
+    "Show pass / return-for-proof / invalid per V8.1. Return and invalid require one of the six fixed public reasons. Pass and invalid still write the current API. Return-for-proof is defined on Contract 1.3.0 and is not written until production backend is ready.",
   "退回补证（展示设计）": "Return for proof (display design)",
-  "必须选择一项适用于退回补证的固定公开原因。可选一句公开补充说明保留原文。当前正式协议 1.2.0 不能写入该动作；核对完成后不会向服务器发送请求。":
-    "Choose one fixed public reason that applies to return-for-proof. An optional public note stays in the original language. Official Contract 1.2.0 cannot write this action, so confirming does not send a request.",
+  "必须选择一项适用于退回补证的固定公开原因。可选一句公开补充说明保留原文。正式协议 1.3.0 已定义退回补证动作，生产后端未就绪前不会向服务器发送请求。":
+    "Choose one fixed public reason that applies to return-for-proof. An optional public note stays in the original language. Contract 1.3.0 defines return-for-proof, but nothing is written until production backend is ready.",
   "核对原因（不写入）": "Check reason (no write)",
-  "当前正式协议 1.2.0 的审核结果只有有效 / 无效，不能写入退回补证。本对话框只用于核对原因和 24/72 小时窗口；下一步需独立 Contract CR，现在不会向服务器发送请求。":
-    "Official Contract 1.2.0 review results are only valid or invalid, so return-for-proof cannot be written. This dialog only checks the reason and 24/72-hour window. A separate Contract CR is required next; no request is sent now.",
-  "当前正式协议 1.2.0 没有教师补录接口。本对话框只用于流程设计，不会向服务器写入。":
-    "Official Contract 1.2.0 has no teacher makeup endpoint. This dialog is flow design only and does not write to the server.",
-  "按整分钟计入、单次最多 60 分钟。当前正式协议 1.2.0 没有教师补录写入接口，正式模式不会向服务器发送请求。":
-    "Credit whole minutes, capped at 60 per record. Official Contract 1.2.0 has no teacher makeup write, so production mode does not send a request.",
+  "正式协议 1.3.0 已定义退回补证动作。本对话框只用于核对原因和 24/72 小时窗口；生产后端未就绪前不会向服务器发送请求。":
+    "Contract 1.3.0 defines return-for-proof. This dialog only checks the reason and 24/72-hour window and will not write until production backend is ready.",
+  "当前正式协议 1.3.0 没有教师补录接口。本对话框只用于流程设计，不会向服务器写入。":
+    "Official Contract 1.3.0 has no teacher makeup endpoint. This dialog is flow design only and does not write to the server.",
+  "按整分钟计入、单次最多 60 分钟。正式协议 1.3.0 没有教师补录写入接口，生产模式不会向服务器发送请求。":
+    "Credit whole minutes, capped at 60 per record. Contract 1.3.0 has no teacher makeup write, so production mode does not send a request.",
   "已发布课程的门槛与周频次锁定。本轮不接入未发布的运动模板协议。":
     "Published-course thresholds and weekly frequency stay locked. This change set does not connect unpublished sport-template protocol.",
   确认退回补证: "Confirm return for proof",

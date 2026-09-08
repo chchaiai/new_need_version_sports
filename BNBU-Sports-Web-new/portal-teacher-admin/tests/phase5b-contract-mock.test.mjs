@@ -19,10 +19,10 @@ import {
 
 test("Phase 5B fixtures pin the root RC Contract version and SHA", () => {
   assert.deepEqual(PHASE5B_CONTRACT, {
-    version: "1.2.0-contract",
+    version: "1.3.0-contract",
     status: "RC",
     publicBasePath: "/api/v1",
-    openapiSha256: "667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a",
+    openapiSha256: "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
   });
 });
 
@@ -30,22 +30,31 @@ test("Phase 5B Mock payloads do not restore legacy Web DTO fields", () => {
   const serialized = JSON.stringify(phase5bFixtures);
   for (const forbidden of [
     "creditedDurationSeconds",
-    "publicComment",
     "courseCode",
     "teachingClassNumber",
     "reviewStatus",
     "resubmission",
+    "creditedMinutes",
+    "studentVisibleReason",
+    "finalGrade",
   ]) {
     assert.equal(serialized.includes(forbidden), false, `unexpected legacy field: ${forbidden}`);
   }
 });
 
-test("teacher Record keeps actual duration, credited minutes, and review projection separate", () => {
+test("teacher Record keeps actual duration, review stage, and material version separate", () => {
   assert.equal(exerciseRecord.actualDurationSeconds, 4020);
-  assert.equal(exerciseRecord.creditedMinutes, 60);
   assert.equal(exerciseRecord.currentReview.result, "VALID");
-  assert.equal(exerciseRecord.currentReview.studentVisibleReason, null);
-  assert.deepEqual(Object.keys(appendReviewRequest).sort(), ["expectedVersion", "result", "studentVisibleReason"]);
+  assert.equal(exerciseRecord.currentReview.processingStage, "VALID");
+  assert.equal(exerciseRecord.currentMaterial.materialVersionId, exerciseRecord.currentReview.materialVersionId);
+  assert.deepEqual(Object.keys(appendReviewRequest).sort(), [
+    "action",
+    "expectedRoundNo",
+    "expectedVersion",
+    "materialVersionId",
+    "publicComment",
+    "reasonCode",
+  ]);
 });
 
 test("content and empty states use the Contract page shapes without synthetic rows", () => {

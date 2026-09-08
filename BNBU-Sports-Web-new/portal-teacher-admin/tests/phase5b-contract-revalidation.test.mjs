@@ -66,10 +66,10 @@ import {
 } from "../app/phase5b-contract-revalidation-fixtures.ts";
 
 const expectedBinding = {
-  version: "1.2.0-contract",
+  version: "1.3.0-contract",
   status: "RC",
   publicBasePath: "/api/v1",
-  openapiSha256: "667ae751f3e623e3d603db4d68e6e9314d4b3fd6da433a1def8c36b81597d74a",
+  openapiSha256: "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
 };
 
 function classifyActiveSession(httpStatus, body) {
@@ -99,7 +99,7 @@ function summaryWithoutGeneratedAt(summary) {
   return Object.fromEntries(Object.entries(summary).filter(([key]) => key !== "generatedAt"));
 }
 
-test("student and Portal validation bindings pin the exact 1.2.0 Contract version and SHA", () => {
+test("student and Portal validation bindings pin the exact 1.3.0 Contract version and SHA", () => {
   assert.deepEqual(PHASE5B_CONTRACT, expectedBinding);
   assert.deepEqual(PHASE5B_STUDENT_CONTRACT, expectedBinding);
 });
@@ -275,7 +275,6 @@ test("all re-validation fixtures exclude legacy fields, private fallbacks, and F
   const serialized = JSON.stringify({ phase5bStudentFixtures, phase5bPortalRevalidationFixtures });
   for (const forbidden of [
     "creditedDurationSeconds",
-    "publicComment",
     "courseCode",
     "teachingClassNumber",
     "reviewStatus",
@@ -284,6 +283,9 @@ test("all re-validation fixtures exclude legacy fields, private fallbacks, and F
     "invitationDigest",
     "SEMESTER_NOT_UPCOMING",
     "Fake Success",
+    "creditedMinutes",
+    "studentVisibleReason",
+    "finalGrade",
   ]) {
     assert.equal(serialized.includes(forbidden), false, `unexpected private/legacy value: ${forbidden}`);
   }

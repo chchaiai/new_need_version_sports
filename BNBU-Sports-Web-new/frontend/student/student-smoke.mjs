@@ -72,6 +72,11 @@ import {
   updateExemptionApplication,
   uploadExemptionApplicationMediaDraft,
 } from "./js/api.js";
+import {
+  PHASE6B_STUDENT_CONTRACT,
+  mapContractStudentProgressProjection,
+  rejectUnknownPublicReasonCode,
+} from "./js/phase6b-contract-mapper.js";
 import { focusFirstInvalidField, userFacingErrorPanel } from "./js/ui.js";
 import { enduranceExemptionTypeForGender, renderEnduranceScoring, renderExemption } from "./js/screens/services.js";
 import { renderAccountDetails, renderProfile } from "./js/screens/profile.js";
@@ -2193,7 +2198,138 @@ check("v8.1 public reasons keep six bilingual categories and action scopes", () 
   assert.equal(SYSTEM_OVERDUE_REASON.zh, "补证逾期");
   assert.equal(resolvePublicReasonModel({ teacherPublicFeedback: "请补一张原图" }).kind, "unavailable");
   assert.equal(resolvePublicReasonModel({ studentVisibleReason: "材料不清晰\n请补一张原图" }).kind, "teacher");
+  assert.equal(resolvePublicReasonModel({
+    reviewResult: "INVALID",
+    reviewReasonCode: "UNCLEAR_EVIDENCE",
+    reviewPublicComment: "请补一张原图",
+  }).reason?.id, "UnclearEvidence");
+  assert.equal(resolvePublicReasonModel({
+    reviewResult: "INVALID",
+    publicReason: { code: "UNCLEAR_EVIDENCE", label: { zh: "材料不清晰", en: "Unclear evidence" } },
+  }).reason?.id, "UnclearEvidence");
   assert.equal(resolvePublicReasonModel({ reviewResult: "PROOF_OVERDUE_INVALID" }).kind, "systemOverdue");
+});
+
+check("phase6b contract mapper pins 1.3.0 identity and rejects unknown public reason codes", () => {
+  assert.equal(PHASE6B_STUDENT_CONTRACT.version, "1.3.0-contract");
+  assert.equal(
+    PHASE6B_STUDENT_CONTRACT.openapiSha256,
+    "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+  );
+  assert.equal(rejectUnknownPublicReasonCode("UNCLEAR_EVIDENCE"), "UNCLEAR_EVIDENCE");
+  assert.throws(() => rejectUnknownPublicReasonCode("LEGACY_FREE_TEXT"), /CONTRACT_PUBLIC_REASON_INVALID/);
+});
+
+check("phase6b contract progress uses checkpoint totals and never legacy category rows", () => {
+  const progress = {
+    courseId: "73000000-0000-4000-8000-000000000001",
+    enrollmentId: "73000000-0000-4000-8000-000000000003",
+    student: { studentNumber: "20260001" },
+    state: "CURRENT",
+    observedAt: "2026-09-01T00:20:00Z",
+    unavailableReason: null,
+    checkpoint: {
+      totals: {
+        categories: [
+          { category: "COURSE_RELATED", targetMinutes: 720, countedRecordMinutes: 300, cappedCompletedMinutes: 360, countedCertificationMinutes: 60, activeCertificationMinutes: 60, remainingMinutes: 360 },
+          { category: "OTHER", targetMinutes: 480, countedRecordMinutes: 180, cappedCompletedMinutes: 180, countedCertificationMinutes: 0, activeCertificationMinutes: 0, remainingMinutes: 300 },
+        ],
+        totalCompletedMinutes: 540,
+        displayPercent: 45,
+        targetMet: false,
+        totalTargetMinutes: 1200,
+        completionRatio: 0.45,
+        countedRecordMinutes: 480,
+        countedCertificationMinutes: 60,
+        actualDurationSeconds: 32400,
+        invalidActualMinutes: 0,
+        pendingRecordCount: 0,
+        validFormulaExcludedMinutes: 0,
+        validUncountedEligibleMinutes: 0,
+      },
+    },
+  };
+  assert.deepEqual(mapStudentProgressProjection(progress), {
+    course: 5,
+    general: 3,
+    rawCourse: 5,
+    rawGeneral: 3,
+    totalValidHours: 9,
+    qualificationStatus: "NOT_QUALIFIED",
+    scoreAvailable: true,
+    contractState: "CURRENT",
+    unavailableReason: null,
+    displayPercent: 45,
+    targetMet: false,
+  });
+  assert.deepEqual(mapContractStudentProgressProjection({ ...progress, state: "UNAVAILABLE", unavailableReason: "SOURCE_INCOMPLETE" }), {
+    course: 0,
+    general: 0,
+    rawCourse: 0,
+    rawGeneral: 0,
+    totalValidHours: null,
+    qualificationStatus: null,
+    scoreAvailable: false,
+    contractState: "UNAVAILABLE",
+    unavailableReason: "SOURCE_INCOMPLETE",
+    displayPercent: null,
+    targetMet: null,
+  });
+});
+
+check("phase6b contract exercise records keep actual duration and omit invented credited hours", () => {
+  const mapped = mapServerRecord({
+    recordId: "50000000-0000-4000-8000-000000000001",
+    sessionId: "50000000-0000-4000-8000-000000000002",
+    courseId: "40000000-0000-4000-8000-000000000001",
+    enrollmentId: "50000000-0000-4000-8000-000000000003",
+    ruleVersionId: "77000000-0000-4000-8000-000000000001",
+    activityType: "STANDARD",
+    businessDate: "2026-08-31",
+    category: "COURSE_RELATED",
+    description: "完成操场慢跑与拉伸训练",
+    actualDurationSeconds: 4020,
+    submittedAt: "2026-08-31T03:15:00Z",
+    currentMaterial: {
+      materialVersionId: "78000000-0000-4000-8000-000000000001",
+      recordId: "50000000-0000-4000-8000-000000000001",
+      batchId: "78000000-0000-4000-8000-000000000002",
+      acceptedAt: "2026-08-31T03:15:00Z",
+      items: [{
+        mediaAssetId: "50000000-0000-4000-8000-000000000005",
+        checksumSha256: "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+        phase: "GENERAL",
+        position: 1,
+      }],
+      previousMaterialVersionId: null,
+      readiness: "READY",
+      returnActionId: null,
+      transferCompletedAt: "2026-08-31T03:14:00Z",
+      transferDueAt: "2026-08-31T04:15:00Z",
+      version: 1,
+      versionNo: 1,
+    },
+    currentReview: {
+      materialVersionId: "78000000-0000-4000-8000-000000000001",
+      processingStage: "VALID",
+      publicComment: null,
+      publicReason: null,
+      result: "VALID",
+      reviewCaseId: "78000000-0000-4000-8000-000000000003",
+      roundNo: 1,
+      sequenceNumber: 1,
+      supplementReturnUsed: false,
+      supplementTimer: null,
+      teacherSla: null,
+      updatedAt: "2026-08-31T03:15:00Z",
+      version: 1,
+    },
+  }, { courseIdBySection: { "section-1": "40000000-0000-4000-8000-000000000001" } });
+  assert.equal(mapped.reviewResult, "VALID");
+  assert.equal(mapped.hours, null);
+  assert.equal(mapped.actualDurationSeconds, 4020);
+  assert.equal(mapped.reviewProcessingStage, "VALID");
+  assert.equal(mapped.materialVersionId, "78000000-0000-4000-8000-000000000001");
 });
 
 check("v8.1 review stages stay separate and do not guess missing wire values", () => {

@@ -1,6 +1,6 @@
 // V8.1 student-facing review, notice, and maintenance projections.
 // Labels follow docs/business/00-overview.md §12.1–12.3 and 10-student-flow.md.
-// These names are display vocabulary, not Contract 1.2.0 wire values.
+// These names are display vocabulary, not Contract 1.3.0 wire values.
 // Free text is never guessed into a fixed category; only an exact catalog
 // label or an explicit system overdue marker becomes a structured reason.
 
@@ -52,6 +52,30 @@ export const SYSTEM_OVERDUE_REASON = {
   zh: "补证逾期",
   en: "Supplementary evidence deadline missed",
 };
+
+export const CONTRACT_PUBLIC_REASON_CODE_TO_ID = Object.freeze({
+  UNCLEAR_EVIDENCE: "UnclearEvidence",
+  MISSING_REQUIRED_EVIDENCE: "MissingRequiredEvidence",
+  EVIDENCE_SESSION_MISMATCH: "EvidenceDoesNotMatchSession",
+  INCONSISTENT_EVIDENCE: "InconsistentEvidence",
+  AUTHENTICITY_REQUIRES_CLARIFICATION: "AuthenticityRequiresClarification",
+  CONFIRMED_REUSE_OR_MISUSE: "ConfirmedReuseOrMisuse",
+});
+
+function catalogReasonFromWireCode(code) {
+  const normalized = String(code || "").trim();
+  if (!normalized) return null;
+  const catalogId = CONTRACT_PUBLIC_REASON_CODE_TO_ID[normalized];
+  if (!catalogId) return null;
+  return PUBLIC_REASON_CATALOG.find((reason) => reason.id === catalogId) || null;
+}
+
+function catalogReasonFromWireLabel(label = {}) {
+  const zh = String(label.zh || "").trim();
+  const en = String(label.en || "").trim();
+  if (!zh && !en) return null;
+  return PUBLIC_REASON_CATALOG.find((reason) => reason.zh === zh || reason.en === en) || null;
+}
 
 export function reasonsForAction(action) {
   return PUBLIC_REASON_CATALOG.filter((reason) => reason.actions.includes(action));
@@ -129,6 +153,17 @@ function splitExactReasonAndNote(text) {
 
 export function resolvePublicReasonModel(record = {}) {
   const result = String(record.reviewResult || "").trim().toUpperCase();
+  const wireReason = record.publicReason && typeof record.publicReason === "object"
+    ? catalogReasonFromWireCode(record.publicReason.code) || catalogReasonFromWireLabel(record.publicReason.label)
+    : catalogReasonFromWireCode(record.reviewReasonCode);
+  if (wireReason) {
+    const note = String(record.reviewPublicComment || record.teacherPublicFeedback || "").trim();
+    return {
+      kind: "teacher",
+      reason: wireReason,
+      publicNote: note || null,
+    };
+  }
   const candidates = [
     record.reviewReasonCode,
     record.studentVisibleReason,

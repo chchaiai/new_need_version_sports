@@ -10,6 +10,11 @@ import { ADMIN_STORAGE_EVENT, ADMIN_STORAGE_KEY } from "./admin-domain";
 import { cloneInitialAdminState } from "./admin-mock-data";
 import { businessDateTime } from "./business-time";
 import type { AuditStatus } from "./checkin-audit";
+import {
+  isContractExerciseRecord,
+  normalizeContractExerciseRecordForTeacher,
+  publicReasonDisplayLabel,
+} from "./phase6b-contract-mapper";
 import { semesterDisplayName } from "./semester-presentation";
 import type {
   ClassSection,
@@ -885,38 +890,55 @@ export const INVALID_REASON_TO_CODE: Record<string, ReviewReasonCode> = {
 };
 
 export function mapExerciseRecordToCheckin(
-  record: ExerciseRecord,
+  record: ExerciseRecord | Record<string, unknown>,
   evidenceContext?: ExerciseRecordEvidenceContext,
   currentReviewVersion = 0,
 ): TeacherCheckinView {
-  const durationMinutes = Math.round((record.actualDurationSeconds || 0) / 60);
+  const normalized = isContractExerciseRecord(record)
+    ? normalizeContractExerciseRecordForTeacher(record, {
+        classSectionId:
+          typeof (record as Record<string, unknown>).classSectionId === "string"
+            ? String((record as Record<string, unknown>).classSectionId)
+            : undefined,
+        studentId:
+          typeof (record as Record<string, unknown>).studentId === "string"
+            ? String((record as Record<string, unknown>).studentId)
+            : undefined,
+      })
+    : (record as ExerciseRecord);
+  const durationMinutes = Math.round((normalized.actualDurationSeconds || 0) / 60);
   const creditedMinutes = Math.round(
-    (record.creditedDurationSeconds || 0) / 60,
+    (normalized.creditedDurationSeconds || 0) / 60,
   );
   const mediaIds = evidenceContext?.mediaIds ?? [];
-  const auditStatus = reviewToAuditStatus(record);
+  const auditStatus = reviewToAuditStatus(normalized);
+  const contractReasonLabel = isContractExerciseRecord(record)
+    ? publicReasonDisplayLabel(
+        (record as Record<string, unknown>).currentReview as Record<string, unknown>,
+      )
+    : undefined;
   return {
-    id: record.id,
-    studentId: record.studentId,
-    courseId: record.classSectionId,
-    enrollmentId: record.enrollmentId,
+    id: normalized.id,
+    studentId: normalized.studentId,
+    courseId: normalized.classSectionId || normalized.courseId,
+    enrollmentId: normalized.enrollmentId,
     creditType:
-      record.creditType === "COURSE_RELATED" ? "课程相关" : "其他运动",
-    sport: record.sportName?.trim() || exerciseSportLabel(record.sportType),
+      normalized.creditType === "COURSE_RELATED" ? "课程相关" : "其他运动",
+    sport: normalized.sportName?.trim() || exerciseSportLabel(normalized.sportType),
     // Slicing the raw ISO string would show UTC (8 hours behind Beijing);
     // teachers must read the record in the organization's time.
     startAt:
-      businessDateTime(evidenceContext?.startedAt) || record.businessDate,
-    endAt: businessDateTime(evidenceContext?.endedAt) || record.businessDate,
+      businessDateTime(evidenceContext?.startedAt) || normalized.businessDate,
+    endAt: businessDateTime(evidenceContext?.endedAt) || normalized.businessDate,
     durationMinutes,
     creditedMinutes,
-    originalHours: Math.max(0, record.actualDurationSeconds) / 3600,
-    approvedHours: Math.max(0, record.creditedDurationSeconds) / 3600,
-    description: record.description ?? "",
+    originalHours: Math.max(0, normalized.actualDurationSeconds) / 3600,
+    approvedHours: Math.max(0, normalized.creditedDurationSeconds) / 3600,
+    description: normalized.description ?? "",
     // The backend's business day is authoritative for "which day this counts
     // as"; the UTC date of the timestamp can fall on the previous day.
     submittedAt:
-      record.businessDate || businessDateTime(record.submittedAt).slice(0, 10),
+      normalized.businessDate || businessDateTime(normalized.submittedAt).slice(0, 10),
     status: auditStatus === "valid" ? "有效" : "已调整",
     risk: null,
     confidence: null,
@@ -925,15 +947,16 @@ export function mapExerciseRecordToCheckin(
       : [],
     mediaIds,
     locationExpired: null,
-    reviewComment: record.currentReview?.publicComment ?? undefined,
+    reviewComment: normalized.currentReview?.publicComment ?? undefined,
     source: "student",
     auditStatus,
-    invalidReason: reasonCodeLabel(record.currentReview?.reasonCode),
+    invalidReason:
+      contractReasonLabel ?? reasonCodeLabel(normalized.currentReview?.reasonCode),
     auditRemark:
-      record.currentReview?.reasonCode === "OTHER"
-        ? (record.currentReview.publicComment ?? undefined)
+      normalized.currentReview?.reasonCode === "OTHER"
+        ? (normalized.currentReview.publicComment ?? undefined)
         : undefined,
-    version: record.version,
+    version: normalized.version,
     reviewVersion: currentReviewVersion,
   };
 }

@@ -1,5 +1,5 @@
 /** V8.1 check-in public reasons. Labels follow docs/business/00-overview.md §12.2.
- *  These ids are UI keys only; they are not Contract 1.2.0 wire enums. */
+ *  These ids are UI keys only; they are not Contract 1.3.0 wire enums. */
 
 export const TEACHER_REVIEW_ACTIONS = {
   ReturnForSupplement: "ReturnForSupplement",
