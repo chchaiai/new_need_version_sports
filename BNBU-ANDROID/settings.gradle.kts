@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "BNBUStudentAndroid"
 include(":app")
+include(":contract-validation")

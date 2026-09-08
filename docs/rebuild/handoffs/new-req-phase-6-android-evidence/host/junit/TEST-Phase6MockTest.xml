@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Phase6MockTest" tests="44" skipped="0" failures="0" errors="0" timestamp="2026-09-08T08:32:40.995Z" hostname="LAPTOP-PPHQAT6R" time="2.909">
+  <properties/>
+  <testcase name="actualHttpDtoMapperPage[dashboard_unjoined]" classname="Phase6MockTest" time="0.085"/>
+  <testcase name="actualHttpDtoMapperPage[account_student_verified_email]" classname="Phase6MockTest" time="0.057"/>
+  <testcase name="actualHttpDtoMapperPage[account_deletion_retains_facts]" classname="Phase6MockTest" time="0.065"/>
+  <testcase name="actualHttpDtoMapperPage[session_restore_server_seconds]" classname="Phase6MockTest" time="0.054"/>
+  <testcase name="actualHttpDtoMapperPage[progress_1199_is_not_target_met]" classname="Phase6MockTest" time="0.076"/>
+  <testcase name="actualHttpDtoMapperPage[progress_recomputing_keeps_old_checkpoint]" classname="Phase6MockTest" time="0.074"/>
+  <testcase name="actualHttpDtoMapperPage[progress_unavailable_is_not_zero]" classname="Phase6MockTest" time="0.062"/>
+  <testcase name="actualHttpDtoMapperPage[progress_cached_is_read_only]" classname="Phase6MockTest" time="0.066"/>
+  <testcase name="actualHttpDtoMapperPage[record_pending_material]" classname="Phase6MockTest" time="0.063"/>
+  <testcase name="actualHttpDtoMapperPage[record_teacher_round1]" classname="Phase6MockTest" time="0.092"/>
+  <testcase name="actualHttpDtoMapperPage[record_await_supplement]" classname="Phase6MockTest" time="0.065"/>
+  <testcase name="actualHttpDtoMapperPage[record_round2]" classname="Phase6MockTest" time="0.067"/>
+  <testcase name="actualHttpDtoMapperPage[record_valid]" classname="Phase6MockTest" time="0.079"/>
+  <testcase name="actualHttpDtoMapperPage[technical_processing_never_invalid]" classname="Phase6MockTest" time="0.059"/>
+  <testcase name="actualHttpDtoMapperPage[supplement_timer_paused]" classname="Phase6MockTest" time="0.066"/>
+  <testcase name="actualHttpDtoMapperPage[supplement_timer_unavailable]" classname="Phase6MockTest" time="0.077"/>
+  <testcase name="actualHttpDtoMapperPage[archived_record_is_read_only]" classname="Phase6MockTest" time="0.068"/>
+  <testcase name="actualHttpDtoMapperPage[records_empty_only_typed_200]" classname="Phase6MockTest" time="0.062"/>
+  <testcase name="actualHttpDtoMapperPage[records_cursor_exact]" classname="Phase6MockTest" time="0.068"/>
+  <testcase name="actualHttpDtoMapperPage[first_material_before_deadline]" classname="Phase6MockTest" time="0.058"/>
+  <testcase name="actualHttpDtoMapperPage[first_material_exact_deadline_closed]" classname="Phase6MockTest" time="0.051"/>
+  <testcase name="actualHttpDtoMapperPage[first_material_cached_cannot_write]" classname="Phase6MockTest" time="0.057"/>
+  <testcase name="actualHttpDtoMapperPage[first_receipt_alone_cannot_resume]" classname="Phase6MockTest" time="0.054"/>
+  <testcase name="actualHttpDtoMapperPage[invitation_active_new_registration]" classname="Phase6MockTest" time="0.077"/>
+  <testcase name="actualHttpDtoMapperPage[invitation_join_closed]" classname="Phase6MockTest" time="0.058"/>
+  <testcase name="actualHttpDtoMapperPage[invitation_expired_new_flow_blocked]" classname="Phase6MockTest" time="0.059"/>
+  <testcase name="actualHttpDtoMapperPage[endurance_raw_measured]" classname="Phase6MockTest" time="0.053"/>
+  <testcase name="actualHttpDtoMapperPage[endurance_exempt]" classname="Phase6MockTest" time="0.075"/>
+  <testcase name="actualHttpDtoMapperPage[applications_empty]" classname="Phase6MockTest" time="0.058"/>
+  <testcase name="actualHttpDtoMapperPage[application_explicit_exemption_kind]" classname="Phase6MockTest" time="0.061"/>
+  <testcase name="actualHttpDtoMapperPage[notifications_explicit_target]" classname="Phase6MockTest" time="0.059"/>
+  <testcase name="actualHttpDtoMapperPage[notifications_empty]" classname="Phase6MockTest" time="0.058"/>
+  <testcase name="actualHttpDtoMapperPage[feedback_empty]" classname="Phase6MockTest" time="0.057"/>
+  <testcase name="actualHttpDtoMapperPage[feedback_detail_deleted_email]" classname="Phase6MockTest" time="0.057"/>
+  <testcase name="actualHttpDtoMapperPage[help_public]" classname="Phase6MockTest" time="0.057"/>
+  <testcase name="actualHttpDtoMapperPage[help_cached_read_only]" classname="Phase6MockTest" time="0.082"/>
+  <testcase name="actualHttpDtoMapperPage[release_forced_upgrade]" classname="Phase6MockTest" time="0.065"/>
+  <testcase name="actualHttpDtoMapperPage[http_error_TOKEN_EXPIRED]" classname="Phase6MockTest" time="0.068"/>
+  <testcase name="actualHttpDtoMapperPage[http_error_AUTHENTICATION_REQUIRED]" classname="Phase6MockTest" time="0.107"/>
+  <testcase name="actualHttpDtoMapperPage[http_error_FORBIDDEN]" classname="Phase6MockTest" time="0.066"/>
+  <testcase name="actualHttpDtoMapperPage[http_error_SYSTEM_MAINTENANCE]" classname="Phase6MockTest" time="0.066"/>
+  <testcase name="actualHttpDtoMapperPage[http_error_DEPENDENCY_UNAVAILABLE]" classname="Phase6MockTest" time="0.071"/>
+  <testcase name="actualHttpDtoMapperPage[http_error_INTERNAL_ERROR]" classname="Phase6MockTest" time="0.058"/>
+  <testcase name="actualHttpDtoMapperPage[maintenance_estimate_does_not_unlock]" classname="Phase6MockTest" time="0.063"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

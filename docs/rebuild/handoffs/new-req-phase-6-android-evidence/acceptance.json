@@ -1,0 +1,93 @@
+{
+  "recordedAt": "2026-09-08T10:37:29.541684+00:00",
+  "phase": "6A Android Contract + Mock validation",
+  "status": "LOCAL_ACCEPTED",
+  "completedLocalSteps": 7,
+  "remainingLocalSteps": 0,
+  "owner": "User",
+  "humanReviewer": "User",
+  "builder": "Codex",
+  "independentHumanReviewer": false,
+  "approvalSource": "User message in this conversation",
+  "approvalQuote": "没问题，我手机上查看完了，而且你也跑过模拟器了，我同意第6步审阅通过，然后是到第七步收尾了是吗？",
+  "step7Authorization": "好的，完成第七步",
+  "physicalReview": {
+    "status": "USER_REPORTED_REVIEW_ACCEPTED",
+    "reportedModel": "iQOO 12 Pro",
+    "androidVersion": null,
+    "exportedPerCaseResults": null,
+    "automatedPhysicalDeviceTests": 0,
+    "physicalInstalledApkHashVerified": false,
+    "suppliedApkSha256": "f1045c441b95fd83806f3be65406b14cb3afe78328d7e41a7b96ae014e944814",
+    "scope": "Independent Contract/Mock review launcher, not production app"
+  },
+  "contract": {
+    "version": "1.3.0-contract",
+    "status": "RC",
+    "sha256": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+    "sourceCommit": "f702c590ff10b11f7de038332868c988ab4cec11",
+    "entryCommit": "2ba9355e38373b8d2350eb8efe4071048337c320",
+    "modelPackage": "bnbu.cr005.review",
+    "scope": "Validation-only, not formal app runtime migration",
+    "inputs": {
+      "contracts/contract-metadata.json": "c1b4d6cef5b70dde8aa96b62abafdb215b4724cf305356ff285d6c57022400b2",
+      "contracts/validation/step06_final/reproduce.py": "9ba96a09723224fb722bb247ead049e0c4a3a9844a950a919aa8d2987d0890ae",
+      "contracts/validation/step06_final/generator_support.py": "10457ec20282249c3aaaa1a411e5847332abd26aec98c2fe6aaafe2a15dfdfe2",
+      "contracts/validation/step06_final/jvm/ContractRuntimeProbe.java": "6005131729ad860b4d0c3dadb201a5b0dbd64ca0d7544d0add990d64568ad316",
+      "contracts/validation/step06_final/template-manifest.json": "00d6b413e97610124f6b359abc6ed38ffc32df15dd96a36cec9dc51b216b1944",
+      "contracts/validation/step06_final/runtime-dependencies.json": "ec265367c8f79b64d2ab5acfe66d146e60dd6e60cac8d26f083035bf78bb7308",
+      "contracts/validation/step06_final/templates/data_class.mustache": "64978f12e395a0e3ec41a7b74ceb925f7a05014f36f93c866384144c4913a89c",
+      "contracts/validation/step06_final/templates/oneof_class.mustache": "23b72d43ca7901fb69480c23de37629b75423783e134ac813871f0e8da64ffba",
+      "contracts/validation/step07_handoff/fixtures.json": "d3c2a37f4bad298f383b70579a3e5d22e5e117cd0cee238beb6b6d336dc0deef"
+    }
+  },
+  "baselineCommit": "2ba9355e38373b8d2350eb8efe4071048337c320",
+  "deliveryCommit": null,
+  "publication": "PENDING_USER_GITHUB_ACTION",
+  "android": {
+    "hostSchemaCases": 1156,
+    "legalRoundtrips": 286,
+    "expectedRejections": 870,
+    "mapperCases": 255,
+    "mockHostCases": 71,
+    "deviceTests": 74,
+    "devicePassed": 74,
+    "deviceFailed": 0,
+    "stressTests": 1,
+    "stressPassed": 1,
+    "manualLauncherEmulatorTests": 2,
+    "manualLauncherEmulatorPassed": 2,
+    "sourceBuildResultSha256": "71d985c4e73980df5a83455e7c8013a13963ee67275c28a79938e026e5faa90a",
+    "aarSha256": "108a0020306fb42cd7b603b0aaec4f9b6d62911e216bd14cd4ceefb4b8458987",
+    "testApkSha256": "ddbe0bca890646a81d485b50d6191a3199f9f1beaceb6dd78e01e677740b2e3d"
+  },
+  "web": {
+    "owner": "甘洛夷",
+    "pr": "https://github.com/chchaiai/new_need_version_sports/pull/11",
+    "reportedCommit": "c3d42be6cd60f8dd1194736e22e861bca2a22cd4",
+    "review": "NOT_PERFORMED",
+    "status": "REPORTED_COMPLETE_AWAITING_REVIEW"
+  },
+  "consolidation": {
+    "owner": "User",
+    "status": "NOT_STARTED",
+    "overallPhase6": "IN_PROGRESS",
+    "phase7_0": "LOCKED_PENDING_6C"
+  },
+  "inheritedGap": {
+    "id": "VALIDATION_SCRIPT_GATE_SCOPE_MISMATCH",
+    "owner": "User as Contract Owner",
+    "disposition": "Deferred Backend7.0 recipient incorrectly counted by --require-published; no assertion changed; align under separate authorized task",
+    "blocks6A": false
+  },
+  "notClaimed": [
+    "Production app migration",
+    "All 41 production pages rendered",
+    "All Android versions",
+    "Real backend enforcement/E2E",
+    "Web review",
+    "6C completion",
+    "GitHub publication",
+    "Zero bugs"
+  ]
+}

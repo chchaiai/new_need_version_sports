@@ -1,0 +1,12 @@
+{
+  "serial": "emulator-5580",
+  "fontScale": "1.0",
+  "rotation": "free",
+  "fixedToUserRotation": "default",
+  "snapshotsSaved": false,
+  "launchMode": "read-only; no-snapshot-load; no-snapshot-save",
+  "shutdownOutput": "OK: killing emulator, bye bye\n\nOK\n",
+  "shutdownExitCode": 0,
+  "adbDevicesAfter": "List of devices attached\n",
+  "temporaryEmulatorStopped": true
+}

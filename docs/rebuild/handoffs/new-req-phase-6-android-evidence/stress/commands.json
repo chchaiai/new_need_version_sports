@@ -1,0 +1,238 @@
+[
+  {
+    "name": "01-boot",
+    "command": [
+      "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+      "-s",
+      "emulator-5580",
+      "shell",
+      "getprop",
+      "sys.boot_completed"
+    ],
+    "startedAt": "2026-09-08T08:38:36.369802+00:00",
+    "finishedAt": "2026-09-08T08:38:36.457105+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "property-ro.build.version.sdk",
+    "command": [
+      "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+      "-s",
+      "emulator-5580",
+      "shell",
+      "getprop",
+      "ro.build.version.sdk"
+    ],
+    "startedAt": "2026-09-08T08:38:36.457105+00:00",
+    "finishedAt": "2026-09-08T08:38:36.541182+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "property-ro.build.version.release",
+    "command": [
+      "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+      "-s",
+      "emulator-5580",
+      "shell",
+      "getprop",
+      "ro.build.version.release"
+    ],
+    "startedAt": "2026-09-08T08:38:36.542722+00:00",
+    "finishedAt": "2026-09-08T08:38:36.668837+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "property-ro.build.version.codename",
+    "command": [
+      "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+      "-s",
+      "emulator-5580",
+      "shell",
+      "getprop",
+      "ro.build.version.codename"
+    ],
+    "startedAt": "2026-09-08T08:38:36.670392+00:00",
+    "finishedAt": "2026-09-08T08:38:36.776310+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "property-ro.build.fingerprint",
+    "command": [
+      "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+      "-s",
+      "emulator-5580",
+      "shell",
+      "getprop",
+      "ro.build.fingerprint"
+    ],
+    "startedAt": "2026-09-08T08:38:36.776310+00:00",
+    "finishedAt": "2026-09-08T08:38:36.921377+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "property-ro.product.model",
+    "command": [
+      "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+      "-s",
+      "emulator-5580",
+      "shell",
+      "getprop",
+      "ro.product.model"
+    ],
+    "startedAt": "2026-09-08T08:38:36.921886+00:00",
+    "finishedAt": "2026-09-08T08:38:37.045389+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "property-ro.product.cpu.abi",
+    "command": [
+      "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+      "-s",
+      "emulator-5580",
+      "shell",
+      "getprop",
+      "ro.product.cpu.abi"
+    ],
+    "startedAt": "2026-09-08T08:38:37.046385+00:00",
+    "finishedAt": "2026-09-08T08:38:37.163987+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "property-ro.kernel.qemu",
+    "command": [
+      "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+      "-s",
+      "emulator-5580",
+      "shell",
+      "getprop",
+      "ro.kernel.qemu"
+    ],
+    "startedAt": "2026-09-08T08:38:37.165526+00:00",
+    "finishedAt": "2026-09-08T08:38:37.284191+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "page-size",
+    "command": [
+      "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+      "-s",
+      "emulator-5580",
+      "shell",
+      "getconf",
+      "PAGESIZE"
+    ],
+    "startedAt": "2026-09-08T08:38:37.285245+00:00",
+    "finishedAt": "2026-09-08T08:38:37.403969+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "display",
+    "command": [
+      "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+      "-s",
+      "emulator-5580",
+      "shell",
+      "wm",
+      "size"
+    ],
+    "startedAt": "2026-09-08T08:38:37.404971+00:00",
+    "finishedAt": "2026-09-08T08:38:37.510011+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "02-install",
+    "command": [
+      "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+      "-s",
+      "emulator-5580",
+      "install",
+      "-r",
+      "-t",
+      "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\build-05-cache-semantics\\contract-validation-debug-androidTest.apk"
+    ],
+    "startedAt": "2026-09-08T08:38:37.511554+00:00",
+    "finishedAt": "2026-09-08T08:38:38.201364+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "03-installed-path",
+    "command": [
+      "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+      "-s",
+      "emulator-5580",
+      "shell",
+      "pm",
+      "path",
+      "edu.bnbu.student.contractvalidation.test"
+    ],
+    "startedAt": "2026-09-08T08:38:38.201364+00:00",
+    "finishedAt": "2026-09-08T08:38:38.328281+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "04-pull-installed",
+    "command": [
+      "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+      "-s",
+      "emulator-5580",
+      "pull",
+      "/data/app/~~zFiVJlsUbYkE4mH1aQmt1g==/edu.bnbu.student.contractvalidation.test-61xz4pXstH6v6mCVE3l2yA==/base.apk",
+      "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-landscape-font2-final\\installed-test.apk"
+    ],
+    "startedAt": "2026-09-08T08:38:38.329285+00:00",
+    "finishedAt": "2026-09-08T08:38:38.975634+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "05-instrumentation",
+    "command": [
+      "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+      "-s",
+      "emulator-5580",
+      "shell",
+      "am",
+      "instrument",
+      "-w",
+      "-r",
+      "-e",
+      "class",
+      "Phase6MockRetryUiTest",
+      "edu.bnbu.student.contractvalidation.test/androidx.test.runner.AndroidJUnitRunner"
+    ],
+    "startedAt": "2026-09-08T08:38:39.018836+00:00",
+    "finishedAt": "2026-09-08T08:38:49.209053+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "07-pull-device-evidence",
+    "command": [
+      "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+      "-s",
+      "emulator-5580",
+      "pull",
+      "/sdcard/Android/data/edu.bnbu.student.contractvalidation.test/files/phase6-device",
+      "D:\\DT\\soprts\\start4\\08_phase6_execution\\T06\\device-landscape-font2-final\\device-files"
+    ],
+    "startedAt": "2026-09-08T08:38:56.096697+00:00",
+    "finishedAt": "2026-09-08T08:38:56.738514+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "06-runtime-errors",
+    "command": [
+      "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+      "-s",
+      "emulator-5580",
+      "logcat",
+      "-d",
+      "-v",
+      "threadtime",
+      "AndroidRuntime:E",
+      "TestRunner:I",
+      "*:S"
+    ],
+    "startedAt": "2026-09-08T08:38:56.738514+00:00",
+    "finishedAt": "2026-09-08T08:38:57.221742+00:00",
+    "exitCode": 0
+  }
+]

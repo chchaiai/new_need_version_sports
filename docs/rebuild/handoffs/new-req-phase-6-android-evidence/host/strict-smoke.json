@@ -1,0 +1,163 @@
+{
+  "candidateSha256": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+  "total": 17,
+  "passed": 17,
+  "roundtrips": 8,
+  "cases": [
+    {
+      "name": "old-mapping/EXEMPTION/legal",
+      "schema": "CreateStudentApplicationRequest",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "old-mapping/CERTIFICATION/legal",
+      "schema": "CreateStudentApplicationRequest",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "prior-workflow/ordinary/valid",
+      "schema": "SubmitExerciseRecordRequest",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "prior-workflow/swimming/valid",
+      "schema": "SubmitExerciseRecordRequest",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "prior-workflow/offline/valid",
+      "schema": "SubmitExerciseRecordRequest",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "prior-workflow/record/full_pending_response",
+      "schema": "ExerciseRecord",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "checks/wire/StudentNotification",
+      "schema": "StudentNotification",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "checks/wire/StudentDashboard",
+      "schema": "StudentDashboard",
+      "expectedValid": true,
+      "actualValid": true,
+      "roundtrip": true,
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "old-mapping/EXEMPTION/unknown",
+      "schema": "CreateStudentApplicationRequest",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: CreateStudentApplicationRequest: [Error{keyword\u003dconst, evaluationPath\u003d/oneOf/0/$ref/properties/applicationType/const, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/CreateExemptionApplicationRequest/properties/applicationType, instanceLocation\u003d/applicationType, error\u003dExpected EXEMPTION}, Error{keyword\u003dconst, evaluationPath\u003d/oneOf/1/$ref/properties/applicationType/const, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/CreateCertificationApplicationRequest/properties/applicationType, instanceLocation\u003d/applicationType, error\u003dExpected CERTIFICATION}, Error{keyword\u003drequired, evaluationPath\u003d/oneOf/1/$ref/required, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/CreateCertificationApplicationRequest, instanceLocation\u003d, error\u003dObject does not have some of the required properties [certification]}, Error{keyword\u003doneOf, evaluationPath\u003d/oneOf, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/CreateStudentApplicationRequest, instanceLocation\u003d, error\u003dValue does not match against any of the schemas}]"
+    },
+    {
+      "name": "old-mapping/EXEMPTION/schema_name",
+      "schema": "CreateStudentApplicationRequest",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: CreateStudentApplicationRequest: [Error{keyword\u003dconst, evaluationPath\u003d/oneOf/0/$ref/properties/applicationType/const, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/CreateExemptionApplicationRequest/properties/applicationType, instanceLocation\u003d/applicationType, error\u003dExpected EXEMPTION}, Error{keyword\u003dconst, evaluationPath\u003d/oneOf/1/$ref/properties/applicationType/const, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/CreateCertificationApplicationRequest/properties/applicationType, instanceLocation\u003d/applicationType, error\u003dExpected CERTIFICATION}, Error{keyword\u003drequired, evaluationPath\u003d/oneOf/1/$ref/required, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/CreateCertificationApplicationRequest, instanceLocation\u003d, error\u003dObject does not have some of the required properties [certification]}, Error{keyword\u003doneOf, evaluationPath\u003d/oneOf, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/CreateStudentApplicationRequest, instanceLocation\u003d, error\u003dValue does not match against any of the schemas}]"
+    },
+    {
+      "name": "old-mapping/EXEMPTION/null",
+      "schema": "CreateStudentApplicationRequest",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: CreateStudentApplicationRequest: [Error{keyword\u003dtype, evaluationPath\u003d/oneOf/0/$ref/properties/applicationType/type, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/CreateExemptionApplicationRequest/properties/applicationType, instanceLocation\u003d/applicationType, error\u003dValue is [null] but should be [string]}, Error{keyword\u003dconst, evaluationPath\u003d/oneOf/0/$ref/properties/applicationType/const, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/CreateExemptionApplicationRequest/properties/applicationType, instanceLocation\u003d/applicationType, error\u003dExpected EXEMPTION}, Error{keyword\u003dtype, evaluationPath\u003d/oneOf/1/$ref/properties/applicationType/type, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/CreateCertificationApplicationRequest/properties/applicationType, instanceLocation\u003d/applicationType, error\u003dValue is [null] but should be [string]}, Error{keyword\u003dconst, evaluationPath\u003d/oneOf/1/$ref/properties/applicationType/const, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/CreateCertificationApplicationRequest/properties/applicationType, instanceLocation\u003d/applicationType, error\u003dExpected CERTIFICATION}, Error{keyword\u003drequired, evaluationPath\u003d/oneOf/1/$ref/required, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/CreateCertificationApplicationRequest, instanceLocation\u003d, error\u003dObject does not have some of the required properties [certification]}, Error{keyword\u003doneOf, evaluationPath\u003d/oneOf, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/CreateStudentApplicationRequest, instanceLocation\u003d, error\u003dValue does not match against any of the schemas}]"
+    },
+    {
+      "name": "old-mapping/EXEMPTION/numeric",
+      "schema": "CreateStudentApplicationRequest",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: CreateStudentApplicationRequest: [Error{keyword\u003dtype, evaluationPath\u003d/oneOf/0/$ref/properties/applicationType/type, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/CreateExemptionApplicationRequest/properties/applicationType, instanceLocation\u003d/applicationType, error\u003dValue is [integer] but should be [string]}, Error{keyword\u003dconst, evaluationPath\u003d/oneOf/0/$ref/properties/applicationType/const, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/CreateExemptionApplicationRequest/properties/applicationType, instanceLocation\u003d/applicationType, error\u003dExpected EXEMPTION}, Error{keyword\u003dtype, evaluationPath\u003d/oneOf/1/$ref/properties/applicationType/type, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/CreateCertificationApplicationRequest/properties/applicationType, instanceLocation\u003d/applicationType, error\u003dValue is [integer] but should be [string]}, Error{keyword\u003dconst, evaluationPath\u003d/oneOf/1/$ref/properties/applicationType/const, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/CreateCertificationApplicationRequest/properties/applicationType, instanceLocation\u003d/applicationType, error\u003dExpected CERTIFICATION}, Error{keyword\u003drequired, evaluationPath\u003d/oneOf/1/$ref/required, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/CreateCertificationApplicationRequest, instanceLocation\u003d, error\u003dObject does not have some of the required properties [certification]}, Error{keyword\u003doneOf, evaluationPath\u003d/oneOf, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/CreateStudentApplicationRequest, instanceLocation\u003d, error\u003dValue does not match against any of the schemas}]"
+    },
+    {
+      "name": "old-mapping/EXEMPTION/missing",
+      "schema": "CreateStudentApplicationRequest",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: CreateStudentApplicationRequest: [Error{keyword\u003drequired, evaluationPath\u003d/oneOf/0/$ref/required, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/CreateExemptionApplicationRequest, instanceLocation\u003d, error\u003dObject does not have some of the required properties [applicationType]}, Error{keyword\u003drequired, evaluationPath\u003d/oneOf/1/$ref/required, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/CreateCertificationApplicationRequest, instanceLocation\u003d, error\u003dObject does not have some of the required properties [applicationType, certification]}, Error{keyword\u003doneOf, evaluationPath\u003d/oneOf, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/CreateStudentApplicationRequest, instanceLocation\u003d, error\u003dValue does not match against any of the schemas}]"
+    },
+    {
+      "name": "old-mapping/EXEMPTION/wrong_branch_shape",
+      "schema": "CreateStudentApplicationRequest",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: CreateStudentApplicationRequest: [Error{keyword\u003dconst, evaluationPath\u003d/oneOf/0/$ref/properties/applicationType/const, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/CreateExemptionApplicationRequest/properties/applicationType, instanceLocation\u003d/applicationType, error\u003dExpected EXEMPTION}, Error{keyword\u003drequired, evaluationPath\u003d/oneOf/1/$ref/required, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/CreateCertificationApplicationRequest, instanceLocation\u003d, error\u003dObject does not have some of the required properties [certification]}, Error{keyword\u003doneOf, evaluationPath\u003d/oneOf, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/CreateStudentApplicationRequest, instanceLocation\u003d, error\u003dValue does not match against any of the schemas}]"
+    },
+    {
+      "name": "prior-workflow/ordinary/valid/extra",
+      "schema": "SubmitExerciseRecordRequest",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: SubmitExerciseRecordRequest: [Error{keyword\u003dnull, evaluationPath\u003d/oneOf/0/$ref/additionalProperties, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitOrdinaryExerciseRecordRequest/additionalProperties, instanceLocation\u003d/unexpectedField, error\u003dFalse schema always fails}, Error{keyword\u003dconst, evaluationPath\u003d/oneOf/1/$ref/properties/submissionRoute/const, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitSwimmingExerciseRecordRequest/properties/submissionRoute, instanceLocation\u003d/submissionRoute, error\u003dExpected SWIMMING_TIMELY}, Error{keyword\u003dnull, evaluationPath\u003d/oneOf/1/$ref/additionalProperties, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitSwimmingExerciseRecordRequest/additionalProperties, instanceLocation\u003d/unexpectedField, error\u003dFalse schema always fails}, Error{keyword\u003dconst, evaluationPath\u003d/oneOf/2/$ref/properties/submissionRoute/const, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitOfflineSwimmingExerciseRecordRequest/properties/submissionRoute, instanceLocation\u003d/submissionRoute, error\u003dExpected SWIMMING_OFFLINE}, Error{keyword\u003drequired, evaluationPath\u003d/oneOf/2/$ref/required, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitOfflineSwimmingExerciseRecordRequest, instanceLocation\u003d, error\u003dObject does not have some of the required properties [delayExplanation]}, Error{keyword\u003dnull, evaluationPath\u003d/oneOf/2/$ref/additionalProperties, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitOfflineSwimmingExerciseRecordRequest/additionalProperties, instanceLocation\u003d/unexpectedField, error\u003dFalse schema always fails}, Error{keyword\u003doneOf, evaluationPath\u003d/oneOf, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitExerciseRecordRequest, instanceLocation\u003d, error\u003dValue does not match against any of the schemas}]"
+    },
+    {
+      "name": "prior-workflow/ordinary/valid/expectedSessionVersion/1",
+      "schema": "SubmitExerciseRecordRequest",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: SubmitExerciseRecordRequest: [Error{keyword\u003dtype, evaluationPath\u003d/oneOf/0/$ref/properties/expectedSessionVersion/type, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitOrdinaryExerciseRecordRequest/properties/expectedSessionVersion, instanceLocation\u003d/expectedSessionVersion, error\u003dValue is [string] but should be [integer]}, Error{keyword\u003dconst, evaluationPath\u003d/oneOf/1/$ref/properties/submissionRoute/const, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitSwimmingExerciseRecordRequest/properties/submissionRoute, instanceLocation\u003d/submissionRoute, error\u003dExpected SWIMMING_TIMELY}, Error{keyword\u003dtype, evaluationPath\u003d/oneOf/1/$ref/properties/expectedSessionVersion/type, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitSwimmingExerciseRecordRequest/properties/expectedSessionVersion, instanceLocation\u003d/expectedSessionVersion, error\u003dValue is [string] but should be [integer]}, Error{keyword\u003dconst, evaluationPath\u003d/oneOf/2/$ref/properties/submissionRoute/const, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitOfflineSwimmingExerciseRecordRequest/properties/submissionRoute, instanceLocation\u003d/submissionRoute, error\u003dExpected SWIMMING_OFFLINE}, Error{keyword\u003dtype, evaluationPath\u003d/oneOf/2/$ref/properties/expectedSessionVersion/type, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitOfflineSwimmingExerciseRecordRequest/properties/expectedSessionVersion, instanceLocation\u003d/expectedSessionVersion, error\u003dValue is [string] but should be [integer]}, Error{keyword\u003drequired, evaluationPath\u003d/oneOf/2/$ref/required, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitOfflineSwimmingExerciseRecordRequest, instanceLocation\u003d, error\u003dObject does not have some of the required properties [delayExplanation]}, Error{keyword\u003doneOf, evaluationPath\u003d/oneOf, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/SubmitExerciseRecordRequest, instanceLocation\u003d, error\u003dValue does not match against any of the schemas}]"
+    },
+    {
+      "name": "prior-workflow/record/full_pending_response/missing/currentMaterial",
+      "schema": "ExerciseRecord",
+      "expectedValid": false,
+      "actualValid": false,
+      "roundtrip": false,
+      "passed": true,
+      "diagnostic": "JsonParseException: ExerciseRecord: [Error{keyword\u003drequired, evaluationPath\u003d/required, schemaLocation\u003durn:bnbu:step06:5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed#/$defs/ExerciseRecord, instanceLocation\u003d, error\u003dObject does not have some of the required properties [currentMaterial]}]"
+    }
+  ],
+  "compiledModelLocation": "D:\\DT\\soprts\\start4\\repos\\phase6-android\\BNBU-ANDROID\\contract-validation\\build\\intermediates\\runtime_library_classes_jar\\debug\\bundleLibRuntimeToJarDebug\\classes.jar",
+  "executionScope": "Android library compiled models; host JVM smoke test; no device/backend claim"
+}

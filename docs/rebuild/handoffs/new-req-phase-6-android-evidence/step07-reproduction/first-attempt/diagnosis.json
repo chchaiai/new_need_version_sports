@@ -1,0 +1,7 @@
+{
+  "hostBuildExit": 0,
+  "whitespaceExit": 2,
+  "cause": "Closeout STATUS text was accidentally converted to CRLF, causing Git to report every changed line.",
+  "fix": "Restore original historical tail bytes; write the newly inserted progress section with LF. No Contract or Android code changed for this correction.",
+  "outcome": "Full runner repeated at verification-02-final; all commands exit0. First attempt not counted as PASS."
+}

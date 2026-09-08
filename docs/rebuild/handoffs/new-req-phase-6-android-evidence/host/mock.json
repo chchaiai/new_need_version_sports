@@ -1,0 +1,752 @@
+{
+  "candidateSha256": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+  "planned": 44,
+  "passed": 44,
+  "cases": [
+    {
+      "name": "dashboard_unjoined",
+      "operation": "getStudentDashboard",
+      "state": "NORMAL",
+      "readOnly": false,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/student/dashboard"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "account_student_verified_email",
+      "operation": "getCurrentActor",
+      "state": "NORMAL",
+      "readOnly": false,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/me"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "account_deletion_retains_facts",
+      "operation": "getOwnAccountDeletionImpact",
+      "state": "NORMAL",
+      "readOnly": false,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/me/account-deletion-impact"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "session_restore_server_seconds",
+      "operation": "getOwnActiveExerciseSession",
+      "state": "RESUME",
+      "readOnly": false,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/student/exercise-sessions/active"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "progress_1199_is_not_target_met",
+      "operation": "getOwnCourseProgress",
+      "state": "NORMAL",
+      "readOnly": false,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/student/progress"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "progress_recomputing_keeps_old_checkpoint",
+      "operation": "getOwnCourseProgress",
+      "state": "NORMAL",
+      "readOnly": true,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/student/progress"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "progress_unavailable_is_not_zero",
+      "operation": "getOwnCourseProgress",
+      "state": "ERROR",
+      "readOnly": false,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/student/progress"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "progress_cached_is_read_only",
+      "operation": "getOwnCourseProgress",
+      "state": "NORMAL",
+      "readOnly": true,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/student/progress"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "record_pending_material",
+      "operation": "getOwnExerciseRecord",
+      "state": "NORMAL",
+      "readOnly": false,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/student/exercise-records/00000000-0000-4000-8000-000000000001"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "record_teacher_round1",
+      "operation": "getOwnExerciseRecord",
+      "state": "NORMAL",
+      "readOnly": false,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/student/exercise-records/00000000-0000-4000-8000-000000000001"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "record_await_supplement",
+      "operation": "getOwnExerciseRecord",
+      "state": "NORMAL",
+      "readOnly": false,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/student/exercise-records/00000000-0000-4000-8000-000000000001"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "record_round2",
+      "operation": "getOwnExerciseRecord",
+      "state": "NORMAL",
+      "readOnly": false,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/student/exercise-records/00000000-0000-4000-8000-000000000001"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "record_valid",
+      "operation": "getOwnExerciseRecord",
+      "state": "NORMAL",
+      "readOnly": false,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/student/exercise-records/00000000-0000-4000-8000-000000000001"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "technical_processing_never_invalid",
+      "operation": "getOwnExerciseRecord",
+      "state": "NORMAL",
+      "readOnly": false,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/student/exercise-records/00000000-0000-4000-8000-000000000001"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "supplement_timer_paused",
+      "operation": "getOwnExerciseRecord",
+      "state": "NORMAL",
+      "readOnly": false,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/student/exercise-records/00000000-0000-4000-8000-000000000001"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "supplement_timer_unavailable",
+      "operation": "getOwnExerciseRecord",
+      "state": "NORMAL",
+      "readOnly": false,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/student/exercise-records/00000000-0000-4000-8000-000000000001"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "archived_record_is_read_only",
+      "operation": "getOwnExerciseRecord",
+      "state": "NORMAL",
+      "readOnly": true,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/student/exercise-records/00000000-0000-4000-8000-000000000001"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "records_empty_only_typed_200",
+      "operation": "listOwnExerciseRecords",
+      "state": "EMPTY",
+      "readOnly": false,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/student/exercise-records"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "records_cursor_exact",
+      "operation": "listOwnExerciseRecords",
+      "state": "NORMAL",
+      "readOnly": false,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/student/exercise-records?cursor\u003dprior%2F%2B%3F\u0026limit\u003d20"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "first_material_before_deadline",
+      "operation": "getFirstMaterialEligibility",
+      "state": "NORMAL",
+      "readOnly": false,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/exercise-sessions/00000000-0000-4000-8000-000000000001/material-eligibility"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "first_material_exact_deadline_closed",
+      "operation": "getFirstMaterialEligibility",
+      "state": "NORMAL",
+      "readOnly": false,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/exercise-sessions/00000000-0000-4000-8000-000000000001/material-eligibility"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "first_material_cached_cannot_write",
+      "operation": "getFirstMaterialEligibility",
+      "state": "NORMAL",
+      "readOnly": true,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/exercise-sessions/00000000-0000-4000-8000-000000000001/material-eligibility"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "first_receipt_alone_cannot_resume",
+      "operation": "getFirstMaterialEligibility",
+      "state": "RESUME",
+      "readOnly": false,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/exercise-sessions/00000000-0000-4000-8000-000000000001/material-eligibility"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "invitation_active_new_registration",
+      "operation": "previewCourseInvitation",
+      "state": "NORMAL",
+      "readOnly": false,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/course-invitations/00000000-0000-4000-8000-000000000001"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "invitation_join_closed",
+      "operation": "previewCourseInvitation",
+      "state": "NORMAL",
+      "readOnly": false,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/course-invitations/00000000-0000-4000-8000-000000000001"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "invitation_expired_new_flow_blocked",
+      "operation": "previewCourseInvitation",
+      "state": "NORMAL",
+      "readOnly": false,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/course-invitations/00000000-0000-4000-8000-000000000001"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "endurance_raw_measured",
+      "operation": "getOwnEnduranceOutcome",
+      "state": "NORMAL",
+      "readOnly": false,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/student/endurance-outcome"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "endurance_exempt",
+      "operation": "getOwnEnduranceOutcome",
+      "state": "NORMAL",
+      "readOnly": false,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/student/endurance-outcome"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "applications_empty",
+      "operation": "listOwnApplications",
+      "state": "EMPTY",
+      "readOnly": false,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/student/applications"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "application_explicit_exemption_kind",
+      "operation": "getOwnApplication",
+      "state": "NORMAL",
+      "readOnly": false,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/student/applications/00000000-0000-4000-8000-000000000001"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "notifications_explicit_target",
+      "operation": "listOwnStudentNotifications",
+      "state": "NORMAL",
+      "readOnly": false,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/student/notifications"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "notifications_empty",
+      "operation": "listOwnStudentNotifications",
+      "state": "EMPTY",
+      "readOnly": false,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/student/notifications"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "feedback_empty",
+      "operation": "listOwnFeedback",
+      "state": "EMPTY",
+      "readOnly": false,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/student/feedback?limit\u003d6"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "feedback_detail_deleted_email",
+      "operation": "getOwnFeedback",
+      "state": "NORMAL",
+      "readOnly": false,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/student/feedback/00000000-0000-4000-8000-000000000001"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "help_public",
+      "operation": "getPublishedHelpArticle",
+      "state": "NORMAL",
+      "readOnly": false,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/help-articles/00000000-0000-4000-8000-000000000001?locale\u003dzh-CN"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "help_cached_read_only",
+      "operation": "getPublishedHelpArticle",
+      "state": "NORMAL",
+      "readOnly": true,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/help-articles/00000000-0000-4000-8000-000000000001?locale\u003dzh-CN"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "release_forced_upgrade",
+      "operation": "getAppReleasePolicy",
+      "state": "NORMAL",
+      "readOnly": false,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/app-release-policy?currentBuildNumber\u003d1\u0026platform\u003dANDROID"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "http_error_TOKEN_EXPIRED",
+      "operation": "getOwnExerciseRecord",
+      "state": "ERROR",
+      "readOnly": false,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/student/exercise-records/00000000-0000-4000-8000-000000000001"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "http_error_AUTHENTICATION_REQUIRED",
+      "operation": "getOwnExerciseRecord",
+      "state": "ERROR",
+      "readOnly": false,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/student/exercise-records/00000000-0000-4000-8000-000000000001"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "http_error_FORBIDDEN",
+      "operation": "getOwnExerciseRecord",
+      "state": "FORBIDDEN",
+      "readOnly": true,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/student/exercise-records/00000000-0000-4000-8000-000000000001"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "http_error_SYSTEM_MAINTENANCE",
+      "operation": "getOwnExerciseRecord",
+      "state": "MAINTENANCE",
+      "readOnly": true,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/student/exercise-records/00000000-0000-4000-8000-000000000001"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "http_error_DEPENDENCY_UNAVAILABLE",
+      "operation": "getOwnExerciseRecord",
+      "state": "ERROR",
+      "readOnly": false,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/student/exercise-records/00000000-0000-4000-8000-000000000001"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "http_error_INTERNAL_ERROR",
+      "operation": "getOwnExerciseRecord",
+      "state": "ERROR",
+      "readOnly": false,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/student/exercise-records/00000000-0000-4000-8000-000000000001"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "maintenance_estimate_does_not_unlock",
+      "operation": "getStudentDashboard",
+      "state": "MAINTENANCE",
+      "readOnly": true,
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/v1/system-mode"
+        }
+      ],
+      "passed": true
+    }
+  ],
+  "renderedDeviceTestsExecuted": 0
+}

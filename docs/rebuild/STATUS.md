@@ -1,5 +1,19 @@
 # 当前进度状态
 
+## 2026-09-08 新版Phase6A本地完成并接受，Phase6整体IN_PROGRESS
+
+- Android七步本地计划已完成7/7；用户兼任Owner/架构负责人/人类Reviewer，已在手机查看独立人工审查APK并明确接受第6步，授权本次第7步收尾。GitHub发布待用户操作，未代填交付Commit、PR通过或合并。
+- 当前Android分支`codex/phase6a-contract-mock`，开发基线`2ba9355e38373b8d2350eb8efe4071048337c320`。Phase5协议及其最终分工记录已在该main基线汇合。Contract仍为`1.3.0-contract / RC / 5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed`，来源`f702c590ff10b11f7de038332868c988ab4cec11`，未改版本或状态。
+- Android独立工程实际生成324模型并构建，1156协议用例、255Mapper、71Mock通过；真实模拟器74/74、同APK横屏大字体1/1通过。人工启动器另有模拟器2/2，用户iQOO12Pro人工查看通过；不写真机自动化46/46或完整App验收。
+- 第3～6步15项Android Finding和第7步1项复现入口Finding均关闭，开放Android Finding及新增阻塞Contract CR为0。Phase5发布检查将后移Backend7.0接收人算入门禁的继承工具问题仍单列。另已修复主机入口因当前STATUS正常推进导致旧发布哈希报错：不可变输入继续核验当前字节，仅历史STATUS取固定入场Commit，再运行原校验器；未改Contract断言。正式App旧API/Mock/旧1.2验证绑定与Phase8迁移责任保留。
+- Web Owner甘洛夷报送PR#11（`c3d42be6cd60f8dd1194736e22e861bca2a22cd4`）完成，本次未审查/接受Web。Android与Web分开审查，由用户在两端接受后进行6C汇总。新版Phase6为“Android / Web Contract + Mock验证”，本地第7步不是任务书跨端T07。
+- 整个Phase6继续IN_PROGRESS；Phase7.0等待6C阶段验收。后端实际兼容在7.0落实，未通过不能进7.1。正式App迁移、真实Backend/E2E及所有设备版本未验证；无部署或零Bug承诺。
+- 本步收尾README、状态/交接和证据，并修复主机验证入口的历史状态引用，新增5项回归控制；完整主机/构建重跑并比较产物。所有Android功能源、构建/生成配置和Mock输入与第6步保持原字节。业务正文、Contract、Web、Backend、数据库/infra和历史工作区未改。
+
+入口：[Android阶段交接](handoffs/new-req-phase-6-android.md)、[接收记录](handoffs/new-req-phase-6-android-evidence/acceptance.json)、[原始证据](handoffs/new-req-phase-6-android-evidence/README.md)。下一步等待用户GitHub操作或另行授权Web审查/6C，本次不继续下一阶段。
+
+以下为历史停点，其“Phase6 NOT_STARTED”等状态已由上方当前记录更新；保留原文便于追溯。
+
 ## 2026-09-08 新版Phase5 DONE，Phase6 READY / NOT_STARTED
 
 - 新版Phase5「新 API Contract / OpenAPI」完成7/7步。用户已作为Contract Owner/Reviewer审核接受，协议及验证包已通过PR #9发布，合并后文件树与已审核来源一致；本地最终状态/分工回填待用户同步GitHub，不改变已发布协议身份。

@@ -1,0 +1,10 @@
+test_contract_mutation_rejected (__main__.PublishedSealTests.test_contract_mutation_rejected) ... ok
+test_fixture_mutation_rejected (__main__.PublishedSealTests.test_fixture_mutation_rejected) ... ok
+test_only_live_status_may_advance (__main__.PublishedSealTests.test_only_live_status_may_advance) ... ok
+test_relabelled_manifest_rejected (__main__.PublishedSealTests.test_relabelled_manifest_rejected) ... ok
+test_wrong_historical_status_rejected (__main__.PublishedSealTests.test_wrong_historical_status_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 4.258s
+
+OK

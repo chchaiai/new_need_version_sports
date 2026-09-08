@@ -1,0 +1,1482 @@
+{
+  "candidateSha256": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+  "runtimeCases": 1156,
+  "legalRoundtrips": 286,
+  "expectedRejections": 870,
+  "publishedGroups": {
+    "old-mapping": 59,
+    "prior-workflow": 224,
+    "prior-courses": 436,
+    "checks": 273
+  },
+  "supplementalCategories": {
+    "numbers": 8,
+    "empty_array": 2,
+    "required_nullable": 2,
+    "optional_default": 5,
+    "numeric_enum": 5,
+    "calendar_date": 3,
+    "utc_instant": 21,
+    "unknown_field": 3,
+    "error_code": 103,
+    "error_envelope": 12
+  },
+  "discriminatorGroups": {
+    "#/components/schemas/SubmitExerciseRecordRequest": {
+      "property": "submissionRoute",
+      "mapping": {
+        "ORDINARY": "#/components/schemas/SubmitOrdinaryExerciseRecordRequest",
+        "SWIMMING_TIMELY": "#/components/schemas/SubmitSwimmingExerciseRecordRequest",
+        "SWIMMING_OFFLINE": "#/components/schemas/SubmitOfflineSwimmingExerciseRecordRequest"
+      },
+      "legal": {
+        "ORDINARY": [
+          {
+            "case": "prior-workflow/ordinary/valid",
+            "instancePath": "$",
+            "wire": "ORDINARY"
+          },
+          {
+            "case": "phase6/integer/zero",
+            "instancePath": "$",
+            "wire": "ORDINARY"
+          },
+          {
+            "case": "phase6/integer/beyond_double_exact",
+            "instancePath": "$",
+            "wire": "ORDINARY"
+          },
+          {
+            "case": "phase6/integer/int64_max",
+            "instancePath": "$",
+            "wire": "ORDINARY"
+          }
+        ],
+        "SWIMMING_TIMELY": [
+          {
+            "case": "prior-workflow/swimming/valid",
+            "instancePath": "$",
+            "wire": "SWIMMING_TIMELY"
+          }
+        ],
+        "SWIMMING_OFFLINE": [
+          {
+            "case": "prior-workflow/offline/valid",
+            "instancePath": "$",
+            "wire": "SWIMMING_OFFLINE"
+          }
+        ]
+      },
+      "rejected": [
+        {
+          "case": "prior-workflow/old_submit_shape",
+          "instancePath": "$",
+          "wire": "<MISSING>"
+        },
+        {
+          "case": "prior-workflow/ordinary/valid/missing/submissionRoute",
+          "instancePath": "$",
+          "wire": "<MISSING>"
+        },
+        {
+          "case": "prior-workflow/ordinary/valid/missing/category",
+          "instancePath": "$",
+          "wire": "ORDINARY"
+        },
+        {
+          "case": "prior-workflow/ordinary/valid/missing/description",
+          "instancePath": "$",
+          "wire": "ORDINARY"
+        },
+        {
+          "case": "prior-workflow/ordinary/valid/missing/items",
+          "instancePath": "$",
+          "wire": "ORDINARY"
+        },
+        {
+          "case": "prior-workflow/ordinary/valid/missing/expectedSessionVersion",
+          "instancePath": "$",
+          "wire": "ORDINARY"
+        },
+        {
+          "case": "prior-workflow/ordinary/valid/extra",
+          "instancePath": "$",
+          "wire": "ORDINARY"
+        },
+        {
+          "case": "prior-workflow/ordinary/valid/submissionRoute/None",
+          "instancePath": "$",
+          "wire": null
+        },
+        {
+          "case": "prior-workflow/ordinary/valid/submissionRoute/UNKNOWN",
+          "instancePath": "$",
+          "wire": "UNKNOWN"
+        },
+        {
+          "case": "prior-workflow/ordinary/valid/expectedSessionVersion/None",
+          "instancePath": "$",
+          "wire": "ORDINARY"
+        },
+        {
+          "case": "prior-workflow/ordinary/valid/expectedSessionVersion/1",
+          "instancePath": "$",
+          "wire": "ORDINARY"
+        },
+        {
+          "case": "prior-workflow/swimming/valid/missing/submissionRoute",
+          "instancePath": "$",
+          "wire": "<MISSING>"
+        },
+        {
+          "case": "prior-workflow/swimming/valid/missing/category",
+          "instancePath": "$",
+          "wire": "SWIMMING_TIMELY"
+        },
+        {
+          "case": "prior-workflow/swimming/valid/missing/description",
+          "instancePath": "$",
+          "wire": "SWIMMING_TIMELY"
+        },
+        {
+          "case": "prior-workflow/swimming/valid/missing/items",
+          "instancePath": "$",
+          "wire": "SWIMMING_TIMELY"
+        },
+        {
+          "case": "prior-workflow/swimming/valid/missing/expectedSessionVersion",
+          "instancePath": "$",
+          "wire": "SWIMMING_TIMELY"
+        },
+        {
+          "case": "prior-workflow/swimming/valid/extra",
+          "instancePath": "$",
+          "wire": "SWIMMING_TIMELY"
+        },
+        {
+          "case": "prior-workflow/swimming/valid/submissionRoute/None",
+          "instancePath": "$",
+          "wire": null
+        },
+        {
+          "case": "prior-workflow/swimming/valid/submissionRoute/UNKNOWN",
+          "instancePath": "$",
+          "wire": "UNKNOWN"
+        },
+        {
+          "case": "prior-workflow/swimming/valid/expectedSessionVersion/None",
+          "instancePath": "$",
+          "wire": "SWIMMING_TIMELY"
+        },
+        {
+          "case": "prior-workflow/swimming/valid/expectedSessionVersion/1",
+          "instancePath": "$",
+          "wire": "SWIMMING_TIMELY"
+        },
+        {
+          "case": "prior-workflow/offline/valid/missing/submissionRoute",
+          "instancePath": "$",
+          "wire": "<MISSING>"
+        },
+        {
+          "case": "prior-workflow/offline/valid/missing/category",
+          "instancePath": "$",
+          "wire": "SWIMMING_OFFLINE"
+        },
+        {
+          "case": "prior-workflow/offline/valid/missing/description",
+          "instancePath": "$",
+          "wire": "SWIMMING_OFFLINE"
+        },
+        {
+          "case": "prior-workflow/offline/valid/missing/items",
+          "instancePath": "$",
+          "wire": "SWIMMING_OFFLINE"
+        },
+        {
+          "case": "prior-workflow/offline/valid/missing/expectedSessionVersion",
+          "instancePath": "$",
+          "wire": "SWIMMING_OFFLINE"
+        },
+        {
+          "case": "prior-workflow/offline/valid/missing/delayExplanation",
+          "instancePath": "$",
+          "wire": "SWIMMING_OFFLINE"
+        },
+        {
+          "case": "prior-workflow/offline/valid/extra",
+          "instancePath": "$",
+          "wire": "SWIMMING_OFFLINE"
+        },
+        {
+          "case": "prior-workflow/offline/valid/submissionRoute/None",
+          "instancePath": "$",
+          "wire": null
+        },
+        {
+          "case": "prior-workflow/offline/valid/submissionRoute/UNKNOWN",
+          "instancePath": "$",
+          "wire": "UNKNOWN"
+        },
+        {
+          "case": "prior-workflow/offline/valid/expectedSessionVersion/None",
+          "instancePath": "$",
+          "wire": "SWIMMING_OFFLINE"
+        },
+        {
+          "case": "prior-workflow/offline/valid/expectedSessionVersion/1",
+          "instancePath": "$",
+          "wire": "SWIMMING_OFFLINE"
+        },
+        {
+          "case": "phase6/integer/negative",
+          "instancePath": "$",
+          "wire": "ORDINARY"
+        },
+        {
+          "case": "phase6/integer/int64_overflow",
+          "instancePath": "$",
+          "wire": "ORDINARY"
+        },
+        {
+          "case": "phase6/integer/int64_wrap_to_positive",
+          "instancePath": "$",
+          "wire": "ORDINARY"
+        },
+        {
+          "case": "phase6/integer/fraction",
+          "instancePath": "$",
+          "wire": "ORDINARY"
+        },
+        {
+          "case": "phase6/integer/boolean",
+          "instancePath": "$",
+          "wire": "ORDINARY"
+        },
+        {
+          "case": "phase6/array/empty_manifest",
+          "instancePath": "$",
+          "wire": "ORDINARY"
+        }
+      ]
+    },
+    "#/components/schemas/AppendRecordReviewRequest": {
+      "property": "action",
+      "mapping": {
+        "PASS": "#/components/schemas/PassExerciseRecordRequest",
+        "RETURN_SUPPLEMENT": "#/components/schemas/ReturnExerciseRecordRequest",
+        "INVALID": "#/components/schemas/InvalidateExerciseRecordRequest"
+      },
+      "legal": {
+        "PASS": [
+          {
+            "case": "prior-workflow/pass/valid",
+            "instancePath": "$",
+            "wire": "PASS"
+          }
+        ],
+        "RETURN_SUPPLEMENT": [
+          {
+            "case": "prior-workflow/return/default24",
+            "instancePath": "$",
+            "wire": "RETURN_SUPPLEMENT"
+          },
+          {
+            "case": "prior-workflow/return/72",
+            "instancePath": "$",
+            "wire": "RETURN_SUPPLEMENT"
+          },
+          {
+            "case": "phase6/numeric_enum/int/24",
+            "instancePath": "$",
+            "wire": "RETURN_SUPPLEMENT"
+          },
+          {
+            "case": "phase6/numeric_enum/int/72",
+            "instancePath": "$",
+            "wire": "RETURN_SUPPLEMENT"
+          }
+        ],
+        "INVALID": [
+          {
+            "case": "prior-workflow/invalid/confirmed",
+            "instancePath": "$",
+            "wire": "INVALID"
+          }
+        ]
+      },
+      "rejected": [
+        {
+          "case": "prior-workflow/old_free_text_review",
+          "instancePath": "$",
+          "wire": "<MISSING>"
+        },
+        {
+          "case": "prior-workflow/doubt_not_invalid",
+          "instancePath": "$",
+          "wire": "INVALID"
+        },
+        {
+          "case": "prior-workflow/confirmed_not_return",
+          "instancePath": "$",
+          "wire": "RETURN_SUPPLEMENT"
+        },
+        {
+          "case": "prior-workflow/system_reason_not_teacher",
+          "instancePath": "$",
+          "wire": "INVALID"
+        },
+        {
+          "case": "prior-workflow/second_return",
+          "instancePath": "$",
+          "wire": "RETURN_SUPPLEMENT"
+        },
+        {
+          "case": "prior-workflow/window48",
+          "instancePath": "$",
+          "wire": "RETURN_SUPPLEMENT"
+        },
+        {
+          "case": "prior-workflow/hidden_note",
+          "instancePath": "$",
+          "wire": "PASS"
+        },
+        {
+          "case": "prior-workflow/pass/valid/missing/action",
+          "instancePath": "$",
+          "wire": "<MISSING>"
+        },
+        {
+          "case": "prior-workflow/pass/valid/missing/expectedVersion",
+          "instancePath": "$",
+          "wire": "PASS"
+        },
+        {
+          "case": "prior-workflow/pass/valid/missing/expectedRoundNo",
+          "instancePath": "$",
+          "wire": "PASS"
+        },
+        {
+          "case": "prior-workflow/pass/valid/missing/materialVersionId",
+          "instancePath": "$",
+          "wire": "PASS"
+        },
+        {
+          "case": "prior-workflow/pass/valid/missing/publicComment",
+          "instancePath": "$",
+          "wire": "PASS"
+        },
+        {
+          "case": "prior-workflow/pass/valid/extra",
+          "instancePath": "$",
+          "wire": "PASS"
+        },
+        {
+          "case": "prior-workflow/pass/valid/action/None",
+          "instancePath": "$",
+          "wire": null
+        },
+        {
+          "case": "prior-workflow/pass/valid/action/UNKNOWN",
+          "instancePath": "$",
+          "wire": "UNKNOWN"
+        },
+        {
+          "case": "prior-workflow/pass/valid/expectedVersion/None",
+          "instancePath": "$",
+          "wire": "PASS"
+        },
+        {
+          "case": "prior-workflow/pass/valid/expectedVersion/1",
+          "instancePath": "$",
+          "wire": "PASS"
+        },
+        {
+          "case": "prior-workflow/return/default24/missing/action",
+          "instancePath": "$",
+          "wire": "<MISSING>"
+        },
+        {
+          "case": "prior-workflow/return/default24/missing/expectedVersion",
+          "instancePath": "$",
+          "wire": "RETURN_SUPPLEMENT"
+        },
+        {
+          "case": "prior-workflow/return/default24/missing/expectedRoundNo",
+          "instancePath": "$",
+          "wire": "RETURN_SUPPLEMENT"
+        },
+        {
+          "case": "prior-workflow/return/default24/missing/materialVersionId",
+          "instancePath": "$",
+          "wire": "RETURN_SUPPLEMENT"
+        },
+        {
+          "case": "prior-workflow/return/default24/missing/publicComment",
+          "instancePath": "$",
+          "wire": "RETURN_SUPPLEMENT"
+        },
+        {
+          "case": "prior-workflow/return/default24/missing/reasonCode",
+          "instancePath": "$",
+          "wire": "RETURN_SUPPLEMENT"
+        },
+        {
+          "case": "prior-workflow/return/default24/extra",
+          "instancePath": "$",
+          "wire": "RETURN_SUPPLEMENT"
+        },
+        {
+          "case": "prior-workflow/return/default24/action/None",
+          "instancePath": "$",
+          "wire": null
+        },
+        {
+          "case": "prior-workflow/return/default24/action/UNKNOWN",
+          "instancePath": "$",
+          "wire": "UNKNOWN"
+        },
+        {
+          "case": "prior-workflow/return/default24/expectedVersion/None",
+          "instancePath": "$",
+          "wire": "RETURN_SUPPLEMENT"
+        },
+        {
+          "case": "prior-workflow/return/default24/expectedVersion/1",
+          "instancePath": "$",
+          "wire": "RETURN_SUPPLEMENT"
+        },
+        {
+          "case": "prior-workflow/return/72/missing/action",
+          "instancePath": "$",
+          "wire": "<MISSING>"
+        },
+        {
+          "case": "prior-workflow/return/72/missing/expectedVersion",
+          "instancePath": "$",
+          "wire": "RETURN_SUPPLEMENT"
+        },
+        {
+          "case": "prior-workflow/return/72/missing/expectedRoundNo",
+          "instancePath": "$",
+          "wire": "RETURN_SUPPLEMENT"
+        },
+        {
+          "case": "prior-workflow/return/72/missing/materialVersionId",
+          "instancePath": "$",
+          "wire": "RETURN_SUPPLEMENT"
+        },
+        {
+          "case": "prior-workflow/return/72/missing/publicComment",
+          "instancePath": "$",
+          "wire": "RETURN_SUPPLEMENT"
+        },
+        {
+          "case": "prior-workflow/return/72/missing/reasonCode",
+          "instancePath": "$",
+          "wire": "RETURN_SUPPLEMENT"
+        },
+        {
+          "case": "prior-workflow/return/72/extra",
+          "instancePath": "$",
+          "wire": "RETURN_SUPPLEMENT"
+        },
+        {
+          "case": "prior-workflow/return/72/action/None",
+          "instancePath": "$",
+          "wire": null
+        },
+        {
+          "case": "prior-workflow/return/72/action/UNKNOWN",
+          "instancePath": "$",
+          "wire": "UNKNOWN"
+        },
+        {
+          "case": "prior-workflow/return/72/expectedVersion/None",
+          "instancePath": "$",
+          "wire": "RETURN_SUPPLEMENT"
+        },
+        {
+          "case": "prior-workflow/return/72/expectedVersion/1",
+          "instancePath": "$",
+          "wire": "RETURN_SUPPLEMENT"
+        },
+        {
+          "case": "prior-workflow/invalid/confirmed/missing/action",
+          "instancePath": "$",
+          "wire": "<MISSING>"
+        },
+        {
+          "case": "prior-workflow/invalid/confirmed/missing/expectedVersion",
+          "instancePath": "$",
+          "wire": "INVALID"
+        },
+        {
+          "case": "prior-workflow/invalid/confirmed/missing/expectedRoundNo",
+          "instancePath": "$",
+          "wire": "INVALID"
+        },
+        {
+          "case": "prior-workflow/invalid/confirmed/missing/materialVersionId",
+          "instancePath": "$",
+          "wire": "INVALID"
+        },
+        {
+          "case": "prior-workflow/invalid/confirmed/missing/publicComment",
+          "instancePath": "$",
+          "wire": "INVALID"
+        },
+        {
+          "case": "prior-workflow/invalid/confirmed/missing/reasonCode",
+          "instancePath": "$",
+          "wire": "INVALID"
+        },
+        {
+          "case": "prior-workflow/invalid/confirmed/extra",
+          "instancePath": "$",
+          "wire": "INVALID"
+        },
+        {
+          "case": "prior-workflow/invalid/confirmed/action/None",
+          "instancePath": "$",
+          "wire": null
+        },
+        {
+          "case": "prior-workflow/invalid/confirmed/action/UNKNOWN",
+          "instancePath": "$",
+          "wire": "UNKNOWN"
+        },
+        {
+          "case": "prior-workflow/invalid/confirmed/expectedVersion/None",
+          "instancePath": "$",
+          "wire": "INVALID"
+        },
+        {
+          "case": "prior-workflow/invalid/confirmed/expectedVersion/1",
+          "instancePath": "$",
+          "wire": "INVALID"
+        },
+        {
+          "case": "phase6/numeric_enum/str/24",
+          "instancePath": "$",
+          "wire": "RETURN_SUPPLEMENT"
+        },
+        {
+          "case": "phase6/numeric_enum/NoneType/None",
+          "instancePath": "$",
+          "wire": "RETURN_SUPPLEMENT"
+        },
+        {
+          "case": "phase6/numeric_enum/int/48",
+          "instancePath": "$",
+          "wire": "RETURN_SUPPLEMENT"
+        }
+      ]
+    },
+    "#/components/schemas/CorrectExerciseRecordReviewRequest": {
+      "property": "result",
+      "mapping": {
+        "VALID": "#/components/schemas/CorrectExerciseRecordValidRequest",
+        "INVALID": "#/components/schemas/CorrectExerciseRecordInvalidRequest"
+      },
+      "legal": {
+        "VALID": [
+          {
+            "case": "prior-workflow/correct/valid",
+            "instancePath": "$",
+            "wire": "VALID"
+          }
+        ],
+        "INVALID": [
+          {
+            "case": "prior-workflow/correct/invalid",
+            "instancePath": "$",
+            "wire": "INVALID"
+          }
+        ]
+      },
+      "rejected": [
+        {
+          "case": "prior-workflow/correct/valid/missing/result",
+          "instancePath": "$",
+          "wire": "<MISSING>"
+        },
+        {
+          "case": "prior-workflow/correct/valid/missing/expectedVersion",
+          "instancePath": "$",
+          "wire": "VALID"
+        },
+        {
+          "case": "prior-workflow/correct/valid/missing/expectedRoundNo",
+          "instancePath": "$",
+          "wire": "VALID"
+        },
+        {
+          "case": "prior-workflow/correct/valid/missing/materialVersionId",
+          "instancePath": "$",
+          "wire": "VALID"
+        },
+        {
+          "case": "prior-workflow/correct/valid/missing/correctedReviewId",
+          "instancePath": "$",
+          "wire": "VALID"
+        },
+        {
+          "case": "prior-workflow/correct/valid/missing/publicComment",
+          "instancePath": "$",
+          "wire": "VALID"
+        },
+        {
+          "case": "prior-workflow/correct/valid/extra",
+          "instancePath": "$",
+          "wire": "VALID"
+        },
+        {
+          "case": "prior-workflow/correct/valid/result/None",
+          "instancePath": "$",
+          "wire": null
+        },
+        {
+          "case": "prior-workflow/correct/valid/result/UNKNOWN",
+          "instancePath": "$",
+          "wire": "UNKNOWN"
+        },
+        {
+          "case": "prior-workflow/correct/valid/expectedVersion/None",
+          "instancePath": "$",
+          "wire": "VALID"
+        },
+        {
+          "case": "prior-workflow/correct/valid/expectedVersion/1",
+          "instancePath": "$",
+          "wire": "VALID"
+        },
+        {
+          "case": "prior-workflow/correct/invalid/missing/result",
+          "instancePath": "$",
+          "wire": "<MISSING>"
+        },
+        {
+          "case": "prior-workflow/correct/invalid/missing/expectedVersion",
+          "instancePath": "$",
+          "wire": "INVALID"
+        },
+        {
+          "case": "prior-workflow/correct/invalid/missing/expectedRoundNo",
+          "instancePath": "$",
+          "wire": "INVALID"
+        },
+        {
+          "case": "prior-workflow/correct/invalid/missing/materialVersionId",
+          "instancePath": "$",
+          "wire": "INVALID"
+        },
+        {
+          "case": "prior-workflow/correct/invalid/missing/correctedReviewId",
+          "instancePath": "$",
+          "wire": "INVALID"
+        },
+        {
+          "case": "prior-workflow/correct/invalid/missing/publicComment",
+          "instancePath": "$",
+          "wire": "INVALID"
+        },
+        {
+          "case": "prior-workflow/correct/invalid/missing/reasonCode",
+          "instancePath": "$",
+          "wire": "INVALID"
+        },
+        {
+          "case": "prior-workflow/correct/invalid/extra",
+          "instancePath": "$",
+          "wire": "INVALID"
+        },
+        {
+          "case": "prior-workflow/correct/invalid/result/None",
+          "instancePath": "$",
+          "wire": null
+        },
+        {
+          "case": "prior-workflow/correct/invalid/result/UNKNOWN",
+          "instancePath": "$",
+          "wire": "UNKNOWN"
+        },
+        {
+          "case": "prior-workflow/correct/invalid/expectedVersion/None",
+          "instancePath": "$",
+          "wire": "INVALID"
+        },
+        {
+          "case": "prior-workflow/correct/invalid/expectedVersion/1",
+          "instancePath": "$",
+          "wire": "INVALID"
+        }
+      ]
+    },
+    "#/components/schemas/CreateStudentApplicationRequest": {
+      "property": "applicationType",
+      "mapping": {
+        "EXEMPTION": "#/components/schemas/CreateExemptionApplicationRequest",
+        "CERTIFICATION": "#/components/schemas/CreateCertificationApplicationRequest"
+      },
+      "legal": {
+        "EXEMPTION": [
+          {
+            "case": "old-mapping/EXEMPTION/legal",
+            "instancePath": "$",
+            "wire": "EXEMPTION"
+          }
+        ],
+        "CERTIFICATION": [
+          {
+            "case": "old-mapping/CERTIFICATION/legal",
+            "instancePath": "$",
+            "wire": "CERTIFICATION"
+          }
+        ]
+      },
+      "rejected": [
+        {
+          "case": "old-mapping/EXEMPTION/unknown",
+          "instancePath": "$",
+          "wire": "UNKNOWN"
+        },
+        {
+          "case": "old-mapping/EXEMPTION/schema_name",
+          "instancePath": "$",
+          "wire": "CreateExemptionApplicationRequest"
+        },
+        {
+          "case": "old-mapping/EXEMPTION/null",
+          "instancePath": "$",
+          "wire": null
+        },
+        {
+          "case": "old-mapping/EXEMPTION/numeric",
+          "instancePath": "$",
+          "wire": 1
+        },
+        {
+          "case": "old-mapping/EXEMPTION/missing",
+          "instancePath": "$",
+          "wire": "<MISSING>"
+        },
+        {
+          "case": "old-mapping/EXEMPTION/extra_field",
+          "instancePath": "$",
+          "wire": "EXEMPTION"
+        },
+        {
+          "case": "old-mapping/EXEMPTION/wrong_branch_shape",
+          "instancePath": "$",
+          "wire": "CERTIFICATION"
+        },
+        {
+          "case": "old-mapping/CERTIFICATION/unknown",
+          "instancePath": "$",
+          "wire": "UNKNOWN"
+        },
+        {
+          "case": "old-mapping/CERTIFICATION/schema_name",
+          "instancePath": "$",
+          "wire": "CreateCertificationApplicationRequest"
+        },
+        {
+          "case": "old-mapping/CERTIFICATION/null",
+          "instancePath": "$",
+          "wire": null
+        },
+        {
+          "case": "old-mapping/CERTIFICATION/numeric",
+          "instancePath": "$",
+          "wire": 1
+        },
+        {
+          "case": "old-mapping/CERTIFICATION/missing",
+          "instancePath": "$",
+          "wire": "<MISSING>"
+        },
+        {
+          "case": "old-mapping/CERTIFICATION/extra_field",
+          "instancePath": "$",
+          "wire": "CERTIFICATION"
+        },
+        {
+          "case": "old-mapping/CERTIFICATION/wrong_branch_shape",
+          "instancePath": "$",
+          "wire": "EXEMPTION"
+        },
+        {
+          "case": "old-mapping/CERTIFICATION/nested_or_envelope_extra",
+          "instancePath": "$",
+          "wire": "CERTIFICATION"
+        }
+      ]
+    },
+    "#/components/schemas/ReviseEnduranceRuleTableRequest/properties/change": {
+      "property": "action",
+      "mapping": {
+        "ADD": "#/components/schemas/AddEnduranceRuleIntervalChange",
+        "UPDATE": "#/components/schemas/UpdateEnduranceRuleIntervalChange",
+        "DELETE": "#/components/schemas/DeleteEnduranceRuleIntervalChange"
+      },
+      "legal": {
+        "ADD": [
+          {
+            "case": "old-mapping/ADD/legal",
+            "instancePath": "$/change",
+            "wire": "ADD"
+          }
+        ],
+        "UPDATE": [
+          {
+            "case": "old-mapping/UPDATE/legal",
+            "instancePath": "$/change",
+            "wire": "UPDATE"
+          }
+        ],
+        "DELETE": [
+          {
+            "case": "old-mapping/DELETE/legal",
+            "instancePath": "$/change",
+            "wire": "DELETE"
+          }
+        ]
+      },
+      "rejected": [
+        {
+          "case": "old-mapping/ADD/unknown",
+          "instancePath": "$/change",
+          "wire": "UNKNOWN"
+        },
+        {
+          "case": "old-mapping/ADD/schema_name",
+          "instancePath": "$/change",
+          "wire": "AddEnduranceRuleIntervalChange"
+        },
+        {
+          "case": "old-mapping/ADD/null",
+          "instancePath": "$/change",
+          "wire": null
+        },
+        {
+          "case": "old-mapping/ADD/numeric",
+          "instancePath": "$/change",
+          "wire": 1
+        },
+        {
+          "case": "old-mapping/ADD/missing",
+          "instancePath": "$/change",
+          "wire": "<MISSING>"
+        },
+        {
+          "case": "old-mapping/ADD/extra_field",
+          "instancePath": "$/change",
+          "wire": "ADD"
+        },
+        {
+          "case": "old-mapping/ADD/wrong_branch_shape",
+          "instancePath": "$/change",
+          "wire": "UPDATE"
+        },
+        {
+          "case": "old-mapping/UPDATE/unknown",
+          "instancePath": "$/change",
+          "wire": "UNKNOWN"
+        },
+        {
+          "case": "old-mapping/UPDATE/schema_name",
+          "instancePath": "$/change",
+          "wire": "UpdateEnduranceRuleIntervalChange"
+        },
+        {
+          "case": "old-mapping/UPDATE/null",
+          "instancePath": "$/change",
+          "wire": null
+        },
+        {
+          "case": "old-mapping/UPDATE/numeric",
+          "instancePath": "$/change",
+          "wire": 1
+        },
+        {
+          "case": "old-mapping/UPDATE/missing",
+          "instancePath": "$/change",
+          "wire": "<MISSING>"
+        },
+        {
+          "case": "old-mapping/UPDATE/extra_field",
+          "instancePath": "$/change",
+          "wire": "UPDATE"
+        },
+        {
+          "case": "old-mapping/UPDATE/wrong_branch_shape",
+          "instancePath": "$/change",
+          "wire": "ADD"
+        },
+        {
+          "case": "old-mapping/DELETE/unknown",
+          "instancePath": "$/change",
+          "wire": "UNKNOWN"
+        },
+        {
+          "case": "old-mapping/DELETE/schema_name",
+          "instancePath": "$/change",
+          "wire": "DeleteEnduranceRuleIntervalChange"
+        },
+        {
+          "case": "old-mapping/DELETE/null",
+          "instancePath": "$/change",
+          "wire": null
+        },
+        {
+          "case": "old-mapping/DELETE/numeric",
+          "instancePath": "$/change",
+          "wire": 1
+        },
+        {
+          "case": "old-mapping/DELETE/missing",
+          "instancePath": "$/change",
+          "wire": "<MISSING>"
+        },
+        {
+          "case": "old-mapping/DELETE/extra_field",
+          "instancePath": "$/change",
+          "wire": "DELETE"
+        },
+        {
+          "case": "old-mapping/DELETE/wrong_branch_shape",
+          "instancePath": "$/change",
+          "wire": "ADD"
+        },
+        {
+          "case": "old-mapping/ADD/nested_or_envelope_extra",
+          "instancePath": "$/change",
+          "wire": "ADD"
+        }
+      ]
+    },
+    "#/components/schemas/SwitchSystemModeRequest": {
+      "property": "targetMode",
+      "mapping": {
+        "MAINTENANCE": "#/components/schemas/EnterMaintenanceRequest",
+        "NORMAL": "#/components/schemas/ReturnNormalRequest"
+      },
+      "legal": {
+        "MAINTENANCE": [
+          {
+            "case": "old-mapping/MAINTENANCE/legal",
+            "instancePath": "$",
+            "wire": "MAINTENANCE"
+          }
+        ],
+        "NORMAL": [
+          {
+            "case": "old-mapping/NORMAL/legal",
+            "instancePath": "$",
+            "wire": "NORMAL"
+          }
+        ]
+      },
+      "rejected": [
+        {
+          "case": "old-mapping/MAINTENANCE/unknown",
+          "instancePath": "$",
+          "wire": "UNKNOWN"
+        },
+        {
+          "case": "old-mapping/MAINTENANCE/schema_name",
+          "instancePath": "$",
+          "wire": "EnterMaintenanceRequest"
+        },
+        {
+          "case": "old-mapping/MAINTENANCE/null",
+          "instancePath": "$",
+          "wire": null
+        },
+        {
+          "case": "old-mapping/MAINTENANCE/numeric",
+          "instancePath": "$",
+          "wire": 1
+        },
+        {
+          "case": "old-mapping/MAINTENANCE/missing",
+          "instancePath": "$",
+          "wire": "<MISSING>"
+        },
+        {
+          "case": "old-mapping/MAINTENANCE/extra_field",
+          "instancePath": "$",
+          "wire": "MAINTENANCE"
+        },
+        {
+          "case": "old-mapping/MAINTENANCE/wrong_branch_shape",
+          "instancePath": "$",
+          "wire": "NORMAL"
+        },
+        {
+          "case": "old-mapping/NORMAL/unknown",
+          "instancePath": "$",
+          "wire": "UNKNOWN"
+        },
+        {
+          "case": "old-mapping/NORMAL/schema_name",
+          "instancePath": "$",
+          "wire": "ReturnNormalRequest"
+        },
+        {
+          "case": "old-mapping/NORMAL/null",
+          "instancePath": "$",
+          "wire": null
+        },
+        {
+          "case": "old-mapping/NORMAL/numeric",
+          "instancePath": "$",
+          "wire": 1
+        },
+        {
+          "case": "old-mapping/NORMAL/missing",
+          "instancePath": "$",
+          "wire": "<MISSING>"
+        },
+        {
+          "case": "old-mapping/NORMAL/extra_field",
+          "instancePath": "$",
+          "wire": "NORMAL"
+        },
+        {
+          "case": "old-mapping/NORMAL/wrong_branch_shape",
+          "instancePath": "$",
+          "wire": "MAINTENANCE"
+        },
+        {
+          "case": "old-mapping/MAINTENANCE/nested_or_envelope_extra",
+          "instancePath": "$",
+          "wire": "MAINTENANCE"
+        }
+      ]
+    }
+  },
+  "discriminatorGroupCount": 6,
+  "legalWireBranchCount": 15,
+  "errorCodesTested": 99,
+  "rootSchemas": [
+    "AppendRecordReviewRequest",
+    "AssessmentExportArtifact",
+    "AssessmentExportDownloadAuthorization",
+    "AssessmentExportRequest",
+    "AssessmentRosterProjection",
+    "AssessmentRosterRow",
+    "CloseManualModeRequest",
+    "CompleteRecordMaterialRequest",
+    "ConfirmEnduranceMeasurementRequest",
+    "ConfirmEnduranceRowsRequest",
+    "ConfirmSettlementRequest",
+    "CorrectExerciseRecordReviewRequest",
+    "CourseChangeProposal",
+    "CourseCreateRequest",
+    "CourseDraftUpdateRequest",
+    "CourseInvitationCreateRequest",
+    "CourseInvitationPreview",
+    "CoursePlanEvidence",
+    "CourseRuleConfiguration",
+    "CourseRuleVersion",
+    "CourseUpdateRequest",
+    "CreateStudentApplicationRequest",
+    "CreateTeachingBatchRequest",
+    "EnduranceCaptureBatch",
+    "EnduranceDraftRow",
+    "EnduranceMeasurement",
+    "EnduranceRowsConfirmation",
+    "ErrorCode",
+    "ErrorEnvelope",
+    "ExerciseRecord",
+    "ExistingStudentJoinRequest",
+    "ExpiryCorrectionFact",
+    "ExtractionAttemptSummary",
+    "FinalGradePublication",
+    "FirstMaterialAcceptance",
+    "HistoricalFinalGradeRemark",
+    "MakeupAuthorizationRequest",
+    "ManualModeWindow",
+    "MaterialCompletionReceipt",
+    "MaterialVersion",
+    "NewStudentRegistrationRequest",
+    "OpenManualModeRequest",
+    "ProgressTotals",
+    "PublicReviewReason",
+    "PublishCourseRequest",
+    "PublishFinalGradeRequest",
+    "PublishRosterBatchRequest",
+    "RecordCreditDetail",
+    "RecordReview",
+    "RecordReviewSummary",
+    "RecordUploadAuthorizationRequest",
+    "RegisterExistingInvitationFlowRequest",
+    "RegisterNewInvitationFlowRequest",
+    "ResolveEnduranceDraftRowRequest",
+    "ResolveRosterDraftRowRequest",
+    "ResolvedEnduranceValues",
+    "ReviewNotificationContext",
+    "ReviseEnduranceRuleTableRequest",
+    "RosterBatchPublication",
+    "RosterDraftRow",
+    "RosterImportBatch",
+    "RosterSnapshot",
+    "RuleTemplatePublishRequest",
+    "RuleTemplateVersion",
+    "SettlementPreparation",
+    "SettlementPreparationRequest",
+    "SettlementReportRow",
+    "SettlementReportVersion",
+    "StartExerciseSessionRequest",
+    "StatisticsCheckpoint",
+    "StudentCourseProgress",
+    "StudentDashboard",
+    "StudentEnduranceOutcome",
+    "StudentNotification",
+    "SubmitExerciseRecordRequest",
+    "SupplementAcceptanceReceipt",
+    "SupplementRecordMaterialRequest",
+    "SupplementTimerView",
+    "SwitchSystemModeRequest",
+    "TeacherReviewQueueItem",
+    "TeacherReviewSla",
+    "TeachingSourceAllocation",
+    "TeachingSourceAllocationRequest",
+    "TeachingSourceAsset",
+    "TeachingSourceDownloadAuthorization",
+    "TeachingSourceFinalizeRequest",
+    "TechnicalQualityEvidence",
+    "TechnicalServiceRevision",
+    "TechnicalServiceRevisionRequest",
+    "TechnicalServiceRunStatus",
+    "TechnicalServiceScope",
+    "TechnicalTaskCounts"
+  ],
+  "traversedSchemas": [
+    "ActorRole",
+    "AddEnduranceRuleIntervalChange",
+    "AppendRecordReviewRequest",
+    "AssessmentExportArtifact",
+    "AssessmentExportDownloadAuthorization",
+    "AssessmentExportRequest",
+    "AssessmentRosterProjection",
+    "AssessmentRosterRow",
+    "AssessmentRosterSource",
+    "CertificationDetails",
+    "CertificationKind",
+    "CloseManualModeRequest",
+    "CompleteRecordMaterialRequest",
+    "ConfirmEnduranceMeasurementRequest",
+    "ConfirmEnduranceRowsRequest",
+    "ConfirmSettlementRequest",
+    "CorrectExerciseRecordInvalidRequest",
+    "CorrectExerciseRecordReviewRequest",
+    "CorrectExerciseRecordValidRequest",
+    "CourseAllowedInterval",
+    "CourseChangeProposal",
+    "CourseCreateRequest",
+    "CourseDraftUpdateRequest",
+    "CourseInvitationCreateRequest",
+    "CourseInvitationPreview",
+    "CoursePlanEvidence",
+    "CourseRuleConfiguration",
+    "CourseRuleVersion",
+    "CourseUpdateRequest",
+    "CreateCertificationApplicationRequest",
+    "CreateExemptionApplicationRequest",
+    "CreateStudentApplicationRequest",
+    "CreateTeachingBatchRequest",
+    "CurrentActor",
+    "DeleteEnduranceRuleIntervalChange",
+    "DirectUploadHttpMethod",
+    "EnduranceCaptureBatch",
+    "EnduranceConversion",
+    "EnduranceDraftRow",
+    "EnduranceMeasurement",
+    "EnduranceRowsConfirmation",
+    "EnduranceSelectedRow",
+    "EnterMaintenanceRequest",
+    "ErrorCode",
+    "ErrorDetails",
+    "ErrorEnvelope",
+    "ExerciseCategory",
+    "ExerciseRecord",
+    "ExistingStudentJoinRequest",
+    "ExpiryCorrectionFact",
+    "ExtractionAttemptSummary",
+    "FinalGradePublication",
+    "FirstMaterialAcceptance",
+    "HistoricalFinalGradeRemark",
+    "InvalidateExerciseRecordRequest",
+    "InvitationCourseSummary",
+    "LocalizedText",
+    "MaintenanceAnnouncement",
+    "MakeupAuthorizationRequest",
+    "ManualModeWindow",
+    "MaterialCompletionReceipt",
+    "MaterialManifest",
+    "MaterialManifestItem",
+    "MaterialVersion",
+    "NewStudentRegistrationRequest",
+    "OpenManualModeRequest",
+    "OtpProof",
+    "PassExerciseRecordRequest",
+    "ProgressCategory",
+    "ProgressSourceVersions",
+    "ProgressTotals",
+    "PublicReviewReason",
+    "PublishCourseRequest",
+    "PublishFinalGradeRequest",
+    "PublishRosterBatchRequest",
+    "RecordCreditDetail",
+    "RecordCreditExplanation",
+    "RecordReview",
+    "RecordReviewSummary",
+    "RecordUploadAuthorizationRequest",
+    "RegisterExistingInvitationFlowRequest",
+    "RegisterNewInvitationFlowRequest",
+    "ResolveEnduranceDraftRowRequest",
+    "ResolveRosterDraftRowRequest",
+    "ResolvedEnduranceValues",
+    "ReturnExerciseRecordRequest",
+    "ReturnNormalRequest",
+    "ReviewNotificationContext",
+    "ReviewProcessingStage",
+    "ReviewResult",
+    "ReviseEnduranceRuleTableRequest",
+    "RosterBatchPublication",
+    "RosterDraftRow",
+    "RosterIdentityConfirmation",
+    "RosterImportBatch",
+    "RosterSnapshot",
+    "RuleTemplatePublishRequest",
+    "RuleTemplateVersion",
+    "SchoolCalendarReference",
+    "SemesterStatus",
+    "SemesterSummary",
+    "SettlementBlocker",
+    "SettlementPreparation",
+    "SettlementPreparationRequest",
+    "SettlementReportRow",
+    "SettlementReportVersion",
+    "SettlementSourceReference",
+    "StartExerciseSessionRequest",
+    "StatisticsCheckpoint",
+    "StudentCourseProgress",
+    "StudentDashboard",
+    "StudentEnduranceOutcome",
+    "StudentNotification",
+    "StudentSummary",
+    "SubmitExerciseRecordRequest",
+    "SubmitOfflineSwimmingExerciseRecordRequest",
+    "SubmitOrdinaryExerciseRecordRequest",
+    "SubmitSwimmingExerciseRecordRequest",
+    "SupplementAcceptanceReceipt",
+    "SupplementRecordMaterialRequest",
+    "SupplementTimerView",
+    "SwitchSystemModeRequest",
+    "TeacherReviewQueueItem",
+    "TeacherReviewSla",
+    "TeacherSummary",
+    "TeachingSourceAllocation",
+    "TeachingSourceAllocationRequest",
+    "TeachingSourceAsset",
+    "TeachingSourceDownloadAuthorization",
+    "TeachingSourceFinalizeRequest",
+    "TeachingSourcePosition",
+    "TeachingSourceReference",
+    "TechnicalProbe",
+    "TechnicalQualityEvidence",
+    "TechnicalServiceRevision",
+    "TechnicalServiceRevisionRequest",
+    "TechnicalServiceRunStatus",
+    "TechnicalServiceScope",
+    "TechnicalTaskCounts",
+    "TermType",
+    "UpdateEnduranceRuleIntervalChange",
+    "UploadAllocation"
+  ],
+  "schemasWithoutObservedTraversal": [
+    "AccountDeletionImpact",
+    "AccountDeletionRequest",
+    "AdjustCertificationCreditRequest",
+    "AdminCurrentCourseDirectory",
+    "AdminCurrentCourseDirectorySummary",
+    "AdminCurrentCourseItem",
+    "AdminCurrentCourseMetrics",
+    "AdminDashboard",
+    "AdminFeedbackPage",
+    "AdminFeedbackSummary",
+    "AdminKind",
+    "AdminPermission",
+    "AppReleasePolicy",
+    "ApplicationDecision",
+    "ApplicationDecisionRequest",
+    "ApplicationMediaAllocationRequest",
+    "ApplicationStatus",
+    "ApplicationType",
+    "ApproveCertificationDecisionRequest",
+    "ApproveExemptionDecisionRequest",
+    "AssessmentRosterRowPage",
+    "AuditArchiveDownload",
+    "AuditArchiveJob",
+    "AuditArchiveRequest",
+    "AuditEvent",
+    "AuditEventPage",
+    "AuditEventSummary",
+    "AuditSafeMetadata",
+    "AuthChallenge",
+    "AuthChallengePurpose",
+    "AuthChallengeRequest",
+    "CertificationCredit",
+    "CommandAccepted",
+    "Course",
+    "CourseChangeImpact",
+    "CourseCloseRequest",
+    "CourseInvitation",
+    "CourseInvitationPage",
+    "CourseInvitationRevokeRequest",
+    "CoursePage",
+    "CoursePlanRequest",
+    "CourseSettlementSummary",
+    "CourseSettlementSummaryPage",
+    "CourseStatisticsScope",
+    "CourseTargets",
+    "CreateFeedbackRequest",
+    "CreateHelpArticleRequest",
+    "CreateSubAdminRequest",
+    "CreateTeacherBatchRequest",
+    "CreatedCourseInvitation",
+    "CursorPage",
+    "DeleteSubAdminRequest",
+    "DeleteTeacherAccountRequest",
+    "DeletionResult",
+    "DraftIdentityCandidate",
+    "EnduranceCaptureBatchPage",
+    "EnduranceDraftRowPage",
+    "EnduranceMeasurementPage",
+    "EnduranceOutcome",
+    "EnduranceRuleInterval",
+    "EnduranceRuleTable",
+    "EnduranceRuleTableList",
+    "EnduranceRuleTableSummary",
+    "Enrollment",
+    "EnrollmentPage",
+    "EnrollmentTransitionRequest",
+    "ExerciseRecordPage",
+    "ExerciseSession",
+    "ExerciseSessionTransitionRequest",
+    "FeedbackCategory",
+    "FeedbackPage",
+    "FeedbackReply",
+    "FeedbackStatus",
+    "FeedbackTicket",
+    "FieldViolation",
+    "FinalGradePublicationPage",
+    "FinalGradeState",
+    "FinalGradeStatePage",
+    "FinalizeMediaRequest",
+    "FirstMaterialEligibility",
+    "HealthStatus",
+    "HelpArticleAdmin",
+    "HelpArticleAdminPage",
+    "HelpArticleAdminSummary",
+    "HelpArticleCategory",
+    "HelpArticlePublic",
+    "HelpArticlePublicPage",
+    "HelpArticleStatus",
+    "HistoricalFinalGradeRemarkPage",
+    "InvitationRegistrationFlow",
+    "MakeupAuthorization",
+    "MakeupAuthorizationPage",
+    "ManualModeWindowPage",
+    "MaterialVersionPage",
+    "MediaAllocation",
+    "MediaAllocationRequest",
+    "MediaAsset",
+    "MediaDownloadAuthorization",
+    "MediaFinalizationRejectionCode",
+    "MediaFinalizationResult",
+    "MediaPurpose",
+    "NewInvitationFlowAuthorization",
+    "Notification",
+    "NotificationPage",
+    "PasswordChangeRequest",
+    "PasswordResetRequest",
+    "PasswordSessionRequest",
+    "PersonSummary",
+    "ProcessFeedbackRequest",
+    "RecordCreditDetailPage",
+    "RecordImageMediaAllocationRequest",
+    "RecordReviewPage",
+    "RecordUploadAuthorization",
+    "RecordVideoMediaAllocationRequest",
+    "RefreshSessionRequest",
+    "RejectApplicationDecisionRequest",
+    "RequestSupplementDecisionRequest",
+    "ReviewActionReceipt",
+    "RevokeCertificationCreditRequest",
+    "RosterDraftRowPage",
+    "RosterFinding",
+    "RosterFindingPage",
+    "RosterFindingResolutionRequest",
+    "RosterImportAllocationRequest",
+    "RosterImportBatchPage",
+    "RosterImportRequest",
+    "RosterRevertRequest",
+    "RosterSnapshotPage",
+    "RuleTemplateVersionPage",
+    "Semester",
+    "SemesterCreateRequest",
+    "SemesterManagementSummary",
+    "SemesterPage",
+    "SemesterSwitchRequest",
+    "SemesterSwitchResult",
+    "SemesterUpdateRequest",
+    "SessionTokenPair",
+    "SetSubAdminStateRequest",
+    "SettlementReportRowPage",
+    "SettlementReportVersionPage",
+    "StudentAccount",
+    "StudentAccountPage",
+    "StudentApplication",
+    "StudentApplicationPage",
+    "StudentCourse",
+    "StudentCourseProgressPage",
+    "StudentCourseTargets",
+    "StudentNotificationPage",
+    "StudentSessionRequest",
+    "SubAdmin",
+    "SubAdminGovernanceSummary",
+    "SubAdminPage",
+    "SupplementApplicationRequest",
+    "SystemMode",
+    "SystemModeSwitchResult",
+    "SystemModeTransition",
+    "SystemModeTransitionPage",
+    "TeacherAccount",
+    "TeacherAccountPage",
+    "TeacherBatchCreationResult",
+    "TeacherBatchValidation",
+    "TeacherBatchValidationRequest",
+    "TeacherBatchValidationRow",
+    "TeacherDashboard",
+    "TeacherReviewQueuePage",
+    "TeachingBatchCounts",
+    "TeachingDraftIssue",
+    "TechnicalServiceRevisionPage",
+    "TimerPause",
+    "TransitionHelpArticleRequest",
+    "UnreadNotificationCount",
+    "UpdateHelpArticleRequest",
+    "UpdateSubAdminRequest",
+    "VerifiedEmailChangeRequest"
+  ],
+  "limitations": [
+    "Schema traversal is not full value/path coverage of all 316 schemas.",
+    "No endpoint, Mapper, UI, device, Backend or Web execution claim.",
+    "Student privacy field checks do not prove natural-language message safety."
+  ]
+}

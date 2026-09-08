@@ -1,0 +1,48 @@
+{
+  "status": "PASS_STEP7_LOCAL_CLOSEOUT",
+  "recordedAt": "2026-09-08T10:49:41.116823+00:00",
+  "baselineCommit": "2ba9355e38373b8d2350eb8efe4071048337c320",
+  "contractSha256": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+  "unchangedAcceptedSources": 46,
+  "onlyAcceptedSourceDelta": [
+    {
+      "path": "BNBU-ANDROID/contract-validation/README.md",
+      "beforeSha256": "c2f81d89e090d1b745cecfef0d2483ce2abc7a8f276f752c1f61a078c94d8d73",
+      "afterSha256": "daa9ff911762c2949c4f0d11b90c904b98dc03d1cb72ad2d9300db1972ccf17a",
+      "classification": "DOCUMENTATION_ONLY"
+    },
+    {
+      "path": "BNBU-ANDROID/tools/phase6/run_step02.py",
+      "beforeSha256": "ba8bb2795391c6ce93d405e94eb595823d7193ee8164f2e08d279d0221904446",
+      "afterSha256": "44c3c6593ed68ea5462f23ff7562f2f48cf64981d79de39b94c777a8a0983d3c",
+      "classification": "HOST_VERIFICATION_TOOLING"
+    },
+    {
+      "path": "BNBU-ANDROID/tools/phase6/published_input_seal.py",
+      "beforeSha256": null,
+      "afterSha256": "6dad54a4ea5b09d8f5130498c792c534a72e84a9829707849cc269b6287c49c1",
+      "classification": "HOST_VERIFICATION_TOOLING"
+    },
+    {
+      "path": "BNBU-ANDROID/tools/phase6/test_published_input_seal.py",
+      "beforeSha256": null,
+      "afterSha256": "8d571a0c406bb7474bbab3f86b5bff2be9ee9912c7fb4408daba287063e9c860",
+      "classification": "HOST_VERIFICATION_TOOLING"
+    }
+  ],
+  "originalReportsVerified": 84,
+  "archivedFiles": 298,
+  "evidenceArchiveSha256": "e9b4282fea8978c65530c97c39abd721b61f42b91a8caa3367004886543229bb",
+  "localMarkdownLinks": 9,
+  "allowedScope": "PASS",
+  "stagingFiltersPreserveRawBytes": "PASS",
+  "whitespace": "PASS; CR-at-EOL and existing EOF blank lines preserved, original logs exempt",
+  "historicalWorkspaces": "UNCHANGED_CLEAN",
+  "remoteMain": "2ba9355e38373b8d2350eb8efe4071048337c320",
+  "tests": "5 host-entry regression controls; complete 1156 schema/255 Mapper/71 Mock host build rerun; Android AAR and APK entries match accepted Step6; device not rerun",
+  "githubMutation": "NONE",
+  "gitIndex": "EMPTY",
+  "publication": "PENDING_USER_ACTION",
+  "webReview": "NOT_RUN",
+  "consolidation6C": "NOT_RUN"
+}

@@ -1,0 +1,3 @@
+# Preserve original machine evidence bytes; terminal logs are not formatted source.
+* -text
+*.log -whitespace

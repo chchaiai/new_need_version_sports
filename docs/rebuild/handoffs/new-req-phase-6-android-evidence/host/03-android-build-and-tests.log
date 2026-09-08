@@ -1,0 +1,122 @@
+
+> Task :contract-validation:verifyBinding
+PASS: exact RC, generator, templates, fixture and runtime jar identities.
+
+> Task :contract-validation:generatePhase6Models
+PASS: 324 models, 26 selected wrappers; two fresh generations match.
+
+> Task :contract-validation:preBuild
+> Task :contract-validation:preDebugBuild
+> Task :contract-validation:mergeDebugJniLibFolders
+> Task :contract-validation:mergeDebugNativeLibs NO-SOURCE
+> Task :contract-validation:stripDebugDebugSymbols NO-SOURCE
+> Task :contract-validation:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :contract-validation:copyDebugJniLibsProjectAndLocalJars
+> Task :contract-validation:generateDebugResValues
+> Task :contract-validation:generateDebugResources
+> Task :contract-validation:packageDebugResources
+> Task :contract-validation:extractDeepLinksForAarDebug
+> Task :contract-validation:parseDebugLocalResources
+> Task :contract-validation:javaPreCompileDebug
+> Task :contract-validation:mergeDebugShaders
+> Task :contract-validation:compileDebugShaders NO-SOURCE
+> Task :contract-validation:generateDebugAssets UP-TO-DATE
+> Task :contract-validation:packageDebugAssets
+> Task :contract-validation:generateDebugRFile
+> Task :contract-validation:prepareDebugArtProfile
+> Task :contract-validation:prepareLintJarForPublish
+> Task :contract-validation:preDebugUnitTestBuild
+> Task :contract-validation:writeDebugAarMetadata
+> Task :contract-validation:processDebugManifest
+> Task :contract-validation:javaPreCompileDebugUnitTest
+> Task :contract-validation:generateDebugUnitTestStubRFile
+
+> Task :contract-validation:prepareSchemaSuite
+Prepared all 992 published cases and 164 targeted cases.
+
+> Task :contract-validation:prepareMockSuite
+PASS: same pinned Contract, operation metadata and strict codec support for host/device Mock tests.
+
+> Task :contract-validation:preDebugAndroidTestBuild
+> Task :contract-validation:compileDebugLibraryResources
+> Task :contract-validation:generateDebugAndroidTestResValues
+> Task :contract-validation:checkDebugAndroidTestAarMetadata
+> Task :contract-validation:mapDebugAndroidTestSourceSetPaths
+> Task :contract-validation:generateDebugAndroidTestResources
+> Task :contract-validation:extractDeepLinksDebug
+> Task :contract-validation:processDebugAndroidTestManifest
+> Task :contract-validation:javaPreCompileDebugAndroidTest
+> Task :contract-validation:mergeDebugAndroidTestShaders
+> Task :contract-validation:compileDebugAndroidTestShaders NO-SOURCE
+> Task :contract-validation:generateDebugAndroidTestAssets UP-TO-DATE
+> Task :contract-validation:mergeDebugAndroidTestResources
+> Task :contract-validation:mergeDebugAndroidTestAssets
+> Task :contract-validation:copyDebugJniLibsProjectOnly
+> Task :contract-validation:mergeDebugAndroidTestJniLibFolders
+> Task :contract-validation:compressDebugAndroidTestAssets
+> Task :contract-validation:validateSigningDebugAndroidTest
+> Task :contract-validation:writeDebugAndroidTestSigningConfigVersions
+> Task :contract-validation:mergeDebugAndroidTestNativeLibs
+> Task :contract-validation:checkDebugAndroidTestDuplicateClasses
+
+> Task :contract-validation:stripDebugAndroidTestDebugSymbols
+Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so.
+
+> Task :contract-validation:desugarDebugAndroidTestFileDependencies
+> Task :contract-validation:processDebugAndroidTestResources
+
+> Task :contract-validation:compileDebugKotlin
+w: file:///D:/DT/soprts/start4/repos/phase6-android/BNBU-ANDROID/contract-validation/src/main/java/edu/bnbu/student/contractvalidation/StudentTime.kt:10:27 Non-public primary constructor is exposed via the generated 'copy()' method of the 'data' class.
+
+The generated 'copy()' will change its visibility in future releases.
+
+To suppress the warning do one of the following:
+- Annotate the data class with the '@ConsistentCopyVisibility' annotation.
+- Use the '-Xconsistent-data-class-copy-visibility' compiler flag.
+- Annotate the data class with the '@ExposedCopyVisibility' annotation 
+  (Discouraged, but can be used to keep binary compatibility).
+
+To learn more, see the documentation of the '@ConsistentCopyVisibility' and '@ExposedCopyVisibility' annotations.
+
+This will become an error in Kotlin 2.1.
+
+> Task :contract-validation:extractDebugAnnotations
+> Task :contract-validation:compileDebugJavaWithJavac
+> Task :contract-validation:mergeDebugGeneratedProguardFiles
+> Task :contract-validation:mergeDebugConsumerProguardFiles
+> Task :contract-validation:processDebugJavaRes
+> Task :contract-validation:mergeDebugJavaResource
+> Task :contract-validation:bundleLibCompileToJarDebug
+> Task :contract-validation:bundleLibRuntimeToJarDebug
+> Task :contract-validation:syncDebugLibJars
+> Task :contract-validation:bundleDebugAar
+> Task :contract-validation:assembleDebug
+> Task :contract-validation:mergeExtDexDebugAndroidTest
+> Task :contract-validation:compileDebugAndroidTestKotlin
+> Task :contract-validation:compileDebugUnitTestKotlin
+> Task :contract-validation:compileDebugAndroidTestJavaWithJavac
+> Task :contract-validation:compileDebugUnitTestJavaWithJavac
+> Task :contract-validation:processDebugUnitTestJavaRes
+> Task :contract-validation:bundleLibRuntimeToDirDebug
+> Task :contract-validation:testDebugUnitTest
+> Task :contract-validation:dexBuilderDebugAndroidTest
+> Task :contract-validation:processDebugAndroidTestJavaRes
+> Task :contract-validation:mergeDebugAndroidTestGlobalSynthetics
+> Task :contract-validation:mergeProjectDexDebugAndroidTest
+> Task :contract-validation:mergeLibDexDebugAndroidTest
+> Task :contract-validation:mergeDebugAndroidTestJavaResource
+> Task :contract-validation:packageDebugAndroidTest
+> Task :contract-validation:createDebugAndroidTestApkListingFileRedirect
+> Task :contract-validation:assembleDebugAndroidTest
+
+[Incubating] Problems report is available at: file:///D:/DT/soprts/start4/repos/phase6-android/BNBU-ANDROID/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.3.0/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 1m 4s
+69 actionable tasks: 69 executed
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.3.0/userguide/configuration_cache_enabling.html
