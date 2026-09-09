@@ -1,0 +1,49 @@
+{
+  "status": "PASS_HOST_MOCK_AND_ANDROID_TEST_APK_BUILD",
+  "contractSha256": "0528389bb8b72714d9a4af35ffc66c87503560d41c58ad968b1713b39ff3da2d",
+  "pageScenarios": 44,
+  "boundaryCases": 30,
+  "states": [
+    "EMPTY",
+    "ERROR",
+    "FORBIDDEN",
+    "LOADING",
+    "MAINTENANCE",
+    "NORMAL",
+    "RESUME"
+  ],
+  "readOnlyCases": 8,
+  "operations": [
+    "getAppReleasePolicy",
+    "getCurrentActor",
+    "getFirstMaterialEligibility",
+    "getOwnAccountDeletionImpact",
+    "getOwnActiveExerciseSession",
+    "getOwnApplication",
+    "getOwnCourseProgress",
+    "getOwnEnduranceOutcome",
+    "getOwnExerciseRecord",
+    "getOwnFeedback",
+    "getPublishedHelpArticle",
+    "getRecordMaterial",
+    "getStudentDashboard",
+    "getSystemMode",
+    "listOwnApplications",
+    "listOwnExerciseRecords",
+    "listOwnFeedback",
+    "listOwnStudentNotifications",
+    "previewCourseInvitation",
+    "submitExerciseRecordSupplement"
+  ],
+  "requestTrace": "mock.json",
+  "androidTestApkSha256": "750c0057884a374d8bd6dd5948fa0a043ca7204c896e7a9bf651d7bb6ab01060",
+  "mockInputSha256": "d51f4fcee3ca06147903e7a69b4d3722196c8deae6711d451a03bd86e5d69dd7",
+  "deviceTestsExecuted": 0,
+  "scope": "Independent validation screen. Not all 41 production pages; formal app migration remains Phase8.",
+  "sourceSharedWithAndroid": [
+    "StrictMockCodec",
+    "MockScenarioHarness",
+    "MockCases"
+  ],
+  "pending": "Step6 Android execution, rendering, interaction and runtime compatibility"
+}

@@ -1,4 +1,4 @@
-import { assertContractWire, isContractExerciseRecord } from "../../frontend/student/js/contract/wire.js";
+import { assertContractWire, isContractExerciseRecord, studentIdentityDisplay } from "../../frontend/student/js/contract/wire.js";
 
 // Phase 6B: strict read adapters for Contract 1.3.0 / RC wire shapes on Portal.
 // Normalizes official ExerciseRecord into the legacy teacher-api projection input.
@@ -7,10 +7,10 @@ import { assertContractWire, isContractExerciseRecord } from "../../frontend/stu
 import type { ExerciseRecord, ReviewReasonCode } from "./teacher-api-types";
 
 export const PHASE6B_PORTAL_CONTRACT = Object.freeze({
-  version: "1.3.0-contract",
+  version: "1.4.0-contract",
   status: "RC",
   publicBasePath: "/api/v1",
-  openapiSha256: "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+  openapiSha256: "0528389bb8b72714d9a4af35ffc66c87503560d41c58ad968b1713b39ff3da2d",
 });
 
 const OFFICIAL_PUBLIC_REASON_CODES = new Set([
@@ -119,14 +119,9 @@ export function normalizeContractExerciseRecordForTeacher(
   const wire = assertContractExerciseRecordWire(record);
   const review = (wire.currentReview || {}) as UnknownRecord;
   const publicReason = readContractPublicReason(review);
-  const student =
-    wire.student && typeof wire.student === "object"
-      ? (wire.student as UnknownRecord)
-      : null;
-  const studentId =
-    context.studentId ||
-    (typeof student?.studentId === "string" ? student.studentId : "") ||
-    (typeof student?.id === "string" ? student.id : "");
+  const identity = studentIdentityDisplay(wire.student);
+  if (context.studentId && context.studentId !== identity.id) throw new Error("CONTRACT_STUDENT_ID_MISMATCH");
+  const studentId = identity.id;
   const result =
     review.result == null || review.result === ""
       ? null

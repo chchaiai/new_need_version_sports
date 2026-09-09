@@ -2,6 +2,8 @@ import bnbu.cr005.review.*
 import com.google.gson.*
 import edu.bnbu.student.contractvalidation.mock.*
 import edu.bnbu.student.contractvalidation.ViewSource
+import edu.bnbu.student.contractvalidation.toIdentityDisplay
+import edu.bnbu.student.contractvalidation.currentStudent
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.mockwebserver.*
 import org.junit.Assert.*
@@ -13,6 +15,37 @@ import java.util.concurrent.Executors
 abstract class SharedMockBoundaryTests {
     protected abstract val input: JsonObject
     private fun fixture(name: String) = MockCases.fixture(input, name)
+    @Test fun historicalIdentityHasNoCurrentProfileOnHostAndAndroid() {
+        MockScenarioHarness(input).use { h ->
+            val ref = h.codec.decode("""{"kind":"DELETED_STUDENT","studentId":"${MockCases.ID}"}""", "StudentReference") as StudentReference
+            assertEquals("已注销学生", ref.toIdentityDisplay().zh)
+            assertTrue(ref.toIdentityDisplay().readOnly)
+            assertThrows(IllegalArgumentException::class.java) { ref.currentStudent() }
+        }
+    }
+    @Test fun allThirteenQuery400ResponsesRemainApiErrors() {
+        val operations = listOf("listSemesters", "listOwnCourses", "listCourseMakeupAuthorizations", "listOwnMakeupAuthorizations",
+            "listCourseInvitations", "listCourseMembers", "listPublishedRuleTemplates", "listSubAdmins", "listTeacherAccounts",
+            "listOwnStudentNotifications", "listOwnNotifications", "listSystemModeTransitions", "listStudentAccounts")
+        MockScenarioHarness(input).use { h ->
+            for (id in operations) {
+                h.raw("""{"code":"INVALID_REQUEST","message":"Synthetic query error","requestId":"synthetic-query","details":null}""", 400)
+                val result = h.http.execute(h.call(id, mapOf("limit" to "0")))
+                assertTrue("$id must preserve HTTP400 error", result is HttpResult.ApiError)
+                assertEquals("INVALID_REQUEST", (result as HttpResult.ApiError).error.code)
+                assertEquals("0", h.take().requestUrl!!.queryParameter("limit"))
+            }
+        }
+    }
+    @Test fun ownFeedbackCannotReturnADeletedIdentity() {
+        MockScenarioHarness(input).use { h ->
+            h.normal()
+            h.raw("""{"feedbackId":"${MockCases.ID}","feedbackNumber":"F-SYN","student":{"kind":"DELETED_STUDENT","studentId":"${MockCases.ID}"},"currentVerifiedEmail":null,"category":"OTHER","description":"Synthetic feedback","status":"WAITING","replies":[],"submittedAt":"${MockCases.NOW}","updatedAt":"${MockCases.NOW}","version":1}""")
+            h.controller.load(h.call("getOwnFeedback"))
+            assertEquals(PageState.ERROR, h.controller.state.value.state)
+            assertTrue(h.controller.state.value.rows.isEmpty())
+        }
+    }
     private fun invalid(body: String, status: Int = 200, contentType: String = "application/json") {
         MockScenarioHarness(input).use { h ->
             h.normal(); h.raw(body, status, contentType)

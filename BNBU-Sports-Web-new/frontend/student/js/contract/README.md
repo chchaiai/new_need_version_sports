@@ -1,3 +1,11 @@
+# G1 CR 当前 Web 校验绑定
+
+当前使用 contracts/openapi.yaml 的1.4.0-contract / RC，本地候选身份由现行生成脚本严格锁定。新增学生身份联合类型、8个历史出口的严格校验；当前学生接口显式拒绝已注销身份。共享 studentIdentityDisplay 只生成展示数据，不伪造 StudentSummary；已注销文案不建立当前账号链接。
+
+Portal/Student 的生成类型和 validators.generated.js 都从权威源重生成，历史报告不改写。真实Backend、删除事务、缓存/导出清理及Phase8正式网络接入不在本次客户端验证之内。
+
+以下为原1.3校验器的历史说明。
+
 # Phase 6B runtime Contract validation
 
 `wire.js` is shared by the student and Portal mappers. It validates incoming 1.3.0 DTOs before projection. Legacy API migration remains a Phase 8 responsibility.

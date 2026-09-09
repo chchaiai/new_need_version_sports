@@ -19,7 +19,7 @@ public class Phase6ContractSchemaTest {
         Path report = output.resolve(reportName);
         ContractRuntimeProbe.main(new String[]{input.toString(), report.toString()});
         JsonObject result = JsonParser.parseString(new String(Files.readAllBytes(report), StandardCharsets.UTF_8)).getAsJsonObject();
-        assertEquals("5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+        assertEquals("0528389bb8b72714d9a4af35ffc66c87503560d41c58ad968b1713b39ff3da2d",
                 result.get("candidateSha256").getAsString());
         assertEquals(expectedCount, result.get("total").getAsInt());
         assertEquals(expectedCount, result.get("passed").getAsInt());

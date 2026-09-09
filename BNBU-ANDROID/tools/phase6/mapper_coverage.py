@@ -29,7 +29,7 @@ GROUPS = {
 
 
 def report_mapper(repo: Path, result: dict, junit: Path, destination: Path):
-    trace_path = repo / 'contracts/validation/step07_handoff/traceability.json'
+    trace_path = repo / 'contracts/validation/p7_cr14/traceability.json'
     trace = json.loads(trace_path.read_text('utf-8'))
     require(trace['candidateSha256'] == result['candidateSha256'], 'Mapper traceability SHA mismatch')
     cases = result['cases']

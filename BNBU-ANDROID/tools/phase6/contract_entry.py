@@ -1,7 +1,7 @@
 """Read-only consumption of Phase5 inputs; writes only this module's build directory.
 
 Generation recipe adapted from the hash-bound step06_final/reproduce.py. Model package,
-non-date mappings, both generator libraries and the 26 selected wrappers are unchanged.
+non-date mappings, both generator libraries and the original wrappers are retained; the new student-reference dependency closure is explicit.
 The client profile uses lossless date strings (F6A-03-01); the Contract is unchanged.
 The full Phase5 reproduction runner is deliberately not invoked: it rebuilds contracts.
 """
@@ -19,6 +19,7 @@ import yaml
 
 
 WRAPPERS = [
+    'StudentReference', 'CurrentStudentReference', 'DeletedStudentReference', 'StudentSummary',
     'AddEnduranceRuleIntervalChange', 'CertificationDetails', 'CertificationKind',
     'CreateCertificationApplicationRequest', 'CreateExemptionApplicationRequest',
     'CreateStudentApplicationRequest', 'DeleteEnduranceRuleIntervalChange',
@@ -31,7 +32,7 @@ WRAPPERS = [
     'InvalidateExerciseRecordRequest', 'CorrectExerciseRecordReviewRequest',
     'CorrectExerciseRecordValidRequest', 'CorrectExerciseRecordInvalidRequest', 'MaterialManifestItem',
 ]
-FACTORIES = ['CreateStudentApplicationRequest', 'ReviseEnduranceRuleTableRequestChange',
+FACTORIES = ['StudentReference', 'CreateStudentApplicationRequest', 'ReviseEnduranceRuleTableRequestChange',
              'ReviseEnduranceRuleTableRequest', 'SwitchSystemModeRequest',
              'SubmitExerciseRecordRequest', 'AppendRecordReviewRequest', 'CorrectExerciseRecordReviewRequest']
 SMOKE_CASES = [
@@ -180,7 +181,7 @@ def recipe(repo, jar, java, out, spec, support):
         for path in source.glob('*.kt'):
             shutil.copyfile(path, mixed / path.name)
     hashes = model_hashes(mixed)
-    require(len(hashes) == 324, 'Generated model count differs from published recipe')
+    require(len(hashes) == 327, 'Generated model count differs from the 1.4 recipe (324 + 3 references)')
     write_json(out / 'model-manifest.json', hashes)
     return mixed, hashes
 
@@ -213,7 +214,7 @@ def generate(repo, jar, runtime, java, output):
     probe.mkdir(exist_ok=True)
     probe_adaptation = prepare_probe(repo / 'contracts/validation/step06_final/jvm/ContractRuntimeProbe.java',
                                     probe / 'ContractRuntimeProbe.java')
-    fixtures = json.loads((repo / 'contracts/validation/step07_handoff/fixtures.json').read_text('utf-8'))
+    fixtures = json.loads((repo / 'contracts/validation/p7_cr14/fixtures.json').read_text('utf-8'))
     require(fixtures['candidateSha256'] == lock['sha256'], 'Fixture identity mismatch')
     indexed = {row['name']: row for row in fixtures['cases']}
     cases = [indexed[name] for name in SMOKE_CASES]

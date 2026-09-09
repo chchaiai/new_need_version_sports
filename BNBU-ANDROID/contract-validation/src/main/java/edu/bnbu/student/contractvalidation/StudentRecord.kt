@@ -31,6 +31,7 @@ data class StudentRecord(val id: UUID, val date: String, val actualSeconds: Long
 /** Join only a matching current checkpoint; stale or missing statistics cannot relabel a review. */
 fun ExerciseRecord.toStudentRecord(detail: RecordCreditDetail? = null, progress: StudentCourseProgress? = null,
     source: ViewSource = ViewSource.LIVE): StudentRecord {
+    student.currentStudent()
     require(currentMaterial.recordId == recordId && currentMaterial.materialVersionId == currentReview.materialVersionId) {
         "Material/review identity mismatch"
     }
@@ -38,7 +39,7 @@ fun ExerciseRecord.toStudentRecord(detail: RecordCreditDetail? = null, progress:
     val credit = detail?.takeIf { live && it.checkpointId == progress?.checkpoint?.checkpointId }
     if (credit != null) {
         require(progress!!.courseId == courseId && progress.enrollmentId == enrollmentId &&
-            progress.student.studentId == student.studentId && credit.recordId == recordId &&
+            progress.student.currentStudent().studentId == student.currentStudent().studentId && credit.recordId == recordId &&
             credit.sessionId == sessionId && credit.ruleVersionId == ruleVersionId &&
             credit.category == category && credit.businessDate == businessDate &&
             credit.actualDurationSeconds.compareTo(BigDecimal.valueOf(actualDurationSeconds)) == 0 &&

@@ -105,7 +105,7 @@ def main():
     # Each successful UI/schema test writes its own deterministic evidence file before teardown.
     run('07-pull-device-evidence',['pull',f'/sdcard/Android/data/{PACKAGE}/files/phase6-device',str(out/'device-files')],timeout=120)
     if a.suite=='full' and ok:
-        for name,count,legal in [('schema',992,159),('supplemental',164,127)]:
+        for name,count,legal in [('schema',992,159),('supplemental',221,149)]:
             r=json.loads((out/'device-files'/f'{name}-result.json').read_text('utf8'))
             require(r['total']==r['passed']==count and r['roundtrips']==legal, 'Android corpus result mismatch')
             require(r['candidateSha256']==build['contract']['sha256'], 'Android corpus changed Contract')

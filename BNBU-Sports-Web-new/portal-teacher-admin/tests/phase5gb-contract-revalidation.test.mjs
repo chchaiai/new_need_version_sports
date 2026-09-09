@@ -1,9 +1,8 @@
 import assert from "node:assert/strict";
-import { execFileSync } from "node:child_process";
+import { load } from "js-yaml";
 import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
-import { fileURLToPath } from "node:url";
 
 import {
   PHASE5B_STUDENT_CONTRACT,
@@ -32,9 +31,9 @@ import {
   updateSubAdminRequest,
 } from "../app/phase5gb-contract-fixtures.ts";
 
-const contractVersion = "1.3.0-contract";
+const contractVersion = "1.4.0-contract";
 const contractStatus = "RC";
-const contractSha = "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed";
+const contractSha = "0528389bb8b72714d9a4af35ffc66c87503560d41c58ad968b1713b39ff3da2d";
 
 const openapiUrl = new URL("../../../contracts/openapi.yaml", import.meta.url);
 const metadataUrl = new URL("../../../contracts/contract-metadata.json", import.meta.url);
@@ -47,24 +46,7 @@ const [openapiBytes, metadataText, portalGenerated, studentGenerated] = await Pr
   readFile(portalGeneratedUrl, "utf8"),
   readFile(studentGeneratedUrl, "utf8"),
 ]);
-const openapi = JSON.parse(
-  execFileSync(
-    "python3",
-    [
-      "-c",
-      [
-        "import json",
-        "import pathlib",
-        "import sys",
-        "import yaml",
-        "document = yaml.safe_load(pathlib.Path(sys.argv[1]).read_text(encoding='utf-8'))",
-        "print(json.dumps(document))",
-      ].join("; "),
-      fileURLToPath(openapiUrl),
-    ],
-    { encoding: "utf8" },
-  ),
-);
+const openapi = load(openapiBytes.toString("utf8"));
 const metadata = JSON.parse(metadataText);
 
 function allOperations() {
@@ -81,7 +63,7 @@ function operation(operationId) {
   return match;
 }
 
-test("Portal and Student bindings pin the same 1.3.0 RC metadata and actual OpenAPI SHA", () => {
+test("Portal and Student bindings pin the same 1.4.0 RC metadata and actual OpenAPI SHA", () => {
   const expected = {
     version: contractVersion,
     status: contractStatus,

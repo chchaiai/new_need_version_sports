@@ -53,9 +53,8 @@ def main(default_suite='smoke'):
 
     py = [sys.executable, '-B', '-X', 'utf8']
     run('01-binding-controls', py + [android / 'tools/phase6/test_entry.py'])
-    run('01b-published-seal-controls', py + [android / 'tools/phase6/test_published_input_seal.py'])
-    run('02-published-input-seal', py + [android / 'tools/phase6/published_input_seal.py',
-        '--evidence', out / 'phase5-input-seal'], repo)
+    run('01b-current-seal-controls', py + [repo / 'contracts/validation/p7_cr14/test_release_seal.py'])
+    run('02-current-input-seal', py + [repo / 'contracts/validation/p7_cr14/verify_release.py'], repo)
     gradle = android / ('gradlew.bat' if os.name == 'nt' else 'gradlew')
     run('03-android-build-and-tests', [gradle, ':contract-validation:assembleDebug',
         ':contract-validation:testDebugUnitTest', '--offline', '--console=plain', '--rerun-tasks',
@@ -128,9 +127,9 @@ def main(default_suite='smoke'):
         mock = report_mock(module, generated, out)
     step = {'smoke': 2, 'schema': 3, 'mapper': 4, 'mock': 5}[args.suite]
     write_json(out / 'result.json', dict(status=f'PASS_STEP{step}_SELF_CHECK', contract=generation['contract'],
-        commands=commands, modelCount=324, repeatGeneration='PASS_ALL_324_MODEL_BYTES',
+        commands=commands, modelCount=327, repeatGeneration='PASS_ALL_327_MODEL_BYTES',
         androidLibraryBuild='PASS_AGP_8_7_3_COMPILE_SDK_35', aarSha256=sha(aar),
-        androidGeneratedClassesInAar=324, testedAndPackagedEntriesEqual=len(packaged_entries),
+        androidGeneratedClassesInAar=327, testedAndPackagedEntriesEqual=len(packaged_entries),
         generationProfile=generation.get('generationProfile'),
         hostJvmCases=coverage['runtimeCases'] if coverage else 17,
         legalRoundtrips=coverage['legalRoundtrips'] if coverage else 8,
@@ -142,10 +141,10 @@ def main(default_suite='smoke'):
         mapperDecodedSchemas=mapper['decodedSchemas'] if mapper else None,
         mapperCoverage='mapper-coverage.json' if mapper else None,
         mockCoverage=mock,
-        entryChecks=9, sourceFiles=files, reviewer='USER_PENDING_REVIEW_OF_THIS_STEP',
+        entryChecks=15, sourceFiles=files, reviewer='USER_PENDING_REVIEW_OF_THIS_STEP',
         notRun=['Android device/emulator', 'Rendered UI (APK compiled, not executed)' if mock else ('Rendered UI / Mock transport integration' if mapper else 'UI and mapper integration'), 'Backend', 'Web', '6C acceptance',
                 'GitHub publication'] + ([] if coverage else ['Full 992-case regression']),
-        knownGateMismatch='Phase5 --require-published counts deferred Phase7.0 backend recipient; not altered by Step2'))
+        knownGateMismatch=None))
     print(f'PASS: Step{step} only. Android library compiled; host JVM {args.suite} checks passed. Await human review.', flush=True)
 
 

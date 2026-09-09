@@ -31,6 +31,7 @@ data class FeedbackHistoryRow(val id: UUID, val sequence: Long, val text: String
 data class FeedbackPageProjection(val id: UUID, val status: FeedbackStatus, val currentEmail: String?,
     val history: List<FeedbackHistoryRow>, val version: Long)
 fun FeedbackTicket.toStudentFeedback(): FeedbackPageProjection {
+    student.currentStudent()
     require(replies.map { it.sequenceNumber }.distinct().size == replies.size) { "Duplicate feedback sequence" }
     return FeedbackPageProjection(feedbackId, status, currentVerifiedEmail, replies.sortedBy { it.sequenceNumber }.map {
         FeedbackHistoryRow(it.replyId, it.sequenceNumber, it.publicReply, StudentInstant.fromWire(it.repliedAt))

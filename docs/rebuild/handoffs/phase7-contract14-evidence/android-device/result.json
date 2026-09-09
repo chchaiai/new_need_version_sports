@@ -1,0 +1,2380 @@
+{
+  "status": "PASS_ANDROID_DEVICE_TESTS",
+  "suite": "full",
+  "expected": 77,
+  "passed": 77,
+  "failed": 0,
+  "events": [
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "1",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "\nPhase6MockUiTest:",
+      "test": "renderSameHttpDtoMapperScenario[dashboard_unjoined]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "1",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[dashboard_unjoined]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "2",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[account_student_verified_email]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "2",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[account_student_verified_email]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "3",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[account_deletion_retains_facts]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "3",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[account_deletion_retains_facts]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "4",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[session_restore_server_seconds]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "4",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[session_restore_server_seconds]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "5",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[progress_1199_is_not_target_met]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "5",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[progress_1199_is_not_target_met]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "6",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[progress_recomputing_keeps_old_checkpoint]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "6",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[progress_recomputing_keeps_old_checkpoint]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "7",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[progress_unavailable_is_not_zero]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "7",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[progress_unavailable_is_not_zero]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "8",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[progress_cached_is_read_only]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "8",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[progress_cached_is_read_only]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "9",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[record_pending_material]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "9",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[record_pending_material]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "10",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[record_teacher_round1]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "10",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[record_teacher_round1]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "11",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[record_await_supplement]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "11",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[record_await_supplement]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "12",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[record_round2]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "12",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[record_round2]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "13",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[record_valid]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "13",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[record_valid]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "14",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[technical_processing_never_invalid]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "14",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[technical_processing_never_invalid]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "15",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[supplement_timer_paused]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "15",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[supplement_timer_paused]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "16",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[supplement_timer_unavailable]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "16",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[supplement_timer_unavailable]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "17",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[archived_record_is_read_only]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "17",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[archived_record_is_read_only]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "18",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[records_empty_only_typed_200]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "18",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[records_empty_only_typed_200]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "19",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[records_cursor_exact]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "19",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[records_cursor_exact]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "20",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[first_material_before_deadline]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "20",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[first_material_before_deadline]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "21",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[first_material_exact_deadline_closed]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "21",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[first_material_exact_deadline_closed]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "22",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[first_material_cached_cannot_write]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "22",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[first_material_cached_cannot_write]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "23",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[first_receipt_alone_cannot_resume]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "23",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[first_receipt_alone_cannot_resume]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "24",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[invitation_active_new_registration]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "24",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[invitation_active_new_registration]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "25",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[invitation_join_closed]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "25",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[invitation_join_closed]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "26",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[invitation_expired_new_flow_blocked]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "26",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[invitation_expired_new_flow_blocked]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "27",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[endurance_raw_measured]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "27",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[endurance_raw_measured]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "28",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[endurance_exempt]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "28",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[endurance_exempt]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "29",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[applications_empty]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "29",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[applications_empty]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "30",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[application_explicit_exemption_kind]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "30",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[application_explicit_exemption_kind]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "31",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[notifications_explicit_target]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "31",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[notifications_explicit_target]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "32",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[notifications_empty]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "32",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[notifications_empty]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "33",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[feedback_empty]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "33",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[feedback_empty]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "34",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[feedback_detail_deleted_email]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "34",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[feedback_detail_deleted_email]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "35",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[help_public]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "35",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[help_public]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "36",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[help_cached_read_only]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "36",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[help_cached_read_only]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "37",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[release_forced_upgrade]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "37",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[release_forced_upgrade]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "38",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[http_error_TOKEN_EXPIRED]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "38",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[http_error_TOKEN_EXPIRED]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "39",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[http_error_AUTHENTICATION_REQUIRED]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "39",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[http_error_AUTHENTICATION_REQUIRED]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "40",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[http_error_FORBIDDEN]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "40",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[http_error_FORBIDDEN]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "41",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[http_error_SYSTEM_MAINTENANCE]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "41",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[http_error_SYSTEM_MAINTENANCE]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "42",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[http_error_DEPENDENCY_UNAVAILABLE]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "42",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[http_error_DEPENDENCY_UNAVAILABLE]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "43",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[http_error_INTERNAL_ERROR]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "43",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[http_error_INTERNAL_ERROR]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockUiTest",
+      "current": "44",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "renderSameHttpDtoMapperScenario[maintenance_estimate_does_not_unlock]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "44",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[maintenance_estimate_does_not_unlock]"
+    },
+    {
+      "code": 1,
+      "class": "Phase6MockRetryUiTest",
+      "current": "45",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "\nPhase6MockRetryUiTest:",
+      "test": "retryButtonRunsFreshModeAndReadOverMockHttp"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockRetryUiTest",
+      "current": "45",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "retryButtonRunsFreshModeAndReadOverMockHttp"
+    },
+    {
+      "code": 1,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "46",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "\nPhase6DeviceBoundaryTest:",
+      "test": "concatenatedJsonRejected"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "46",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "concatenatedJsonRejected"
+    },
+    {
+      "code": 1,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "47",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "historicalIdentityHasNoCurrentProfileOnHostAndAndroid"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "47",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "historicalIdentityHasNoCurrentProfileOnHostAndAndroid"
+    },
+    {
+      "code": 1,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "48",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "alreadyReadyMaterialCannotResume"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "48",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "alreadyReadyMaterialCannotResume"
+    },
+    {
+      "code": 1,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "49",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "forbiddenStudentGradeRejected"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "49",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "forbiddenStudentGradeRejected"
+    },
+    {
+      "code": 1,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "50",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "receiptManifestMismatchRejected"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "50",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "receiptManifestMismatchRejected"
+    },
+    {
+      "code": 1,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "51",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "generatedSupplementPost201WaitsForServerReceipt"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "51",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "generatedSupplementPost201WaitsForServerReceipt"
+    },
+    {
+      "code": 1,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "52",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "freshNormalIsRequiredToRecoverFromMaintenance"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "52",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "freshNormalIsRequiredToRecoverFromMaintenance"
+    },
+    {
+      "code": 1,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "53",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "nonUtf8Rejected"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "53",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "nonUtf8Rejected"
+    },
+    {
+      "code": 1,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "54",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "unexpected204IsNotEmpty"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "54",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "unexpected204IsNotEmpty"
+    },
+    {
+      "code": 1,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "55",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "transportFailureCannotBecomeMaintenanceOrEmpty"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "55",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "transportFailureCannotBecomeMaintenanceOrEmpty"
+    },
+    {
+      "code": 1,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "56",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "technicalStageWithoutCaseIdentityRejected"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "56",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "technicalStageWithoutCaseIdentityRejected"
+    },
+    {
+      "code": 1,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "57",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "redirectIsNotFollowed"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "57",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "redirectIsNotFollowed"
+    },
+    {
+      "code": 1,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "58",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "htmlSuccessIsNotEmpty"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "58",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "htmlSuccessIsNotEmpty"
+    },
+    {
+      "code": 1,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "59",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "staleResponseCannotOverwriteNewScreenAndLoadingIsObservable"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "59",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "staleResponseCannotOverwriteNewScreenAndLoadingIsObservable"
+    },
+    {
+      "code": 1,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "60",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "supplement409RequiresRefreshAndNeverAutoResubmits"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "60",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "supplement409RequiresRefreshAndNeverAutoResubmits"
+    },
+    {
+      "code": 1,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "61",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "notificationDisclosureIsNotRendered"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "61",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "notificationDisclosureIsNotRendered"
+    },
+    {
+      "code": 1,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "62",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "ownFeedbackCannotReturnADeletedIdentity"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "62",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "ownFeedbackCannotReturnADeletedIdentity"
+    },
+    {
+      "code": 1,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "63",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "failedReleaseRefreshKeepsForcedUpgradeVisible"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "63",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "failedReleaseRefreshKeepsForcedUpgradeVisible"
+    },
+    {
+      "code": 1,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "64",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "lockedResumeNeedsFreshMatchingCurrentMaterial"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "64",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "lockedResumeNeedsFreshMatchingCurrentMaterial"
+    },
+    {
+      "code": 1,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "65",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "malformedJsonIsInvalidResponseNotTransport"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "65",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "malformedJsonIsInvalidResponseNotTransport"
+    },
+    {
+      "code": 1,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "66",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "missingRequiredNullableRejected"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "66",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "missingRequiredNullableRejected"
+    },
+    {
+      "code": 1,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "67",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "unknownEnumRejected"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "67",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "unknownEnumRejected"
+    },
+    {
+      "code": 1,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "68",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "duplicateJsonMembersRejected"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "68",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "duplicateJsonMembersRejected"
+    },
+    {
+      "code": 1,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "69",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "invalidationDisablesPreviouslyAvailableWrite"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "69",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "invalidationDisablesPreviouslyAvailableWrite"
+    },
+    {
+      "code": 1,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "70",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "literalLoopbackOnly"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "70",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "literalLoopbackOnly"
+    },
+    {
+      "code": 1,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "71",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "staleSupplementCommandDoesNotSendPost"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "71",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "staleSupplementCommandDoesNotSendPost"
+    },
+    {
+      "code": 1,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "72",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "cachedReceiptCannotTriggerAnyResumeRead"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "72",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "cachedReceiptCannotTriggerAnyResumeRead"
+    },
+    {
+      "code": 1,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "73",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "exactTransferDeadlineCannotResume"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "73",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "exactTransferDeadlineCannotResume"
+    },
+    {
+      "code": 1,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "74",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "allThirteenQuery400ResponsesRemainApiErrors"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "74",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "allThirteenQuery400ResponsesRemainApiErrors"
+    },
+    {
+      "code": 1,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "75",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "invalidConstructedRequestNeverLeavesDeviceAndBecomesPageError"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "75",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "invalidConstructedRequestNeverLeavesDeviceAndBecomesPageError"
+    },
+    {
+      "code": 1,
+      "class": "Phase6DeviceSchemaTest",
+      "current": "76",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "\nPhase6DeviceSchemaTest:",
+      "test": "publishedCorpusOnAndroid"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceSchemaTest",
+      "current": "76",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "publishedCorpusOnAndroid"
+    },
+    {
+      "code": 1,
+      "class": "Phase6DeviceSchemaTest",
+      "current": "77",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": "",
+      "test": "supplementalCorpusOnAndroid"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceSchemaTest",
+      "current": "77",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "supplementalCorpusOnAndroid"
+    }
+  ],
+  "completed": [
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "1",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[dashboard_unjoined]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "2",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[account_student_verified_email]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "3",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[account_deletion_retains_facts]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "4",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[session_restore_server_seconds]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "5",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[progress_1199_is_not_target_met]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "6",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[progress_recomputing_keeps_old_checkpoint]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "7",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[progress_unavailable_is_not_zero]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "8",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[progress_cached_is_read_only]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "9",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[record_pending_material]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "10",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[record_teacher_round1]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "11",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[record_await_supplement]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "12",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[record_round2]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "13",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[record_valid]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "14",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[technical_processing_never_invalid]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "15",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[supplement_timer_paused]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "16",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[supplement_timer_unavailable]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "17",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[archived_record_is_read_only]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "18",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[records_empty_only_typed_200]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "19",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[records_cursor_exact]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "20",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[first_material_before_deadline]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "21",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[first_material_exact_deadline_closed]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "22",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[first_material_cached_cannot_write]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "23",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[first_receipt_alone_cannot_resume]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "24",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[invitation_active_new_registration]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "25",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[invitation_join_closed]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "26",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[invitation_expired_new_flow_blocked]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "27",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[endurance_raw_measured]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "28",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[endurance_exempt]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "29",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[applications_empty]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "30",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[application_explicit_exemption_kind]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "31",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[notifications_explicit_target]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "32",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[notifications_empty]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "33",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[feedback_empty]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "34",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[feedback_detail_deleted_email]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "35",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[help_public]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "36",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[help_cached_read_only]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "37",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[release_forced_upgrade]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "38",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[http_error_TOKEN_EXPIRED]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "39",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[http_error_AUTHENTICATION_REQUIRED]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "40",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[http_error_FORBIDDEN]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "41",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[http_error_SYSTEM_MAINTENANCE]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "42",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[http_error_DEPENDENCY_UNAVAILABLE]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "43",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[http_error_INTERNAL_ERROR]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockUiTest",
+      "current": "44",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "renderSameHttpDtoMapperScenario[maintenance_estimate_does_not_unlock]"
+    },
+    {
+      "code": 0,
+      "class": "Phase6MockRetryUiTest",
+      "current": "45",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "retryButtonRunsFreshModeAndReadOverMockHttp"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "46",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "concatenatedJsonRejected"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "47",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "historicalIdentityHasNoCurrentProfileOnHostAndAndroid"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "48",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "alreadyReadyMaterialCannotResume"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "49",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "forbiddenStudentGradeRejected"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "50",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "receiptManifestMismatchRejected"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "51",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "generatedSupplementPost201WaitsForServerReceipt"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "52",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "freshNormalIsRequiredToRecoverFromMaintenance"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "53",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "nonUtf8Rejected"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "54",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "unexpected204IsNotEmpty"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "55",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "transportFailureCannotBecomeMaintenanceOrEmpty"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "56",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "technicalStageWithoutCaseIdentityRejected"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "57",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "redirectIsNotFollowed"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "58",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "htmlSuccessIsNotEmpty"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "59",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "staleResponseCannotOverwriteNewScreenAndLoadingIsObservable"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "60",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "supplement409RequiresRefreshAndNeverAutoResubmits"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "61",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "notificationDisclosureIsNotRendered"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "62",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "ownFeedbackCannotReturnADeletedIdentity"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "63",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "failedReleaseRefreshKeepsForcedUpgradeVisible"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "64",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "lockedResumeNeedsFreshMatchingCurrentMaterial"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "65",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "malformedJsonIsInvalidResponseNotTransport"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "66",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "missingRequiredNullableRejected"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "67",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "unknownEnumRejected"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "68",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "duplicateJsonMembersRejected"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "69",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "invalidationDisablesPreviouslyAvailableWrite"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "70",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "literalLoopbackOnly"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "71",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "staleSupplementCommandDoesNotSendPost"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "72",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "cachedReceiptCannotTriggerAnyResumeRead"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "73",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "exactTransferDeadlineCannotResume"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "74",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "allThirteenQuery400ResponsesRemainApiErrors"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceBoundaryTest",
+      "current": "75",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "invalidConstructedRequestNeverLeavesDeviceAndBecomesPageError"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceSchemaTest",
+      "current": "76",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "publishedCorpusOnAndroid"
+    },
+    {
+      "code": 0,
+      "class": "Phase6DeviceSchemaTest",
+      "current": "77",
+      "id": "AndroidJUnitRunner",
+      "numtests": "77",
+      "stream": ".",
+      "test": "supplementalCorpusOnAndroid"
+    }
+  ],
+  "contract": {
+    "version": "1.4.0-contract",
+    "status": "RC",
+    "sha256": "0528389bb8b72714d9a4af35ffc66c87503560d41c58ad968b1713b39ff3da2d",
+    "sourceCommit": null,
+    "entryCommit": "f95c3833870fe0da55a297aa28c958ec53e9e935",
+    "modelPackage": "bnbu.cr005.review",
+    "scope": "Validation-only, not formal app runtime migration",
+    "inputs": {
+      "contracts/contract-metadata.json": "b7f186a8970c0d35097767fed4662811bfd6e875bbaa95c79e4f6b3b64417df0",
+      "contracts/validation/step06_final/reproduce.py": "9ba96a09723224fb722bb247ead049e0c4a3a9844a950a919aa8d2987d0890ae",
+      "contracts/validation/step06_final/generator_support.py": "10457ec20282249c3aaaa1a411e5847332abd26aec98c2fe6aaafe2a15dfdfe2",
+      "contracts/validation/step06_final/jvm/ContractRuntimeProbe.java": "6005131729ad860b4d0c3dadb201a5b0dbd64ca0d7544d0add990d64568ad316",
+      "contracts/validation/step06_final/template-manifest.json": "00d6b413e97610124f6b359abc6ed38ffc32df15dd96a36cec9dc51b216b1944",
+      "contracts/validation/step06_final/runtime-dependencies.json": "ec265367c8f79b64d2ab5acfe66d146e60dd6e60cac8d26f083035bf78bb7308",
+      "contracts/validation/step06_final/templates/data_class.mustache": "64978f12e395a0e3ec41a7b74ceb925f7a05014f36f93c866384144c4913a89c",
+      "contracts/validation/step06_final/templates/oneof_class.mustache": "23b72d43ca7901fb69480c23de37629b75423783e134ac813871f0e8da64ffba",
+      "contracts/validation/p7_cr14/fixtures.json": "eba079d3316919542e07855cf0a67cf26c05acaf07aae9057c18c76779223c6d"
+    },
+    "publication": "LOCAL_CANDIDATE_NOT_PUBLISHED"
+  },
+  "apkSha256": "750c0057884a374d8bd6dd5948fa0a043ca7204c896e7a9bf651d7bb6ab01060",
+  "sourceFiles": {
+    "BNBU-ANDROID/contract-validation/.gitignore": "020c2606e8ed484089c2083e0be438b9d0736bee1558a6b76af0d58bd23f69cf",
+    "BNBU-ANDROID/contract-validation/build.gradle.kts": "4203f66f95f2844375e542a78d0a373fb6761ed99819347532f7a4e8e47de7a0",
+    "BNBU-ANDROID/contract-validation/contract-lock.json": "3ae2a99dd2c6ff149772fc173c0fb8f12171fb7b1afa751428c2a1c7495e3849",
+    "BNBU-ANDROID/contract-validation/generation-profile.json": "55d04907ecf679563e4e34733657f4018f17977f7a21de47ebd0d056150a2d74",
+    "BNBU-ANDROID/contract-validation/README.md": "ceb7261bf0f5b688a5b81bad6927711b53cd73dc8d9c9277c1715dce74a1eacc",
+    "BNBU-ANDROID/contract-validation/src/androidTest/AndroidManifest.xml": "08dcb73591184873b6f4c13989617c0136947a67f45fb9fb4a32cb748da47e69",
+    "BNBU-ANDROID/contract-validation/src/main/AndroidManifest.xml": "343d5be1ac17cdd45d1a2f2ddc616c509290e655869125a9422a96d88aa66066",
+    "BNBU-ANDROID/contract-validation/src/androidTest/java/DeviceCapture.kt": "39ed3093fcfb03b4a531882fb164ad7852b2cd3f0e842374f806a400f5916d69",
+    "BNBU-ANDROID/contract-validation/src/androidTest/java/Phase6DeviceBoundaryTest.kt": "f26a41042053a02cec631722fe5fd562aff10cc3de5c179f2a86a94d54689b42",
+    "BNBU-ANDROID/contract-validation/src/androidTest/java/Phase6DeviceSchemaTest.kt": "de9932ab09f7ae8b0840f550ec2f536aa3c3900847d050e080cf557006b5a4ea",
+    "BNBU-ANDROID/contract-validation/src/androidTest/java/Phase6MockRetryUiTest.kt": "c0ba341c6866abc97b19576d122938493cb833c28f734ce562ee1a7ab7c31398",
+    "BNBU-ANDROID/contract-validation/src/androidTest/java/Phase6MockUiTest.kt": "f5f810078303ccbdb3876f974477f4ea0724a796a72b8a251ce3a31be8de8ccb",
+    "BNBU-ANDROID/contract-validation/src/androidTest/res/values/styles.xml": "8b8f7877765850b112c9b16b3f9822badb81d21dd02e3dcda1d7b8d25f99b372",
+    "BNBU-ANDROID/contract-validation/src/main/java/edu/bnbu/student/contractvalidation/StudentActions.kt": "e8f2959489529cd8d9fd8cb6403cedbc075501ae80a262a46fa858b4e068b335",
+    "BNBU-ANDROID/contract-validation/src/main/java/edu/bnbu/student/contractvalidation/StudentIdentity.kt": "57291da936fe4b4612ba438ee39c05707b708da5a1c8757520ac73c356a9b785",
+    "BNBU-ANDROID/contract-validation/src/main/java/edu/bnbu/student/contractvalidation/StudentInformation.kt": "37915f0d9b7d24d664fcf50017fd5e3b7ac6a0e92fa052cd1a3f3feedc72095c",
+    "BNBU-ANDROID/contract-validation/src/main/java/edu/bnbu/student/contractvalidation/StudentProgress.kt": "fa61104ff1b8548486289dc34d8ff64a7a22b37a3418b07dd47ac274d97f73e0",
+    "BNBU-ANDROID/contract-validation/src/main/java/edu/bnbu/student/contractvalidation/StudentRecord.kt": "018d999cab23bfa52dd505dc64118ce281c7a4d44232a13e0cc23eb713c29af7",
+    "BNBU-ANDROID/contract-validation/src/main/java/edu/bnbu/student/contractvalidation/StudentServices.kt": "58dfb79f18df78a3ee51e127ac1a61e43c514ed8275d1a4b2c430b7f086c7442",
+    "BNBU-ANDROID/contract-validation/src/main/java/edu/bnbu/student/contractvalidation/StudentTime.kt": "d246aed51d48ae31563a893fdc9bae4b0d3f47c32c88b55714183009a0b93bae",
+    "BNBU-ANDROID/contract-validation/src/main/java/edu/bnbu/student/contractvalidation/WireDateTime.java": "cbdbd97df8666f0a090f171919c8ad56c7462db73e6dfb44b054c351c7f4984d",
+    "BNBU-ANDROID/contract-validation/src/main/java/edu/bnbu/student/contractvalidation/mock/ContractHttp.kt": "04bfaccd6eda1821c808723d778567fd5cfa4baa8ea8291c7a79cef6a57cf1e1",
+    "BNBU-ANDROID/contract-validation/src/main/java/edu/bnbu/student/contractvalidation/mock/ContractMockScreen.kt": "e687bdef75377d9e9c9a96bb5769ed61fc32971f88c9bd823da8e6f83c3f446d",
+    "BNBU-ANDROID/contract-validation/src/main/java/edu/bnbu/student/contractvalidation/mock/MockPresentation.kt": "7a8fea982e95f4d0cac02643b635ff788c0d6fd9a119f15e22f346ca3ffdc25d",
+    "BNBU-ANDROID/contract-validation/src/main/java/edu/bnbu/student/contractvalidation/mock/MockScreenController.kt": "122bcc88504660f050e350f3ef0c503469021c01c945fdb72fe13457d58c8ad6",
+    "BNBU-ANDROID/contract-validation/src/mockShared/java/MockCases.kt": "3b8fef3a599fa8ffe57e5aa84fbbf3ed05edd56c91ee34362f3df0a848fefa4b",
+    "BNBU-ANDROID/contract-validation/src/mockShared/java/MockScenarioHarness.kt": "719e2e833db682e77a4e50e401bda0fbd6991fd14b067452d50b90ddf767cf4f",
+    "BNBU-ANDROID/contract-validation/src/mockShared/java/SharedMockBoundaryTests.kt": "a91918f5aa015a28b2da51c489d8cdfe0f680e572d9de19142251f452d5cd9a0",
+    "BNBU-ANDROID/contract-validation/src/mockShared/java/StrictMockCodec.kt": "5c6bc8702c5d1074dd2db54320b91eeea7a13c6f80a7b7fa8d87ccb44ebc9481",
+    "BNBU-ANDROID/contract-validation/src/test/java/MapperWire.kt": "a799a33fc778a69d154c93bb73a8efbc0574ce4695bba7efb0830e25c414b68b",
+    "BNBU-ANDROID/contract-validation/src/test/java/Phase6ContractSchemaTest.java": "8a9070feaab8eb7bfbb010c1189515d7c8ca4a9cde7d870cd553171f59766533",
+    "BNBU-ANDROID/contract-validation/src/test/java/Phase6ContractSmokeTest.java": "d3e682e58994cc3fc494f4b43030e9c9b70244db403135b055d4712e5781fb17",
+    "BNBU-ANDROID/contract-validation/src/test/java/Phase6FormatEvaluatorFactory.java": "d4ffe40072e829ad3fb36ac9faaee46bf7d9e72fcf3ffb80f9a4815da7c71512",
+    "BNBU-ANDROID/contract-validation/src/test/java/Phase6MapperTest.kt": "63e00e2ebffe4ec6ab953e8aac94a7aa240d9c95a3e41a08623c044fabc664ae",
+    "BNBU-ANDROID/contract-validation/src/test/java/Phase6MockBoundaryTest.kt": "d34acd441376728c5b52274c78b499cf9d9b48a3506b9a06bba0e0e9afbb7431",
+    "BNBU-ANDROID/contract-validation/src/test/java/Phase6MockTest.kt": "10a974eaa21bef1e127e8c3737d111c0a8a35dc5a1e935b3804d4f7408e7387b",
+    "BNBU-ANDROID/contract-validation/src/test/java/Phase7IdentityTest.kt": "324cef89afee8292592d6829fa24f40fa4b42ee411582be238e525eef84f0bcb",
+    "BNBU-ANDROID/tools/phase6/contract_entry.py": "ed085b0efb13a735708db2bf853b8c4199da9c6f03257dce71df60a37c5b5993",
+    "BNBU-ANDROID/tools/phase6/mapper_coverage.py": "b4a0c44dfdb1cb8cd1f01b48c3f19f513afcc1ef27cad499c2f48d78125f6eb3",
+    "BNBU-ANDROID/tools/phase6/mock_coverage.py": "a19bf7dbf93995ec6fc5a240af6a3693f2edbc29e0a9c0776f5fa35f74590728",
+    "BNBU-ANDROID/tools/phase6/mock_suite.py": "7415e586c8d3eda155ec5cc2cc0d03b5b8521459268b34686a2b688df68c186e",
+    "BNBU-ANDROID/tools/phase6/published_input_seal.py": "6dad54a4ea5b09d8f5130498c792c534a72e84a9829707849cc269b6287c49c1",
+    "BNBU-ANDROID/tools/phase6/run_step02.py": "369dd76a876ab4a943400a51b1ec013bbc78c174a517d3e5799661572c8621e7",
+    "BNBU-ANDROID/tools/phase6/run_step03.py": "536b630575c623109f5bd5584df7b28a9d41d6ed2c055c0957ccf100985e885c",
+    "BNBU-ANDROID/tools/phase6/run_step04.py": "f88d161a8567dce950b0ae7f5bda4b1a155c170f603c6c59e46311d5051c850a",
+    "BNBU-ANDROID/tools/phase6/run_step05.py": "6229762ba2b0ae2c332c14d5ba71c4137ab3933cc77612af05df50368b2ca811",
+    "BNBU-ANDROID/tools/phase6/run_step06.py": "bd707d00978a56b0b26910eb3f34fb4eec755042ea8e8ae668e0da7b03de3a87",
+    "BNBU-ANDROID/tools/phase6/schema_coverage.py": "32cc302f132c916100ca619aa8a376155d82a68cba7938fe368ba8cc022cfd48",
+    "BNBU-ANDROID/tools/phase6/schema_suite.py": "0facb4d243baf375bd6fb6e95057a3b887474e8b61ae4a2cd245bd44279b3899",
+    "BNBU-ANDROID/tools/phase6/test_entry.py": "c2ecce13f0aad207e061a644272e316d3c56041edbd8e128436f9d5a2f8c359c",
+    "BNBU-ANDROID/tools/phase6/test_published_input_seal.py": "8d571a0c406bb7474bbab3f86b5bff2be9ee9912c7fb4408daba287063e9c860"
+  },
+  "serial": "emulator-5562",
+  "sourceBuildResultSha256": "4ed96205baafa00980fd7414c938ad820d31750a4098342bfbff2d7d7f789fdf",
+  "commands": [
+    {
+      "name": "01-boot",
+      "command": [
+        "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+        "-s",
+        "emulator-5562",
+        "shell",
+        "getprop",
+        "sys.boot_completed"
+      ],
+      "startedAt": "2026-09-09T11:14:50.546914+00:00",
+      "finishedAt": "2026-09-09T11:14:50.723971+00:00",
+      "exitCode": 0
+    },
+    {
+      "name": "property-ro.build.version.sdk",
+      "command": [
+        "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+        "-s",
+        "emulator-5562",
+        "shell",
+        "getprop",
+        "ro.build.version.sdk"
+      ],
+      "startedAt": "2026-09-09T11:14:50.723971+00:00",
+      "finishedAt": "2026-09-09T11:14:50.841576+00:00",
+      "exitCode": 0
+    },
+    {
+      "name": "property-ro.build.version.release",
+      "command": [
+        "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+        "-s",
+        "emulator-5562",
+        "shell",
+        "getprop",
+        "ro.build.version.release"
+      ],
+      "startedAt": "2026-09-09T11:14:50.843154+00:00",
+      "finishedAt": "2026-09-09T11:14:50.957302+00:00",
+      "exitCode": 0
+    },
+    {
+      "name": "property-ro.build.version.codename",
+      "command": [
+        "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+        "-s",
+        "emulator-5562",
+        "shell",
+        "getprop",
+        "ro.build.version.codename"
+      ],
+      "startedAt": "2026-09-09T11:14:50.957831+00:00",
+      "finishedAt": "2026-09-09T11:14:51.120712+00:00",
+      "exitCode": 0
+    },
+    {
+      "name": "property-ro.build.fingerprint",
+      "command": [
+        "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+        "-s",
+        "emulator-5562",
+        "shell",
+        "getprop",
+        "ro.build.fingerprint"
+      ],
+      "startedAt": "2026-09-09T11:14:51.121708+00:00",
+      "finishedAt": "2026-09-09T11:14:51.239297+00:00",
+      "exitCode": 0
+    },
+    {
+      "name": "property-ro.product.model",
+      "command": [
+        "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+        "-s",
+        "emulator-5562",
+        "shell",
+        "getprop",
+        "ro.product.model"
+      ],
+      "startedAt": "2026-09-09T11:14:51.239297+00:00",
+      "finishedAt": "2026-09-09T11:14:51.354591+00:00",
+      "exitCode": 0
+    },
+    {
+      "name": "property-ro.product.cpu.abi",
+      "command": [
+        "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+        "-s",
+        "emulator-5562",
+        "shell",
+        "getprop",
+        "ro.product.cpu.abi"
+      ],
+      "startedAt": "2026-09-09T11:14:51.355585+00:00",
+      "finishedAt": "2026-09-09T11:14:51.469992+00:00",
+      "exitCode": 0
+    },
+    {
+      "name": "property-ro.kernel.qemu",
+      "command": [
+        "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+        "-s",
+        "emulator-5562",
+        "shell",
+        "getprop",
+        "ro.kernel.qemu"
+      ],
+      "startedAt": "2026-09-09T11:14:51.470999+00:00",
+      "finishedAt": "2026-09-09T11:14:51.595564+00:00",
+      "exitCode": 0
+    },
+    {
+      "name": "page-size",
+      "command": [
+        "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+        "-s",
+        "emulator-5562",
+        "shell",
+        "getconf",
+        "PAGESIZE"
+      ],
+      "startedAt": "2026-09-09T11:14:51.595564+00:00",
+      "finishedAt": "2026-09-09T11:14:51.725487+00:00",
+      "exitCode": 0
+    },
+    {
+      "name": "display",
+      "command": [
+        "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+        "-s",
+        "emulator-5562",
+        "shell",
+        "wm",
+        "size"
+      ],
+      "startedAt": "2026-09-09T11:14:51.725487+00:00",
+      "finishedAt": "2026-09-09T11:14:51.868484+00:00",
+      "exitCode": 0
+    },
+    {
+      "name": "02-install",
+      "command": [
+        "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+        "-s",
+        "emulator-5562",
+        "install",
+        "-r",
+        "-t",
+        "D:\\DT\\soprts\\start4\\12_phase7_contract14\\android-final-02\\contract-validation-debug-androidTest.apk"
+      ],
+      "startedAt": "2026-09-09T11:14:51.870486+00:00",
+      "finishedAt": "2026-09-09T11:14:52.405860+00:00",
+      "exitCode": 0
+    },
+    {
+      "name": "03-installed-path",
+      "command": [
+        "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+        "-s",
+        "emulator-5562",
+        "shell",
+        "pm",
+        "path",
+        "edu.bnbu.student.contractvalidation.test"
+      ],
+      "startedAt": "2026-09-09T11:14:52.407374+00:00",
+      "finishedAt": "2026-09-09T11:14:52.574029+00:00",
+      "exitCode": 0
+    },
+    {
+      "name": "04-pull-installed",
+      "command": [
+        "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+        "-s",
+        "emulator-5562",
+        "pull",
+        "/data/app/~~NyCKomgGQe5IfH498khetQ==/edu.bnbu.student.contractvalidation.test-GyQ4Y4cxEQwGY-Y2i6C5vw==/base.apk",
+        "D:\\DT\\soprts\\start4\\12_phase7_contract14\\android-device-01\\installed-test.apk"
+      ],
+      "startedAt": "2026-09-09T11:14:52.575550+00:00",
+      "finishedAt": "2026-09-09T11:14:53.095656+00:00",
+      "exitCode": 0
+    },
+    {
+      "name": "05-instrumentation",
+      "command": [
+        "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+        "-s",
+        "emulator-5562",
+        "shell",
+        "am",
+        "instrument",
+        "-w",
+        "-r",
+        "-e",
+        "class",
+        "Phase6MockUiTest,Phase6MockRetryUiTest,Phase6DeviceBoundaryTest,Phase6DeviceSchemaTest",
+        "edu.bnbu.student.contractvalidation.test/androidx.test.runner.AndroidJUnitRunner"
+      ],
+      "startedAt": "2026-09-09T11:14:53.130928+00:00",
+      "finishedAt": "2026-09-09T11:18:59.075977+00:00",
+      "exitCode": 0
+    }
+  ],
+  "notRun": [
+    "Physical device",
+    "Backend",
+    "Web",
+    "6C acceptance",
+    "GitHub"
+  ]
+}

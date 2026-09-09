@@ -1,3 +1,4 @@
+import { StudentReferenceDisplay } from "./phase7-student-reference";
 "use client";
 
 import { useSyncExternalStore } from "react";
@@ -554,7 +555,7 @@ function TeacherMock({ scenario }: { scenario: Phase5bMockScenario }) {
                 <tbody>
                   {recordPage.items.map((record) => (
                     <tr key={record.recordId}>
-                      <td><strong>{record.student.name}</strong><small>{record.student.studentNumber}</small></td>
+                      <td><StudentReferenceDisplay reference={record.student} /></td>
                       <td>{record.businessDate}</td>
                       <td>{Math.floor(record.actualDurationSeconds / 60)} 分钟</td>
                       <td>{record.currentMaterial.readiness}</td>
@@ -566,7 +567,7 @@ function TeacherMock({ scenario }: { scenario: Phase5bMockScenario }) {
             </div>
             <aside className={styles.detailPanel}>
               <p className={styles.eyebrow}>ExerciseRecord</p>
-              <h3>{exerciseRecord.student.name} · {exerciseRecord.category}</h3>
+              <h3>{<StudentReferenceDisplay reference={exerciseRecord.student} />} · {exerciseRecord.category}</h3>
               <p>{exerciseRecord.description}</p>
               <dl>
                 <div><dt>提交时间</dt><dd>{formatInstant(exerciseRecord.submittedAt)}</dd></div>
@@ -612,7 +613,7 @@ function TeacherMock({ scenario }: { scenario: Phase5bMockScenario }) {
             return (
             <div className={styles.progressPanel} key={progress.enrollmentId}>
               <div className={styles.progressHeading}>
-                <div><strong>{progress.student.name}</strong><span>{progress.student.studentNumber}</span></div>
+                <div><StudentReferenceDisplay reference={progress.student} /></div>
                 <b>{totals?.displayPercent ?? "—"}%</b>
               </div>
               <div className={styles.progressTrack}><span style={{ width: `${totals?.displayPercent ?? 0}%` }} /></div>

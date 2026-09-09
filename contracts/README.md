@@ -1,3 +1,17 @@
+# 当前 G1 协议修订候选
+
+本地候选为 **1.4.0-contract / RC**；公开路径仍 /api/v1，包含不兼容的历史学生响应变化。用户已接受两份 CR 方案并授权协议、Android 与 Web 本次适配；最终交付审阅及 GitHub 发布尚待用户操作，不表示 Backend G1 验收。
+
+当前版本与完整 SHA 见 [metadata](contract-metadata.json)，输入字节封存见 [本轮清单](validation/p7_cr14/release-manifest.json)，[复现入口](validation/p7_cr14/README.md)，[H/Z 交接](../docs/rebuild/handoffs/phase7-contract14.md)。生成源追加 src/g1_clarifications.py；只从源生成，不手改 OpenAPI 或 DTO。
+
+新增 StudentReference / CurrentStudentReference / DeletedStudentReference 三个 schema，8处历史出口调整；13项查询允许 INVALID_REQUEST/HTTP400，并明确标量不可重复和 limit 数字字符规则。157 paths、176 operations、319 schemas、99 errors。旧1.3证据保留，不作新版结果。
+
+原 release-manifest.json 和下列 Phase5记录是 **1.3.0 历史发布封存**。本轮使用 validation/p7_cr14 的新清单，不覆盖旧证据；RC 不等于 APPROVED、Staging 或生产许可。
+
+---
+
+以下保留原 Phase5 历史说明，其中“当前”等用语属于当时状态。
+
 # BNBU Sports API Contract
 
 本目录是Android、Web与Backend共同遵守的API边界。当前已发布协议为 **`1.3.0-contract / RC`**，公开基路径仍`/api/v1`。本轮含破坏性变更，不能将旧消费者直接混接。

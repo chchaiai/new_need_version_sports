@@ -2215,11 +2215,11 @@ check("v8.1 public reasons keep six bilingual categories and action scopes", () 
   assert.equal(resolvePublicReasonModel({ reviewResult: "PROOF_OVERDUE_INVALID" }).kind, "systemOverdue");
 });
 
-check("phase6b contract mapper pins 1.3.0 identity and rejects unknown public reason codes", () => {
-  assert.equal(PHASE6B_STUDENT_CONTRACT.version, "1.3.0-contract");
+check("phase6b contract mapper pins 1.4.0 identity and rejects unknown public reason codes", () => {
+  assert.equal(PHASE6B_STUDENT_CONTRACT.version, "1.4.0-contract");
   assert.equal(
     PHASE6B_STUDENT_CONTRACT.openapiSha256,
-    "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+    "0528389bb8b72714d9a4af35ffc66c87503560d41c58ad968b1713b39ff3da2d",
   );
   assert.equal(rejectUnknownPublicReasonCode("UNCLEAR_EVIDENCE"), "UNCLEAR_EVIDENCE");
   assert.throws(() => rejectUnknownPublicReasonCode("LEGACY_FREE_TEXT"), /CONTRACT_PUBLIC_REASON_INVALID/);

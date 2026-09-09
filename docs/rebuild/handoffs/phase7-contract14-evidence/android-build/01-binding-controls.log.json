@@ -1,0 +1,6 @@
+{
+  "originalFile": "01-binding-controls.log",
+  "rawBytesSha256": "dac13f0876c2b4fe56a326b99390b4a6996d86d1685d1c924d2a85801be70511",
+  "encoding": "utf-8",
+  "rawText": "test_changed_model_bytes_are_rejected (__main__.BindingControls.test_changed_model_bytes_are_rejected) ... ok\r\ntest_crlf_conversion_fails_raw_sha_gate (__main__.BindingControls.test_crlf_conversion_fails_raw_sha_gate) ... ok\r\ntest_even_whitespace_change_fails_raw_sha_gate (__main__.BindingControls.test_even_whitespace_change_fails_raw_sha_gate) ... ok\r\ntest_missing_model_is_rejected (__main__.BindingControls.test_missing_model_is_rejected) ... ok\r\ntest_published_identity_is_accepted (__main__.BindingControls.test_published_identity_is_accepted) ... ok\r\ntest_stale_metadata_is_rejected (__main__.BindingControls.test_stale_metadata_is_rejected) ... ok\r\ntest_wrong_generator_is_rejected_before_execution (__main__.BindingControls.test_wrong_generator_is_rejected_before_execution) ... ok\r\ntest_wrong_status_is_rejected (__main__.BindingControls.test_wrong_status_is_rejected) ... ok\r\ntest_wrong_version_is_rejected (__main__.BindingControls.test_wrong_version_is_rejected) ... ok\r\n\r\n----------------------------------------------------------------------\r\nRan 9 tests in 10.156s\r\n\r\nOK\r\n"
+}

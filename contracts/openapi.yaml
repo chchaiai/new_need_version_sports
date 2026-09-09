@@ -2,7 +2,7 @@ openapi: 3.1.0
 jsonSchemaDialect: https://json-schema.org/draft/2020-12/schema
 info:
   title: BNBU Sports API
-  version: 1.3.0-contract
+  version: 1.4.0-contract
   summary: The single external communication contract for Android, Web, and Backend.
   description: 'Public release line `/api/v1`. This Contract specifies API-boundary behavior only: generated DTOs belong in
     API or Contract adapters, operationId names application use cases, domain errors are mapped to stable Contract errors,
@@ -896,6 +896,7 @@ paths:
       - RATE_LIMITED
       - DEPENDENCY_UNAVAILABLE
       - INTERNAL_ERROR
+      - INVALID_REQUEST
       responses:
         '200':
           description: Successful response.
@@ -928,13 +929,15 @@ paths:
           - UPCOMING
           - CURRENT
           - ARCHIVED
+        description: ' At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST.'
       - name: cursor
         in: query
         required: false
         schema:
           type: string
           minLength: 1
-        description: Opaque keyset cursor returned by this exact operation and filter set.
+        description: Opaque keyset cursor returned by this exact operation and filter set. At most one occurrence of this
+          decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST.
       - name: limit
         in: query
         required: false
@@ -944,7 +947,29 @@ paths:
           minimum: 1
           maximum: 100
           default: 20
-        description: Maximum number of items to return.
+        description: Maximum number of items to return. At most one occurrence of this decoded scalar query name; duplicates
+          return HTTP 400 / INVALID_REQUEST. Decoded value must consist only of ASCII decimal digits, numeric value 1–100;
+          leading zeros allowed, omission defaults to 20. No exponent, decimal point, sign or whitespace.
+      x-query-serialization:
+        scalarOccurrences: AT_MOST_ONE_AFTER_PARAMETER_NAME_DECODING
+        invalidSyntaxError: INVALID_REQUEST
+        invalidSyntaxStatus: 400
+        limit:
+          decodedPattern: ^[0-9]+$
+          minimum: 1
+          maximum: 100
+          omittedDefault: 20
+          leadingZeros: ALLOWED_NORMALIZED_TO_INTEGER
+          rejectedForms:
+          - exponent
+          - decimal point
+          - sign
+          - whitespace
+          - empty
+          - non-ASCII digits
+        scope: Declared scalar query parameters only. Values are decoded once; reject duplicate decoded names before selection/coercion.
+          Existing enum/boolean/string constraints remain. Invalid opaque cursor content keeps INVALID_CURSOR; duplicate cursor
+          is INVALID_REQUEST.
     post:
       tags:
       - Semesters
@@ -1201,6 +1226,7 @@ paths:
       - RATE_LIMITED
       - DEPENDENCY_UNAVAILABLE
       - INTERNAL_ERROR
+      - INVALID_REQUEST
       responses:
         '200':
           description: Successful response.
@@ -1233,13 +1259,15 @@ paths:
           - DRAFT
           - OPEN
           - CLOSED
+        description: ' At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST.'
       - name: cursor
         in: query
         required: false
         schema:
           type: string
           minLength: 1
-        description: Opaque keyset cursor returned by this exact operation and filter set.
+        description: Opaque keyset cursor returned by this exact operation and filter set. At most one occurrence of this
+          decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST.
       - name: limit
         in: query
         required: false
@@ -1249,7 +1277,29 @@ paths:
           minimum: 1
           maximum: 100
           default: 20
-        description: Maximum number of items to return.
+        description: Maximum number of items to return. At most one occurrence of this decoded scalar query name; duplicates
+          return HTTP 400 / INVALID_REQUEST. Decoded value must consist only of ASCII decimal digits, numeric value 1–100;
+          leading zeros allowed, omission defaults to 20. No exponent, decimal point, sign or whitespace.
+      x-query-serialization:
+        scalarOccurrences: AT_MOST_ONE_AFTER_PARAMETER_NAME_DECODING
+        invalidSyntaxError: INVALID_REQUEST
+        invalidSyntaxStatus: 400
+        limit:
+          decodedPattern: ^[0-9]+$
+          minimum: 1
+          maximum: 100
+          omittedDefault: 20
+          leadingZeros: ALLOWED_NORMALIZED_TO_INTEGER
+          rejectedForms:
+          - exponent
+          - decimal point
+          - sign
+          - whitespace
+          - empty
+          - non-ASCII digits
+        scope: Declared scalar query parameters only. Values are decoded once; reject duplicate decoded names before selection/coercion.
+          Existing enum/boolean/string constraints remain. Invalid opaque cursor content keeps INVALID_CURSOR; duplicate cursor
+          is INVALID_REQUEST.
     post:
       tags:
       - Courses
@@ -1459,7 +1509,12 @@ paths:
       - Courses
       summary: Preview the impact of a course change
       description: Evaluates name/description changes only; frozen rule, targets, frequency and schedule cannot enter this
-        proposal.
+        proposal. Historical student identities follow x-historical-students; current student endpoints remain current-only.
+        After authorization, replay the original committed business result without re-executing the command or recomputing
+        facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted student is
+        projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted under x-historical-students.
+        This exception overrides exact response-byte replay for those identity fields only; it never restores credentials
+        or deleted personal data.
       operationId: previewCourseChangeImpact
       security:
       - bearerAuth: []
@@ -1474,6 +1529,11 @@ paths:
         replay: Same authenticated actor or anonymous command subject, operationId, canonical resource identity, key, and
           normalized command returns the original committed result.
         reuseConflict: Same scoped key with a different normalized command returns IDEMPOTENCY_KEY_REUSED.
+        historicalIdentityException: After authorization, replay the original committed business result without re-executing
+          the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that
+          a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display
+          names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity
+          fields only; it never restores credentials or deleted personal data.
       x-error-codes:
       - VERSION_CONFLICT
       - INVALID_REQUEST
@@ -1530,6 +1590,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/CourseChangeProposal'
+      x-historical-student-projection: x-historical-students
   /courses/{courseId}/closure:
     post:
       tags:
@@ -1830,6 +1891,7 @@ paths:
       - RATE_LIMITED
       - DEPENDENCY_UNAVAILABLE
       - INTERNAL_ERROR
+      - INVALID_REQUEST
       responses:
         '200':
           description: Successful response.
@@ -1874,13 +1936,15 @@ paths:
           - REVOKED
           - COURSE_CLOSED
           - NOT_CURRENT
+        description: ' At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST.'
       - name: cursor
         in: query
         required: false
         schema:
           type: string
           minLength: 1
-        description: Opaque keyset cursor returned by this exact operation and filter set.
+        description: Opaque keyset cursor returned by this exact operation and filter set. At most one occurrence of this
+          decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST.
       - name: limit
         in: query
         required: false
@@ -1890,7 +1954,29 @@ paths:
           minimum: 1
           maximum: 100
           default: 20
-        description: Maximum number of items to return.
+        description: Maximum number of items to return. At most one occurrence of this decoded scalar query name; duplicates
+          return HTTP 400 / INVALID_REQUEST. Decoded value must consist only of ASCII decimal digits, numeric value 1–100;
+          leading zeros allowed, omission defaults to 20. No exponent, decimal point, sign or whitespace.
+      x-query-serialization:
+        scalarOccurrences: AT_MOST_ONE_AFTER_PARAMETER_NAME_DECODING
+        invalidSyntaxError: INVALID_REQUEST
+        invalidSyntaxStatus: 400
+        limit:
+          decodedPattern: ^[0-9]+$
+          minimum: 1
+          maximum: 100
+          omittedDefault: 20
+          leadingZeros: ALLOWED_NORMALIZED_TO_INTEGER
+          rejectedForms:
+          - exponent
+          - decimal point
+          - sign
+          - whitespace
+          - empty
+          - non-ASCII digits
+        scope: Declared scalar query parameters only. Values are decoded once; reject duplicate decoded names before selection/coercion.
+          Existing enum/boolean/string constraints remain. Invalid opaque cursor content keeps INVALID_CURSOR; duplicate cursor
+          is INVALID_REQUEST.
     post:
       tags:
       - Enrollment
@@ -2121,7 +2207,12 @@ paths:
       description: Require authenticated flow owner and original invitation. First successful acceptance under current flow/invitation/course/semester
         shared protection is strictly before fixed original expiry+600s, after registeredAt<expiry. Recheck verified identity
         and unique active course. No new flow at expiry. Exact committed receipt returns original enrollment once; no current-pointer
-        or deadline refresh.
+        or deadline refresh. Historical student identities follow x-historical-students; current student endpoints remain
+        current-only. After authorization, replay the original committed business result without re-executing the command
+        or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted
+        student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted
+        under x-historical-students. This exception overrides exact response-byte replay for those identity fields only; it
+        never restores credentials or deleted personal data.
       operationId: joinCourseByInvitation
       security:
       - bearerAuth: []
@@ -2140,6 +2231,11 @@ paths:
         - AUTHENTICATION_AND_ORIGINAL_RESOURCE_SCOPE
         - EXACT_COMMITTED_RECEIPT
         - NEW_COMMAND_MODE_VERSION_ELIGIBILITY_AND_SOURCE_PROTECTION
+        historicalIdentityException: After authorization, replay the original committed business result without re-executing
+          the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that
+          a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display
+          names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity
+          fields only; it never restores credentials or deleted personal data.
       x-error-codes:
       - INVITATION_INVALID
       - INVITATION_FLOW_EXPIRED
@@ -2199,6 +2295,7 @@ paths:
             schema:
               $ref: '#/components/schemas/ExistingStudentJoinRequest'
       x-system-mode-replay: AUTHORIZED_COMMITTED_RESULT_ONLY
+      x-historical-student-projection: x-historical-students
   /course-invitations/{invitationCode}/student-registration:
     post:
       tags:
@@ -2295,7 +2392,12 @@ paths:
       tags:
       - Enrollment
       summary: List members of a teacher-owned course
-      description: Returns the minimum teaching projection for current and removed members.
+      description: Returns the minimum teaching projection for current and removed members. Historical student identities
+        follow x-historical-students; current student endpoints remain current-only. After authorization, replay the original
+        committed business result without re-executing the command or recomputing facts, versions, checkpoints or minutes.
+        The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile
+        copies/email/linked roster display names are redacted under x-historical-students. This exception overrides exact
+        response-byte replay for those identity fields only; it never restores credentials or deleted personal data.
       operationId: listCourseMembers
       security:
       - bearerAuth: []
@@ -2307,6 +2409,11 @@ paths:
       x-idempotency:
         required: false
         reason: Read-only operation.
+        historicalIdentityException: After authorization, replay the original committed business result without re-executing
+          the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that
+          a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display
+          names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity
+          fields only; it never restores credentials or deleted personal data.
       x-error-codes:
       - RESOURCE_NOT_FOUND
       - INVALID_CURSOR
@@ -2317,6 +2424,7 @@ paths:
       - RATE_LIMITED
       - DEPENDENCY_UNAVAILABLE
       - INTERNAL_ERROR
+      - INVALID_REQUEST
       responses:
         '200':
           description: Successful response.
@@ -2358,13 +2466,15 @@ paths:
           enum:
           - ACTIVE
           - REMOVED
+        description: ' At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST.'
       - name: cursor
         in: query
         required: false
         schema:
           type: string
           minLength: 1
-        description: Opaque keyset cursor returned by this exact operation and filter set.
+        description: Opaque keyset cursor returned by this exact operation and filter set. At most one occurrence of this
+          decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST.
       - name: limit
         in: query
         required: false
@@ -2374,14 +2484,42 @@ paths:
           minimum: 1
           maximum: 100
           default: 20
-        description: Maximum number of items to return.
+        description: Maximum number of items to return. At most one occurrence of this decoded scalar query name; duplicates
+          return HTTP 400 / INVALID_REQUEST. Decoded value must consist only of ASCII decimal digits, numeric value 1–100;
+          leading zeros allowed, omission defaults to 20. No exponent, decimal point, sign or whitespace.
+      x-query-serialization:
+        scalarOccurrences: AT_MOST_ONE_AFTER_PARAMETER_NAME_DECODING
+        invalidSyntaxError: INVALID_REQUEST
+        invalidSyntaxStatus: 400
+        limit:
+          decodedPattern: ^[0-9]+$
+          minimum: 1
+          maximum: 100
+          omittedDefault: 20
+          leadingZeros: ALLOWED_NORMALIZED_TO_INTEGER
+          rejectedForms:
+          - exponent
+          - decimal point
+          - sign
+          - whitespace
+          - empty
+          - non-ASCII digits
+        scope: Declared scalar query parameters only. Values are decoded once; reject duplicate decoded names before selection/coercion.
+          Existing enum/boolean/string constraints remain. Invalid opaque cursor content keeps INVALID_CURSOR; duplicate cursor
+          is INVALID_REQUEST.
+      x-historical-student-projection: x-historical-students
   /courses/{courseId}/members/{enrollmentId}/removal:
     post:
       tags:
       - Enrollment
       summary: Remove a student from a teacher-owned course
       description: Transitions ACTIVE to REMOVED, preserves all history, updates the current student status to PENDING, and
-        notifies the student.
+        notifies the student. Historical student identities follow x-historical-students; current student endpoints remain
+        current-only. After authorization, replay the original committed business result without re-executing the command
+        or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted
+        student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted
+        under x-historical-students. This exception overrides exact response-byte replay for those identity fields only; it
+        never restores credentials or deleted personal data.
       operationId: removeCourseMember
       security:
       - bearerAuth: []
@@ -2396,6 +2534,11 @@ paths:
         replay: Same authenticated actor or anonymous command subject, operationId, canonical resource identity, key, and
           normalized command returns the original committed result.
         reuseConflict: Same scoped key with a different normalized command returns IDEMPOTENCY_KEY_REUSED.
+        historicalIdentityException: After authorization, replay the original committed business result without re-executing
+          the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that
+          a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display
+          names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity
+          fields only; it never restores credentials or deleted personal data.
       x-error-codes:
       - ENROLLMENT_NOT_ACTIVE
       - VERSION_CONFLICT
@@ -2461,13 +2604,19 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/EnrollmentTransitionRequest'
+      x-historical-student-projection: x-historical-students
   /courses/{courseId}/members/{enrollmentId}/restoration:
     post:
       tags:
       - Enrollment
       summary: Restore a removed course member
       description: Restores the existing enrollment only when the student has no other active current-semester course. Historical
-        facts are not rewritten.
+        facts are not rewritten. Historical student identities follow x-historical-students; current student endpoints remain
+        current-only. After authorization, replay the original committed business result without re-executing the command
+        or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted
+        student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted
+        under x-historical-students. This exception overrides exact response-byte replay for those identity fields only; it
+        never restores credentials or deleted personal data.
       operationId: restoreCourseMember
       security:
       - bearerAuth: []
@@ -2482,6 +2631,11 @@ paths:
         replay: Same authenticated actor or anonymous command subject, operationId, canonical resource identity, key, and
           normalized command returns the original committed result.
         reuseConflict: Same scoped key with a different normalized command returns IDEMPOTENCY_KEY_REUSED.
+        historicalIdentityException: After authorization, replay the original committed business result without re-executing
+          the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that
+          a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display
+          names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity
+          fields only; it never restores credentials or deleted personal data.
       x-error-codes:
       - COURSE_ALREADY_JOINED
       - VERSION_CONFLICT
@@ -2547,6 +2701,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/EnrollmentTransitionRequest'
+      x-historical-student-projection: x-historical-students
   /courses/{courseId}/roster-import-allocations:
     post:
       tags:
@@ -2864,7 +3019,12 @@ paths:
       tags:
       - Rosters
       summary: List reconciliation findings for a snapshot
-      description: Lists all five finding types without automatically merging ambiguous identities.
+      description: Lists all five finding types without automatically merging ambiguous identities. Historical student identities
+        follow x-historical-students; current student endpoints remain current-only. After authorization, replay the original
+        committed business result without re-executing the command or recomputing facts, versions, checkpoints or minutes.
+        The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile
+        copies/email/linked roster display names are redacted under x-historical-students. This exception overrides exact
+        response-byte replay for those identity fields only; it never restores credentials or deleted personal data.
       operationId: listRosterFindings
       security:
       - bearerAuth: []
@@ -2876,6 +3036,11 @@ paths:
       x-idempotency:
         required: false
         reason: Read-only operation.
+        historicalIdentityException: After authorization, replay the original committed business result without re-executing
+          the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that
+          a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display
+          names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity
+          fields only; it never restores credentials or deleted personal data.
       x-error-codes:
       - RESOURCE_NOT_FOUND
       - INVALID_CURSOR
@@ -2960,13 +3125,19 @@ paths:
           maximum: 100
           default: 20
         description: Maximum number of items to return.
+      x-historical-student-projection: x-historical-students
   /courses/{courseId}/roster-findings/{findingId}/resolution:
     post:
       tags:
       - Rosters
       summary: Record a roster finding resolution
       description: Appends the one-time resolution facts. This operation does not implicitly join, remove, restore, or merge
-        a student identity.
+        a student identity. Historical student identities follow x-historical-students; current student endpoints remain current-only.
+        After authorization, replay the original committed business result without re-executing the command or recomputing
+        facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted student is
+        projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted under x-historical-students.
+        This exception overrides exact response-byte replay for those identity fields only; it never restores credentials
+        or deleted personal data.
       operationId: resolveRosterFinding
       security:
       - bearerAuth: []
@@ -2981,6 +3152,11 @@ paths:
         replay: Same authenticated actor or anonymous command subject, operationId, canonical resource identity, key, and
           normalized command returns the original committed result.
         reuseConflict: Same scoped key with a different normalized command returns IDEMPOTENCY_KEY_REUSED.
+        historicalIdentityException: After authorization, replay the original committed business result without re-executing
+          the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that
+          a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display
+          names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity
+          fields only; it never restores credentials or deleted personal data.
       x-error-codes:
       - ROSTER_FINDING_ALREADY_RESOLVED
       - VERSION_CONFLICT
@@ -3046,6 +3222,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/RosterFindingResolutionRequest'
+      x-historical-student-projection: x-historical-students
   /courses/{courseId}/roster-snapshots/{snapshotId}/current-selection:
     post:
       tags:
@@ -4295,7 +4472,12 @@ paths:
       summary: List scoped records and review stages
       description: Newest-first stable keyset order (submittedAt, recordId); cursor binds filters and actor scope. Intermediate
         states are not INVALID. No scores, grades, ranks, hidden remarks or internal AI data. Failed pages are errors, never
-        empty success.
+        empty success. Historical student identities follow x-historical-students; current student endpoints remain current-only.
+        After authorization, replay the original committed business result without re-executing the command or recomputing
+        facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted student is
+        projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted under x-historical-students.
+        This exception overrides exact response-byte replay for those identity fields only; it never restores credentials
+        or deleted personal data.
       operationId: listOwnExerciseRecords
       security:
       - bearerAuth: []
@@ -4307,6 +4489,11 @@ paths:
       x-idempotency:
         required: false
         reason: Read-only operation.
+        historicalIdentityException: After authorization, replay the original committed business result without re-executing
+          the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that
+          a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display
+          names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity
+          fields only; it never restores credentials or deleted personal data.
       x-error-codes:
       - INVALID_CURSOR
       - AUTHENTICATION_REQUIRED
@@ -4372,6 +4559,7 @@ paths:
           maximum: 100
           default: 20
         description: Maximum number of items to return.
+      x-historical-student-projection: x-historical-students
   /student/exercise-records/{recordId}:
     get:
       tags:
@@ -4379,7 +4567,12 @@ paths:
       summary: Read original record and current processing
       description: Includes original facts, current material and public review/timing projection. Preserve authorized historical
         access after closure/removal. All identifiers must match the original scoped resource; course closure does not grant
-        another teacher authority.
+        another teacher authority. Historical student identities follow x-historical-students; current student endpoints remain
+        current-only. After authorization, replay the original committed business result without re-executing the command
+        or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted
+        student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted
+        under x-historical-students. This exception overrides exact response-byte replay for those identity fields only; it
+        never restores credentials or deleted personal data.
       operationId: getOwnExerciseRecord
       security:
       - bearerAuth: []
@@ -4391,6 +4584,11 @@ paths:
       x-idempotency:
         required: false
         reason: Read-only operation.
+        historicalIdentityException: After authorization, replay the original committed business result without re-executing
+          the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that
+          a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display
+          names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity
+          fields only; it never restores credentials or deleted personal data.
       x-error-codes:
       - RESOURCE_NOT_FOUND
       - AUTHENTICATION_REQUIRED
@@ -4430,6 +4628,7 @@ paths:
           type: string
           description: Opaque public identifier; clients must not infer meaning from it.
           format: uuid
+      x-historical-student-projection: x-historical-students
   /courses/{courseId}/exercise-records:
     get:
       tags:
@@ -4437,7 +4636,12 @@ paths:
       summary: List scoped records and review stages
       description: Newest-first stable keyset order (submittedAt, recordId); cursor binds filters and actor scope. Intermediate
         states are not INVALID. No scores, grades, ranks, hidden remarks or internal AI data. Failed pages are errors, never
-        empty success.
+        empty success. Historical student identities follow x-historical-students; current student endpoints remain current-only.
+        After authorization, replay the original committed business result without re-executing the command or recomputing
+        facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted student is
+        projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted under x-historical-students.
+        This exception overrides exact response-byte replay for those identity fields only; it never restores credentials
+        or deleted personal data.
       operationId: listCourseExerciseRecords
       security:
       - bearerAuth: []
@@ -4449,6 +4653,11 @@ paths:
       x-idempotency:
         required: false
         reason: Read-only operation.
+        historicalIdentityException: After authorization, replay the original committed business result without re-executing
+          the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that
+          a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display
+          names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity
+          fields only; it never restores credentials or deleted personal data.
       x-error-codes:
       - RESOURCE_NOT_FOUND
       - INVALID_CURSOR
@@ -4526,6 +4735,7 @@ paths:
           maximum: 100
           default: 20
         description: Maximum number of items to return.
+      x-historical-student-projection: x-historical-students
   /courses/{courseId}/exercise-records/{recordId}:
     get:
       tags:
@@ -4533,7 +4743,12 @@ paths:
       summary: Read original record and current processing
       description: Includes original facts, current material and public review/timing projection. Preserve authorized historical
         access after closure/removal. All identifiers must match the original scoped resource; course closure does not grant
-        another teacher authority.
+        another teacher authority. Historical student identities follow x-historical-students; current student endpoints remain
+        current-only. After authorization, replay the original committed business result without re-executing the command
+        or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted
+        student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted
+        under x-historical-students. This exception overrides exact response-byte replay for those identity fields only; it
+        never restores credentials or deleted personal data.
       operationId: getCourseExerciseRecord
       security:
       - bearerAuth: []
@@ -4545,6 +4760,11 @@ paths:
       x-idempotency:
         required: false
         reason: Read-only operation.
+        historicalIdentityException: After authorization, replay the original committed business result without re-executing
+          the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that
+          a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display
+          names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity
+          fields only; it never restores credentials or deleted personal data.
       x-error-codes:
       - RESOURCE_NOT_FOUND
       - FIRST_PASSWORD_CHANGE_REQUIRED
@@ -4593,6 +4813,7 @@ paths:
           type: string
           description: Opaque public identifier; clients must not infer meaning from it.
           format: uuid
+      x-historical-student-projection: x-historical-students
   /courses/{courseId}/review-queue:
     get:
       tags:
@@ -4600,7 +4821,12 @@ paths:
       summary: Read deduplicated teacher review todo
       description: Only current actionable round1/2 items; stable keyset by queue entry time and queueItemId, one item per
         Case/round. AI, technical and student-supplement waits are excluded. Opening/refreshing does not reset SLA. Scope/revision
-        changes invalidate cursor, not silently omit records.
+        changes invalidate cursor, not silently omit records. Historical student identities follow x-historical-students;
+        current student endpoints remain current-only. After authorization, replay the original committed business result
+        without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display
+        exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked
+        roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay
+        for those identity fields only; it never restores credentials or deleted personal data.
       operationId: listTeacherReviewQueue
       security:
       - bearerAuth: []
@@ -4612,6 +4838,11 @@ paths:
       x-idempotency:
         required: false
         reason: Read-only operation.
+        historicalIdentityException: After authorization, replay the original committed business result without re-executing
+          the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that
+          a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display
+          names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity
+          fields only; it never restores credentials or deleted personal data.
       x-error-codes:
       - RESOURCE_NOT_FOUND
       - INVALID_CURSOR
@@ -4672,6 +4903,7 @@ paths:
           maximum: 100
           default: 20
         description: Maximum number of items to return.
+      x-historical-student-projection: x-historical-students
   /courses/{courseId}/exercise-records/{recordId}/reviews:
     post:
       tags:
@@ -5070,7 +5302,12 @@ paths:
       summary: Get the student's current course progress
       description: Read authoritative joint-selection checkpoints and explicit current/recomputing/unavailable state. Server
         computes capped per-member categories then aggregates within one complete source/membership snapshot. No target/quota
-        session gate, no old0/60/120 credit mapping or pending-as-invalid fallback.
+        session gate, no old0/60/120 credit mapping or pending-as-invalid fallback. Historical student identities follow x-historical-students;
+        current student endpoints remain current-only. After authorization, replay the original committed business result
+        without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display
+        exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked
+        roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay
+        for those identity fields only; it never restores credentials or deleted personal data.
       operationId: getOwnCourseProgress
       security:
       - bearerAuth: []
@@ -5082,6 +5319,11 @@ paths:
       x-idempotency:
         required: false
         reason: Read-only operation.
+        historicalIdentityException: After authorization, replay the original committed business result without re-executing
+          the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that
+          a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display
+          names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity
+          fields only; it never restores credentials or deleted personal data.
       x-error-codes:
       - STATISTICS_UNAVAILABLE
       - AUTHENTICATION_REQUIRED
@@ -5110,6 +5352,7 @@ paths:
           $ref: '#/components/responses/InternalError'
         '503':
           $ref: '#/components/responses/ServiceUnavailable'
+      x-historical-student-projection: x-historical-students
   /courses/{courseId}/members/{enrollmentId}/progress:
     get:
       tags:
@@ -5117,7 +5360,12 @@ paths:
       summary: Get one course member's progress
       description: Read authoritative joint-selection checkpoints and explicit current/recomputing/unavailable state. Server
         computes capped per-member categories then aggregates within one complete source/membership snapshot. No target/quota
-        session gate, no old0/60/120 credit mapping or pending-as-invalid fallback.
+        session gate, no old0/60/120 credit mapping or pending-as-invalid fallback. Historical student identities follow x-historical-students;
+        current student endpoints remain current-only. After authorization, replay the original committed business result
+        without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display
+        exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked
+        roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay
+        for those identity fields only; it never restores credentials or deleted personal data.
       operationId: getCourseMemberProgress
       security:
       - bearerAuth: []
@@ -5129,6 +5377,11 @@ paths:
       x-idempotency:
         required: false
         reason: Read-only operation.
+        historicalIdentityException: After authorization, replay the original committed business result without re-executing
+          the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that
+          a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display
+          names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity
+          fields only; it never restores credentials or deleted personal data.
       x-error-codes:
       - STATISTICS_UNAVAILABLE
       - RESOURCE_NOT_FOUND
@@ -5178,6 +5431,7 @@ paths:
           type: string
           description: Opaque public identifier; clients must not infer meaning from it.
           format: uuid
+      x-historical-student-projection: x-historical-students
   /courses/{courseId}/progress:
     get:
       tags:
@@ -5185,7 +5439,12 @@ paths:
       summary: List student-level progress for a course
       description: Read authoritative joint-selection checkpoints and explicit current/recomputing/unavailable state. Server
         computes capped per-member categories then aggregates within one complete source/membership snapshot. No target/quota
-        session gate, no old0/60/120 credit mapping or pending-as-invalid fallback.
+        session gate, no old0/60/120 credit mapping or pending-as-invalid fallback. Historical student identities follow x-historical-students;
+        current student endpoints remain current-only. After authorization, replay the original committed business result
+        without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display
+        exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked
+        roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay
+        for those identity fields only; it never restores credentials or deleted personal data.
       operationId: listCourseProgress
       security:
       - bearerAuth: []
@@ -5197,6 +5456,11 @@ paths:
       x-idempotency:
         required: false
         reason: Read-only operation.
+        historicalIdentityException: After authorization, replay the original committed business result without re-executing
+          the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that
+          a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display
+          names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity
+          fields only; it never restores credentials or deleted personal data.
       x-error-codes:
       - STATISTICS_UNAVAILABLE
       - RESOURCE_NOT_FOUND
@@ -5258,13 +5522,19 @@ paths:
           maximum: 100
           default: 20
         description: Maximum number of items to return.
+      x-historical-student-projection: x-historical-students
   /student/applications:
     post:
       tags:
       - Applications
       summary: Submit an exemption or certification application
       description: Creates the formal SUBMITTED application only after binding one to three VERIFIED JPEG/PNG/WebP evidence
-        images. Local preparation is not a formal draft.
+        images. Local preparation is not a formal draft. Historical student identities follow x-historical-students; current
+        student endpoints remain current-only. After authorization, replay the original committed business result without
+        re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception
+        is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster
+        display names are redacted under x-historical-students. This exception overrides exact response-byte replay for those
+        identity fields only; it never restores credentials or deleted personal data.
       operationId: createStudentApplication
       security:
       - bearerAuth: []
@@ -5279,6 +5549,11 @@ paths:
         replay: Same authenticated actor or anonymous command subject, operationId, canonical resource identity, key, and
           normalized command returns the original committed result.
         reuseConflict: Same scoped key with a different normalized command returns IDEMPOTENCY_KEY_REUSED.
+        historicalIdentityException: After authorization, replay the original committed business result without re-executing
+          the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that
+          a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display
+          names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity
+          fields only; it never restores credentials or deleted personal data.
       x-error-codes:
       - ENROLLMENT_NOT_ACTIVE
       - MEDIA_NOT_VERIFIED
@@ -5330,11 +5605,18 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateStudentApplicationRequest'
+      x-historical-student-projection: x-historical-students
     get:
       tags:
       - Applications
       summary: List the student's applications
-      description: Lists exemption and certification applications with append-only evidence and decision history.
+      description: Lists exemption and certification applications with append-only evidence and decision history. Historical
+        student identities follow x-historical-students; current student endpoints remain current-only. After authorization,
+        replay the original committed business result without re-executing the command or recomputing facts, versions, checkpoints
+        or minutes. The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT
+        and current-profile copies/email/linked roster display names are redacted under x-historical-students. This exception
+        overrides exact response-byte replay for those identity fields only; it never restores credentials or deleted personal
+        data.
       operationId: listOwnApplications
       security:
       - bearerAuth: []
@@ -5346,6 +5628,11 @@ paths:
       x-idempotency:
         required: false
         reason: Read-only operation.
+        historicalIdentityException: After authorization, replay the original committed business result without re-executing
+          the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that
+          a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display
+          names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity
+          fields only; it never restores credentials or deleted personal data.
       x-error-codes:
       - INVALID_CURSOR
       - AUTHENTICATION_REQUIRED
@@ -5412,13 +5699,19 @@ paths:
           maximum: 100
           default: 20
         description: Maximum number of items to return.
+      x-historical-student-projection: x-historical-students
   /student/applications/{applicationId}/supplements:
     post:
       tags:
       - Applications
       summary: Add requested application evidence
       description: Adds a SUPPLEMENT submission only while SUPPLEMENT_REQUIRED and returns the application to SUBMITTED. Initial
-        plus all supplement evidence remains capped at three images.
+        plus all supplement evidence remains capped at three images. Historical student identities follow x-historical-students;
+        current student endpoints remain current-only. After authorization, replay the original committed business result
+        without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display
+        exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked
+        roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay
+        for those identity fields only; it never restores credentials or deleted personal data.
       operationId: supplementStudentApplication
       security:
       - bearerAuth: []
@@ -5433,6 +5726,11 @@ paths:
         replay: Same authenticated actor or anonymous command subject, operationId, canonical resource identity, key, and
           normalized command returns the original committed result.
         reuseConflict: Same scoped key with a different normalized command returns IDEMPOTENCY_KEY_REUSED.
+        historicalIdentityException: After authorization, replay the original committed business result without re-executing
+          the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that
+          a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display
+          names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity
+          fields only; it never restores credentials or deleted personal data.
       x-error-codes:
       - APPLICATION_SUPPLEMENT_NOT_ALLOWED
       - APPLICATION_EVIDENCE_LIMIT_EXCEEDED
@@ -5495,12 +5793,18 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/SupplementApplicationRequest'
+      x-historical-student-projection: x-historical-students
   /student/applications/{applicationId}:
     get:
       tags:
       - Applications
       summary: Get the student's application
-      description: Returns one application owned by the authenticated student.
+      description: Returns one application owned by the authenticated student. Historical student identities follow x-historical-students;
+        current student endpoints remain current-only. After authorization, replay the original committed business result
+        without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display
+        exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked
+        roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay
+        for those identity fields only; it never restores credentials or deleted personal data.
       operationId: getOwnApplication
       security:
       - bearerAuth: []
@@ -5512,6 +5816,11 @@ paths:
       x-idempotency:
         required: false
         reason: Read-only operation.
+        historicalIdentityException: After authorization, replay the original committed business result without re-executing
+          the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that
+          a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display
+          names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity
+          fields only; it never restores credentials or deleted personal data.
       x-error-codes:
       - RESOURCE_NOT_FOUND
       - AUTHENTICATION_REQUIRED
@@ -5551,12 +5860,18 @@ paths:
           type: string
           description: Opaque public identifier; clients must not infer meaning from it.
           format: uuid
+      x-historical-student-projection: x-historical-students
   /courses/{courseId}/applications:
     get:
       tags:
       - Applications
       summary: List applications for a teacher-owned course
-      description: Lists only applications for the responsible teacher's course.
+      description: Lists only applications for the responsible teacher's course. Historical student identities follow x-historical-students;
+        current student endpoints remain current-only. After authorization, replay the original committed business result
+        without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display
+        exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked
+        roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay
+        for those identity fields only; it never restores credentials or deleted personal data.
       operationId: listCourseApplications
       security:
       - bearerAuth: []
@@ -5568,6 +5883,11 @@ paths:
       x-idempotency:
         required: false
         reason: Read-only operation.
+        historicalIdentityException: After authorization, replay the original committed business result without re-executing
+          the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that
+          a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display
+          names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity
+          fields only; it never restores credentials or deleted personal data.
       x-error-codes:
       - RESOURCE_NOT_FOUND
       - INVALID_CURSOR
@@ -5646,12 +5966,18 @@ paths:
           maximum: 100
           default: 20
         description: Maximum number of items to return.
+      x-historical-student-projection: x-historical-students
   /courses/{courseId}/applications/{applicationId}:
     get:
       tags:
       - Applications
       summary: Get an application for teacher review
-      description: Returns an application only when it belongs to the responsible teacher's course.
+      description: Returns an application only when it belongs to the responsible teacher's course. Historical student identities
+        follow x-historical-students; current student endpoints remain current-only. After authorization, replay the original
+        committed business result without re-executing the command or recomputing facts, versions, checkpoints or minutes.
+        The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile
+        copies/email/linked roster display names are redacted under x-historical-students. This exception overrides exact
+        response-byte replay for those identity fields only; it never restores credentials or deleted personal data.
       operationId: getCourseApplication
       security:
       - bearerAuth: []
@@ -5663,6 +5989,11 @@ paths:
       x-idempotency:
         required: false
         reason: Read-only operation.
+        historicalIdentityException: After authorization, replay the original committed business result without re-executing
+          the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that
+          a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display
+          names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity
+          fields only; it never restores credentials or deleted personal data.
       x-error-codes:
       - RESOURCE_NOT_FOUND
       - FIRST_PASSWORD_CHANGE_REQUIRED
@@ -5711,13 +6042,19 @@ paths:
           type: string
           description: Opaque public identifier; clients must not infer meaning from it.
           format: uuid
+      x-historical-student-projection: x-historical-students
   /courses/{courseId}/applications/{applicationId}/decisions:
     post:
       tags:
       - Applications
       summary: Append an application decision
       description: The responsible teacher requests supplement, rejects, or approves. Exemption approval atomically sets EXEMPT;
-        certification approval atomically creates the first active credit revision.
+        certification approval atomically creates the first active credit revision. Historical student identities follow x-historical-students;
+        current student endpoints remain current-only. After authorization, replay the original committed business result
+        without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display
+        exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked
+        roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay
+        for those identity fields only; it never restores credentials or deleted personal data.
       operationId: decideStudentApplication
       security:
       - bearerAuth: []
@@ -5732,6 +6069,11 @@ paths:
         replay: Same authenticated actor or anonymous command subject, operationId, canonical resource identity, key, and
           normalized command returns the original committed result.
         reuseConflict: Same scoped key with a different normalized command returns IDEMPOTENCY_KEY_REUSED.
+        historicalIdentityException: After authorization, replay the original committed business result without re-executing
+          the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that
+          a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display
+          names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity
+          fields only; it never restores credentials or deleted personal data.
       x-error-codes:
       - APPLICATION_TRANSITION_INVALID
       - CERTIFICATION_CREDIT_INVALID
@@ -5800,6 +6142,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ApplicationDecisionRequest'
+      x-historical-student-projection: x-historical-students
   /courses/{courseId}/applications/{applicationId}/certification-credit-adjustments:
     post:
       tags:
@@ -6702,7 +7045,12 @@ paths:
       - Feedback
       summary: Submit student feedback
       description: Creates a WAITING feedback ticket linked to the authenticated student. It has no attachment, platform,
-        version, priority, assignee, or internal note.
+        version, priority, assignee, or internal note. Historical student identities follow x-historical-students; current
+        student endpoints remain current-only. After authorization, replay the original committed business result without
+        re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception
+        is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster
+        display names are redacted under x-historical-students. This exception overrides exact response-byte replay for those
+        identity fields only; it never restores credentials or deleted personal data.
       operationId: createFeedback
       security:
       - bearerAuth: []
@@ -6717,6 +7065,11 @@ paths:
         replay: Same authenticated actor or anonymous command subject, operationId, canonical resource identity, key, and
           normalized command returns the original committed result.
         reuseConflict: Same scoped key with a different normalized command returns IDEMPOTENCY_KEY_REUSED.
+        historicalIdentityException: After authorization, replay the original committed business result without re-executing
+          the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that
+          a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display
+          names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity
+          fields only; it never restores credentials or deleted personal data.
       x-error-codes:
       - INVALID_REQUEST
       - AUTHENTICATION_REQUIRED
@@ -6758,11 +7111,17 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateFeedbackRequest'
+      x-historical-student-projection: x-historical-students
     get:
       tags:
       - Feedback
       summary: List the student's feedback tickets
-      description: Lists only tickets owned by the authenticated student.
+      description: Lists only tickets owned by the authenticated student. Historical student identities follow x-historical-students;
+        current student endpoints remain current-only. After authorization, replay the original committed business result
+        without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display
+        exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked
+        roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay
+        for those identity fields only; it never restores credentials or deleted personal data.
       operationId: listOwnFeedback
       security:
       - bearerAuth: []
@@ -6774,6 +7133,11 @@ paths:
       x-idempotency:
         required: false
         reason: Read-only operation.
+        historicalIdentityException: After authorization, replay the original committed business result without re-executing
+          the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that
+          a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display
+          names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity
+          fields only; it never restores credentials or deleted personal data.
       x-error-codes:
       - INVALID_CURSOR
       - AUTHENTICATION_REQUIRED
@@ -6822,12 +7186,18 @@ paths:
           maximum: 6
           default: 6
         description: Maximum number of items to return.
+      x-historical-student-projection: x-historical-students
   /student/feedback/{feedbackId}:
     get:
       tags:
       - Feedback
       summary: Get the student's feedback ticket
-      description: Returns current status and append-only public replies for one owned ticket.
+      description: Returns current status and append-only public replies for one owned ticket. Historical student identities
+        follow x-historical-students; current student endpoints remain current-only. After authorization, replay the original
+        committed business result without re-executing the command or recomputing facts, versions, checkpoints or minutes.
+        The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile
+        copies/email/linked roster display names are redacted under x-historical-students. This exception overrides exact
+        response-byte replay for those identity fields only; it never restores credentials or deleted personal data.
       operationId: getOwnFeedback
       security:
       - bearerAuth: []
@@ -6839,6 +7209,11 @@ paths:
       x-idempotency:
         required: false
         reason: Read-only operation.
+        historicalIdentityException: After authorization, replay the original committed business result without re-executing
+          the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that
+          a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display
+          names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity
+          fields only; it never restores credentials or deleted personal data.
       x-error-codes:
       - RESOURCE_NOT_FOUND
       - AUTHENTICATION_REQUIRED
@@ -6878,6 +7253,7 @@ paths:
           type: string
           description: Opaque public identifier; clients must not infer meaning from it.
           format: uuid
+      x-historical-student-projection: x-historical-students
   /admin/feedback:
     get:
       tags:
@@ -6885,7 +7261,12 @@ paths:
       summary: List feedback for administration
       description: Searches and filters the administrator queue before keyset pagination; every page is limited to six items.
         The organization-wide permitted summary is computed from the same committed read snapshot and does not narrow with
-        search, filters, or pagination.
+        search, filters, or pagination. Historical student identities follow x-historical-students; current student endpoints
+        remain current-only. After authorization, replay the original committed business result without re-executing the command
+        or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted
+        student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted
+        under x-historical-students. This exception overrides exact response-byte replay for those identity fields only; it
+        never restores credentials or deleted personal data.
       operationId: listFeedbackForAdmin
       security:
       - bearerAuth: []
@@ -6898,6 +7279,11 @@ paths:
       x-idempotency:
         required: false
         reason: Read-only operation.
+        historicalIdentityException: After authorization, replay the original committed business result without re-executing
+          the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that
+          a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display
+          names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity
+          fields only; it never restores credentials or deleted personal data.
       x-error-codes:
       - INVALID_CURSOR
       - FIRST_PASSWORD_CHANGE_REQUIRED
@@ -6976,12 +7362,19 @@ paths:
           maximum: 6
           default: 6
         description: Maximum number of items to return.
+      x-historical-student-projection: x-historical-students
   /admin/feedback/{feedbackId}:
     get:
       tags:
       - Feedback
       summary: Get a feedback ticket for administration
       description: Returns the student-visible ticket and reply history; no hidden teacher assignment or internal note exists.
+        Historical student identities follow x-historical-students; current student endpoints remain current-only. After authorization,
+        replay the original committed business result without re-executing the command or recomputing facts, versions, checkpoints
+        or minutes. The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT
+        and current-profile copies/email/linked roster display names are redacted under x-historical-students. This exception
+        overrides exact response-byte replay for those identity fields only; it never restores credentials or deleted personal
+        data.
       operationId: getFeedbackForAdmin
       security:
       - bearerAuth: []
@@ -6994,6 +7387,11 @@ paths:
       x-idempotency:
         required: false
         reason: Read-only operation.
+        historicalIdentityException: After authorization, replay the original committed business result without re-executing
+          the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that
+          a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display
+          names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity
+          fields only; it never restores credentials or deleted personal data.
       x-error-codes:
       - RESOURCE_NOT_FOUND
       - FIRST_PASSWORD_CHANGE_REQUIRED
@@ -7034,6 +7432,7 @@ paths:
           type: string
           description: Opaque public identifier; clients must not infer meaning from it.
           format: uuid
+      x-historical-student-projection: x-historical-students
   /admin/feedback/{feedbackId}/processing:
     post:
       tags:
@@ -7041,7 +7440,12 @@ paths:
       summary: Update feedback status with a public reply
       description: Atomically updates the non-WAITING status and appends a non-empty student-visible reply. Existing replies
         cannot be edited or deleted; completed/closed tickets may be reopened only to IN_PROGRESS or WAITING_TECH with a new
-        reply.
+        reply. Historical student identities follow x-historical-students; current student endpoints remain current-only.
+        After authorization, replay the original committed business result without re-executing the command or recomputing
+        facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted student is
+        projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted under x-historical-students.
+        This exception overrides exact response-byte replay for those identity fields only; it never restores credentials
+        or deleted personal data.
       operationId: processFeedback
       security:
       - bearerAuth: []
@@ -7057,6 +7461,11 @@ paths:
         replay: Same authenticated actor or anonymous command subject, operationId, canonical resource identity, key, and
           normalized command returns the original committed result.
         reuseConflict: Same scoped key with a different normalized command returns IDEMPOTENCY_KEY_REUSED.
+        historicalIdentityException: After authorization, replay the original committed business result without re-executing
+          the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that
+          a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display
+          names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity
+          fields only; it never restores credentials or deleted personal data.
       x-error-codes:
       - FEEDBACK_TRANSITION_INVALID
       - VERSION_CONFLICT
@@ -7114,6 +7523,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ProcessFeedbackRequest'
+      x-historical-student-projection: x-historical-students
   /help-articles:
     get:
       tags:
@@ -7703,6 +8113,7 @@ paths:
       - RATE_LIMITED
       - DEPENDENCY_UNAVAILABLE
       - INTERNAL_ERROR
+      - INVALID_REQUEST
       responses:
         '200':
           description: Successful response.
@@ -7732,7 +8143,8 @@ paths:
         schema:
           type: string
           minLength: 1
-        description: Opaque keyset cursor returned by this exact operation and filter set.
+        description: Opaque keyset cursor returned by this exact operation and filter set. At most one occurrence of this
+          decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST.
       - name: limit
         in: query
         required: false
@@ -7742,7 +8154,29 @@ paths:
           minimum: 1
           maximum: 100
           default: 20
-        description: Maximum number of items to return.
+        description: Maximum number of items to return. At most one occurrence of this decoded scalar query name; duplicates
+          return HTTP 400 / INVALID_REQUEST. Decoded value must consist only of ASCII decimal digits, numeric value 1–100;
+          leading zeros allowed, omission defaults to 20. No exponent, decimal point, sign or whitespace.
+      x-query-serialization:
+        scalarOccurrences: AT_MOST_ONE_AFTER_PARAMETER_NAME_DECODING
+        invalidSyntaxError: INVALID_REQUEST
+        invalidSyntaxStatus: 400
+        limit:
+          decodedPattern: ^[0-9]+$
+          minimum: 1
+          maximum: 100
+          omittedDefault: 20
+          leadingZeros: ALLOWED_NORMALIZED_TO_INTEGER
+          rejectedForms:
+          - exponent
+          - decimal point
+          - sign
+          - whitespace
+          - empty
+          - non-ASCII digits
+        scope: Declared scalar query parameters only. Values are decoded once; reject duplicate decoded names before selection/coercion.
+          Existing enum/boolean/string constraints remain. Invalid opaque cursor content keeps INVALID_CURSOR; duplicate cursor
+          is INVALID_REQUEST.
     post:
       tags:
       - System
@@ -7840,6 +8274,7 @@ paths:
       - RATE_LIMITED
       - DEPENDENCY_UNAVAILABLE
       - INTERNAL_ERROR
+      - INVALID_REQUEST
       responses:
         '200':
           description: Successful response.
@@ -7868,13 +8303,15 @@ paths:
         required: false
         schema:
           type: boolean
+        description: ' At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST.'
       - name: cursor
         in: query
         required: false
         schema:
           type: string
           minLength: 1
-        description: Opaque keyset cursor returned by this exact operation and filter set.
+        description: Opaque keyset cursor returned by this exact operation and filter set. At most one occurrence of this
+          decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST.
       - name: limit
         in: query
         required: false
@@ -7884,7 +8321,29 @@ paths:
           minimum: 1
           maximum: 100
           default: 20
-        description: Maximum number of items to return.
+        description: Maximum number of items to return. At most one occurrence of this decoded scalar query name; duplicates
+          return HTTP 400 / INVALID_REQUEST. Decoded value must consist only of ASCII decimal digits, numeric value 1–100;
+          leading zeros allowed, omission defaults to 20. No exponent, decimal point, sign or whitespace.
+      x-query-serialization:
+        scalarOccurrences: AT_MOST_ONE_AFTER_PARAMETER_NAME_DECODING
+        invalidSyntaxError: INVALID_REQUEST
+        invalidSyntaxStatus: 400
+        limit:
+          decodedPattern: ^[0-9]+$
+          minimum: 1
+          maximum: 100
+          omittedDefault: 20
+          leadingZeros: ALLOWED_NORMALIZED_TO_INTEGER
+          rejectedForms:
+          - exponent
+          - decimal point
+          - sign
+          - whitespace
+          - empty
+          - non-ASCII digits
+        scope: Declared scalar query parameters only. Values are decoded once; reject duplicate decoded names before selection/coercion.
+          Existing enum/boolean/string constraints remain. Invalid opaque cursor content keeps INVALID_CURSOR; duplicate cursor
+          is INVALID_REQUEST.
   /notifications/unread-count:
     get:
       tags:
@@ -8390,6 +8849,7 @@ paths:
       - RATE_LIMITED
       - DEPENDENCY_UNAVAILABLE
       - INTERNAL_ERROR
+      - INVALID_REQUEST
       responses:
         '200':
           description: Successful response.
@@ -8419,6 +8879,7 @@ paths:
         schema:
           type: string
           minLength: 1
+        description: ' At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST.'
       - name: state
         in: query
         required: false
@@ -8428,19 +8889,22 @@ paths:
           - ACTIVE
           - DISABLED
           - RECOVERY_REQUIRED
+        description: ' At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST.'
       - name: collegeOrDepartment
         in: query
         required: false
         schema:
           type: string
           minLength: 1
+        description: ' At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST.'
       - name: cursor
         in: query
         required: false
         schema:
           type: string
           minLength: 1
-        description: Opaque keyset cursor returned by this exact operation and filter set.
+        description: Opaque keyset cursor returned by this exact operation and filter set. At most one occurrence of this
+          decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST.
       - name: limit
         in: query
         required: false
@@ -8450,7 +8914,29 @@ paths:
           minimum: 1
           maximum: 100
           default: 20
-        description: Maximum number of items to return.
+        description: Maximum number of items to return. At most one occurrence of this decoded scalar query name; duplicates
+          return HTTP 400 / INVALID_REQUEST. Decoded value must consist only of ASCII decimal digits, numeric value 1–100;
+          leading zeros allowed, omission defaults to 20. No exponent, decimal point, sign or whitespace.
+      x-query-serialization:
+        scalarOccurrences: AT_MOST_ONE_AFTER_PARAMETER_NAME_DECODING
+        invalidSyntaxError: INVALID_REQUEST
+        invalidSyntaxStatus: 400
+        limit:
+          decodedPattern: ^[0-9]+$
+          minimum: 1
+          maximum: 100
+          omittedDefault: 20
+          leadingZeros: ALLOWED_NORMALIZED_TO_INTEGER
+          rejectedForms:
+          - exponent
+          - decimal point
+          - sign
+          - whitespace
+          - empty
+          - non-ASCII digits
+        scope: Declared scalar query parameters only. Values are decoded once; reject duplicate decoded names before selection/coercion.
+          Existing enum/boolean/string constraints remain. Invalid opaque cursor content keeps INVALID_CURSOR; duplicate cursor
+          is INVALID_REQUEST.
   /admin/teacher-accounts/{teacherId}:
     get:
       tags:
@@ -8752,6 +9238,7 @@ paths:
       - RATE_LIMITED
       - DEPENDENCY_UNAVAILABLE
       - INTERNAL_ERROR
+      - INVALID_REQUEST
       responses:
         '200':
           description: Successful response.
@@ -8781,6 +9268,7 @@ paths:
         schema:
           type: string
           minLength: 1
+        description: ' At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST.'
       - name: status
         in: query
         required: false
@@ -8789,19 +9277,22 @@ paths:
           enum:
           - ACTIVE
           - PENDING
+        description: ' At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST.'
       - name: collegeOrDepartment
         in: query
         required: false
         schema:
           type: string
           minLength: 1
+        description: ' At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST.'
       - name: cursor
         in: query
         required: false
         schema:
           type: string
           minLength: 1
-        description: Opaque keyset cursor returned by this exact operation and filter set.
+        description: Opaque keyset cursor returned by this exact operation and filter set. At most one occurrence of this
+          decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST.
       - name: limit
         in: query
         required: false
@@ -8811,7 +9302,29 @@ paths:
           minimum: 1
           maximum: 100
           default: 20
-        description: Maximum number of items to return.
+        description: Maximum number of items to return. At most one occurrence of this decoded scalar query name; duplicates
+          return HTTP 400 / INVALID_REQUEST. Decoded value must consist only of ASCII decimal digits, numeric value 1–100;
+          leading zeros allowed, omission defaults to 20. No exponent, decimal point, sign or whitespace.
+      x-query-serialization:
+        scalarOccurrences: AT_MOST_ONE_AFTER_PARAMETER_NAME_DECODING
+        invalidSyntaxError: INVALID_REQUEST
+        invalidSyntaxStatus: 400
+        limit:
+          decodedPattern: ^[0-9]+$
+          minimum: 1
+          maximum: 100
+          omittedDefault: 20
+          leadingZeros: ALLOWED_NORMALIZED_TO_INTEGER
+          rejectedForms:
+          - exponent
+          - decimal point
+          - sign
+          - whitespace
+          - empty
+          - non-ASCII digits
+        scope: Declared scalar query parameters only. Values are decoded once; reject duplicate decoded names before selection/coercion.
+          Existing enum/boolean/string constraints remain. Invalid opaque cursor content keeps INVALID_CURSOR; duplicate cursor
+          is INVALID_REQUEST.
   /admin/student-accounts/{studentId}:
     get:
       tags:
@@ -8898,6 +9411,7 @@ paths:
       - RATE_LIMITED
       - DEPENDENCY_UNAVAILABLE
       - INTERNAL_ERROR
+      - INVALID_REQUEST
       responses:
         '200':
           description: Successful response.
@@ -8929,13 +9443,15 @@ paths:
           enum:
           - ACTIVE
           - DISABLED
+        description: ' At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST.'
       - name: cursor
         in: query
         required: false
         schema:
           type: string
           minLength: 1
-        description: Opaque keyset cursor returned by this exact operation and filter set.
+        description: Opaque keyset cursor returned by this exact operation and filter set. At most one occurrence of this
+          decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST.
       - name: limit
         in: query
         required: false
@@ -8945,7 +9461,29 @@ paths:
           minimum: 1
           maximum: 100
           default: 20
-        description: Maximum number of items to return.
+        description: Maximum number of items to return. At most one occurrence of this decoded scalar query name; duplicates
+          return HTTP 400 / INVALID_REQUEST. Decoded value must consist only of ASCII decimal digits, numeric value 1–100;
+          leading zeros allowed, omission defaults to 20. No exponent, decimal point, sign or whitespace.
+      x-query-serialization:
+        scalarOccurrences: AT_MOST_ONE_AFTER_PARAMETER_NAME_DECODING
+        invalidSyntaxError: INVALID_REQUEST
+        invalidSyntaxStatus: 400
+        limit:
+          decodedPattern: ^[0-9]+$
+          minimum: 1
+          maximum: 100
+          omittedDefault: 20
+          leadingZeros: ALLOWED_NORMALIZED_TO_INTEGER
+          rejectedForms:
+          - exponent
+          - decimal point
+          - sign
+          - whitespace
+          - empty
+          - non-ASCII digits
+        scope: Declared scalar query parameters only. Values are decoded once; reject duplicate decoded names before selection/coercion.
+          Existing enum/boolean/string constraints remain. Invalid opaque cursor content keeps INVALID_CURSOR; duplicate cursor
+          is INVALID_REQUEST.
     post:
       tags:
       - Admin governance
@@ -9314,7 +9852,12 @@ paths:
       - Dashboards
       summary: Get the authenticated student dashboard
       description: Composes current formal account, course, progress, endurance, grade, and notification projections. It never
-        falls back to synthetic or Mock data.
+        falls back to synthetic or Mock data. Historical student identities follow x-historical-students; current student
+        endpoints remain current-only. After authorization, replay the original committed business result without re-executing
+        the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a
+        confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names
+        are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity fields
+        only; it never restores credentials or deleted personal data.
       operationId: getStudentDashboard
       security:
       - bearerAuth: []
@@ -9326,6 +9869,11 @@ paths:
       x-idempotency:
         required: false
         reason: Read-only operation.
+        historicalIdentityException: After authorization, replay the original committed business result without re-executing
+          the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that
+          a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display
+          names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity
+          fields only; it never restores credentials or deleted personal data.
       x-error-codes:
       - AUTHENTICATION_REQUIRED
       - FORBIDDEN
@@ -9353,6 +9901,7 @@ paths:
           $ref: '#/components/responses/InternalError'
         '503':
           $ref: '#/components/responses/ServiceUnavailable'
+      x-historical-student-projection: x-historical-students
   /teacher/dashboard:
     get:
       tags:
@@ -9472,6 +10021,7 @@ paths:
       - RATE_LIMITED
       - DEPENDENCY_UNAVAILABLE
       - INTERNAL_ERROR
+      - INVALID_REQUEST
       responses:
         '200':
           description: Successful response.
@@ -9501,7 +10051,8 @@ paths:
         schema:
           type: string
           minLength: 1
-        description: Opaque keyset cursor returned by this exact operation and filter set.
+        description: Opaque keyset cursor returned by this exact operation and filter set. At most one occurrence of this
+          decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST.
       - name: limit
         in: query
         required: false
@@ -9511,8 +10062,30 @@ paths:
           minimum: 1
           maximum: 100
           default: 20
-        description: Maximum number of items to return.
+        description: Maximum number of items to return. At most one occurrence of this decoded scalar query name; duplicates
+          return HTTP 400 / INVALID_REQUEST. Decoded value must consist only of ASCII decimal digits, numeric value 1–100;
+          leading zeros allowed, omission defaults to 20. No exponent, decimal point, sign or whitespace.
       x-admin-kind-required: SUPER
+      x-query-serialization:
+        scalarOccurrences: AT_MOST_ONE_AFTER_PARAMETER_NAME_DECODING
+        invalidSyntaxError: INVALID_REQUEST
+        invalidSyntaxStatus: 400
+        limit:
+          decodedPattern: ^[0-9]+$
+          minimum: 1
+          maximum: 100
+          omittedDefault: 20
+          leadingZeros: ALLOWED_NORMALIZED_TO_INTEGER
+          rejectedForms:
+          - exponent
+          - decimal point
+          - sign
+          - whitespace
+          - empty
+          - non-ASCII digits
+        scope: Declared scalar query parameters only. Values are decoded once; reject duplicate decoded names before selection/coercion.
+          Existing enum/boolean/string constraints remain. Invalid opaque cursor content keeps INVALID_CURSOR; duplicate cursor
+          is INVALID_REQUEST.
   /admin/rule-template-versions:
     post:
       tags:
@@ -9940,6 +10513,7 @@ paths:
       - RATE_LIMITED
       - DEPENDENCY_UNAVAILABLE
       - INTERNAL_ERROR
+      - INVALID_REQUEST
       responses:
         '200':
           description: Successful response.
@@ -9979,7 +10553,8 @@ paths:
         schema:
           type: string
           minLength: 1
-        description: Opaque keyset cursor returned by this exact operation and filter set.
+        description: Opaque keyset cursor returned by this exact operation and filter set. At most one occurrence of this
+          decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST.
       - name: limit
         in: query
         required: false
@@ -9989,7 +10564,29 @@ paths:
           minimum: 1
           maximum: 100
           default: 20
-        description: Maximum number of items to return.
+        description: Maximum number of items to return. At most one occurrence of this decoded scalar query name; duplicates
+          return HTTP 400 / INVALID_REQUEST. Decoded value must consist only of ASCII decimal digits, numeric value 1–100;
+          leading zeros allowed, omission defaults to 20. No exponent, decimal point, sign or whitespace.
+      x-query-serialization:
+        scalarOccurrences: AT_MOST_ONE_AFTER_PARAMETER_NAME_DECODING
+        invalidSyntaxError: INVALID_REQUEST
+        invalidSyntaxStatus: 400
+        limit:
+          decodedPattern: ^[0-9]+$
+          minimum: 1
+          maximum: 100
+          omittedDefault: 20
+          leadingZeros: ALLOWED_NORMALIZED_TO_INTEGER
+          rejectedForms:
+          - exponent
+          - decimal point
+          - sign
+          - whitespace
+          - empty
+          - non-ASCII digits
+        scope: Declared scalar query parameters only. Values are decoded once; reject duplicate decoded names before selection/coercion.
+          Existing enum/boolean/string constraints remain. Invalid opaque cursor content keeps INVALID_CURSOR; duplicate cursor
+          is INVALID_REQUEST.
   /student/makeup-authorizations:
     get:
       tags:
@@ -10016,6 +10613,7 @@ paths:
       - RATE_LIMITED
       - DEPENDENCY_UNAVAILABLE
       - INTERNAL_ERROR
+      - INVALID_REQUEST
       responses:
         '200':
           description: Successful response.
@@ -10045,7 +10643,8 @@ paths:
         schema:
           type: string
           minLength: 1
-        description: Opaque keyset cursor returned by this exact operation and filter set.
+        description: Opaque keyset cursor returned by this exact operation and filter set. At most one occurrence of this
+          decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST.
       - name: limit
         in: query
         required: false
@@ -10055,7 +10654,29 @@ paths:
           minimum: 1
           maximum: 100
           default: 20
-        description: Maximum number of items to return.
+        description: Maximum number of items to return. At most one occurrence of this decoded scalar query name; duplicates
+          return HTTP 400 / INVALID_REQUEST. Decoded value must consist only of ASCII decimal digits, numeric value 1–100;
+          leading zeros allowed, omission defaults to 20. No exponent, decimal point, sign or whitespace.
+      x-query-serialization:
+        scalarOccurrences: AT_MOST_ONE_AFTER_PARAMETER_NAME_DECODING
+        invalidSyntaxError: INVALID_REQUEST
+        invalidSyntaxStatus: 400
+        limit:
+          decodedPattern: ^[0-9]+$
+          minimum: 1
+          maximum: 100
+          omittedDefault: 20
+          leadingZeros: ALLOWED_NORMALIZED_TO_INTEGER
+          rejectedForms:
+          - exponent
+          - decimal point
+          - sign
+          - whitespace
+          - empty
+          - non-ASCII digits
+        scope: Declared scalar query parameters only. Values are decoded once; reject duplicate decoded names before selection/coercion.
+          Existing enum/boolean/string constraints remain. Invalid opaque cursor content keeps INVALID_CURSOR; duplicate cursor
+          is INVALID_REQUEST.
   /statistics/checkpoints/{checkpointId}/records:
     get:
       tags:
@@ -10619,7 +11240,13 @@ paths:
       - Courses
       summary: Read version-pinned settlement rows
       description: Exact original membership scope and checkpoint values, removed members retained; no live-cache substitution.
-        Future authorized corrections append version with reason, never mutate old rows or reopen ordinary starts.
+        Future authorized corrections append version with reason, never mutate old rows or reopen ordinary starts. Historical
+        student identities follow x-historical-students; current student endpoints remain current-only. After authorization,
+        replay the original committed business result without re-executing the command or recomputing facts, versions, checkpoints
+        or minutes. The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT
+        and current-profile copies/email/linked roster display names are redacted under x-historical-students. This exception
+        overrides exact response-byte replay for those identity fields only; it never restores credentials or deleted personal
+        data.
       operationId: listSettlementReportRows
       security:
       - bearerAuth: []
@@ -10631,6 +11258,11 @@ paths:
       x-idempotency:
         required: false
         reason: Read-only operation.
+        historicalIdentityException: After authorization, replay the original committed business result without re-executing
+          the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that
+          a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display
+          names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity
+          fields only; it never restores credentials or deleted personal data.
       x-error-codes:
       - RESOURCE_NOT_FOUND
       - INVALID_CURSOR
@@ -10699,6 +11331,7 @@ paths:
           maximum: 100
           default: 20
         description: Maximum number of items to return.
+      x-historical-student-projection: x-historical-students
   /admin/semesters/{semesterId}/course-settlements:
     get:
       tags:
@@ -12172,7 +12805,13 @@ paths:
       - Rosters
       summary: Read fixed assessment roster rows
       description: Pinned projection/content revision across all pages; explicit registration, raw endurance, progress and
-        settlement columns. Original source identity scope preserved, outside-roster members separate.
+        settlement columns. Original source identity scope preserved, outside-roster members separate. Historical student
+        identities follow x-historical-students; current student endpoints remain current-only. After authorization, replay
+        the original committed business result without re-executing the command or recomputing facts, versions, checkpoints
+        or minutes. The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT
+        and current-profile copies/email/linked roster display names are redacted under x-historical-students. This exception
+        overrides exact response-byte replay for those identity fields only; it never restores credentials or deleted personal
+        data.
       operationId: listAssessmentRosterRows
       security:
       - bearerAuth: []
@@ -12184,6 +12823,11 @@ paths:
       x-idempotency:
         required: false
         reason: Read-only operation.
+        historicalIdentityException: After authorization, replay the original committed business result without re-executing
+          the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that
+          a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display
+          names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity
+          fields only; it never restores credentials or deleted personal data.
       x-error-codes:
       - PROJECTION_NOT_READY
       - TEACHING_SOURCE_UNAVAILABLE
@@ -12256,6 +12900,7 @@ paths:
           maximum: 100
           default: 20
         description: Maximum number of items to return.
+      x-historical-student-projection: x-historical-students
   /courses/{courseId}/assessment-roster-exports:
     post:
       tags:
@@ -13048,6 +13693,7 @@ paths:
       - RATE_LIMITED
       - DEPENDENCY_UNAVAILABLE
       - INTERNAL_ERROR
+      - INVALID_REQUEST
       responses:
         '200':
           description: Successful response.
@@ -13076,13 +13722,15 @@ paths:
         required: false
         schema:
           type: boolean
+        description: ' At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST.'
       - name: cursor
         in: query
         required: false
         schema:
           type: string
           minLength: 1
-        description: Opaque keyset cursor returned by this exact operation and filter set.
+        description: Opaque keyset cursor returned by this exact operation and filter set. At most one occurrence of this
+          decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST.
       - name: limit
         in: query
         required: false
@@ -13092,7 +13740,29 @@ paths:
           minimum: 1
           maximum: 100
           default: 20
-        description: Maximum number of items to return.
+        description: Maximum number of items to return. At most one occurrence of this decoded scalar query name; duplicates
+          return HTTP 400 / INVALID_REQUEST. Decoded value must consist only of ASCII decimal digits, numeric value 1–100;
+          leading zeros allowed, omission defaults to 20. No exponent, decimal point, sign or whitespace.
+      x-query-serialization:
+        scalarOccurrences: AT_MOST_ONE_AFTER_PARAMETER_NAME_DECODING
+        invalidSyntaxError: INVALID_REQUEST
+        invalidSyntaxStatus: 400
+        limit:
+          decodedPattern: ^[0-9]+$
+          minimum: 1
+          maximum: 100
+          omittedDefault: 20
+          leadingZeros: ALLOWED_NORMALIZED_TO_INTEGER
+          rejectedForms:
+          - exponent
+          - decimal point
+          - sign
+          - whitespace
+          - empty
+          - non-ASCII digits
+        scope: Declared scalar query parameters only. Values are decoded once; reject duplicate decoded names before selection/coercion.
+          Existing enum/boolean/string constraints remain. Invalid opaque cursor content keeps INVALID_CURSOR; duplicate cursor
+          is INVALID_REQUEST.
   /student/notifications/unread-count:
     get:
       tags:
@@ -13229,7 +13899,7 @@ components:
       required: true
       description: UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource
         identity. A normalized-command replay returns the original committed response; different normalized content returns
-        IDEMPOTENCY_KEY_REUSED.
+        IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students.
       schema:
         type: string
         format: uuid
@@ -14589,7 +15259,7 @@ components:
         affectedStudents:
           type: array
           items:
-            $ref: '#/components/schemas/StudentSummary'
+            $ref: '#/components/schemas/StudentReference'
         expiresAt:
           type: string
           description: RFC 3339 UTC instant. Servers emit an explicit Z offset; clients localize only for display.
@@ -14930,7 +15600,7 @@ components:
           description: Opaque public identifier; clients must not infer meaning from it.
           format: uuid
         student:
-          $ref: '#/components/schemas/StudentSummary'
+          $ref: '#/components/schemas/StudentReference'
         status:
           type: string
           enum:
@@ -16872,7 +17542,7 @@ components:
           description: Opaque public identifier; clients must not infer meaning from it.
           format: uuid
         student:
-          $ref: '#/components/schemas/StudentSummary'
+          $ref: '#/components/schemas/StudentReference'
         businessDate:
           type: string
           description: Calendar date; never reinterpret as UTC midnight.
@@ -18190,7 +18860,7 @@ components:
           description: Opaque public identifier; clients must not infer meaning from it.
           format: uuid
         student:
-          $ref: '#/components/schemas/StudentSummary'
+          $ref: '#/components/schemas/StudentReference'
         state:
           type: string
           enum:
@@ -18510,7 +19180,7 @@ components:
           description: Opaque public identifier; clients must not infer meaning from it.
           format: uuid
         student:
-          $ref: '#/components/schemas/StudentSummary'
+          $ref: '#/components/schemas/StudentReference'
         status:
           $ref: '#/components/schemas/ApplicationStatus'
         certification:
@@ -19346,7 +20016,7 @@ components:
           type: string
           minLength: 1
         student:
-          $ref: '#/components/schemas/StudentSummary'
+          $ref: '#/components/schemas/StudentReference'
         currentVerifiedEmail:
           anyOf:
           - type: string
@@ -19392,6 +20062,22 @@ components:
       - updatedAt
       - version
       description: No attachment, platform, client version, priority, assignee, or internal-note fields exist in this Contract.
+      allOf:
+      - if:
+          properties:
+            student:
+              type: object
+              properties:
+                kind:
+                  const: DELETED_STUDENT
+              required:
+              - kind
+          required:
+          - student
+        then:
+          properties:
+            currentVerifiedEmail:
+              type: 'null'
     CreateFeedbackRequest:
       type: object
       additionalProperties: false
@@ -22714,7 +23400,7 @@ components:
           description: Opaque public identifier; clients must not infer meaning from it.
           format: uuid
         student:
-          $ref: '#/components/schemas/StudentSummary'
+          $ref: '#/components/schemas/StudentReference'
         checkpoint:
           $ref: '#/components/schemas/StatisticsCheckpoint'
         unmetTargetReasons:
@@ -24713,7 +25399,7 @@ components:
           - type: 'null'
         student:
           anyOf:
-          - $ref: '#/components/schemas/StudentSummary'
+          - $ref: '#/components/schemas/StudentReference'
           - type: 'null'
         enrollmentId:
           anyOf:
@@ -24780,7 +25466,34 @@ components:
       - unresolvedReasons
       description: Teacher-only complete roster identities plus outside members, without merging distinct status columns.
         Registered completion requires verified school identity AND joined this class AND number/name match. Unavailable results
-        remain explicit; progress uses A checkpoint, settlement uses E public state, never reverse-approves E.
+        remain explicit; progress uses A checkpoint, settlement uses E public state, never reverse-approves E. Linked DELETED_STUDENT
+        display rows have null rosterName/rosterStudentNumber. A formerly MATCHED_VERIFIED_JOINED row becomes NOT_REGISTERED_OR_JOINED
+        in the current reconciliation and is not counted complete. Retain the confirmed identity denominator and historical
+        relationship. Existing OUTSIDE_ROSTER and unresolved-identity distinctions remain. Frozen reports/grades/checkpoints
+        are not recalculated.
+      allOf:
+      - if:
+          properties:
+            student:
+              type: object
+              properties:
+                kind:
+                  const: DELETED_STUDENT
+              required:
+              - kind
+          required:
+          - student
+        then:
+          properties:
+            rosterName:
+              type: 'null'
+            rosterStudentNumber:
+              type: 'null'
+            registrationState:
+              enum:
+              - NOT_REGISTERED_OR_JOINED
+              - IDENTITY_UNRESOLVED
+              - OUTSIDE_ROSTER
     AssessmentRosterRowPage:
       type: object
       additionalProperties: false
@@ -25808,6 +26521,44 @@ components:
       required:
       - items
       - page
+    CurrentStudentReference:
+      type: object
+      additionalProperties: false
+      properties:
+        kind:
+          type: string
+          enum:
+          - CURRENT_STUDENT
+        student:
+          $ref: '#/components/schemas/StudentSummary'
+      required:
+      - kind
+      - student
+      description: Current account, including PENDING. Not enrollment state.
+    DeletedStudentReference:
+      type: object
+      additionalProperties: false
+      properties:
+        kind:
+          type: string
+          enum:
+          - DELETED_STUDENT
+        studentId:
+          type: string
+          format: uuid
+      required:
+      - kind
+      - studentId
+      description: Confirmed deleted account. Stable public opaque identity only; no current-profile personal data.
+    StudentReference:
+      oneOf:
+      - $ref: '#/components/schemas/CurrentStudentReference'
+      - $ref: '#/components/schemas/DeletedStudentReference'
+      discriminator:
+        propertyName: kind
+        mapping:
+          CURRENT_STUDENT: '#/components/schemas/CurrentStudentReference'
+          DELETED_STUDENT: '#/components/schemas/DeletedStudentReference'
   responses:
     BadRequest:
       description: Malformed or invalid request.
@@ -25976,6 +26727,16 @@ x-contract-governance:
   - CR-20260908-002
   - CR-20260908-003
   - CR-20260908-004
+  acceptedPhase7ChangeRequests:
+  - P7-Z-CR-HISTORICAL-STUDENT-01
+  - P7-Z-CR-QUERY-ERRORS-01
+  phase7Compatibility:
+    previousVersion: 1.3.0-contract
+    previousOpenapiSha256: 5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed
+    breaking: true
+    publicBasePath: /api/v1
+    consumerPolicy: Regenerate Android contract-validation and Web validation consumers; H/Z adapt before G1 joint acceptance.
+      Legacy Android :app/runtime migration stays in Phase8. No old/new response mixing or restoration of deleted PII on rollback.
 x-public-conventions:
   pagination: Opaque keyset cursors only. Cursors are bound to the operation and normalized filters; clients must not parse
     them. Lists return items plus CursorPage. Operation-specific limits are authoritative.
@@ -25988,7 +26749,11 @@ x-public-conventions:
     and byte body against the short-lived least-privilege URL, then finalize or import. Backend probing of type, size, checksum,
     duration, audio, and structure is authoritative. Internal object keys and permanent public URLs are never exposed.
   idempotency: Commands marked REQUIRED_HEADER require Idempotency-Key. Natural idempotency is described per operation. Read-only
-    operations require no key.
+    operations require no key. After authorization, replay the original committed business result without re-executing the
+    command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed
+    deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted
+    under x-historical-students. This exception overrides exact response-byte replay for those identity fields only; it never
+    restores credentials or deleted personal data.
   authentication: Bearer access tokens authenticate protected operations. Roles, fixed administrator permissions, resource
     scope, and fail-closed system-mode requirements are declared on every operation.
 x-upload-policies:
@@ -26668,3 +27433,37 @@ x-error-catalog:
   PROJECTION_NOT_READY:
     status: 409
     description: The complete source-bound projection/export is not ready.
+x-historical-students:
+  decision: P7-Z-CR-HISTORICAL-STUDENT-01
+  current: CURRENT_STUDENT means a current account exists, including PENDING; it does not mean active enrollment.
+  deleted: Only authoritative confirmed deletion yields DELETED_STUDENT. Missing data or unavailable dependencies must fail
+    using the operation error policy, never masquerade as deletion. Use one consistent identity snapshot per response.
+  identity: Reuse the previously public opaque studentId. No internal database key, credentials, deletion time or current-profile
+    PII.
+  authorization: Historical identity grants no login, restoration or command permission. Existing actor, role, resource ownership
+    and system-mode gates remain.
+  currentOnly:
+  - StudentAccount.student
+  - StudentDashboard.student
+  currentEndpointRule: Student-owned endpoints require a current authenticated student and return CURRENT_STUDENT in their
+    nested references. No deleted-account dashboard or self-service access.
+  enrollment: Account deletion does not change ACTIVE/REMOVED membership or remove a retained relationship, list item or historical
+    count.
+  roster: Linked DELETED_STUDENT display rows have null rosterName/rosterStudentNumber. A formerly MATCHED_VERIFIED_JOINED
+    row becomes NOT_REGISTERED_OR_JOINED in the current reconciliation and is not counted complete. Retain the confirmed identity
+    denominator and historical relationship. Existing OUTSIDE_ROSTER and unresolved-identity distinctions remain. Frozen reports/grades/checkpoints
+    are not recalculated.
+  originals: Retain immutable school roster originals and necessary business evidence under existing restricted access/retention
+    rules. Never use these originals to repopulate a current profile. This CR does not authorize deleting user-authored historical
+    business content.
+  feedback: DELETED_STUDENT implies currentVerifiedEmail=null.
+  copies: Historical reads, exports, stored response copies and caches must use the deletion-aware identity projection. Clear
+    derived current-profile copies at deletion; enforce an authoritative read barrier so stale caches cannot disclose deleted
+    profile data. Restore procedures must reapply deletion facts.
+  replay: After authorization, replay the original committed business result without re-executing the command or recomputing
+    facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted student is projected
+    as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted under x-historical-students.
+    This exception overrides exact response-byte replay for those identity fields only; it never restores credentials or deleted
+    personal data.
+  backendAcceptance: Real PostgreSQL/HTTP, authorization, Session/deletion concurrency, derived-copy cleanup and rollback
+    atomicity require H/Z integrated evidence; schema/Mock tests do not prove these.

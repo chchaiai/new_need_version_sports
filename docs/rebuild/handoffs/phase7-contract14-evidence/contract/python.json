@@ -1,0 +1,6706 @@
+{
+  "contractVersion": "1.4.0-contract",
+  "candidateSha256": "0528389bb8b72714d9a4af35ffc66c87503560d41c58ad968b1713b39ff3da2d",
+  "baseCommit": "f95c3833870fe0da55a297aa28c958ec53e9e935",
+  "structuralErrors": [],
+  "cases": 1049,
+  "passed": 1049,
+  "results": [
+    {
+      "name": "old-mapping/EXEMPTION/legal",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/EXEMPTION/unknown",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/EXEMPTION/schema_name",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/EXEMPTION/null",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/EXEMPTION/numeric",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/EXEMPTION/missing",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/EXEMPTION/extra_field",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/EXEMPTION/wrong_branch_shape",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/CERTIFICATION/legal",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/CERTIFICATION/unknown",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/CERTIFICATION/schema_name",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/CERTIFICATION/null",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/CERTIFICATION/numeric",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/CERTIFICATION/missing",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/CERTIFICATION/extra_field",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/CERTIFICATION/wrong_branch_shape",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/ADD/legal",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/ADD/unknown",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/ADD/schema_name",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/ADD/null",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/ADD/numeric",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/ADD/missing",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/ADD/extra_field",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/ADD/wrong_branch_shape",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/UPDATE/legal",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/UPDATE/unknown",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/UPDATE/schema_name",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/UPDATE/null",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/UPDATE/numeric",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/UPDATE/missing",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/UPDATE/extra_field",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/UPDATE/wrong_branch_shape",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/DELETE/legal",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/DELETE/unknown",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/DELETE/schema_name",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/DELETE/null",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/DELETE/numeric",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/DELETE/missing",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/DELETE/extra_field",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/DELETE/wrong_branch_shape",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/MAINTENANCE/legal",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/MAINTENANCE/unknown",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/MAINTENANCE/schema_name",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/MAINTENANCE/null",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/MAINTENANCE/numeric",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/MAINTENANCE/missing",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/MAINTENANCE/extra_field",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/MAINTENANCE/wrong_branch_shape",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/NORMAL/legal",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/NORMAL/unknown",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/NORMAL/schema_name",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/NORMAL/null",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/NORMAL/numeric",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/NORMAL/missing",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/NORMAL/extra_field",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/NORMAL/wrong_branch_shape",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/CERTIFICATION/nested_or_envelope_extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/MAINTENANCE/nested_or_envelope_extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "old-mapping/ADD/nested_or_envelope_extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/ordinary/valid",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/swimming/valid",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/offline/valid",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/pass/valid",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/return/default24",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/return/72",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/invalid/confirmed",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/correct/valid",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/correct/invalid",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/supplement/valid",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/completion/normal",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/upload/renew",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/material/first_locked",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/material/supplement_ready",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/timer/active",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/timer/paused",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/timer/unavailable",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/timer/accepted",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/sla/available",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/sla/paused",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/sla/missing_calendar",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/review/pending_material",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/review/teacher_round1",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/review/await_supplement",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/review/round2",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/review/valid",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/record/full_pending_response",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/receipt/first",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/receipt/completion",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/receipt/supplement",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/queue/teacher_only",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/correction/original_remainder",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/event/return_not_invalid",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/event/expiry",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/event/fault_correction",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/notice/shared_reason",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/reason/fixed_labels",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/old_submit_shape",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/old_free_text_review",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/doubt_not_invalid",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/confirmed_not_return",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/system_reason_not_teacher",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/second_return",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/window48",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/hidden_note",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/client_completion_time",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/third_material",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/first_receipt_no_transfer_deadline",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/offline_receipt_not_ready",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/completion_receipt_partial",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/supplement_receipt_not_round2",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/queue_contains_technical_wait",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/supplement_extra_grace",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/pending_looks_valid",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/pending_looks_invalid",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/valid_missing_result",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/material_ready_no_bytes",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/paused_guess_due",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/unknown_guess_zero",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/24h_over_budget",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/sla48seconds",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/calendar_weekday_fallback",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/pause_not_final_due",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/correction_new_opportunity",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/correction_24_to_72",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/return_fabricates_invalid",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/reason_wrong_translation",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/ordinary/valid/missing/submissionRoute",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/ordinary/valid/missing/category",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/ordinary/valid/missing/description",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/ordinary/valid/missing/items",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/ordinary/valid/missing/expectedSessionVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/ordinary/valid/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/ordinary/valid/submissionRoute/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/ordinary/valid/submissionRoute/UNKNOWN",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/ordinary/valid/expectedSessionVersion/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/ordinary/valid/expectedSessionVersion/1",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/swimming/valid/missing/submissionRoute",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/swimming/valid/missing/category",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/swimming/valid/missing/description",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/swimming/valid/missing/items",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/swimming/valid/missing/expectedSessionVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/swimming/valid/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/swimming/valid/submissionRoute/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/swimming/valid/submissionRoute/UNKNOWN",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/swimming/valid/expectedSessionVersion/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/swimming/valid/expectedSessionVersion/1",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/offline/valid/missing/submissionRoute",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/offline/valid/missing/category",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/offline/valid/missing/description",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/offline/valid/missing/items",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/offline/valid/missing/expectedSessionVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/offline/valid/missing/delayExplanation",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/offline/valid/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/offline/valid/submissionRoute/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/offline/valid/submissionRoute/UNKNOWN",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/offline/valid/expectedSessionVersion/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/offline/valid/expectedSessionVersion/1",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/pass/valid/missing/action",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/pass/valid/missing/expectedVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/pass/valid/missing/expectedRoundNo",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/pass/valid/missing/materialVersionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/pass/valid/missing/publicComment",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/pass/valid/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/pass/valid/action/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/pass/valid/action/UNKNOWN",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/pass/valid/expectedVersion/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/pass/valid/expectedVersion/1",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/return/default24/missing/action",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/return/default24/missing/expectedVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/return/default24/missing/expectedRoundNo",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/return/default24/missing/materialVersionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/return/default24/missing/publicComment",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/return/default24/missing/reasonCode",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/return/default24/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/return/default24/action/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/return/default24/action/UNKNOWN",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/return/default24/expectedVersion/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/return/default24/expectedVersion/1",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/return/72/missing/action",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/return/72/missing/expectedVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/return/72/missing/expectedRoundNo",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/return/72/missing/materialVersionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/return/72/missing/publicComment",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/return/72/missing/reasonCode",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/return/72/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/return/72/action/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/return/72/action/UNKNOWN",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/return/72/expectedVersion/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/return/72/expectedVersion/1",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/invalid/confirmed/missing/action",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/invalid/confirmed/missing/expectedVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/invalid/confirmed/missing/expectedRoundNo",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/invalid/confirmed/missing/materialVersionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/invalid/confirmed/missing/publicComment",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/invalid/confirmed/missing/reasonCode",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/invalid/confirmed/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/invalid/confirmed/action/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/invalid/confirmed/action/UNKNOWN",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/invalid/confirmed/expectedVersion/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/invalid/confirmed/expectedVersion/1",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/correct/valid/missing/result",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/correct/valid/missing/expectedVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/correct/valid/missing/expectedRoundNo",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/correct/valid/missing/materialVersionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/correct/valid/missing/correctedReviewId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/correct/valid/missing/publicComment",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/correct/valid/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/correct/valid/result/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/correct/valid/result/UNKNOWN",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/correct/valid/expectedVersion/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/correct/valid/expectedVersion/1",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/correct/invalid/missing/result",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/correct/invalid/missing/expectedVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/correct/invalid/missing/expectedRoundNo",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/correct/invalid/missing/materialVersionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/correct/invalid/missing/correctedReviewId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/correct/invalid/missing/publicComment",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/correct/invalid/missing/reasonCode",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/correct/invalid/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/correct/invalid/result/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/correct/invalid/result/UNKNOWN",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/correct/invalid/expectedVersion/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/correct/invalid/expectedVersion/1",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/supplement/valid/missing/expectedVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/supplement/valid/missing/expectedRoundNo",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/supplement/valid/missing/materialVersionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/supplement/valid/missing/returnActionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/supplement/valid/missing/timerId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/supplement/valid/missing/expectedTimerVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/supplement/valid/missing/expectedTimingSourceRevision",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/supplement/valid/missing/items",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/supplement/valid/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/supplement/valid/expectedVersion/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/supplement/valid/expectedVersion/1",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/supplement/valid/expectedTimerVersion/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/supplement/valid/expectedTimerVersion/1",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/completion/normal/missing/batchId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/completion/normal/missing/expectedMaterialVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/completion/normal/missing/delayExplanation",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/completion/normal/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/upload/renew/missing/materialVersionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/upload/renew/missing/batchId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/upload/renew/missing/expectedMaterialVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/upload/renew/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/record/full_pending_response/missing/recordId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/record/full_pending_response/missing/sessionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/record/full_pending_response/missing/courseId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/record/full_pending_response/missing/enrollmentId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/record/full_pending_response/missing/student",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/record/full_pending_response/missing/businessDate",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/record/full_pending_response/missing/category",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/record/full_pending_response/missing/description",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/record/full_pending_response/missing/activityType",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/record/full_pending_response/missing/actualDurationSeconds",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/record/full_pending_response/missing/currentMaterial",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/record/full_pending_response/missing/currentReview",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/record/full_pending_response/missing/submittedAt",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/record/full_pending_response/missing/ruleVersionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/record/full_pending_response/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/receipt/first/missing/receiptId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/receipt/first/missing/recordId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/receipt/first/missing/sessionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/receipt/first/missing/submissionRoute",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/receipt/first/missing/firstDueAt",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/receipt/first/missing/acceptedAt",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/receipt/first/missing/material",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/receipt/first/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/receipt/first/submissionRoute/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/receipt/first/submissionRoute/UNKNOWN",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/receipt/completion/missing/receiptId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/receipt/completion/missing/material",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/receipt/completion/missing/review",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/receipt/completion/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/receipt/supplement/missing/receiptId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/receipt/supplement/missing/acceptedAt",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/receipt/supplement/missing/material",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/receipt/supplement/missing/review",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/receipt/supplement/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/queue/teacher_only/missing/queueItemId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/queue/teacher_only/missing/record",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/queue/teacher_only/missing/reviewRoundNo",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/queue/teacher_only/missing/sourceRevision",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-workflow/queue/teacher_only/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/template/publish",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/template/fixed",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/draft/defaults",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/draft/30/2",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/draft/30/3",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/draft/30/4",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/draft/45/2",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/draft/45/3",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/draft/45/4",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/draft/60/2",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/draft/60/3",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/draft/60/4",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/rule/frozen",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/course/draft_request",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/course/draft_update",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/course/name_only",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/plan/feasible",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/plan/proven_impossible",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/plan/unknown",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/course/publish",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/session/normal",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/session/makeup",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/makeup/grant",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/1199_is_not_met",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/checkpoint/immutable",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/record/partial_category_cap",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/record/pending_not_invalid",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/current",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/recomputing_old_checkpoint",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/no_zero_fallback",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/invitation/default30",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/preview/active_new_registration",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/preview/join_closed",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/preview/expired_new_flow_blocked",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/preview/expired_cannot_register",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/invitation/lifetime/5",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/invitation/lifetime/30",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/invitation/lifetime/120",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/flow/existing",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/flow/new_before_email_verification",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/flow/short_nonce",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/flow/non_hex_nonce",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/join/existing",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/join/new_same_flow",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/prepare",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/correction_prepare",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/ready",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/FIRST_MATERIAL_PENDING",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/LOCKED_TRANSFER_PENDING",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/SUPPLEMENT_WINDOW_ACTIVE",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/unavailable",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/confirm",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/initial",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/correction",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/row",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/invitation/bad/4",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/invitation/bad/121",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/invitation/bad/30.5",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/invitation/bad/30",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/invitation/bad/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/threshold/bad/29",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/threshold/bad/31",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/threshold/bad/0",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/threshold/bad/60.5",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/threshold/bad/30",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/threshold/bad/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/week/bad/0",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/week/bad/1",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/week/bad/5",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/week/bad/3",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/week/bad/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/plan/unknown_with_token",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/plan/feasible_without_witness",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/rounding_is_not_target",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/unavailable_with_zero_checkpoint",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/record/pending_cannot_count",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/record/invalid_cannot_count",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/record/old120_credit",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/ready_but_missing_sources",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/unknown_with_token",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/correction_without_previous",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/count_same_but_missing_owner",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/count_same_but_missing_owner",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/two_same_categories",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/publish/caller_feasible",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/course/old_target_update",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/caller_rows",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/template/publish/missing/label",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/template/publish/missing/expectedLatestVersionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/template/publish/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/template/fixed/missing/templateVersionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/template/fixed/missing/versionNo",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/template/fixed/missing/label",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/template/fixed/missing/status",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/template/fixed/missing/totalTargetMinutes",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/template/fixed/missing/thresholdChoices",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/template/fixed/missing/defaultThresholdMinutes",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/template/fixed/missing/singleRecordCapMinutes",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/template/fixed/missing/dailyCountLimit",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/template/fixed/missing/weeklyCountChoices",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/template/fixed/missing/defaultWeeklyCountLimit",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/template/fixed/missing/formulaVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/template/fixed/missing/publishedAt",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/template/fixed/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/draft/defaults/missing/templateVersionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/draft/defaults/missing/courseRelatedTargetMinutes",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/draft/defaults/missing/otherTargetMinutes",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/draft/defaults/missing/allowedIntervals",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/draft/defaults/missing/regularCutoffAt",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/draft/defaults/missing/plannedSettlementAt",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/draft/defaults/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/rule/frozen/missing/ruleVersionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/rule/frozen/missing/courseId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/rule/frozen/missing/semesterId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/rule/frozen/missing/versionNo",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/rule/frozen/missing/template",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/rule/frozen/missing/courseRelatedTargetMinutes",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/rule/frozen/missing/otherTargetMinutes",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/rule/frozen/missing/allowedIntervals",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/rule/frozen/missing/regularCutoffAt",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/rule/frozen/missing/closeoutEndsAt",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/rule/frozen/missing/plannedSettlementAt",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/rule/frozen/missing/reminderScheduledAt",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/rule/frozen/missing/publishedAt",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/rule/frozen/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/course/draft_request/missing/semesterId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/course/draft_request/missing/name",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/course/draft_request/missing/description",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/course/draft_request/missing/rule",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/course/draft_request/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/course/draft_update/missing/rule",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/course/draft_update/missing/expectedVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/course/draft_update/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/course/name_only/missing/name",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/course/name_only/missing/description",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/course/name_only/missing/expectedVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/course/name_only/missing/impactToken",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/course/name_only/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/plan/feasible/missing/evidenceId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/plan/feasible/missing/draftVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/plan/feasible/missing/templateVersionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/plan/feasible/missing/semesterVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/plan/feasible/missing/calendarSourceVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/plan/feasible/missing/result",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/plan/feasible/missing/proofKind",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/plan/feasible/missing/explanation",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/plan/feasible/missing/publicationToken",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/plan/feasible/missing/computedAt",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/plan/feasible/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/plan/proven_impossible/missing/evidenceId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/plan/proven_impossible/missing/draftVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/plan/proven_impossible/missing/templateVersionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/plan/proven_impossible/missing/semesterVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/plan/proven_impossible/missing/calendarSourceVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/plan/proven_impossible/missing/result",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/plan/proven_impossible/missing/proofKind",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/plan/proven_impossible/missing/explanation",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/plan/proven_impossible/missing/publicationToken",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/plan/proven_impossible/missing/computedAt",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/plan/proven_impossible/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/plan/unknown/missing/evidenceId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/plan/unknown/missing/draftVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/plan/unknown/missing/templateVersionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/plan/unknown/missing/semesterVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/plan/unknown/missing/calendarSourceVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/plan/unknown/missing/result",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/plan/unknown/missing/proofKind",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/plan/unknown/missing/explanation",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/plan/unknown/missing/publicationToken",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/plan/unknown/missing/computedAt",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/plan/unknown/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/course/publish/missing/expectedCourseVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/course/publish/missing/publicationToken",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/course/publish/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/session/normal/missing/courseId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/session/normal/missing/expectedRuleVersionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/session/normal/missing/makeupAuthorizationId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/session/normal/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/session/makeup/missing/courseId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/session/makeup/missing/expectedRuleVersionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/session/makeup/missing/makeupAuthorizationId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/session/makeup/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/makeup/grant/missing/enrollmentId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/makeup/grant/missing/startsAt",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/makeup/grant/missing/endsAtExclusive",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/makeup/grant/missing/expectedCourseVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/makeup/grant/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/1199_is_not_met/missing/categories",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/1199_is_not_met/missing/totalTargetMinutes",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/1199_is_not_met/missing/totalCompletedMinutes",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/1199_is_not_met/missing/completionRatio",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/1199_is_not_met/missing/displayPercent",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/1199_is_not_met/missing/targetMet",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/1199_is_not_met/missing/actualDurationSeconds",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/1199_is_not_met/missing/countedRecordMinutes",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/1199_is_not_met/missing/countedCertificationMinutes",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/1199_is_not_met/missing/invalidActualMinutes",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/1199_is_not_met/missing/validUncountedEligibleMinutes",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/1199_is_not_met/missing/validFormulaExcludedMinutes",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/1199_is_not_met/missing/pendingRecordCount",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/1199_is_not_met/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/checkpoint/immutable/missing/checkpointId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/checkpoint/immutable/missing/courseId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/checkpoint/immutable/missing/enrollmentId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/checkpoint/immutable/missing/sources",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/checkpoint/immutable/missing/policyVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/checkpoint/immutable/missing/totals",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/checkpoint/immutable/missing/selectedRecordIds",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/checkpoint/immutable/missing/computedAt",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/checkpoint/immutable/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/record/partial_category_cap/missing/checkpointId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/record/partial_category_cap/missing/recordId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/record/partial_category_cap/missing/sessionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/record/partial_category_cap/missing/ruleVersionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/record/partial_category_cap/missing/category",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/record/partial_category_cap/missing/businessDate",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/record/partial_category_cap/missing/originalWeekStartsOn",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/record/partial_category_cap/missing/startedAt",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/record/partial_category_cap/missing/actualDurationSeconds",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/record/partial_category_cap/missing/actualWholeMinutes",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/record/partial_category_cap/missing/eligibleMinutes",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/record/partial_category_cap/missing/countedMinutes",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/record/partial_category_cap/missing/reviewResult",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/record/partial_category_cap/missing/explanations",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/record/partial_category_cap/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/record/pending_not_invalid/missing/checkpointId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/record/pending_not_invalid/missing/recordId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/record/pending_not_invalid/missing/sessionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/record/pending_not_invalid/missing/ruleVersionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/record/pending_not_invalid/missing/category",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/record/pending_not_invalid/missing/businessDate",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/record/pending_not_invalid/missing/originalWeekStartsOn",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/record/pending_not_invalid/missing/startedAt",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/record/pending_not_invalid/missing/actualDurationSeconds",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/record/pending_not_invalid/missing/actualWholeMinutes",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/record/pending_not_invalid/missing/eligibleMinutes",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/record/pending_not_invalid/missing/countedMinutes",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/record/pending_not_invalid/missing/reviewResult",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/record/pending_not_invalid/missing/explanations",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/record/pending_not_invalid/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/current/missing/courseId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/current/missing/enrollmentId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/current/missing/student",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/current/missing/state",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/current/missing/checkpoint",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/current/missing/unavailableReason",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/current/missing/observedAt",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/current/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/recomputing_old_checkpoint/missing/courseId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/recomputing_old_checkpoint/missing/enrollmentId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/recomputing_old_checkpoint/missing/student",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/recomputing_old_checkpoint/missing/state",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/recomputing_old_checkpoint/missing/checkpoint",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/recomputing_old_checkpoint/missing/unavailableReason",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/recomputing_old_checkpoint/missing/observedAt",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/recomputing_old_checkpoint/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/no_zero_fallback/missing/courseId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/no_zero_fallback/missing/enrollmentId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/no_zero_fallback/missing/student",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/no_zero_fallback/missing/state",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/no_zero_fallback/missing/checkpoint",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/no_zero_fallback/missing/unavailableReason",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/no_zero_fallback/missing/observedAt",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/progress/no_zero_fallback/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/invitation/default30/missing/expectedCourseVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/invitation/default30/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/preview/active_new_registration/missing/status",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/preview/active_new_registration/missing/course",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/preview/active_new_registration/missing/expiresAt",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/preview/active_new_registration/missing/newRegistrationAllowed",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/preview/active_new_registration/missing/unavailableReason",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/preview/active_new_registration/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/preview/join_closed/missing/status",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/preview/join_closed/missing/course",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/preview/join_closed/missing/expiresAt",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/preview/join_closed/missing/newRegistrationAllowed",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/preview/join_closed/missing/unavailableReason",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/preview/join_closed/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/preview/expired_new_flow_blocked/missing/status",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/preview/expired_new_flow_blocked/missing/course",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/preview/expired_new_flow_blocked/missing/expiresAt",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/preview/expired_new_flow_blocked/missing/newRegistrationAllowed",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/preview/expired_new_flow_blocked/missing/unavailableReason",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/preview/expired_new_flow_blocked/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/invitation/lifetime/5/missing/expectedCourseVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/invitation/lifetime/5/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/invitation/lifetime/30/missing/expectedCourseVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/invitation/lifetime/30/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/invitation/lifetime/120/missing/expectedCourseVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/invitation/lifetime/120/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/flow/existing/missing/expectedAccountVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/flow/existing/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/flow/new_before_email_verification/missing/clientFlowNonce",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/flow/new_before_email_verification/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/join/existing/missing/expectedAccountVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/join/existing/missing/flowId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/join/existing/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/join/new_same_flow/missing/name",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/join/new_same_flow/missing/studentNumber",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/join/new_same_flow/missing/gender",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/join/new_same_flow/missing/gradeYear",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/join/new_same_flow/missing/college",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/join/new_same_flow/missing/major",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/join/new_same_flow/missing/administrativeClass",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/join/new_same_flow/missing/verifiedEmail",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/join/new_same_flow/missing/emailOtpProof",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/join/new_same_flow/missing/flowId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/join/new_same_flow/missing/flowAuthorization",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/join/new_same_flow/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/prepare/missing/expectedCourseVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/prepare/missing/expectedPreviousSettlementVersionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/prepare/missing/correctionFactId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/prepare/missing/reason",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/prepare/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/correction_prepare/missing/expectedCourseVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/correction_prepare/missing/expectedPreviousSettlementVersionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/correction_prepare/missing/correctionFactId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/correction_prepare/missing/reason",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/correction_prepare/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/ready/missing/preparationId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/ready/missing/courseId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/ready/missing/semesterId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/ready/missing/expectedCourseVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/ready/missing/previousSettlementVersionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/ready/missing/correctionFactId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/ready/missing/reason",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/ready/missing/state",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/ready/missing/preparationToken",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/ready/missing/membershipScopeVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/ready/missing/sources",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/ready/missing/blockers",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/ready/missing/unavailableOwners",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/ready/missing/preparedAt",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/ready/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/FIRST_MATERIAL_PENDING/missing/preparationId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/FIRST_MATERIAL_PENDING/missing/courseId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/FIRST_MATERIAL_PENDING/missing/semesterId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/FIRST_MATERIAL_PENDING/missing/expectedCourseVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/FIRST_MATERIAL_PENDING/missing/previousSettlementVersionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/FIRST_MATERIAL_PENDING/missing/correctionFactId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/FIRST_MATERIAL_PENDING/missing/reason",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/FIRST_MATERIAL_PENDING/missing/state",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/FIRST_MATERIAL_PENDING/missing/preparationToken",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/FIRST_MATERIAL_PENDING/missing/membershipScopeVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/FIRST_MATERIAL_PENDING/missing/sources",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/FIRST_MATERIAL_PENDING/missing/blockers",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/FIRST_MATERIAL_PENDING/missing/unavailableOwners",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/FIRST_MATERIAL_PENDING/missing/preparedAt",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/FIRST_MATERIAL_PENDING/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/LOCKED_TRANSFER_PENDING/missing/preparationId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/LOCKED_TRANSFER_PENDING/missing/courseId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/LOCKED_TRANSFER_PENDING/missing/semesterId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/LOCKED_TRANSFER_PENDING/missing/expectedCourseVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/LOCKED_TRANSFER_PENDING/missing/previousSettlementVersionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/LOCKED_TRANSFER_PENDING/missing/correctionFactId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/LOCKED_TRANSFER_PENDING/missing/reason",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/LOCKED_TRANSFER_PENDING/missing/state",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/LOCKED_TRANSFER_PENDING/missing/preparationToken",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/LOCKED_TRANSFER_PENDING/missing/membershipScopeVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/LOCKED_TRANSFER_PENDING/missing/sources",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/LOCKED_TRANSFER_PENDING/missing/blockers",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/LOCKED_TRANSFER_PENDING/missing/unavailableOwners",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/LOCKED_TRANSFER_PENDING/missing/preparedAt",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/LOCKED_TRANSFER_PENDING/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/SUPPLEMENT_WINDOW_ACTIVE/missing/preparationId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/SUPPLEMENT_WINDOW_ACTIVE/missing/courseId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/SUPPLEMENT_WINDOW_ACTIVE/missing/semesterId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/SUPPLEMENT_WINDOW_ACTIVE/missing/expectedCourseVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/SUPPLEMENT_WINDOW_ACTIVE/missing/previousSettlementVersionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/SUPPLEMENT_WINDOW_ACTIVE/missing/correctionFactId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/SUPPLEMENT_WINDOW_ACTIVE/missing/reason",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/SUPPLEMENT_WINDOW_ACTIVE/missing/state",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/SUPPLEMENT_WINDOW_ACTIVE/missing/preparationToken",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/SUPPLEMENT_WINDOW_ACTIVE/missing/membershipScopeVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/SUPPLEMENT_WINDOW_ACTIVE/missing/sources",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/SUPPLEMENT_WINDOW_ACTIVE/missing/blockers",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/SUPPLEMENT_WINDOW_ACTIVE/missing/unavailableOwners",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/SUPPLEMENT_WINDOW_ACTIVE/missing/preparedAt",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/blocked/SUPPLEMENT_WINDOW_ACTIVE/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/unavailable/missing/preparationId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/unavailable/missing/courseId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/unavailable/missing/semesterId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/unavailable/missing/expectedCourseVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/unavailable/missing/previousSettlementVersionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/unavailable/missing/correctionFactId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/unavailable/missing/reason",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/unavailable/missing/state",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/unavailable/missing/preparationToken",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/unavailable/missing/membershipScopeVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/unavailable/missing/sources",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/unavailable/missing/blockers",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/unavailable/missing/unavailableOwners",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/unavailable/missing/preparedAt",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/unavailable/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/confirm/missing/preparationId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/confirm/missing/preparationToken",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/confirm/missing/expectedPreviousSettlementVersionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/settlement/confirm/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/initial/missing/settlementVersionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/initial/missing/courseId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/initial/missing/semesterId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/initial/missing/versionNo",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/initial/missing/previousSettlementVersionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/initial/missing/kind",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/initial/missing/correctionFactId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/initial/missing/reason",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/initial/missing/membershipScopeVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/initial/missing/memberCount",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/initial/missing/sourceManifestSha256",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/initial/missing/sources",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/initial/missing/policyVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/initial/missing/confirmedAt",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/initial/missing/confirmedBy",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/initial/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/correction/missing/settlementVersionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/correction/missing/courseId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/correction/missing/semesterId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/correction/missing/versionNo",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/correction/missing/previousSettlementVersionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/correction/missing/kind",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/correction/missing/correctionFactId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/correction/missing/reason",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/correction/missing/membershipScopeVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/correction/missing/memberCount",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/correction/missing/sourceManifestSha256",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/correction/missing/sources",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/correction/missing/policyVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/correction/missing/confirmedAt",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/correction/missing/confirmedBy",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/correction/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/row/missing/settlementVersionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/row/missing/enrollmentId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/row/missing/student",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/row/missing/checkpoint",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/row/missing/unmetTargetReasons",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "prior-courses/report/row/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/TeachingSourceAllocationRequest",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/TeachingSourceAllocation",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/TeachingSourceFinalizeRequest",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/TeachingSourceAsset",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/CreateTeachingBatchRequest",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/ExtractionAttemptSummary",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/RosterImportBatch",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/EnduranceCaptureBatch",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/RosterDraftRow",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/ResolveRosterDraftRowRequest",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/PublishRosterBatchRequest",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/RosterBatchPublication",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/ResolvedEnduranceValues",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/EnduranceDraftRow",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/ResolveEnduranceDraftRowRequest",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/ConfirmEnduranceRowsRequest",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/EnduranceMeasurement",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/EnduranceRowsConfirmation",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/ConfirmEnduranceMeasurementRequest",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/StudentEnduranceOutcome",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/AssessmentRosterProjection",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/AssessmentRosterRow",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/AssessmentExportRequest",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/AssessmentExportArtifact",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/TechnicalServiceScope",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/TechnicalServiceRevisionRequest",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/TechnicalServiceRevision",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/TechnicalTaskCounts",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/TechnicalQualityEvidence",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/TechnicalServiceRunStatus",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/OpenManualModeRequest",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/CloseManualModeRequest",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/ManualModeWindow",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/HistoricalFinalGradeRemark",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/StudentNotification",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/TeachingSourceDownloadAuthorization",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/AssessmentExportDownloadAuthorization",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/PublishFinalGradeRequest",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/FinalGradePublication",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/RosterSnapshot",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/wire/StudentDashboard",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/ConfirmEnduranceRowsRequest/missing/expectedBatchVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/ConfirmEnduranceRowsRequest/missing/expectedRowsSourceVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/ConfirmEnduranceRowsRequest/missing/selectedRows",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/ConfirmEnduranceRowsRequest/extra/allResolved",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/ConfirmEnduranceRowsRequest/extra/ignoreVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/ConfirmEnduranceRowsRequest/extra/skipHardChecks",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/ConfirmEnduranceRowsRequest/extra/teacherApproved",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/ConfirmEnduranceRowsRequest/extra/providerSecret",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/ConfirmEnduranceRowsRequest/extra/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/ResolvedEnduranceValues/missing/enrollmentId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/ResolvedEnduranceValues/missing/expectedEnrollmentVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/ResolvedEnduranceValues/missing/distanceMeters",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/ResolvedEnduranceValues/missing/testedOn",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/ResolvedEnduranceValues/missing/timeRepresentation",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/ResolvedEnduranceValues/missing/explicitTimeText",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/ResolvedEnduranceValues/missing/durationSeconds",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/ResolvedEnduranceValues/missing/ruleTableId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/ResolvedEnduranceValues/missing/ruleRevisionNumber",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/ResolvedEnduranceValues/missing/expectedOutcomeVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/ResolvedEnduranceValues/extra/allResolved",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/ResolvedEnduranceValues/extra/ignoreVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/ResolvedEnduranceValues/extra/skipHardChecks",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/ResolvedEnduranceValues/extra/teacherApproved",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/ResolvedEnduranceValues/extra/providerSecret",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/ResolvedEnduranceValues/extra/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/ResolveRosterDraftRowRequest/missing/action",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/ResolveRosterDraftRowRequest/missing/expectedBatchVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/ResolveRosterDraftRowRequest/missing/expectedRowVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/ResolveRosterDraftRowRequest/missing/identity",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/ResolveRosterDraftRowRequest/missing/reason",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/ResolveRosterDraftRowRequest/extra/allResolved",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/ResolveRosterDraftRowRequest/extra/ignoreVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/ResolveRosterDraftRowRequest/extra/skipHardChecks",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/ResolveRosterDraftRowRequest/extra/teacherApproved",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/ResolveRosterDraftRowRequest/extra/providerSecret",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/ResolveRosterDraftRowRequest/extra/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/PublishRosterBatchRequest/missing/expectedCourseVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/PublishRosterBatchRequest/missing/expectedBatchVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/PublishRosterBatchRequest/missing/expectedRowsSourceVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/PublishRosterBatchRequest/missing/expectedCurrentSnapshotId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/PublishRosterBatchRequest/extra/allResolved",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/PublishRosterBatchRequest/extra/ignoreVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/PublishRosterBatchRequest/extra/skipHardChecks",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/PublishRosterBatchRequest/extra/teacherApproved",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/PublishRosterBatchRequest/extra/providerSecret",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/PublishRosterBatchRequest/extra/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/TechnicalServiceRevisionRequest/missing/purpose",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/TechnicalServiceRevisionRequest/missing/scope",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/TechnicalServiceRevisionRequest/missing/providerId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/TechnicalServiceRevisionRequest/missing/modelId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/TechnicalServiceRevisionRequest/missing/modelVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/TechnicalServiceRevisionRequest/missing/connectionReferenceId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/TechnicalServiceRevisionRequest/missing/credentialReferenceId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/TechnicalServiceRevisionRequest/missing/policyVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/TechnicalServiceRevisionRequest/missing/enabled",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/TechnicalServiceRevisionRequest/missing/automaticApprovalEnabled",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/TechnicalServiceRevisionRequest/missing/validationEvidenceId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/TechnicalServiceRevisionRequest/missing/expectedCurrentRevisionId",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/TechnicalServiceRevisionRequest/extra/allResolved",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/TechnicalServiceRevisionRequest/extra/ignoreVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/TechnicalServiceRevisionRequest/extra/skipHardChecks",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/TechnicalServiceRevisionRequest/extra/teacherApproved",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/TechnicalServiceRevisionRequest/extra/providerSecret",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/TechnicalServiceRevisionRequest/extra/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/CloseManualModeRequest/missing/reason",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/CloseManualModeRequest/missing/expectedWindowVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/CloseManualModeRequest/missing/expectedSourceRevision",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/CloseManualModeRequest/extra/allResolved",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/CloseManualModeRequest/extra/ignoreVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/CloseManualModeRequest/extra/skipHardChecks",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/CloseManualModeRequest/extra/teacherApproved",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/CloseManualModeRequest/extra/providerSecret",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/CloseManualModeRequest/extra/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/TeachingSourceAllocationRequest/missing/purpose",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/TeachingSourceAllocationRequest/missing/sourceFormat",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/TeachingSourceAllocationRequest/missing/displayName",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/TeachingSourceAllocationRequest/missing/declaredContentType",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/TeachingSourceAllocationRequest/missing/declaredByteSize",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/TeachingSourceAllocationRequest/missing/expectedCourseVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/TeachingSourceAllocationRequest/extra/allResolved",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/TeachingSourceAllocationRequest/extra/ignoreVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/TeachingSourceAllocationRequest/extra/skipHardChecks",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/TeachingSourceAllocationRequest/extra/teacherApproved",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/TeachingSourceAllocationRequest/extra/providerSecret",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/TeachingSourceAllocationRequest/extra/extra",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/roster/CONFIRMED",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/roster/CONFIRMED/no_decision",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/roster/EXCLUDED",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/roster/EXCLUDED/no_decision",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/roster/exclusion",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/roster/exclusion/no_reason",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/time/reject/4.30/MM_SS",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/time/reject/4.30/INTEGER_SECONDS",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/time/reject/4:60/MM_SS",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/time/integer",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/time/decimal_seconds",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/time/negative",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/time/wrong_event",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/time/negative_version/expectedEnrollmentVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/time/negative_version/expectedOutcomeVersion",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/time/negative_version/ruleRevisionNumber",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/endurance/ready",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/endurance/confirmed",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/endurance/ready_missing_values",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/endurance/false_confirmation",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/selection/empty",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/student/raw_measured",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/student/exempt",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentEnduranceOutcome/conversion/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentEnduranceOutcome/conversion/0",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentEnduranceOutcome/conversion/成绩",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentEnduranceOutcome/score/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentEnduranceOutcome/score/0",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentEnduranceOutcome/score/成绩",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentEnduranceOutcome/level/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentEnduranceOutcome/level/0",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentEnduranceOutcome/level/成绩",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentEnduranceOutcome/rank/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentEnduranceOutcome/rank/0",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentEnduranceOutcome/rank/成绩",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentEnduranceOutcome/ranking/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentEnduranceOutcome/ranking/0",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentEnduranceOutcome/ranking/成绩",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentEnduranceOutcome/gradeValue/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentEnduranceOutcome/gradeValue/0",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentEnduranceOutcome/gradeValue/成绩",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentEnduranceOutcome/finalGrade/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentEnduranceOutcome/finalGrade/0",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentEnduranceOutcome/finalGrade/成绩",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentEnduranceOutcome/remark/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentEnduranceOutcome/remark/0",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentEnduranceOutcome/remark/成绩",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentNotification/conversion/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentNotification/conversion/0",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentNotification/conversion/成绩",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentNotification/score/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentNotification/score/0",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentNotification/score/成绩",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentNotification/level/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentNotification/level/0",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentNotification/level/成绩",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentNotification/rank/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentNotification/rank/0",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentNotification/rank/成绩",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentNotification/ranking/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentNotification/ranking/0",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentNotification/ranking/成绩",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentNotification/gradeValue/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentNotification/gradeValue/0",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentNotification/gradeValue/成绩",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentNotification/finalGrade/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentNotification/finalGrade/0",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentNotification/finalGrade/成绩",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentNotification/remark/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentNotification/remark/0",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentNotification/remark/成绩",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentDashboard/conversion/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentDashboard/conversion/0",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentDashboard/conversion/成绩",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentDashboard/score/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentDashboard/score/0",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentDashboard/score/成绩",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentDashboard/level/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentDashboard/level/0",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentDashboard/level/成绩",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentDashboard/rank/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentDashboard/rank/0",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentDashboard/rank/成绩",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentDashboard/ranking/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentDashboard/ranking/0",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentDashboard/ranking/成绩",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentDashboard/gradeValue/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentDashboard/gradeValue/0",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentDashboard/gradeValue/成绩",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentDashboard/finalGrade/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentDashboard/finalGrade/0",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentDashboard/finalGrade/成绩",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentDashboard/remark/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentDashboard/remark/0",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/StudentDashboard/remark/成绩",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/dashboard/nested",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/privacy/notification/grade_route",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/grade/new_forbidden/remark/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/grade/new_forbidden/remark/",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/grade/new_forbidden/remark/历史备注",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/grade/new_forbidden/note/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/grade/new_forbidden/note/",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/grade/new_forbidden/note/历史备注",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/grade/new_forbidden/comment/None",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/grade/new_forbidden/comment/",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/grade/new_forbidden/comment/历史备注",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/grade/signed/-1000",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/grade/signed/0",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/grade/signed/101",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/grade/signed/2147483647",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/grade/signed/-2147483648",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/history/remark",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/history/grade_not_expanded",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/service/ROSTER_OCR",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/service/ocr_no_auto/ROSTER_OCR",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/service/ENDURANCE_OCR",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/service/ocr_no_auto/ENDURANCE_OCR",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/service/vlm_needs_evidence",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/service/vlm_evidence_reference",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/service/no_leak/TechnicalServiceRevisionRequest/apiKey",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/service/no_leak/TechnicalServiceRevisionRequest/secret",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/service/no_leak/TechnicalServiceRevisionRequest/prompt",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/service/no_leak/TechnicalServiceRevisionRequest/rawResponse",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/service/no_leak/TechnicalServiceRevisionRequest/media",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/service/no_leak/TechnicalServiceRevision/apiKey",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/service/no_leak/TechnicalServiceRevision/secret",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/service/no_leak/TechnicalServiceRevision/prompt",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/service/no_leak/TechnicalServiceRevision/rawResponse",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/service/no_leak/TechnicalServiceRevision/media",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/service/no_leak/TechnicalServiceRunStatus/apiKey",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/service/no_leak/TechnicalServiceRunStatus/secret",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/service/no_leak/TechnicalServiceRunStatus/prompt",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/service/no_leak/TechnicalServiceRunStatus/rawResponse",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/service/no_leak/TechnicalServiceRunStatus/media",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/service/missing_not_zero",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/service/available",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/service/failed_probe_not_healthy",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/service/course_scope",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/service/course_scope_missing",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/manual/closed",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/manual/false_close",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/projection/unavailable_not_zero",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/projection/current_full_sources",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/projection/missing_owner",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/projection/duplicate_owner",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "checks/export/ready",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "checks/export/no_file_not_ready",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "p7/reference/current",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "p7/reference/pending",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "p7/reference/deleted",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "p7/current/model",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "p7/deleted/model",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "p7/reference/missing_kind",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "p7/reference/unknown_kind",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "p7/reference/mixed",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "p7/reference/null",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "p7/reference/missing_id",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "p7/reference/bad_id",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "p7/reference/old_summary",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "p7/reference/current_missing_student",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "p7/reference/kind_null",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "p7/deleted/pii/name",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "p7/deleted/pii/studentNumber",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "p7/deleted/pii/gender",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "p7/deleted/pii/gradeYear",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "p7/deleted/pii/email",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "p7/deleted/pii/deletedAt",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "p7/outlet/Enrollment/current",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "p7/outlet/Enrollment/deleted",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "p7/outlet/Enrollment/pii",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "p7/outlet/Enrollment/old_shape",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "p7/outlet/ExerciseRecord/current",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "p7/outlet/ExerciseRecord/deleted",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "p7/outlet/ExerciseRecord/pii",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "p7/outlet/ExerciseRecord/old_shape",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "p7/outlet/StudentCourseProgress/current",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "p7/outlet/StudentCourseProgress/deleted",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "p7/outlet/StudentCourseProgress/pii",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "p7/outlet/StudentCourseProgress/old_shape",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "p7/outlet/StudentApplication/current",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "p7/outlet/StudentApplication/deleted",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "p7/outlet/StudentApplication/pii",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "p7/outlet/StudentApplication/old_shape",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "p7/outlet/FeedbackTicket/current",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "p7/outlet/FeedbackTicket/deleted",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "p7/outlet/FeedbackTicket/pii",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "p7/outlet/FeedbackTicket/old_shape",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "p7/feedback/old_email",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "p7/outlet/SettlementReportRow/current",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "p7/outlet/SettlementReportRow/deleted",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "p7/outlet/SettlementReportRow/pii",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "p7/outlet/SettlementReportRow/old_shape",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "p7/outlet/CourseChangeImpact/current",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "p7/outlet/CourseChangeImpact/deleted",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "p7/outlet/CourseChangeImpact/pii",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "p7/outlet/CourseChangeImpact/old_shape",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "p7/outlet/AssessmentRosterRow/current",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "p7/outlet/AssessmentRosterRow/deleted",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    },
+    {
+      "name": "p7/outlet/AssessmentRosterRow/pii",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "p7/outlet/AssessmentRosterRow/old_shape",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "p7/roster/rosterName",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "p7/roster/rosterStudentNumber",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "p7/roster/registrationState",
+      "expectedValid": false,
+      "actualValid": false,
+      "passed": true
+    },
+    {
+      "name": "p7/roster/unlinked_null",
+      "expectedValid": true,
+      "actualValid": true,
+      "passed": true
+    }
+  ],
+  "mutations": [
+    {
+      "name": "allowlist/listPublishedRuleTemplates",
+      "rejected": true
+    },
+    {
+      "name": "allowlist/listOwnCourses",
+      "rejected": true
+    },
+    {
+      "name": "allowlist/listSubAdmins",
+      "rejected": true
+    },
+    {
+      "name": "allowlist/listOwnNotifications",
+      "rejected": true
+    },
+    {
+      "name": "allowlist/listTeacherAccounts",
+      "rejected": true
+    },
+    {
+      "name": "allowlist/listOwnStudentNotifications",
+      "rejected": true
+    },
+    {
+      "name": "allowlist/listSystemModeTransitions",
+      "rejected": true
+    },
+    {
+      "name": "allowlist/listStudentAccounts",
+      "rejected": true
+    },
+    {
+      "name": "allowlist/listCourseMakeupAuthorizations",
+      "rejected": true
+    },
+    {
+      "name": "allowlist/listCourseMembers",
+      "rejected": true
+    },
+    {
+      "name": "allowlist/listCourseInvitations",
+      "rejected": true
+    },
+    {
+      "name": "allowlist/listOwnMakeupAuthorizations",
+      "rejected": true
+    },
+    {
+      "name": "allowlist/listSemesters",
+      "rejected": true
+    },
+    {
+      "name": "mapping",
+      "rejected": true
+    },
+    {
+      "name": "pii_allowed",
+      "rejected": true
+    },
+    {
+      "name": "query_scope",
+      "rejected": true
+    },
+    {
+      "name": "role_change",
+      "rejected": true
+    },
+    {
+      "name": "summary_change",
+      "rejected": true
+    }
+  ],
+  "affectedResponseOperations": [
+    {
+      "operationId": "previewCourseChangeImpact",
+      "method": "POST",
+      "path": "/api/v1/courses/{courseId}/change-impact",
+      "roles": [
+        "TEACHER"
+      ],
+      "classification": "HISTORICAL_CAPABLE",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "joinCourseByInvitation",
+      "method": "POST",
+      "path": "/api/v1/course-invitations/{invitationCode}/join",
+      "roles": [
+        "STUDENT"
+      ],
+      "classification": "CURRENT_ONLY",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "listCourseMembers",
+      "method": "GET",
+      "path": "/api/v1/courses/{courseId}/members",
+      "roles": [
+        "TEACHER"
+      ],
+      "classification": "HISTORICAL_CAPABLE",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "removeCourseMember",
+      "method": "POST",
+      "path": "/api/v1/courses/{courseId}/members/{enrollmentId}/removal",
+      "roles": [
+        "TEACHER"
+      ],
+      "classification": "HISTORICAL_CAPABLE",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "restoreCourseMember",
+      "method": "POST",
+      "path": "/api/v1/courses/{courseId}/members/{enrollmentId}/restoration",
+      "roles": [
+        "TEACHER"
+      ],
+      "classification": "HISTORICAL_CAPABLE",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "listRosterFindings",
+      "method": "GET",
+      "path": "/api/v1/courses/{courseId}/roster-snapshots/{snapshotId}/findings",
+      "roles": [
+        "TEACHER"
+      ],
+      "classification": "HISTORICAL_CAPABLE",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "resolveRosterFinding",
+      "method": "POST",
+      "path": "/api/v1/courses/{courseId}/roster-findings/{findingId}/resolution",
+      "roles": [
+        "TEACHER"
+      ],
+      "classification": "HISTORICAL_CAPABLE",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "listOwnExerciseRecords",
+      "method": "GET",
+      "path": "/api/v1/student/exercise-records",
+      "roles": [
+        "STUDENT"
+      ],
+      "classification": "CURRENT_ONLY",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "getOwnExerciseRecord",
+      "method": "GET",
+      "path": "/api/v1/student/exercise-records/{recordId}",
+      "roles": [
+        "STUDENT"
+      ],
+      "classification": "CURRENT_ONLY",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "listCourseExerciseRecords",
+      "method": "GET",
+      "path": "/api/v1/courses/{courseId}/exercise-records",
+      "roles": [
+        "TEACHER"
+      ],
+      "classification": "HISTORICAL_CAPABLE",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "getCourseExerciseRecord",
+      "method": "GET",
+      "path": "/api/v1/courses/{courseId}/exercise-records/{recordId}",
+      "roles": [
+        "TEACHER"
+      ],
+      "classification": "HISTORICAL_CAPABLE",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "listTeacherReviewQueue",
+      "method": "GET",
+      "path": "/api/v1/courses/{courseId}/review-queue",
+      "roles": [
+        "TEACHER"
+      ],
+      "classification": "HISTORICAL_CAPABLE",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "getOwnCourseProgress",
+      "method": "GET",
+      "path": "/api/v1/student/progress",
+      "roles": [
+        "STUDENT"
+      ],
+      "classification": "CURRENT_ONLY",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "getCourseMemberProgress",
+      "method": "GET",
+      "path": "/api/v1/courses/{courseId}/members/{enrollmentId}/progress",
+      "roles": [
+        "TEACHER"
+      ],
+      "classification": "HISTORICAL_CAPABLE",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "listCourseProgress",
+      "method": "GET",
+      "path": "/api/v1/courses/{courseId}/progress",
+      "roles": [
+        "TEACHER"
+      ],
+      "classification": "HISTORICAL_CAPABLE",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "createStudentApplication",
+      "method": "POST",
+      "path": "/api/v1/student/applications",
+      "roles": [
+        "STUDENT"
+      ],
+      "classification": "CURRENT_ONLY",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "listOwnApplications",
+      "method": "GET",
+      "path": "/api/v1/student/applications",
+      "roles": [
+        "STUDENT"
+      ],
+      "classification": "CURRENT_ONLY",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "supplementStudentApplication",
+      "method": "POST",
+      "path": "/api/v1/student/applications/{applicationId}/supplements",
+      "roles": [
+        "STUDENT"
+      ],
+      "classification": "CURRENT_ONLY",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "getOwnApplication",
+      "method": "GET",
+      "path": "/api/v1/student/applications/{applicationId}",
+      "roles": [
+        "STUDENT"
+      ],
+      "classification": "CURRENT_ONLY",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "listCourseApplications",
+      "method": "GET",
+      "path": "/api/v1/courses/{courseId}/applications",
+      "roles": [
+        "TEACHER"
+      ],
+      "classification": "HISTORICAL_CAPABLE",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "getCourseApplication",
+      "method": "GET",
+      "path": "/api/v1/courses/{courseId}/applications/{applicationId}",
+      "roles": [
+        "TEACHER"
+      ],
+      "classification": "HISTORICAL_CAPABLE",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "decideStudentApplication",
+      "method": "POST",
+      "path": "/api/v1/courses/{courseId}/applications/{applicationId}/decisions",
+      "roles": [
+        "TEACHER"
+      ],
+      "classification": "HISTORICAL_CAPABLE",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "createFeedback",
+      "method": "POST",
+      "path": "/api/v1/student/feedback",
+      "roles": [
+        "STUDENT"
+      ],
+      "classification": "CURRENT_ONLY",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "listOwnFeedback",
+      "method": "GET",
+      "path": "/api/v1/student/feedback",
+      "roles": [
+        "STUDENT"
+      ],
+      "classification": "CURRENT_ONLY",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "getOwnFeedback",
+      "method": "GET",
+      "path": "/api/v1/student/feedback/{feedbackId}",
+      "roles": [
+        "STUDENT"
+      ],
+      "classification": "CURRENT_ONLY",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "listFeedbackForAdmin",
+      "method": "GET",
+      "path": "/api/v1/admin/feedback",
+      "roles": [
+        "ADMIN"
+      ],
+      "classification": "HISTORICAL_CAPABLE",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "getFeedbackForAdmin",
+      "method": "GET",
+      "path": "/api/v1/admin/feedback/{feedbackId}",
+      "roles": [
+        "ADMIN"
+      ],
+      "classification": "HISTORICAL_CAPABLE",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "processFeedback",
+      "method": "POST",
+      "path": "/api/v1/admin/feedback/{feedbackId}/processing",
+      "roles": [
+        "ADMIN"
+      ],
+      "classification": "HISTORICAL_CAPABLE",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "getStudentDashboard",
+      "method": "GET",
+      "path": "/api/v1/student/dashboard",
+      "roles": [
+        "STUDENT"
+      ],
+      "classification": "CURRENT_ONLY",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "listSettlementReportRows",
+      "method": "GET",
+      "path": "/api/v1/courses/{courseId}/settlements/{settlementVersionId}/rows",
+      "roles": [
+        "TEACHER"
+      ],
+      "classification": "HISTORICAL_CAPABLE",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "listAssessmentRosterRows",
+      "method": "GET",
+      "path": "/api/v1/courses/{courseId}/assessment-roster/{projectionId}/rows",
+      "roles": [
+        "TEACHER"
+      ],
+      "classification": "HISTORICAL_CAPABLE",
+      "backendImplemented": "NOT_ASSERTED"
+    }
+  ],
+  "queryOperations": [
+    "listCourseInvitations",
+    "listCourseMakeupAuthorizations",
+    "listCourseMembers",
+    "listOwnCourses",
+    "listOwnMakeupAuthorizations",
+    "listOwnNotifications",
+    "listOwnStudentNotifications",
+    "listPublishedRuleTemplates",
+    "listSemesters",
+    "listStudentAccounts",
+    "listSubAdmins",
+    "listSystemModeTransitions",
+    "listTeacherAccounts"
+  ],
+  "backend": "NOT_RUN; H/Z candidate failures and joint acceptance remain open"
+}

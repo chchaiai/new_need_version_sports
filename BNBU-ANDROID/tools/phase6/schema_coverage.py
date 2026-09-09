@@ -79,7 +79,7 @@ def report_coverage(generated, reports, output):
     for row in cases:
         pointer = '#/components/schemas/' + row['schema']
         walk(resolve(pointer), pointer, row['payload'], row)
-    require(len(unions) == 6, 'The current RC must have six discriminator groups, including nested change')
+    require(len(unions) == 7, 'The 1.4 RC has seven discriminator groups, including historical student')
     for pointer, group in unions.items():
         require(set(group['legal']) == set(group['mapping']), 'Untested legal union branches: ' + pointer)
         require(bool(group['rejected']), 'Missing rejection cases for union: ' + pointer)
@@ -97,7 +97,7 @@ def report_coverage(generated, reports, output):
         errorCodesTested=len(tested_codes), rootSchemas=root_schemas,
         traversedSchemas=sorted(visited_schemas),
         schemasWithoutObservedTraversal=sorted(set(spec['components']['schemas']) - visited_schemas),
-        limitations=['Schema traversal is not full value/path coverage of all 316 schemas.',
+        limitations=['Schema traversal is not full value/path coverage of all 319 schemas.',
                      'No endpoint, Mapper, UI, device, Backend or Web execution claim.',
                      'Student privacy field checks do not prove natural-language message safety.'])
     write_json(output, result)

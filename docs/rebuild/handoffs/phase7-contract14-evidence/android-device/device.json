@@ -1,0 +1,14 @@
+{
+  "serial": "emulator-5562",
+  "properties": {
+    "ro.build.version.sdk": "37",
+    "ro.build.version.release": "17",
+    "ro.build.version.codename": "REL",
+    "ro.build.fingerprint": "google/sdk_gphone16k_x86_64/emu64xa16k:17/CP21.260330.012/15545953:user/dev-keys",
+    "ro.product.model": "sdk_gphone16k_x86_64",
+    "ro.product.cpu.abi": "x86_64",
+    "ro.kernel.qemu": "1",
+    "pageSize": "16384",
+    "display": "Physical size: 1080x2400"
+  }
+}

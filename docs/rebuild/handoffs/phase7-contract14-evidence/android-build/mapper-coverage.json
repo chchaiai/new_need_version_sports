@@ -1,0 +1,1021 @@
+{
+  "contractSha256": "0528389bb8b72714d9a4af35ffc66c87503560d41c58ad968b1713b39ff3da2d",
+  "sourceTraceabilitySha256": "446748b95ac4ebfb371711972adbca24fdc1aa7d7eb26178e75929502b9f59b2",
+  "planned": 255,
+  "passed": 255,
+  "junitCaseSet": "EXACT_MATCH",
+  "distinctCasesByPrefix": {
+    "account": 3,
+    "application": 6,
+    "certification": 4,
+    "course": 4,
+    "date": 2,
+    "endurance": 4,
+    "error": 101,
+    "feedback": 5,
+    "first_material": 19,
+    "help": 1,
+    "home": 4,
+    "invitation": 7,
+    "media": 6,
+    "mode": 4,
+    "notification": 18,
+    "otp": 1,
+    "presentation": 1,
+    "progress": 9,
+    "reason": 7,
+    "record": 21,
+    "release": 1,
+    "session": 3,
+    "sla": 4,
+    "supplement": 11,
+    "time": 8,
+    "wire": 1
+  },
+  "requiredBoundaryCases": [
+    "progress/1199_percent100_is_not_target_met",
+    "home/CACHED_checkpoint_is_not_current",
+    "home/ARCHIVED_checkpoint_is_not_current",
+    "first_material/ORDINARY_equal",
+    "first_material/locked_equal_deadline",
+    "supplement/confirmed_fault_uses_current_remainder_not_new_window",
+    "sla/missing_calendar_server_projection_only",
+    "sla/overdue_does_not_invalidate_student_record",
+    "notification/null_route_no_text_inference",
+    "mode/estimated_recovery_keeps_maintenance_closed",
+    "wire/unknown_state_and_forbidden_student_fields_rejected_before_mapping"
+  ],
+  "groupCases": {
+    "startup": [
+      "account/deletion_false_preserves_facts_list",
+      "account/deletion_true_preserves_facts_list",
+      "account/student_otp_only_no_teacher_password_projection",
+      "mode/MAINTENANCE_must_be_fresh",
+      "mode/NORMAL_must_be_fresh",
+      "mode/estimated_recovery_keeps_maintenance_closed",
+      "mode/no_response_fails_closed",
+      "session/ACTIVE_keeps_server_duration_version",
+      "session/COMPLETED_keeps_server_duration_version",
+      "session/PAUSED_keeps_server_duration_version"
+    ],
+    "maintenance": [
+      "mode/MAINTENANCE_must_be_fresh",
+      "mode/NORMAL_must_be_fresh",
+      "mode/estimated_recovery_keeps_maintenance_closed",
+      "mode/no_response_fails_closed",
+      "sla/available_server_projection_only",
+      "sla/missing_calendar_server_projection_only",
+      "sla/overdue_does_not_invalidate_student_record",
+      "sla/paused_server_projection_only",
+      "supplement/accepted_round2_no_student_timer_restart",
+      "supplement/blocked_MAINTENANCE_LIVE",
+      "supplement/blocked_NORMAL_ARCHIVED",
+      "supplement/blocked_NORMAL_CACHED",
+      "supplement/blocked_UNKNOWN_LIVE",
+      "supplement/confirmed_fault_uses_current_remainder_not_new_window",
+      "supplement/state_ACCEPTED",
+      "supplement/state_ACTIVE",
+      "supplement/state_EXPIRED",
+      "supplement/state_PAUSED",
+      "supplement/state_UNAVAILABLE"
+    ],
+    "otp_account": [
+      "account/deletion_false_preserves_facts_list",
+      "account/deletion_true_preserves_facts_list",
+      "account/student_otp_only_no_teacher_password_projection",
+      "error/ACCOUNT_DELETION_BLOCKED_never_success",
+      "error/ACCOUNT_DISABLED_never_success",
+      "error/ADMIN_RESPONSIBILITY_BLOCKED_never_success",
+      "error/APPLICATION_EVIDENCE_LIMIT_EXCEEDED_never_success",
+      "error/APPLICATION_SUPPLEMENT_NOT_ALLOWED_never_success",
+      "error/APPLICATION_TRANSITION_INVALID_never_success",
+      "error/AUDIT_ARCHIVE_NOT_READY_never_success",
+      "error/AUDIT_DATE_RANGE_INVALID_never_success",
+      "error/AUTHENTICATION_REQUIRED_never_success",
+      "error/CERTIFICATION_CREDIT_INVALID_never_success",
+      "error/CHALLENGE_EXPIRED_never_success",
+      "error/CHECKIN_WINDOW_CLOSED_never_success",
+      "error/CORRECTION_CONFLICT_never_success",
+      "error/COURSE_ALREADY_JOINED_never_success",
+      "error/COURSE_NOT_OPEN_never_success",
+      "error/COURSE_NOT_PUBLISHED_never_success",
+      "error/COURSE_PLAN_INFEASIBLE_never_success",
+      "error/COURSE_PLAN_STALE_never_success",
+      "error/COURSE_PLAN_UNAVAILABLE_never_success",
+      "error/COURSE_RULES_LOCKED_never_success",
+      "error/COURSE_TARGET_TOTAL_INVALID_never_success",
+      "error/DEPENDENCY_UNAVAILABLE_never_success",
+      "error/EMAIL_ALREADY_IN_USE_never_success",
+      "error/EMPLOYEE_ID_ALREADY_IN_USE_never_success",
+      "error/ENDURANCE_CONVERSION_UNAVAILABLE_never_success",
+      "error/ENDURANCE_OUTCOME_EXEMPT_never_success",
+      "error/ENDURANCE_RULE_TABLE_INVALID_never_success",
+      "error/ENROLLMENT_NOT_ACTIVE_never_success",
+      "error/FEEDBACK_TRANSITION_INVALID_never_success",
+      "error/FINAL_GRADE_VALUE_INVALID_never_success",
+      "error/FIRST_MATERIAL_ALREADY_ACCEPTED_never_success",
+      "error/FIRST_MATERIAL_DEADLINE_MISSED_never_success",
+      "error/FIRST_PASSWORD_CHANGE_REQUIRED_never_success",
+      "error/FORBIDDEN_never_success",
+      "error/HELP_ARTICLE_PUBLICATION_INCOMPLETE_never_success",
+      "error/HELP_ARTICLE_TRANSITION_INVALID_never_success",
+      "error/IDEMPOTENCY_KEY_REUSED_never_success",
+      "error/INTERNAL_ERROR_never_success",
+      "error/INVALID_CREDENTIALS_never_success",
+      "error/INVALID_CURSOR_never_success",
+      "error/INVALID_REQUEST_never_success",
+      "error/INVITATION_FLOW_EXPIRED_never_success",
+      "error/INVITATION_FLOW_MISMATCH_never_success",
+      "error/INVITATION_FLOW_TERMINATED_never_success",
+      "error/INVITATION_INVALID_never_success",
+      "error/LOGIN_NAME_ALREADY_IN_USE_never_success",
+      "error/MAINTENANCE_ANNOUNCEMENT_REQUIRED_never_success",
+      "error/MAKEUP_NOT_ALLOWED_never_success",
+      "error/MANUAL_WINDOW_CONFLICT_never_success",
+      "error/MATERIAL_BATCH_CONFLICT_never_success",
+      "error/MATERIAL_NOT_READY_never_success",
+      "error/MATERIAL_TRANSFER_DEADLINE_MISSED_never_success",
+      "error/MEDIA_ALREADY_BOUND_never_success",
+      "error/MEDIA_CONTENT_INVALID_never_success",
+      "error/MEDIA_LIMIT_EXCEEDED_never_success",
+      "error/MEDIA_NOT_VERIFIED_never_success",
+      "error/MEDIA_OWNERSHIP_MISMATCH_never_success",
+      "error/PAYLOAD_TOO_LARGE_never_success",
+      "error/PROJECTION_NOT_READY_never_success",
+      "error/RATE_LIMITED_never_success",
+      "error/RECORD_DESCRIPTION_INVALID_never_success",
+      "error/RESOURCE_NOT_FOUND_never_success",
+      "error/REVIEW_ACTION_NOT_ALLOWED_never_success",
+      "error/REVIEW_PRECONDITION_UNSATISFIED_never_success",
+      "error/REVIEW_RESULT_UNCHANGED_never_success",
+      "error/ROSTER_FINDING_ALREADY_RESOLVED_never_success",
+      "error/ROSTER_ROW_LIMIT_EXCEEDED_never_success",
+      "error/ROSTER_SNAPSHOT_NOT_IN_COURSE_never_success",
+      "error/ROSTER_SOURCE_INVALID_never_success",
+      "error/SEMESTER_COMBINATION_EXISTS_never_success",
+      "error/SEMESTER_NOT_CURRENT_never_success",
+      "error/SEMESTER_NOT_UPCOMING_never_success",
+      "error/SEMESTER_SETTLEMENT_BLOCKED_never_success",
+      "error/SEMESTER_START_DATE_NOT_REACHED_never_success",
+      "error/SESSION_ALREADY_ACTIVE_never_success",
+      "error/SESSION_TRANSITION_INVALID_never_success",
+      "error/SETTLEMENT_BLOCKED_never_success",
+      "error/SETTLEMENT_CORRECTION_INVALID_never_success",
+      "error/SETTLEMENT_SOURCE_STALE_never_success",
+      "error/SETTLEMENT_SOURCE_UNAVAILABLE_never_success",
+      "error/STATISTICS_UNAVAILABLE_never_success",
+      "error/STUDENT_NUMBER_ALREADY_IN_USE_never_success",
+      "error/SUPPLEMENT_DEADLINE_MISSED_never_success",
+      "error/SUPPLEMENT_NOT_ALLOWED_never_success",
+      "error/SYSTEM_MAINTENANCE_never_success",
+      "error/SYSTEM_MODE_UNCHANGED_never_success",
+      "error/TEACHING_BATCH_NOT_REVIEWABLE_never_success",
+      "error/TEACHING_DUPLICATE_IDENTITY_never_success",
+      "error/TEACHING_ROW_UNRESOLVED_never_success",
+      "error/TEACHING_SOURCE_INVALID_never_success",
+      "error/TEACHING_SOURCE_NOT_READY_never_success",
+      "error/TEACHING_SOURCE_STALE_never_success",
+      "error/TEACHING_SOURCE_UNAVAILABLE_never_success",
+      "error/TECHNICAL_SERVICE_REFERENCE_INVALID_never_success",
+      "error/TECHNICAL_SERVICE_VALIDATION_REQUIRED_never_success",
+      "error/TOKEN_EXPIRED_never_success",
+      "error/UNSUPPORTED_MEDIA_TYPE_never_success",
+      "error/VALIDATION_FAILED_never_success",
+      "error/VERSION_CONFLICT_never_success",
+      "error/transport_failure_is_not_maintenance_or_empty",
+      "error/version_and_retry_hints_keep_exact_integers",
+      "otp/server_challenge_expiry_and_retry_not_device_recomputed"
+    ],
+    "course": [
+      "course/mismatched_rule_not_silently_repaired",
+      "course/semester_ARCHIVED_history_read_only",
+      "course/semester_CURRENT_history_read_only",
+      "course/semester_UPCOMING_history_read_only"
+    ],
+    "home_progress": [
+      "home/ARCHIVED_checkpoint_is_not_current",
+      "home/CACHED_checkpoint_is_not_current",
+      "home/no_course_no_fake_zero_progress",
+      "home/reject_teacher_actor",
+      "progress/1199_percent100_is_not_target_met",
+      "progress/1200_is_target_met",
+      "progress/recomputing_previous_checkpoint_is_history",
+      "progress/recomputing_without_checkpoint",
+      "progress/reject_category_sum",
+      "progress/reject_identity",
+      "progress/reject_missing_current",
+      "progress/reject_unavailable_with_numbers",
+      "progress/unavailable_has_no_zero_or_cached_fallback"
+    ],
+    "session": [
+      "error/ACCOUNT_DELETION_BLOCKED_never_success",
+      "error/ACCOUNT_DISABLED_never_success",
+      "error/ADMIN_RESPONSIBILITY_BLOCKED_never_success",
+      "error/APPLICATION_EVIDENCE_LIMIT_EXCEEDED_never_success",
+      "error/APPLICATION_SUPPLEMENT_NOT_ALLOWED_never_success",
+      "error/APPLICATION_TRANSITION_INVALID_never_success",
+      "error/AUDIT_ARCHIVE_NOT_READY_never_success",
+      "error/AUDIT_DATE_RANGE_INVALID_never_success",
+      "error/AUTHENTICATION_REQUIRED_never_success",
+      "error/CERTIFICATION_CREDIT_INVALID_never_success",
+      "error/CHALLENGE_EXPIRED_never_success",
+      "error/CHECKIN_WINDOW_CLOSED_never_success",
+      "error/CORRECTION_CONFLICT_never_success",
+      "error/COURSE_ALREADY_JOINED_never_success",
+      "error/COURSE_NOT_OPEN_never_success",
+      "error/COURSE_NOT_PUBLISHED_never_success",
+      "error/COURSE_PLAN_INFEASIBLE_never_success",
+      "error/COURSE_PLAN_STALE_never_success",
+      "error/COURSE_PLAN_UNAVAILABLE_never_success",
+      "error/COURSE_RULES_LOCKED_never_success",
+      "error/COURSE_TARGET_TOTAL_INVALID_never_success",
+      "error/DEPENDENCY_UNAVAILABLE_never_success",
+      "error/EMAIL_ALREADY_IN_USE_never_success",
+      "error/EMPLOYEE_ID_ALREADY_IN_USE_never_success",
+      "error/ENDURANCE_CONVERSION_UNAVAILABLE_never_success",
+      "error/ENDURANCE_OUTCOME_EXEMPT_never_success",
+      "error/ENDURANCE_RULE_TABLE_INVALID_never_success",
+      "error/ENROLLMENT_NOT_ACTIVE_never_success",
+      "error/FEEDBACK_TRANSITION_INVALID_never_success",
+      "error/FINAL_GRADE_VALUE_INVALID_never_success",
+      "error/FIRST_MATERIAL_ALREADY_ACCEPTED_never_success",
+      "error/FIRST_MATERIAL_DEADLINE_MISSED_never_success",
+      "error/FIRST_PASSWORD_CHANGE_REQUIRED_never_success",
+      "error/FORBIDDEN_never_success",
+      "error/HELP_ARTICLE_PUBLICATION_INCOMPLETE_never_success",
+      "error/HELP_ARTICLE_TRANSITION_INVALID_never_success",
+      "error/IDEMPOTENCY_KEY_REUSED_never_success",
+      "error/INTERNAL_ERROR_never_success",
+      "error/INVALID_CREDENTIALS_never_success",
+      "error/INVALID_CURSOR_never_success",
+      "error/INVALID_REQUEST_never_success",
+      "error/INVITATION_FLOW_EXPIRED_never_success",
+      "error/INVITATION_FLOW_MISMATCH_never_success",
+      "error/INVITATION_FLOW_TERMINATED_never_success",
+      "error/INVITATION_INVALID_never_success",
+      "error/LOGIN_NAME_ALREADY_IN_USE_never_success",
+      "error/MAINTENANCE_ANNOUNCEMENT_REQUIRED_never_success",
+      "error/MAKEUP_NOT_ALLOWED_never_success",
+      "error/MANUAL_WINDOW_CONFLICT_never_success",
+      "error/MATERIAL_BATCH_CONFLICT_never_success",
+      "error/MATERIAL_NOT_READY_never_success",
+      "error/MATERIAL_TRANSFER_DEADLINE_MISSED_never_success",
+      "error/MEDIA_ALREADY_BOUND_never_success",
+      "error/MEDIA_CONTENT_INVALID_never_success",
+      "error/MEDIA_LIMIT_EXCEEDED_never_success",
+      "error/MEDIA_NOT_VERIFIED_never_success",
+      "error/MEDIA_OWNERSHIP_MISMATCH_never_success",
+      "error/PAYLOAD_TOO_LARGE_never_success",
+      "error/PROJECTION_NOT_READY_never_success",
+      "error/RATE_LIMITED_never_success",
+      "error/RECORD_DESCRIPTION_INVALID_never_success",
+      "error/RESOURCE_NOT_FOUND_never_success",
+      "error/REVIEW_ACTION_NOT_ALLOWED_never_success",
+      "error/REVIEW_PRECONDITION_UNSATISFIED_never_success",
+      "error/REVIEW_RESULT_UNCHANGED_never_success",
+      "error/ROSTER_FINDING_ALREADY_RESOLVED_never_success",
+      "error/ROSTER_ROW_LIMIT_EXCEEDED_never_success",
+      "error/ROSTER_SNAPSHOT_NOT_IN_COURSE_never_success",
+      "error/ROSTER_SOURCE_INVALID_never_success",
+      "error/SEMESTER_COMBINATION_EXISTS_never_success",
+      "error/SEMESTER_NOT_CURRENT_never_success",
+      "error/SEMESTER_NOT_UPCOMING_never_success",
+      "error/SEMESTER_SETTLEMENT_BLOCKED_never_success",
+      "error/SEMESTER_START_DATE_NOT_REACHED_never_success",
+      "error/SESSION_ALREADY_ACTIVE_never_success",
+      "error/SESSION_TRANSITION_INVALID_never_success",
+      "error/SETTLEMENT_BLOCKED_never_success",
+      "error/SETTLEMENT_CORRECTION_INVALID_never_success",
+      "error/SETTLEMENT_SOURCE_STALE_never_success",
+      "error/SETTLEMENT_SOURCE_UNAVAILABLE_never_success",
+      "error/STATISTICS_UNAVAILABLE_never_success",
+      "error/STUDENT_NUMBER_ALREADY_IN_USE_never_success",
+      "error/SUPPLEMENT_DEADLINE_MISSED_never_success",
+      "error/SUPPLEMENT_NOT_ALLOWED_never_success",
+      "error/SYSTEM_MAINTENANCE_never_success",
+      "error/SYSTEM_MODE_UNCHANGED_never_success",
+      "error/TEACHING_BATCH_NOT_REVIEWABLE_never_success",
+      "error/TEACHING_DUPLICATE_IDENTITY_never_success",
+      "error/TEACHING_ROW_UNRESOLVED_never_success",
+      "error/TEACHING_SOURCE_INVALID_never_success",
+      "error/TEACHING_SOURCE_NOT_READY_never_success",
+      "error/TEACHING_SOURCE_STALE_never_success",
+      "error/TEACHING_SOURCE_UNAVAILABLE_never_success",
+      "error/TECHNICAL_SERVICE_REFERENCE_INVALID_never_success",
+      "error/TECHNICAL_SERVICE_VALIDATION_REQUIRED_never_success",
+      "error/TOKEN_EXPIRED_never_success",
+      "error/UNSUPPORTED_MEDIA_TYPE_never_success",
+      "error/VALIDATION_FAILED_never_success",
+      "error/VERSION_CONFLICT_never_success",
+      "error/transport_failure_is_not_maintenance_or_empty",
+      "error/version_and_retry_hints_keep_exact_integers",
+      "session/ACTIVE_keeps_server_duration_version",
+      "session/COMPLETED_keeps_server_duration_version",
+      "session/PAUSED_keeps_server_duration_version"
+    ],
+    "notification": [
+      "notification/allow_workflow_100 分钟",
+      "notification/allow_workflow_Application passed",
+      "notification/allow_workflow_Upload failed",
+      "notification/allow_workflow_材料有效",
+      "notification/allow_workflow_申请审核通过",
+      "notification/explicit_route_APPLICATION",
+      "notification/explicit_route_COURSE",
+      "notification/explicit_route_ENDURANCE",
+      "notification/explicit_route_EXERCISE_RECORD",
+      "notification/explicit_route_FEEDBACK",
+      "notification/explicit_route_SYSTEM_MODE",
+      "notification/null_route_no_text_inference",
+      "notification/read_preserves_event_not_current_review",
+      "notification/reject_disclosure_100 points",
+      "notification/reject_disclosure_final grade A",
+      "notification/reject_disclosure_历史备注",
+      "notification/reject_disclosure_成绩 90",
+      "notification/reject_disclosure_排名第一"
+    ],
+    "invitation": [
+      "invitation/active_but_join_closed",
+      "invitation/fixed_grace_is_not_restarted_by_refresh",
+      "invitation/status_ACTIVE",
+      "invitation/status_COURSE_CLOSED",
+      "invitation/status_EXPIRED",
+      "invitation/status_NOT_CURRENT",
+      "invitation/status_REVOKED"
+    ],
+    "media": [
+      "media/ALLOCATED_upload_is_not_verification",
+      "media/BOUND_upload_is_not_verification",
+      "media/EXPIRED_upload_is_not_verification",
+      "media/REJECTED_upload_is_not_verification",
+      "media/UPLOADED_upload_is_not_verification",
+      "media/VERIFIED_upload_is_not_verification"
+    ],
+    "first_material": [
+      "first_material/ORDINARY_after",
+      "first_material/ORDINARY_before",
+      "first_material/ORDINARY_equal",
+      "first_material/SWIMMING_OFFLINE_after",
+      "first_material/SWIMMING_OFFLINE_before",
+      "first_material/SWIMMING_OFFLINE_equal",
+      "first_material/SWIMMING_TIMELY_after",
+      "first_material/SWIMMING_TIMELY_before",
+      "first_material/SWIMMING_TIMELY_equal",
+      "first_material/blocked_MAINTENANCE_LIVE",
+      "first_material/blocked_NORMAL_ARCHIVED",
+      "first_material/blocked_NORMAL_CACHED",
+      "first_material/blocked_UNKNOWN_LIVE",
+      "first_material/closed_removed_owned_chain_still_has_entry",
+      "first_material/ineligible_chain_disabled",
+      "first_material/locked_equal_deadline",
+      "first_material/locked_fresh",
+      "first_material/locked_no_refresh",
+      "first_material/locked_wrong_batch"
+    ],
+    "records": [
+      "date/reject_2026-02-30",
+      "date/reject_2026-09-08T00:00:00Z",
+      "reason/AUTHENTICITY_REQUIRES_CLARIFICATION_bilingual_original_comment",
+      "reason/CONFIRMED_REUSE_OR_MISUSE_bilingual_original_comment",
+      "reason/EVIDENCE_SESSION_MISMATCH_bilingual_original_comment",
+      "reason/INCONSISTENT_EVIDENCE_bilingual_original_comment",
+      "reason/MISSING_REQUIRED_EVIDENCE_bilingual_original_comment",
+      "reason/SUPPLEMENT_DEADLINE_MISSED_bilingual_original_comment",
+      "reason/UNCLEAR_EVIDENCE_bilingual_original_comment",
+      "record/invalid_is_not_valid_uncounted",
+      "record/long_seconds_floor_without_millisecond_overflow",
+      "record/reject_cross_source_actualDurationSeconds",
+      "record/reject_cross_source_businessDate",
+      "record/reject_cross_source_recordId",
+      "record/reject_cross_source_reviewResult",
+      "record/reject_cross_source_ruleVersionId",
+      "record/reject_cross_source_sessionId",
+      "record/stage_AI_REVIEW_PENDING",
+      "record/stage_MATERIAL_PROCESSING",
+      "record/stage_SUPPLEMENT_REQUIRED",
+      "record/stage_SUPPLEMENT_REVIEW_REQUIRED",
+      "record/stage_SYSTEM_CHECK_PENDING",
+      "record/stage_TEACHER_REVIEW_REQUIRED",
+      "record/stage_TECHNICAL_PROCESSING",
+      "record/valid_counted_0",
+      "record/valid_counted_30",
+      "record/valid_counted_60",
+      "record/valid_statistics_absent",
+      "record/valid_statistics_recomputing",
+      "record/valid_statistics_wrong_checkpoint",
+      "time/equivalent_fraction_precision",
+      "time/fraction_digits_0",
+      "time/fraction_digits_1",
+      "time/fraction_digits_10",
+      "time/fraction_digits_3",
+      "time/fraction_digits_40",
+      "time/fraction_digits_9",
+      "time/leap_second_retained_for_display"
+    ],
+    "endurance": [
+      "endurance/checks/student/exempt",
+      "endurance/checks/student/raw_measured",
+      "endurance/checks/wire/StudentEnduranceOutcome",
+      "endurance/legacy_missing_date_no_backfill"
+    ],
+    "supplement": [
+      "reason/AUTHENTICITY_REQUIRES_CLARIFICATION_bilingual_original_comment",
+      "reason/CONFIRMED_REUSE_OR_MISUSE_bilingual_original_comment",
+      "reason/EVIDENCE_SESSION_MISMATCH_bilingual_original_comment",
+      "reason/INCONSISTENT_EVIDENCE_bilingual_original_comment",
+      "reason/MISSING_REQUIRED_EVIDENCE_bilingual_original_comment",
+      "reason/SUPPLEMENT_DEADLINE_MISSED_bilingual_original_comment",
+      "reason/UNCLEAR_EVIDENCE_bilingual_original_comment",
+      "sla/available_server_projection_only",
+      "sla/missing_calendar_server_projection_only",
+      "sla/overdue_does_not_invalidate_student_record",
+      "sla/paused_server_projection_only",
+      "supplement/accepted_round2_no_student_timer_restart",
+      "supplement/blocked_MAINTENANCE_LIVE",
+      "supplement/blocked_NORMAL_ARCHIVED",
+      "supplement/blocked_NORMAL_CACHED",
+      "supplement/blocked_UNKNOWN_LIVE",
+      "supplement/confirmed_fault_uses_current_remainder_not_new_window",
+      "supplement/state_ACCEPTED",
+      "supplement/state_ACTIVE",
+      "supplement/state_EXPIRED",
+      "supplement/state_PAUSED",
+      "supplement/state_UNAVAILABLE"
+    ],
+    "applications": [
+      "application/cumulative_three_images_no_fourth",
+      "application/history_sorted_without_overwrite_and_archive_blocks_submit",
+      "application/status_APPROVED",
+      "application/status_REJECTED",
+      "application/status_SUBMITTED",
+      "application/status_SUPPLEMENT_REQUIRED",
+      "certification/ACTIVE_minutes_not_exercise_time",
+      "certification/REVOKED_minutes_not_exercise_time",
+      "certification/SCHOOL_TEAM_not_inferred_from_name",
+      "certification/STUDENT_CLUB_not_inferred_from_name"
+    ],
+    "help": [
+      "help/cache_explicit_not_current_maintenance_announcement"
+    ],
+    "feedback": [
+      "feedback/CLOSED_public_history_and_deleted_email",
+      "feedback/COMPLETED_public_history_and_deleted_email",
+      "feedback/IN_PROGRESS_public_history_and_deleted_email",
+      "feedback/WAITING_TECH_public_history_and_deleted_email",
+      "feedback/WAITING_public_history_and_deleted_email"
+    ],
+    "release": [
+      "release/failed_refresh_preserves_forced_upgrade"
+    ]
+  },
+  "studentPages": [
+    {
+      "page": "PAGE-STU-001",
+      "title": "启动与中断恢复",
+      "operationIds": [
+        "getCurrentActor",
+        "getSystemMode",
+        "getOwnActiveExerciseSession"
+      ],
+      "groups": [
+        "startup"
+      ],
+      "status": "MAPPER_FAMILY_TESTED_UI_NOT_RUN",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-002",
+      "title": "系统维护",
+      "operationIds": [
+        "getSystemMode",
+        "getOwnExerciseRecord"
+      ],
+      "groups": [
+        "maintenance"
+      ],
+      "status": "MAPPER_FAMILY_TESTED_UI_NOT_RUN",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-003",
+      "title": "首次隐私同意",
+      "operationIds": [],
+      "groups": [],
+      "status": "NO_NEW_API_LOCAL_OR_SCHOOL_PROCESS",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-004",
+      "title": "登录前课程引导",
+      "operationIds": [],
+      "groups": [],
+      "status": "NO_NEW_API_LOCAL_OR_SCHOOL_PROCESS",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-005",
+      "title": "登录方式选择",
+      "operationIds": [
+        "requestAuthChallenge",
+        "createStudentSession"
+      ],
+      "groups": [
+        "otp_account"
+      ],
+      "status": "MAPPER_FAMILY_TESTED_UI_NOT_RUN",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-006",
+      "title": "邮箱验证码登录",
+      "operationIds": [
+        "requestAuthChallenge",
+        "createStudentSession"
+      ],
+      "groups": [
+        "otp_account"
+      ],
+      "status": "MAPPER_FAMILY_TESTED_UI_NOT_RUN",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-007",
+      "title": "登录前隐私政策",
+      "operationIds": [],
+      "groups": [],
+      "status": "NO_NEW_API_LOCAL_OR_SCHOOL_PROCESS",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-008",
+      "title": "身份恢复申请",
+      "operationIds": [],
+      "groups": [],
+      "status": "NO_NEW_API_LOCAL_OR_SCHOOL_PROCESS",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-009",
+      "title": "强制邮箱绑定",
+      "operationIds": [
+        "requestAuthChallenge",
+        "registerStudentAndJoinCourse"
+      ],
+      "groups": [
+        "otp_account"
+      ],
+      "status": "MAPPER_FAMILY_TESTED_UI_NOT_RUN",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-010",
+      "title": "入班后引导",
+      "operationIds": [
+        "getOwnCurrentCourse"
+      ],
+      "groups": [
+        "course"
+      ],
+      "status": "MAPPER_FAMILY_TESTED_UI_NOT_RUN",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-020",
+      "title": "首页",
+      "operationIds": [
+        "getStudentDashboard",
+        "getOwnCourseProgress"
+      ],
+      "groups": [
+        "home_progress"
+      ],
+      "status": "MAPPER_FAMILY_TESTED_UI_NOT_RUN",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-021",
+      "title": "课程",
+      "operationIds": [
+        "getOwnCurrentCourse"
+      ],
+      "groups": [
+        "course"
+      ],
+      "status": "MAPPER_FAMILY_TESTED_UI_NOT_RUN",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-022",
+      "title": "打卡",
+      "operationIds": [
+        "startExerciseSession",
+        "getOwnActiveExerciseSession"
+      ],
+      "groups": [
+        "session"
+      ],
+      "status": "MAPPER_FAMILY_TESTED_UI_NOT_RUN",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-023",
+      "title": "记录与进度",
+      "operationIds": [
+        "getOwnCourseProgress",
+        "listOwnExerciseRecords",
+        "listCheckpointRecordCredits"
+      ],
+      "groups": [
+        "home_progress"
+      ],
+      "status": "MAPPER_FAMILY_TESTED_UI_NOT_RUN",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-024",
+      "title": "我的",
+      "operationIds": [
+        "getCurrentActor"
+      ],
+      "groups": [
+        "otp_account"
+      ],
+      "status": "MAPPER_FAMILY_TESTED_UI_NOT_RUN",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-025",
+      "title": "站内通知",
+      "operationIds": [
+        "listOwnStudentNotifications",
+        "getOwnStudentUnreadNotificationCount",
+        "markOwnStudentNotificationRead"
+      ],
+      "groups": [
+        "notification"
+      ],
+      "status": "MAPPER_FAMILY_TESTED_UI_NOT_RUN",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-030",
+      "title": "登录前扫码",
+      "operationIds": [
+        "previewCourseInvitation",
+        "registerNewInvitationFlow"
+      ],
+      "groups": [
+        "invitation"
+      ],
+      "status": "MAPPER_FAMILY_TESTED_UI_NOT_RUN",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-031",
+      "title": "登录前邀请确认",
+      "operationIds": [
+        "previewCourseInvitation",
+        "registerNewInvitationFlow",
+        "registerStudentAndJoinCourse"
+      ],
+      "groups": [
+        "invitation"
+      ],
+      "status": "MAPPER_FAMILY_TESTED_UI_NOT_RUN",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-032",
+      "title": "登录后扫码",
+      "operationIds": [
+        "previewCourseInvitation",
+        "registerExistingInvitationFlow"
+      ],
+      "groups": [
+        "invitation"
+      ],
+      "status": "MAPPER_FAMILY_TESTED_UI_NOT_RUN",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-033",
+      "title": "输入邀请码",
+      "operationIds": [
+        "previewCourseInvitation"
+      ],
+      "groups": [
+        "invitation"
+      ],
+      "status": "MAPPER_FAMILY_TESTED_UI_NOT_RUN",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-034",
+      "title": "入班确认",
+      "operationIds": [
+        "previewCourseInvitation",
+        "joinCourseByInvitation"
+      ],
+      "groups": [
+        "invitation"
+      ],
+      "status": "MAPPER_FAMILY_TESTED_UI_NOT_RUN",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-035",
+      "title": "入班结果",
+      "operationIds": [
+        "joinCourseByInvitation",
+        "registerStudentAndJoinCourse",
+        "getOwnCurrentCourse"
+      ],
+      "groups": [
+        "invitation"
+      ],
+      "status": "MAPPER_FAMILY_TESTED_UI_NOT_RUN",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-040",
+      "title": "运动会话",
+      "operationIds": [
+        "getOwnActiveExerciseSession",
+        "startExerciseSession",
+        "getExerciseSession",
+        "pauseExerciseSession",
+        "resumeExerciseSession",
+        "completeExerciseSession"
+      ],
+      "groups": [
+        "session"
+      ],
+      "status": "MAPPER_FAMILY_TESTED_UI_NOT_RUN",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-041",
+      "title": "证据采集",
+      "operationIds": [
+        "allocateMediaAsset",
+        "finalizeMediaAsset"
+      ],
+      "groups": [
+        "media"
+      ],
+      "status": "MAPPER_FAMILY_TESTED_UI_NOT_RUN",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-042",
+      "title": "提交与中断恢复",
+      "operationIds": [
+        "getFirstMaterialEligibility",
+        "submitExerciseRecord",
+        "listRecordMaterials",
+        "getRecordMaterial",
+        "completeExerciseRecordMaterial",
+        "renewRecordUploadAuthorization"
+      ],
+      "groups": [
+        "first_material"
+      ],
+      "status": "MAPPER_FAMILY_TESTED_UI_NOT_RUN",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-043",
+      "title": "游泳延迟说明",
+      "operationIds": [
+        "submitExerciseRecord"
+      ],
+      "groups": [
+        "first_material"
+      ],
+      "status": "MAPPER_FAMILY_TESTED_UI_NOT_RUN",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-050",
+      "title": "打卡记录列表",
+      "operationIds": [
+        "listOwnExerciseRecords"
+      ],
+      "groups": [
+        "records"
+      ],
+      "status": "MAPPER_FAMILY_TESTED_UI_NOT_RUN",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-051",
+      "title": "打卡记录详情",
+      "operationIds": [
+        "getOwnExerciseRecord",
+        "listExerciseRecordReviews",
+        "getRecordMaterial",
+        "listCheckpointRecordCredits"
+      ],
+      "groups": [
+        "records"
+      ],
+      "status": "MAPPER_FAMILY_TESTED_UI_NOT_RUN",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-052",
+      "title": "原始耐力结果",
+      "operationIds": [
+        "getOwnEnduranceOutcome"
+      ],
+      "groups": [
+        "endurance"
+      ],
+      "status": "MAPPER_FAMILY_TESTED_UI_NOT_RUN",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-060",
+      "title": "一次补充任务",
+      "operationIds": [
+        "getOwnExerciseRecord",
+        "submitExerciseRecordSupplement"
+      ],
+      "groups": [
+        "supplement"
+      ],
+      "status": "MAPPER_FAMILY_TESTED_UI_NOT_RUN",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-061",
+      "title": "补充材料已接收",
+      "operationIds": [
+        "getOwnExerciseRecord",
+        "getRecordMaterial"
+      ],
+      "groups": [
+        "supplement"
+      ],
+      "status": "MAPPER_FAMILY_TESTED_UI_NOT_RUN",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-070",
+      "title": "免测/认证",
+      "operationIds": [
+        "createStudentApplication",
+        "listOwnApplications",
+        "getOwnApplication",
+        "supplementStudentApplication"
+      ],
+      "groups": [
+        "applications"
+      ],
+      "status": "MAPPER_FAMILY_TESTED_UI_NOT_RUN",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-080",
+      "title": "账户信息",
+      "operationIds": [
+        "getCurrentActor"
+      ],
+      "groups": [
+        "otp_account"
+      ],
+      "status": "MAPPER_FAMILY_TESTED_UI_NOT_RUN",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-081",
+      "title": "设置",
+      "operationIds": [
+        "logoutCurrentSession",
+        "logoutAllSessions"
+      ],
+      "groups": [
+        "otp_account"
+      ],
+      "status": "MAPPER_FAMILY_TESTED_UI_NOT_RUN",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-082",
+      "title": "账户注销",
+      "operationIds": [
+        "getOwnAccountDeletionImpact",
+        "deleteOwnAccount"
+      ],
+      "groups": [
+        "otp_account"
+      ],
+      "status": "MAPPER_FAMILY_TESTED_UI_NOT_RUN",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-083",
+      "title": "已验证邮箱",
+      "operationIds": [
+        "requestAuthChallenge",
+        "changeOwnVerifiedEmail"
+      ],
+      "groups": [
+        "otp_account"
+      ],
+      "status": "MAPPER_FAMILY_TESTED_UI_NOT_RUN",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-084",
+      "title": "帮助中心",
+      "operationIds": [
+        "listPublishedHelpArticles",
+        "getPublishedHelpArticle"
+      ],
+      "groups": [
+        "help"
+      ],
+      "status": "MAPPER_FAMILY_TESTED_UI_NOT_RUN",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-085",
+      "title": "反馈",
+      "operationIds": [
+        "createFeedback",
+        "listOwnFeedback",
+        "getOwnFeedback"
+      ],
+      "groups": [
+        "feedback"
+      ],
+      "status": "MAPPER_FAMILY_TESTED_UI_NOT_RUN",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-086",
+      "title": "关于",
+      "operationIds": [
+        "getAppReleasePolicy"
+      ],
+      "groups": [
+        "release"
+      ],
+      "status": "MAPPER_FAMILY_TESTED_UI_NOT_RUN",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-087",
+      "title": "更新日志",
+      "operationIds": [],
+      "groups": [],
+      "status": "NO_NEW_API_LOCAL_OR_SCHOOL_PROCESS",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    },
+    {
+      "page": "PAGE-STU-088",
+      "title": "隐私政策",
+      "operationIds": [],
+      "groups": [],
+      "status": "NO_NEW_API_LOCAL_OR_SCHOOL_PROCESS",
+      "note": "Family cases verify data semantics, not every operation, permission race, command or rendered page."
+    }
+  ],
+  "decodedRootSchemas": [
+    "AccountDeletionImpact",
+    "AppReleasePolicy",
+    "AuthChallenge",
+    "CourseInvitationPreview",
+    "CurrentActor",
+    "ErrorEnvelope",
+    "ExerciseRecord",
+    "ExerciseSession",
+    "FeedbackTicket",
+    "FirstMaterialEligibility",
+    "HelpArticlePublic",
+    "InvitationRegistrationFlow",
+    "MaterialVersion",
+    "MediaAsset",
+    "PublicReviewReason",
+    "RecordCreditDetail",
+    "RecordReviewSummary",
+    "StudentApplication",
+    "StudentCourse",
+    "StudentCourseProgress",
+    "StudentDashboard",
+    "StudentEnduranceOutcome",
+    "StudentNotification",
+    "SystemMode",
+    "TeacherReviewSla"
+  ],
+  "renderedPageTests": 0,
+  "mockTransportTests": 0,
+  "deviceTests": 0,
+  "boundaries": [
+    "Independent validation module, app runtime not migrated",
+    "Host-only strict schema boundary is not yet an Android device codec",
+    "canAttempt flags never authorize server writes; fresh owned response and server recheck required",
+    "No real student data, backend, media service, Web or 6C acceptance",
+    "Student notification regex is defense in depth; server template safety and Phase7/9 checks remain required"
+  ]
+}

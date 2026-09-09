@@ -5,7 +5,7 @@ from pathlib import Path
 import yaml
 
 
-def integrity_errors(spec):
+def integrity_errors(spec, expected_version='1.3.0-contract', expected_discriminators=6):
     errors=[]
     def require(ok,msg):
         if not ok:errors.append(msg)
@@ -34,12 +34,12 @@ def integrity_errors(spec):
                 require(prop.get('const')==value or prop.get('enum')==[value],'Actual wire literal '+d['propertyName']+'/'+value)
         for k,v in node.items():
             if k not in ['description','example','examples','discriminator']:walk(v)
-    walk(schemas);require(count==6,'Six old/new discriminator groups, including nested rule change')
+    walk(schemas);require(count==expected_discriminators,'Exact discriminator group count, including nested rule change')
     require(schemas['ReturnExerciseRecordRequest']['properties']['windowHours'].get('enum')==[24,72],'24/72 window remains numeric enum')
     require('windowHours' not in schemas['ReturnExerciseRecordRequest']['required'],'Optional default does not become required for generator convenience')
     require('remark' not in schemas['PublishFinalGradeRequest']['properties'],'No reintroduced new grade remark')
     require(schemas['StudentDashboard']['properties']['currentSemester']=={'$ref':'#/components/schemas/SemesterSummary'},'Rejected nullable current-semester CR remains rejected')
-    if spec['info']['x-contract-status']=='RC':require(spec['info']['version']=='1.3.0-contract','Owner-confirmed final version')
+    if spec['info']['x-contract-status']=='RC':require(spec['info']['version']==expected_version,'Owner-confirmed final version')
     return errors
 
 

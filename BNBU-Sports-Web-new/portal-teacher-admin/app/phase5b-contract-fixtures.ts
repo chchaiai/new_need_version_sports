@@ -15,10 +15,10 @@ export const portalPublishedRuleVersionId = "77000000-0000-4000-8000-00000000000
 export const portalMaterialVersionId = "78000000-0000-4000-8000-000000000001";
 
 export const PHASE5B_CONTRACT = {
-  version: "1.3.0-contract",
+  version: "1.4.0-contract",
   status: "RC",
   publicBasePath: "/api/v1",
-  openapiSha256: "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+  openapiSha256: "0528389bb8b72714d9a4af35ffc66c87503560d41c58ad968b1713b39ff3da2d",
 } as const;
 
 export const teacherLoginRequest = {
@@ -150,7 +150,7 @@ export const exerciseRecord = {
   enrollmentId: "50000000-0000-4000-8000-000000000003",
   ruleVersionId: portalPublishedRuleVersionId,
   activityType: "STANDARD",
-  student: {
+  student: { kind: "CURRENT_STUDENT", student: {
     studentId: "50000000-0000-4000-8000-000000000004",
     studentNumber: "20260001",
     name: "陈同学",
@@ -160,7 +160,7 @@ export const exerciseRecord = {
     major: "计算机科学与技术",
     administrativeClass: "计科 2601",
     studentStatus: "ACTIVE",
-  },
+  } },
   businessDate: "2026-08-31",
   category: "COURSE_RELATED",
   description: "完成操场慢跑与拉伸训练",
@@ -220,7 +220,7 @@ export const courseProgressPage = {
     buildPhase5bStudentCourseProgress(
       currentCourse.courseId,
       exerciseRecord.enrollmentId,
-      exerciseRecord.student,
+      exerciseRecord.student.student,
       portalPublishedRuleVersionId,
       [exerciseRecord.recordId],
       "2026-08-31T04:25:00Z",

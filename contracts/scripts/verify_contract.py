@@ -336,7 +336,7 @@ def certification_response_fixture(certification: dict[str, Any]) -> dict[str, A
         "applicationType": "CERTIFICATION",
         "courseId": "00000000-0000-4000-8000-000000000001",
         "enrollmentId": "00000000-0000-4000-8000-000000000004",
-        "student": {
+        "student": {"kind": "CURRENT_STUDENT", "student": {
             "studentId": "00000000-0000-4000-8000-000000000005",
             "studentNumber": "20260001",
             "name": "Contract Fixture Student",
@@ -346,7 +346,7 @@ def certification_response_fixture(certification: dict[str, Any]) -> dict[str, A
             "major": None,
             "administrativeClass": None,
             "studentStatus": "ACTIVE",
-        },
+        }},
         "status": "SUBMITTED",
         "certification": deepcopy(certification),
         "evidence": [
@@ -1012,7 +1012,7 @@ def verify_rejected_dashboard_cr_and_consolidation(check: Verification, spec: di
     # CR-20260908-002: +15 paths/+17 operations/+35 schemas/+15 errors, -3 obsolete errors.
     check.equal(len(spec["paths"]), 157, "Step05 Contract path count")
     check.equal(len(list(iter_operations(spec))), 176, "Step05 Contract operation count")
-    check.equal(len(schemas), 316, "Step05 Contract schema count")
+    check.equal(len(schemas), 319, "G1 CR: 316 prior schemas plus three student-reference schemas")
     check.equal(len(spec["x-error-catalog"]), 99, "Step05 Contract error count")
 
 
@@ -1035,7 +1035,7 @@ def main() -> None:
     check.errors.extend(f"CR-20260908-001: {problem}" for problem in workflow_integrity_errors(spec))
     check.errors.extend(f"CR-20260908-002: {problem}" for problem in course_integrity_errors(spec))
     check.errors.extend(f"CR-20260908-003: {problem}" for problem in teaching_integrity_errors(spec))
-    check.errors.extend(f"CR-20260908-004: {problem}" for problem in final_integrity_errors(spec))
+    check.errors.extend(f"CR-20260908-004 retained checks: {problem}" for problem in final_integrity_errors(spec, '1.4.0-contract', 7))
     check.check(
         "CR-20260901-005" in spec["x-contract-governance"]["acceptedPhase5ChangeRequests"],
         "Implemented discriminator repair must record accepted CR-20260901-005",

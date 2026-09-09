@@ -13,8 +13,8 @@ def prepare(repo, output):
             'Unexpected generated test input directory')
     lock = json.loads((repo / 'BNBU-ANDROID/contract-validation/contract-lock.json').read_text('utf-8'))
     spec = check_identity(repo / 'contracts/openapi.yaml', repo / 'contracts/contract-metadata.json', lock)
-    fixture_path = repo / 'contracts/validation/step07_handoff/fixtures.json'
-    require(sha(fixture_path) == lock['inputs']['contracts/validation/step07_handoff/fixtures.json'], 'Fixture bytes changed')
+    fixture_path = repo / 'contracts/validation/p7_cr14/fixtures.json'
+    require(sha(fixture_path) == lock['inputs']['contracts/validation/p7_cr14/fixtures.json'], 'Fixture bytes changed')
     published = json.loads(fixture_path.read_text('utf-8'))['cases']
     require(len(published) == 992 and sum(c['expectedValid'] for c in published) == 159, 'Published corpus changed')
     require(len({c['name'] for c in published}) == 992, 'Duplicate published case name')
@@ -107,6 +107,7 @@ def prepare(repo, output):
     del missing_details['details']
     supplemental.append(dict(name='phase6/error_envelope/missing_required_details', schema='ErrorEnvelope',
         payload=missing_details, expectedValid=False, category='error_envelope', basis={'schema':'ErrorEnvelope/required'}))
+    supplemental.extend(json.loads(fixture_path.read_text('utf-8'))['additionalCases'])
     common = dict(candidateSha256=lock['sha256'], spec=spec, wrapperFactories=FACTORIES, synthetic=True)
     require(len({c['name'] for c in published + supplemental}) == len(published + supplemental),
             'Duplicate case names must be fixed before execution')

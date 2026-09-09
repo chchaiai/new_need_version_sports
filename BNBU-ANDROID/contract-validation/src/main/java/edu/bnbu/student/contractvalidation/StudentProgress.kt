@@ -17,6 +17,7 @@ data class StudentProgress(val freshness: ProgressFreshness, val checkpointId: U
     val unavailableReason: String?, val isRecomputing: Boolean = false)
 
 fun StudentCourseProgress.toStudentProgress(source: ViewSource = ViewSource.LIVE): StudentProgress {
+    student.currentStudent()
     val cp = checkpoint
     require(cp == null || (cp.courseId == courseId && cp.enrollmentId == enrollmentId)) {
         "Checkpoint belongs to another course or enrollment"
