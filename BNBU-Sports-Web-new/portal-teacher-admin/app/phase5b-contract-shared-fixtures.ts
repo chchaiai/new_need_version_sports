@@ -146,7 +146,7 @@ export function buildPhase5bStudentCourseProgress(
   return {
     courseId,
     enrollmentId,
-    student,
+    student: { kind: "CURRENT_STUDENT", student },
     state: "CURRENT",
     observedAt,
     unavailableReason: null,

@@ -14,10 +14,10 @@ class Phase6DeviceSchemaTest {
         val result = File(dir, "$name-result.json")
         ContractRuntimeProbe.main(arrayOf(input.absolutePath, result.absolutePath))
         val report = JsonParser.parseString(result.readText()).asJsonObject
-        assertEquals("5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed", report["candidateSha256"].asString)
+        assertEquals("0528389bb8b72714d9a4af35ffc66c87503560d41c58ad968b1713b39ff3da2d", report["candidateSha256"].asString)
         assertEquals(count, report["total"].asInt); assertEquals(count, report["passed"].asInt)
         assertEquals(legal, report["roundtrips"].asInt)
     }
     @Test fun publishedCorpusOnAndroid() = corpus("schema", 992, 159)
-    @Test fun supplementalCorpusOnAndroid() = corpus("supplemental", 164, 127)
+    @Test fun supplementalCorpusOnAndroid() = corpus("supplemental", 221, 149)
 }

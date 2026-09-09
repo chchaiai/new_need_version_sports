@@ -4,11 +4,11 @@ import { createHash } from "node:crypto";
 
 const contract = readFileSync(new URL("../../../contracts/openapi.yaml", import.meta.url));
 const sha = createHash("sha256").update(contract).digest("hex");
-if (sha !== "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed") {
+if (sha !== "0528389bb8b72714d9a4af35ffc66c87503560d41c58ad968b1713b39ff3da2d") {
   throw new Error("Test inputs require the fixed Phase 6 Contract.");
 }
 export const publishedCases = JSON.parse(readFileSync(
-  new URL("../../../contracts/validation/step07_handoff/fixtures.json", import.meta.url), "utf8",
+  new URL("../../../contracts/validation/p7_cr14/fixtures.json", import.meta.url), "utf8",
 )).cases;
 
 export function publishedFixture(name) {

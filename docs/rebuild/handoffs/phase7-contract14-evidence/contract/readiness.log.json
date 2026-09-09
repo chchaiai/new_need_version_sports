@@ -1,0 +1,6 @@
+{
+  "originalFile": "readiness.log",
+  "rawBytesSha256": "74676eda2674f4840d29a06c8c9258a24dcff5356f7d4e111a19a3343ceec444",
+  "encoding": "utf-8",
+  "rawText": "RC readiness PASS: no PENDING decision and status is RC or later.\r\n"
+}

@@ -1,3 +1,11 @@
+# 2026-09-09 G1协议补全与两端适配：本地验证通过，待用户复审/发布
+
+用户已接受 P7-Z-CR-HISTORICAL-STUDENT-01 与 P7-Z-CR-QUERY-ERRORS-01（含13项、参数重复和数字字符边界），授权用户侧完成协议、Android及Web修复。Contract Owner/Reviewer为用户；Web原Owner甘洛夷；H/Z继续后端模块职责。
+
+基线 main/f95c3833870fe0da55a297aa28c958ec53e9e935；新本地候选1.4.0-contract/RC（准确SHA见metadata）。当前是协议及客户端验证修复，原PR15候选保持独立，四项后端失败未被本轮关闭，G1继续PARTIAL/NOT_TRACK_READY。最终交付状态见[本轮交接](handoffs/phase7-contract14.md)。发布仍由用户操作，正式客户端旧API迁移留Phase8。
+
+以下为之前各时点记录。
+
 # 当前进度状态
 
 ## 2026-09-09 Phase 7.0 Foundation 已接受，SEC-01 已关闭；发布合并候选

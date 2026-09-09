@@ -1,0 +1,1950 @@
+{
+  "candidateSha256": "0528389bb8b72714d9a4af35ffc66c87503560d41c58ad968b1713b39ff3da2d",
+  "scope": "Synthetic transport specification examples; real HTTP enforcement belongs to H/Z",
+  "cases": [
+    {
+      "name": "listCourseInvitations/0",
+      "operationId": "listCourseInvitations",
+      "query": "",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listCourseInvitations/1",
+      "operationId": "listCourseInvitations",
+      "query": "limit=1",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listCourseInvitations/2",
+      "operationId": "listCourseInvitations",
+      "query": "limit=100",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listCourseInvitations/3",
+      "operationId": "listCourseInvitations",
+      "query": "limit=0001",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listCourseInvitations/4",
+      "operationId": "listCourseInvitations",
+      "query": "limit=0",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseInvitations/5",
+      "operationId": "listCourseInvitations",
+      "query": "limit=101",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseInvitations/6",
+      "operationId": "listCourseInvitations",
+      "query": "limit=2.5",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseInvitations/7",
+      "operationId": "listCourseInvitations",
+      "query": "limit=1e1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseInvitations/8",
+      "operationId": "listCourseInvitations",
+      "query": "limit=%2B1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseInvitations/9",
+      "operationId": "listCourseInvitations",
+      "query": "limit=-1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseInvitations/10",
+      "operationId": "listCourseInvitations",
+      "query": "limit=%201",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseInvitations/11",
+      "operationId": "listCourseInvitations",
+      "query": "limit=1%20",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseInvitations/12",
+      "operationId": "listCourseInvitations",
+      "query": "limit=1%0A",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseInvitations/13",
+      "operationId": "listCourseInvitations",
+      "query": "limit=",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseInvitations/14",
+      "operationId": "listCourseInvitations",
+      "query": "limit=%EF%BC%91",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseInvitations/15",
+      "operationId": "listCourseInvitations",
+      "query": "limit=2&limit=3",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseInvitations/16",
+      "operationId": "listCourseInvitations",
+      "query": "limit=2&%6cimit=3",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseInvitations/17",
+      "operationId": "listCourseInvitations",
+      "query": "cursor=a&cursor=b",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseInvitations/status",
+      "operationId": "listCourseInvitations",
+      "query": "status=INVALID",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseMakeupAuthorizations/0",
+      "operationId": "listCourseMakeupAuthorizations",
+      "query": "",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listCourseMakeupAuthorizations/1",
+      "operationId": "listCourseMakeupAuthorizations",
+      "query": "limit=1",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listCourseMakeupAuthorizations/2",
+      "operationId": "listCourseMakeupAuthorizations",
+      "query": "limit=100",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listCourseMakeupAuthorizations/3",
+      "operationId": "listCourseMakeupAuthorizations",
+      "query": "limit=0001",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listCourseMakeupAuthorizations/4",
+      "operationId": "listCourseMakeupAuthorizations",
+      "query": "limit=0",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseMakeupAuthorizations/5",
+      "operationId": "listCourseMakeupAuthorizations",
+      "query": "limit=101",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseMakeupAuthorizations/6",
+      "operationId": "listCourseMakeupAuthorizations",
+      "query": "limit=2.5",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseMakeupAuthorizations/7",
+      "operationId": "listCourseMakeupAuthorizations",
+      "query": "limit=1e1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseMakeupAuthorizations/8",
+      "operationId": "listCourseMakeupAuthorizations",
+      "query": "limit=%2B1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseMakeupAuthorizations/9",
+      "operationId": "listCourseMakeupAuthorizations",
+      "query": "limit=-1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseMakeupAuthorizations/10",
+      "operationId": "listCourseMakeupAuthorizations",
+      "query": "limit=%201",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseMakeupAuthorizations/11",
+      "operationId": "listCourseMakeupAuthorizations",
+      "query": "limit=1%20",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseMakeupAuthorizations/12",
+      "operationId": "listCourseMakeupAuthorizations",
+      "query": "limit=1%0A",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseMakeupAuthorizations/13",
+      "operationId": "listCourseMakeupAuthorizations",
+      "query": "limit=",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseMakeupAuthorizations/14",
+      "operationId": "listCourseMakeupAuthorizations",
+      "query": "limit=%EF%BC%91",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseMakeupAuthorizations/15",
+      "operationId": "listCourseMakeupAuthorizations",
+      "query": "limit=2&limit=3",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseMakeupAuthorizations/16",
+      "operationId": "listCourseMakeupAuthorizations",
+      "query": "limit=2&%6cimit=3",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseMakeupAuthorizations/17",
+      "operationId": "listCourseMakeupAuthorizations",
+      "query": "cursor=a&cursor=b",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseMembers/0",
+      "operationId": "listCourseMembers",
+      "query": "",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listCourseMembers/1",
+      "operationId": "listCourseMembers",
+      "query": "limit=1",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listCourseMembers/2",
+      "operationId": "listCourseMembers",
+      "query": "limit=100",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listCourseMembers/3",
+      "operationId": "listCourseMembers",
+      "query": "limit=0001",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listCourseMembers/4",
+      "operationId": "listCourseMembers",
+      "query": "limit=0",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseMembers/5",
+      "operationId": "listCourseMembers",
+      "query": "limit=101",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseMembers/6",
+      "operationId": "listCourseMembers",
+      "query": "limit=2.5",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseMembers/7",
+      "operationId": "listCourseMembers",
+      "query": "limit=1e1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseMembers/8",
+      "operationId": "listCourseMembers",
+      "query": "limit=%2B1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseMembers/9",
+      "operationId": "listCourseMembers",
+      "query": "limit=-1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseMembers/10",
+      "operationId": "listCourseMembers",
+      "query": "limit=%201",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseMembers/11",
+      "operationId": "listCourseMembers",
+      "query": "limit=1%20",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseMembers/12",
+      "operationId": "listCourseMembers",
+      "query": "limit=1%0A",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseMembers/13",
+      "operationId": "listCourseMembers",
+      "query": "limit=",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseMembers/14",
+      "operationId": "listCourseMembers",
+      "query": "limit=%EF%BC%91",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseMembers/15",
+      "operationId": "listCourseMembers",
+      "query": "limit=2&limit=3",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseMembers/16",
+      "operationId": "listCourseMembers",
+      "query": "limit=2&%6cimit=3",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseMembers/17",
+      "operationId": "listCourseMembers",
+      "query": "cursor=a&cursor=b",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listCourseMembers/status",
+      "operationId": "listCourseMembers",
+      "query": "status=INVALID",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnCourses/0",
+      "operationId": "listOwnCourses",
+      "query": "",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listOwnCourses/1",
+      "operationId": "listOwnCourses",
+      "query": "limit=1",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listOwnCourses/2",
+      "operationId": "listOwnCourses",
+      "query": "limit=100",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listOwnCourses/3",
+      "operationId": "listOwnCourses",
+      "query": "limit=0001",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listOwnCourses/4",
+      "operationId": "listOwnCourses",
+      "query": "limit=0",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnCourses/5",
+      "operationId": "listOwnCourses",
+      "query": "limit=101",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnCourses/6",
+      "operationId": "listOwnCourses",
+      "query": "limit=2.5",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnCourses/7",
+      "operationId": "listOwnCourses",
+      "query": "limit=1e1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnCourses/8",
+      "operationId": "listOwnCourses",
+      "query": "limit=%2B1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnCourses/9",
+      "operationId": "listOwnCourses",
+      "query": "limit=-1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnCourses/10",
+      "operationId": "listOwnCourses",
+      "query": "limit=%201",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnCourses/11",
+      "operationId": "listOwnCourses",
+      "query": "limit=1%20",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnCourses/12",
+      "operationId": "listOwnCourses",
+      "query": "limit=1%0A",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnCourses/13",
+      "operationId": "listOwnCourses",
+      "query": "limit=",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnCourses/14",
+      "operationId": "listOwnCourses",
+      "query": "limit=%EF%BC%91",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnCourses/15",
+      "operationId": "listOwnCourses",
+      "query": "limit=2&limit=3",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnCourses/16",
+      "operationId": "listOwnCourses",
+      "query": "limit=2&%6cimit=3",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnCourses/17",
+      "operationId": "listOwnCourses",
+      "query": "cursor=a&cursor=b",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnCourses/status",
+      "operationId": "listOwnCourses",
+      "query": "status=INVALID",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnMakeupAuthorizations/0",
+      "operationId": "listOwnMakeupAuthorizations",
+      "query": "",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listOwnMakeupAuthorizations/1",
+      "operationId": "listOwnMakeupAuthorizations",
+      "query": "limit=1",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listOwnMakeupAuthorizations/2",
+      "operationId": "listOwnMakeupAuthorizations",
+      "query": "limit=100",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listOwnMakeupAuthorizations/3",
+      "operationId": "listOwnMakeupAuthorizations",
+      "query": "limit=0001",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listOwnMakeupAuthorizations/4",
+      "operationId": "listOwnMakeupAuthorizations",
+      "query": "limit=0",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnMakeupAuthorizations/5",
+      "operationId": "listOwnMakeupAuthorizations",
+      "query": "limit=101",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnMakeupAuthorizations/6",
+      "operationId": "listOwnMakeupAuthorizations",
+      "query": "limit=2.5",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnMakeupAuthorizations/7",
+      "operationId": "listOwnMakeupAuthorizations",
+      "query": "limit=1e1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnMakeupAuthorizations/8",
+      "operationId": "listOwnMakeupAuthorizations",
+      "query": "limit=%2B1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnMakeupAuthorizations/9",
+      "operationId": "listOwnMakeupAuthorizations",
+      "query": "limit=-1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnMakeupAuthorizations/10",
+      "operationId": "listOwnMakeupAuthorizations",
+      "query": "limit=%201",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnMakeupAuthorizations/11",
+      "operationId": "listOwnMakeupAuthorizations",
+      "query": "limit=1%20",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnMakeupAuthorizations/12",
+      "operationId": "listOwnMakeupAuthorizations",
+      "query": "limit=1%0A",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnMakeupAuthorizations/13",
+      "operationId": "listOwnMakeupAuthorizations",
+      "query": "limit=",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnMakeupAuthorizations/14",
+      "operationId": "listOwnMakeupAuthorizations",
+      "query": "limit=%EF%BC%91",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnMakeupAuthorizations/15",
+      "operationId": "listOwnMakeupAuthorizations",
+      "query": "limit=2&limit=3",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnMakeupAuthorizations/16",
+      "operationId": "listOwnMakeupAuthorizations",
+      "query": "limit=2&%6cimit=3",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnMakeupAuthorizations/17",
+      "operationId": "listOwnMakeupAuthorizations",
+      "query": "cursor=a&cursor=b",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnNotifications/0",
+      "operationId": "listOwnNotifications",
+      "query": "",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listOwnNotifications/1",
+      "operationId": "listOwnNotifications",
+      "query": "limit=1",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listOwnNotifications/2",
+      "operationId": "listOwnNotifications",
+      "query": "limit=100",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listOwnNotifications/3",
+      "operationId": "listOwnNotifications",
+      "query": "limit=0001",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listOwnNotifications/4",
+      "operationId": "listOwnNotifications",
+      "query": "limit=0",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnNotifications/5",
+      "operationId": "listOwnNotifications",
+      "query": "limit=101",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnNotifications/6",
+      "operationId": "listOwnNotifications",
+      "query": "limit=2.5",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnNotifications/7",
+      "operationId": "listOwnNotifications",
+      "query": "limit=1e1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnNotifications/8",
+      "operationId": "listOwnNotifications",
+      "query": "limit=%2B1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnNotifications/9",
+      "operationId": "listOwnNotifications",
+      "query": "limit=-1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnNotifications/10",
+      "operationId": "listOwnNotifications",
+      "query": "limit=%201",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnNotifications/11",
+      "operationId": "listOwnNotifications",
+      "query": "limit=1%20",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnNotifications/12",
+      "operationId": "listOwnNotifications",
+      "query": "limit=1%0A",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnNotifications/13",
+      "operationId": "listOwnNotifications",
+      "query": "limit=",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnNotifications/14",
+      "operationId": "listOwnNotifications",
+      "query": "limit=%EF%BC%91",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnNotifications/15",
+      "operationId": "listOwnNotifications",
+      "query": "limit=2&limit=3",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnNotifications/16",
+      "operationId": "listOwnNotifications",
+      "query": "limit=2&%6cimit=3",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnNotifications/17",
+      "operationId": "listOwnNotifications",
+      "query": "cursor=a&cursor=b",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnNotifications/read",
+      "operationId": "listOwnNotifications",
+      "query": "read=maybe",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnStudentNotifications/0",
+      "operationId": "listOwnStudentNotifications",
+      "query": "",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listOwnStudentNotifications/1",
+      "operationId": "listOwnStudentNotifications",
+      "query": "limit=1",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listOwnStudentNotifications/2",
+      "operationId": "listOwnStudentNotifications",
+      "query": "limit=100",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listOwnStudentNotifications/3",
+      "operationId": "listOwnStudentNotifications",
+      "query": "limit=0001",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listOwnStudentNotifications/4",
+      "operationId": "listOwnStudentNotifications",
+      "query": "limit=0",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnStudentNotifications/5",
+      "operationId": "listOwnStudentNotifications",
+      "query": "limit=101",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnStudentNotifications/6",
+      "operationId": "listOwnStudentNotifications",
+      "query": "limit=2.5",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnStudentNotifications/7",
+      "operationId": "listOwnStudentNotifications",
+      "query": "limit=1e1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnStudentNotifications/8",
+      "operationId": "listOwnStudentNotifications",
+      "query": "limit=%2B1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnStudentNotifications/9",
+      "operationId": "listOwnStudentNotifications",
+      "query": "limit=-1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnStudentNotifications/10",
+      "operationId": "listOwnStudentNotifications",
+      "query": "limit=%201",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnStudentNotifications/11",
+      "operationId": "listOwnStudentNotifications",
+      "query": "limit=1%20",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnStudentNotifications/12",
+      "operationId": "listOwnStudentNotifications",
+      "query": "limit=1%0A",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnStudentNotifications/13",
+      "operationId": "listOwnStudentNotifications",
+      "query": "limit=",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnStudentNotifications/14",
+      "operationId": "listOwnStudentNotifications",
+      "query": "limit=%EF%BC%91",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnStudentNotifications/15",
+      "operationId": "listOwnStudentNotifications",
+      "query": "limit=2&limit=3",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnStudentNotifications/16",
+      "operationId": "listOwnStudentNotifications",
+      "query": "limit=2&%6cimit=3",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnStudentNotifications/17",
+      "operationId": "listOwnStudentNotifications",
+      "query": "cursor=a&cursor=b",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listOwnStudentNotifications/read",
+      "operationId": "listOwnStudentNotifications",
+      "query": "read=maybe",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listPublishedRuleTemplates/0",
+      "operationId": "listPublishedRuleTemplates",
+      "query": "",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listPublishedRuleTemplates/1",
+      "operationId": "listPublishedRuleTemplates",
+      "query": "limit=1",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listPublishedRuleTemplates/2",
+      "operationId": "listPublishedRuleTemplates",
+      "query": "limit=100",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listPublishedRuleTemplates/3",
+      "operationId": "listPublishedRuleTemplates",
+      "query": "limit=0001",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listPublishedRuleTemplates/4",
+      "operationId": "listPublishedRuleTemplates",
+      "query": "limit=0",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listPublishedRuleTemplates/5",
+      "operationId": "listPublishedRuleTemplates",
+      "query": "limit=101",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listPublishedRuleTemplates/6",
+      "operationId": "listPublishedRuleTemplates",
+      "query": "limit=2.5",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listPublishedRuleTemplates/7",
+      "operationId": "listPublishedRuleTemplates",
+      "query": "limit=1e1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listPublishedRuleTemplates/8",
+      "operationId": "listPublishedRuleTemplates",
+      "query": "limit=%2B1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listPublishedRuleTemplates/9",
+      "operationId": "listPublishedRuleTemplates",
+      "query": "limit=-1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listPublishedRuleTemplates/10",
+      "operationId": "listPublishedRuleTemplates",
+      "query": "limit=%201",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listPublishedRuleTemplates/11",
+      "operationId": "listPublishedRuleTemplates",
+      "query": "limit=1%20",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listPublishedRuleTemplates/12",
+      "operationId": "listPublishedRuleTemplates",
+      "query": "limit=1%0A",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listPublishedRuleTemplates/13",
+      "operationId": "listPublishedRuleTemplates",
+      "query": "limit=",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listPublishedRuleTemplates/14",
+      "operationId": "listPublishedRuleTemplates",
+      "query": "limit=%EF%BC%91",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listPublishedRuleTemplates/15",
+      "operationId": "listPublishedRuleTemplates",
+      "query": "limit=2&limit=3",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listPublishedRuleTemplates/16",
+      "operationId": "listPublishedRuleTemplates",
+      "query": "limit=2&%6cimit=3",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listPublishedRuleTemplates/17",
+      "operationId": "listPublishedRuleTemplates",
+      "query": "cursor=a&cursor=b",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSemesters/0",
+      "operationId": "listSemesters",
+      "query": "",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listSemesters/1",
+      "operationId": "listSemesters",
+      "query": "limit=1",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listSemesters/2",
+      "operationId": "listSemesters",
+      "query": "limit=100",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listSemesters/3",
+      "operationId": "listSemesters",
+      "query": "limit=0001",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listSemesters/4",
+      "operationId": "listSemesters",
+      "query": "limit=0",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSemesters/5",
+      "operationId": "listSemesters",
+      "query": "limit=101",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSemesters/6",
+      "operationId": "listSemesters",
+      "query": "limit=2.5",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSemesters/7",
+      "operationId": "listSemesters",
+      "query": "limit=1e1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSemesters/8",
+      "operationId": "listSemesters",
+      "query": "limit=%2B1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSemesters/9",
+      "operationId": "listSemesters",
+      "query": "limit=-1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSemesters/10",
+      "operationId": "listSemesters",
+      "query": "limit=%201",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSemesters/11",
+      "operationId": "listSemesters",
+      "query": "limit=1%20",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSemesters/12",
+      "operationId": "listSemesters",
+      "query": "limit=1%0A",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSemesters/13",
+      "operationId": "listSemesters",
+      "query": "limit=",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSemesters/14",
+      "operationId": "listSemesters",
+      "query": "limit=%EF%BC%91",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSemesters/15",
+      "operationId": "listSemesters",
+      "query": "limit=2&limit=3",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSemesters/16",
+      "operationId": "listSemesters",
+      "query": "limit=2&%6cimit=3",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSemesters/17",
+      "operationId": "listSemesters",
+      "query": "cursor=a&cursor=b",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSemesters/status",
+      "operationId": "listSemesters",
+      "query": "status=INVALID",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listStudentAccounts/0",
+      "operationId": "listStudentAccounts",
+      "query": "",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listStudentAccounts/1",
+      "operationId": "listStudentAccounts",
+      "query": "limit=1",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listStudentAccounts/2",
+      "operationId": "listStudentAccounts",
+      "query": "limit=100",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listStudentAccounts/3",
+      "operationId": "listStudentAccounts",
+      "query": "limit=0001",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listStudentAccounts/4",
+      "operationId": "listStudentAccounts",
+      "query": "limit=0",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listStudentAccounts/5",
+      "operationId": "listStudentAccounts",
+      "query": "limit=101",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listStudentAccounts/6",
+      "operationId": "listStudentAccounts",
+      "query": "limit=2.5",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listStudentAccounts/7",
+      "operationId": "listStudentAccounts",
+      "query": "limit=1e1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listStudentAccounts/8",
+      "operationId": "listStudentAccounts",
+      "query": "limit=%2B1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listStudentAccounts/9",
+      "operationId": "listStudentAccounts",
+      "query": "limit=-1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listStudentAccounts/10",
+      "operationId": "listStudentAccounts",
+      "query": "limit=%201",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listStudentAccounts/11",
+      "operationId": "listStudentAccounts",
+      "query": "limit=1%20",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listStudentAccounts/12",
+      "operationId": "listStudentAccounts",
+      "query": "limit=1%0A",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listStudentAccounts/13",
+      "operationId": "listStudentAccounts",
+      "query": "limit=",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listStudentAccounts/14",
+      "operationId": "listStudentAccounts",
+      "query": "limit=%EF%BC%91",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listStudentAccounts/15",
+      "operationId": "listStudentAccounts",
+      "query": "limit=2&limit=3",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listStudentAccounts/16",
+      "operationId": "listStudentAccounts",
+      "query": "limit=2&%6cimit=3",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listStudentAccounts/17",
+      "operationId": "listStudentAccounts",
+      "query": "cursor=a&cursor=b",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listStudentAccounts/status",
+      "operationId": "listStudentAccounts",
+      "query": "status=INVALID",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listStudentAccounts/q",
+      "operationId": "listStudentAccounts",
+      "query": "q=",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSubAdmins/0",
+      "operationId": "listSubAdmins",
+      "query": "",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listSubAdmins/1",
+      "operationId": "listSubAdmins",
+      "query": "limit=1",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listSubAdmins/2",
+      "operationId": "listSubAdmins",
+      "query": "limit=100",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listSubAdmins/3",
+      "operationId": "listSubAdmins",
+      "query": "limit=0001",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listSubAdmins/4",
+      "operationId": "listSubAdmins",
+      "query": "limit=0",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSubAdmins/5",
+      "operationId": "listSubAdmins",
+      "query": "limit=101",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSubAdmins/6",
+      "operationId": "listSubAdmins",
+      "query": "limit=2.5",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSubAdmins/7",
+      "operationId": "listSubAdmins",
+      "query": "limit=1e1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSubAdmins/8",
+      "operationId": "listSubAdmins",
+      "query": "limit=%2B1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSubAdmins/9",
+      "operationId": "listSubAdmins",
+      "query": "limit=-1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSubAdmins/10",
+      "operationId": "listSubAdmins",
+      "query": "limit=%201",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSubAdmins/11",
+      "operationId": "listSubAdmins",
+      "query": "limit=1%20",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSubAdmins/12",
+      "operationId": "listSubAdmins",
+      "query": "limit=1%0A",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSubAdmins/13",
+      "operationId": "listSubAdmins",
+      "query": "limit=",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSubAdmins/14",
+      "operationId": "listSubAdmins",
+      "query": "limit=%EF%BC%91",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSubAdmins/15",
+      "operationId": "listSubAdmins",
+      "query": "limit=2&limit=3",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSubAdmins/16",
+      "operationId": "listSubAdmins",
+      "query": "limit=2&%6cimit=3",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSubAdmins/17",
+      "operationId": "listSubAdmins",
+      "query": "cursor=a&cursor=b",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSystemModeTransitions/0",
+      "operationId": "listSystemModeTransitions",
+      "query": "",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listSystemModeTransitions/1",
+      "operationId": "listSystemModeTransitions",
+      "query": "limit=1",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listSystemModeTransitions/2",
+      "operationId": "listSystemModeTransitions",
+      "query": "limit=100",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listSystemModeTransitions/3",
+      "operationId": "listSystemModeTransitions",
+      "query": "limit=0001",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listSystemModeTransitions/4",
+      "operationId": "listSystemModeTransitions",
+      "query": "limit=0",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSystemModeTransitions/5",
+      "operationId": "listSystemModeTransitions",
+      "query": "limit=101",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSystemModeTransitions/6",
+      "operationId": "listSystemModeTransitions",
+      "query": "limit=2.5",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSystemModeTransitions/7",
+      "operationId": "listSystemModeTransitions",
+      "query": "limit=1e1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSystemModeTransitions/8",
+      "operationId": "listSystemModeTransitions",
+      "query": "limit=%2B1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSystemModeTransitions/9",
+      "operationId": "listSystemModeTransitions",
+      "query": "limit=-1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSystemModeTransitions/10",
+      "operationId": "listSystemModeTransitions",
+      "query": "limit=%201",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSystemModeTransitions/11",
+      "operationId": "listSystemModeTransitions",
+      "query": "limit=1%20",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSystemModeTransitions/12",
+      "operationId": "listSystemModeTransitions",
+      "query": "limit=1%0A",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSystemModeTransitions/13",
+      "operationId": "listSystemModeTransitions",
+      "query": "limit=",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSystemModeTransitions/14",
+      "operationId": "listSystemModeTransitions",
+      "query": "limit=%EF%BC%91",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSystemModeTransitions/15",
+      "operationId": "listSystemModeTransitions",
+      "query": "limit=2&limit=3",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSystemModeTransitions/16",
+      "operationId": "listSystemModeTransitions",
+      "query": "limit=2&%6cimit=3",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listSystemModeTransitions/17",
+      "operationId": "listSystemModeTransitions",
+      "query": "cursor=a&cursor=b",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listTeacherAccounts/0",
+      "operationId": "listTeacherAccounts",
+      "query": "",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listTeacherAccounts/1",
+      "operationId": "listTeacherAccounts",
+      "query": "limit=1",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listTeacherAccounts/2",
+      "operationId": "listTeacherAccounts",
+      "query": "limit=100",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listTeacherAccounts/3",
+      "operationId": "listTeacherAccounts",
+      "query": "limit=0001",
+      "expectedValid": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "name": "listTeacherAccounts/4",
+      "operationId": "listTeacherAccounts",
+      "query": "limit=0",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listTeacherAccounts/5",
+      "operationId": "listTeacherAccounts",
+      "query": "limit=101",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listTeacherAccounts/6",
+      "operationId": "listTeacherAccounts",
+      "query": "limit=2.5",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listTeacherAccounts/7",
+      "operationId": "listTeacherAccounts",
+      "query": "limit=1e1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listTeacherAccounts/8",
+      "operationId": "listTeacherAccounts",
+      "query": "limit=%2B1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listTeacherAccounts/9",
+      "operationId": "listTeacherAccounts",
+      "query": "limit=-1",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listTeacherAccounts/10",
+      "operationId": "listTeacherAccounts",
+      "query": "limit=%201",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listTeacherAccounts/11",
+      "operationId": "listTeacherAccounts",
+      "query": "limit=1%20",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listTeacherAccounts/12",
+      "operationId": "listTeacherAccounts",
+      "query": "limit=1%0A",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listTeacherAccounts/13",
+      "operationId": "listTeacherAccounts",
+      "query": "limit=",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listTeacherAccounts/14",
+      "operationId": "listTeacherAccounts",
+      "query": "limit=%EF%BC%91",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listTeacherAccounts/15",
+      "operationId": "listTeacherAccounts",
+      "query": "limit=2&limit=3",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listTeacherAccounts/16",
+      "operationId": "listTeacherAccounts",
+      "query": "limit=2&%6cimit=3",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listTeacherAccounts/17",
+      "operationId": "listTeacherAccounts",
+      "query": "cursor=a&cursor=b",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    },
+    {
+      "name": "listTeacherAccounts/q",
+      "operationId": "listTeacherAccounts",
+      "query": "q=",
+      "expectedValid": false,
+      "error": "INVALID_REQUEST",
+      "status": 400
+    }
+  ]
+}

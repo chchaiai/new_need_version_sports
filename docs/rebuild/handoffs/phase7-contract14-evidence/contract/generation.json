@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "passes": 2,
+  "unchangedFromTestedBytes": true,
+  "files": {
+    "contracts/openapi.yaml": "0528389bb8b72714d9a4af35ffc66c87503560d41c58ad968b1713b39ff3da2d",
+    "contracts/contract-metadata.json": "b7f186a8970c0d35097767fed4662811bfd6e875bbaa95c79e4f6b3b64417df0",
+    "contracts/operation-catalog.md": "12187d53308d005ef1c8594a753969c687703f386b0357441a4703aaf75436a8"
+  }
+}

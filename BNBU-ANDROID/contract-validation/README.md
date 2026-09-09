@@ -1,3 +1,15 @@
+# G1 CR Android 当前验证入口
+
+本模块已切换到 **1.4.0-contract / RC** 的本地候选，身份固定在 contract-lock.json。旧 :app、app/openapi 与 phase5ga 绑定保持原样，正式网络迁移仍归 Phase8。新增三个身份模型及 StudentSummary 的生成器依赖支持，327个模型、30个精确选择的 wrapper/依赖；不手改生成物。
+
+新用例位于 contracts/validation/p7_cr14/fixtures.json：原992例按 schema迁移（52例身份结构变化、原断言意图不变）＋57例新增历史身份用例。主机/设备补充集为原164＋57=221例，其中149合法；总1213例。历史7个新旧 discriminator 的17个分支必须覆盖。原1.3固定输入/结果继续保留。
+
+使用原 run_step05.py 参数执行当前完整生成/主机/Mock/APK门禁。入口先核验当前p7_cr14发布清单和负向封存控制，不把旧Phase5 1.3封存器误用于新字节。再用 run_step06.py 对新证据目录中的同一APK运行实际设备测试。外部工具路径沿用下方说明。源码或封存输入变化必须重新构建、重验；没有真实Backend或完整生产App验收含义。
+
+当前最终结果、完整SHA、复现命令及H/Z责任见 [本轮交接](../../docs/rebuild/handoffs/phase7-contract14.md)。以下为原1.3 Phase6历史记录，不能冒充1.4结果。
+
+---
+
 # Phase 6A Contract validation entry
 
 This Android library is a validation consumer of `1.3.0-contract / RC`.

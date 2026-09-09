@@ -31,8 +31,9 @@ from course_workflow import (register_course_workflow, NEW_ERRORS as COURSE_ERRO
 
 
 from teaching_workflow import register_teaching_workflow, NEW_ERRORS as TEACHING_ERRORS, POLICY as TEACHING_POLICY
+from g1_clarifications import apply as apply_g1_clarifications
 
-CONTRACT_VERSION = "1.3.0-contract"
+CONTRACT_VERSION = "1.4.0-contract"
 CONTRACT_STATUS = "RC"
 PUBLIC_BASE_PATH = "/api/v1"
 
@@ -267,6 +268,7 @@ def assemble() -> tuple[dict[str, Any], ContractRegistry]:
         "x-review-reasons": {code: {"label": {"zh": zh, "en": en}, "teacherActions": actions} for code, (zh, en, actions) in REASONS.items()},
         "x-error-catalog": ERROR_CATALOG,
     }
+    apply_g1_clarifications(spec)
     return spec, registry
 
 

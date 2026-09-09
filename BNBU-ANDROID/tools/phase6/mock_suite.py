@@ -11,7 +11,7 @@ def prepare(repo, output):
     require(output.resolve() == (module / 'build/generated/phase6').resolve(), 'Unexpected Mock output')
     lock = json.loads((module / 'contract-lock.json').read_text('utf8'))
     spec = check_identity(repo / 'contracts/openapi.yaml', repo / 'contracts/contract-metadata.json', lock)
-    fixtures = repo / 'contracts/validation/step07_handoff/fixtures.json'
+    fixtures = repo / 'contracts/validation/p7_cr14/fixtures.json'
     require(sha(fixtures) == lock['inputs'][str(fixtures.relative_to(repo)).replace('\\', '/')], 'Fixture seal changed')
 
     def resolve(value):

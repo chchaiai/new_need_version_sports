@@ -233,7 +233,7 @@ export interface paths {
         };
         /**
          * List feedback for administration
-         * @description Searches and filters the administrator queue before keyset pagination; every page is limited to six items. The organization-wide permitted summary is computed from the same committed read snapshot and does not narrow with search, filters, or pagination.
+         * @description Searches and filters the administrator queue before keyset pagination; every page is limited to six items. The organization-wide permitted summary is computed from the same committed read snapshot and does not narrow with search, filters, or pagination. Historical student identities follow x-historical-students; current student endpoints remain current-only. After authorization, replay the original committed business result without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity fields only; it never restores credentials or deleted personal data.
          */
         readonly get: operations["listFeedbackForAdmin"];
         readonly put?: never;
@@ -253,7 +253,7 @@ export interface paths {
         };
         /**
          * Get a feedback ticket for administration
-         * @description Returns the student-visible ticket and reply history; no hidden teacher assignment or internal note exists.
+         * @description Returns the student-visible ticket and reply history; no hidden teacher assignment or internal note exists. Historical student identities follow x-historical-students; current student endpoints remain current-only. After authorization, replay the original committed business result without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity fields only; it never restores credentials or deleted personal data.
          */
         readonly get: operations["getFeedbackForAdmin"];
         readonly put?: never;
@@ -275,7 +275,7 @@ export interface paths {
         readonly put?: never;
         /**
          * Update feedback status with a public reply
-         * @description Atomically updates the non-WAITING status and appends a non-empty student-visible reply. Existing replies cannot be edited or deleted; completed/closed tickets may be reopened only to IN_PROGRESS or WAITING_TECH with a new reply.
+         * @description Atomically updates the non-WAITING status and appends a non-empty student-visible reply. Existing replies cannot be edited or deleted; completed/closed tickets may be reopened only to IN_PROGRESS or WAITING_TECH with a new reply. Historical student identities follow x-historical-students; current student endpoints remain current-only. After authorization, replay the original committed business result without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity fields only; it never restores credentials or deleted personal data.
          */
         readonly post: operations["processFeedback"];
         readonly delete?: never;
@@ -943,7 +943,7 @@ export interface paths {
         readonly put?: never;
         /**
          * Join a course as an existing student
-         * @description Require authenticated flow owner and original invitation. First successful acceptance under current flow/invitation/course/semester shared protection is strictly before fixed original expiry+600s, after registeredAt<expiry. Recheck verified identity and unique active course. No new flow at expiry. Exact committed receipt returns original enrollment once; no current-pointer or deadline refresh.
+         * @description Require authenticated flow owner and original invitation. First successful acceptance under current flow/invitation/course/semester shared protection is strictly before fixed original expiry+600s, after registeredAt<expiry. Recheck verified identity and unique active course. No new flow at expiry. Exact committed receipt returns original enrollment once; no current-pointer or deadline refresh. Historical student identities follow x-historical-students; current student endpoints remain current-only. After authorization, replay the original committed business result without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity fields only; it never restores credentials or deleted personal data.
          */
         readonly post: operations["joinCourseByInvitation"];
         readonly delete?: never;
@@ -1025,7 +1025,7 @@ export interface paths {
         };
         /**
          * List applications for a teacher-owned course
-         * @description Lists only applications for the responsible teacher's course.
+         * @description Lists only applications for the responsible teacher's course. Historical student identities follow x-historical-students; current student endpoints remain current-only. After authorization, replay the original committed business result without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity fields only; it never restores credentials or deleted personal data.
          */
         readonly get: operations["listCourseApplications"];
         readonly put?: never;
@@ -1045,7 +1045,7 @@ export interface paths {
         };
         /**
          * Get an application for teacher review
-         * @description Returns an application only when it belongs to the responsible teacher's course.
+         * @description Returns an application only when it belongs to the responsible teacher's course. Historical student identities follow x-historical-students; current student endpoints remain current-only. After authorization, replay the original committed business result without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity fields only; it never restores credentials or deleted personal data.
          */
         readonly get: operations["getCourseApplication"];
         readonly put?: never;
@@ -1107,7 +1107,7 @@ export interface paths {
         readonly put?: never;
         /**
          * Append an application decision
-         * @description The responsible teacher requests supplement, rejects, or approves. Exemption approval atomically sets EXEMPT; certification approval atomically creates the first active credit revision.
+         * @description The responsible teacher requests supplement, rejects, or approves. Exemption approval atomically sets EXEMPT; certification approval atomically creates the first active credit revision. Historical student identities follow x-historical-students; current student endpoints remain current-only. After authorization, replay the original committed business result without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity fields only; it never restores credentials or deleted personal data.
          */
         readonly post: operations["decideStudentApplication"];
         readonly delete?: never;
@@ -1205,7 +1205,7 @@ export interface paths {
         };
         /**
          * Read fixed assessment roster rows
-         * @description Pinned projection/content revision across all pages; explicit registration, raw endurance, progress and settlement columns. Original source identity scope preserved, outside-roster members separate.
+         * @description Pinned projection/content revision across all pages; explicit registration, raw endurance, progress and settlement columns. Original source identity scope preserved, outside-roster members separate. Historical student identities follow x-historical-students; current student endpoints remain current-only. After authorization, replay the original committed business result without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity fields only; it never restores credentials or deleted personal data.
          */
         readonly get: operations["listAssessmentRosterRows"];
         readonly put?: never;
@@ -1227,7 +1227,7 @@ export interface paths {
         readonly put?: never;
         /**
          * Preview the impact of a course change
-         * @description Evaluates name/description changes only; frozen rule, targets, frequency and schedule cannot enter this proposal.
+         * @description Evaluates name/description changes only; frozen rule, targets, frequency and schedule cannot enter this proposal. Historical student identities follow x-historical-students; current student endpoints remain current-only. After authorization, replay the original committed business result without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity fields only; it never restores credentials or deleted personal data.
          */
         readonly post: operations["previewCourseChangeImpact"];
         readonly delete?: never;
@@ -1389,7 +1389,7 @@ export interface paths {
         };
         /**
          * List scoped records and review stages
-         * @description Newest-first stable keyset order (submittedAt, recordId); cursor binds filters and actor scope. Intermediate states are not INVALID. No scores, grades, ranks, hidden remarks or internal AI data. Failed pages are errors, never empty success.
+         * @description Newest-first stable keyset order (submittedAt, recordId); cursor binds filters and actor scope. Intermediate states are not INVALID. No scores, grades, ranks, hidden remarks or internal AI data. Failed pages are errors, never empty success. Historical student identities follow x-historical-students; current student endpoints remain current-only. After authorization, replay the original committed business result without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity fields only; it never restores credentials or deleted personal data.
          */
         readonly get: operations["listCourseExerciseRecords"];
         readonly put?: never;
@@ -1409,7 +1409,7 @@ export interface paths {
         };
         /**
          * Read original record and current processing
-         * @description Includes original facts, current material and public review/timing projection. Preserve authorized historical access after closure/removal. All identifiers must match the original scoped resource; course closure does not grant another teacher authority.
+         * @description Includes original facts, current material and public review/timing projection. Preserve authorized historical access after closure/removal. All identifiers must match the original scoped resource; course closure does not grant another teacher authority. Historical student identities follow x-historical-students; current student endpoints remain current-only. After authorization, replay the original committed business result without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity fields only; it never restores credentials or deleted personal data.
          */
         readonly get: operations["getCourseExerciseRecord"];
         readonly put?: never;
@@ -1557,7 +1557,7 @@ export interface paths {
         };
         /**
          * List members of a teacher-owned course
-         * @description Returns the minimum teaching projection for current and removed members.
+         * @description Returns the minimum teaching projection for current and removed members. Historical student identities follow x-historical-students; current student endpoints remain current-only. After authorization, replay the original committed business result without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity fields only; it never restores credentials or deleted personal data.
          */
         readonly get: operations["listCourseMembers"];
         readonly put?: never;
@@ -1645,7 +1645,7 @@ export interface paths {
         };
         /**
          * Get one course member's progress
-         * @description Read authoritative joint-selection checkpoints and explicit current/recomputing/unavailable state. Server computes capped per-member categories then aggregates within one complete source/membership snapshot. No target/quota session gate, no old0/60/120 credit mapping or pending-as-invalid fallback.
+         * @description Read authoritative joint-selection checkpoints and explicit current/recomputing/unavailable state. Server computes capped per-member categories then aggregates within one complete source/membership snapshot. No target/quota session gate, no old0/60/120 credit mapping or pending-as-invalid fallback. Historical student identities follow x-historical-students; current student endpoints remain current-only. After authorization, replay the original committed business result without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity fields only; it never restores credentials or deleted personal data.
          */
         readonly get: operations["getCourseMemberProgress"];
         readonly put?: never;
@@ -1667,7 +1667,7 @@ export interface paths {
         readonly put?: never;
         /**
          * Remove a student from a teacher-owned course
-         * @description Transitions ACTIVE to REMOVED, preserves all history, updates the current student status to PENDING, and notifies the student.
+         * @description Transitions ACTIVE to REMOVED, preserves all history, updates the current student status to PENDING, and notifies the student. Historical student identities follow x-historical-students; current student endpoints remain current-only. After authorization, replay the original committed business result without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity fields only; it never restores credentials or deleted personal data.
          */
         readonly post: operations["removeCourseMember"];
         readonly delete?: never;
@@ -1687,7 +1687,7 @@ export interface paths {
         readonly put?: never;
         /**
          * Restore a removed course member
-         * @description Restores the existing enrollment only when the student has no other active current-semester course. Historical facts are not rewritten.
+         * @description Restores the existing enrollment only when the student has no other active current-semester course. Historical facts are not rewritten. Historical student identities follow x-historical-students; current student endpoints remain current-only. After authorization, replay the original committed business result without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity fields only; it never restores credentials or deleted personal data.
          */
         readonly post: operations["restoreCourseMember"];
         readonly delete?: never;
@@ -1705,7 +1705,7 @@ export interface paths {
         };
         /**
          * List student-level progress for a course
-         * @description Read authoritative joint-selection checkpoints and explicit current/recomputing/unavailable state. Server computes capped per-member categories then aggregates within one complete source/membership snapshot. No target/quota session gate, no old0/60/120 credit mapping or pending-as-invalid fallback.
+         * @description Read authoritative joint-selection checkpoints and explicit current/recomputing/unavailable state. Server computes capped per-member categories then aggregates within one complete source/membership snapshot. No target/quota session gate, no old0/60/120 credit mapping or pending-as-invalid fallback. Historical student identities follow x-historical-students; current student endpoints remain current-only. After authorization, replay the original committed business result without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity fields only; it never restores credentials or deleted personal data.
          */
         readonly get: operations["listCourseProgress"];
         readonly put?: never;
@@ -1765,7 +1765,7 @@ export interface paths {
         };
         /**
          * Read deduplicated teacher review todo
-         * @description Only current actionable round1/2 items; stable keyset by queue entry time and queueItemId, one item per Case/round. AI, technical and student-supplement waits are excluded. Opening/refreshing does not reset SLA. Scope/revision changes invalidate cursor, not silently omit records.
+         * @description Only current actionable round1/2 items; stable keyset by queue entry time and queueItemId, one item per Case/round. AI, technical and student-supplement waits are excluded. Opening/refreshing does not reset SLA. Scope/revision changes invalidate cursor, not silently omit records. Historical student identities follow x-historical-students; current student endpoints remain current-only. After authorization, replay the original committed business result without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity fields only; it never restores credentials or deleted personal data.
          */
         readonly get: operations["listTeacherReviewQueue"];
         readonly put?: never;
@@ -1787,7 +1787,7 @@ export interface paths {
         readonly put?: never;
         /**
          * Record a roster finding resolution
-         * @description Appends the one-time resolution facts. This operation does not implicitly join, remove, restore, or merge a student identity.
+         * @description Appends the one-time resolution facts. This operation does not implicitly join, remove, restore, or merge a student identity. Historical student identities follow x-historical-students; current student endpoints remain current-only. After authorization, replay the original committed business result without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity fields only; it never restores credentials or deleted personal data.
          */
         readonly post: operations["resolveRosterFinding"];
         readonly delete?: never;
@@ -2009,7 +2009,7 @@ export interface paths {
         };
         /**
          * List reconciliation findings for a snapshot
-         * @description Lists all five finding types without automatically merging ambiguous identities.
+         * @description Lists all five finding types without automatically merging ambiguous identities. Historical student identities follow x-historical-students; current student endpoints remain current-only. After authorization, replay the original committed business result without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity fields only; it never restores credentials or deleted personal data.
          */
         readonly get: operations["listRosterFindings"];
         readonly put?: never;
@@ -2093,7 +2093,7 @@ export interface paths {
         };
         /**
          * Read version-pinned settlement rows
-         * @description Exact original membership scope and checkpoint values, removed members retained; no live-cache substitution. Future authorized corrections append version with reason, never mutate old rows or reopen ordinary starts.
+         * @description Exact original membership scope and checkpoint values, removed members retained; no live-cache substitution. Future authorized corrections append version with reason, never mutate old rows or reopen ordinary starts. Historical student identities follow x-historical-students; current student endpoints remain current-only. After authorization, replay the original committed business result without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity fields only; it never restores credentials or deleted personal data.
          */
         readonly get: operations["listSettlementReportRows"];
         readonly put?: never;
@@ -2817,13 +2817,13 @@ export interface paths {
         };
         /**
          * List the student's applications
-         * @description Lists exemption and certification applications with append-only evidence and decision history.
+         * @description Lists exemption and certification applications with append-only evidence and decision history. Historical student identities follow x-historical-students; current student endpoints remain current-only. After authorization, replay the original committed business result without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity fields only; it never restores credentials or deleted personal data.
          */
         readonly get: operations["listOwnApplications"];
         readonly put?: never;
         /**
          * Submit an exemption or certification application
-         * @description Creates the formal SUBMITTED application only after binding one to three VERIFIED JPEG/PNG/WebP evidence images. Local preparation is not a formal draft.
+         * @description Creates the formal SUBMITTED application only after binding one to three VERIFIED JPEG/PNG/WebP evidence images. Local preparation is not a formal draft. Historical student identities follow x-historical-students; current student endpoints remain current-only. After authorization, replay the original committed business result without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity fields only; it never restores credentials or deleted personal data.
          */
         readonly post: operations["createStudentApplication"];
         readonly delete?: never;
@@ -2841,7 +2841,7 @@ export interface paths {
         };
         /**
          * Get the student's application
-         * @description Returns one application owned by the authenticated student.
+         * @description Returns one application owned by the authenticated student. Historical student identities follow x-historical-students; current student endpoints remain current-only. After authorization, replay the original committed business result without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity fields only; it never restores credentials or deleted personal data.
          */
         readonly get: operations["getOwnApplication"];
         readonly put?: never;
@@ -2863,7 +2863,7 @@ export interface paths {
         readonly put?: never;
         /**
          * Add requested application evidence
-         * @description Adds a SUPPLEMENT submission only while SUPPLEMENT_REQUIRED and returns the application to SUBMITTED. Initial plus all supplement evidence remains capped at three images.
+         * @description Adds a SUPPLEMENT submission only while SUPPLEMENT_REQUIRED and returns the application to SUBMITTED. Initial plus all supplement evidence remains capped at three images. Historical student identities follow x-historical-students; current student endpoints remain current-only. After authorization, replay the original committed business result without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity fields only; it never restores credentials or deleted personal data.
          */
         readonly post: operations["supplementStudentApplication"];
         readonly delete?: never;
@@ -2901,7 +2901,7 @@ export interface paths {
         };
         /**
          * Get the authenticated student dashboard
-         * @description Composes current formal account, course, progress, endurance, grade, and notification projections. It never falls back to synthetic or Mock data.
+         * @description Composes current formal account, course, progress, endurance, grade, and notification projections. It never falls back to synthetic or Mock data. Historical student identities follow x-historical-students; current student endpoints remain current-only. After authorization, replay the original committed business result without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity fields only; it never restores credentials or deleted personal data.
          */
         readonly get: operations["getStudentDashboard"];
         readonly put?: never;
@@ -2941,7 +2941,7 @@ export interface paths {
         };
         /**
          * List scoped records and review stages
-         * @description Newest-first stable keyset order (submittedAt, recordId); cursor binds filters and actor scope. Intermediate states are not INVALID. No scores, grades, ranks, hidden remarks or internal AI data. Failed pages are errors, never empty success.
+         * @description Newest-first stable keyset order (submittedAt, recordId); cursor binds filters and actor scope. Intermediate states are not INVALID. No scores, grades, ranks, hidden remarks or internal AI data. Failed pages are errors, never empty success. Historical student identities follow x-historical-students; current student endpoints remain current-only. After authorization, replay the original committed business result without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity fields only; it never restores credentials or deleted personal data.
          */
         readonly get: operations["listOwnExerciseRecords"];
         readonly put?: never;
@@ -2961,7 +2961,7 @@ export interface paths {
         };
         /**
          * Read original record and current processing
-         * @description Includes original facts, current material and public review/timing projection. Preserve authorized historical access after closure/removal. All identifiers must match the original scoped resource; course closure does not grant another teacher authority.
+         * @description Includes original facts, current material and public review/timing projection. Preserve authorized historical access after closure/removal. All identifiers must match the original scoped resource; course closure does not grant another teacher authority. Historical student identities follow x-historical-students; current student endpoints remain current-only. After authorization, replay the original committed business result without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity fields only; it never restores credentials or deleted personal data.
          */
         readonly get: operations["getOwnExerciseRecord"];
         readonly put?: never;
@@ -3001,13 +3001,13 @@ export interface paths {
         };
         /**
          * List the student's feedback tickets
-         * @description Lists only tickets owned by the authenticated student.
+         * @description Lists only tickets owned by the authenticated student. Historical student identities follow x-historical-students; current student endpoints remain current-only. After authorization, replay the original committed business result without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity fields only; it never restores credentials or deleted personal data.
          */
         readonly get: operations["listOwnFeedback"];
         readonly put?: never;
         /**
          * Submit student feedback
-         * @description Creates a WAITING feedback ticket linked to the authenticated student. It has no attachment, platform, version, priority, assignee, or internal note.
+         * @description Creates a WAITING feedback ticket linked to the authenticated student. It has no attachment, platform, version, priority, assignee, or internal note. Historical student identities follow x-historical-students; current student endpoints remain current-only. After authorization, replay the original committed business result without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity fields only; it never restores credentials or deleted personal data.
          */
         readonly post: operations["createFeedback"];
         readonly delete?: never;
@@ -3025,7 +3025,7 @@ export interface paths {
         };
         /**
          * Get the student's feedback ticket
-         * @description Returns current status and append-only public replies for one owned ticket.
+         * @description Returns current status and append-only public replies for one owned ticket. Historical student identities follow x-historical-students; current student endpoints remain current-only. After authorization, replay the original committed business result without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity fields only; it never restores credentials or deleted personal data.
          */
         readonly get: operations["getOwnFeedback"];
         readonly put?: never;
@@ -3125,7 +3125,7 @@ export interface paths {
         };
         /**
          * Get the student's current course progress
-         * @description Read authoritative joint-selection checkpoints and explicit current/recomputing/unavailable state. Server computes capped per-member categories then aggregates within one complete source/membership snapshot. No target/quota session gate, no old0/60/120 credit mapping or pending-as-invalid fallback.
+         * @description Read authoritative joint-selection checkpoints and explicit current/recomputing/unavailable state. Server computes capped per-member categories then aggregates within one complete source/membership snapshot. No target/quota session gate, no old0/60/120 credit mapping or pending-as-invalid fallback. Historical student identities follow x-historical-students; current student endpoints remain current-only. After authorization, replay the original committed business result without re-executing the command or recomputing facts, versions, checkpoints or minutes. The sole identity-display exception is that a confirmed deleted student is projected as DELETED_STUDENT and current-profile copies/email/linked roster display names are redacted under x-historical-students. This exception overrides exact response-byte replay for those identity fields only; it never restores credentials or deleted personal data.
          */
         readonly get: operations["getOwnCourseProgress"];
         readonly put?: never;
@@ -3532,7 +3532,7 @@ export interface components {
             /** @enum {string} */
             readonly state: "CURRENT" | "RECOMPUTING" | "UNAVAILABLE";
         } & (unknown & unknown & unknown);
-        /** @description Teacher-only complete roster identities plus outside members, without merging distinct status columns. Registered completion requires verified school identity AND joined this class AND number/name match. Unavailable results remain explicit; progress uses A checkpoint, settlement uses E public state, never reverse-approves E. */
+        /** @description Teacher-only complete roster identities plus outside members, without merging distinct status columns. Registered completion requires verified school identity AND joined this class AND number/name match. Unavailable results remain explicit; progress uses A checkpoint, settlement uses E public state, never reverse-approves E. Linked DELETED_STUDENT display rows have null rosterName/rosterStudentNumber. A formerly MATCHED_VERIFIED_JOINED row becomes NOT_REGISTERED_OR_JOINED in the current reconciliation and is not counted complete. Retain the confirmed identity denominator and historical relationship. Existing OUTSIDE_ROSTER and unresolved-identity distinctions remain. Frozen reports/grades/checkpoints are not recalculated. */
         readonly AssessmentRosterRow: {
             readonly applicationPendingCount: number | null;
             readonly endurance: components["schemas"]["StudentEnduranceOutcome"] | null;
@@ -3547,9 +3547,9 @@ export interface components {
             readonly rosterStudentNumber: string | null;
             readonly rowKey: string;
             readonly settlement: components["schemas"]["CourseSettlementSummary"] | null;
-            readonly student: components["schemas"]["StudentSummary"] | null;
+            readonly student: components["schemas"]["StudentReference"] | null;
             readonly unresolvedReasons: readonly components["schemas"]["LocalizedText"][];
-        };
+        } & unknown;
         readonly AssessmentRosterRowPage: {
             /** @description Hex-encoded SHA-256 checksum. */
             readonly contentSha256: string;
@@ -3944,7 +3944,7 @@ export interface components {
         };
         /** @description Name/description impact only. No path through this token can mutate frozen targets or schedule. */
         readonly CourseChangeImpact: {
-            readonly affectedStudents: readonly components["schemas"]["StudentSummary"][];
+            readonly affectedStudents: readonly components["schemas"]["StudentReference"][];
             readonly canApply: boolean;
             /**
              * Format: date-time
@@ -4378,12 +4378,31 @@ export interface components {
              */
             readonly version: number;
         };
+        /** @description Current account, including PENDING. Not enrollment state. */
+        readonly CurrentStudentReference: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            readonly kind: "CURRENT_STUDENT";
+            readonly student: components["schemas"]["StudentSummary"];
+        };
         /** @description Keyset pagination metadata. A null cursor means that direction has no more results. */
         readonly CursorPage: {
             /** Format: int32 */
             readonly limit: number;
             readonly nextCursor: string | null;
             readonly previousCursor: string | null;
+        };
+        /** @description Confirmed deleted account. Stable public opaque identity only; no current-profile personal data. */
+        readonly DeletedStudentReference: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            readonly kind: "DELETED_STUDENT";
+            /** Format: uuid */
+            readonly studentId: string;
         };
         readonly DeleteEnduranceRuleIntervalChange: {
             /**
@@ -4712,7 +4731,7 @@ export interface components {
             readonly removedAt: string | null;
             /** @enum {string} */
             readonly status: "ACTIVE" | "REMOVED";
-            readonly student: components["schemas"]["StudentSummary"];
+            readonly student: components["schemas"]["StudentReference"];
             readonly studentVisibleReason: string | null;
             /**
              * Format: int64
@@ -4816,7 +4835,7 @@ export interface components {
              * @description Opaque public identifier; clients must not infer meaning from it.
              */
             readonly sessionId: string;
-            readonly student: components["schemas"]["StudentSummary"];
+            readonly student: components["schemas"]["StudentReference"];
             /**
              * Format: date-time
              * @description RFC 3339 UTC instant. Servers emit an explicit Z offset; clients localize only for display.
@@ -5011,7 +5030,7 @@ export interface components {
             readonly feedbackNumber: string;
             readonly replies: readonly components["schemas"]["FeedbackReply"][];
             readonly status: components["schemas"]["FeedbackStatus"];
-            readonly student: components["schemas"]["StudentSummary"];
+            readonly student: components["schemas"]["StudentReference"];
             /**
              * Format: date-time
              * @description RFC 3339 UTC instant. Servers emit an explicit Z offset; clients localize only for display.
@@ -5027,7 +5046,7 @@ export interface components {
              * @description Optimistic-concurrency version.
              */
             readonly version: number;
-        };
+        } & unknown;
         readonly FieldViolation: {
             readonly field: string;
             readonly reason: string;
@@ -6756,7 +6775,7 @@ export interface components {
              * @description Opaque public identifier; clients must not infer meaning from it.
              */
             readonly settlementVersionId: string;
-            readonly student: components["schemas"]["StudentSummary"];
+            readonly student: components["schemas"]["StudentReference"];
             readonly unmetTargetReasons: readonly components["schemas"]["LocalizedText"][];
         };
         /** @description Cursor is pinned to report version/content; all pages cover its exact full member set without duplication. Historical removed members remain in original scope. */
@@ -6915,7 +6934,7 @@ export interface components {
             readonly enrollmentId: string;
             readonly evidence: readonly components["schemas"]["MediaAsset"][];
             readonly status: components["schemas"]["ApplicationStatus"];
-            readonly student: components["schemas"]["StudentSummary"];
+            readonly student: components["schemas"]["StudentReference"];
             /**
              * Format: date-time
              * @description RFC 3339 UTC instant. Servers emit an explicit Z offset; clients localize only for display.
@@ -6980,7 +6999,7 @@ export interface components {
             readonly observedAt: string;
             /** @enum {string} */
             readonly state: "CURRENT" | "RECOMPUTING" | "UNAVAILABLE";
-            readonly student: components["schemas"]["StudentSummary"];
+            readonly student: components["schemas"]["StudentReference"];
             readonly unavailableReason: ("SOURCE_INCOMPLETE" | "SOURCE_CHANGED" | "PREDECESSOR_UNAVAILABLE" | "RECOVERY_REQUIRED") | null;
         } & (unknown & unknown & unknown);
         /** @description All pages pinned to the same server snapshot and complete membership scope. No page-by-page latest-source mixing. Unavailable snapshot returns STATISTICS_UNAVAILABLE. */
@@ -7066,6 +7085,7 @@ export interface components {
             readonly items: readonly components["schemas"]["StudentNotification"][];
             readonly page: components["schemas"]["CursorPage"];
         };
+        readonly StudentReference: components["schemas"]["CurrentStudentReference"] | components["schemas"]["DeletedStudentReference"];
         readonly StudentSessionRequest: {
             readonly otpProof: components["schemas"]["OtpProof"];
         };
@@ -8056,7 +8076,7 @@ export interface components {
         };
     };
     parameters: {
-        /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+        /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
         readonly IdempotencyKey: string;
     };
     requestBodies: never;
@@ -8072,7 +8092,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path?: never;
@@ -8386,7 +8406,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -8493,7 +8513,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -8568,7 +8588,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path?: never;
@@ -8634,7 +8654,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -8675,7 +8695,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -8748,7 +8768,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path?: never;
@@ -8784,7 +8804,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -8824,7 +8844,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path?: never;
@@ -8895,12 +8915,15 @@ export interface operations {
     readonly listStudentAccounts: {
         readonly parameters: {
             readonly query?: {
+                /** @description At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. */
                 readonly collegeOrDepartment?: string;
-                /** @description Opaque keyset cursor returned by this exact operation and filter set. */
+                /** @description Opaque keyset cursor returned by this exact operation and filter set. At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. */
                 readonly cursor?: string;
-                /** @description Maximum number of items to return. */
+                /** @description Maximum number of items to return. At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. Decoded value must consist only of ASCII decimal digits, numeric value 1–100; leading zeros allowed, omission defaults to 20. No exponent, decimal point, sign or whitespace. */
                 readonly limit?: number;
+                /** @description At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. */
                 readonly q?: string;
+                /** @description At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. */
                 readonly status?: "ACTIVE" | "PENDING";
             };
             readonly header?: never;
@@ -8960,10 +8983,11 @@ export interface operations {
     readonly listSubAdmins: {
         readonly parameters: {
             readonly query?: {
-                /** @description Opaque keyset cursor returned by this exact operation and filter set. */
+                /** @description Opaque keyset cursor returned by this exact operation and filter set. At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. */
                 readonly cursor?: string;
-                /** @description Maximum number of items to return. */
+                /** @description Maximum number of items to return. At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. Decoded value must consist only of ASCII decimal digits, numeric value 1–100; leading zeros allowed, omission defaults to 20. No exponent, decimal point, sign or whitespace. */
                 readonly limit?: number;
+                /** @description At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. */
                 readonly state?: "ACTIVE" | "DISABLED";
             };
             readonly header?: never;
@@ -8994,7 +9018,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path?: never;
@@ -9060,7 +9084,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -9101,7 +9125,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -9141,7 +9165,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -9180,9 +9204,9 @@ export interface operations {
     readonly listSystemModeTransitions: {
         readonly parameters: {
             readonly query?: {
-                /** @description Opaque keyset cursor returned by this exact operation and filter set. */
+                /** @description Opaque keyset cursor returned by this exact operation and filter set. At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. */
                 readonly cursor?: string;
-                /** @description Maximum number of items to return. */
+                /** @description Maximum number of items to return. At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. Decoded value must consist only of ASCII decimal digits, numeric value 1–100; leading zeros allowed, omission defaults to 20. No exponent, decimal point, sign or whitespace. */
                 readonly limit?: number;
             };
             readonly header?: never;
@@ -9213,7 +9237,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path?: never;
@@ -9250,7 +9274,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path?: never;
@@ -9286,7 +9310,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path?: never;
@@ -9321,12 +9345,15 @@ export interface operations {
     readonly listTeacherAccounts: {
         readonly parameters: {
             readonly query?: {
+                /** @description At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. */
                 readonly collegeOrDepartment?: string;
-                /** @description Opaque keyset cursor returned by this exact operation and filter set. */
+                /** @description Opaque keyset cursor returned by this exact operation and filter set. At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. */
                 readonly cursor?: string;
-                /** @description Maximum number of items to return. */
+                /** @description Maximum number of items to return. At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. Decoded value must consist only of ASCII decimal digits, numeric value 1–100; leading zeros allowed, omission defaults to 20. No exponent, decimal point, sign or whitespace. */
                 readonly limit?: number;
+                /** @description At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. */
                 readonly q?: string;
+                /** @description At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. */
                 readonly state?: "ACTIVE" | "DISABLED" | "RECOVERY_REQUIRED";
             };
             readonly header?: never;
@@ -9387,7 +9414,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -9459,7 +9486,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path?: never;
@@ -9553,7 +9580,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path?: never;
@@ -9586,7 +9613,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path?: never;
@@ -9621,7 +9648,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path?: never;
@@ -9651,7 +9678,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path?: never;
@@ -9681,7 +9708,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path?: never;
@@ -9716,7 +9743,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path?: never;
@@ -9751,7 +9778,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path?: never;
@@ -9814,7 +9841,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -9854,7 +9881,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -9894,7 +9921,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -9933,7 +9960,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -10002,7 +10029,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -10112,7 +10139,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -10155,7 +10182,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -10197,7 +10224,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -10270,7 +10297,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -10342,7 +10369,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -10417,7 +10444,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -10457,7 +10484,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -10497,7 +10524,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -10574,7 +10601,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -10648,7 +10675,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -10729,7 +10756,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -10844,7 +10871,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -10887,7 +10914,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -10965,10 +10992,11 @@ export interface operations {
     readonly listCourseInvitations: {
         readonly parameters: {
             readonly query?: {
-                /** @description Opaque keyset cursor returned by this exact operation and filter set. */
+                /** @description Opaque keyset cursor returned by this exact operation and filter set. At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. */
                 readonly cursor?: string;
-                /** @description Maximum number of items to return. */
+                /** @description Maximum number of items to return. At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. Decoded value must consist only of ASCII decimal digits, numeric value 1–100; leading zeros allowed, omission defaults to 20. No exponent, decimal point, sign or whitespace. */
                 readonly limit?: number;
+                /** @description At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. */
                 readonly status?: "ACTIVE" | "EXPIRED" | "REVOKED" | "COURSE_CLOSED" | "NOT_CURRENT";
             };
             readonly header?: never;
@@ -11003,7 +11031,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -11043,7 +11071,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -11084,9 +11112,9 @@ export interface operations {
     readonly listCourseMakeupAuthorizations: {
         readonly parameters: {
             readonly query?: {
-                /** @description Opaque keyset cursor returned by this exact operation and filter set. */
+                /** @description Opaque keyset cursor returned by this exact operation and filter set. At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. */
                 readonly cursor?: string;
-                /** @description Maximum number of items to return. */
+                /** @description Maximum number of items to return. At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. Decoded value must consist only of ASCII decimal digits, numeric value 1–100; leading zeros allowed, omission defaults to 20. No exponent, decimal point, sign or whitespace. */
                 readonly limit?: number;
             };
             readonly header?: never;
@@ -11121,7 +11149,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -11160,10 +11188,11 @@ export interface operations {
     readonly listCourseMembers: {
         readonly parameters: {
             readonly query?: {
-                /** @description Opaque keyset cursor returned by this exact operation and filter set. */
+                /** @description Opaque keyset cursor returned by this exact operation and filter set. At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. */
                 readonly cursor?: string;
-                /** @description Maximum number of items to return. */
+                /** @description Maximum number of items to return. At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. Decoded value must consist only of ASCII decimal digits, numeric value 1–100; leading zeros allowed, omission defaults to 20. No exponent, decimal point, sign or whitespace. */
                 readonly limit?: number;
+                /** @description At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. */
                 readonly status?: "ACTIVE" | "REMOVED";
             };
             readonly header?: never;
@@ -11236,7 +11265,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -11348,7 +11377,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -11423,7 +11452,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -11465,7 +11494,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -11543,7 +11572,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -11584,7 +11613,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -11660,7 +11689,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -11702,7 +11731,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -11779,7 +11808,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -11853,7 +11882,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -11935,7 +11964,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -11979,7 +12008,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -12090,7 +12119,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -12173,7 +12202,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -12249,7 +12278,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -12359,7 +12388,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -12401,7 +12430,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -12438,7 +12467,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -12551,7 +12580,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -12631,7 +12660,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -12673,7 +12702,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path?: never;
@@ -12739,7 +12768,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -12810,7 +12839,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -12850,7 +12879,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -12892,7 +12921,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -13025,7 +13054,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path?: never;
@@ -13087,7 +13116,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path?: never;
@@ -13123,7 +13152,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path?: never;
@@ -13159,7 +13188,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path?: never;
@@ -13226,7 +13255,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -13265,7 +13294,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -13304,10 +13333,11 @@ export interface operations {
     readonly listOwnNotifications: {
         readonly parameters: {
             readonly query?: {
-                /** @description Opaque keyset cursor returned by this exact operation and filter set. */
+                /** @description Opaque keyset cursor returned by this exact operation and filter set. At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. */
                 readonly cursor?: string;
-                /** @description Maximum number of items to return. */
+                /** @description Maximum number of items to return. At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. Decoded value must consist only of ASCII decimal digits, numeric value 1–100; leading zeros allowed, omission defaults to 20. No exponent, decimal point, sign or whitespace. */
                 readonly limit?: number;
+                /** @description At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. */
                 readonly read?: boolean;
             };
             readonly header?: never;
@@ -13393,9 +13423,9 @@ export interface operations {
     readonly listPublishedRuleTemplates: {
         readonly parameters: {
             readonly query?: {
-                /** @description Opaque keyset cursor returned by this exact operation and filter set. */
+                /** @description Opaque keyset cursor returned by this exact operation and filter set. At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. */
                 readonly cursor?: string;
-                /** @description Maximum number of items to return. */
+                /** @description Maximum number of items to return. At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. Decoded value must consist only of ASCII decimal digits, numeric value 1–100; leading zeros allowed, omission defaults to 20. No exponent, decimal point, sign or whitespace. */
                 readonly limit?: number;
             };
             readonly header?: never;
@@ -13425,10 +13455,11 @@ export interface operations {
     readonly listSemesters: {
         readonly parameters: {
             readonly query?: {
-                /** @description Opaque keyset cursor returned by this exact operation and filter set. */
+                /** @description Opaque keyset cursor returned by this exact operation and filter set. At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. */
                 readonly cursor?: string;
-                /** @description Maximum number of items to return. */
+                /** @description Maximum number of items to return. At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. Decoded value must consist only of ASCII decimal digits, numeric value 1–100; leading zeros allowed, omission defaults to 20. No exponent, decimal point, sign or whitespace. */
                 readonly limit?: number;
+                /** @description At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. */
                 readonly status?: "UPCOMING" | "CURRENT" | "ARCHIVED";
             };
             readonly header?: never;
@@ -13459,7 +13490,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path?: never;
@@ -13495,7 +13526,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -13535,7 +13566,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -13672,7 +13703,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path?: never;
@@ -13739,7 +13770,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -13982,7 +14013,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path?: never;
@@ -14046,9 +14077,9 @@ export interface operations {
     readonly listOwnMakeupAuthorizations: {
         readonly parameters: {
             readonly query?: {
-                /** @description Opaque keyset cursor returned by this exact operation and filter set. */
+                /** @description Opaque keyset cursor returned by this exact operation and filter set. At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. */
                 readonly cursor?: string;
-                /** @description Maximum number of items to return. */
+                /** @description Maximum number of items to return. At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. Decoded value must consist only of ASCII decimal digits, numeric value 1–100; leading zeros allowed, omission defaults to 20. No exponent, decimal point, sign or whitespace. */
                 readonly limit?: number;
             };
             readonly header?: never;
@@ -14078,10 +14109,11 @@ export interface operations {
     readonly listOwnStudentNotifications: {
         readonly parameters: {
             readonly query?: {
-                /** @description Opaque keyset cursor returned by this exact operation and filter set. */
+                /** @description Opaque keyset cursor returned by this exact operation and filter set. At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. */
                 readonly cursor?: string;
-                /** @description Maximum number of items to return. */
+                /** @description Maximum number of items to return. At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. Decoded value must consist only of ASCII decimal digits, numeric value 1–100; leading zeros allowed, omission defaults to 20. No exponent, decimal point, sign or whitespace. */
                 readonly limit?: number;
+                /** @description At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. */
                 readonly read?: boolean;
             };
             readonly header?: never;
@@ -14112,7 +14144,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path: {
@@ -14221,10 +14253,11 @@ export interface operations {
     readonly listOwnCourses: {
         readonly parameters: {
             readonly query?: {
-                /** @description Opaque keyset cursor returned by this exact operation and filter set. */
+                /** @description Opaque keyset cursor returned by this exact operation and filter set. At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. */
                 readonly cursor?: string;
-                /** @description Maximum number of items to return. */
+                /** @description Maximum number of items to return. At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. Decoded value must consist only of ASCII decimal digits, numeric value 1–100; leading zeros allowed, omission defaults to 20. No exponent, decimal point, sign or whitespace. */
                 readonly limit?: number;
+                /** @description At most one occurrence of this decoded scalar query name; duplicates return HTTP 400 / INVALID_REQUEST. */
                 readonly status?: "DRAFT" | "OPEN" | "CLOSED";
             };
             readonly header?: never;
@@ -14255,7 +14288,7 @@ export interface operations {
         readonly parameters: {
             readonly query?: never;
             readonly header: {
-                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. */
+                /** @description UUID scoped to the authenticated actor or anonymous command subject, operationId, and canonical resource identity. A normalized-command replay returns the original committed response; different normalized content returns IDEMPOTENCY_KEY_REUSED. Historical student identity display follows the scoped deletion-aware exception in x-historical-students. */
                 readonly "Idempotency-Key": components["parameters"]["IdempotencyKey"];
             };
             readonly path?: never;

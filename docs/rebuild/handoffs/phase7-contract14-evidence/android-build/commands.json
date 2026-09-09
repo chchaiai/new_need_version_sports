@@ -1,0 +1,91 @@
+[
+  {
+    "name": "01-binding-controls",
+    "command": [
+      "D:\\DT\\soprts\\start4\\07_phase5_execution\\.venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "D:\\DT\\soprts\\start4\\repos\\phase7-contract14\\BNBU-ANDROID\\tools\\phase6\\test_entry.py"
+    ],
+    "cwd": "D:\\DT\\soprts\\start4\\repos\\phase7-contract14\\BNBU-ANDROID",
+    "startedAt": "2026-09-09T11:12:03.541700+00:00",
+    "finishedAt": "2026-09-09T11:12:14.235155+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "01b-current-seal-controls",
+    "command": [
+      "D:\\DT\\soprts\\start4\\07_phase5_execution\\.venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "D:\\DT\\soprts\\start4\\repos\\phase7-contract14\\contracts\\validation\\p7_cr14\\test_release_seal.py"
+    ],
+    "cwd": "D:\\DT\\soprts\\start4\\repos\\phase7-contract14\\BNBU-ANDROID",
+    "startedAt": "2026-09-09T11:12:14.236257+00:00",
+    "finishedAt": "2026-09-09T11:12:41.259001+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "02-current-input-seal",
+    "command": [
+      "D:\\DT\\soprts\\start4\\07_phase5_execution\\.venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "D:\\DT\\soprts\\start4\\repos\\phase7-contract14\\contracts\\validation\\p7_cr14\\verify_release.py"
+    ],
+    "cwd": "D:\\DT\\soprts\\start4\\repos\\phase7-contract14",
+    "startedAt": "2026-09-09T11:12:41.260612+00:00",
+    "finishedAt": "2026-09-09T11:12:42.111989+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "03-android-build-and-tests",
+    "command": [
+      "D:\\DT\\soprts\\start4\\repos\\phase7-contract14\\BNBU-ANDROID\\gradlew.bat",
+      ":contract-validation:assembleDebug",
+      ":contract-validation:testDebugUnitTest",
+      "--offline",
+      "--console=plain",
+      "--rerun-tasks",
+      "-Pphase6FullValidation=true",
+      "-Pphase6MapperValidation=true",
+      "-Pphase6MockValidation=true",
+      "-Pphase6Python=D:\\DT\\soprts\\start4\\07_phase5_execution\\.venv\\Scripts\\python.exe",
+      "-Pphase6GeneratorJar=D:\\DT\\soprts\\start4\\07_phase5_execution\\tooling\\openapi-generator-cli-7.24.0.jar",
+      "-Pphase6RuntimeDir=D:\\DT\\soprts\\start4\\07_phase5_execution\\T06\\tools",
+      ":contract-validation:assembleDebugAndroidTest"
+    ],
+    "cwd": "D:\\DT\\soprts\\start4\\repos\\phase7-contract14\\BNBU-ANDROID",
+    "startedAt": "2026-09-09T11:12:42.115301+00:00",
+    "finishedAt": "2026-09-09T11:14:07.199765+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "04-diff-whitespace",
+    "command": [
+      "git",
+      "--no-pager",
+      "diff",
+      "--check"
+    ],
+    "cwd": "D:\\DT\\soprts\\start4\\repos\\phase7-contract14",
+    "startedAt": "2026-09-09T11:14:08.045179+00:00",
+    "finishedAt": "2026-09-09T11:14:08.353436+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "05-working-tree",
+    "command": [
+      "git",
+      "status",
+      "--short"
+    ],
+    "cwd": "D:\\DT\\soprts\\start4\\repos\\phase7-contract14",
+    "startedAt": "2026-09-09T11:14:08.354445+00:00",
+    "finishedAt": "2026-09-09T11:14:08.559002+00:00",
+    "exitCode": 0
+  }
+]

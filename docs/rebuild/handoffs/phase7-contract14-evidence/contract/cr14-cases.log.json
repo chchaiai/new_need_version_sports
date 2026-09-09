@@ -1,0 +1,6 @@
+{
+  "originalFile": "cr14-cases.log",
+  "rawBytesSha256": "7f81b7ee7d05dd9d199e45b8ec9de68af4e9c8a4ae18571f5910919d7290eb1d",
+  "encoding": "utf-8",
+  "rawText": "PASS: 1049 Python cases; 18 structural mutations rejected; 31 affected response operations. No backend claim.\r\n"
+}

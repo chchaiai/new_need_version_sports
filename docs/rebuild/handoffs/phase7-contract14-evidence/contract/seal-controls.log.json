@@ -1,0 +1,6 @@
+{
+  "originalFile": "seal-controls.log",
+  "rawBytesSha256": "8f6f90ac321e4bee6f039acbd67e9ea15bd8ca213c55020f03a352803eb19678",
+  "encoding": "utf-8",
+  "rawText": "test_changed_android_binding (__main__.SealTests.test_changed_android_binding) ... ok\r\ntest_changed_contract (__main__.SealTests.test_changed_contract) ... ok\r\ntest_changed_fixture (__main__.SealTests.test_changed_fixture) ... ok\r\ntest_changed_source (__main__.SealTests.test_changed_source) ... ok\r\ntest_changed_web_binding (__main__.SealTests.test_changed_web_binding) ... ok\r\ntest_current_seal (__main__.SealTests.test_current_seal) ... ok\r\n\r\n----------------------------------------------------------------------\r\nRan 6 tests in 29.551s\r\n\r\nOK\r\n"
+}

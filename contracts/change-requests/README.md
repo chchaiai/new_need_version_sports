@@ -1,3 +1,9 @@
+# G1 协议修订（当前）
+
+用户已接受 [历史学生 CR](CR-20260909-001-historical-student.md) 和 [13项查询 CR](CR-20260909-002-query-errors.md)，授权按顺序实施并适配 Android/Web。目标1.4.0-contract / RC，明确不兼容，最终字节/测试/发布状态见 [本轮交接](../../docs/rebuild/handoffs/phase7-contract14.md)。Backend实际适配和G1联合验收未完成。
+
+以下为1.3.0及更早发布历史。
+
 # Contract Change Requests
 
 当前第六步已统一为`1.3.0-contract / RC / 5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed`，原第2～5步CR本地实施及最终技术门禁完成，最终人工Review和发布仍待第七步。见[统一CR](CR-20260908-004-rc-consolidation.md)、[结果](../validation/step06_final/result.json)与[21项处置](../validation/step06_final/disposition.json)。后续任何外部行为变化仍须CR和新版本。以下阶段状态为历史。

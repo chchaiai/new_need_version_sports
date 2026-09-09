@@ -20,10 +20,10 @@ export type CreateCertificationApplicationWireRequest = Omit<
 };
 
 export const PHASE5B_STUDENT_CONTRACT = {
-  version: "1.3.0-contract",
+  version: "1.4.0-contract",
   status: "RC",
   publicBasePath: "/api/v1",
-  openapiSha256: "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+  openapiSha256: "0528389bb8b72714d9a4af35ffc66c87503560d41c58ad968b1713b39ff3da2d",
 } as const;
 
 export const studentActor = {
@@ -455,7 +455,7 @@ function createCertificationApplicationFixture(
     applicationType: "CERTIFICATION",
     courseId: request.courseId,
     enrollmentId: activeStudentProgress.enrollmentId,
-    student: activeStudent,
+    student: { kind: "CURRENT_STUDENT", student: activeStudent },
     status: "SUBMITTED",
     certification: request.certification,
     evidence: [certificationEvidence],

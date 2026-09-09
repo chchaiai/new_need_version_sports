@@ -1,0 +1,450 @@
+{
+  "candidateSha256": "0528389bb8b72714d9a4af35ffc66c87503560d41c58ad968b1713b39ff3da2d",
+  "sourceCommit": "f95c3833870fe0da55a297aa28c958ec53e9e935",
+  "priorTraceabilitySha256": "63ac101ba71874c1dcae6762c9cc78eccdb7d2ad19d4e67c4e199bf06e7cb434",
+  "basis": "Unchanged page-to-operation mapping only; not inherited test/acceptance results. Operation identities remain unchanged.",
+  "studentPages": [
+    {
+      "page": "PAGE-STU-001",
+      "title": "启动与中断恢复",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "getCurrentActor",
+        "getSystemMode",
+        "getOwnActiveExerciseSession"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-002",
+      "title": "系统维护",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "getSystemMode",
+        "getOwnExerciseRecord"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-003",
+      "title": "首次隐私同意",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [],
+      "disposition": "LOCAL_PRESENTATION_OR_EXISTING_SCHOOL_PROCESS_NO_NEW_API",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-004",
+      "title": "登录前课程引导",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [],
+      "disposition": "LOCAL_PRESENTATION_OR_EXISTING_SCHOOL_PROCESS_NO_NEW_API",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-005",
+      "title": "登录方式选择",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "requestAuthChallenge",
+        "createStudentSession"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-006",
+      "title": "邮箱验证码登录",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "requestAuthChallenge",
+        "createStudentSession"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-007",
+      "title": "登录前隐私政策",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [],
+      "disposition": "LOCAL_PRESENTATION_OR_EXISTING_SCHOOL_PROCESS_NO_NEW_API",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-008",
+      "title": "身份恢复申请",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [],
+      "disposition": "LOCAL_PRESENTATION_OR_EXISTING_SCHOOL_PROCESS_NO_NEW_API",
+      "note": "PAGE-STU-008 follows student business §5.3 school/administrator identity verification; no new online recovery submission/approval API is invented. Shared getCourse must honor actual operation roles, not imply student permission."
+    },
+    {
+      "page": "PAGE-STU-009",
+      "title": "强制邮箱绑定",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "requestAuthChallenge",
+        "registerStudentAndJoinCourse"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-010",
+      "title": "入班后引导",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "getOwnCurrentCourse"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-020",
+      "title": "首页",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "getStudentDashboard",
+        "getOwnCourseProgress"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-021",
+      "title": "课程",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "getOwnCurrentCourse"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "PAGE-STU-008 follows student business §5.3 school/administrator identity verification; no new online recovery submission/approval API is invented. Shared getCourse must honor actual operation roles, not imply student permission."
+    },
+    {
+      "page": "PAGE-STU-022",
+      "title": "打卡",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "startExerciseSession",
+        "getOwnActiveExerciseSession"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-023",
+      "title": "记录与进度",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "getOwnCourseProgress",
+        "listOwnExerciseRecords",
+        "listCheckpointRecordCredits"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-024",
+      "title": "我的",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "getCurrentActor"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-025",
+      "title": "站内通知",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "listOwnStudentNotifications",
+        "getOwnStudentUnreadNotificationCount",
+        "markOwnStudentNotificationRead"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-030",
+      "title": "登录前扫码",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "previewCourseInvitation",
+        "registerNewInvitationFlow"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-031",
+      "title": "登录前邀请确认",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "previewCourseInvitation",
+        "registerNewInvitationFlow",
+        "registerStudentAndJoinCourse"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-032",
+      "title": "登录后扫码",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "previewCourseInvitation",
+        "registerExistingInvitationFlow"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-033",
+      "title": "输入邀请码",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "previewCourseInvitation"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-034",
+      "title": "入班确认",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "previewCourseInvitation",
+        "joinCourseByInvitation"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-035",
+      "title": "入班结果",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "joinCourseByInvitation",
+        "registerStudentAndJoinCourse",
+        "getOwnCurrentCourse"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-040",
+      "title": "运动会话",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "getOwnActiveExerciseSession",
+        "startExerciseSession",
+        "getExerciseSession",
+        "pauseExerciseSession",
+        "resumeExerciseSession",
+        "completeExerciseSession"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-041",
+      "title": "证据采集",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "allocateMediaAsset",
+        "finalizeMediaAsset"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-042",
+      "title": "提交与中断恢复",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "getFirstMaterialEligibility",
+        "submitExerciseRecord",
+        "listRecordMaterials",
+        "getRecordMaterial",
+        "completeExerciseRecordMaterial",
+        "renewRecordUploadAuthorization"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-043",
+      "title": "游泳延迟说明",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "submitExerciseRecord"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-050",
+      "title": "打卡记录列表",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "listOwnExerciseRecords"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-051",
+      "title": "打卡记录详情",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "getOwnExerciseRecord",
+        "listExerciseRecordReviews",
+        "getRecordMaterial",
+        "listCheckpointRecordCredits"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-052",
+      "title": "原始耐力结果",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "getOwnEnduranceOutcome"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-060",
+      "title": "一次补充任务",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "getOwnExerciseRecord",
+        "submitExerciseRecordSupplement"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-061",
+      "title": "补充材料已接收",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "getOwnExerciseRecord",
+        "getRecordMaterial"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-070",
+      "title": "免测/认证",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "createStudentApplication",
+        "listOwnApplications",
+        "getOwnApplication",
+        "supplementStudentApplication"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-080",
+      "title": "账户信息",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "getCurrentActor"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-081",
+      "title": "设置",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "logoutCurrentSession",
+        "logoutAllSessions"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-082",
+      "title": "账户注销",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "getOwnAccountDeletionImpact",
+        "deleteOwnAccount"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-083",
+      "title": "已验证邮箱",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "requestAuthChallenge",
+        "changeOwnVerifiedEmail"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-084",
+      "title": "帮助中心",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "listPublishedHelpArticles",
+        "getPublishedHelpArticle"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-085",
+      "title": "反馈",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "createFeedback",
+        "listOwnFeedback",
+        "getOwnFeedback"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-086",
+      "title": "关于",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [
+        "getAppReleasePolicy"
+      ],
+      "disposition": "PROTOCOL_MAPPING_CLIENT_VALIDATION_PENDING",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-087",
+      "title": "更新日志",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [],
+      "disposition": "LOCAL_PRESENTATION_OR_EXISTING_SCHOOL_PROCESS_NO_NEW_API",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    },
+    {
+      "page": "PAGE-STU-088",
+      "title": "隐私政策",
+      "source": "docs/rebuild/phase-2/android/p2a-student-ui/page-inventory.md",
+      "operationIds": [],
+      "disposition": "LOCAL_PRESENTATION_OR_EXISTING_SCHOOL_PROCESS_NO_NEW_API",
+      "note": "Bind actual server facts and permission/error rules; retain Phase2 UI foundation boundary."
+    }
+  ]
+}

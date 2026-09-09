@@ -1,6 +1,6 @@
 # Operation catalog
 
-Contract `1.3.0-contract` · status `RC` · public base path `/api/v1`.
+Contract `1.4.0-contract` · status `RC` · public base path `/api/v1`.
 
 This file is generated from the same registry as `openapi.yaml`; it is a review index, not a second authority.
 

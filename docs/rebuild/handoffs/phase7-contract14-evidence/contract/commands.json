@@ -1,0 +1,138 @@
+[
+  {
+    "name": "generation-1",
+    "command": [
+      "D:\\DT\\soprts\\start4\\07_phase5_execution\\.venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "contracts/scripts/build_contract.py"
+    ],
+    "cwd": "D:\\DT\\soprts\\start4\\repos\\phase7-contract14",
+    "startedAt": "2026-09-09T11:15:56.186823+00:00",
+    "finishedAt": "2026-09-09T11:15:58.634028+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "generation-2",
+    "command": [
+      "D:\\DT\\soprts\\start4\\07_phase5_execution\\.venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "contracts/scripts/build_contract.py"
+    ],
+    "cwd": "D:\\DT\\soprts\\start4\\repos\\phase7-contract14",
+    "startedAt": "2026-09-09T11:15:58.705117+00:00",
+    "finishedAt": "2026-09-09T11:16:00.775889+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "contract-structure",
+    "command": [
+      "D:\\DT\\soprts\\start4\\07_phase5_execution\\.venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "contracts/scripts/verify_contract.py"
+    ],
+    "cwd": "D:\\DT\\soprts\\start4\\repos\\phase7-contract14",
+    "startedAt": "2026-09-09T11:16:00.913007+00:00",
+    "finishedAt": "2026-09-09T11:16:06.357764+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "cr14-cases",
+    "command": [
+      "D:\\DT\\soprts\\start4\\07_phase5_execution\\.venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "contracts/validation/p7_cr14/verify.py",
+      "--output",
+      "D:\\DT\\soprts\\start4\\12_phase7_contract14\\final-checks\\python.json"
+    ],
+    "cwd": "D:\\DT\\soprts\\start4\\repos\\phase7-contract14",
+    "startedAt": "2026-09-09T11:16:06.358764+00:00",
+    "finishedAt": "2026-09-09T11:16:15.302287+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "readiness",
+    "command": [
+      "D:\\DT\\soprts\\start4\\07_phase5_execution\\.venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "contracts/scripts/check_rc_readiness.py"
+    ],
+    "cwd": "D:\\DT\\soprts\\start4\\repos\\phase7-contract14",
+    "startedAt": "2026-09-09T11:16:15.304808+00:00",
+    "finishedAt": "2026-09-09T11:16:15.754537+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "redocly",
+    "command": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "D:\\DT\\soprts\\start4\\07_phase5_execution\\tooling\\node_modules\\@redocly\\cli\\bin\\cli.js",
+      "lint",
+      "contracts/openapi.yaml"
+    ],
+    "cwd": "D:\\DT\\soprts\\start4\\repos\\phase7-contract14",
+    "startedAt": "2026-09-09T11:16:15.756135+00:00",
+    "finishedAt": "2026-09-09T11:16:17.741551+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "seal",
+    "command": [
+      "D:\\DT\\soprts\\start4\\07_phase5_execution\\.venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "contracts/validation/p7_cr14/verify_release.py"
+    ],
+    "cwd": "D:\\DT\\soprts\\start4\\repos\\phase7-contract14",
+    "startedAt": "2026-09-09T11:16:17.742555+00:00",
+    "finishedAt": "2026-09-09T11:16:18.474485+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "seal-controls",
+    "command": [
+      "D:\\DT\\soprts\\start4\\07_phase5_execution\\.venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "contracts/validation/p7_cr14/test_release_seal.py"
+    ],
+    "cwd": "D:\\DT\\soprts\\start4\\repos\\phase7-contract14",
+    "startedAt": "2026-09-09T11:16:18.474485+00:00",
+    "finishedAt": "2026-09-09T11:16:48.457653+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "student",
+    "command": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "student-smoke.mjs"
+    ],
+    "cwd": "D:\\DT\\soprts\\start4\\repos\\phase7-contract14\\BNBU-Sports-Web-new\\frontend\\student",
+    "startedAt": "2026-09-09T11:16:48.458648+00:00",
+    "finishedAt": "2026-09-09T11:16:49.090019+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "diff-whitespace",
+    "command": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "cwd": "D:\\DT\\soprts\\start4\\repos\\phase7-contract14",
+    "startedAt": "2026-09-09T11:16:52.413618+00:00",
+    "finishedAt": "2026-09-09T11:16:52.649918+00:00",
+    "exitCode": 0
+  }
+]

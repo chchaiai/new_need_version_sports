@@ -488,7 +488,7 @@ class Phase6MapperTest(private val name: String, private val check: () -> Unit) 
                 val x = MapperWire.json("""{"feedbackId":"${MapperWire.ID}","feedbackNumber":"F-SYN","student":{},"currentVerifiedEmail":null,
                     "category":"OTHER","description":"Synthetic feedback","status":"${status.value}","replies":[],
                     "submittedAt":"${MapperWire.NOW}","updatedAt":"${MapperWire.NOW}","version":1}""")
-                x.add("student", MapperWire.fixture("checks/wire/StudentDashboard").get("student"))
+                x.add("student", JsonObject().apply { addProperty("kind", "CURRENT_STUDENT"); add("student", MapperWire.fixture("checks/wire/StudentDashboard").get("student")) })
                 val p = MapperWire.read<FeedbackTicket>(x).toStudentFeedback()
                 assertEquals(status, p.status); assertNull(p.currentEmail); assertTrue(p.history.isEmpty())
             }
@@ -588,7 +588,7 @@ class Phase6MapperTest(private val name: String, private val check: () -> Unit) 
         @JvmStatic @AfterClass fun report() {
             val directory = Path.of(System.getProperty("phase6.output"))
             Files.createDirectories(directory)
-            val report = mapOf("candidateSha256" to "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+            val report = mapOf("candidateSha256" to "0528389bb8b72714d9a4af35ffc66c87503560d41c58ad968b1713b39ff3da2d",
                 "planned" to cases().size, "executed" to results.size, "passed" to results.count { it["status"] == "PASS" },
                 "cases" to results, "decodedSchemas" to MapperWire.decodedSchemas.sorted(),
                 "scope" to "Strict synthetic wire -> Android compiled DTO -> domain/page projection on host JVM; no rendered UI/device/backend")

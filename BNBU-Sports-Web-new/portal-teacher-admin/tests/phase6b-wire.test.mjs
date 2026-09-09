@@ -36,7 +36,7 @@ const mutations = [
   ["unknown top-level field", (p) => p.extra = true],
   ["unknown nested field", (p) => p.currentReview.extra = true],
   ["empty material", (p) => p.currentMaterial = {}],
-  ["student missing name", (p) => delete p.student.name],
+  ["student missing name", (p) => delete p.student.student.name],
   ["missing result", (p) => delete p.currentReview.result],
   ["empty result", (p) => p.currentReview.result = ""],
   ["pending but valid", (p) => p.currentReview.processingStage = "SYSTEM_CHECK_PENDING"],

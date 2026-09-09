@@ -105,7 +105,7 @@ object MockCases {
         for (raw in listOf("raw_measured", "exempt")) cases += MockCase("endurance_$raw", "getOwnEnduranceOutcome", f("checks/student/$raw"))
         cases += MockCase("applications_empty", "listOwnApplications", list(emptyList()), PageState.EMPTY)
         val application = json("""{"applicationId":"$ID","applicationNumber":"SYN-01","applicationType":"EXEMPTION","courseId":"$ID","enrollmentId":"$ID","student":{},"status":"SUBMITTED","certification":null,"evidence":[],"decisions":[],"certificationCredit":null,"submittedAt":"$NOW","updatedAt":"$NOW","version":9007199254740993}""").apply {
-            add("student", f("checks/wire/StudentDashboard").get("student"))
+            add("student", JsonObject().apply { addProperty("kind", "CURRENT_STUDENT"); add("student", f("checks/wire/StudentDashboard").get("student")) })
             getAsJsonArray("evidence").add(json("""{"mediaAssetId":"$ID","purpose":"APPLICATION_EVIDENCE","mediaKind":"IMAGE","contentType":"image/jpeg","byteSize":1,"checksumSha256":"${"a".repeat(64)}","durationMilliseconds":null,"hasAudio":null,"widthPixels":1,"heightPixels":1,"status":"BOUND","rejectionCode":null,"version":1}"""))
         }
         cases += MockCase("application_explicit_exemption_kind", "getOwnApplication", application, expectedRows=mapOf("application.type" to "EXEMPTION", "application.images" to "1"))
@@ -114,7 +114,7 @@ object MockCases {
         cases += MockCase("notifications_empty", "listOwnStudentNotifications", list(emptyList()), PageState.EMPTY)
         cases += MockCase("feedback_empty", "listOwnFeedback", list(emptyList(), 6), PageState.EMPTY, query=mapOf("limit" to "6"))
         cases += MockCase("feedback_detail_deleted_email", "getOwnFeedback", json("""{"feedbackId":"$ID","feedbackNumber":"F-SYN","student":{},"currentVerifiedEmail":null,"category":"OTHER","description":"Synthetic feedback","status":"WAITING","replies":[],"submittedAt":"$NOW","updatedAt":"$NOW","version":1}""").apply {
-            add("student", f("checks/wire/StudentDashboard").get("student"))
+            add("student", JsonObject().apply { addProperty("kind", "CURRENT_STUDENT"); add("student", f("checks/wire/StudentDashboard").get("student")) })
         })
         val help = json("""{"articleId":"$ID","locale":"zh-CN","title":"维护说明","bodyMarkdown":"Synthetic help","category":"MAINTENANCE","updatedAt":"$NOW"}""")
         cases += MockCase("help_public", "getPublishedHelpArticle", help, query=mapOf("locale" to "zh-CN"))

@@ -1,0 +1,238 @@
+[
+  {
+    "name": "01-boot",
+    "command": [
+      "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+      "-s",
+      "emulator-5562",
+      "shell",
+      "getprop",
+      "sys.boot_completed"
+    ],
+    "startedAt": "2026-09-09T11:14:50.546914+00:00",
+    "finishedAt": "2026-09-09T11:14:50.723971+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "property-ro.build.version.sdk",
+    "command": [
+      "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+      "-s",
+      "emulator-5562",
+      "shell",
+      "getprop",
+      "ro.build.version.sdk"
+    ],
+    "startedAt": "2026-09-09T11:14:50.723971+00:00",
+    "finishedAt": "2026-09-09T11:14:50.841576+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "property-ro.build.version.release",
+    "command": [
+      "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+      "-s",
+      "emulator-5562",
+      "shell",
+      "getprop",
+      "ro.build.version.release"
+    ],
+    "startedAt": "2026-09-09T11:14:50.843154+00:00",
+    "finishedAt": "2026-09-09T11:14:50.957302+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "property-ro.build.version.codename",
+    "command": [
+      "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+      "-s",
+      "emulator-5562",
+      "shell",
+      "getprop",
+      "ro.build.version.codename"
+    ],
+    "startedAt": "2026-09-09T11:14:50.957831+00:00",
+    "finishedAt": "2026-09-09T11:14:51.120712+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "property-ro.build.fingerprint",
+    "command": [
+      "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+      "-s",
+      "emulator-5562",
+      "shell",
+      "getprop",
+      "ro.build.fingerprint"
+    ],
+    "startedAt": "2026-09-09T11:14:51.121708+00:00",
+    "finishedAt": "2026-09-09T11:14:51.239297+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "property-ro.product.model",
+    "command": [
+      "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+      "-s",
+      "emulator-5562",
+      "shell",
+      "getprop",
+      "ro.product.model"
+    ],
+    "startedAt": "2026-09-09T11:14:51.239297+00:00",
+    "finishedAt": "2026-09-09T11:14:51.354591+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "property-ro.product.cpu.abi",
+    "command": [
+      "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+      "-s",
+      "emulator-5562",
+      "shell",
+      "getprop",
+      "ro.product.cpu.abi"
+    ],
+    "startedAt": "2026-09-09T11:14:51.355585+00:00",
+    "finishedAt": "2026-09-09T11:14:51.469992+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "property-ro.kernel.qemu",
+    "command": [
+      "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+      "-s",
+      "emulator-5562",
+      "shell",
+      "getprop",
+      "ro.kernel.qemu"
+    ],
+    "startedAt": "2026-09-09T11:14:51.470999+00:00",
+    "finishedAt": "2026-09-09T11:14:51.595564+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "page-size",
+    "command": [
+      "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+      "-s",
+      "emulator-5562",
+      "shell",
+      "getconf",
+      "PAGESIZE"
+    ],
+    "startedAt": "2026-09-09T11:14:51.595564+00:00",
+    "finishedAt": "2026-09-09T11:14:51.725487+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "display",
+    "command": [
+      "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+      "-s",
+      "emulator-5562",
+      "shell",
+      "wm",
+      "size"
+    ],
+    "startedAt": "2026-09-09T11:14:51.725487+00:00",
+    "finishedAt": "2026-09-09T11:14:51.868484+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "02-install",
+    "command": [
+      "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+      "-s",
+      "emulator-5562",
+      "install",
+      "-r",
+      "-t",
+      "D:\\DT\\soprts\\start4\\12_phase7_contract14\\android-final-02\\contract-validation-debug-androidTest.apk"
+    ],
+    "startedAt": "2026-09-09T11:14:51.870486+00:00",
+    "finishedAt": "2026-09-09T11:14:52.405860+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "03-installed-path",
+    "command": [
+      "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+      "-s",
+      "emulator-5562",
+      "shell",
+      "pm",
+      "path",
+      "edu.bnbu.student.contractvalidation.test"
+    ],
+    "startedAt": "2026-09-09T11:14:52.407374+00:00",
+    "finishedAt": "2026-09-09T11:14:52.574029+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "04-pull-installed",
+    "command": [
+      "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+      "-s",
+      "emulator-5562",
+      "pull",
+      "/data/app/~~NyCKomgGQe5IfH498khetQ==/edu.bnbu.student.contractvalidation.test-GyQ4Y4cxEQwGY-Y2i6C5vw==/base.apk",
+      "D:\\DT\\soprts\\start4\\12_phase7_contract14\\android-device-01\\installed-test.apk"
+    ],
+    "startedAt": "2026-09-09T11:14:52.575550+00:00",
+    "finishedAt": "2026-09-09T11:14:53.095656+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "05-instrumentation",
+    "command": [
+      "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+      "-s",
+      "emulator-5562",
+      "shell",
+      "am",
+      "instrument",
+      "-w",
+      "-r",
+      "-e",
+      "class",
+      "Phase6MockUiTest,Phase6MockRetryUiTest,Phase6DeviceBoundaryTest,Phase6DeviceSchemaTest",
+      "edu.bnbu.student.contractvalidation.test/androidx.test.runner.AndroidJUnitRunner"
+    ],
+    "startedAt": "2026-09-09T11:14:53.130928+00:00",
+    "finishedAt": "2026-09-09T11:18:59.075977+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "07-pull-device-evidence",
+    "command": [
+      "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+      "-s",
+      "emulator-5562",
+      "pull",
+      "/sdcard/Android/data/edu.bnbu.student.contractvalidation.test/files/phase6-device",
+      "D:\\DT\\soprts\\start4\\12_phase7_contract14\\android-device-01\\device-files"
+    ],
+    "startedAt": "2026-09-09T11:19:02.087508+00:00",
+    "finishedAt": "2026-09-09T11:19:02.658536+00:00",
+    "exitCode": 0
+  },
+  {
+    "name": "06-runtime-errors",
+    "command": [
+      "C:\\Users\\32631\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe",
+      "-s",
+      "emulator-5562",
+      "logcat",
+      "-d",
+      "-v",
+      "threadtime",
+      "AndroidRuntime:E",
+      "TestRunner:I",
+      "*:S"
+    ],
+    "startedAt": "2026-09-09T11:19:02.672793+00:00",
+    "finishedAt": "2026-09-09T11:19:03.108692+00:00",
+    "exitCode": 0
+  }
+]

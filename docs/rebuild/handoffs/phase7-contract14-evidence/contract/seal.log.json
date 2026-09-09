@@ -1,0 +1,6 @@
+{
+  "originalFile": "seal.log",
+  "rawBytesSha256": "29bbb9c3881cf114a74d49abe4b5250abb8a80304c661cc3a11d33f7e2bdf57b",
+  "encoding": "utf-8",
+  "rawText": "PASS: sealed local 1.4.0-contract / 0528389bb8b72714d9a4af35ffc66c87503560d41c58ad968b1713b39ff3da2d. Publication and H/Z integration remain separate gates.\r\n"
+}

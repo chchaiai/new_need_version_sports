@@ -35,7 +35,7 @@ data class StudentHome(val name: String, val status: StudentDashboard.StudentSta
     val progress: StudentProgress?, val endurance: StudentEndurance?, val unreadCount: Long)
 fun StudentDashboard.toStudentHome(context: StudentViewContext): StudentHome {
     actor.toStudentAccountPage()
-    require(progress == null || (progress.student.studentId == student.studentId && progress.courseId == course?.courseId)) {
+    require(progress == null || (progress.student.currentStudent().studentId == student.studentId && progress.courseId == course?.courseId)) {
         "Dashboard progress identity mismatch"
     }
     return StudentHome(student.name, studentStatus, course?.toStudentCoursePage(context), progress?.toStudentProgress(context.source),
@@ -51,6 +51,7 @@ data class StudentApplicationPage(val id: UUID, val type: ApplicationType, val s
     val activeCourseMinutes: Int?, val activeOtherMinutes: Int?, val version: Long,
     val certification: CertificationInfo?, val creditReason: String?)
 fun StudentApplication.toStudentApplicationPage(context: StudentViewContext): StudentApplicationPage {
+    student.currentStudent()
     require(evidence.size in 1..3) { "Application evidence count exceeds cumulative limit" }
     require(decisions.map { it.sequenceNumber }.distinct().size == decisions.size) { "Duplicate decision sequence" }
     val credit = certificationCredit

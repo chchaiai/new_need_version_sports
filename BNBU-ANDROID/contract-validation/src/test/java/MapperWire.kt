@@ -50,7 +50,7 @@ object MapperWire {
         val x = json("""{"applicationId":"$ID","applicationNumber":"SYN-01","applicationType":"EXEMPTION","courseId":"$ID",
             "enrollmentId":"$ID","student":{},"status":"SUBMITTED","certification":null,"evidence":[],"decisions":[],
             "certificationCredit":null,"submittedAt":"$NOW","updatedAt":"$NOW","version":9007199254740993}""")
-        x.add("student", fixture("checks/wire/StudentDashboard").getAsJsonObject("student"))
+        x.add("student", JsonObject().apply { addProperty("kind", "CURRENT_STUDENT"); add("student", fixture("checks/wire/StudentDashboard").getAsJsonObject("student")) })
         x.getAsJsonArray("evidence").add(json("""{"mediaAssetId":"$ID","purpose":"APPLICATION_EVIDENCE","mediaKind":"IMAGE",
             "contentType":"image/jpeg","byteSize":1,"checksumSha256":"${"a".repeat(64)}","durationMilliseconds":null,
             "hasAudio":null,"widthPixels":1,"heightPixels":1,"status":"BOUND","rejectionCode":null,"version":1}"""))

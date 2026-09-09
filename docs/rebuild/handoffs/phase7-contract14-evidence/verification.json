@@ -1,0 +1,456 @@
+{
+  "status": "LOCAL_REPAIR_AND_CLIENT_VERIFICATION_PASS_AWAITING_USER_FINAL_REVIEW",
+  "recordedAt": "2026-09-09T11:19:14.334174+00:00",
+  "baseCommit": "f95c3833870fe0da55a297aa28c958ec53e9e935",
+  "sourceCommit": null,
+  "contract": {
+    "version": "1.4.0-contract",
+    "status": "RC",
+    "canonicalLfSha256": "0528389bb8b72714d9a4af35ffc66c87503560d41c58ad968b1713b39ff3da2d"
+  },
+  "contractChecks": {
+    "pythonCases": 1049,
+    "passed": 1049,
+    "structuralMutationsRejected": 18,
+    "syntheticQueryVectors": 243,
+    "repeatedGeneration": 2,
+    "structure": "PASS",
+    "readiness": "PASS",
+    "redocly": "PASS_EXIT_0",
+    "sealControls": "6/6"
+  },
+  "web": {
+    "portal": 1599,
+    "student": 92,
+    "failures": 0,
+    "skipped": 0,
+    "typecheck": "PASS",
+    "build": "PASS",
+    "newPortalTests": 1352,
+    "previousPortalRegressionTests": 247,
+    "scope": "Contract types, real generated runtime validators, mappers, SSR display and synthetic query model; not integrated backend"
+  },
+  "android": {
+    "models": 327,
+    "repeatGeneration": "ALL_MODEL_BYTES_EQUAL",
+    "schemaCases": 1213,
+    "legalRoundtrips": 308,
+    "expectedRejections": 905,
+    "mapperCases": 255,
+    "sharedMockBoundaries": 30,
+    "hostJunit": [
+      {
+        "suite": "Phase6ContractSchemaTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "suite": "Phase6ContractSmokeTest",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "suite": "Phase6MapperTest",
+        "tests": 255,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "suite": "Phase6MockBoundaryTest",
+        "tests": 30,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "suite": "Phase6MockTest",
+        "tests": 44,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "suite": "Phase7IdentityTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ],
+    "deviceTests": 77,
+    "deviceFailures": 0,
+    "deviceSchemaCases": 1213,
+    "device": {
+      "serial": "emulator-5562",
+      "properties": {
+        "ro.build.version.sdk": "37",
+        "ro.build.version.release": "17",
+        "ro.build.version.codename": "REL",
+        "ro.build.fingerprint": "google/sdk_gphone16k_x86_64/emu64xa16k:17/CP21.260330.012/15545953:user/dev-keys",
+        "ro.product.model": "sdk_gphone16k_x86_64",
+        "ro.product.cpu.abi": "x86_64",
+        "ro.kernel.qemu": "1",
+        "pageSize": "16384",
+        "display": "Physical size: 1080x2400"
+      }
+    },
+    "apkSha256": "750c0057884a374d8bd6dd5948fa0a043ca7204c896e7a9bf651d7bb6ab01060",
+    "scope": "Independent contract-validation module/test screen; formal :app migration remains Phase8"
+  },
+  "affectedResponseOperations": [
+    {
+      "operationId": "previewCourseChangeImpact",
+      "method": "POST",
+      "path": "/api/v1/courses/{courseId}/change-impact",
+      "roles": [
+        "TEACHER"
+      ],
+      "classification": "HISTORICAL_CAPABLE",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "joinCourseByInvitation",
+      "method": "POST",
+      "path": "/api/v1/course-invitations/{invitationCode}/join",
+      "roles": [
+        "STUDENT"
+      ],
+      "classification": "CURRENT_ONLY",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "listCourseMembers",
+      "method": "GET",
+      "path": "/api/v1/courses/{courseId}/members",
+      "roles": [
+        "TEACHER"
+      ],
+      "classification": "HISTORICAL_CAPABLE",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "removeCourseMember",
+      "method": "POST",
+      "path": "/api/v1/courses/{courseId}/members/{enrollmentId}/removal",
+      "roles": [
+        "TEACHER"
+      ],
+      "classification": "HISTORICAL_CAPABLE",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "restoreCourseMember",
+      "method": "POST",
+      "path": "/api/v1/courses/{courseId}/members/{enrollmentId}/restoration",
+      "roles": [
+        "TEACHER"
+      ],
+      "classification": "HISTORICAL_CAPABLE",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "listRosterFindings",
+      "method": "GET",
+      "path": "/api/v1/courses/{courseId}/roster-snapshots/{snapshotId}/findings",
+      "roles": [
+        "TEACHER"
+      ],
+      "classification": "HISTORICAL_CAPABLE",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "resolveRosterFinding",
+      "method": "POST",
+      "path": "/api/v1/courses/{courseId}/roster-findings/{findingId}/resolution",
+      "roles": [
+        "TEACHER"
+      ],
+      "classification": "HISTORICAL_CAPABLE",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "listOwnExerciseRecords",
+      "method": "GET",
+      "path": "/api/v1/student/exercise-records",
+      "roles": [
+        "STUDENT"
+      ],
+      "classification": "CURRENT_ONLY",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "getOwnExerciseRecord",
+      "method": "GET",
+      "path": "/api/v1/student/exercise-records/{recordId}",
+      "roles": [
+        "STUDENT"
+      ],
+      "classification": "CURRENT_ONLY",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "listCourseExerciseRecords",
+      "method": "GET",
+      "path": "/api/v1/courses/{courseId}/exercise-records",
+      "roles": [
+        "TEACHER"
+      ],
+      "classification": "HISTORICAL_CAPABLE",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "getCourseExerciseRecord",
+      "method": "GET",
+      "path": "/api/v1/courses/{courseId}/exercise-records/{recordId}",
+      "roles": [
+        "TEACHER"
+      ],
+      "classification": "HISTORICAL_CAPABLE",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "listTeacherReviewQueue",
+      "method": "GET",
+      "path": "/api/v1/courses/{courseId}/review-queue",
+      "roles": [
+        "TEACHER"
+      ],
+      "classification": "HISTORICAL_CAPABLE",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "getOwnCourseProgress",
+      "method": "GET",
+      "path": "/api/v1/student/progress",
+      "roles": [
+        "STUDENT"
+      ],
+      "classification": "CURRENT_ONLY",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "getCourseMemberProgress",
+      "method": "GET",
+      "path": "/api/v1/courses/{courseId}/members/{enrollmentId}/progress",
+      "roles": [
+        "TEACHER"
+      ],
+      "classification": "HISTORICAL_CAPABLE",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "listCourseProgress",
+      "method": "GET",
+      "path": "/api/v1/courses/{courseId}/progress",
+      "roles": [
+        "TEACHER"
+      ],
+      "classification": "HISTORICAL_CAPABLE",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "createStudentApplication",
+      "method": "POST",
+      "path": "/api/v1/student/applications",
+      "roles": [
+        "STUDENT"
+      ],
+      "classification": "CURRENT_ONLY",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "listOwnApplications",
+      "method": "GET",
+      "path": "/api/v1/student/applications",
+      "roles": [
+        "STUDENT"
+      ],
+      "classification": "CURRENT_ONLY",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "supplementStudentApplication",
+      "method": "POST",
+      "path": "/api/v1/student/applications/{applicationId}/supplements",
+      "roles": [
+        "STUDENT"
+      ],
+      "classification": "CURRENT_ONLY",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "getOwnApplication",
+      "method": "GET",
+      "path": "/api/v1/student/applications/{applicationId}",
+      "roles": [
+        "STUDENT"
+      ],
+      "classification": "CURRENT_ONLY",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "listCourseApplications",
+      "method": "GET",
+      "path": "/api/v1/courses/{courseId}/applications",
+      "roles": [
+        "TEACHER"
+      ],
+      "classification": "HISTORICAL_CAPABLE",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "getCourseApplication",
+      "method": "GET",
+      "path": "/api/v1/courses/{courseId}/applications/{applicationId}",
+      "roles": [
+        "TEACHER"
+      ],
+      "classification": "HISTORICAL_CAPABLE",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "decideStudentApplication",
+      "method": "POST",
+      "path": "/api/v1/courses/{courseId}/applications/{applicationId}/decisions",
+      "roles": [
+        "TEACHER"
+      ],
+      "classification": "HISTORICAL_CAPABLE",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "createFeedback",
+      "method": "POST",
+      "path": "/api/v1/student/feedback",
+      "roles": [
+        "STUDENT"
+      ],
+      "classification": "CURRENT_ONLY",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "listOwnFeedback",
+      "method": "GET",
+      "path": "/api/v1/student/feedback",
+      "roles": [
+        "STUDENT"
+      ],
+      "classification": "CURRENT_ONLY",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "getOwnFeedback",
+      "method": "GET",
+      "path": "/api/v1/student/feedback/{feedbackId}",
+      "roles": [
+        "STUDENT"
+      ],
+      "classification": "CURRENT_ONLY",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "listFeedbackForAdmin",
+      "method": "GET",
+      "path": "/api/v1/admin/feedback",
+      "roles": [
+        "ADMIN"
+      ],
+      "classification": "HISTORICAL_CAPABLE",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "getFeedbackForAdmin",
+      "method": "GET",
+      "path": "/api/v1/admin/feedback/{feedbackId}",
+      "roles": [
+        "ADMIN"
+      ],
+      "classification": "HISTORICAL_CAPABLE",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "processFeedback",
+      "method": "POST",
+      "path": "/api/v1/admin/feedback/{feedbackId}/processing",
+      "roles": [
+        "ADMIN"
+      ],
+      "classification": "HISTORICAL_CAPABLE",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "getStudentDashboard",
+      "method": "GET",
+      "path": "/api/v1/student/dashboard",
+      "roles": [
+        "STUDENT"
+      ],
+      "classification": "CURRENT_ONLY",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "listSettlementReportRows",
+      "method": "GET",
+      "path": "/api/v1/courses/{courseId}/settlements/{settlementVersionId}/rows",
+      "roles": [
+        "TEACHER"
+      ],
+      "classification": "HISTORICAL_CAPABLE",
+      "backendImplemented": "NOT_ASSERTED"
+    },
+    {
+      "operationId": "listAssessmentRosterRows",
+      "method": "GET",
+      "path": "/api/v1/courses/{courseId}/assessment-roster/{projectionId}/rows",
+      "roles": [
+        "TEACHER"
+      ],
+      "classification": "HISTORICAL_CAPABLE",
+      "backendImplemented": "NOT_ASSERTED"
+    }
+  ],
+  "diagnoses": [
+    {
+      "issue": "Android generated CURRENT_STUDENT dependency was initially missing StudentSummary strict wrapper",
+      "fix": "Added the dependency to generator selection, regenerated both times and rebuilt; final build and device passed"
+    },
+    {
+      "issue": "Web old revalidation test invoked nonexistent Windows python3 and returned 9009",
+      "fix": "Parse the same canonical YAML using existing lockfile-pinned js-yaml; retained assertions; full suite passed"
+    },
+    {
+      "issue": "First complete build passed its tests but packaging still read the old1.3 mapper trace SHA",
+      "fix": "Generated a separate1.4 trace map from fixed original page mappings; pointed verifier to new trace, resealed and reran the entire Android gate"
+    },
+    {
+      "issue": "Initial Redocly invocation printed valid but crashed in telemetry shutdown on Windows",
+      "fix": "Disabled optional telemetry; actual final process exit0, raw final log preserved"
+    }
+  ],
+  "protectedPathsChecked": [
+    "BNBU-Sports-Backend",
+    "BNBU-ANDROID/app",
+    "BNBU-ANDROID/phase5ga",
+    "infra",
+    "docs/architecture",
+    "contracts/validation/step07_delivery/fixtures.json",
+    "contracts/release-manifest.json"
+  ],
+  "pending": [
+    "User final review",
+    "User GitHub commit/push/PR/merge and actual published commit verification",
+    "H/Z new-Contract backend adaptation, four reported candidate failures, real PG/HTTP joint G1 acceptance",
+    "Authoritative course calendar/catalog acceptance",
+    "Phase8 formal runtime migration",
+    "Physical-device review of1.4"
+  ],
+  "overallG1": "PARTIAL / NOT_TRACK_READY",
+  "backend": "NOT_RUN",
+  "deployment": "NOT_RUN",
+  "evidenceNote": "Raw command log bytes are preserved as JSON text with encoding and SHA to avoid changing evidence for whitespace checks. Android Step5 notRun is its historical step scope; subsequent device result supplies that gate. Test counts across runtimes overlap and must not be added as unique business cases."
+}

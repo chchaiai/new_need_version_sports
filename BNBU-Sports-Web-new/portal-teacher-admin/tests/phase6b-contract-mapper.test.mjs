@@ -18,8 +18,8 @@ import {
 } from "../app/phase6b-contract-mapper.ts";
 import { mapExerciseRecordToCheckin } from "../app/teacher-data.ts";
 
-test("phase6b portal mapper pins 1.3.0 identity and rejects unknown public reason codes", () => {
-  assert.equal(PHASE6B_PORTAL_CONTRACT.version, "1.3.0-contract");
+test("phase6b portal mapper pins 1.4.0 identity and rejects unknown public reason codes", () => {
+  assert.equal(PHASE6B_PORTAL_CONTRACT.version, "1.4.0-contract");
   assert.equal(PHASE6B_PORTAL_CONTRACT.status, "RC");
   assert.throws(
     () => rejectUnknownPublicReasonCode("NOT_A_REAL_REASON"),
