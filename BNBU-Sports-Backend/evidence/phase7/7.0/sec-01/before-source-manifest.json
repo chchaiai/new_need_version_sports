@@ -1,0 +1,142 @@
+[
+  {
+    "path": ".dockerignore",
+    "sha256": "9cf2656000e343519ed84ac8f1ef8d0f19df7a37a1b27da6b59e3aba2992eb65"
+  },
+  {
+    "path": "Dockerfile.test",
+    "sha256": "607927a583f5a6a6725e1914eb3da16e39a313484236b2e0c5806fdaa761b56d"
+  },
+  {
+    "path": "README.md",
+    "sha256": "36078ca5a5b6ab714563c8f53e035b115f40fa8ff1c7c01c189bba9c78c244a7"
+  },
+  {
+    "path": "docker-compose.test.yml",
+    "sha256": "b20ab1753cccc42c768087beaca9b80d993b167ed00aef1a3a658c84a88b898a"
+  },
+  {
+    "path": "eslint.config.mjs",
+    "sha256": "cab0c5b7c851634e15f42b59e5811e09a11947dbb48809d2f2e95c8c9deb355a"
+  },
+  {
+    "path": "migrations/0000_foundation.sql",
+    "sha256": "f057649481f2397ba9788babda8dc6ee7635667a85db33535d8fd04890c8cab6"
+  },
+  {
+    "path": "package-lock.json",
+    "sha256": "40ba05f0f91527784a619696c9435b74d65c8af085f2ac87e47ed8a530dac36e"
+  },
+  {
+    "path": "package.json",
+    "sha256": "94d45a748114e2c899591abf30bfb1452b1172e98241d40c9dcce45820e186c1"
+  },
+  {
+    "path": "src/bootstrap/config.ts",
+    "sha256": "854ba8e990f977b4b1f3d5bd9a8e5f33a5727269e2ccec6669b5c1a9ad7aeed0"
+  },
+  {
+    "path": "src/bootstrap/contract-input.mjs",
+    "sha256": "802e216c9d9c4297fcf9c0a54dd99174f8024a0e6298cc7ca77a5eff3f337cc5"
+  },
+  {
+    "path": "src/bootstrap/generate-contract.mjs",
+    "sha256": "b08d61dabb9aefe93051bbaeb0bbe3a5bf54af740c0213b3464986c33046b55c"
+  },
+  {
+    "path": "src/bootstrap/main.ts",
+    "sha256": "0cab2065e1b129ac20b1bd3537bbd8af1e558e0d6bed2b183ae5e1ac0b7c72f4"
+  },
+  {
+    "path": "src/bootstrap/migrate.ts",
+    "sha256": "947dacf1a72dbfd488ba54334c2b32f8b9957d9eb0a9302b2b9db96f945a627e"
+  },
+  {
+    "path": "src/bootstrap/run-foundation.sh",
+    "sha256": "2bce862092c91835f92491b8e4ad5686f91b86dc57f5159cc62eb9fa0374e1b0"
+  },
+  {
+    "path": "src/bootstrap/server.ts",
+    "sha256": "dca8f904eb291da73a6fa0be2a201d0f87e73ec19ba84635d95fd5c8c860eddd"
+  },
+  {
+    "path": "src/bootstrap/verify-foundation.mjs",
+    "sha256": "3ed110e63b54a61b351f4d38f977103a85bf55cac7e52a090a4075a0db919c2e"
+  },
+  {
+    "path": "src/modules/applications-certification/api/certification-kind-mapper.ts",
+    "sha256": "144f15426f25166e3e201b64d0907c1e28a7f18812d98c4fe23d6fbb5096a4ae"
+  },
+  {
+    "path": "src/modules/applications-certification/application/certification-kind-probe.ts",
+    "sha256": "0e745fb2f7bc4b7d8294c8302bfdf53b491471b36031d9224d5374c9a1e35efd"
+  },
+  {
+    "path": "src/modules/applications-certification/application/ports/certification-kind-repository.ts",
+    "sha256": "96d0a79c871a50a733fac8dcbd84cd49dbb07c9d6bc5b022bf60c3e020e1e6cc"
+  },
+  {
+    "path": "src/modules/applications-certification/domain/certification-kind.ts",
+    "sha256": "4a3f548ee74359e0620ffe65a63aaeb0a5572ba87fe939a1f4d4e573999c72e7"
+  },
+  {
+    "path": "src/modules/applications-certification/infrastructure/persistence/certification-kind-mapper.ts",
+    "sha256": "c5edfac4741bb3ffe55700960b9920a10928f2782025775086a32696b98c269b"
+  },
+  {
+    "path": "src/modules/applications-certification/infrastructure/persistence/repositories/postgres-certification-kind-repository.ts",
+    "sha256": "d4c61100b0292d7e10c1aca6eb25b0c6137ee91925a386921036295c204d81c0"
+  },
+  {
+    "path": "src/shared/api/contract-validator.ts",
+    "sha256": "6067e83b39f9075a89de068685a629f16bd634569bc3b3dc6c10b61b45d9de0a"
+  },
+  {
+    "path": "src/shared/api/contract.generated.ts",
+    "sha256": "6bfb86085bcf9636a51171885af08d4d4b0689c265d048f9541889b86205d451"
+  },
+  {
+    "path": "src/shared/application/transactions/transaction-runner.ts",
+    "sha256": "fdf5185ffd00479eb83c540920a6210221fc7179867bd9df0e30fb3980a247a7"
+  },
+  {
+    "path": "src/shared/infrastructure/postgres.ts",
+    "sha256": "aa7a33a5e273a1e4d936e48c794233242224bc9474edc2eef510d15cb237c5ab"
+  },
+  {
+    "path": "tests/architecture/architecture.test.ts",
+    "sha256": "ee4f261369dae5f0d89261589e6c93518e992ad6cfc84020ff45e98e76069d15"
+  },
+  {
+    "path": "tests/architecture/rules.ts",
+    "sha256": "5ed57cef096dda8bd2d431ff28a9c6064cd8884ad864f2d56317b4e34c2586d1"
+  },
+  {
+    "path": "tests/contract/compatibility.test.ts",
+    "sha256": "a7067d0258aa1b80e070664ca51173214eb6e14f3359be87aaf7f882553ad81d"
+  },
+  {
+    "path": "tests/contract/probe/api/mapper.ts",
+    "sha256": "45917d80d9508fc5dc2781ed3b3740c5dc5436e4b66098afea5af16786b88dba"
+  },
+  {
+    "path": "tests/contract/probe/application/execute.ts",
+    "sha256": "d4739f527e409ea541c4fd8bca36f906a963e9b04ba0fc97b532890b310cc4cc"
+  },
+  {
+    "path": "tests/contract/probe/domain/value.ts",
+    "sha256": "402ff72ad596c09ce7a4c3d939d9546c52791ce415595e0aef1b252ef761f1ff"
+  },
+  {
+    "path": "tests/integration/foundation/foundation.test.ts",
+    "sha256": "ed4ef991c340ff7017fd573294256e1a5bef05f4ccea5a793573c1fcf56719a1"
+  },
+  {
+    "path": "tsconfig.json",
+    "sha256": "98007dfe92f5cba6811f53a8de394f5e81aee5d4932ff22e10772c2a5eb97a64"
+  },
+  {
+    "path": "vitest.config.ts",
+    "sha256": "1a9010043a943dc7d0ff8cdd9cb08ce7b6f5e6d399778f193eaf33625c908f4d"
+  }
+]

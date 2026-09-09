@@ -1,0 +1,5 @@
+
+> bnbu-sports-backend@0.0.0 contract:check
+> node src/bootstrap/generate-contract.mjs --check
+
+Generated API types match the pinned source.

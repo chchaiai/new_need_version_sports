@@ -1,0 +1,30 @@
+{
+  "sourceFiles": [
+    "src/bootstrap/config.ts",
+    "src/bootstrap/contract-input.mjs",
+    "src/bootstrap/generate-contract.mjs",
+    "src/bootstrap/main.ts",
+    "src/bootstrap/migrate.ts",
+    "src/bootstrap/server.ts",
+    "src/bootstrap/verify-foundation.mjs",
+    "src/modules/applications-certification/api/certification-kind-mapper.ts",
+    "src/modules/applications-certification/application/certification-kind-probe.ts",
+    "src/modules/applications-certification/application/ports/certification-kind-repository.ts",
+    "src/modules/applications-certification/domain/certification-kind.ts",
+    "src/modules/applications-certification/infrastructure/persistence/certification-kind-mapper.ts",
+    "src/modules/applications-certification/infrastructure/persistence/repositories/postgres-certification-kind-repository.ts",
+    "src/shared/api/contract-validator.ts",
+    "src/shared/api/contract.generated.ts",
+    "src/shared/application/transactions/transaction-runner.ts",
+    "src/shared/infrastructure/postgres.ts"
+  ],
+  "findings": [],
+  "passed": true,
+  "tableOwners": {
+    "foundation_probe.certification_kind": "applications-certification",
+    "public.foundation_migrations": "foundation migration runner"
+  },
+  "transactionOwner": "CertificationKindProbe / foundation test callbacks",
+  "businessTransactionCoverage": "NOT_APPLICABLE_TO_BUSINESS_SLICE",
+  "scope": "Static import/type/placement enforcement and negative fixtures; real commit/rollback tests run separately."
+}

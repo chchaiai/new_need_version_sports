@@ -1,0 +1,4 @@
+
+> bnbu-sports-backend@0.0.0 lint
+> eslint src tests eslint.config.mjs vitest.config.ts
+

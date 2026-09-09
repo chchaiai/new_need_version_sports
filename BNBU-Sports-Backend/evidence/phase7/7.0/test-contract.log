@@ -1,0 +1,5 @@
+
+> bnbu-sports-backend@0.0.0 test:contract
+> vitest run tests/contract --reporter=json --outputFile=evidence/phase7/7.0/vitest-contract.json
+
+JSON report written to /workspace/evidence/phase7/7.0/vitest-contract.json

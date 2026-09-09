@@ -1,5 +1,15 @@
 # 当前进度状态
 
+## 2026-09-09 Phase 7.0 Foundation 已接受，SEC-01 已关闭；发布合并候选
+
+- 7.0 执行 Owner Z，H 完成一次定向审核及 SEC-01 关闭复核；用户在关闭后明确要求开始，并授权 H 侧代理执行 GitHub 提交、PR 与合并核验。
+- 原始入场/Phase6C合并基线：`200ff07e22ff6e2e253d965765a498088af2463c`。Phase6发布条件已满足，下方旧待发布字段是历史快照。
+- 已接受 Foundation：Docker 单入口、真实 HTTP/PostgreSQL 健康检查、migration、Foundation 事务、CertificationKind 四层映射及 BE-CR005-COMPAT。Z 的完整 G0 原始结果为1035/1035（Contract1003、Architecture18、Integration14），0失败/0跳过。H核对候选与结果绑定，未重复运行Docker。
+- SEC-01 CLOSED：新 audit 在 `2026-09-09T03:06:49.072Z` 为0告警，绑定 lockfile `4ee60feb03aa2cec5d71d572045936f7986ea2638efc8cba7363e04f4851e9af`。该结果是当时依赖公告快照，不是全系统安全认证。
+- Contract保持 `1.3.0-contract / RC / 5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed`。业务、Contract、Android、Web不变。
+- 本发布候选合并并核验已审字节后，7.0 DONE / G1 READY条件生效；实际PR和合并SHA以GitHub及入场核验为准，不预填未来SHA。详见[7.0接受与发布记录](handoffs/new-req-phase-7-0-acceptance.md)。原[Z修复交接](handoffs/new-req-phase-7-0-foundation.md)保留为验收前证据快照。
+- G1计划为Z负责7.1+7.2、H负责7.3+7.4；从同一实际合并Commit建立独立工作区并冻结Port/表Owner后并行。业务认证、权限、媒体服务和业务事务尚未实现或验收；正式客户端旧API/Mock迁移仍归Phase8。
+
 ## 2026-09-09 Phase6C 技术验收通过；修复与Phase7接收记录待同一PR发布
 
 - 用户已明确“好的，审核通过，准备交接收尾”。6C进度Client Defect `6C-WEB-PROGRESS-01` 关闭；新增阻塞Contract CR为0。用户兼任Android/架构/Contract Owner、6C汇总和人类Reviewer，Web Owner甘洛夷；Phase7 Owner H/Z，Reviewer用户。

@@ -1,0 +1,63 @@
+{
+  "timestamp": "2026-09-09T03:05:50.531Z",
+  "node": "v24.19.0",
+  "lockfileSha256": "4ee60feb03aa2cec5d71d572045936f7986ea2638efc8cba7363e04f4851e9af",
+  "steps": [
+    {
+      "command": [
+        "npm",
+        "install",
+        "--package-lock-only",
+        "--ignore-scripts",
+        "--audit=false"
+      ],
+      "cwd": "/work",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "npm",
+        "ci",
+        "--audit=false"
+      ],
+      "cwd": "/work",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "npm",
+        "audit",
+        "--json"
+      ],
+      "cwd": "/work",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "npm",
+        "ls",
+        "--depth=0",
+        "--json"
+      ],
+      "cwd": "/work",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "npm",
+        "ls",
+        "vitest",
+        "@vitest/mocker",
+        "fastify",
+        "ajv",
+        "yaml",
+        "js-yaml",
+        "@redocly/openapi-core",
+        "--all",
+        "--json"
+      ],
+      "cwd": "/work",
+      "exitCode": 0
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "container": "bnbu-p7-z0-pre-20260909",
+  "network": "none",
+  "publishedPorts": [],
+  "database": "foundation_pre",
+  "user": "foundation_test",
+  "commandExitCode": 0,
+  "output": "PostgreSQL 17.6 (Debian 17.6-2.pgdg12+1) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit\nfoundation_pre|foundation_test\nBEGIN\nCREATE TABLE\nINSERT 0 1\n1\nROLLBACK\nt\n",
+  "checks": "PostgreSQL version, create/insert/select privileges and transaction rollback; synthetic scratch table only"
+}

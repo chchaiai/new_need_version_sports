@@ -1,0 +1,24 @@
+{
+  "node": "v24.19.0",
+  "npm": "11.17.0",
+  "platform": "linux",
+  "arch": "arm64",
+  "dependencies": {
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1",
+    "fastify": "5.12.3",
+    "pg": "8.16.3",
+    "yaml": "2.9.0",
+    "@types/node": "24.13.3",
+    "@types/pg": "8.23.1",
+    "@typescript-eslint/parser": "8.70.0",
+    "eslint": "9.39.4",
+    "node-pg-migrate": "9.0.0",
+    "openapi-typescript": "7.13.0",
+    "typescript": "5.9.3",
+    "vitest": "4.1.11"
+  },
+  "canonicalSha256": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+  "checkoutSha256": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+  "fixtures": 992
+}

@@ -1,0 +1,340 @@
+{
+  "phase": "P7-Z-0",
+  "startedAt": "2026-09-09T03:06:53.465Z",
+  "finishedAt": "2026-09-09T03:06:57.228Z",
+  "technicalStatus": "PASS",
+  "exitCode": 0,
+  "failure": null,
+  "canonicalSha256": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+  "steps": [
+    {
+      "name": "dependency-audit",
+      "exitCode": 0,
+      "command": [
+        "npm",
+        "audit",
+        "--json"
+      ],
+      "cwd": "/workspace",
+      "recordedAt": "2026-09-09T03:06:49.072Z",
+      "log": "dependency-audit.json"
+    },
+    {
+      "name": "environment-and-canonical-input",
+      "exitCode": 0
+    },
+    {
+      "name": "contract:check",
+      "command": [
+        "npm",
+        "run",
+        "contract:check"
+      ],
+      "cwd": "/workspace",
+      "exitCode": 0,
+      "durationMs": 609,
+      "log": "contract-check.log",
+      "error": null
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "cwd": "/workspace",
+      "exitCode": 0,
+      "durationMs": 767,
+      "log": "typecheck.log",
+      "error": null
+    },
+    {
+      "name": "lint",
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "cwd": "/workspace",
+      "exitCode": 0,
+      "durationMs": 355,
+      "log": "lint.log",
+      "error": null
+    },
+    {
+      "name": "test:contract",
+      "command": [
+        "npm",
+        "run",
+        "test:contract"
+      ],
+      "cwd": "/workspace",
+      "exitCode": 0,
+      "durationMs": 685,
+      "log": "test-contract.log",
+      "error": null
+    },
+    {
+      "name": "test:architecture",
+      "command": [
+        "npm",
+        "run",
+        "test:architecture"
+      ],
+      "cwd": "/workspace",
+      "exitCode": 0,
+      "durationMs": 415,
+      "log": "test-architecture.log",
+      "error": null
+    },
+    {
+      "name": "test:integration",
+      "command": [
+        "npm",
+        "run",
+        "test:integration"
+      ],
+      "cwd": "/workspace",
+      "exitCode": 0,
+      "durationMs": 638,
+      "log": "test-integration.log",
+      "error": null
+    }
+  ],
+  "testCounts": {
+    "contract": {
+      "total": 1003,
+      "passed": 1003,
+      "failed": 0
+    },
+    "architecture": {
+      "total": 18,
+      "passed": 18,
+      "failed": 0
+    },
+    "integration": {
+      "total": 14,
+      "passed": 14,
+      "failed": 0
+    }
+  },
+  "sourceManifestSha256": "cb26b13e0724b110b1d0fad5093ab1e969b53c58bc9ccf868fab22e9d80abb77",
+  "containerVersions": {
+    "node": "v24.19.0",
+    "npm": "11.17.0",
+    "platform": "linux",
+    "arch": "arm64",
+    "dependencies": {
+      "ajv": "8.20.0",
+      "ajv-formats": "3.0.1",
+      "fastify": "5.12.3",
+      "pg": "8.16.3",
+      "yaml": "2.9.0",
+      "@types/node": "24.13.3",
+      "@types/pg": "8.23.1",
+      "@typescript-eslint/parser": "8.70.0",
+      "eslint": "9.39.4",
+      "node-pg-migrate": "9.0.0",
+      "openapi-typescript": "7.13.0",
+      "typescript": "5.9.3",
+      "vitest": "4.1.11"
+    },
+    "canonicalSha256": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+    "checkoutSha256": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+    "fixtures": 992
+  },
+  "contractVersion": "1.3.0-contract",
+  "contractStatus": "RC",
+  "compatibility": {
+    "total": 992,
+    "positive": 159,
+    "completed": 992,
+    "oldUnionCaseCount": 59,
+    "oldUnionLegalBranches": 7,
+    "unionGroups": [
+      {
+        "schema": "SubmitExerciseRecordRequest",
+        "branches": [
+          "ORDINARY",
+          "SWIMMING_TIMELY",
+          "SWIMMING_OFFLINE"
+        ],
+        "directCaseCount": 35
+      },
+      {
+        "schema": "AppendRecordReviewRequest",
+        "branches": [
+          "PASS",
+          "RETURN_SUPPLEMENT",
+          "INVALID"
+        ],
+        "directCaseCount": 54
+      },
+      {
+        "schema": "CorrectExerciseRecordReviewRequest",
+        "branches": [
+          "VALID",
+          "INVALID"
+        ],
+        "directCaseCount": 25
+      },
+      {
+        "schema": "CreateStudentApplicationRequest",
+        "branches": [
+          "EXEMPTION",
+          "CERTIFICATION"
+        ],
+        "directCaseCount": 17
+      },
+      {
+        "schema": "ReviseEnduranceRuleTableRequest",
+        "branches": [
+          "ADD",
+          "UPDATE",
+          "DELETE"
+        ],
+        "directCaseCount": 25
+      },
+      {
+        "schema": "SwitchSystemModeRequest",
+        "branches": [
+          "MAINTENANCE",
+          "NORMAL"
+        ],
+        "directCaseCount": 17
+      }
+    ]
+  },
+  "hostDocker": {
+    "Client": {
+      "Version": "29.7.2",
+      "ApiVersion": "1.55",
+      "DefaultAPIVersion": "1.55",
+      "GitCommit": "a7dcaa6",
+      "GoVersion": "go1.26.5",
+      "Os": "darwin",
+      "Arch": "arm64",
+      "BuildTime": "Wed Aug  5 18:27:50 2026",
+      "Context": "desktop-linux"
+    },
+    "Server": {
+      "Platform": {
+        "Name": "Docker Desktop 4.86.0 (236216)"
+      },
+      "Version": "29.7.2",
+      "ApiVersion": "1.55",
+      "MinAPIVersion": "1.40",
+      "Os": "linux",
+      "Arch": "arm64",
+      "Components": [
+        {
+          "Name": "Engine",
+          "Version": "29.7.2",
+          "Details": {
+            "ApiVersion": "1.55",
+            "Arch": "arm64",
+            "BuildTime": "Wed Aug  5 18:28:35 2026",
+            "Experimental": "false",
+            "GitCommit": "6a43e3d",
+            "GoVersion": "go1.26.5",
+            "KernelVersion": "6.12.76-linuxkit",
+            "MinAPIVersion": "1.40",
+            "Module": "github.com/moby/moby/v2",
+            "ModuleVersion": "v2.0.0+unknown",
+            "Os": "linux"
+          }
+        },
+        {
+          "Name": "containerd",
+          "Version": "v2.2.5",
+          "Details": {
+            "GitCommit": "e53c7c1516c3b2bff98eb76f1f4117477e6f4e66"
+          }
+        },
+        {
+          "Name": "runc",
+          "Version": "1.3.6",
+          "Details": {
+            "GitCommit": "v1.3.6-0-g491b69ba"
+          }
+        },
+        {
+          "Name": "docker-init",
+          "Version": "0.19.0",
+          "Details": {
+            "GitCommit": "de40ad0"
+          }
+        }
+      ],
+      "GitCommit": "6a43e3d",
+      "GoVersion": "go1.26.5",
+      "KernelVersion": "6.12.76-linuxkit",
+      "BuildTime": "2026-08-05T18:28:35.000000000+00:00"
+    }
+  },
+  "images": [
+    {
+      "tags": [
+        "node:24.19.0-bookworm-slim"
+      ],
+      "digests": [
+        "node@sha256:a9f5f7c91a432850b2a8a7797adf5eadb6c733ceed61167806cee7ea7fbc29df"
+      ],
+      "id": "sha256:a9f5f7c91a432850b2a8a7797adf5eadb6c733ceed61167806cee7ea7fbc29df",
+      "os": "linux",
+      "architecture": "arm64"
+    },
+    {
+      "tags": [
+        "postgres:17.6-bookworm"
+      ],
+      "digests": [
+        "postgres@sha256:f3bd19c606e442c3d7bdfa8002e03fe260a1023351e0ea4598032022b68dd6e3"
+      ],
+      "id": "sha256:f3bd19c606e442c3d7bdfa8002e03fe260a1023351e0ea4598032022b68dd6e3",
+      "os": "linux",
+      "architecture": "arm64"
+    }
+  ],
+  "hostComposeVersion": "Docker Compose version v5.3.1",
+  "postgres": {
+    "db": "p7_foundation",
+    "actor": "p7_foundation",
+    "version": "PostgreSQL 17.6 (Debian 17.6-2.pgdg12+1) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit"
+  },
+  "scope": "Foundation only: no business endpoint or product authentication implemented.",
+  "transactionCoverage": "NOT_APPLICABLE_TO_BUSINESS_SLICE; foundation commit/rollback only",
+  "humanReview": "PENDING_H_SEC_01_CLOSURE",
+  "finalAcceptance": "PENDING_USER_ACCEPTANCE",
+  "stageStatus": "READY_FOR_TECHNICAL_REVIEW",
+  "securityAudit": {
+    "recordedAt": "2026-09-09T03:06:49.072Z",
+    "command": [
+      "npm",
+      "audit",
+      "--json"
+    ],
+    "cwd": "/workspace",
+    "node": "v24.19.0",
+    "exitCode": 0,
+    "passed": true,
+    "lockfileSha256": "4ee60feb03aa2cec5d71d572045936f7986ea2638efc8cba7363e04f4851e9af",
+    "affectedPackageNodes": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    },
+    "error": null,
+    "scope": "npm registry known dependency advisories for this exact lockfile; not a whole-system security audit"
+  },
+  "securityFinding": {
+    "id": "SEC-01",
+    "implementationStatus": "READY_FOR_CLOSURE_CHECK",
+    "reviewerClosure": "PENDING",
+    "previousAudit": "sec-01/before-dependency-audit.json"
+  }
+}

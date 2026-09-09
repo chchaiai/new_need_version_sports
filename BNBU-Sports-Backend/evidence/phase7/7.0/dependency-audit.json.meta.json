@@ -1,0 +1,23 @@
+{
+  "recordedAt": "2026-09-09T03:06:49.072Z",
+  "command": [
+    "npm",
+    "audit",
+    "--json"
+  ],
+  "cwd": "/workspace",
+  "node": "v24.19.0",
+  "exitCode": 0,
+  "passed": true,
+  "lockfileSha256": "4ee60feb03aa2cec5d71d572045936f7986ea2638efc8cba7363e04f4851e9af",
+  "affectedPackageNodes": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 0
+  },
+  "error": null,
+  "scope": "npm registry known dependency advisories for this exact lockfile; not a whole-system security audit"
+}

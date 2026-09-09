@@ -1,0 +1,121 @@
+{
+  "version": "0.0.0",
+  "name": "bnbu-sports-backend",
+  "dependencies": {
+    "ajv-formats": {
+      "version": "3.0.1",
+      "resolved": "https://registry.npmjs.org/ajv-formats/-/ajv-formats-3.0.1.tgz",
+      "overridden": false,
+      "dependencies": {
+        "ajv": {
+          "version": "8.20.0"
+        }
+      }
+    },
+    "ajv": {
+      "version": "8.20.0",
+      "resolved": "https://registry.npmjs.org/ajv/-/ajv-8.20.0.tgz",
+      "overridden": false
+    },
+    "eslint": {
+      "version": "9.39.4",
+      "resolved": "https://registry.npmjs.org/eslint/-/eslint-9.39.4.tgz",
+      "overridden": false,
+      "dependencies": {
+        "@eslint/eslintrc": {
+          "version": "3.3.7",
+          "resolved": "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-3.3.7.tgz",
+          "overridden": false,
+          "dependencies": {
+            "ajv": {
+              "version": "6.15.0",
+              "resolved": "https://registry.npmjs.org/ajv/-/ajv-6.15.0.tgz",
+              "overridden": false
+            },
+            "js-yaml": {
+              "version": "4.3.2",
+              "resolved": "https://registry.npmjs.org/js-yaml/-/js-yaml-4.3.2.tgz",
+              "overridden": true
+            }
+          }
+        },
+        "ajv": {
+          "version": "6.15.0",
+          "resolved": "https://registry.npmjs.org/ajv/-/ajv-6.15.0.tgz",
+          "overridden": false
+        }
+      }
+    },
+    "fastify": {
+      "version": "5.12.3",
+      "resolved": "https://registry.npmjs.org/fastify/-/fastify-5.12.3.tgz",
+      "overridden": false,
+      "dependencies": {
+        "@fastify/ajv-compiler": {
+          "version": "4.0.6",
+          "resolved": "https://registry.npmjs.org/@fastify/ajv-compiler/-/ajv-compiler-4.0.6.tgz",
+          "overridden": false,
+          "dependencies": {
+            "ajv": {
+              "version": "8.20.0"
+            }
+          }
+        },
+        "fast-json-stringify": {
+          "version": "7.0.1",
+          "resolved": "https://registry.npmjs.org/fast-json-stringify/-/fast-json-stringify-7.0.1.tgz",
+          "overridden": false,
+          "dependencies": {
+            "ajv": {
+              "version": "8.20.0"
+            }
+          }
+        }
+      }
+    },
+    "openapi-typescript": {
+      "version": "7.13.0",
+      "resolved": "https://registry.npmjs.org/openapi-typescript/-/openapi-typescript-7.13.0.tgz",
+      "overridden": false,
+      "dependencies": {
+        "@redocly/openapi-core": {
+          "version": "1.34.19",
+          "resolved": "https://registry.npmjs.org/@redocly/openapi-core/-/openapi-core-1.34.19.tgz",
+          "overridden": true,
+          "dependencies": {
+            "js-yaml": {
+              "version": "4.3.2"
+            }
+          }
+        }
+      }
+    },
+    "vitest": {
+      "version": "4.1.11",
+      "resolved": "https://registry.npmjs.org/vitest/-/vitest-4.1.11.tgz",
+      "overridden": true,
+      "dependencies": {
+        "@vitest/mocker": {
+          "version": "4.1.11",
+          "resolved": "https://registry.npmjs.org/@vitest/mocker/-/mocker-4.1.11.tgz",
+          "overridden": false
+        },
+        "vite": {
+          "version": "7.3.6",
+          "resolved": "https://registry.npmjs.org/vite/-/vite-7.3.6.tgz",
+          "overridden": true,
+          "dependencies": {
+            "yaml": {
+              "version": "2.9.0"
+            }
+          }
+        }
+      }
+    },
+    "yaml": {
+      "version": "2.9.0",
+      "resolved": "https://registry.npmjs.org/yaml/-/yaml-2.9.0.tgz",
+      "overridden": false
+    }
+  }
+}

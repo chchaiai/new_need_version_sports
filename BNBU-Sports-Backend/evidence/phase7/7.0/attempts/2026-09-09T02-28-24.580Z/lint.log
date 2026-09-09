@@ -1,0 +1,16 @@
+
+> bnbu-sports-backend@0.0.0 lint
+> eslint src tests eslint.config.mjs vitest.config.ts
+
+
+/workspace/src/shared/infrastructure/postgres.ts
+  2:1  error  'pg' import is duplicated  no-duplicate-imports
+
+/workspace/tests/architecture/architecture.test.ts
+  4:1  error  './rules.ts' import is duplicated  no-duplicate-imports
+
+/workspace/tests/contract/compatibility.test.ts
+  5:1  error  '../../src/shared/api/contract-validator.ts' import is duplicated  no-duplicate-imports
+
+✖ 3 problems (3 errors, 0 warnings)
+
