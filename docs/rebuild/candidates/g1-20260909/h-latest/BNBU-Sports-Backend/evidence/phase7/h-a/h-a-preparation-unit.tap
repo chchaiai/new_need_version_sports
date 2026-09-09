@@ -1,0 +1,562 @@
+TAP version 13
+# Subtest: confirmed timeline excludes only overlap, including pre-window start
+ok 1 - confirmed timeline excludes only overlap, including pre-window start
+  ---
+  duration_ms: 0.979784
+  type: 'test'
+  ...
+# Subtest: maintenance and incident overlap, duplicates and touching endpoints are unioned once
+ok 2 - maintenance and incident overlap, duplicates and touching endpoints are unioned once
+  ---
+  duration_ms: 0.178056
+  type: 'test'
+  ...
+# Subtest: open pause uses observed server time, never a predicted restoration
+ok 3 - open pause uses observed server time, never a predicted restoration
+  ---
+  duration_ms: 0.400583
+  type: 'test'
+  ...
+# Subtest: missing coverage and unknown revision fail closed
+ok 4 - missing coverage and unknown revision fail closed
+  ---
+  duration_ms: 0.208328
+  type: 'test'
+  ...
+# Subtest: invalid or future intervals are not silently discarded
+ok 5 - invalid or future intervals are not silently discarded
+  ---
+  duration_ms: 0.227153
+  type: 'test'
+  ...
+# Subtest: exact microseconds and immutable input/output survive accounting
+ok 6 - exact microseconds and immutable input/output survive accounting
+  ---
+  duration_ms: 0.138068
+  type: 'test'
+  ...
+# Subtest: zero elapsed time and pause starting at observation retain strict boundaries
+ok 7 - zero elapsed time and pause starting at observation retain strict boundaries
+  ---
+  duration_ms: 0.17277
+  type: 'test'
+  ...
+# Subtest: ORDINARY: acceptance boundary -1 microseconds
+ok 8 - ORDINARY: acceptance boundary -1 microseconds
+  ---
+  duration_ms: 3.048177
+  type: 'test'
+  ...
+# Subtest: ORDINARY: acceptance boundary 0 microseconds
+ok 9 - ORDINARY: acceptance boundary 0 microseconds
+  ---
+  duration_ms: 0.787568
+  type: 'test'
+  ...
+# Subtest: ORDINARY: acceptance boundary 1 microseconds
+ok 10 - ORDINARY: acceptance boundary 1 microseconds
+  ---
+  duration_ms: 0.128336
+  type: 'test'
+  ...
+# Subtest: SWIMMING_TIMELY: acceptance boundary -1 microseconds
+ok 11 - SWIMMING_TIMELY: acceptance boundary -1 microseconds
+  ---
+  duration_ms: 0.145635
+  type: 'test'
+  ...
+# Subtest: SWIMMING_TIMELY: acceptance boundary 0 microseconds
+ok 12 - SWIMMING_TIMELY: acceptance boundary 0 microseconds
+  ---
+  duration_ms: 0.212287
+  type: 'test'
+  ...
+# Subtest: SWIMMING_TIMELY: acceptance boundary 1 microseconds
+ok 13 - SWIMMING_TIMELY: acceptance boundary 1 microseconds
+  ---
+  duration_ms: 0.138245
+  type: 'test'
+  ...
+# Subtest: SWIMMING_OFFLINE: acceptance boundary -1 microseconds
+ok 14 - SWIMMING_OFFLINE: acceptance boundary -1 microseconds
+  ---
+  duration_ms: 0.485739
+  type: 'test'
+  ...
+# Subtest: SWIMMING_OFFLINE: acceptance boundary 0 microseconds
+ok 15 - SWIMMING_OFFLINE: acceptance boundary 0 microseconds
+  ---
+  duration_ms: 0.179393
+  type: 'test'
+  ...
+# Subtest: SWIMMING_OFFLINE: acceptance boundary 1 microseconds
+ok 16 - SWIMMING_OFFLINE: acceptance boundary 1 microseconds
+  ---
+  duration_ms: 0.305452
+  type: 'test'
+  ...
+# Subtest: offline exception requires explanation and routes to anomaly review, not automatic validity
+ok 17 - offline exception requires explanation and routes to anomaly review, not automatic validity
+  ---
+  duration_ms: 0.455106
+  type: 'test'
+  ...
+# Subtest: receipt clones and freezes original required batch
+ok 18 - receipt clones and freezes original required batch
+  ---
+  duration_ms: 0.783702
+  type: 'test'
+  ...
+# Subtest: last authoritative object completion boundary -1 microseconds
+ok 19 - last authoritative object completion boundary -1 microseconds
+  ---
+  duration_ms: 0.248819
+  type: 'test'
+  ...
+# Subtest: last authoritative object completion boundary 0 microseconds
+ok 20 - last authoritative object completion boundary 0 microseconds
+  ---
+  duration_ms: 0.112496
+  type: 'test'
+  ...
+# Subtest: last authoritative object completion boundary 1 microseconds
+ok 21 - last authoritative object completion boundary 1 microseconds
+  ---
+  duration_ms: 0.157856
+  type: 'test'
+  ...
+# Subtest: later observation does not reject already timely object transfer or renew deadline
+ok 22 - later observation does not reject already timely object transfer or renew deadline
+  ---
+  duration_ms: 0.198048
+  type: 'test'
+  ...
+# Subtest: missing, extra, duplicate and replaced objects cannot change a locked manifest
+ok 23 - missing, extra, duplicate and replaced objects cannot change a locked manifest
+  ---
+  duration_ms: 0.313576
+  type: 'test'
+  ...
+# Subtest: partially uploaded object is not complete or a successful record review
+ok 24 - partially uploaded object is not complete or a successful record review
+  ---
+  duration_ms: 0.132177
+  type: 'test'
+  ...
+# Subtest: reject cross-scope completion organizationId
+ok 25 - reject cross-scope completion organizationId
+  ---
+  duration_ms: 0.097493
+  type: 'test'
+  ...
+# Subtest: reject cross-scope completion ownerSubjectId
+ok 26 - reject cross-scope completion ownerSubjectId
+  ---
+  duration_ms: 0.093901
+  type: 'test'
+  ...
+# Subtest: reject cross-scope completion sessionId
+ok 27 - reject cross-scope completion sessionId
+  ---
+  duration_ms: 0.083266
+  type: 'test'
+  ...
+# Subtest: future completion, before-end acceptance and duplicate allocation facts fail closed
+ok 28 - future completion, before-end acceptance and duplicate allocation facts fail closed
+  ---
+  duration_ms: 0.154124
+  type: 'test'
+  ...
+# Subtest: offline swimming cannot accept missing readiness or gain a continuation window
+ok 29 - offline swimming cannot accept missing readiness or gain a continuation window
+  ---
+  duration_ms: 0.207634
+  type: 'test'
+  ...
+# Subtest: declarations normalize case and order without changing Contract positions
+ok 30 - declarations normalize case and order without changing Contract positions
+  ---
+  duration_ms: 1.605552
+  type: 'test'
+  ...
+# Subtest: declarations reject duplicate asset identities, positions and malformed checksums
+ok 31 - declarations reject duplicate asset identities, positions and malformed checksums
+  ---
+  duration_ms: 0.563288
+  type: 'test'
+  ...
+# Subtest: declarations reject invalid ranges and phase without treating labels as proof
+ok 32 - declarations reject invalid ranges and phase without treating labels as proof
+  ---
+  duration_ms: 0.226986
+  type: 'test'
+  ...
+# Subtest: submission errors retain frozen HTTP distinctions
+ok 33 - submission errors retain frozen HTTP distinctions
+  ---
+  duration_ms: 2.643374
+  type: 'test'
+  ...
+# Subtest: unknown or spoofed submission exceptions are not classified from text
+ok 34 - unknown or spoofed submission exceptions are not classified from text
+  ---
+  duration_ms: 0.212028
+  type: 'test'
+  ...
+# Subtest: deletion blocker serializes owner before checking active state in same scope
+ok 35 - deletion blocker serializes owner before checking active state in same scope
+  ---
+  duration_ms: 1.629755
+  type: 'test'
+  ...
+# Subtest: no-active result still requires the owner lock
+ok 36 - no-active result still requires the owner lock
+  ---
+  duration_ms: 0.162116
+  type: 'test'
+  ...
+# Subtest: missing facts fail rather than manufacturing a Session
+ok 37 - missing facts fail rather than manufacturing a Session
+  ---
+  duration_ms: 0.209738
+  type: 'test'
+  ...
+# Subtest: public facts and nested intervals are immutable
+ok 38 - public facts and nested intervals are immutable
+  ---
+  duration_ms: 0.258208
+  type: 'test'
+  ...
+# Subtest: repository failure propagates rather than allowing deletion
+ok 39 - repository failure propagates rather than allowing deletion
+  ---
+  duration_ms: 0.194603
+  type: 'test'
+  ...
+# Subtest: active intervals are summed in milliseconds before any rounding
+ok 40 - active intervals are summed in milliseconds before any rounding
+  ---
+  duration_ms: 2.698386
+  type: 'test'
+  ...
+# Subtest: threshold 30 minutes at -1 ms boundary
+ok 41 - threshold 30 minutes at -1 ms boundary
+  ---
+  duration_ms: 0.189495
+  type: 'test'
+  ...
+# Subtest: threshold 30 minutes at 0 ms boundary
+ok 42 - threshold 30 minutes at 0 ms boundary
+  ---
+  duration_ms: 0.105239
+  type: 'test'
+  ...
+# Subtest: threshold 30 minutes at 1 ms boundary
+ok 43 - threshold 30 minutes at 1 ms boundary
+  ---
+  duration_ms: 1.222399
+  type: 'test'
+  ...
+# Subtest: threshold 45 minutes at -1 ms boundary
+ok 44 - threshold 45 minutes at -1 ms boundary
+  ---
+  duration_ms: 0.178344
+  type: 'test'
+  ...
+# Subtest: threshold 45 minutes at 0 ms boundary
+ok 45 - threshold 45 minutes at 0 ms boundary
+  ---
+  duration_ms: 0.085872
+  type: 'test'
+  ...
+# Subtest: threshold 45 minutes at 1 ms boundary
+ok 46 - threshold 45 minutes at 1 ms boundary
+  ---
+  duration_ms: 0.105129
+  type: 'test'
+  ...
+# Subtest: threshold 60 minutes at -1 ms boundary
+ok 47 - threshold 60 minutes at -1 ms boundary
+  ---
+  duration_ms: 0.107012
+  type: 'test'
+  ...
+# Subtest: threshold 60 minutes at 0 ms boundary
+ok 48 - threshold 60 minutes at 0 ms boundary
+  ---
+  duration_ms: 0.131118
+  type: 'test'
+  ...
+# Subtest: threshold 60 minutes at 1 ms boundary
+ok 49 - threshold 60 minutes at 1 ms boundary
+  ---
+  duration_ms: 0.156986
+  type: 'test'
+  ...
+# Subtest: 80 actual minutes remain 80 while eligibility is capped at 60
+ok 50 - 80 actual minutes remain 80 while eligibility is capped at 60
+  ---
+  duration_ms: 0.18394
+  type: 'test'
+  ...
+# Subtest: paused completion excludes the entire pause and completed time never grows
+ok 51 - paused completion excludes the entire pause and completed time never grows
+  ---
+  duration_ms: 0.104956
+  type: 'test'
+  ...
+# Subtest: resume keeps original start across midnight and hydration
+ok 52 - resume keeps original start across midnight and hydration
+  ---
+  duration_ms: 0.188987
+  type: 'test'
+  ...
+# Subtest: stale state version cannot add time or repeat a transition
+ok 53 - stale state version cannot add time or repeat a transition
+  ---
+  duration_ms: 0.442174
+  type: 'test'
+  ...
+# Subtest: completed session rejects PAUSE
+ok 54 - completed session rejects PAUSE
+  ---
+  duration_ms: 0.139748
+  type: 'test'
+  ...
+# Subtest: completed session rejects RESUME
+ok 55 - completed session rejects RESUME
+  ---
+  duration_ms: 0.070993
+  type: 'test'
+  ...
+# Subtest: completed session rejects COMPLETE
+ok 56 - completed session rejects COMPLETE
+  ---
+  duration_ms: 0.046033
+  type: 'test'
+  ...
+# Subtest: invalid state transitions are not silently accepted
+ok 57 - invalid state transitions are not silently accepted
+  ---
+  duration_ms: 0.168514
+  type: 'test'
+  ...
+# Subtest: clock regression cannot create negative intervals
+ok 58 - clock regression cannot create negative intervals
+  ---
+  duration_ms: 0.188234
+  type: 'test'
+  ...
+# Subtest: same-instant ACTIVE closure cannot persist a zero-length interval
+ok 59 - same-instant ACTIVE closure cannot persist a zero-length interval
+  ---
+  duration_ms: 0.182644
+  type: 'test'
+  ...
+# Subtest: reject invalid server time -1
+ok 60 - reject invalid server time -1
+  ---
+  duration_ms: 0.149178
+  type: 'test'
+  ...
+# Subtest: reject invalid server time 0.5
+ok 61 - reject invalid server time 0.5
+  ---
+  duration_ms: 0.056992
+  type: 'test'
+  ...
+# Subtest: reject invalid server time NaN
+ok 62 - reject invalid server time NaN
+  ---
+  duration_ms: 0.039148
+  type: 'test'
+  ...
+# Subtest: reject invalid server time Infinity
+ok 63 - reject invalid server time Infinity
+  ---
+  duration_ms: 0.030493
+  type: 'test'
+  ...
+# Subtest: reject invalid server time 9007199254740992
+ok 64 - reject invalid server time 9007199254740992
+  ---
+  duration_ms: 0.039016
+  type: 'test'
+  ...
+# Subtest: invalid hydrated facts and version overflow fail closed
+ok 65 - invalid hydrated facts and version overflow fail closed
+  ---
+  duration_ms: 0.157338
+  type: 'test'
+  ...
+# Subtest: typed media errors preserve Contract status distinctions
+ok 66 - typed media errors preserve Contract status distinctions
+  ---
+  duration_ms: 1.231636
+  type: 'test'
+  ...
+# Subtest: unknown and forged media exceptions cannot impersonate typed business failures
+ok 67 - unknown and forged media exceptions cannot impersonate typed business failures
+  ---
+  duration_ms: 0.208623
+  type: 'test'
+  ...
+# Subtest: six maximum-size images plus one maximum-size video are accepted
+ok 68 - six maximum-size images plus one maximum-size video are accepted
+  ---
+  duration_ms: 1.265139
+  type: 'test'
+  ...
+# Subtest: empty materials cannot be declared complete
+ok 69 - empty materials cannot be declared complete
+  ---
+  duration_ms: 0.555508
+  type: 'test'
+  ...
+# Subtest: normal activity may use a video only
+ok 70 - normal activity may use a video only
+  ---
+  duration_ms: 0.25364
+  type: 'test'
+  ...
+# Subtest: reject mismatched organizationId
+ok 71 - reject mismatched organizationId
+  ---
+  duration_ms: 0.238926
+  type: 'test'
+  ...
+# Subtest: reject mismatched ownerSubjectId
+ok 72 - reject mismatched ownerSubjectId
+  ---
+  duration_ms: 0.190416
+  type: 'test'
+  ...
+# Subtest: reject mismatched sessionId
+ok 73 - reject mismatched sessionId
+  ---
+  duration_ms: 4.527308
+  type: 'test'
+  ...
+# Subtest: reject mismatched purpose
+ok 74 - reject mismatched purpose
+  ---
+  duration_ms: 0.198604
+  type: 'test'
+  ...
+# Subtest: uninspected material is not a completed package
+ok 75 - uninspected material is not a completed package
+  ---
+  duration_ms: 0.216632
+  type: 'test'
+  ...
+# Subtest: duplicate IDs within a version are rejected; reuse in the next version is not automatically misuse
+ok 76 - duplicate IDs within a version are rejected; reuse in the next version is not automatically misuse
+  ---
+  duration_ms: 0.518852
+  type: 'test'
+  ...
+# Subtest: seven images and two videos exceed independent limits
+ok 77 - seven images and two videos exceed independent limits
+  ---
+  duration_ms: 0.65078
+  type: 'test'
+  ...
+# Subtest: reject invalid byteSize 0
+ok 78 - reject invalid byteSize 0
+  ---
+  duration_ms: 0.416481
+  type: 'test'
+  ...
+# Subtest: reject invalid byteSize -1
+ok 79 - reject invalid byteSize -1
+  ---
+  duration_ms: 0.131364
+  type: 'test'
+  ...
+# Subtest: reject invalid byteSize 0.5
+ok 80 - reject invalid byteSize 0.5
+  ---
+  duration_ms: 0.155025
+  type: 'test'
+  ...
+# Subtest: reject invalid byteSize NaN
+ok 81 - reject invalid byteSize NaN
+  ---
+  duration_ms: 0.15171
+  type: 'test'
+  ...
+# Subtest: reject invalid byteSize Infinity
+ok 82 - reject invalid byteSize Infinity
+  ---
+  duration_ms: 0.147702
+  type: 'test'
+  ...
+# Subtest: size limit plus one byte is rejected for either media type
+ok 83 - size limit plus one byte is rejected for either media type
+  ---
+  duration_ms: 0.320196
+  type: 'test'
+  ...
+# Subtest: reject invalid video duration 999
+ok 84 - reject invalid video duration 999
+  ---
+  duration_ms: 0.277568
+  type: 'test'
+  ...
+# Subtest: reject invalid video duration 15001
+ok 85 - reject invalid video duration 15001
+  ---
+  duration_ms: 0.161784
+  type: 'test'
+  ...
+# Subtest: reject invalid video duration 1000.5
+ok 86 - reject invalid video duration 1000.5
+  ---
+  duration_ms: 0.225608
+  type: 'test'
+  ...
+# Subtest: reject invalid video duration NaN
+ok 87 - reject invalid video duration NaN
+  ---
+  duration_ms: 0.064241
+  type: 'test'
+  ...
+# Subtest: reject invalid video duration null
+ok 88 - reject invalid video duration null
+  ---
+  duration_ms: 0.051324
+  type: 'test'
+  ...
+# Subtest: accept inclusive video duration 1000
+ok 89 - accept inclusive video duration 1000
+  ---
+  duration_ms: 0.197609
+  type: 'test'
+  ...
+# Subtest: accept inclusive video duration 15000
+ok 90 - accept inclusive video duration 15000
+  ---
+  duration_ms: 0.082264
+  type: 'test'
+  ...
+# Subtest: silent video and unsupported content are rejected
+ok 91 - silent video and unsupported content are rejected
+  ---
+  duration_ms: 0.223753
+  type: 'test'
+  ...
+# Subtest: swimming requires authoritative BEFORE and AFTER photos from the same session
+ok 92 - swimming requires authoritative BEFORE and AFTER photos from the same session
+  ---
+  duration_ms: 0.229986
+  type: 'test'
+  ...
+1..92
+# tests 92
+# suites 0
+# pass 92
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 149.413121

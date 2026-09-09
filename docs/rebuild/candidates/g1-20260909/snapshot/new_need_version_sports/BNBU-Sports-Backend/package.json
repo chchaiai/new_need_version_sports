@@ -1,0 +1,47 @@
+{
+  "name": "bnbu-sports-backend",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "24.19.0",
+    "npm": "11.17.0"
+  },
+  "dependencies": {
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1",
+    "fastify": "5.12.3",
+    "pg": "8.16.3",
+    "yaml": "2.9.0"
+  },
+  "devDependencies": {
+    "@types/node": "24.13.3",
+    "@types/pg": "8.23.1",
+    "@typescript-eslint/parser": "8.70.0",
+    "eslint": "9.39.4",
+    "node-pg-migrate": "9.0.0",
+    "openapi-typescript": "7.13.0",
+    "typescript": "5.9.3",
+    "vitest": "4.1.11"
+  },
+  "scripts": {
+    "start:foundation": "node src/bootstrap/main.ts",
+    "start:g1": "node src/bootstrap/start-g1.ts",
+    "contract:generate": "node src/bootstrap/generate-contract.mjs",
+    "contract:check": "node src/bootstrap/generate-contract.mjs --check",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src tests eslint.config.mjs vitest.config.ts",
+    "test:contract": "vitest run tests/contract --reporter=json --outputFile=evidence/phase7/7.0/vitest-contract.json",
+    "test:architecture": "vitest run tests/architecture --reporter=json --outputFile=evidence/phase7/7.0/vitest-architecture.json",
+    "test:integration": "vitest run tests/integration/foundation --reporter=json --outputFile=evidence/phase7/7.0/vitest-integration.json",
+    "verify:foundation": "node src/bootstrap/verify-foundation.mjs"
+  },
+  "overrides": {
+    "@redocly/openapi-core@1.34.19": {
+      "js-yaml": "4.3.2"
+    },
+    "vitest@4.1.11": {
+      "vite": "7.3.6"
+    }
+  }
+}

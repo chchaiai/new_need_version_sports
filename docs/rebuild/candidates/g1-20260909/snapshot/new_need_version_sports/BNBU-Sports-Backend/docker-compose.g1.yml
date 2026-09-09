@@ -1,0 +1,55 @@
+services:
+  postgres:
+    image: postgres:17.6-bookworm@sha256:f3bd19c606e442c3d7bdfa8002e03fe260a1023351e0ea4598032022b68dd6e3
+    environment:
+      POSTGRES_DB: p7_foundation
+      POSTGRES_USER: p7_foundation
+      POSTGRES_PASSWORD: ${P7_TEST_PASSWORD:?Supply an ephemeral test password}
+    tmpfs:
+      - /var/lib/postgresql/data
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -h 127.0.0.1 -U p7_foundation -d p7_foundation']
+      interval: 1s
+      timeout: 3s
+      retries: 40
+    networks: [g1]
+  mailpit:
+    image: axllent/mailpit:v1.31.1@sha256:98b916bd3c8d61f7633a52d3ea2f58d00620cb01ca57ab59edde68c347a95365
+    environment:
+      MP_DATABASE: /data/mailpit.db
+      MP_DISABLE_VERSION_CHECK: 'true'
+      MP_QUIET: 'true'
+    tmpfs: [/data]
+    healthcheck:
+      test: [CMD, /mailpit, readyz]
+      interval: 1s
+      timeout: 3s
+      retries: 40
+    networks: [g1]
+  backend-test:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+      additional_contexts:
+        contract-input: ../contracts
+    environment:
+      PGHOST: postgres
+      PGPORT: '5432'
+      PGDATABASE: p7_foundation
+      PGUSER: p7_foundation
+      PGPASSWORD: ${P7_TEST_PASSWORD:?Supply an ephemeral test password}
+      CONTRACT_INPUT: /contract-input
+      P7_MAIL_MODE: local_mailpit
+      P7_LOCAL_MAILPIT_URL: http://mailpit:8025
+    command: [node, src/bootstrap/verify-g1.mjs]
+    depends_on:
+      mailpit:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./evidence/phase7/G1-Z:/workspace/evidence/phase7/G1-Z
+    networks: [g1]
+networks:
+  g1:
+    internal: true

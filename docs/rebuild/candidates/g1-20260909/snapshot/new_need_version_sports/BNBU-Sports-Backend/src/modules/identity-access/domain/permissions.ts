@@ -1,0 +1,2 @@
+export const ADMIN_PERMISSIONS = ['COURSE_VIEW', 'SEMESTER', 'USERS_ACCOUNTS', 'FEEDBACK', 'GLOBAL_RULES', 'SYSTEM_MODE', 'HELP_CENTER', 'AUDIT_QUERY'] as const;
+export type AdminPermission = typeof ADMIN_PERMISSIONS[number];

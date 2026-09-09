@@ -1,0 +1,510 @@
+{
+  "kind": "REGISTERED_OPERATIONS_NOT_FULL_COVERAGE",
+  "registeredCount": 65,
+  "contractCount": 176,
+  "operations": [
+    {
+      "method": "GET",
+      "path": "/semesters/current",
+      "operationId": "getCurrentSemester",
+      "source": "src/modules/academic-term/api/routes.ts"
+    },
+    {
+      "method": "GET",
+      "path": "/semesters",
+      "operationId": "listSemesters",
+      "source": "src/modules/academic-term/api/routes.ts"
+    },
+    {
+      "method": "POST",
+      "path": "/semesters",
+      "operationId": "createSemester",
+      "source": "src/modules/academic-term/api/routes.ts"
+    },
+    {
+      "method": "PUT",
+      "path": "/semesters/{semesterId}",
+      "operationId": "updateUpcomingSemester",
+      "source": "src/modules/academic-term/api/routes.ts"
+    },
+    {
+      "method": "POST",
+      "path": "/semesters/{semesterId}/current-transition",
+      "operationId": "switchCurrentSemester",
+      "source": "src/modules/academic-term/api/routes.ts"
+    },
+    {
+      "method": "POST",
+      "path": "/teacher/courses",
+      "operationId": "createCourse",
+      "source": "src/modules/course-enrollment/api/routes.ts"
+    },
+    {
+      "method": "GET",
+      "path": "/teacher/courses",
+      "operationId": "listOwnCourses",
+      "source": "src/modules/course-enrollment/api/routes.ts"
+    },
+    {
+      "method": "GET",
+      "path": "/student/course",
+      "operationId": "getOwnCurrentCourse",
+      "source": "src/modules/course-enrollment/api/routes.ts"
+    },
+    {
+      "method": "POST",
+      "path": "/courses/{courseId}/makeup-authorizations",
+      "operationId": "authorizeCourseMakeup",
+      "source": "src/modules/course-enrollment/api/routes.ts"
+    },
+    {
+      "method": "GET",
+      "path": "/courses/{courseId}/makeup-authorizations",
+      "operationId": "listCourseMakeupAuthorizations",
+      "source": "src/modules/course-enrollment/api/routes.ts"
+    },
+    {
+      "method": "GET",
+      "path": "/student/makeup-authorizations",
+      "operationId": "listOwnMakeupAuthorizations",
+      "source": "src/modules/course-enrollment/api/routes.ts"
+    },
+    {
+      "method": "GET",
+      "path": "/courses/{courseId}",
+      "operationId": "getCourse",
+      "source": "src/modules/course-enrollment/api/routes.ts"
+    },
+    {
+      "method": "POST",
+      "path": "/courses/{courseId}/draft-rule",
+      "operationId": "updateCourseDraftRule",
+      "source": "src/modules/course-enrollment/api/routes.ts"
+    },
+    {
+      "method": "POST",
+      "path": "/courses/{courseId}/publication-plan",
+      "operationId": "prepareCoursePublication",
+      "source": "src/modules/course-enrollment/api/routes.ts"
+    },
+    {
+      "method": "POST",
+      "path": "/courses/{courseId}/publication",
+      "operationId": "publishCourse",
+      "source": "src/modules/course-enrollment/api/routes.ts"
+    },
+    {
+      "method": "POST",
+      "path": "/courses/{courseId}/closure",
+      "operationId": "closeCourse",
+      "source": "src/modules/course-enrollment/api/routes.ts"
+    },
+    {
+      "method": "POST",
+      "path": "/courses/{courseId}/change-impact",
+      "operationId": "previewCourseChangeImpact",
+      "source": "src/modules/course-enrollment/api/routes.ts"
+    },
+    {
+      "method": "PUT",
+      "path": "/courses/{courseId}",
+      "operationId": "updateCourse",
+      "source": "src/modules/course-enrollment/api/routes.ts"
+    },
+    {
+      "method": "POST",
+      "path": "/courses/{courseId}/invitations",
+      "operationId": "createCourseInvitation",
+      "source": "src/modules/course-enrollment/api/routes.ts"
+    },
+    {
+      "method": "GET",
+      "path": "/courses/{courseId}/invitations",
+      "operationId": "listCourseInvitations",
+      "source": "src/modules/course-enrollment/api/routes.ts"
+    },
+    {
+      "method": "POST",
+      "path": "/courses/{courseId}/invitations/{invitationId}/revocation",
+      "operationId": "revokeCourseInvitation",
+      "source": "src/modules/course-enrollment/api/routes.ts"
+    },
+    {
+      "method": "GET",
+      "path": "/course-invitations/{invitationCode}",
+      "operationId": "previewCourseInvitation",
+      "source": "src/modules/course-enrollment/api/routes.ts"
+    },
+    {
+      "method": "POST",
+      "path": "/course-invitations/{invitationCode}/new-student-flows",
+      "operationId": "registerNewInvitationFlow",
+      "source": "src/modules/course-enrollment/api/routes.ts"
+    },
+    {
+      "method": "POST",
+      "path": "/course-invitations/{invitationCode}/student-registration",
+      "operationId": "registerStudentAndJoinCourse",
+      "source": "src/modules/course-enrollment/api/routes.ts"
+    },
+    {
+      "method": "POST",
+      "path": "/course-invitations/{invitationCode}/existing-student-flows",
+      "operationId": "registerExistingInvitationFlow",
+      "source": "src/modules/course-enrollment/api/routes.ts"
+    },
+    {
+      "method": "POST",
+      "path": "/course-invitations/{invitationCode}/join",
+      "operationId": "joinCourseByInvitation",
+      "source": "src/modules/course-enrollment/api/routes.ts"
+    },
+    {
+      "method": "GET",
+      "path": "/courses/{courseId}/members",
+      "operationId": "listCourseMembers",
+      "source": "src/modules/course-enrollment/api/routes.ts"
+    },
+    {
+      "method": "POST",
+      "path": "/courses/{courseId}/members/{enrollmentId}/removal",
+      "operationId": "removeCourseMember",
+      "source": "src/modules/course-enrollment/api/routes.ts"
+    },
+    {
+      "method": "POST",
+      "path": "/courses/{courseId}/members/{enrollmentId}/restoration",
+      "operationId": "restoreCourseMember",
+      "source": "src/modules/course-enrollment/api/routes.ts"
+    },
+    {
+      "method": "GET",
+      "path": "/rule-template-versions",
+      "operationId": "listPublishedRuleTemplates",
+      "source": "src/modules/course-enrollment/api/template-routes.ts"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/rule-template-versions",
+      "operationId": "publishRuleTemplateVersion",
+      "source": "src/modules/course-enrollment/api/template-routes.ts"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/student-accounts",
+      "operationId": "listStudentAccounts",
+      "source": "src/modules/identity-access/api/governance-routes.ts"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/student-accounts/{studentId}",
+      "operationId": "getStudentAccount",
+      "source": "src/modules/identity-access/api/governance-routes.ts"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/sub-admins",
+      "operationId": "listSubAdmins",
+      "source": "src/modules/identity-access/api/governance-routes.ts"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/sub-admins/{adminId}",
+      "operationId": "getSubAdmin",
+      "source": "src/modules/identity-access/api/governance-routes.ts"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/sub-admins",
+      "operationId": "createSubAdmin",
+      "source": "src/modules/identity-access/api/governance-routes.ts"
+    },
+    {
+      "method": "PUT",
+      "path": "/admin/sub-admins/{adminId}",
+      "operationId": "updateSubAdmin",
+      "source": "src/modules/identity-access/api/governance-routes.ts"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/sub-admins/{adminId}/state-transition",
+      "operationId": "setSubAdminState",
+      "source": "src/modules/identity-access/api/governance-routes.ts"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/sub-admins/{adminId}/deletion",
+      "operationId": "deleteSubAdmin",
+      "source": "src/modules/identity-access/api/governance-routes.ts"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/teacher-accounts",
+      "operationId": "listTeacherAccounts",
+      "source": "src/modules/identity-access/api/governance-routes.ts"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/teacher-accounts/{teacherId}",
+      "operationId": "getTeacherAccount",
+      "source": "src/modules/identity-access/api/governance-routes.ts"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/teacher-accounts/{teacherId}/deletion",
+      "operationId": "deleteTeacherAccount",
+      "source": "src/modules/identity-access/api/governance-routes.ts"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/teacher-account-batch-validations",
+      "operationId": "validateTeacherAccountBatch",
+      "source": "src/modules/identity-access/api/governance-routes.ts"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/teacher-account-batches",
+      "operationId": "createTeacherAccountBatch",
+      "source": "src/modules/identity-access/api/governance-routes.ts"
+    },
+    {
+      "method": "POST",
+      "path": "/auth/sessions/password",
+      "operationId": "createPasswordSession",
+      "source": "src/modules/identity-access/api/routes.ts"
+    },
+    {
+      "method": "POST",
+      "path": "/auth/sessions/student",
+      "operationId": "createStudentSession",
+      "source": "src/modules/identity-access/api/routes.ts"
+    },
+    {
+      "method": "POST",
+      "path": "/auth/sessions/refresh",
+      "operationId": "refreshSession",
+      "source": "src/modules/identity-access/api/routes.ts"
+    },
+    {
+      "method": "POST",
+      "path": "/auth/sessions/current/logout",
+      "operationId": "logoutCurrentSession",
+      "source": "src/modules/identity-access/api/routes.ts"
+    },
+    {
+      "method": "POST",
+      "path": "/auth/sessions/logout-all",
+      "operationId": "logoutAllSessions",
+      "source": "src/modules/identity-access/api/routes.ts"
+    },
+    {
+      "method": "GET",
+      "path": "/me",
+      "operationId": "getCurrentActor",
+      "source": "src/modules/identity-access/api/routes.ts"
+    },
+    {
+      "method": "GET",
+      "path": "/me/account-deletion-impact",
+      "operationId": "getOwnAccountDeletionImpact",
+      "source": "src/modules/identity-access/api/routes.ts"
+    },
+    {
+      "method": "POST",
+      "path": "/me/account-deletion",
+      "operationId": "deleteOwnAccount",
+      "source": "src/modules/identity-access/api/routes.ts"
+    },
+    {
+      "method": "PUT",
+      "path": "/me/verified-email",
+      "operationId": "changeOwnVerifiedEmail",
+      "source": "src/modules/identity-access/api/routes.ts"
+    },
+    {
+      "method": "PUT",
+      "path": "/me/password",
+      "operationId": "changeOwnPassword",
+      "source": "src/modules/identity-access/api/routes.ts"
+    },
+    {
+      "method": "POST",
+      "path": "/auth/password/reset",
+      "operationId": "resetPassword",
+      "source": "src/modules/identity-access/api/routes.ts"
+    },
+    {
+      "method": "POST",
+      "path": "/auth/challenges",
+      "operationId": "requestAuthChallenge",
+      "source": "src/modules/identity-access/api/routes.ts"
+    },
+    {
+      "method": "GET",
+      "path": "/student/notifications",
+      "operationId": "listOwnStudentNotifications",
+      "source": "src/modules/notification-center/api/routes.ts"
+    },
+    {
+      "method": "GET",
+      "path": "/student/notifications/unread-count",
+      "operationId": "getOwnStudentUnreadNotificationCount",
+      "source": "src/modules/notification-center/api/routes.ts"
+    },
+    {
+      "method": "POST",
+      "path": "/student/notifications/{notificationId}/read",
+      "operationId": "markOwnStudentNotificationRead",
+      "source": "src/modules/notification-center/api/routes.ts"
+    },
+    {
+      "method": "GET",
+      "path": "/notifications",
+      "operationId": "listOwnNotifications",
+      "source": "src/modules/notification-center/api/routes.ts"
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/unread-count",
+      "operationId": "getOwnUnreadNotificationCount",
+      "source": "src/modules/notification-center/api/routes.ts"
+    },
+    {
+      "method": "POST",
+      "path": "/notifications/{notificationId}/read",
+      "operationId": "markOwnNotificationRead",
+      "source": "src/modules/notification-center/api/routes.ts"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/system-mode/transitions",
+      "operationId": "switchSystemMode",
+      "source": "src/modules/system-mode/api/governance-routes.ts"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/system-mode/transitions",
+      "operationId": "listSystemModeTransitions",
+      "source": "src/modules/system-mode/api/governance-routes.ts"
+    },
+    {
+      "method": "GET",
+      "path": "/system-mode",
+      "operationId": "getSystemMode",
+      "source": "src/modules/system-mode/api/routes.ts"
+    }
+  ],
+  "notClaimed": [
+    "getAppReleasePolicy",
+    "listCurrentCoursesForAdmin",
+    "getCurrentCourseForAdmin",
+    "allocateRosterImport",
+    "importOfficialRoster",
+    "listRosterSnapshots",
+    "getRosterSnapshot",
+    "listRosterFindings",
+    "resolveRosterFinding",
+    "revertCurrentRosterSnapshot",
+    "getOwnActiveExerciseSession",
+    "startExerciseSession",
+    "getExerciseSession",
+    "pauseExerciseSession",
+    "resumeExerciseSession",
+    "completeExerciseSession",
+    "allocateMediaAsset",
+    "finalizeMediaAsset",
+    "authorizeMediaDownload",
+    "getFirstMaterialEligibility",
+    "submitExerciseRecord",
+    "listRecordMaterials",
+    "getRecordMaterial",
+    "completeExerciseRecordMaterial",
+    "renewRecordUploadAuthorization",
+    "listOwnExerciseRecords",
+    "getOwnExerciseRecord",
+    "listCourseExerciseRecords",
+    "getCourseExerciseRecord",
+    "listTeacherReviewQueue",
+    "appendExerciseRecordReview",
+    "submitExerciseRecordSupplement",
+    "correctExerciseRecordReview",
+    "listExerciseRecordReviews",
+    "getOwnCourseProgress",
+    "getCourseMemberProgress",
+    "listCourseProgress",
+    "createStudentApplication",
+    "listOwnApplications",
+    "supplementStudentApplication",
+    "getOwnApplication",
+    "listCourseApplications",
+    "getCourseApplication",
+    "decideStudentApplication",
+    "adjustCertificationCredit",
+    "revokeCertificationCredit",
+    "getOwnEnduranceOutcome",
+    "getCourseMemberEnduranceOutcome",
+    "confirmEnduranceMeasurement",
+    "listEnduranceMeasurementHistory",
+    "listEnduranceRuleTables",
+    "getEnduranceRuleTable",
+    "reviseEnduranceRuleTable",
+    "listCourseFinalGrades",
+    "listFinalGradeHistory",
+    "publishFinalGrade",
+    "createFeedback",
+    "listOwnFeedback",
+    "getOwnFeedback",
+    "listFeedbackForAdmin",
+    "getFeedbackForAdmin",
+    "processFeedback",
+    "listPublishedHelpArticles",
+    "getPublishedHelpArticle",
+    "listHelpArticlesForAdmin",
+    "createHelpArticle",
+    "getHelpArticleForAdmin",
+    "updateHelpArticle",
+    "transitionHelpArticleState",
+    "listAuditEvents",
+    "getAuditEvent",
+    "requestAuditArchive",
+    "getAuditArchiveJob",
+    "authorizeAuditArchiveDownload",
+    "getStudentDashboard",
+    "getTeacherDashboard",
+    "getAdminDashboard",
+    "listCheckpointRecordCredits",
+    "prepareCourseSettlement",
+    "confirmCourseSettlement",
+    "listCourseSettlements",
+    "getCourseSettlement",
+    "listSettlementReportRows",
+    "listSemesterSettlementSummaries",
+    "allocateTeachingSource",
+    "finalizeTeachingSource",
+    "authorizeTeachingSourceDownload",
+    "createRosterBatch",
+    "listRosterBatches",
+    "getRosterBatch",
+    "listRosterDraftRows",
+    "resolveRosterDraftRow",
+    "createEnduranceBatch",
+    "listEnduranceBatches",
+    "getEnduranceBatch",
+    "listEnduranceDraftRows",
+    "resolveEnduranceDraftRow",
+    "publishRosterBatch",
+    "confirmEnduranceDraftRows",
+    "getAssessmentRosterProjection",
+    "listAssessmentRosterRows",
+    "requestAssessmentRosterExport",
+    "getAssessmentRosterExport",
+    "authorizeAssessmentRosterExportDownload",
+    "publishTechnicalServiceRevision",
+    "listTechnicalServiceRevisions",
+    "getTechnicalServiceRunStatus",
+    "openManualModeWindow",
+    "listManualModeWindows",
+    "closeManualModeWindow",
+    "listHistoricalFinalGradeRemarks"
+  ]
+}

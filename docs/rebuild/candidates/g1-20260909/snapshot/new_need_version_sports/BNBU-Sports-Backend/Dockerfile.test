@@ -1,0 +1,12 @@
+FROM node:24.19.0-bookworm-slim@sha256:a9f5f7c91a432850b2a8a7797adf5eadb6c733ceed61167806cee7ea7fbc29df
+WORKDIR /workspace
+COPY package.json package-lock.json ./
+COPY src/bootstrap/audit-dependencies.mjs /tmp/audit-dependencies.mjs
+RUN test "$(node --version)" = v24.19.0 && test "$(npm --version)" = 11.17.0 && npm ci --audit=false
+RUN node /tmp/audit-dependencies.mjs /build-audit/dependency-audit.json
+COPY --from=contract-input openapi.yaml /contract-input/openapi.yaml
+COPY --from=contract-input contract-metadata.json /contract-input/contract-metadata.json
+COPY --from=contract-input validation/step07_handoff/fixtures.json /contract-input/fixtures.json
+COPY . .
+ENV CONTRACT_INPUT=/contract-input
+CMD ["npm", "run", "verify:foundation"]

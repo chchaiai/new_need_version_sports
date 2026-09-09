@@ -1,0 +1,446 @@
+{
+  "checkedAt": "2026-09-09T08:26:01.459982+00:00",
+  "testFinishedAt": "2026-09-09T08:25:29.353Z",
+  "head": "f95c3833870fe0da55a297aa28c958ec53e9e935",
+  "technicalStatus": "FAIL",
+  "trackStatus": "PARTIAL",
+  "userDirection": "CONTINUE_INDEPENDENT_P7_Z_DEFER_H_INTEGRATION",
+  "sourceManifestCount": 124,
+  "sourceManifestAllMatched": true,
+  "publicV13Files": [
+    {
+      "path": "src/modules/academic-term/application/public/semesters.ts",
+      "sha256": "e08eb74c2a944a84ac935e8294a4cb8a235799fce2c89bf161a7cc4ccbbab905",
+      "unchanged": true
+    },
+    {
+      "path": "src/modules/audit/application/public/audit.ts",
+      "sha256": "2aa60ca003964414e2e11867fade5d0e70a97422d5a614ae9ee4c21200c452be",
+      "unchanged": true
+    },
+    {
+      "path": "src/modules/course-enrollment/application/ports/dependencies.ts",
+      "sha256": "9db5e3a7d3195a0b682c9b7954b153e77a96c8ba9ec68a837c09f2ef9813dfac",
+      "unchanged": true
+    },
+    {
+      "path": "src/modules/course-enrollment/application/public/courses.ts",
+      "sha256": "24592fd5d2bd0b088d441095b238453f0a7d855fd686768217fac786779b6cda",
+      "unchanged": true
+    },
+    {
+      "path": "src/modules/course-enrollment/application/public/session-admission.ts",
+      "sha256": "8b6921886430464a5f7804b43dac5e8cd12348de55044b097505f34d1f1112cc",
+      "unchanged": true
+    },
+    {
+      "path": "src/modules/course-enrollment/domain/course.ts",
+      "sha256": "457b1993a91f1528ffa93836c294c302df50eccd68ff1978d5e61589b1174167",
+      "unchanged": true
+    },
+    {
+      "path": "src/modules/course-enrollment/domain/publication-plan.ts",
+      "sha256": "9e580b56b6abb614f16168e85317bc378935010bd52426271128d6488daf5d20",
+      "unchanged": true
+    },
+    {
+      "path": "src/modules/identity-access/application/public/identity.ts",
+      "sha256": "d3864f18941718978345f33727eac31331ece22161c06b2cd655675ddd9115a3",
+      "unchanged": true
+    },
+    {
+      "path": "src/modules/identity-access/application/public/mode-governance.ts",
+      "sha256": "5df1950f4cc465f556dee5a4914b5789dee5057bc69889bf5edb96d39851669e",
+      "unchanged": true
+    },
+    {
+      "path": "src/modules/identity-access/application/public/student-owner-lock.ts",
+      "sha256": "5f360ed75c174a4125c9665e6adfc399436a3204a1231edf5c96df0ffb397e69",
+      "unchanged": true
+    },
+    {
+      "path": "src/modules/notification-center/application/public/mode-notifications.ts",
+      "sha256": "011c80d1be35add06f00b7ffd04b803ec2529f13253728bca07d4d7d78ce4197",
+      "unchanged": true
+    },
+    {
+      "path": "src/modules/notification-center/application/public/notifications.ts",
+      "sha256": "26597a40fb9d890ead8479a3a6aa8b87e9b591ff2a40b257b881864000997d61",
+      "unchanged": true
+    },
+    {
+      "path": "src/modules/system-mode/application/public/mode-timeline.ts",
+      "sha256": "e5554e92d7a9eac372fe3aea18fa0b8f48b3945416295e1d36652e4c942a9af7",
+      "unchanged": true
+    },
+    {
+      "path": "src/modules/system-mode/application/public/system-mode.ts",
+      "sha256": "c0c91c4c22e871b15790521d61c130c58233bab1be1a54d3881508673fa5e712",
+      "unchanged": true
+    },
+    {
+      "path": "src/shared/api/g1-error-policy.ts",
+      "sha256": "26489952f2aea6f9c2d9a3c8407d28d682eaaba59c7409f4f525448d5e1a7d7a",
+      "unchanged": true
+    },
+    {
+      "path": "src/shared/application/runtime.ts",
+      "sha256": "806e7aa685a16f550a7c7191500665a914b8502db949275fb09e81f2ebef65be",
+      "unchanged": true
+    },
+    {
+      "path": "src/shared/application/transactions/transaction-runner.ts",
+      "sha256": "fdf5185ffd00479eb83c540920a6210221fc7179867bd9df0e30fb3980a247a7",
+      "unchanged": true
+    },
+    {
+      "path": "src/shared/domain/failure.ts",
+      "sha256": "293ce3b8089edb6c2c89959da7f7f0bb5dce2d077d46171a6d4111c455b27076",
+      "unchanged": true
+    }
+  ],
+  "v13Migrations": [
+    {
+      "path": "migrations/1000_identity_access.sql",
+      "sha256": "e3c711627ec855020bcdb710f671d83494ba7367e2967da34ea107c7007d88b9",
+      "unchanged": true
+    },
+    {
+      "path": "migrations/1010_runtime_support.sql",
+      "sha256": "0f2d1ec929d3eca5798dd5cde215c699ca67e0b6221297214684f6e586513d93",
+      "unchanged": true
+    },
+    {
+      "path": "migrations/1020_academic_term.sql",
+      "sha256": "1c9e0f20596ff8b82fd8508690fdffc6cd88b3350cb395d21609a25d0493b3b7",
+      "unchanged": true
+    },
+    {
+      "path": "migrations/1030_course_enrollment.sql",
+      "sha256": "65a11d29871329bfff6be5df272fd57645dfed287ec8ce862e00ecf4da671e55",
+      "unchanged": true
+    },
+    {
+      "path": "migrations/1040_identity_integrity.sql",
+      "sha256": "898d70dc98d22daca6ce4e556461b17bd7b95e728eaf6537457ca6c817afc027",
+      "unchanged": true
+    },
+    {
+      "path": "migrations/1050_course_closure.sql",
+      "sha256": "71f8fa9e1c500f38173652d9949cd59844d7dfd4f36914d19beaa5246a7e2e77",
+      "unchanged": true
+    },
+    {
+      "path": "migrations/1060_session_reference_keys.sql",
+      "sha256": "e1411834c478b7ad400c486b8724b54b4cb9e21f92f4104bbba156b21732e2ba",
+      "unchanged": true
+    }
+  ],
+  "foundationFiles": [
+    {
+      "path": "BNBU-Sports-Backend/src/modules/applications-certification/api/certification-kind-mapper.ts",
+      "unchanged": true
+    },
+    {
+      "path": "BNBU-Sports-Backend/src/modules/applications-certification/application/certification-kind-probe.ts",
+      "unchanged": true
+    },
+    {
+      "path": "BNBU-Sports-Backend/src/modules/applications-certification/domain/certification-kind.ts",
+      "unchanged": true
+    },
+    {
+      "path": "BNBU-Sports-Backend/src/modules/applications-certification/infrastructure/persistence/certification-kind-mapper.ts",
+      "unchanged": true
+    },
+    {
+      "path": "BNBU-Sports-Backend/src/modules/applications-certification/infrastructure/persistence/repositories/postgres-certification-kind-repository.ts",
+      "unchanged": true
+    },
+    {
+      "path": "BNBU-Sports-Backend/src/modules/applications-certification/application/ports/certification-kind-repository.ts",
+      "unchanged": true
+    }
+  ],
+  "contractSha256": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+  "lockSha256": "4ee60feb03aa2cec5d71d572045936f7986ea2638efc8cba7363e04f4851e9af",
+  "tests": {
+    "contract": {
+      "total": 1003,
+      "passed": 1003,
+      "failed": 0,
+      "skipped": 0
+    },
+    "architecture": {
+      "total": 22,
+      "passed": 22,
+      "failed": 0,
+      "skipped": 0
+    },
+    "foundation": {
+      "total": 14,
+      "passed": 14,
+      "failed": 0,
+      "skipped": 0
+    },
+    "g1": {
+      "total": 121,
+      "passed": 117,
+      "failed": 4,
+      "skipped": 0
+    }
+  },
+  "totalTests": 1160,
+  "passed": 1156,
+  "failed": 4,
+  "skipped": 0,
+  "openFailures": [
+    {
+      "suite": "g1",
+      "name": "PENDING query-error Contract CR: invalid course limit and status must return a client error",
+      "failureMessages": [
+        "AssertionError: expected [ { input: 'limit=0', …(2) }, …(3) ] to deeply equal [ { input: 'limit=0', …(2) }, …(3) ]\n    at /workspace/tests/integration/g1/g1.test.ts:1649:23\n    at processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at file:///workspace/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:20"
+      ]
+    },
+    {
+      "suite": "g1",
+      "name": "PENDING query-error Contract CR: invalid member status must return a client error",
+      "failureMessages": [
+        "AssertionError: expected { status: 500, code: 'INTERNAL_ERROR' } to deeply equal { Object (status, code) }\n    at /workspace/tests/integration/g1/g1.test.ts:1654:63\n    at processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at file:///workspace/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:20"
+      ]
+    },
+    {
+      "suite": "g1",
+      "name": "PENDING query-error Contract CR: invalid notification read filter must return a client error",
+      "failureMessages": [
+        "AssertionError: expected { status: 500, code: 'INTERNAL_ERROR' } to deeply equal { Object (status, code) }\n    at /workspace/tests/integration/g1/g1.test.ts:1659:63\n    at processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at file:///workspace/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:20"
+      ]
+    },
+    {
+      "suite": "g1",
+      "name": "PENDING query-error Contract CR: invalid student-directory query must return a client error",
+      "failureMessages": [
+        "AssertionError: expected [ { status: 500, …(1) }, …(2) ] to deeply equal [ { status: 400, …(1) }, …(2) ]\n    at /workspace/tests/integration/g1/g1.test.ts:1665:27\n    at processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at file:///workspace/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:20"
+      ]
+    }
+  ],
+  "host": {
+    "project": "bnbu-p7-g1-z-20260909162449-68568",
+    "exitCode": 1,
+    "cleanupExitCode": 0,
+    "lastStage": "compose-build-and-verify"
+  },
+  "hTableRegistration": {
+    "state": "NINE_EXACT_OWNERS_REGISTERED_Z_REGRESSION_PASSED_H_ASSEMBLY_NOT_RUN",
+    "addedExactMappings": {
+      "exercise_session.session": "exercise-session",
+      "exercise_session.active_interval": "exercise-session",
+      "exercise_session.command_replay": "exercise-session",
+      "media_evidence.record_asset": "media-evidence",
+      "exercise_record.record": "exercise-record",
+      "exercise_record.first_material": "exercise-record",
+      "exercise_record.first_material_asset": "exercise-record",
+      "exercise_record.command_replay": "exercise-record",
+      "exercise_record.acceptance_outbox": "exercise-record"
+    },
+    "existingMappingsUnchanged": true,
+    "scannerImplementationBytesUnchanged": true,
+    "fixtureChecks": {
+      "ownerAllowed": 9,
+      "otherModulesRejected": 36,
+      "undeclaredAndForeignZRejected": 9
+    },
+    "fullHSourceArchitectureScan": "NOT_RUN_INTEGRATION_DEFERRED"
+  },
+  "newZTableOwner": {
+    "notification_center.command_replay": "notification-center"
+  },
+  "notClaimed": [
+    "AUTHORITATIVE_CALENDAR",
+    "H_SESSION_MEDIA_RECORD_INTEGRATION",
+    "HISTORICAL_STUDENT_CONTRACT_CR_CLOSURE",
+    "NONEMPTY_SEMESTER_SETTLEMENT_AND_ADMIN_RESPONSIBILITIES",
+    "G1_ACCEPTANCE",
+    "QUERY_VALIDATION_ERROR_CONTRACT_CR_CLOSURE"
+  ],
+  "changedInputsSincePreviousRun": [
+    "tests/architecture/architecture.test.ts",
+    "tests/architecture/rules.ts"
+  ],
+  "authReplayRegression": {
+    "beforeSource": "attempts/host-20260909151039-64002/vitest-g1.json",
+    "afterSource": "vitest-g1.json",
+    "fixed": [
+      {
+        "test": "student login exact replay checks current disabled state before returning credentials",
+        "before": "failed",
+        "after": "passed"
+      },
+      {
+        "test": "student login replay cannot present a logged-out or rotated pair as a new login",
+        "before": "failed",
+        "after": "passed"
+      },
+      {
+        "test": "password login replay rejects its revoked pair while a new command can log in",
+        "before": "failed",
+        "after": "passed"
+      },
+      {
+        "test": "login receipt expiry uses declared invalid-credential errors and never returns expired tokens",
+        "before": "failed",
+        "after": "passed"
+      },
+      {
+        "test": "refresh replay acquires its account before its receipt so closure can take locks in the same order",
+        "before": "failed",
+        "after": "passed"
+      }
+    ]
+  },
+  "previousRunSource": "attempts/host-20260909162449-68568/summary.json",
+  "invitationConcurrencyRegression": {
+    "beforeSource": "attempts/host-20260909152144-64794/vitest-g1.json",
+    "afterSource": "vitest-g1.json",
+    "fixed": [
+      {
+        "test": "invitation preview uses course-before-invitation locks and observes a committed revocation",
+        "before": "failed",
+        "after": "passed"
+      },
+      {
+        "test": "invitation new-flow uses course-before-invitation locks and observes a committed revocation",
+        "before": "failed",
+        "after": "passed"
+      },
+      {
+        "test": "invitation existing-flow uses course-before-invitation locks and observes a committed revocation",
+        "before": "failed",
+        "after": "passed"
+      },
+      {
+        "test": "invitation join uses course-before-invitation locks and observes a committed revocation",
+        "before": "failed",
+        "after": "passed"
+      }
+    ],
+    "scope": "Real HTTP requests and PostgreSQL row locks; a test-controlled SQL transaction commits revocation while each request waits for its course. This does not execute two production HTTP commands or H integration.",
+    "initialInvalidNonceFixture": "The initial new-flow fixture used a UUID instead of the Contract-required 64 lowercase hexadecimal characters. Corrected before the valid four-failure baseline; original report retained at attempts/host-20260909152024-64646/vitest-g1.json."
+  },
+  "queryValidationScopeClarification": {
+    "review": "H static protocol review relayed by user, 2026-09-09 15:27",
+    "clearAcceptanceInputs": [
+      "limit=0",
+      "limit=101",
+      "limit=2.5",
+      "status=ACTIVE (invalid course status)",
+      "status=INVALID (member)",
+      "read=maybe"
+    ],
+    "removedFromContractRequiredRejection": [
+      "limit=1e1",
+      "limit=2&limit=3"
+    ],
+    "remainingFailures": 4,
+    "parserChanged": false,
+    "contractChanged": false,
+    "sourceTest": "tests/integration/g1/g1.test.ts",
+    "newCandidateOperation": "listStudentAccounts",
+    "newCandidateNotIncludedInHReviewedTwelve": true
+  },
+  "hSourceReceipt": {
+    "manifestFilesMatched": 59,
+    "postgresAndHttpReportPassed": 44,
+    "nativeReportPassed": 92,
+    "locallyExecuted": false,
+    "receipt": "../../../../../coordination/incoming/H-consolidated-20260909-1620/intake-verification.json",
+    "originalZipReceived": false
+  },
+  "memberConcurrencyRegression": {
+    "beforeSource": "attempts/host-20260909154818-66403/vitest-g1.json",
+    "afterSource": "vitest-g1.json",
+    "fixed": [
+      {
+        "test": "member removal locks its student before the course",
+        "before": "failed",
+        "after": "passed"
+      },
+      {
+        "test": "member restoration locks its student before the course",
+        "before": "failed",
+        "after": "passed"
+      },
+      {
+        "test": "student read /student/course does not lock its enrollment before its course",
+        "before": "failed",
+        "after": "passed"
+      },
+      {
+        "test": "student read /student/makeup-authorizations does not lock its enrollment before its course",
+        "before": "failed",
+        "after": "passed"
+      },
+      {
+        "test": "course members projects students without locking a second account behind its course",
+        "before": "failed",
+        "after": "passed"
+      },
+      {
+        "test": "course impact projects students without locking a second account behind its course",
+        "before": "failed",
+        "after": "passed"
+      }
+    ],
+    "scope": "Real HTTP/PG row lock probes verify member mutation ordering, unlocked enrollment/semester discovery and nonlocking current-student display projection. Separate two-production-command restoration/join race also passes."
+  },
+  "registrationReplayRegression": {
+    "beforeSource": "attempts/host-20260909155528-66925/vitest-g1.json",
+    "afterSource": "vitest-g1.json",
+    "fixed": [
+      {
+        "test": "anonymous registration replay rejects credentials after logout",
+        "before": "failed",
+        "after": "passed"
+      },
+      {
+        "test": "anonymous registration replay rejects credentials after refresh",
+        "before": "failed",
+        "after": "passed"
+      },
+      {
+        "test": "anonymous registration replay rejects credentials after disable",
+        "before": "failed",
+        "after": "passed"
+      }
+    ],
+    "scope": "Real anonymous signup HTTP replay after logout, refresh and account disable; no stale token pair is returned."
+  },
+  "registeredOperations": 65,
+  "newInternalCapabilities": [
+    "identity-access/application/public/student-projection.ts",
+    "identity-access/application/public/registration-session.ts"
+  ],
+  "newCapabilitiesScope": "Root assembly capabilities only; existing v1.3 public signatures unchanged, H assembly still deferred.",
+  "testFixtureCorrections": [
+    "Student-directory fixtures use isolated organizations to satisfy the one-super-admin invariant and use the existing PUT password/profile endpoints and request schema.",
+    "The restore/join race accepts the operation-specific outcomes [200,409] or [409,201]; restoration returns 200, new enrollment returns 201. Both retain exactly one active enrollment and COURSE_ALREADY_JOINED on the loser."
+  ],
+  "currentRound": {
+    "scope": "H source receipt and two new table owner registrations only",
+    "productChanged": false,
+    "contractChanged": false,
+    "hAssemblyExecuted": false,
+    "scannerImplementationBytesUnchanged": true,
+    "beforeSnapshot": "P7-Z-A-backend-snapshot-20260909-1608.zip",
+    "changes": [
+      "exercise_record.command_replay -> exercise-record",
+      "exercise_record.acceptance_outbox -> exercise-record"
+    ],
+    "sourceDeltaFromHPrevious": {
+      "session": "16 unchanged",
+      "media": "6 unchanged + 1 added",
+      "record": "8 unchanged + 8 added",
+      "migrations": "4 unchanged + 1710 added"
+    }
+  }
+}
