@@ -1,0 +1,71 @@
+{
+  "version": "0.0.0",
+  "name": "bnbu-sports-backend",
+  "dependencies": {
+    "@types/node": {
+      "version": "24.13.3",
+      "resolved": "https://registry.npmjs.org/@types/node/-/node-24.13.3.tgz",
+      "overridden": false
+    },
+    "@types/pg": {
+      "version": "8.23.1",
+      "resolved": "https://registry.npmjs.org/@types/pg/-/pg-8.23.1.tgz",
+      "overridden": false
+    },
+    "@typescript-eslint/parser": {
+      "version": "8.70.0",
+      "resolved": "https://registry.npmjs.org/@typescript-eslint/parser/-/parser-8.70.0.tgz",
+      "overridden": false
+    },
+    "ajv-formats": {
+      "version": "3.0.1",
+      "resolved": "https://registry.npmjs.org/ajv-formats/-/ajv-formats-3.0.1.tgz",
+      "overridden": false
+    },
+    "ajv": {
+      "version": "8.17.1",
+      "resolved": "https://registry.npmjs.org/ajv/-/ajv-8.17.1.tgz",
+      "overridden": false
+    },
+    "eslint": {
+      "version": "9.39.4",
+      "resolved": "https://registry.npmjs.org/eslint/-/eslint-9.39.4.tgz",
+      "overridden": false
+    },
+    "fastify": {
+      "version": "5.6.1",
+      "resolved": "https://registry.npmjs.org/fastify/-/fastify-5.6.1.tgz",
+      "overridden": false
+    },
+    "node-pg-migrate": {
+      "version": "9.0.0",
+      "resolved": "https://registry.npmjs.org/node-pg-migrate/-/node-pg-migrate-9.0.0.tgz",
+      "overridden": false
+    },
+    "openapi-typescript": {
+      "version": "7.13.0",
+      "resolved": "https://registry.npmjs.org/openapi-typescript/-/openapi-typescript-7.13.0.tgz",
+      "overridden": false
+    },
+    "pg": {
+      "version": "8.16.3",
+      "resolved": "https://registry.npmjs.org/pg/-/pg-8.16.3.tgz",
+      "overridden": false
+    },
+    "typescript": {
+      "version": "5.9.3",
+      "resolved": "https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz",
+      "overridden": false
+    },
+    "vitest": {
+      "version": "3.2.4",
+      "resolved": "https://registry.npmjs.org/vitest/-/vitest-3.2.4.tgz",
+      "overridden": false
+    },
+    "yaml": {
+      "version": "2.8.1",
+      "resolved": "https://registry.npmjs.org/yaml/-/yaml-2.8.1.tgz",
+      "overridden": false
+    }
+  }
+}

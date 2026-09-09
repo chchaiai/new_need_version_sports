@@ -1,0 +1,228 @@
+{
+  "changes": [
+    {
+      "path": "",
+      "beforeVersion": "0.0.0",
+      "afterVersion": "0.0.0",
+      "change": "update"
+    },
+    {
+      "path": "node_modules/@fastify/fast-json-stringify-compiler/node_modules/fast-json-stringify",
+      "beforeVersion": "7.0.1",
+      "afterVersion": null,
+      "change": "remove"
+    },
+    {
+      "path": "node_modules/@fastify/fast-json-stringify-compiler/node_modules/fast-uri",
+      "beforeVersion": "4.1.4",
+      "afterVersion": null,
+      "change": "remove"
+    },
+    {
+      "path": "node_modules/@redocly/openapi-core/node_modules/js-yaml",
+      "beforeVersion": "4.3.1",
+      "afterVersion": null,
+      "change": "remove"
+    },
+    {
+      "path": "node_modules/@standard-schema/spec",
+      "beforeVersion": null,
+      "afterVersion": "1.1.0",
+      "change": "add"
+    },
+    {
+      "path": "node_modules/@vitest/expect",
+      "beforeVersion": "3.2.4",
+      "afterVersion": "4.1.11",
+      "change": "update"
+    },
+    {
+      "path": "node_modules/@vitest/mocker",
+      "beforeVersion": "3.2.4",
+      "afterVersion": "4.1.11",
+      "change": "update"
+    },
+    {
+      "path": "node_modules/@vitest/pretty-format",
+      "beforeVersion": "3.2.7",
+      "afterVersion": "4.1.11",
+      "change": "update"
+    },
+    {
+      "path": "node_modules/@vitest/runner",
+      "beforeVersion": "3.2.4",
+      "afterVersion": "4.1.11",
+      "change": "update"
+    },
+    {
+      "path": "node_modules/@vitest/snapshot",
+      "beforeVersion": "3.2.4",
+      "afterVersion": "4.1.11",
+      "change": "update"
+    },
+    {
+      "path": "node_modules/@vitest/snapshot/node_modules/@vitest/pretty-format",
+      "beforeVersion": "3.2.4",
+      "afterVersion": null,
+      "change": "remove"
+    },
+    {
+      "path": "node_modules/@vitest/spy",
+      "beforeVersion": "3.2.4",
+      "afterVersion": "4.1.11",
+      "change": "update"
+    },
+    {
+      "path": "node_modules/@vitest/utils",
+      "beforeVersion": "3.2.4",
+      "afterVersion": "4.1.11",
+      "change": "update"
+    },
+    {
+      "path": "node_modules/@vitest/utils/node_modules/@vitest/pretty-format",
+      "beforeVersion": "3.2.4",
+      "afterVersion": null,
+      "change": "remove"
+    },
+    {
+      "path": "node_modules/ajv",
+      "beforeVersion": "8.17.1",
+      "afterVersion": "8.20.0",
+      "change": "update"
+    },
+    {
+      "path": "node_modules/cac",
+      "beforeVersion": "6.7.14",
+      "afterVersion": null,
+      "change": "remove"
+    },
+    {
+      "path": "node_modules/chai",
+      "beforeVersion": "5.3.3",
+      "afterVersion": "6.2.2",
+      "change": "update"
+    },
+    {
+      "path": "node_modules/check-error",
+      "beforeVersion": "2.1.3",
+      "afterVersion": null,
+      "change": "remove"
+    },
+    {
+      "path": "node_modules/convert-source-map",
+      "beforeVersion": null,
+      "afterVersion": "2.0.0",
+      "change": "add"
+    },
+    {
+      "path": "node_modules/deep-eql",
+      "beforeVersion": "5.0.2",
+      "afterVersion": null,
+      "change": "remove"
+    },
+    {
+      "path": "node_modules/es-module-lexer",
+      "beforeVersion": "1.7.0",
+      "afterVersion": "2.3.2",
+      "change": "update"
+    },
+    {
+      "path": "node_modules/fast-json-stringify",
+      "beforeVersion": "6.4.0",
+      "afterVersion": "7.0.1",
+      "change": "update"
+    },
+    {
+      "path": "node_modules/fast-json-stringify/node_modules/fast-uri",
+      "beforeVersion": null,
+      "afterVersion": "4.1.4",
+      "change": "add"
+    },
+    {
+      "path": "node_modules/fastify",
+      "beforeVersion": "5.6.1",
+      "afterVersion": "5.12.3",
+      "change": "update"
+    },
+    {
+      "path": "node_modules/loupe",
+      "beforeVersion": "3.2.1",
+      "afterVersion": null,
+      "change": "remove"
+    },
+    {
+      "path": "node_modules/obug",
+      "beforeVersion": null,
+      "afterVersion": "2.1.4",
+      "change": "add"
+    },
+    {
+      "path": "node_modules/pathval",
+      "beforeVersion": "2.0.1",
+      "afterVersion": null,
+      "change": "remove"
+    },
+    {
+      "path": "node_modules/std-env",
+      "beforeVersion": "3.10.0",
+      "afterVersion": "4.2.0",
+      "change": "update"
+    },
+    {
+      "path": "node_modules/strip-literal",
+      "beforeVersion": "3.1.0",
+      "afterVersion": null,
+      "change": "remove"
+    },
+    {
+      "path": "node_modules/strip-literal/node_modules/js-tokens",
+      "beforeVersion": "9.0.1",
+      "afterVersion": null,
+      "change": "remove"
+    },
+    {
+      "path": "node_modules/tinyexec",
+      "beforeVersion": "0.3.2",
+      "afterVersion": "1.3.1",
+      "change": "update"
+    },
+    {
+      "path": "node_modules/tinypool",
+      "beforeVersion": "1.1.1",
+      "afterVersion": null,
+      "change": "remove"
+    },
+    {
+      "path": "node_modules/tinyrainbow",
+      "beforeVersion": "2.0.0",
+      "afterVersion": "3.1.1",
+      "change": "update"
+    },
+    {
+      "path": "node_modules/tinyspy",
+      "beforeVersion": "4.0.6",
+      "afterVersion": null,
+      "change": "remove"
+    },
+    {
+      "path": "node_modules/vite-node",
+      "beforeVersion": "3.2.4",
+      "afterVersion": null,
+      "change": "remove"
+    },
+    {
+      "path": "node_modules/vitest",
+      "beforeVersion": "3.2.4",
+      "afterVersion": "4.1.11",
+      "change": "update"
+    },
+    {
+      "path": "node_modules/yaml",
+      "beforeVersion": "2.8.1",
+      "afterVersion": "2.9.0",
+      "change": "update"
+    }
+  ],
+  "beforeSha256": "40ba05f0f91527784a619696c9435b74d65c8af085f2ac87e47ed8a530dac36e",
+  "afterSha256": "4ee60feb03aa2cec5d71d572045936f7986ea2638efc8cba7363e04f4851e9af"
+}

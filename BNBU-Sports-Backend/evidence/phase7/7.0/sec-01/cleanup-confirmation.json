@@ -1,0 +1,29 @@
+{
+  "project": "bnbu-p7-z0-20260909110640-50852",
+  "checkedAt": "2026-09-09T03:09:25.531369+00:00",
+  "results": [
+    {
+      "command": [
+        "docker",
+        "ps",
+        "-aq",
+        "--filter",
+        "label=com.docker.compose.project=bnbu-p7-z0-20260909110640-50852"
+      ],
+      "exitCode": 0,
+      "remainingIds": []
+    },
+    {
+      "command": [
+        "docker",
+        "network",
+        "ls",
+        "-q",
+        "--filter",
+        "label=com.docker.compose.project=bnbu-p7-z0-20260909110640-50852"
+      ],
+      "exitCode": 0,
+      "remainingIds": []
+    }
+  ]
+}

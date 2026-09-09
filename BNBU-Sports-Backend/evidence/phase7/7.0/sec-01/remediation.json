@@ -1,0 +1,160 @@
+{
+  "finding": "SEC-01",
+  "status": "IMPLEMENTED_PENDING_H_CLOSURE",
+  "createdAt": "2026-09-09T03:08:18.400106+00:00",
+  "reviewReceiptSha256": "4dac60367ad505726cfb85e3cfb3b96569058f718d6711e043426685460d66ab",
+  "baseCandidateZip": "phase7-z0-foundation-20260909.zip",
+  "baseCandidateZipSha256": "6696234ac772b2faaf2c9ec4f04108652643afd0c1091f957ed7bf574c77b912",
+  "directVersionChanges": {
+    "fastify": [
+      "5.6.1",
+      "5.12.3"
+    ],
+    "ajv": [
+      "8.17.1",
+      "8.20.0"
+    ],
+    "yaml": [
+      "2.8.1",
+      "2.9.0"
+    ],
+    "vitest": [
+      "3.2.4",
+      "4.1.11"
+    ]
+  },
+  "overrides": {
+    "@redocly/openapi-core@1.34.19": {
+      "js-yaml": "4.3.2"
+    },
+    "vitest@4.1.11": {
+      "vite": "7.3.6"
+    }
+  },
+  "auditBefore": {
+    "info": 0,
+    "low": 0,
+    "moderate": 3,
+    "high": 3,
+    "critical": 1,
+    "total": 7
+  },
+  "auditAfter": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 0
+  },
+  "unresolvedRegistryAdvisories": [],
+  "auditMeta": {
+    "recordedAt": "2026-09-09T03:06:49.072Z",
+    "command": [
+      "npm",
+      "audit",
+      "--json"
+    ],
+    "cwd": "/workspace",
+    "node": "v24.19.0",
+    "exitCode": 0,
+    "passed": true,
+    "lockfileSha256": "4ee60feb03aa2cec5d71d572045936f7986ea2638efc8cba7363e04f4851e9af",
+    "affectedPackageNodes": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    },
+    "error": null,
+    "scope": "npm registry known dependency advisories for this exact lockfile; not a whole-system security audit"
+  },
+  "testCounts": {
+    "contract": {
+      "total": 1003,
+      "passed": 1003,
+      "failed": 0
+    },
+    "architecture": {
+      "total": 18,
+      "passed": 18,
+      "failed": 0
+    },
+    "integration": {
+      "total": 14,
+      "passed": 14,
+      "failed": 0
+    }
+  },
+  "allOriginalAssertionsRetained": true,
+  "unchangedArtifacts": [
+    {
+      "path": "BNBU-Sports-Backend/migrations/0000_foundation.sql",
+      "sha256": "f057649481f2397ba9788babda8dc6ee7635667a85db33535d8fd04890c8cab6"
+    },
+    {
+      "path": "BNBU-Sports-Backend/src/modules/applications-certification/api/certification-kind-mapper.ts",
+      "sha256": "144f15426f25166e3e201b64d0907c1e28a7f18812d98c4fe23d6fbb5096a4ae"
+    },
+    {
+      "path": "BNBU-Sports-Backend/src/modules/applications-certification/application/certification-kind-probe.ts",
+      "sha256": "0e745fb2f7bc4b7d8294c8302bfdf53b491471b36031d9224d5374c9a1e35efd"
+    },
+    {
+      "path": "BNBU-Sports-Backend/src/modules/applications-certification/application/ports/certification-kind-repository.ts",
+      "sha256": "96d0a79c871a50a733fac8dcbd84cd49dbb07c9d6bc5b022bf60c3e020e1e6cc"
+    },
+    {
+      "path": "BNBU-Sports-Backend/src/modules/applications-certification/domain/certification-kind.ts",
+      "sha256": "4a3f548ee74359e0620ffe65a63aaeb0a5572ba87fe939a1f4d4e573999c72e7"
+    },
+    {
+      "path": "BNBU-Sports-Backend/src/modules/applications-certification/infrastructure/persistence/certification-kind-mapper.ts",
+      "sha256": "c5edfac4741bb3ffe55700960b9920a10928f2782025775086a32696b98c269b"
+    },
+    {
+      "path": "BNBU-Sports-Backend/src/modules/applications-certification/infrastructure/persistence/repositories/postgres-certification-kind-repository.ts",
+      "sha256": "d4c61100b0292d7e10c1aca6eb25b0c6137ee91925a386921036295c204d81c0"
+    },
+    {
+      "path": "BNBU-Sports-Backend/src/shared/api/contract.generated.ts",
+      "sha256": "6bfb86085bcf9636a51171885af08d4d4b0689c265d048f9541889b86205d451"
+    },
+    {
+      "path": "BNBU-Sports-Backend/tests/architecture/architecture.test.ts",
+      "sha256": "ee4f261369dae5f0d89261589e6c93518e992ad6cfc84020ff45e98e76069d15"
+    },
+    {
+      "path": "BNBU-Sports-Backend/tests/architecture/rules.ts",
+      "sha256": "5ed57cef096dda8bd2d431ff28a9c6064cd8884ad864f2d56317b4e34c2586d1"
+    },
+    {
+      "path": "BNBU-Sports-Backend/tests/contract/compatibility.test.ts",
+      "sha256": "a7067d0258aa1b80e070664ca51173214eb6e14f3359be87aaf7f882553ad81d"
+    },
+    {
+      "path": "BNBU-Sports-Backend/tests/contract/probe/api/mapper.ts",
+      "sha256": "45917d80d9508fc5dc2781ed3b3740c5dc5436e4b66098afea5af16786b88dba"
+    },
+    {
+      "path": "BNBU-Sports-Backend/tests/contract/probe/application/execute.ts",
+      "sha256": "d4739f527e409ea541c4fd8bca36f906a963e9b04ba0fc97b532890b310cc4cc"
+    },
+    {
+      "path": "BNBU-Sports-Backend/tests/contract/probe/domain/value.ts",
+      "sha256": "402ff72ad596c09ce7a4c3d939d9546c52791ce415595e0aef1b252ef761f1ff"
+    },
+    {
+      "path": "BNBU-Sports-Backend/tests/integration/foundation/foundation.test.ts",
+      "sha256": "ed4ef991c340ff7017fd573294256e1a5bef05f4ccea5a793573c1fcf56719a1"
+    }
+  ],
+  "sourceManifestSha256": "cb26b13e0724b110b1d0fad5093ab1e969b53c58bc9ccf868fab22e9d80abb77",
+  "baselineHead": "200ff07e22ff6e2e253d965765a498088af2463c",
+  "humanClosure": "PENDING",
+  "userAcceptance": "PENDING",
+  "githubOperations": "NOT_PERFORMED",
+  "scope": "Known dependency advisories only; no whole-system security certification"
+}

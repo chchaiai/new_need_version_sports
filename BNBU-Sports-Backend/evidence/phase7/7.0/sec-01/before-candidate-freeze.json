@@ -1,0 +1,450 @@
+{
+  "phase": "P7-Z-0",
+  "createdAt": "2026-09-09T02:36:11.679440+00:00",
+  "baselineHead": "200ff07e22ff6e2e253d965765a498088af2463c",
+  "branch": "main",
+  "entryGitStatus": "clean; see intake.json",
+  "deliveryGitStatus": "uncommitted approved candidate; not clean",
+  "localTechnicalStatus": "PASS",
+  "gateStatus": "PARTIAL / READY_FOR_TECHNICAL_REVIEW",
+  "humanReview": "PENDING_H_REVIEW",
+  "finalAcceptance": "PENDING_USER_ACCEPTANCE",
+  "sourceFilesCompared": 35,
+  "testedSourceManifestSha256": "3d25a04f1c00bbf7db0d46f826aad0071a9715d1478d0437557b9a3d8f58cf34",
+  "sourceMatchesTestedContainer": true,
+  "writeScopeValid": true,
+  "protectedTrackedPathsUnchanged": [
+    "contracts",
+    "docs/business",
+    "docs/architecture",
+    "docs/rebuild/STATUS.md",
+    "BNBU-ANDROID",
+    "BNBU-Sports-Web-new",
+    "infra",
+    ".github"
+  ],
+  "currentOpenApiAndRuleHashesMatched": true,
+  "hostEntryExitCode": 0,
+  "cleanupExitCode": 0,
+  "testCounts": {
+    "contract": {
+      "total": 1003,
+      "passed": 1003,
+      "failed": 0
+    },
+    "architecture": {
+      "total": 18,
+      "passed": 18,
+      "failed": 0
+    },
+    "integration": {
+      "total": 14,
+      "passed": 14,
+      "failed": 0
+    }
+  },
+  "secretHandling": "Only synthetic fixtures; no .env, token or actual connection password included; password generated per invocation in process environment.",
+  "files": [
+    {
+      "path": "BNBU-Sports-Backend/.dockerignore",
+      "sha256": "9cf2656000e343519ed84ac8f1ef8d0f19df7a37a1b27da6b59e3aba2992eb65",
+      "size": 44
+    },
+    {
+      "path": "BNBU-Sports-Backend/Dockerfile.test",
+      "sha256": "607927a583f5a6a6725e1914eb3da16e39a313484236b2e0c5806fdaa761b56d",
+      "size": 588
+    },
+    {
+      "path": "BNBU-Sports-Backend/README.md",
+      "sha256": "36078ca5a5b6ab714563c8f53e035b115f40fa8ff1c7c01c189bba9c78c244a7",
+      "size": 6790
+    },
+    {
+      "path": "BNBU-Sports-Backend/docker-compose.test.yml",
+      "sha256": "b20ab1753cccc42c768087beaca9b80d993b167ed00aef1a3a658c84a88b898a",
+      "size": 1106
+    },
+    {
+      "path": "BNBU-Sports-Backend/eslint.config.mjs",
+      "sha256": "cab0c5b7c851634e15f42b59e5811e09a11947dbb48809d2f2e95c8c9deb355a",
+      "size": 511
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/architecture.json",
+      "sha256": "52619cf5636a13b594ce841115630c45540bf6cac3f1a70efd612eeab699b66d",
+      "size": 1681
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/attempts/2026-09-09T02-28-24.580Z/container-versions.json",
+      "sha256": "21868ee0cb820be8ea194692324a8063a757036ba56404fe25b2976b0594d089",
+      "size": 663
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/attempts/2026-09-09T02-28-24.580Z/contract-check.log",
+      "sha256": "b6e74813dc1077c4649fffd116cc782234eb635403eef5a8a4db6b96d35e427d",
+      "size": 141
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/attempts/2026-09-09T02-28-24.580Z/lint.log",
+      "sha256": "7351e474f9c862577baa876743a623598d918a45ad7e33f7ee2fbdbe40f6fd5b",
+      "size": 514
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/attempts/2026-09-09T02-28-24.580Z/summary.json",
+      "sha256": "ef578eae642d000361d5f0e2f202eddd405ac5556813e54f4e538201941c0af4",
+      "size": 4004
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/attempts/2026-09-09T02-28-24.580Z/typecheck.log",
+      "sha256": "25e9ae9ced6e03b142d0e34c4a451b5af4287c8ef1b51f1ce44b2354a471ea66",
+      "size": 55
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/attempts/2026-09-09T02-33-37.105Z/architecture.json",
+      "sha256": "88cefbad830a05a0b12ff3915985f6ec19bf15ad768d48bfedd7dfb88f8f91e8",
+      "size": 1505
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/attempts/2026-09-09T02-33-37.105Z/compatibility-cases.json",
+      "sha256": "2e05ead1df4a675c66f2a9906c2d3fad658a2b4f934af2ee49c9454d1439fc4d",
+      "size": 275527
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/attempts/2026-09-09T02-33-37.105Z/container-versions.json",
+      "sha256": "21868ee0cb820be8ea194692324a8063a757036ba56404fe25b2976b0594d089",
+      "size": 663
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/attempts/2026-09-09T02-33-37.105Z/contract-check.log",
+      "sha256": "b6e74813dc1077c4649fffd116cc782234eb635403eef5a8a4db6b96d35e427d",
+      "size": 141
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/attempts/2026-09-09T02-33-37.105Z/lint.log",
+      "sha256": "fefd467a7c04f634668efd55f59d46ad76b11cda753b4a09ff72bcd459ecd4ac",
+      "size": 89
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/attempts/2026-09-09T02-33-37.105Z/summary.json",
+      "sha256": "db5af5b1747131b2f0f9a261b09b13ede15367e8b0b31a472aa50a8a7876fa7d",
+      "size": 58
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/attempts/2026-09-09T02-33-37.105Z/test-architecture.log",
+      "sha256": "4ec12a56edd6866844d53dbc54a38f5bb1d530c4f629c85d7ed4c498bb584f94",
+      "size": 233
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/attempts/2026-09-09T02-33-37.105Z/test-contract.log",
+      "sha256": "4d67d6fd78508b10808000c8c1b892f4f1bbecb65728dee5da56c53731b3f08b",
+      "size": 217
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/attempts/2026-09-09T02-33-37.105Z/test-integration.log",
+      "sha256": "ecb981c3845a0e737862539bacd093c313b3bc93bb4fe57ed6bdfe0b48995843",
+      "size": 240
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/attempts/2026-09-09T02-33-37.105Z/typecheck.log",
+      "sha256": "25e9ae9ced6e03b142d0e34c4a451b5af4287c8ef1b51f1ce44b2354a471ea66",
+      "size": 55
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/attempts/2026-09-09T02-33-37.105Z/vitest-architecture.json",
+      "sha256": "1edd00579657d4b49691f9b3fafdd3e0068791794801c612dfa2cdafd483a25a",
+      "size": 3369
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/attempts/2026-09-09T02-33-37.105Z/vitest-contract.json",
+      "sha256": "ddb06124b34140ce966da7ba1c0408b77867507b51b99c9f28d170ab896d6eac",
+      "size": 301211
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/attempts/2026-09-09T02-33-37.105Z/vitest-integration.json",
+      "sha256": "851a060dddc31268ec0031dcbfb7b6d1250f9108694da253b9efc2b4dc1e2ec3",
+      "size": 3555
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/attempts/host-20260909103334-49620/summary.json",
+      "sha256": "3d37bb3f9a60c6fa6c5fb160ae423c8e29e94d639da7309a00187e18bf325204",
+      "size": 5033
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/candidate-git-status.txt",
+      "sha256": "a638156f9ea30a5fd02f3f120e1207ca26d1447fe557f4d3c5506d3288e018fb",
+      "size": 4048
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/compatibility-cases.json",
+      "sha256": "2e05ead1df4a675c66f2a9906c2d3fad658a2b4f934af2ee49c9454d1439fc4d",
+      "size": 275527
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/container-versions.json",
+      "sha256": "21868ee0cb820be8ea194692324a8063a757036ba56404fe25b2976b0594d089",
+      "size": 663
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/contract-check.log",
+      "sha256": "b6e74813dc1077c4649fffd116cc782234eb635403eef5a8a4db6b96d35e427d",
+      "size": 141
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/delivery-git-status.txt",
+      "sha256": "bba119816a11bd5cd081353411affcc2f335d3c62c86e64bedc6378cdd1b64d7",
+      "size": 5679
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/dependency-audit.json",
+      "sha256": "0c115f56264c6806d7bdc025670bc76dec1ddb62714d3fd341c5961180e00715",
+      "size": 8786
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/dependency-versions.json",
+      "sha256": "1b1bb524a88ae6b614d05feab921576dc18ed4f6af5b46ffe6c41094e2394072",
+      "size": 2149
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/host-compose-version.txt",
+      "sha256": "e7550973b2ff3e9fa73604ad19f926e406b5e7153c2628a7b9d8f489884c6aac",
+      "size": 30
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/host-docker.json",
+      "sha256": "b2fe4ae2d4a29b8c1ff54c015bfd48a9149d5ddb2b8f10346acea7d31a8c14ad",
+      "size": 1110
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/host-entry.json",
+      "sha256": "8008edc72ccfbbcb1401516964bd07a8b59c02a57318468fb89b7e9121e7d87a",
+      "size": 102
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/host-images.json",
+      "sha256": "e12f20c82a7e57e0f7cd6a4547d91066e6d33bdd83f4296412cbbc4db4c369a3",
+      "size": 494
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/intake.json",
+      "sha256": "44257618758edd7c845b5f483917c91d9b5e8bd509e9d066b9d285a54665de13",
+      "size": 1439
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/lint.log",
+      "sha256": "fefd467a7c04f634668efd55f59d46ad76b11cda753b4a09ff72bcd459ecd4ac",
+      "size": 89
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/postgres-pre.json",
+      "sha256": "5e776c17c536dc4c29457748d437977d325a7b7be96455c51a9116f078e9a98a",
+      "size": 524
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/postgres-runtime.json",
+      "sha256": "8219f2bca87871adc6b6e84559003669de7e46704ecb2909167d5b161299472a",
+      "size": 201
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/source-manifest.json",
+      "sha256": "3d25a04f1c00bbf7db0d46f826aad0071a9715d1478d0437557b9a3d8f58cf34",
+      "size": 5049
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/summary.json",
+      "sha256": "b3a7592ec2c2ff8adb1b39293eb8b826843f0754c6895308a90850da63be1c51",
+      "size": 7500
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/test-architecture.log",
+      "sha256": "4ec12a56edd6866844d53dbc54a38f5bb1d530c4f629c85d7ed4c498bb584f94",
+      "size": 233
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/test-contract.log",
+      "sha256": "4d67d6fd78508b10808000c8c1b892f4f1bbecb65728dee5da56c53731b3f08b",
+      "size": 217
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/test-integration.log",
+      "sha256": "ecb981c3845a0e737862539bacd093c313b3bc93bb4fe57ed6bdfe0b48995843",
+      "size": 240
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/typecheck.log",
+      "sha256": "25e9ae9ced6e03b142d0e34c4a451b5af4287c8ef1b51f1ce44b2354a471ea66",
+      "size": 55
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/vitest-architecture.json",
+      "sha256": "5096e6b0c1f41e42cbf1d0a14c94cbb3948e78a1621cc8f3ae28a4524cefa09b",
+      "size": 4832
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/vitest-contract.json",
+      "sha256": "f269e4b0cff2a33950d9cd0314db75fcd390dd59d8cf2b2b7c5bb8b75476fb58",
+      "size": 301234
+    },
+    {
+      "path": "BNBU-Sports-Backend/evidence/phase7/7.0/vitest-integration.json",
+      "sha256": "5e19d7524e42e475f433fb9c3cb80f24ef84617a88c0adc60a94c4d64b121f11",
+      "size": 4054
+    },
+    {
+      "path": "BNBU-Sports-Backend/migrations/0000_foundation.sql",
+      "sha256": "f057649481f2397ba9788babda8dc6ee7635667a85db33535d8fd04890c8cab6",
+      "size": 404
+    },
+    {
+      "path": "BNBU-Sports-Backend/package-lock.json",
+      "sha256": "40ba05f0f91527784a619696c9435b74d65c8af085f2ac87e47ed8a530dac36e",
+      "size": 153580
+    },
+    {
+      "path": "BNBU-Sports-Backend/package.json",
+      "sha256": "94d45a748114e2c899591abf30bfb1452b1172e98241d40c9dcce45820e186c1",
+      "size": 1345
+    },
+    {
+      "path": "BNBU-Sports-Backend/src/bootstrap/config.ts",
+      "sha256": "854ba8e990f977b4b1f3d5bd9a8e5f33a5727269e2ccec6669b5c1a9ad7aeed0",
+      "size": 1033
+    },
+    {
+      "path": "BNBU-Sports-Backend/src/bootstrap/contract-input.mjs",
+      "sha256": "802e216c9d9c4297fcf9c0a54dd99174f8024a0e6298cc7ca77a5eff3f337cc5",
+      "size": 1489
+    },
+    {
+      "path": "BNBU-Sports-Backend/src/bootstrap/generate-contract.mjs",
+      "sha256": "b08d61dabb9aefe93051bbaeb0bbe3a5bf54af740c0213b3464986c33046b55c",
+      "size": 793
+    },
+    {
+      "path": "BNBU-Sports-Backend/src/bootstrap/main.ts",
+      "sha256": "0cab2065e1b129ac20b1bd3537bbd8af1e558e0d6bed2b183ae5e1ac0b7c72f4",
+      "size": 725
+    },
+    {
+      "path": "BNBU-Sports-Backend/src/bootstrap/migrate.ts",
+      "sha256": "947dacf1a72dbfd488ba54334c2b32f8b9957d9eb0a9302b2b9db96f945a627e",
+      "size": 791
+    },
+    {
+      "path": "BNBU-Sports-Backend/src/bootstrap/run-foundation.sh",
+      "sha256": "2bce862092c91835f92491b8e4ad5686f91b86dc57f5159cc62eb9fa0374e1b0",
+      "size": 4404
+    },
+    {
+      "path": "BNBU-Sports-Backend/src/bootstrap/server.ts",
+      "sha256": "dca8f904eb291da73a6fa0be2a201d0f87e73ec19ba84635d95fd5c8c860eddd",
+      "size": 690
+    },
+    {
+      "path": "BNBU-Sports-Backend/src/bootstrap/verify-foundation.mjs",
+      "sha256": "3ed110e63b54a61b351f4d38f977103a85bf55cac7e52a090a4075a0db919c2e",
+      "size": 7127
+    },
+    {
+      "path": "BNBU-Sports-Backend/src/modules/applications-certification/api/certification-kind-mapper.ts",
+      "sha256": "144f15426f25166e3e201b64d0907c1e28a7f18812d98c4fe23d6fbb5096a4ae",
+      "size": 1126
+    },
+    {
+      "path": "BNBU-Sports-Backend/src/modules/applications-certification/application/certification-kind-probe.ts",
+      "sha256": "0e745fb2f7bc4b7d8294c8302bfdf53b491471b36031d9224d5374c9a1e35efd",
+      "size": 1311
+    },
+    {
+      "path": "BNBU-Sports-Backend/src/modules/applications-certification/application/ports/certification-kind-repository.ts",
+      "sha256": "96d0a79c871a50a733fac8dcbd84cd49dbb07c9d6bc5b022bf60c3e020e1e6cc",
+      "size": 378
+    },
+    {
+      "path": "BNBU-Sports-Backend/src/modules/applications-certification/domain/certification-kind.ts",
+      "sha256": "4a3f548ee74359e0620ffe65a63aaeb0a5572ba87fe939a1f4d4e573999c72e7",
+      "size": 454
+    },
+    {
+      "path": "BNBU-Sports-Backend/src/modules/applications-certification/infrastructure/persistence/certification-kind-mapper.ts",
+      "sha256": "c5edfac4741bb3ffe55700960b9920a10928f2782025775086a32696b98c269b",
+      "size": 489
+    },
+    {
+      "path": "BNBU-Sports-Backend/src/modules/applications-certification/infrastructure/persistence/repositories/postgres-certification-kind-repository.ts",
+      "sha256": "d4c61100b0292d7e10c1aca6eb25b0c6137ee91925a386921036295c204d81c0",
+      "size": 1556
+    },
+    {
+      "path": "BNBU-Sports-Backend/src/shared/api/contract-validator.ts",
+      "sha256": "6067e83b39f9075a89de068685a629f16bd634569bc3b3dc6c10b61b45d9de0a",
+      "size": 1386
+    },
+    {
+      "path": "BNBU-Sports-Backend/src/shared/api/contract.generated.ts",
+      "sha256": "6bfb86085bcf9636a51171885af08d4d4b0689c265d048f9541889b86205d451",
+      "size": 677284
+    },
+    {
+      "path": "BNBU-Sports-Backend/src/shared/application/transactions/transaction-runner.ts",
+      "sha256": "fdf5185ffd00479eb83c540920a6210221fc7179867bd9df0e30fb3980a247a7",
+      "size": 487
+    },
+    {
+      "path": "BNBU-Sports-Backend/src/shared/infrastructure/postgres.ts",
+      "sha256": "aa7a33a5e273a1e4d936e48c794233242224bc9474edc2eef510d15cb237c5ab",
+      "size": 1614
+    },
+    {
+      "path": "BNBU-Sports-Backend/tests/architecture/architecture.test.ts",
+      "sha256": "ee4f261369dae5f0d89261589e6c93518e992ad6cfc84020ff45e98e76069d15",
+      "size": 4111
+    },
+    {
+      "path": "BNBU-Sports-Backend/tests/architecture/rules.ts",
+      "sha256": "5ed57cef096dda8bd2d431ff28a9c6064cd8884ad864f2d56317b4e34c2586d1",
+      "size": 5625
+    },
+    {
+      "path": "BNBU-Sports-Backend/tests/contract/compatibility.test.ts",
+      "sha256": "a7067d0258aa1b80e070664ca51173214eb6e14f3359be87aaf7f882553ad81d",
+      "size": 4383
+    },
+    {
+      "path": "BNBU-Sports-Backend/tests/contract/probe/api/mapper.ts",
+      "sha256": "45917d80d9508fc5dc2781ed3b3740c5dc5436e4b66098afea5af16786b88dba",
+      "size": 3922
+    },
+    {
+      "path": "BNBU-Sports-Backend/tests/contract/probe/application/execute.ts",
+      "sha256": "d4739f527e409ea541c4fd8bca36f906a963e9b04ba0fc97b532890b310cc4cc",
+      "size": 718
+    },
+    {
+      "path": "BNBU-Sports-Backend/tests/contract/probe/domain/value.ts",
+      "sha256": "402ff72ad596c09ce7a4c3d939d9546c52791ce415595e0aef1b252ef761f1ff",
+      "size": 1389
+    },
+    {
+      "path": "BNBU-Sports-Backend/tests/integration/foundation/foundation.test.ts",
+      "sha256": "ed4ef991c340ff7017fd573294256e1a5bef05f4ccea5a793573c1fcf56719a1",
+      "size": 9480
+    },
+    {
+      "path": "BNBU-Sports-Backend/tsconfig.json",
+      "sha256": "98007dfe92f5cba6811f53a8de394f5e81aee5d4932ff22e10772c2a5eb97a64",
+      "size": 445
+    },
+    {
+      "path": "BNBU-Sports-Backend/vitest.config.ts",
+      "sha256": "1a9010043a943dc7d0ff8cdd9cb08ce7b6f5e6d399778f193eaf33625c908f4d",
+      "size": 218
+    },
+    {
+      "path": "docs/rebuild/handoffs/new-req-phase-7-0-foundation.md",
+      "sha256": "09f723d5a5ddb114f237dc124ec804094cf0f9926f0ea51f7af85ba52e41265b",
+      "size": 13469
+    }
+  ],
+  "selfHashExcluded": true
+}

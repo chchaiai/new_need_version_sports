@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "ES2023", "module": "NodeNext", "moduleResolution": "NodeNext",
+    "strict": true, "noEmit": true, "allowImportingTsExtensions": true, "allowJs": true,
+    "verbatimModuleSyntax": true, "exactOptionalPropertyTypes": true,
+    "noUncheckedIndexedAccess": true, "skipLibCheck": true,
+    "types": ["node"], "erasableSyntaxOnly": true
+  },
+  "include": ["src/**/*.ts", "tests/**/*.ts", "vitest.config.ts"]
+}
