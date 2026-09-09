@@ -1,0 +1,22 @@
+{
+  "state": "NINE_EXACT_OWNERS_REGISTERED_Z_REGRESSION_PASSED_H_ASSEMBLY_NOT_RUN",
+  "addedExactMappings": {
+    "exercise_session.session": "exercise-session",
+    "exercise_session.active_interval": "exercise-session",
+    "exercise_session.command_replay": "exercise-session",
+    "media_evidence.record_asset": "media-evidence",
+    "exercise_record.record": "exercise-record",
+    "exercise_record.first_material": "exercise-record",
+    "exercise_record.first_material_asset": "exercise-record",
+    "exercise_record.command_replay": "exercise-record",
+    "exercise_record.acceptance_outbox": "exercise-record"
+  },
+  "existingMappingsUnchanged": true,
+  "scannerImplementationBytesUnchanged": true,
+  "fixtureChecks": {
+    "ownerAllowed": 9,
+    "otherModulesRejected": 36,
+    "undeclaredAndForeignZRejected": 9
+  },
+  "fullHSourceArchitectureScan": "NOT_RUN_INTEGRATION_DEFERRED"
+}

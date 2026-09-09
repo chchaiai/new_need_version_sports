@@ -1,0 +1,1 @@
+export const FIXED_RULE_FAMILY = Object.freeze({ status: 'PUBLISHED' as const, totalTargetMinutes: 1200, thresholdChoices: Object.freeze([30, 45, 60] as const), defaultThresholdMinutes: 30, singleRecordCapMinutes: 60, dailyCountLimit: 1, weeklyCountChoices: Object.freeze([2, 3, 4] as const), defaultWeeklyCountLimit: 3, formulaVersion: 'P4Z-A-08-v1' });

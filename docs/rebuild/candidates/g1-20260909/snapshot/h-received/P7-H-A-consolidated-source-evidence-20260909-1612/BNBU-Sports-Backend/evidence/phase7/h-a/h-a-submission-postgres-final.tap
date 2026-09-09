@@ -1,0 +1,274 @@
+TAP version 13
+# Subtest: H migration down/up and nullable ordinary FK: real insert/read preserves Shanghai date
+ok 1 - H migration down/up and nullable ordinary FK: real insert/read preserves Shanghai date
+  ---
+  duration_ms: 88.247911
+  type: 'test'
+  ...
+# Subtest: real pause/resume/complete accumulates milliseconds and preserves original date
+ok 2 - real pause/resume/complete accumulates milliseconds and preserves original date
+  ---
+  duration_ms: 10.503803
+  type: 'test'
+  ...
+# Subtest: composite enrollment and rule keys reject mixed identities
+ok 3 - composite enrollment and rule keys reject mixed identities
+  ---
+  duration_ms: 4.26332
+  type: 'test'
+  ...
+# Subtest: two actual competing starts produce exactly one durable active session
+ok 4 - two actual competing starts produce exactly one durable active session
+  ---
+  duration_ms: 4.555562
+  type: 'test'
+  ...
+# Subtest: subsequent audit failure rolls back inserted Session and interval together
+ok 5 - subsequent audit failure rolls back inserted Session and interval together
+  ---
+  duration_ms: 3.297545
+  type: 'test'
+  ...
+# Subtest: active deletion blocker uses same transaction; stale version leaves timing unchanged
+ok 6 - active deletion blocker uses same transaction; stale version leaves timing unchanged
+  ---
+  duration_ms: 5.426687
+  type: 'test'
+  ...
+# Subtest: scope cannot be used after transaction end and cross-org read has no facts
+ok 7 - scope cannot be used after transaction end and cross-org read has no facts
+  ---
+  duration_ms: 3.190795
+  type: 'test'
+  ...
+# Subtest: direct SQL cannot rewrite original identity or duration; incomplete interval set cannot commit
+ok 8 - direct SQL cannot rewrite original identity or duration; incomplete interval set cannot commit
+  ---
+  duration_ms: 5.202954
+  type: 'test'
+  ...
+# Subtest: paused completion excludes pause; settled timing remains immutable
+ok 9 - paused completion excludes pause; settled timing remains immutable
+  ---
+  duration_ms: 6.125338
+  type: 'test'
+  ...
+# Subtest: subject closure and waiting start serialize even before any Session exists
+ok 10 - subject closure and waiting start serialize even before any Session exists
+  ---
+  duration_ms: 10.116822
+  type: 'test'
+  ...
+# Subtest: Record concurrent same-key accepts exactly one immutable receipt/audit/outbox
+ok 11 - Record concurrent same-key accepts exactly one immutable receipt/audit/outbox
+  ---
+  duration_ms: 17.278005
+  type: 'test'
+  ...
+# Subtest: Record replay normalizes UUID/description and survives maintenance but not lost identity
+ok 12 - Record replay normalizes UUID/description and survives maintenance but not lost identity
+  ---
+  duration_ms: 10.83805
+  type: 'test'
+  ...
+# Subtest: Record audit and outbox SQL failures roll back record, members and replay
+ok 13 - Record audit and outbox SQL failures roll back record, members and replay
+  ---
+  duration_ms: 23.617915
+  type: 'test'
+  ...
+# Subtest: Record command rejects stale session, wrong activity, cross-owner media and deadline equality
+ok 14 - Record command rejects stale session, wrong activity, cross-owner media and deadline equality
+  ---
+  duration_ms: 15.82858
+  type: 'test'
+  ...
+# Subtest: Record verified acceptance retains transfer microseconds; checksum mismatch never commits
+ok 15 - Record verified acceptance retains transfer microseconds; checksum mismatch never commits
+  ---
+  duration_ms: 13.59601
+  type: 'test'
+  ...
+# Subtest: Record real HTTP accepts frozen Contract request and immutable 201 response
+ok 16 - Record real HTTP accepts frozen Contract request and immutable 201 response
+  ---
+  duration_ms: 291.517385
+  type: 'test'
+  ...
+# Subtest: Record offline route requires both verified phases, no continuation deadline and atomic binding
+ok 17 - Record offline route requires both verified phases, no continuation deadline and atomic binding
+  ---
+  duration_ms: 212.522788
+  type: 'test'
+  ...
+# Subtest: application start replay is encrypted, byte-stable and does not reapply expired admission
+ok 18 - application start replay is encrypted, byte-stable and does not reapply expired admission
+  ---
+  duration_ms: 6.07493
+  type: 'test'
+  ...
+# Subtest: application concurrent identical commands commit once and return identical result
+ok 19 - application concurrent identical commands commit once and return identical result
+  ---
+  duration_ms: 5.067577
+  type: 'test'
+  ...
+# Subtest: changed command with same key is rejected and live identity is checked before replay
+ok 20 - changed command with same key is rejected and live identity is checked before replay
+  ---
+  duration_ms: 7.545495
+  type: 'test'
+  ...
+# Subtest: real audit FK failure rolls back Session, intervals and replay; same command can then succeed
+ok 21 - real audit FK failure rolls back Session, intervals and replay; same command can then succeed
+  ---
+  duration_ms: 8.708397
+  type: 'test'
+  ...
+# Subtest: application transitions use original chain; replay cannot add time or repeat audit
+ok 22 - application transitions use original chain; replay cannot add time or repeat audit
+  ---
+  duration_ms: 7.164067
+  type: 'test'
+  ...
+# Subtest: real HTTP -> module routes -> application -> PostgreSQL follows frozen request/response Contract
+ok 23 - real HTTP -> module routes -> application -> PostgreSQL follows frozen request/response Contract
+  ---
+  duration_ms: 212.264693
+  type: 'test'
+  ...
+# Subtest: first manifest locks ALLOCATED assets without claiming their technical readiness
+ok 24 - first manifest locks ALLOCATED assets without claiming their technical readiness
+  ---
+  duration_ms: 5.837115
+  type: 'test'
+  ...
+# Subtest: record cannot refer to ACTIVE Session or take a second first receipt
+ok 25 - record cannot refer to ACTIVE Session or take a second first receipt
+  ---
+  duration_ms: 4.043445
+  type: 'test'
+  ...
+# Subtest: locked manifest cannot gain new members after acceptance, nor rewrite original links
+ok 26 - locked manifest cannot gain new members after acceptance, nor rewrite original links
+  ---
+  duration_ms: 18.05571
+  type: 'test'
+  ...
+# Subtest: material rejects cross-owner asset and empty/missing membership cannot commit
+ok 27 - material rejects cross-owner asset and empty/missing membership cannot commit
+  ---
+  duration_ms: 13.468543
+  type: 'test'
+  ...
+# Subtest: authoritative transfer microseconds retained; invalid video cannot become VERIFIED
+ok 28 - authoritative transfer microseconds retained; invalid video cannot become VERIFIED
+  ---
+  duration_ms: 6.362801
+  type: 'test'
+  ...
+# Subtest: verified object identity is immutable and binding must reference same Record owner/session
+ok 29 - verified object identity is immutable and binding must reference same Record owner/session
+  ---
+  duration_ms: 15.525011
+  type: 'test'
+  ...
+# Subtest: media repository preserves exact completion and verified facts through binding and replay
+ok 30 - media repository preserves exact completion and verified facts through binding and replay
+  ---
+  duration_ms: 14.149977
+  type: 'test'
+  ...
+# Subtest: media repository denies wrong owner, duplicate identifiers and stale object inspections
+ok 31 - media repository denies wrong owner, duplicate identifiers and stale object inspections
+  ---
+  duration_ms: 9.709271
+  type: 'test'
+  ...
+# Subtest: media batch binding rolls back earlier updates if any locked member is not ready
+ok 32 - media batch binding rolls back earlier updates if any locked member is not ready
+  ---
+  duration_ms: 6.92216
+  type: 'test'
+  ...
+# Subtest: record repository persists exact receipt and ordered immutable asset set
+ok 33 - record repository persists exact receipt and ordered immutable asset set
+  ---
+  duration_ms: 6.220592
+  type: 'test'
+  ...
+# Subtest: record repository rejects reordered batch before writes and cannot renew first acceptance
+ok 34 - record repository rejects reordered batch before writes and cannot renew first acceptance
+  ---
+  duration_ms: 6.26347
+  type: 'test'
+  ...
+# Subtest: record repository and media binding participate in the same rollback boundary
+ok 35 - record repository and media binding participate in the same rollback boundary
+  ---
+  duration_ms: 6.428494
+  type: 'test'
+  ...
+# Subtest: transfer application uses authoritative completion rather than later request time or content readiness
+ok 36 - transfer application uses authoritative completion rather than later request time or content readiness
+  ---
+  duration_ms: 9.028577
+  type: 'test'
+  ...
+# Subtest: transfer application rejects exact deadline, foreign owner and a substituted batch
+ok 37 - transfer application rejects exact deadline, foreign owner and a substituted batch
+  ---
+  duration_ms: 7.58002
+  type: 'test'
+  ...
+# Subtest: offline timing receipt persists null continuation and requires pre-acceptance inspection facts
+ok 38 - offline timing receipt persists null continuation and requires pre-acceptance inspection facts
+  ---
+  duration_ms: 7.015223
+  type: 'test'
+  ...
+# Subtest: database disallows offline continuation deadlines and null ordinary deadlines
+ok 39 - database disallows offline continuation deadlines and null ordinary deadlines
+  ---
+  duration_ms: 12.991142
+  type: 'test'
+  ...
+# Subtest: declared checksum is immutable and different inspected content cannot become a ready material
+ok 40 - declared checksum is immutable and different inspected content cannot become a ready material
+  ---
+  duration_ms: 13.051115
+  type: 'test'
+  ...
+# Subtest: noncontiguous Contract positions persist without renumbering; input array order is canonicalized
+ok 41 - noncontiguous Contract positions persist without renumbering; input array order is canonicalized
+  ---
+  duration_ms: 11.215392
+  type: 'test'
+  ...
+# Subtest: maintenance permits exact committed start/transition replay but forbids a new command
+ok 42 - maintenance permits exact committed start/transition replay but forbids a new command
+  ---
+  duration_ms: 8.700004
+  type: 'test'
+  ...
+# Subtest: session query allows original owner and completed responsible-teacher projection only
+ok 43 - session query allows original owner and completed responsible-teacher projection only
+  ---
+  duration_ms: 7.077334
+  type: 'test'
+  ...
+# Subtest: real query HTTP response validates frozen Contract and does not require an idempotency key
+ok 44 - real query HTTP response validates frozen Contract and does not require an idempotency key
+  ---
+  duration_ms: 167.44479
+  type: 'test'
+  ...
+1..44
+# tests 44
+# suites 0
+# pass 44
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1483.007342

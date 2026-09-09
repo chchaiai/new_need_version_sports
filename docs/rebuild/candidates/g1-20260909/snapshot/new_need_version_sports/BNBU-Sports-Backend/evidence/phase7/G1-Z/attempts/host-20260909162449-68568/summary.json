@@ -1,0 +1,636 @@
+{
+  "technicalStatus": "FAIL",
+  "trackStatus": "IN_PROGRESS",
+  "gateStatus": "NOT_INTEGRATED_WITH_H",
+  "startedAt": "2026-09-09T08:03:57.296Z",
+  "node": "v24.19.0",
+  "architecture": "arm64",
+  "steps": [
+    {
+      "name": "versions",
+      "command": [
+        "npm",
+        "ls",
+        "--depth=0"
+      ],
+      "cwd": "/workspace",
+      "exitCode": 0
+    },
+    {
+      "name": "codegen",
+      "command": [
+        "npm",
+        "run",
+        "contract:check"
+      ],
+      "cwd": "/workspace",
+      "exitCode": 0
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "cwd": "/workspace",
+      "exitCode": 0
+    },
+    {
+      "name": "lint",
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "cwd": "/workspace",
+      "exitCode": 0
+    },
+    {
+      "name": "contract",
+      "command": [
+        "npx",
+        "--no-install",
+        "vitest",
+        "run",
+        "tests/contract",
+        "--reporter=json",
+        "--outputFile=evidence/phase7/G1-Z/vitest-contract.json"
+      ],
+      "cwd": "/workspace",
+      "exitCode": 0
+    },
+    {
+      "name": "architecture",
+      "command": [
+        "npx",
+        "--no-install",
+        "vitest",
+        "run",
+        "tests/architecture",
+        "--reporter=json",
+        "--outputFile=evidence/phase7/G1-Z/vitest-architecture.json"
+      ],
+      "cwd": "/workspace",
+      "exitCode": 0
+    },
+    {
+      "name": "foundation",
+      "command": [
+        "npx",
+        "--no-install",
+        "vitest",
+        "run",
+        "tests/integration/foundation",
+        "--reporter=json",
+        "--outputFile=evidence/phase7/G1-Z/vitest-foundation.json"
+      ],
+      "cwd": "/workspace",
+      "exitCode": 0
+    },
+    {
+      "name": "g1",
+      "command": [
+        "npx",
+        "--no-install",
+        "vitest",
+        "run",
+        "tests/integration/g1",
+        "tests/unit/g1",
+        "--reporter=json",
+        "--outputFile=evidence/phase7/G1-Z/vitest-g1.json"
+      ],
+      "cwd": "/workspace",
+      "exitCode": 1
+    }
+  ],
+  "sourceManifest": [
+    {
+      "path": "src/bootstrap/audit-dependencies.mjs",
+      "sha256": "1a3c3de41121a9a32baea7ff9a8c79acec77ee449a5594d649cfabc23fb25372"
+    },
+    {
+      "path": "src/bootstrap/config.ts",
+      "sha256": "854ba8e990f977b4b1f3d5bd9a8e5f33a5727269e2ccec6669b5c1a9ad7aeed0"
+    },
+    {
+      "path": "src/bootstrap/contract-input.mjs",
+      "sha256": "802e216c9d9c4297fcf9c0a54dd99174f8024a0e6298cc7ca77a5eff3f337cc5"
+    },
+    {
+      "path": "src/bootstrap/g1-runtime.example.env",
+      "sha256": "8a9484661ed35328e95d22579e8489643de04b83de29e1723d457017a49eb3aa"
+    },
+    {
+      "path": "src/bootstrap/g1-runtime.md",
+      "sha256": "41342ac542bea255f70cb855bdd8cd0361582b8634ef0ae2a0ce21179663c62b"
+    },
+    {
+      "path": "src/bootstrap/g1-runtime.ts",
+      "sha256": "2660611cebec59283d3c3ac49c654520a7d65e3f7737aace3692bc98ceb6321c"
+    },
+    {
+      "path": "src/bootstrap/g1.ts",
+      "sha256": "bd00b82bedb4b22bb885e6edc78a9364ceb77fb5032da17bdf23fb540b2fc538"
+    },
+    {
+      "path": "src/bootstrap/generate-contract.mjs",
+      "sha256": "b08d61dabb9aefe93051bbaeb0bbe3a5bf54af740c0213b3464986c33046b55c"
+    },
+    {
+      "path": "src/bootstrap/local-mail.example.env",
+      "sha256": "716b723f34d0b0dff76154c1c3c91ee4f27d40c0c83fdbc0521680f58e1be972"
+    },
+    {
+      "path": "src/bootstrap/local-mail.ts",
+      "sha256": "a784c6e912b26f4c908a9283c0a9feab9a1b28ce2aacf8086933d378cf338ca8"
+    },
+    {
+      "path": "src/bootstrap/main.ts",
+      "sha256": "0cab2065e1b129ac20b1bd3537bbd8af1e558e0d6bed2b183ae5e1ac0b7c72f4"
+    },
+    {
+      "path": "src/bootstrap/migrate.ts",
+      "sha256": "947dacf1a72dbfd488ba54334c2b32f8b9957d9eb0a9302b2b9db96f945a627e"
+    },
+    {
+      "path": "src/bootstrap/run-foundation.sh",
+      "sha256": "2bce862092c91835f92491b8e4ad5686f91b86dc57f5159cc62eb9fa0374e1b0"
+    },
+    {
+      "path": "src/bootstrap/run-g1.sh",
+      "sha256": "90a627961138a6f1e1afa743d27483cf6c223994274bf23c0e5f79b51683b1f0"
+    },
+    {
+      "path": "src/bootstrap/server.ts",
+      "sha256": "dca8f904eb291da73a6fa0be2a201d0f87e73ec19ba84635d95fd5c8c860eddd"
+    },
+    {
+      "path": "src/bootstrap/start-g1.ts",
+      "sha256": "ca9226374ec7a2464d045da3bac15d17eb63e594c71ac83cc4224cb5b99ff6ea"
+    },
+    {
+      "path": "src/bootstrap/verify-foundation.mjs",
+      "sha256": "d2c395df5f39fb1614946518b2cbf3449669cca5ddd32800cb43f0c024dbe3d2"
+    },
+    {
+      "path": "src/bootstrap/verify-g1.mjs",
+      "sha256": "684431509656b2409de23ac5b5029f3b3fd51821bfcb258ca7648d85d58fd01a"
+    },
+    {
+      "path": "src/modules/academic-term/api/routes.ts",
+      "sha256": "670fe781707a871b841e8b231743f5fbbb78eaa57836efc8292a081c36687882"
+    },
+    {
+      "path": "src/modules/academic-term/application/ports/management.ts",
+      "sha256": "b6f76732ce616f3c3ca0d89521e312225ac224143960e7b26e67f0117801372b"
+    },
+    {
+      "path": "src/modules/academic-term/application/public/semesters.ts",
+      "sha256": "e08eb74c2a944a84ac935e8294a4cb8a235799fce2c89bf161a7cc4ccbbab905"
+    },
+    {
+      "path": "src/modules/academic-term/application/semester-service.ts",
+      "sha256": "b6d7def20f3ebaf2964e1f1a9b2ecf05f522ce0080eeccc2dbe3ed0f0f5bbe47"
+    },
+    {
+      "path": "src/modules/academic-term/infrastructure/persistence/repositories/postgres-semester-repository.ts",
+      "sha256": "ee69d23b7824d5f973691a561faf6b81ca5d8ba6a9c4e096412b9a6287a3eeb0"
+    },
+    {
+      "path": "src/modules/applications-certification/api/certification-kind-mapper.ts",
+      "sha256": "144f15426f25166e3e201b64d0907c1e28a7f18812d98c4fe23d6fbb5096a4ae"
+    },
+    {
+      "path": "src/modules/applications-certification/application/certification-kind-probe.ts",
+      "sha256": "0e745fb2f7bc4b7d8294c8302bfdf53b491471b36031d9224d5374c9a1e35efd"
+    },
+    {
+      "path": "src/modules/applications-certification/application/ports/certification-kind-repository.ts",
+      "sha256": "96d0a79c871a50a733fac8dcbd84cd49dbb07c9d6bc5b022bf60c3e020e1e6cc"
+    },
+    {
+      "path": "src/modules/applications-certification/domain/certification-kind.ts",
+      "sha256": "4a3f548ee74359e0620ffe65a63aaeb0a5572ba87fe939a1f4d4e573999c72e7"
+    },
+    {
+      "path": "src/modules/applications-certification/infrastructure/persistence/certification-kind-mapper.ts",
+      "sha256": "c5edfac4741bb3ffe55700960b9920a10928f2782025775086a32696b98c269b"
+    },
+    {
+      "path": "src/modules/applications-certification/infrastructure/persistence/repositories/postgres-certification-kind-repository.ts",
+      "sha256": "d4c61100b0292d7e10c1aca6eb25b0c6137ee91925a386921036295c204d81c0"
+    },
+    {
+      "path": "src/modules/audit/application/public/audit.ts",
+      "sha256": "2aa60ca003964414e2e11867fade5d0e70a97422d5a614ae9ee4c21200c452be"
+    },
+    {
+      "path": "src/modules/audit/infrastructure/persistence/repositories/postgres-audit-repository.ts",
+      "sha256": "83daa105fca4b8bd22d8f707d5de7e30db27bcf62f67962575f3ff11f7828d8e"
+    },
+    {
+      "path": "src/modules/course-enrollment/api/mappers.ts",
+      "sha256": "46bb888bebcdb7294baca1daded2a46c64e7574594c6f3c45cddfbd2ec11198d"
+    },
+    {
+      "path": "src/modules/course-enrollment/api/routes.ts",
+      "sha256": "ef5c11e73bc51aafbe024cf2164a040b4c3c8179171d0395e468d4c90b8ab4c9"
+    },
+    {
+      "path": "src/modules/course-enrollment/api/template-routes.ts",
+      "sha256": "5c494ba7e7c7b720b8377f3d2d99b8ff9923d17e94402a4a65c0899eef6cb8ba"
+    },
+    {
+      "path": "src/modules/course-enrollment/application/course-service.ts",
+      "sha256": "d6145b04b5720bacf71cef32ab729ffeaf13266cacf0f879400232a8ab21b4c4"
+    },
+    {
+      "path": "src/modules/course-enrollment/application/ports/course-repository.ts",
+      "sha256": "c85527f6721e5c571079c20908b42e11aec9225f417af6520ac5c8a77cd2f221"
+    },
+    {
+      "path": "src/modules/course-enrollment/application/ports/dependencies.ts",
+      "sha256": "9db5e3a7d3195a0b682c9b7954b153e77a96c8ba9ec68a837c09f2ef9813dfac"
+    },
+    {
+      "path": "src/modules/course-enrollment/application/ports/registration-sessions.ts",
+      "sha256": "69382d30edf59d2e62f39042cfd99141fecf6ecebada3c35c5748362ae5a8543"
+    },
+    {
+      "path": "src/modules/course-enrollment/application/ports/student-owner-lock.ts",
+      "sha256": "ffb437469665768734d690ebb88883ea79ed267e32a249a1cb64cd628a466bf2"
+    },
+    {
+      "path": "src/modules/course-enrollment/application/ports/student-projection.ts",
+      "sha256": "c1467847b964c9d3225aa7d9e40766f3fd4598bd3ec1aeb51ef06f3201c448d5"
+    },
+    {
+      "path": "src/modules/course-enrollment/application/public/courses.ts",
+      "sha256": "24592fd5d2bd0b088d441095b238453f0a7d855fd686768217fac786779b6cda"
+    },
+    {
+      "path": "src/modules/course-enrollment/application/public/session-admission.ts",
+      "sha256": "8b6921886430464a5f7804b43dac5e8cd12348de55044b097505f34d1f1112cc"
+    },
+    {
+      "path": "src/modules/course-enrollment/application/template-service.ts",
+      "sha256": "606f917d67f6bcdf58cf08ff0440657c48b09c1bec970b437f8effbe93694479"
+    },
+    {
+      "path": "src/modules/course-enrollment/domain/course.ts",
+      "sha256": "457b1993a91f1528ffa93836c294c302df50eccd68ff1978d5e61589b1174167"
+    },
+    {
+      "path": "src/modules/course-enrollment/domain/fixed-template.ts",
+      "sha256": "a1a1cfe6b2fd27f23c52471c2b6456ef1891555da87987c1dddcaf5ab14b8b73"
+    },
+    {
+      "path": "src/modules/course-enrollment/domain/publication-plan.ts",
+      "sha256": "9e580b56b6abb614f16168e85317bc378935010bd52426271128d6488daf5d20"
+    },
+    {
+      "path": "src/modules/course-enrollment/infrastructure/file-plan-catalog.ts",
+      "sha256": "a9eb59070d19569ecc1243888711e6278d6425c66766c67efb2ad5ca34fc701e"
+    },
+    {
+      "path": "src/modules/course-enrollment/infrastructure/persistence/repositories/postgres-course-repository.ts",
+      "sha256": "2c8bcf164b156ddb467131c7e22641d17045e6beeb0caec89f9953aa9589f67a"
+    },
+    {
+      "path": "src/modules/identity-access/api/governance-routes.ts",
+      "sha256": "e46be536e9a9ca570cd3bae804e3747e6122cbda1502ac124a67bf14d99eae84"
+    },
+    {
+      "path": "src/modules/identity-access/api/routes.ts",
+      "sha256": "05e41b3dd50ffe70ac7acba5c4057b78c00cc0d7234ada4e3832c8ab7a40fd6c"
+    },
+    {
+      "path": "src/modules/identity-access/application/governance-service.ts",
+      "sha256": "f6c747d1ca849dc7e3d170bce14eb7f1a01f48733a687f2004dd80ee92d0c4cf"
+    },
+    {
+      "path": "src/modules/identity-access/application/identity-service.ts",
+      "sha256": "8f7d8fdcc4e69a07c0acd3cdd91ecfb07ff27efbf9f11e1cf63f5487980779ca"
+    },
+    {
+      "path": "src/modules/identity-access/application/ports/account-closure.ts",
+      "sha256": "b679fcadbb34212a09621c1a920da971577f1c535b2ce1d2bb573c6c03229ead"
+    },
+    {
+      "path": "src/modules/identity-access/application/ports/dependencies.ts",
+      "sha256": "1a68865ac6444311fd1214cd576f85b0cd94f32ff4d95d2e81b9dc9f815bbb30"
+    },
+    {
+      "path": "src/modules/identity-access/application/ports/governance-repository.ts",
+      "sha256": "bff41c37585ec9eedc1ba68edcfa968512fc11a14f5195bda8ed0ff1e6a67093"
+    },
+    {
+      "path": "src/modules/identity-access/application/ports/identity-repository.ts",
+      "sha256": "38a71736db2a6b03e28f075d8a712d22593f07150fc4332d690c10c5da6865cb"
+    },
+    {
+      "path": "src/modules/identity-access/application/public/identity.ts",
+      "sha256": "d3864f18941718978345f33727eac31331ece22161c06b2cd655675ddd9115a3"
+    },
+    {
+      "path": "src/modules/identity-access/application/public/mode-governance.ts",
+      "sha256": "5df1950f4cc465f556dee5a4914b5789dee5057bc69889bf5edb96d39851669e"
+    },
+    {
+      "path": "src/modules/identity-access/application/public/registration-session.ts",
+      "sha256": "279cc0fa0e25798ac76837bc566101cb7cda6630e5e52cb1ff717bc165049927"
+    },
+    {
+      "path": "src/modules/identity-access/application/public/student-owner-lock.ts",
+      "sha256": "5f360ed75c174a4125c9665e6adfc399436a3204a1231edf5c96df0ffb397e69"
+    },
+    {
+      "path": "src/modules/identity-access/application/public/student-projection.ts",
+      "sha256": "9f508b9c907e3f88e360bb65374ea26bd58305a109f036ee9e8e669592a41229"
+    },
+    {
+      "path": "src/modules/identity-access/domain/account.ts",
+      "sha256": "cf595c8eee24ccb41d3f3771362798cc859a77c074f5139e10fe52c4fbd49acb"
+    },
+    {
+      "path": "src/modules/identity-access/domain/permissions.ts",
+      "sha256": "9ed39b25c3aa935942937355610e89bdcf0214258a65526f9e01b5d1565db696"
+    },
+    {
+      "path": "src/modules/identity-access/domain/teacher-csv.ts",
+      "sha256": "f74665e8634ee5d18f86027602dee2911941ca03230e536ad176d00b4075a0cd"
+    },
+    {
+      "path": "src/modules/identity-access/infrastructure/persistence/repositories/postgres-governance-repository.ts",
+      "sha256": "44bf604151ff9aa278c8415d96964dc93aeb5743dace2173e9abfe82ec312905"
+    },
+    {
+      "path": "src/modules/identity-access/infrastructure/persistence/repositories/postgres-identity-repository.ts",
+      "sha256": "601c5c92004b36e64d91c4ded1d6c683fec5903c6fc7f79104f739e1db825332"
+    },
+    {
+      "path": "src/modules/identity-access/infrastructure/persistence/repositories/postgres-permission-facts.ts",
+      "sha256": "b635fbc6a4d49c93aa86a8dbbd9940561b5b1f74dd5af8c7d333b96ef0264f48"
+    },
+    {
+      "path": "src/modules/identity-access/infrastructure/transport/local-mailpit-otp-delivery.ts",
+      "sha256": "84d977b893f2ff0047c80ed067b842e1d96c05408f876c03d236521ec9a037fa"
+    },
+    {
+      "path": "src/modules/notification-center/api/routes.ts",
+      "sha256": "ce3cdee686f84a51dc8857adf4ee5d29fa0527a67b339f86977f9a5235381110"
+    },
+    {
+      "path": "src/modules/notification-center/application/notification-service.ts",
+      "sha256": "c63021449efa02ecb9fd0164f30de8b40b602614ed2e67235eb0395cd53a3182"
+    },
+    {
+      "path": "src/modules/notification-center/application/ports/notification-repository.ts",
+      "sha256": "4545567c97f900b70ec55f6a9e8670d4c5834cdc9be779319468d27ceed6f8bb"
+    },
+    {
+      "path": "src/modules/notification-center/application/public/mode-notifications.ts",
+      "sha256": "011c80d1be35add06f00b7ffd04b803ec2529f13253728bca07d4d7d78ce4197"
+    },
+    {
+      "path": "src/modules/notification-center/application/public/notifications.ts",
+      "sha256": "26597a40fb9d890ead8479a3a6aa8b87e9b591ff2a40b257b881864000997d61"
+    },
+    {
+      "path": "src/modules/notification-center/infrastructure/persistence/repositories/postgres-notification-repository.ts",
+      "sha256": "3119ffe0336035e0ff24d1fa1c0b70086cae93201d5f365d03ceaa0596e32cbd"
+    },
+    {
+      "path": "src/modules/system-mode/api/governance-routes.ts",
+      "sha256": "50423c2e6a339da4f8cdc9f58e9d613bd896e395577d2d8785ec7528220415f5"
+    },
+    {
+      "path": "src/modules/system-mode/api/routes.ts",
+      "sha256": "94852ae60d6ad2499542635163c6318fa1900e7aa43a210274460b2893709162"
+    },
+    {
+      "path": "src/modules/system-mode/application/mode-governance-service.ts",
+      "sha256": "edc860a1a235206dc88f1d3aa2cf997a8667e265e840dc5dd2847522a14bf5c9"
+    },
+    {
+      "path": "src/modules/system-mode/application/mode-service.ts",
+      "sha256": "fd6fa31a48d130017efba7ee7d5cf1ec4cf022f516976e1390fd0af4306b8032"
+    },
+    {
+      "path": "src/modules/system-mode/application/ports/governance-dependencies.ts",
+      "sha256": "6343b6d8ed6cfd487e02c55835536ae954fdcc260a9c7742dd82a93d8c8e82bb"
+    },
+    {
+      "path": "src/modules/system-mode/application/ports/mode-repository.ts",
+      "sha256": "d66a90835862cd6fa247d8f719ac1cf7328a852b00f6736de855dc1b5a0258b8"
+    },
+    {
+      "path": "src/modules/system-mode/application/public/mode-timeline.ts",
+      "sha256": "e5554e92d7a9eac372fe3aea18fa0b8f48b3945416295e1d36652e4c942a9af7"
+    },
+    {
+      "path": "src/modules/system-mode/application/public/system-mode.ts",
+      "sha256": "c0c91c4c22e871b15790521d61c130c58233bab1be1a54d3881508673fa5e712"
+    },
+    {
+      "path": "src/modules/system-mode/infrastructure/persistence/repositories/postgres-mode-repository.ts",
+      "sha256": "32f2f7afe6b246b62f08f12ca9c9cca1f36b12363c3c42e922c963238013ea52"
+    },
+    {
+      "path": "src/shared/api/contract-validator.ts",
+      "sha256": "6067e83b39f9075a89de068685a629f16bd634569bc3b3dc6c10b61b45d9de0a"
+    },
+    {
+      "path": "src/shared/api/contract.generated.ts",
+      "sha256": "6bfb86085bcf9636a51171885af08d4d4b0689c265d048f9541889b86205d451"
+    },
+    {
+      "path": "src/shared/api/g1-error-policy.ts",
+      "sha256": "26489952f2aea6f9c2d9a3c8407d28d682eaaba59c7409f4f525448d5e1a7d7a"
+    },
+    {
+      "path": "src/shared/api/route-kit.ts",
+      "sha256": "5627b081bf70ef47e4adc5f6618669248ec0ddf8c5cd55c629a23abea5299077"
+    },
+    {
+      "path": "src/shared/application/runtime.ts",
+      "sha256": "806e7aa685a16f550a7c7191500665a914b8502db949275fb09e81f2ebef65be"
+    },
+    {
+      "path": "src/shared/application/transactions/transaction-runner.ts",
+      "sha256": "fdf5185ffd00479eb83c540920a6210221fc7179867bd9df0e30fb3980a247a7"
+    },
+    {
+      "path": "src/shared/domain/failure.ts",
+      "sha256": "293ce3b8089edb6c2c89959da7f7f0bb5dce2d077d46171a6d4111c455b27076"
+    },
+    {
+      "path": "src/shared/infrastructure/crypto.ts",
+      "sha256": "2035139e051445c7e383a6ebce9685e16f990ffa4cc946b0a1876e92b95f9e57"
+    },
+    {
+      "path": "src/shared/infrastructure/postgres.ts",
+      "sha256": "0f673e6eab3d820d029c51eceb1a596b66d78a1072cfad7d0ea72b08d787b982"
+    },
+    {
+      "path": "tests/architecture/architecture.test.ts",
+      "sha256": "6ed8e087ebcd5bf1907232e0df8f476b774bd4bcace451de4786a9eceb6b3bbf"
+    },
+    {
+      "path": "tests/architecture/rules.ts",
+      "sha256": "e0ae01c91d5bc10065d7e40438004abedcd5301db26a8848e04bb0de528e024d"
+    },
+    {
+      "path": "tests/contract/compatibility.test.ts",
+      "sha256": "a7067d0258aa1b80e070664ca51173214eb6e14f3359be87aaf7f882553ad81d"
+    },
+    {
+      "path": "tests/contract/probe/api/mapper.ts",
+      "sha256": "45917d80d9508fc5dc2781ed3b3740c5dc5436e4b66098afea5af16786b88dba"
+    },
+    {
+      "path": "tests/contract/probe/application/execute.ts",
+      "sha256": "d4739f527e409ea541c4fd8bca36f906a963e9b04ba0fc97b532890b310cc4cc"
+    },
+    {
+      "path": "tests/contract/probe/domain/value.ts",
+      "sha256": "402ff72ad596c09ce7a4c3d939d9546c52791ce415595e0aef1b252ef761f1ff"
+    },
+    {
+      "path": "tests/integration/foundation/foundation.test.ts",
+      "sha256": "ed4ef991c340ff7017fd573294256e1a5bef05f4ccea5a793573c1fcf56719a1"
+    },
+    {
+      "path": "tests/integration/g1/g1.test.ts",
+      "sha256": "b327807646ff756c3e9b3915b6c931942ba55650035a82eb70e9b6efe7a959e9"
+    },
+    {
+      "path": "tests/integration/g1/runtime.test.ts",
+      "sha256": "0119474b3cc49cb3a8b3672ac39bb4f5bba58ee40ba9068dbb16ac386867ee23"
+    },
+    {
+      "path": "tests/unit/g1/error-policy.test.ts",
+      "sha256": "9ff6e7244cacffd289f578e4c5b46acc08b1f2d4baae79288cfaa2157a65922d"
+    },
+    {
+      "path": "tests/unit/g1/file-plan-catalog.test.ts",
+      "sha256": "65145566260ab29253bef01960ec8e7d39334f933e5f70a88e535bb4f65b10f4"
+    },
+    {
+      "path": "tests/unit/g1/publication-plan.test.ts",
+      "sha256": "b800ecd6651112880552c8f399ba7108fd875a7fb685077e06f5a860449a209b"
+    },
+    {
+      "path": "migrations/0000_foundation.sql",
+      "sha256": "f057649481f2397ba9788babda8dc6ee7635667a85db33535d8fd04890c8cab6"
+    },
+    {
+      "path": "migrations/1000_identity_access.sql",
+      "sha256": "e3c711627ec855020bcdb710f671d83494ba7367e2967da34ea107c7007d88b9"
+    },
+    {
+      "path": "migrations/1010_runtime_support.sql",
+      "sha256": "0f2d1ec929d3eca5798dd5cde215c699ca67e0b6221297214684f6e586513d93"
+    },
+    {
+      "path": "migrations/1020_academic_term.sql",
+      "sha256": "1c9e0f20596ff8b82fd8508690fdffc6cd88b3350cb395d21609a25d0493b3b7"
+    },
+    {
+      "path": "migrations/1030_course_enrollment.sql",
+      "sha256": "65a11d29871329bfff6be5df272fd57645dfed287ec8ce862e00ecf4da671e55"
+    },
+    {
+      "path": "migrations/1040_identity_integrity.sql",
+      "sha256": "898d70dc98d22daca6ce4e556461b17bd7b95e728eaf6537457ca6c817afc027"
+    },
+    {
+      "path": "migrations/1050_course_closure.sql",
+      "sha256": "71f8fa9e1c500f38173652d9949cd59844d7dfd4f36914d19beaa5246a7e2e77"
+    },
+    {
+      "path": "migrations/1060_session_reference_keys.sql",
+      "sha256": "e1411834c478b7ad400c486b8724b54b4cb9e21f92f4104bbba156b21732e2ba"
+    },
+    {
+      "path": "migrations/1070_identity_email.sql",
+      "sha256": "113f50604c231be646c5853553e9431635f6bc02130aaf3dbd1abf74f989f147"
+    },
+    {
+      "path": "migrations/1080_identity_closure.sql",
+      "sha256": "1b7f6fa01dbea2820be4be55dabcb861be0c16c21b52a4d22e8263ce442f3c9d"
+    },
+    {
+      "path": "migrations/1090_identity_governance.sql",
+      "sha256": "6a616e6c0d85ccaed68d2d978c3e6e6dee016dc20caf451f676e0fea0b0f98a8"
+    },
+    {
+      "path": "migrations/1100_semester_management.sql",
+      "sha256": "1b335a0617a5783c83ae001d379dcf666d50a89bba062cc80c0747f99fd841c0"
+    },
+    {
+      "path": "migrations/1110_notification_replay.sql",
+      "sha256": "a77ca5104478af60b597c5878e362c38e3d4f20a67d5a3e787789605efaa5e0b"
+    },
+    {
+      "path": "package.json",
+      "sha256": "fe5d9372f11f750fe7b6719a9666dc5880b0a9094de47c253ca238f7df78d1fc"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "4ee60feb03aa2cec5d71d572045936f7986ea2638efc8cba7363e04f4851e9af"
+    },
+    {
+      "path": "tsconfig.json",
+      "sha256": "98007dfe92f5cba6811f53a8de394f5e81aee5d4932ff22e10772c2a5eb97a64"
+    },
+    {
+      "path": "eslint.config.mjs",
+      "sha256": "cab0c5b7c851634e15f42b59e5811e09a11947dbb48809d2f2e95c8c9deb355a"
+    },
+    {
+      "path": "vitest.config.ts",
+      "sha256": "1a9010043a943dc7d0ff8cdd9cb08ce7b6f5e6d399778f193eaf33625c908f4d"
+    },
+    {
+      "path": "Dockerfile.test",
+      "sha256": "fff8b8faf826c5f7d572258237c6e4ce0a1aa5bdd4c7c3dce3f82f30fdda585f"
+    },
+    {
+      "path": "docker-compose.g1.yml",
+      "sha256": "027d165de4ce036eef4a2943223ffa17bda665045ade0c2670aa7f338410964a"
+    }
+  ],
+  "contract": {
+    "version": "1.3.0-contract",
+    "sha": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed"
+  },
+  "lockSha256": "4ee60feb03aa2cec5d71d572045936f7986ea2638efc8cba7363e04f4851e9af",
+  "audit": {
+    "recordedAt": "2026-09-09T06:13:01.132Z",
+    "command": [
+      "npm",
+      "audit",
+      "--json"
+    ],
+    "cwd": "/workspace",
+    "node": "v24.19.0",
+    "exitCode": 0,
+    "passed": true,
+    "lockfileSha256": "4ee60feb03aa2cec5d71d572045936f7986ea2638efc8cba7363e04f4851e9af",
+    "affectedPackageNodes": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    },
+    "error": null,
+    "scope": "npm registry known dependency advisories for this exact lockfile; not a whole-system security audit"
+  },
+  "registeredOperations": 65,
+  "failure": "STEP_FAILED:g1",
+  "finishedAt": "2026-09-09T08:04:34.573Z"
+}

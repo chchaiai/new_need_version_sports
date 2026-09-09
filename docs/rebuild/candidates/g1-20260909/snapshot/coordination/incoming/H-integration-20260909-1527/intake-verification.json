@@ -1,0 +1,59 @@
+{
+  "receivedAt": "2026-09-09T07:33:14.038771+00:00",
+  "status": "RECEIVED_NOT_INTEGRATED_NOT_TRACK_READY",
+  "sourceDirectory": "/Users/labyr1nth/Desktop/Phase4&7/P7-H-A-integration-snapshot-20260909",
+  "archiveDirectory": "/Users/labyr1nth/Desktop/Phase4&7/phase7/g1-z/coordination/incoming/H-integration-20260909-1527/P7-H-A-integration-snapshot-20260909",
+  "originalZipReceived": false,
+  "suppliedManifestFilesMatched": 79,
+  "totalArchivedFiles": 80,
+  "baseCommit": "f95c3833870fe0da55a297aa28c958ec53e9e935",
+  "contractSha256": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+  "manifestSha256": "2cc2aef8e80f0dcecc029b108fd4b89de365ab8120482721a5059a3b36e6691b",
+  "rawReports": {
+    "h-a-query-postgres.tap": {
+      "counts": {
+        "tests": 37,
+        "pass": 37,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "sha256": "0a775190bd6534cde8616ee818dcd774f1e1364dce343a2c3e71dc5e7d806f2b",
+      "evidenceKind": "RECEIVED_RAW_REPORT_NOT_LOCALLY_REEXECUTED"
+    },
+    "h-a-query-unit.tap": {
+      "counts": {
+        "tests": 83,
+        "pass": 83,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "sha256": "a7dd8fee951280a410bda7be7967058dc7497a9b0a062b56dcc593341161239a",
+      "evidenceKind": "RECEIVED_RAW_REPORT_NOT_LOCALLY_REEXECUTED"
+    }
+  },
+  "screenshots": [
+    {
+      "path": "截屏2026-09-09 15.17.51.png",
+      "sha256": "a8676d2879d2848d1b167ae1c859df2a609e09eba6783e436518bb1c48f30b0c"
+    },
+    {
+      "path": "截屏2026-09-09 15.27.08.png",
+      "sha256": "a2742e9364c9b7a1e924e792e46a48ddbd5a4c39a5a538a2ff94db5bc1ba2d6e"
+    },
+    {
+      "path": "截屏2026-09-09 15.27.42.png",
+      "sha256": "3a92b8e1c9ca1d770d76eafeebb4b2c3a6565d7dc06a31584a99d26cc11eefbe"
+    }
+  ],
+  "productFilesCopiedIntoZ": false,
+  "contractOrBusinessChanged": false,
+  "messagesSent": false,
+  "limits": [
+    "File hashes establish consistency with the supplied manifest, not sender authenticity or execution attestation.",
+    "No H scripts executed and no H architecture/runtime/integration tests run locally."
+  ]
+}

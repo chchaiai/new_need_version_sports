@@ -1,0 +1,134 @@
+{
+  "receivedAt": "2026-09-09T08:24:25.933528+00:00",
+  "status": "RECEIVED_NOT_INTEGRATED_NOT_TRACK_READY",
+  "sourceDirectory": "/Users/labyr1nth/Desktop/Phase4&7/P7-H-A-consolidated-source-evidence-20260909-1612",
+  "archiveDirectory": "/Users/labyr1nth/Desktop/Phase4&7/phase7/g1-z/coordination/incoming/H-consolidated-20260909-1620/P7-H-A-consolidated-source-evidence-20260909-1612",
+  "originalZipReceived": false,
+  "suppliedManifestFilesMatched": 59,
+  "totalArchivedSourceFiles": 60,
+  "externalHandoffMatchesPackaged": true,
+  "baseCommit": "f95c3833870fe0da55a297aa28c958ec53e9e935",
+  "contractSha256": "5c87eeb9bca39585cea2e3c80c60d58813b4367e1a60b161ed8c7f82af4a19ed",
+  "manifestSha256": "90a34e0362007cf758382cd734a2add4a0a1a623743afb73d529c34c6f47a2d0",
+  "rawReports": {
+    "h-a-submission-postgres-final.tap": {
+      "counts": {
+        "tests": 44,
+        "pass": 44,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "sha256": "ffda3a2f825c6d67154e65b1f1f60a798217c7b9da62649ee117c188c3872f63",
+      "evidenceKind": "RECEIVED_RAW_REPORT_NOT_LOCALLY_REEXECUTED"
+    },
+    "h-a-submission-unit-complete.tap": {
+      "counts": {
+        "tests": 92,
+        "pass": 92,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "sha256": "2d4a9671b0e4b1e3a5301b93efecbc05add154ad84106c21f5355027b0e508a8",
+      "evidenceKind": "RECEIVED_RAW_REPORT_NOT_LOCALLY_REEXECUTED"
+    }
+  },
+  "changesSincePreviousHSource": {
+    "src/modules/exercise-session": {
+      "added": [],
+      "changed": [],
+      "unchanged": [
+        "tests/session-timing.node-test.ts",
+        "tests/session-access.node-test.ts",
+        "api/routes.ts",
+        "api/query-routes.ts",
+        "api/session-projection.ts",
+        "application/session-commands.ts",
+        "application/session-access.ts",
+        "application/session-queries.ts",
+        "domain/session-timing.ts",
+        "infrastructure/persistence/repositories/postgres-session-repository.ts",
+        "infrastructure/persistence/repositories/postgres-session-replay.ts",
+        "application/public/sessions.ts",
+        "application/ports/session-commands.ts",
+        "application/ports/student-owner-lock.ts",
+        "application/ports/session-facts-repository.ts",
+        "application/ports/session-queries.ts"
+      ],
+      "removed": []
+    },
+    "src/modules/media-evidence": {
+      "added": [
+        "application/record-submission-media.ts"
+      ],
+      "changed": [],
+      "unchanged": [
+        "tests/media-error-policy.node-test.ts",
+        "tests/record-manifest.node-test.ts",
+        "application/media-error-policy.ts",
+        "domain/record-manifest.ts",
+        "infrastructure/persistence/repositories/postgres-record-assets.ts",
+        "application/ports/record-assets.ts"
+      ],
+      "removed": []
+    },
+    "src/modules/exercise-record": {
+      "added": [
+        "tests/submission-error.node-test.ts",
+        "tests/excluded-time.node-test.ts",
+        "api/submission-routes.ts",
+        "application/submit-first-record.ts",
+        "application/submission-error-policy.ts",
+        "domain/excluded-time.ts",
+        "infrastructure/persistence/repositories/postgres-record-command-state.ts",
+        "application/ports/record-submission.ts"
+      ],
+      "changed": [],
+      "unchanged": [
+        "tests/first-material.node-test.ts",
+        "tests/material-declarations.node-test.ts",
+        "application/first-material-transfer.ts",
+        "domain/material-declarations.ts",
+        "domain/first-material.ts",
+        "infrastructure/persistence/repositories/postgres-first-record.ts",
+        "application/ports/first-record-repository.ts",
+        "application/ports/material-media.ts"
+      ],
+      "removed": []
+    },
+    "migrations": {
+      "added": [
+        "1710_record_command_state.sql"
+      ],
+      "changed": [],
+      "unchanged": [
+        "1600_record_media_assets.sql",
+        "1500_exercise_session.sql",
+        "1510_session_command_replay.sql",
+        "1700_first_record_material.sql"
+      ],
+      "removed": []
+    }
+  },
+  "fixtureZV13MigrationsMatched": [
+    "1000_identity_access.sql",
+    "1010_runtime_support.sql",
+    "1020_academic_term.sql",
+    "1030_course_enrollment.sql",
+    "1040_identity_integrity.sql",
+    "1050_course_closure.sql",
+    "1060_session_reference_keys.sql"
+  ],
+  "sourcePolicy": "Latest H modules replace the old H snapshot during future approved assembly; bundled Z migration dependencies are test fixtures only.",
+  "z1608Receipt": "H reports 167/169 files matched, two example.env files not inspected under H local rules; Z verified all 169 before sending.",
+  "pendingRootOwnerMappings": {
+    "exercise_record.command_replay": "exercise-record",
+    "exercise_record.acceptance_outbox": "exercise-record"
+  },
+  "hArchitectureGate": false,
+  "hUnexpectedFindings": [],
+  "hLocalRerun": false
+}
